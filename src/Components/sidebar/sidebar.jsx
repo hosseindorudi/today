@@ -1,60 +1,63 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import './sidebar.css'
-function Sidebar() {
-    const {t}=useTranslation()
+import { Link } from 'react-router-dom';
+import * as AiIcons from 'react-icons/ai';
+import { SidebarData } from './SidebarData';
+import SubMenu from './SubMenu';
+import Clock from '../clock';
+
+const Nav = styled.div`
+  background: #15171c;
+  height: 80px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const NavIcon = styled(Link)`
+  margin-left: 2rem;
+  font-size: 2rem;
+  height: 80px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const SidebarNav = styled.nav`
+  background: #15171c;
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: 350ms;
+  z-index: 10;
+`;
+
+const SidebarWrap = styled.div`
+  width: 100%;
+`;
+
+const Sidebar = () => {
+
+
   return (
-    <div
-    className="sidebar"
-  >
-      {t("language")}
+    <>
+        <SidebarNav >
+          <SidebarWrap>
+            <div className='time'>
+                <Clock />
+            </div>
+            {SidebarData.map((item, index) => {
+              return <SubMenu item={item} key={index} />;
+            })}
+          </SidebarWrap>
+        </SidebarNav>
+    </>
+  );
+};
 
-    {/* <div className="sidebar-wrapper" ref="sidebarWrapper">
-      <ul className="nav">
-      
-         {this.context.state.isMobile?null:
-        <Navbar.Form className='searchSidebarForm'>
-          <FormGroup>
-            <InputGroup>
-              <InputGroup.Addon>
-                <i className="fa fa-search" />
-              </InputGroup.Addon>
-             
-                <FormControl className='searchSidebar' type="text" value={this.state.searchValue} onChange={this.handleSearch} placeholder={this.props.t("search")} />
-               
-
-            </InputGroup>
-          </FormGroup>
-        </Navbar.Form>}
-        {this.state.foundMenus.length > 0 ?
-          <ul className="listSearchMenues">
-            {this.state.foundMenus.map((prop, key) => (
-              <li key={key} >
-                
-
-                <NavLink
-                  to={prop.layout + prop.path}
-                  className="nav-link"
-                  activeClassName="active"
-                onClick={()=>this.handleClickNavLinkSearch() }
-                >
-                  <span className="sidebar-normal" style={{ direction: this.props.lang === "Fa" ? 'rtl' : 'ltr', "font-size": "smaller" }} >{prop.name}</span>
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-          : ''}
-        
-        {this.checkCondition()===true
-        &&(
-        !this.state.foundMenus.length? this.createLinks(routes, lang):''
-        )
-        }
-      </ul>
-
-    </div> */}
-  </div>
-  )
-}
-
-export default Sidebar
+export default Sidebar;

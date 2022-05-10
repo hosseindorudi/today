@@ -11,11 +11,11 @@ function App() {
   // const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
  
 
-  const handleChangeLanguage=(lang)=>{
-    i18next.changeLanguage(lang.code)
-    document.body.dir = lang.dir || 'ltr'
-    document. documentElement. setAttribute("lang", lang.code)
-  }
+  // const handleChangeLanguage=(lang)=>{
+  //   i18next.changeLanguage(lang.code)
+  //   document.body.dir = lang.dir || 'ltr'
+  //   document. documentElement. setAttribute("lang", lang.code)
+  // }
   
 
  
@@ -23,9 +23,9 @@ function App() {
   return (
     <FormTabsContext.Provider value={{selectedForms,setSelectedForms}}>
     <div className="App">
-      {languages.map((lang)=>(
+      {/* {languages.map((lang)=>(
         <button onClick={()=> handleChangeLanguage(lang)}>{lang.name}</button>
-      ))}
+      ))} */}
       {/* <MainTabPage /> */}
       <Sidebar />
     </div>

@@ -7,6 +7,7 @@ import i18next from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
+import { BrowserRouter } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
@@ -16,7 +17,7 @@ i18next
   .use(initReactI18next)
   .init({
     supportedLngs: ['en', 'ar', 'fa'],
-    fallbackLng: 'en',
+    fallbackLng: 'fa',
     debug: false,
     // Options for language detector
     detection: {
@@ -35,9 +36,9 @@ i18next
   )
 root.render(
   <Suspense fallback={loadingMarkup}>
-  <React.StrictMode>
+    <BrowserRouter>
     <App />
-  </React.StrictMode>
+  </BrowserRouter>
   </Suspense>
 );
 

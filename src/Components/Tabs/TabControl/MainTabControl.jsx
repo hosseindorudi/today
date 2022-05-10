@@ -2,8 +2,8 @@ import { Tab } from "bootstrap";
 import React, { useContext } from "react";
 import { Tabs } from "react-bootstrap";
 import FormTabsContext from "../../../contexts/FormTabsContex";
-import Dashboard from "../../../Views/Forms/Dashboard";
-import Dashboard2 from "../../../Views/Forms/Dashboard2";
+import Dashboard from "../../../Views/Forms/report1";
+import Dashboard2 from "../../../Views/Forms/report2";
 import Profile from "../../../Views/Forms/Profile";
 import "./MainTabControl.css"
 

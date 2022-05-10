@@ -1,4 +1,20 @@
 {
-    "language": "زبان"
-   
-  }
+  "language": "زبان",
+  "search": "جستجو",
+  "profile": "مشخصات",
+  "Reports": "گزارش ها",
+  "Reports1": "گزارش 1",
+  "Reports2": "گزارش 2",
+  "Reports3": "گزارش 3",
+  "support": "پشتیبانی",
+  "support1": "پشتیبانی 1",
+  "Products": "تولید - محصول",
+  "setting": "تنظیمات",
+  "mainSetting": "تطبیق",
+  "setting1": "تنظیم 1",
+  "setting2": "تنظیم 2",
+  "Messages":"پیام ها",
+  "Support":"پشتیبانی",
+  "User":"نام کاربری",
+  "password":"رمز عبور"
+}
