@@ -1,0 +1,13 @@
+.App {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@font-face {
+  font-family: 'IRANSansFa';
+  src: local('IRANSansFa'), url(./assets/fonts/IRANSansFaNum.ttf) format('truetype');
+}
+body{
+  font-family: "IRANSansFa", serif;
+}

@@ -1,0 +1,41 @@
+.main {
+    display: grid;
+    height: 97%;
+    width: 97%;
+    background: 'red';
+    /* border-radius: 2rem; */
+    gap: 16px;
+    /* grid-template-columns: 20rem auto; */
+    overflow: hidden;
+}
+
+.sideBarGrid{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-top: 4rem;
+    transition: all 300ms ease;
+    border-inline-end: double;
+}
+.mainFormsGrid{
+  z-index: 9;
+}
+@media screen and (max-width: 1200px) {
+    .main{
+      /* grid-template-columns: 10rem auto; */
+      overflow-y: scroll;
+    } 
+  }
+  @media screen and (max-width: 768px) {
+    .sideBarGrid{
+      width: 40px;
+      background-color: white;
+    }
+    .main{
+      /* grid-template-columns: 40px auto; */
+    }
+    .sideBarGrid:hover{
+      width: 250px;
+      z-index: 10;
+    }
+  }

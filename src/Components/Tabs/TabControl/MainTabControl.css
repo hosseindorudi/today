@@ -1,0 +1,40 @@
+.nav-item span {
+    color: #495057 !important;
+}
+
+.nav-item button:first-of-type{
+    width: 9rem;
+    
+}
+.nav-item .spanTab{
+    display: flex;
+    width: 7rem;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-tabs{
+        font-size: 10px;
+        margin: 0;
+        padding: 0;
+    }
+    .nav-item button:first-of-type{
+        width: 5rem;
+    }
+    .nav-item .spanTab{
+        width: 3.5rem;
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .nav-tabs{
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+    }
+     .nav-item button:first-of-type{
+        width: 6.5rem;
+    }
+    .nav-item .spanTab{
+        width: 4rem;
+    }
+  }
