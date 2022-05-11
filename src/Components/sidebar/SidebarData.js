@@ -1,6 +1,5 @@
 import React from 'react';
 import * as CgIcon from 'react-icons/cg';
-import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as FaIcons from 'react-icons/fa'
 import * as RiIcons from 'react-icons/ri';

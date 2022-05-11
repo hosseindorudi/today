@@ -7,25 +7,33 @@ import FormTabsContext from './contexts/FormTabsContex';
 import i18next from 'i18next'
 function App() {
   const [selectedForms, setSelectedForms] = useState([{name:'پروفایل',key:"profile"}]);
-  // const currentLanguageCode = localStorage.getItem('i18nextLng') || 'fa'
-  // const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+  const currentLanguageCode = localStorage.getItem('i18nextLng') || 'fa'
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
  
 
-  // const handleChangeLanguage=(lang)=>{
-  //   i18next.changeLanguage(lang.code)
-  //   document.body.dir = lang.dir || 'ltr'
-  //   document. documentElement. setAttribute("lang", lang.code)
-  // }
-  
+  const handleChangeLanguage=(lang)=>{
+    i18next.changeLanguage(lang.code)
+    document.body.dir = lang.dir || 'ltr'
+    document. documentElement. setAttribute("lang", lang.code)
+    var element=document.getElementById("sidebarNav")
+    element.classList.add(lang.dir?"sidebarNavRTL":"sidebarNavLTR")
+  }
+  useEffect(()=>{
+    document.body.dir = currentLanguage.dir || 'ltr'
+    document. documentElement. setAttribute("lang", currentLanguage.code)
+   var element=document.getElementById("sidebarNav")
+    element.classList.add(currentLanguage.dir?"sidebarNavRTL":"sidebarNavLTR")
+  },[])
 
  
 
   return (
     <FormTabsContext.Provider value={{selectedForms,setSelectedForms}}>
     <div className="App">
-      {/* {languages.map((lang)=>(
+      {languages.map((lang)=>(
         <button onClick={()=> handleChangeLanguage(lang)}>{lang.name}</button>
-      ))} */}
+      ))}
+      
       {/* <MainTabPage /> */}
       <Sidebar />
     </div>

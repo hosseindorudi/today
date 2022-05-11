@@ -21,10 +21,11 @@ i18next
     debug: false,
     // Options for language detector
     detection: {
-      order: ['localStorage','path', 'cookie', 'htmlTag'],
+      order: ['localStorage'],
       caches: ['localStorage'],
     },
-    // react: { useSuspense: false },
+    react: { useSuspense: false, bindI18n: 'loaded languageChanged',
+    bindI18nStore: 'added' },
     backend: {
       loadPath: '/assets/locales/{{lng}}/translation.json',
     },
