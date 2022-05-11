@@ -31,6 +31,7 @@ left: unset;
 }
 .sidebarWrapper{
     width: 100%;
+    overflow-x: auto;
 }
 .SidebarLink {
   display: flex;
@@ -56,7 +57,6 @@ left: unset;
 .DropdownLink {
   background: #414757;
   height: 60px;
-  padding-left: 3rem;
   display: flex;
   align-items: center;
   text-decoration: none;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { languages } from './assets/languages/languages';
 import './App.css';
 import Sidebar from './Components/sidebar/sidebar';
-import MainTabPage from './Components/Tabs/MainTabPage';
+// import MainTabPage from './Components/Tabs/MainTabPage';
 import FormTabsContext from './contexts/FormTabsContex';
 import i18next from 'i18next'
 function App() {
@@ -14,16 +14,16 @@ function App() {
   const handleChangeLanguage=(lang)=>{
     i18next.changeLanguage(lang.code)
     document.body.dir = lang.dir || 'ltr'
-    document. documentElement. setAttribute("lang", lang.code)
+    document.documentElement.setAttribute("lang", lang.code)
     var element=document.getElementById("sidebarNav")
     element.classList.add(lang.dir?"sidebarNavRTL":"sidebarNavLTR")
   }
   useEffect(()=>{
     document.body.dir = currentLanguage.dir || 'ltr'
-    document. documentElement. setAttribute("lang", currentLanguage.code)
+    document.documentElement.setAttribute("lang", currentLanguage.code)
    var element=document.getElementById("sidebarNav")
     element.classList.add(currentLanguage.dir?"sidebarNavRTL":"sidebarNavLTR")
-  },[])
+  },[currentLanguage.code,currentLanguage.dir])
 
  
 
