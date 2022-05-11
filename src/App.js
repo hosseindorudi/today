@@ -31,7 +31,7 @@ function App() {
     <FormTabsContext.Provider value={{selectedForms,setSelectedForms}}>
     <div className="App">
       {languages.map((lang)=>(
-        <button onClick={()=> handleChangeLanguage(lang)}>{lang.name}</button>
+        <button key={lang.code} onClick={()=> handleChangeLanguage(lang)}>{lang.name}</button>
       ))}
       
       {/* <MainTabPage /> */}
