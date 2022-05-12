@@ -42,7 +42,6 @@ const Sidebar = () => {
    
   return (
     <>
-    <button onClick={()=>console.log(foundMenues,SidebarData)}>s</button>
         <nav id="sidebarNav" >
           <div  className='sidebarWrapper'>
             <div className='time'>
