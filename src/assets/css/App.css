@@ -1,8 +1,8 @@
 .App {
   height: 100vh;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 }
 @font-face {
   font-family: 'IRANSansFa';
@@ -16,8 +16,8 @@ body{
   margin: 0;
 }
 .fontFa{
-  font-family: 'IRANSansFa',serif;
+  font-family: 'IRANSansFa',serif !important;
 }
 .fontEn{
-  font-family: 'IRANSansEn',serif;
+  font-family: 'IRANSansEn',serif !important;
 }

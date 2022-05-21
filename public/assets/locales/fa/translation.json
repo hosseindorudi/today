@@ -16,5 +16,15 @@
   "Messages":"پیام ها",
   "Support":"پشتیبانی",
   "User":"نام کاربری",
-  "password":"رمز عبور"
+  "login.password":"رمز عبور:",
+  "signIn":"وارد شدن",
+  "btn.signIn":"ورود",
+  "btn.signUp":"ثبت نام",
+  "login.username":"نام کاربری:",
+  "login.needAccount":"به یک حساب نیاز دارید؟",
+  "changeLanguage":"تغییر زبان",
+  "Forms":"فرم ها",
+  "QcEntryForm":"فرم Qc ورودی",
+  "QcExitForm":"فرم QC خروجی",
+  "ReceptionForm":"فرم پذیرش"
 }

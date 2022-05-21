@@ -1,0 +1,447 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    /* width: 100%;
+    height: 100%; */
+    width: 100%;
+    height: 100vh;
+}
+
+.rightForm {
+    flex : 0.3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+   
+}
+
+.timeanddate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;  
+}
+
+
+
+.timeanddate > h2 {
+    margin: 0 10px;
+}
+.timeanddate > h1 {
+    margin: 0 10px;
+}
+.DateAdnTime1{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    width: 70%;
+    border: 1px solid lightgray;
+}
+
+.DateAdnTime {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.DateTimeLabel {
+    margin-bottom: 3px;
+    margin-right: 4px;
+}
+
+#DateTime {
+    margin-top: 5px;
+    border:none;
+    border-radius: 5px;
+}
+
+#DateTime:focus {
+    border: none;
+    outline: none;
+}
+
+
+
+
+
+#recievtionID {
+    margin: 3px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+#recievtionID:hover {
+    border: 1px solid black;
+}
+
+#recievtionID:focus {
+	outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.personInformation {
+    margin: 3px 0;
+    border: 1px solid lightgray;
+    width: 70%;
+    border-radius: 3px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.personInformation:hover {
+    border: 1px solid black;
+}
+
+.personInformation:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+
+#address {
+    
+    resize: none;
+    overflow: hidden;
+    height: 70px;
+}
+
+
+
+.deviceFaildAndPicture {
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    width: 70%;
+    border-radius: 5px;
+}
+
+#deviceFailedDescription:hover {
+    border: 1px solid black;
+}
+
+.deviceFaildAndPicture:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+#deviceFailedDescription {
+    height: 100px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    resize: none;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+#deviceFailedDescription:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+.failedBTNParent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 25px;
+    margin-top: 3px;
+    border: none;
+}
+
+.failedBTNParent >input {
+    display: none;
+}
+
+.failedBTN {
+    background-color: transparent;
+    color:rgb(255, 68, 68);
+    cursor: pointer;
+    border: none;
+    margin: 0 5px;
+    font-size: 16px;
+
+}
+
+.failedBTN:focus {
+    outline: none;
+}
+
+.failedBTNParent > span {
+    font-size: 10px; 
+}
+
+
+
+
+
+.pattern {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid lightgray;
+    margin-top: 5px;
+    border-radius: 5px;
+
+    
+}
+
+.pattern:hover {
+    border: 1px solid black;
+
+}
+
+
+.patternDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btnPattern {
+    background-color: #fff;
+    border: 1px solid lightgray;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 6px;
+    border-radius: 10px;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin: 1px 5px;
+    
+}
+
+.btnPattern:hover {
+    background-color: lightgray;
+    color: #000;
+}
+.patternspan {
+    flex: 2;
+    font-size: 12px;
+    text-align: center;
+    
+}
+
+.sectionDiv {
+    flex: 1;
+    margin: 1px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.selectionLock {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+
+/* .selectionLock:hover {
+    background-color: rgb(0, 132, 255);
+    color: #fff;
+} */
+
+.selectionLock:focus {
+    outline: none;
+}
+
+
+
+.patternLock {
+    margin-top: 5px;
+}
+
+
+
+.selectSendType {
+    margin-top: 10px;
+    border: 1px solid lightgray;
+    padding: 10px;
+    border-radius: 3px;
+    width: 70%;
+    outline: none;
+    
+}
+
+.selectSendType:hover {
+    border: 1px solid black;
+}
+
+
+
+.selectSendType:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+    
+}
+
+
+
+
+
+
+
+
+
+.middleForm {
+    flex: 0.4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+
+
+.selectwaranty {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    width: 70%;
+    border: 1px solid lightgray;
+}
+.selectwaranty:hover {
+    border: 1px solid black;
+}
+
+.selectwaranty:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+
+
+
+
+
+
+
+
+
+
+.deviceSerial {
+    margin: 3px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.deviceSerial:hover {
+    border: 1px solid black;
+}
+
+.deviceSerial:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+
+.signaturepadDiv {
+    border: 1px solid lightgray;
+    margin-top: 20px;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.signaturepadDiv:hover {
+    border: 1px solid black;
+}
+
+.signaturepadDiv1 {
+    border: 1px solid lightgray;
+    
+    border-radius: 5px;
+    width: 70%;
+}
+
+.signaturepadDiv1:hover {
+    border: 1px solid black;
+}
+
+
+.leftForm {
+    flex: 0.3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+
+.LOGO {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    width: 50%;
+
+}
+
+.LOGO > img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+
+
+.warrantyExp {
+    border: 1px solid black;
+    margin-top: 20px;
+    height: 120px;
+    width: 70%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.fanni {
+    border: 1px solid black;
+    margin-top: 20px;
+    height: 110px;
+    width: 70%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+
+}
+
+

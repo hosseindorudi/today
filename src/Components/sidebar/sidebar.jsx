@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './sidebar.css'
-import { SidebarData } from './SidebarData';
+import { Routes } from '../../Routes';
 import SubMenu from './SubMenu';
 import Clock from '../clock';
 import "./sidebar.css"
@@ -16,7 +16,7 @@ const Sidebar = () => {
     const handleChangeSearchValue=(e)=>{
       setFoundMenues([])
       if(e.target.value.length){
-        return  findMenu(SidebarData,e.target.value)
+        return  findMenu(Routes,e.target.value)
       }
       
      
@@ -27,9 +27,11 @@ const Sidebar = () => {
             return findMenu(prop.subNav,searchValue)
           }
           if (t(prop.title).indexOf(searchValue) !== -1) {
+        
             let obj={
               title: prop.title,
               path: prop.path,
+              Component:prop.Component,
               icon: prop.icon
             }
           
@@ -42,6 +44,7 @@ const Sidebar = () => {
    
   return (
     <>
+ 
         <nav id="sidebarNav" >
           <div  className='sidebarWrapper'>
             <div className='time'>
@@ -56,7 +59,7 @@ const Sidebar = () => {
               return <SubMenu item={item} key={index} />;
             })
             :
-            SidebarData.map((item, index) => {
+            Routes.map((item, index) => {
               return <SubMenu item={item} key={index} />;
             })}
           </div>

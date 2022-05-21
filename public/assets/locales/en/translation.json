@@ -16,5 +16,15 @@
   "Messages": "Messages",
   "Support": "Support",
   "User": "user name",
-  "password": "pass code"
+  "login.password": "pass code:",
+  "signIn":"sign in",
+  "btn.signIn":"sign in",
+  "btn.signUp":"sign up",
+  "login.username":"username:",
+  "login.needAccount":"Need an account?",
+  "changeLanguage":"Change Language",
+  "Forms":"forms",
+  "QcEntryForm":"QC-in",
+  "QcExitForm":"QC-out",
+  "ReceptionForm":"Admissions"
 }

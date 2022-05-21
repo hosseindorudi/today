@@ -1,0 +1,323 @@
+
+.mainparent {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.header {
+    height: 50px;
+    left:0;
+    right: 0;
+    top: 0;
+    background-color: rgb(216, 221, 211);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    padding: 5px;
+    text-align: center;
+    border-radius: 2px;
+    
+}
+
+.hederLeft {
+    flex: 1;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0; 
+}
+
+.firstIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    margin: 0 2px;
+    cursor: pointer;
+    
+}
+.firstIcon > i {
+    width: 100%;
+    height: 100%;
+    font-size: 25px;
+}
+
+.secondIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    margin: 0 2px;
+    cursor: pointer;
+}
+
+.secondIcon > i {
+    width: 100%;
+    height: 100%;
+}
+
+.thirdIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    margin: 0 2px;
+    position: relative;
+    cursor: pointer;
+
+}
+
+.thirdIcon > i {
+    width: 100%;
+    height: 100%;
+}
+
+/* .notification{
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    color: #fff;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+} */
+
+.forthIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    margin: 0 2px;cursor: pointer;
+
+}
+
+.forthIcon > i {
+    width: 100%;
+    height: 100%;
+}
+
+.flagReletive {
+    position: relative;
+}
+
+.dropdown-content-flag {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    height: 100px;
+    /* margin-top: 10px; */
+    right: -20px;
+    position: absolute;
+    background-color: #fff;
+    width: fit-content;
+    overflow: auto; 
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    z-index: 1;
+}
+.languageBtn> button:disabled{
+    color: #dddddd;
+}
+.dropDownFlagLink{
+    color: black;
+    margin-right: 10px;
+    background: none;
+    border: none;
+    text-decoration: none;
+    
+}
+
+
+
+.headerMid {
+    flex: 1;
+}
+
+.headerRight{
+    flex:1;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    
+}
+
+.logOut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    margin: 0 5px;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    
+}
+
+.logOutReletive {
+    position: relative;
+}
+
+
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    height: 100px;
+    /* margin-top: 10px; */
+    
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    overflow: auto; 
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    z-index: 1;
+}
+
+.dropdown-content > div {
+    display: flex;
+    align-items: center;
+}
+
+.dropImg {
+    height: 30px;
+    width: 30px;
+    background-color: rgb(156, 83, 224);
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.dropDownLink {
+    color: black;
+    margin-right: 10px;
+    text-decoration: none;
+    
+}
+
+.Icon {
+    height: 30px;
+    width: 30px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.profileName {
+    margin: 0 5px;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.profileImg {
+    height: 30px;
+    width: 30px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.main {
+    height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+
+    
+}
+
+.mainLeft {
+    flex: 80%;
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+
+}
+
+.mainRight {
+    flex:20%;
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+
+
+}
+
+
+.footer {
+    height: 40px;
+    background-color: rgb(216, 221, 211);
+    position: sticky;
+    border-radius: 2px;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.leftFooter {
+    flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.middleFooter {
+    flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rightFooter {
+    flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(130, 127, 127);
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(69, 67, 67);
+  }
+
+
+
