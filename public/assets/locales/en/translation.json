@@ -26,5 +26,6 @@
   "Forms":"forms",
   "QcEntryForm":"QC-in",
   "QcExitForm":"QC-out",
-  "ReceptionForm":"Admissions"
+  "ReceptionForm":"Admissions",
+  "TabExit" : "exit"
 }

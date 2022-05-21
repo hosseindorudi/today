@@ -20,7 +20,7 @@ const Language = (props) => {
             <div className="dropdown-content-flag" style={{display : props.open ? 'flex' : 'none'}}>
             {languages.map((lang,i)=>(
                 <div className='languageBtn' key={i}>
-                    <button className='dropDownFlagLink' onClick={()=>handleChangeLanguage(lang.code,lang.dir)} disabled={language===lang.code?true:false}>{lang.code}</button>
+                    <button className='dropDownFlagLink' onClick={()=>handleChangeLanguage(lang.code,lang.dir)} disabled={language===lang.code?true:false}>{lang.name}</button>
                 </div>
             ))}
         </div>

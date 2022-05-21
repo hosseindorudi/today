@@ -26,5 +26,6 @@
   "Forms":"فرم ها",
   "QcEntryForm":"فرم Qc ورودی",
   "QcExitForm":"فرم QC خروجی",
-  "ReceptionForm":"فرم پذیرش"
+  "ReceptionForm":"فرم پذیرش",
+  "TabExit" : "حذف"
 }
