@@ -6,6 +6,7 @@ const Profile=lazy(()=>import('./Views/Forms/Profile'))
 const Qc=lazy(()=>import('./Views/Forms/QcForm/Qc'))
 const ReceptionForm=lazy(()=>import('./Views/Forms/producForm/ProductForm'))
 const Support=lazy(()=>import('./Views/Forms/support'))
+const OperatorGroupForm=lazy(()=>import('./Views/Forms/operatorGroupForm/OperatorGroupForm'))
 
 
 export const Routes = [
@@ -41,7 +42,14 @@ export const Routes = [
         Component: <ReceptionForm/>,
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
-      }
+      },
+      {
+        title: 'operatorGroupForm',
+        path:'/operatorGroupForm',
+        Component: <OperatorGroupForm/>,
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
     ]
   },
   {
