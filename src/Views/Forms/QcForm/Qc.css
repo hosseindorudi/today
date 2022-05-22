@@ -14,10 +14,6 @@ main{
   
     margin: 10px;
 }
-.tab-content{
-    overflow: auto;
-    height: calc(100vh - 160px); 
-}
 .first>.formQc{
     flex: 1;
     text-align: center;
