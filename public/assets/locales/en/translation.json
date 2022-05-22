@@ -27,5 +27,12 @@
   "QcEntryForm":"QC-in",
   "QcExitForm":"QC-out",
   "ReceptionForm":"Admissions",
-  "TabExit" : "exit"
+  "TabExit" : "exit",
+  "operatorGroupForm":"operatorGp",
+  "operatorGroupFormHeader":"operatorGroupForm",
+  "operatorGroupFormTitle":"Title",
+  "operatorGroupFormDesc":"Description",
+  "operatorGroupFormSubmit":"Submit",
+  "operatorGroupFormActive":"Active",
+  "operatorGroupFormDeActive":"DeActive"
 }

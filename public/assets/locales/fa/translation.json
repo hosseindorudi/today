@@ -27,5 +27,12 @@
   "QcEntryForm":"فرم Qc ورودی",
   "QcExitForm":"فرم QC خروجی",
   "ReceptionForm":"فرم پذیرش",
-  "TabExit" : "حذف"
+  "TabExit" : "حذف",
+  "operatorGroupForm":"فرم گروه اپراتور",
+  "operatorGroupFormTitle":"عنوان",
+  "operatorGroupFormHeader":"فرم تعین گروه اپراتور",
+  "operatorGroupFormDesc":"توضیحات",
+  "operatorGroupFormSubmit":"ارسال",
+  "operatorGroupFormActive":"فعال",
+  "operatorGroupFormDeActive":"غیرفعال"
 }

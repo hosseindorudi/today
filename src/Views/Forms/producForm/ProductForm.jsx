@@ -2,15 +2,15 @@
 import './productForm.css'
 
 import PatternLock from './patternLock/PatternLock';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import SignaturePad from "./signaturePad/src/index";
 import QRCode from "react-qr-code";
+import AppContext from '../../../contexts/AppContext';
 
 import TextField from '@mui/material/TextField';
 import AdapterJalali from '@date-io/date-fns-jalali';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { set } from 'date-fns/esm';
 
 var base64 = require('base-64');
 
@@ -27,7 +27,7 @@ const ProductForm = () => {
   const [secondImg, setSecondImg] = useState();
   const [todayDate, setTodayDate] = useState('');
   const [todayTime, setTodayTime] = useState('');
-
+  const currentLang = useContext(AppContext);
 
   let sigPad = useRef({});
 
@@ -51,17 +51,17 @@ const ProductForm = () => {
   };
 
   useEffect(()=>{
-    let today = new Date().toLocaleDateString('fa-IR');
+    let today = new Date().toLocaleDateString(currentLang.app.lang === 'fa' ?'fa-IR' : 'en-US');
     setTodayDate(today)
-    let todayTime = new Date().toLocaleTimeString('fa-IR');
+    let todayTime = new Date().toLocaleTimeString(currentLang.app.lang === 'fa' ?'fa-IR' : 'en-US');
     setTodayTime(todayTime);
     
-  },[])
+  },[currentLang.app.lang])
   
 
 
   return (
-    <div className="main ">
+    <div className="mainProductForm ">
       <div className="rightForm">
           <div className="DateAdnTime1">
             {/* <label htmlFor="DateTime" className='DateTimeLabel'>تاریخ و ساعت:</label> */}
@@ -76,8 +76,8 @@ const ProductForm = () => {
                 />
              </LocalizationProvider> */}
              <div className="timeanddate">
-              <h2>{todayTime}</h2>
-              <h1>{todayDate}</h1>
+              <h4>{todayTime}</h4>
+              <h3>{todayDate}</h3>
              </div>
             
           </div>
