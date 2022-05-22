@@ -35,11 +35,13 @@ i18next
     </div>
   )
 root.render(
+  <React.StrictMode>
   <Suspense fallback={loadingMarkup}>
     <BrowserRouter>
     <App />
   </BrowserRouter>
   </Suspense>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

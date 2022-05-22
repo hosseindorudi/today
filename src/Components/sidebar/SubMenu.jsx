@@ -4,7 +4,7 @@ import AppContext from "../../contexts/AppContext";
 
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
-  const maxTabLength=6
+  const maxTabLength=process.env.REACT_APP_MAX_TAB_LENGTH
   const { app, setApp } = useContext(AppContext);
   const showSubnav = () => setSubnav(!subnav);
   const { t } = useTranslation();

@@ -2,20 +2,22 @@ import React, { useState } from 'react';
 import './sidebar.css'
 import { Routes } from '../../Routes';
 import SubMenu from './SubMenu';
-import Clock from '../clock';
 import "./sidebar.css"
 import Search from './search';
 import { useTranslation } from 'react-i18next';
-
+import logo from '../../assets/imgs/logo.png'
 
 
 const Sidebar = () => {
     const [foundMenues,setFoundMenues]=useState([])
+    const [search,setSearch]=useState('')
     const {t}=useTranslation()
    
     const handleChangeSearchValue=(e)=>{
       setFoundMenues([])
+      setSearch(e.target.value)
       if(e.target.value.length){
+       
         return  findMenu(Routes,e.target.value)
       }
       
@@ -47,14 +49,14 @@ const Sidebar = () => {
  
         <nav id="sidebarNav" >
           <div  className='sidebarWrapper'>
-            <div className='time'>
-                <Clock />
+            <div className='logo'>
+              <img src={logo} alt='ctelecomlogo'/>
             </div>
             <hr className='hrSideNavbar'/>
             <div className="searchSidebar">
               <Search handleChange={handleChangeSearchValue} />
             </div>
-            {foundMenues.length>0?
+            {search.length>0?
             foundMenues.map((item,index)=>{
               return <SubMenu item={item} key={index} />;
             })

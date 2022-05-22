@@ -15,6 +15,11 @@
     overflow: auto;
     height: calc(100vh - 160px); 
 }
+.tabExitBtn :hover{
+background: lightgray;
+padding: 1px;
+border-radius: 10px;
+}
 @media screen and (max-width: 768px) {
     .nav-tabs{
         font-size: 10px;

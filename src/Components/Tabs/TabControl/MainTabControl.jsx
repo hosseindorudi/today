@@ -46,6 +46,7 @@ function MainTabControl() {
                   <span
                     onClick={(e) => handleClickRemove(e,Menu.path,index)}
                     title= {t("TabExit")}
+                    className="tabExitBtn"
                   >
                     <i className="fa fa-times" aria-hidden="true" />
                   </span>

@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import Footer from '../Components/Footer/footer';
+import Home from '../Components/navbar/home';
 import Language from '../Components/navbar/language';
 import Sidebar from '../Components/sidebar/sidebar'
 import MainTabControl from '../Components/Tabs/TabControl/MainTabControl';
@@ -39,14 +41,12 @@ function Admin() {
                     </div>
                 </div>
             </div>
-            <div className="Icon"></div>
              </div>
             <div className="headerMid"></div>
             <div className="headerRight">
-            <Language click={handleClickLanguage} open={flagDropDown}/>
-                
+                <Language click={handleClickLanguage} open={flagDropDown}/>
                 <div className="thirdIcon"><div><i className="fa fa-bell" aria-hidden="true"></i></div></div>
-                <div className="secondIcon"><div><i className="fa fa-home" aria-hidden="true"></i></div></div>
+                <Home/>
                 <div className="firstIcon"><div><i className="fa fa-bars" aria-hidden="true"></i></div></div>
 
             </div>
@@ -61,9 +61,7 @@ function Admin() {
             </div>
         </div>
         <div className="footer">
-            <div className="rightFooter">راست</div>
-            <div className="middleFooter">وسط</div>
-            <div className="leftFooter">چپ</div>
+           <Footer/>
         </div>
     </div>
   )

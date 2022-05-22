@@ -186,9 +186,9 @@ const Qc = (props) => {
                         {("0" + Math.floor((totalTimeSpent / 60000) % 60)).slice(-2)}:
                       </span>
                       <span>
-                        {("0" + Math.floor((totalTimeSpent / 1000) % 60)).slice(-2)}:
+                        {("0" + Math.floor((totalTimeSpent / 1000) % 60)).slice(-2)}
                       </span>
-                      <span>{("0" + ((totalTimeSpent / 10) % 100)).slice(-2)}</span>
+                      {/* <span>{("0" + ((totalTimeSpent / 10) % 100)).slice(-2)}</span> */}
                     </td>
                     <td colSpan={"3"}></td>
                   </tr>
