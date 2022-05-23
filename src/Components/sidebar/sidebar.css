@@ -107,3 +107,20 @@ left: unset;
       color: white;
       
   }
+  .sideBar-active{
+    right: 0 !important;
+    transition: 350ms;
+    width: 100%;
+  }
+  @media screen and (max-width: 960px) {
+    #sidebarNav{
+      position: fixed;
+      right: -100%;
+      transition: 850ms;
+    }
+    .mainRight{
+      flex: none;
+    }
+  }
+
+ 

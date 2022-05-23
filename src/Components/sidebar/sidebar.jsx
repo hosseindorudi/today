@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './sidebar.css'
 import { Routes } from '../../Routes';
 import SubMenu from './SubMenu';
@@ -6,13 +6,14 @@ import "./sidebar.css"
 import Search from './search';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/imgs/logo.png'
+import AppContext from '../../contexts/AppContext';
 
 
 const Sidebar = () => {
     const [foundMenues,setFoundMenues]=useState([])
     const [search,setSearch]=useState('')
+    const { app } = useContext(AppContext);
     const {t}=useTranslation()
-   
     const handleChangeSearchValue=(e)=>{
       setFoundMenues([])
       setSearch(e.target.value)
@@ -47,7 +48,7 @@ const Sidebar = () => {
   return (
     <>
  
-        <nav id="sidebarNav" >
+        <nav id="sidebarNav" className={app.sidebarOpen?"sideBar-active":""} >
           <div  className='sidebarWrapper'>
             <div className='logo'>
               <img src={logo} alt='ctelecomlogo'/>

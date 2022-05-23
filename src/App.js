@@ -9,7 +9,8 @@ function App() {
   const [app, setApp] = useState({
     forms:[],
     activeTab:"",
-    lang:''
+    lang:'',
+    sidebarOpen:false
 });
   const currentLanguageCode = localStorage.getItem("i18nextLng") || "fa";
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);

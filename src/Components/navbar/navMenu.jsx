@@ -1,29 +1,16 @@
-import React, { useState } from "react";
-
-
-
-
-
+import React, { useContext } from "react";
+import AppContext from "../../contexts/AppContext";
 const NavMenu = (props) => {
-    const [open, setOpen] = useState(false)
+  const { app, setApp } = useContext(AppContext);
 
     const click=()=>{
-        setOpen(!open)
+      setApp((prev) => ({ ...prev, sidebarOpen: !app.sidebarOpen }));
     }
 
   return (
     <div className="firstIcon" onClick={() =>click()}> 
-        <div className="barsRelative">
          <i className="fa fa-bars" aria-hidden="true"></i>
-         
-       </div>
-       
-       
-    
          </div>
-     
-   
-  
   );
 };
 

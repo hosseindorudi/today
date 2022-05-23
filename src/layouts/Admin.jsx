@@ -5,12 +5,14 @@ import Language from "../Components/navbar/language";
 import NavMenu from "../Components/navbar/navMenu";
 import Sidebar from "../Components/sidebar/sidebar";
 import MainTabControl from "../Components/Tabs/TabControl/MainTabControl";
+import useWindowSize from "../customHooks/useWindowSize";
 import "./Admin.css";
 
 function Admin() {
   const [dropDown, setDropDown] = useState(false);
   const [flagDropDown, setFlagDropDown] = useState(false);
   const [menu, setMenu] = useState(false);
+  const windowSize=useWindowSize()
 
   const handleClickLanguage = () => {
     setFlagDropDown(!flagDropDown);
@@ -71,8 +73,11 @@ function Admin() {
               <i className="fa fa-bell" aria-hidden="true"></i>
             </div>
           </div>
+         
           <Home />
+          {windowSize.width<960 && 
           <NavMenu click={handleClickMenu} open={menu} />
+            }
         </div>
       </div>
       <div className="main">
