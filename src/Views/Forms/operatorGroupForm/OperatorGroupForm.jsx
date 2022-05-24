@@ -14,9 +14,9 @@ const OperatorGroupForm = () => {
           <div className="OperatorGroupFormMainDiv">
             
             <form action='' className='OperatorGroupFormform' >
-                <div class="switch-holder">
+                <div class="switch-holderForm">
                     
-                    <div class="switch-toggle">
+                    <div class="switch-toggleForm">
                         <input type="checkbox" id="bluetooth"/>
                         <label for="bluetooth"></label>
                     </div>
@@ -30,7 +30,7 @@ const OperatorGroupForm = () => {
                     <textarea type="text" className="OperatorGroupFormInputDesc" id='OperatorGroupFormInputDesc' />
                 </div>
 
-                <input type="submit" value={t("operatorGroupFormSubmit")} className='deleteBtn'></input>
+                <input type="submit" value={t("operatorGroupFormSubmit")} className='deleteBtnForm'></input>
 
             </form>
         </div>

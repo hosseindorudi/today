@@ -367,7 +367,7 @@ ul {
     background: #ffffff;
     box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
   }
-  ul > li > button {
+ .tableFooterBTN {
       border: none;
       background-color: transparent;
       font-size: 1.4rem;

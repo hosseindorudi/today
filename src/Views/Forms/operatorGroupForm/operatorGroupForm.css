@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     width: 100%;
 }
 
@@ -26,7 +26,7 @@
     
 }
 
-.switch-holder {
+.switch-holderForm {
     display: flex;
     padding: 10px 20px;
     border-radius: 10px;
@@ -44,17 +44,17 @@
 
 
 
-.switch-toggle {
+.switch-toggleForm {
     height: 40px;
 }
 
-.switch-toggle input[type="checkbox"] {
+.switch-toggleForm input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     z-index: -2;
 }
 
-.switch-toggle input[type="checkbox"] + label {
+.switch-toggleForm input[type="checkbox"] + label {
     position: relative;
     display: inline-block;
     width: 150px;
@@ -67,7 +67,7 @@
     
 }
 
-.switch-toggle input[type="checkbox"] + label::before {
+.switch-toggleForm input[type="checkbox"] + label::before {
     position: absolute;
     content: 'OFF';
     font-size: 12px;
@@ -84,7 +84,7 @@
     transition: .3s ease-in-out;
 }
 
-.switch-toggle input[type="checkbox"]:checked + label::before {
+.switch-toggleForm input[type="checkbox"]:checked + label::before {
     left: 50%;
     content: 'ON';
     color: #fff;
@@ -155,7 +155,7 @@
     border: 1px solid #00b33c;
 }
 
-.deleteBtn {
+.deleteBtnForm {
     margin-top: 10px;
     cursor: pointer;
     font-weight: 500;
@@ -168,7 +168,7 @@
     transition: all 0.25s ease;
   }
   
-  .deleteBtn:hover {
+  .deleteBtnForm:hover {
     box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
     transform: translateY(-5px);
     background: #3effa5;
