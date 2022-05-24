@@ -7,7 +7,8 @@ const Qc=lazy(()=>import('./Views/Forms/QcForm/Qc'))
 const ReceptionForm=lazy(()=>import('./Views/Forms/producForm/ProductForm'))
 const Support=lazy(()=>import('./Views/Forms/support'))
 const OperatorGroupForm=lazy(()=>import('./Views/Forms/operatorGroupForm/OperatorGroupForm'))
-
+const Operator=lazy(()=>import('./Views/Forms/operator/Operator'))
+const VirtualIpForm=lazy(()=>import('./Views/Forms/virtualIpForm/VirtualIpForm'))
 
 export const Routes = [
   {
@@ -47,6 +48,21 @@ export const Routes = [
         title: 'operatorGroupForm',
         path:'/operatorGroupForm',
         Component: <OperatorGroupForm/>,
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      
+      {
+        title: 'operator',
+        path:'/operator',
+        Component: <Operator/>,
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Ip-Validation',
+        path:'/virtualIpForm',
+        Component: <VirtualIpForm/>,
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },
