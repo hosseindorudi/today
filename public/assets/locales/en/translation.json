@@ -35,5 +35,10 @@
   "operatorGroupFormDesc":"Description",
   "operatorGroupFormSubmit":"Submit",
   "operatorGroupFormActive":"Active",
-  "operatorGroupFormDeActive":"DeActive"
+  "operatorGroupFormDeActive":"DeActive",
+  "auth.username":"user name",
+  "auth.password":"Password",
+  "auth.signin":"Login",
+  "auth.operator":"Operator",
+  "auth.user":"User"
 }

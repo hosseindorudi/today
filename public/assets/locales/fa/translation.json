@@ -35,5 +35,10 @@
   "operatorGroupFormDesc":"توضیحات",
   "operatorGroupFormSubmit":"ارسال",
   "operatorGroupFormActive":"فعال",
-  "operatorGroupFormDeActive":"غیرفعال"
+  "operatorGroupFormDeActive":"غیرفعال",
+  "auth.username":"نام کاربری",
+  "auth.password":"رمز عبور",
+  "auth.signin":"ورود",
+  "auth.operator":"اپراتور",
+  "auth.user":"کاربر"
 }
