@@ -4,23 +4,24 @@ import {useState,useEffect} from 'react'
 import axios from 'axios'
 import Platform from 'react-platform-js'
 import Modal from './modal/Modal'
+import useOsInformation from '../../customHooks/useOSInformation'
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [ip,setIP] = useState('');
+  // const [ip,setIP] = useState('');
     
   //creating function to load ip address from the API
-  const getData = async()=>{
-      const res = await axios.get('https://geolocation-db.com/json/')
-      setIP(res.data.IPv4)
-  }
+  // const getData = async()=>{
+  //     const res = await axios.get('https://geolocation-db.com/json/')
+  //     setIP(res.data.IPv4)
+  // }
   
-  useEffect(()=>{
-      //passing getData method to the lifecycle method
-      getData()
-  },[])
+  // useEffect(()=>{
+  //     //passing getData method to the lifecycle method
+  //     getData()
+  // },[])
 
-
+  const { ip, os, browser } = useOsInformation();
 
   return (
     <div className="mainOperatorDash">
@@ -32,12 +33,12 @@ const OperatorDashboard = () => {
           </div>
           <hr />
           <div className="dashInformationDiv">
-              <span>{Platform.OS} {Platform.OSVersion}</span>
+              <span>{os} {Platform.OSVersion}</span>
               <span>:OS</span>
           </div>
           <hr />
           <div className="dashInformationDiv">
-              <span>{Platform.Browser}</span>
+              <span>{browser}</span>
               <span>:Browser</span>
           </div>
           <hr />
