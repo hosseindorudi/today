@@ -1,10 +1,10 @@
-.parrent {
+.parrentTableParent {
     display: flex;
     height: 100vh;
     overflow: hidden;
 }
 
-.right {
+.rightTableParent {
   flex: 5;
   transition: margin-left 0.5s;
   padding: 16px;
@@ -19,7 +19,7 @@
     
   }
 
-  .left {
+  .leftTableParent {
     flex: 1;
     height: 100%;
     width: 0;
@@ -39,7 +39,7 @@
 
 
    
-.sidenav {
+.sidenavTableParent {
     height: 100%;
     width: 100%;
     position: fixed;
@@ -55,7 +55,7 @@
 
 
 
-  .switch-holder {
+  .switch-holderTableParent {
     display: flex;
     padding: 10px 20px;
     border-radius: 10px;
@@ -68,25 +68,25 @@
     align-items: center;
 }
 
-.switch-label {
+.switch-labelTableParent {
     width: 150px;
 }
 
-.switch-label i {
+.switch-labelTableParent i {
     margin-right: 5px;
 }
 
-.switch-toggle {
+.switch-toggleTableParent {
     height: 40px;
 }
 
-.switch-toggle input[type="checkbox"] {
+.switch-toggleTableParent input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     z-index: -2;
 }
 
-.switch-toggle input[type="checkbox"] + label {
+.switch-toggleTableParent input[type="checkbox"] + label {
     position: relative;
     display: inline-block;
     width: 100px;
@@ -99,7 +99,7 @@
     
 }
 
-.switch-toggle input[type="checkbox"] + label::before {
+.switch-toggleTableParent input[type="checkbox"] + label::before {
     position: absolute;
     content: '';
     font-size: 13px;
@@ -116,7 +116,7 @@
     transition: .3s ease-in-out;
 }
 
-.switch-toggle input[type="checkbox"]:checked + label::before {
+.switch-toggleTableParent input[type="checkbox"]:checked + label::before {
     left: 50%;
     content: '';
     color: #fff;
@@ -125,7 +125,7 @@
                 3px 3px 5px #00AFB9;
 }
 
-.columnBtn {
+.columnBtnTableParent {
     display: block;
     width: fit-content;
     border: 1px solid #00AFB9;
@@ -140,7 +140,7 @@
     transition: all 500ms ease;
   }
 
-  .columnBtn:hover {
+  .columnBtnTableParent :hover {
     background-color: #00AFB9;
     color: #fff;
   }
@@ -182,7 +182,7 @@
   .firstShow {
     flex: .1;
     opacity: .3;
-    cursor: pointer;
+    cursor: pointer;   
   }
 
   .firstShow:hover {

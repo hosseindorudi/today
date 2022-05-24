@@ -27,72 +27,72 @@ const TableParent = () => {
     const [columnClicked, setColumnClicked] = useState('')
     const [chooseArrowBtn, setChooseArrowBtn] = useState('')
   return (
-    <div className='parrent'>
-        <div className="left" style={{ width: sideBar ? 250 : 0 }}>
+    <div className='parrentTableParent'>
+        <div className="leftTableParent" style={{ width: sideBar ? 250 : 0 }}>
         <button  className="closebtn" onClick={() => {setSideBar(false)}}>&times;</button>
-        <div className="switch-holder">
+        <div className="switch-holderTableParent">
                 
-                <div className="switch-label">
+                <div className="switch-labelTableParent">
                     <span>نام</span>
                 </div>
-                <div className="switch-toggle">
+                <div className="switch-toggleTableParent">
                     <input type="checkbox" id="name"/>
                     <label htmlFor="name"></label>
                 </div>
             </div>
 
-            <div className="switch-holder">
-                <div className="switch-label">
+            <div className="switch-holderTableParent">
+                <div className="switch-labelTableParent">
                     <span>نام خانوادگی</span>
                 </div>
-                <div className="switch-toggle">
+                <div className="switch-toggleTableParent">
                     <input type="checkbox" id="lastName"/>
                     <label htmlFor="lastName"></label>
                 </div>
             </div>
-            <div className="switch-holder">
-                <div className="switch-label">
+            <div className="switch-holderTableParent">
+                <div className="switch-labelTableParent">
                     <span>سن</span>
                 </div>
-                <div className="switch-toggle">
+                <div className="switch-toggleTableParent">
                     <input type="checkbox" id="age"/>
                     <label htmlFor="age"></label>
             </div>
         </div>
-            <div className="switch-holder">
-                <div className="switch-label">
+            <div className="switch-holderTableParent">
+                <div className="switch-labelTableParent">
                     <span>ایمیل</span>
                 </div>
-                <div className="switch-toggle">
+                <div className="switch-toggleTableParent">
                     <input type="checkbox" id="email"/>
                     <label htmlFor="email"></label>
             </div>
         </div>
-            <div className="switch-holder">
-                    <div className="switch-label">
+            <div className="switch-holderTableParent">
+                    <div className="switch-labelTableParent">
                         <span>جنسیت</span>
                     </div>
-                    <div className="switch-toggle">
+                    <div className="switch-toggleTableParent">
                         <input type="checkbox" id="gender"/>
                         <label htmlFor="gender"></label>
                     </div>
             </div>
-            <div className="switch-holder">
-                    <div className="switch-label">
+            <div className="switch-holderTableParent">
+                    <div className="switch-labelTableParent">
                         <span>شماره تماس</span>
                     </div>
-                    <div className="switch-toggle">
+                    <div className="switch-toggleTableParent">
                         <input type="checkbox" id="phone"/>
                         <label htmlFor="phone"></label>
                     </div>
             </div>
         </div>
-        <div className="right"
+        <div className="rightTableParent"
         style={{ marginRight: sideBar ? 250 : 0 }}>
 
             <div className='parentMain'>
                 <div className="top">
-                <button className='columnBtn' onClick={() => {setSideBar(true)}}>دسته ها</button>
+                <button className='columnBtnTableParent' onClick={() => {setSideBar(true)}}>دسته ها</button>
                 <div className="topSearchDiv">
                     <div onClick={()=> setSearch(!search)}>
                    <i className="fa fa-search searchDater"
