@@ -4,6 +4,7 @@ import "./assets/css/App.css";
 import Admin from './layouts/Admin'
 import { Route, Routes } from "react-router-dom";
 import AppContext from "./contexts/AppContext";
+import Auth from "./layouts/Auth";
 
 function App() {
   const [app, setApp] = useState({
@@ -31,6 +32,7 @@ function App() {
     <div className={"App " + assignFont()}>
       <AppContext.Provider value={{ app, setApp }}>
           <Routes>
+          <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<Admin />} />
           <Route
             path="*"

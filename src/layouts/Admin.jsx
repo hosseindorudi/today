@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Footer from "../Components/Footer/footer";
 import Home from "../Components/navbar/home";
 import Language from "../Components/navbar/language";
@@ -10,14 +10,11 @@ import "./Admin.css";
 
 function Admin() {
   const [dropDown, setDropDown] = useState(false);
-  const [flagDropDown, setFlagDropDown] = useState(false);
+
   const [menu, setMenu] = useState(false);
   const windowSize=useWindowSize()
 
-  const handleClickLanguage = () => {
-    setFlagDropDown(!flagDropDown);
-    setDropDown(false);
-  };
+  
   const handleClickMenu = () => {
     setMenu(!menu);
   };
@@ -38,8 +35,7 @@ function Admin() {
           <div
             className="logOut"
             onClick={() => {
-              setDropDown(!dropDown);
-              setFlagDropDown(false);
+              setDropDown(!dropDown)
             }}
           >
             <div className="logOutReletive">
@@ -67,7 +63,7 @@ function Admin() {
         </div>
         <div className="headerMid"></div>
         <div className="headerRight">
-          <Language click={handleClickLanguage} open={flagDropDown} />
+          <Language  />
           <div className="thirdIcon">
             <div>
               <i className="fa fa-bell" aria-hidden="true"></i>

@@ -36,6 +36,7 @@
   "operatorGroupFormSubmit":"ارسال",
   "operatorGroupFormActive":"فعال",
   "operatorGroupFormDeActive":"غیرفعال",
+
   "recievtionID":"شماره قبض پذیرش",
   "nameLastNameINFO":"نام و نام خانوادگی",
   "personInformationPhone":"شماره تماس",
@@ -91,5 +92,10 @@
   "validIPAddressFrom":"از آی پی:",
   "validIPAddressTo":"تا آی پی:",
   "validIPAddressDesc":"توضیحات:",
-  "validIPAddressSubmit":"ارسال"
+  "validIPAddressSubmit":"ارسال",
+  "auth.username":"نام کاربری",
+  "auth.password":"رمز عبور",
+  "auth.signin":"ورود",
+  "auth.operator":"اپراتور",
+  "auth.user":"کاربر"
 }
