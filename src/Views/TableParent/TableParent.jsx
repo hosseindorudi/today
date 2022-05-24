@@ -7,13 +7,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 
-const TableBtn = () => {
-    return (<td className="widgetLgStatus">
-    <button className="Approved widgetLgButton">تصحیح</button>
-    <button className="Pending widgetLgButton">ارسال</button>
-    <button className="Declined widgetLgButton">حذف</button>
-    </td>)
-}
+
+
 const TableIconBtn = () => {
     return (<td className="widgetLgStatus">
     <button className="Approved widgetLgButton"><i className='fas fa-edit'></i></button>
@@ -99,10 +94,11 @@ const TableParent = () => {
                 <div className="top">
                 <button className='columnBtn' onClick={() => {setSideBar(true)}}>دسته ها</button>
                 <div className="topSearchDiv">
-                   <i className="fa fa-search"
+                    <div onClick={()=> setSearch(!search)}>
+                   <i className="fa fa-search searchDater"
                     aria-hidden="true"
-                     onClick={()=> setSearch(!search)}
-                     style={{color: (!search && seartBegin !== null && seartEnd !== null) ? "red" : 'lightgray'}}></i>  
+                     
+                     style={{color: (!search && seartBegin !== null && seartEnd !== null) ? "red" : 'lightgray'}}></i>  </div>
                    <div className='searchField' style={{display: search ? 'flex' : "none"}}>
                     <LocalizationProvider dateAdapter={AdapterJalali}>
                         <DatePicker

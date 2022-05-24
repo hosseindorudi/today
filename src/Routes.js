@@ -9,6 +9,7 @@ const Support=lazy(()=>import('./Views/Forms/support'))
 const OperatorGroupForm=lazy(()=>import('./Views/Forms/operatorGroupForm/OperatorGroupForm'))
 const Operator=lazy(()=>import('./Views/Forms/operator/Operator'))
 const VirtualIpForm=lazy(()=>import('./Views/Forms/virtualIpForm/VirtualIpForm'))
+const TableParent=lazy(()=>import('./Views/TableParent/TableParent'))
 
 export const Routes = [
   {
@@ -72,6 +73,12 @@ export const Routes = [
     title: 'Support',
     path:'/support',
     Component:<Support/>,
+    icon: <IoIcons.IoMdHelpCircle />
+  },
+  {
+    title: 'TableParent',
+    path:'/TableParent',
+    Component:<TableParent/>,
     icon: <IoIcons.IoMdHelpCircle />
   },
   {
