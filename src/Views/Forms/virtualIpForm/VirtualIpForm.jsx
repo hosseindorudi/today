@@ -5,7 +5,7 @@ import './virtualIpForm.css'
 
 const VirtualIpForm = () => {
 
-    
+   
 
     const {t} = useTranslation();
 

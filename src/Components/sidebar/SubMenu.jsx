@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TabContext } from "../../contexts/TabContextProvider";
-
+import * as bs from 'react-icons/bs'
+import { Button } from "react-bootstrap";
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
   const tabContext=useContext(TabContext)
@@ -43,18 +44,43 @@ const SubMenu = ({ item }) => {
         </button>
       )}
       {subnav &&
-        item.subNav.map((item, index) => {
-          return (
+        item.subNav.map((item, index) => (
+          item.button?
+          (
+            <div className="sidebarWithBtn">
             <button
-              className="DropdownLink"
-              key={index}
-              onClick={() => handleClickMenu(item)}
-            >
-              {item.icon}
-              <span className="SidebarLabel">{t(item.title)}</span>
-            </button>
-          );
-        })}
+            className="DropdownLinkBtn"
+            key={index}
+            onClick={() => handleClickMenu(item)}
+          >
+            {item.icon}
+            <span className="SidebarLabel">{t(item.title)}</span>
+          </button> 
+          <button className="btnIconSidebar" onClick={()=>handleClickMenu(item.button)}><bs.BsFillPlusCircleFill/></button>
+          </div>
+          ):
+          (
+            <button
+            className="DropdownLink"
+            key={index}
+            onClick={() => handleClickMenu(item)}
+          >
+            {item.icon}
+            <span className="SidebarLabel">{t(item.title)}</span>
+          </button> 
+          )
+          // return (
+          //   <button
+          //     className="DropdownLink"
+          //     key={index}
+          //     onClick={() => handleClickMenu(item)}
+          //   >
+          //     {item.icon}
+          //     <span className="SidebarLabel">{t(item.title)}</span>
+          //   </button>
+            
+          // );
+        ))}
     </>
   );
 };

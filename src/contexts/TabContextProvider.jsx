@@ -10,7 +10,6 @@ const TabContextProvider = (props) => {
   const addToTab = (item) => {
     const found = tabs.find((i) => i.path === item.path);
     if (!found) {
-        console.log(tabs.length,maxTabLength)
       if (tabs.length === maxTabLength) {
         const updatedData = tabs.map((obj, index) => {
           if (index === 0) {

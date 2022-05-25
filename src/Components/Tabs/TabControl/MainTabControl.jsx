@@ -29,15 +29,15 @@ function MainTabControl() {
           id="mainTab"
           className="mb-3"
         >
-          {tabContext.tabs.map((Menu, index) => (
+          {tabContext.tabs.map((menu, index) => (
             <Tab
               key={index}
-              eventKey={Menu.path}
+              eventKey={menu.path}
               title={
                 <span className="spanTab">
-                  {t(Menu.title)}{" "}
+                  {t(menu.title)}{" "}
                   <span
-                    onClick={(e) => handleClickRemove(e,Menu)}
+                    onClick={(e) => handleClickRemove(e,menu)}
                     title= {t("TabExit")}
                     className="tabExitBtn"
                   >
@@ -46,7 +46,7 @@ function MainTabControl() {
                 </span>
               }
             >
-              {Menu.Component}
+              <menu.Component/>
              
             </Tab>
           ))}

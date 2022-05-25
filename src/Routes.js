@@ -13,78 +13,203 @@ const TableParent=lazy(()=>import('./Views/TableParent/TableParent'))
 
 export const Routes = [
   {
-    title: 'profile',
-    path:'/profile',
-    Component: <Profile/>,
-    icon: <CgIcon.CgProfile />
-  },
-  {
-    title: 'Forms',
+    title: 'routes.panel',
     icon: <IoIcons.IoIosPaper />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
+      // {
+      //   title: 'routes.online',
+      //   path:'/panelonline',
+      //   Component:<Profile/>,
+      //   button:<Profile/>,
+      //   icon: <IoIcons.IoIosPaper />,
+      //   cName: 'sub-nav'
+      // },
+      // {
+      //   title: 'routes.group',
+      //   path:'/panelgroup',
+      //   Component:<Profile/>,
+      //   button:<Profile/>,
+      //   icon: <IoIcons.IoIosPaper />,
+      //   cName: 'sub-nav'
+      // },
       {
-        title: 'QcEntryForm',
-        path:'/qcEntry',
-        Component:<Qc formType={"Enter"}/>,
+        title: 'routes.validIps',
+        path:'/panelvalidIps',
+        Component:TableParent,
+        button:{
+          Component:VirtualIpForm,
+          path:"/panelValidIpsCR",
+          title:"routes.validIps"
+        },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },
       {
-        title: 'QcExitForm',
-        path:'/qcExit',
-        Component: <Qc formType={"Exit"}/>,
+        title: 'routes.attacks',
+        path:'/panelattacks',
+        Component:TableParent,
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },
-      {
-        title: 'ReceptionForm',
-        path:'/reception',
-        Component: <ReceptionForm/>,
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'operatorGroupForm',
-        path:'/operatorGroupForm',
-        Component: <OperatorGroupForm/>,
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
-      
-      {
-        title: 'operator',
-        path:'/operator',
-        Component: <Operator/>,
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Ip-Validation',
-        path:'/virtualIpForm',
-        Component: <VirtualIpForm/>,
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
+      // {
+      //   title: 'routes.actions',
+      //   path:'/panelactions',
+      //   Component:<Profile/>,
+      //   icon: <IoIcons.IoIosPaper />,
+      //   cName: 'sub-nav'
+      // },
+      // {
+      //   title: 'routes.unsuccesslogin',
+      //   path:'/panelunsuccesslogin',
+      //   Component:<Profile/>,
+      //   icon: <IoIcons.IoIosPaper />,
+      //   cName: 'sub-nav'
+      // },
+      // {
+      //   title: 'routes.sucesslogin',
+      //   path:'/panelsucesslogin',
+      //   Component:<Profile/>,
+      //   icon: <IoIcons.IoIosPaper />,
+      //   cName: 'sub-nav'
+      // },
     ]
   },
-  {
-    title: 'Support',
-    path:'/support',
-    Component:<Support/>,
-    icon: <IoIcons.IoMdHelpCircle />
-  },
-  {
-    title: 'TableParent',
-    path:'/TableParent',
-    Component:<TableParent/>,
-    icon: <IoIcons.IoMdHelpCircle />
-  },
-  {
-    title: 'test',
-    path:'/test',
-    Component:<Support/>,
-    icon: <IoIcons.IoMdHelpCircle />
-  }
+  // {
+  //   title: 'routes.GeneralRepresentative',
+  //   icon: <IoIcons.IoIosPaper />,
+  //   iconClosed: <RiIcons.RiArrowDownSFill />,
+  //   iconOpened: <RiIcons.RiArrowUpSFill />,
+  //   subNav: [
+  //     {
+  //       title: 'routes.online',
+  //       path:'/panelonline',
+  //       Component:<Profile/>,
+  //       button:<Profile/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'routes.group',
+  //       path:'/panelgroup',
+  //       Component:<Profile/>,
+  //       button:<Profile/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'routes.validIps',
+  //       path:'/panelvalidIps',
+  //       Component:<Profile/>,
+  //       button:<Profile/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'routes.attacks',
+  //       path:'/panelattacks',
+  //       Component:<Profile/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'routes.actions',
+  //       path:'/panelactions',
+  //       Component:<Profile/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'routes.unsuccesslogin',
+  //       path:'/panelunsuccesslogin',
+  //       Component:<Profile/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'routes.sucesslogin',
+  //       path:'/panelsucesslogin',
+  //       Component:<Profile/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //   ]
+  // },
+  
+  // {
+  //   title: 'profile',
+  //   path:'/profile',
+  //   Component: <Profile/>,
+  //   icon: <CgIcon.CgProfile />
+  // },
+  // {
+  //   title: 'Forms',
+  //   icon: <IoIcons.IoIosPaper />,
+  //   iconClosed: <RiIcons.RiArrowDownSFill />,
+  //   iconOpened: <RiIcons.RiArrowUpSFill />,
+  //   subNav: [
+  //     {
+  //       title: 'QcEntryForm',
+  //       path:'/qcEntry',
+  //       Component:<Qc formType={"Enter"}/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'QcExitForm',
+  //       path:'/qcExit',
+  //       Component: <Qc formType={"Exit"}/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'ReceptionForm',
+  //       path:'/reception',
+  //       Component: <ReceptionForm/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'operatorGroupForm',
+  //       path:'/operatorGroupForm',
+  //       Component: <OperatorGroupForm/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+      
+  //     {
+  //       title: 'operator',
+  //       path:'/operator',
+  //       Component: <Operator/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'Ip-Validation',
+  //       path:'/virtualIpForm',
+  //       Component: <VirtualIpForm/>,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //   ]
+  // },
+  // {
+  //   title: 'Support',
+  //   path:'/support',
+  //   Component:<Support/>,
+  //   icon: <IoIcons.IoMdHelpCircle />
+  // },
+  // {
+  //   title: 'TableParent',
+  //   path:'/TableParent',
+  //   Component:<TableParent/>,
+  //   icon: <IoIcons.IoMdHelpCircle />
+  // },
+  // {
+  //   title: 'test',
+  //   path:'/test',
+  //   Component:<Support/>,
+  //   icon: <IoIcons.IoMdHelpCircle />
+  // }
 ];
