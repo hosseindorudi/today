@@ -165,7 +165,7 @@
     height: 30px;
     width: 30px;
     margin: 0 5px;
-    background-color: #fff;
+    /* background-color: #fff; */
     border-radius: 50%;
     cursor: pointer;
     
@@ -197,6 +197,8 @@
 .dropdown-content > div {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .dropImg {
@@ -211,6 +213,8 @@
     color: black;
     margin-right: 10px;
     text-decoration: none;
+    border: none;
+    background: none;
     
 }
 
@@ -230,11 +234,11 @@
 }
 
 .profileImg {
-    height: 30px;
-    width: 30px;
+    /* height: 30px;
+    width: 30px; */
     margin: 0 5px;
     border-radius: 50%;
-    background-color: #fff;
+    /* background-color: #fff; */
 }
 
 .main {

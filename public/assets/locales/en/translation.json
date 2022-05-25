@@ -96,5 +96,6 @@
   "auth.password":"Password",
   "auth.signin":"Login",
   "auth.operator":"Operator",
-  "auth.user":"User"
+  "auth.user":"User",
+  "auth.chooseOperator":"Select the user type"
 }

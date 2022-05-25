@@ -5,6 +5,7 @@ const AppContext = React.createContext({
         forms:[],
         activeTab:"",
         lang:'',
+        langCode:'',
         sidebarOpen:false
     }, setApp: () => {}
 })

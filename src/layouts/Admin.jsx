@@ -6,11 +6,13 @@ import NavMenu from "../Components/navbar/navMenu";
 import Sidebar from "../Components/sidebar/sidebar";
 import MainTabControl from "../Components/Tabs/TabControl/MainTabControl";
 import useWindowSize from "../customHooks/useWindowSize";
+import * as fa from 'react-icons/fa'
 import "./Admin.css";
+import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const [dropDown, setDropDown] = useState(false);
-
+  const navigate=useNavigate()
   const [menu, setMenu] = useState(false);
   const windowSize=useWindowSize()
 
@@ -18,14 +20,17 @@ function Admin() {
   const handleClickMenu = () => {
     setMenu(!menu);
   };
-
+  const handleLogOut=()=>{
+    localStorage.removeItem("token");
+    navigate("/", { replace: true });
+  }
   return (
     <div className="mainparent">
       <div className="header">
         <div className="hederLeft">
           <div className="profileImg">
             <div>
-              <i class="fa fa-user" aria-hidden="true"></i>
+              <i className="fa fa-user" aria-hidden="true"></i>
             </div>
           </div>
           <span className="profileName">
@@ -39,23 +44,24 @@ function Admin() {
             }}
           >
             <div className="logOutReletive">
-              <i className="fa fa-sign-out" aria-hidden="true"></i>
+              <>
+            <fa.FaSignOutAlt/></>
               <div
                 className="dropdown-content"
                 style={{ display: dropDown ? "flex" : "none" }}
               >
                 <div>
-                  <img src="" alt="" className="dropImg" />
-                  <a className="dropDownLink" href="#home">
+                  <fa.FaUserAlt/>
+                  <button className="dropDownLink" >
                     پروفایل
-                  </a>
+                  </button>
                 </div>
 
-                <div>
-                  <img src="" alt="" className="dropImg" />
-                  <a className="dropDownLink" href="#home">
+                <div onClick={handleLogOut}>
+                  <fa.FaSignOutAlt/>
+                  <button className="dropDownLink" >
                     خروج
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

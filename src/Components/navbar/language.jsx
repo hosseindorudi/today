@@ -12,9 +12,9 @@ const Language = () => {
     const click=()=>{
         setOpen(!open)
     }
-    const handleChangeLanguage=(code,dir)=>{
+    const handleChangeLanguage=(code,dir,no)=>{
         i18next.changeLanguage(code);
-        setApp((prev) => ({ ...prev, lang: code }));
+        setApp((prev) => ({ ...prev, lang: code,langCode:no }));
         document.body.dir = dir || "ltr";
         document.documentElement.setAttribute("lang",code);
     }
@@ -25,7 +25,7 @@ const Language = () => {
             <div className="dropdown-content-flag" style={{display : open ? 'flex' : 'none'}}>
             {languages.map((lang,i)=>(
                 <div className='languageBtn' key={i}>
-                    <button className='dropDownFlagLink' onClick={()=>handleChangeLanguage(lang.code,lang.dir)} disabled={language===lang.code?true:false}>{lang.name}</button>
+                    <button className='dropDownFlagLink' onClick={()=>handleChangeLanguage(lang.code,lang.dir,lang.no)} disabled={language===lang.code?true:false}>{lang.name}</button>
                 </div>
             ))}
         </div>

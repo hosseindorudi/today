@@ -1,44 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState } from 'react';
+import axios from 'axios';
 
-const useAxios = () => {
-    const [response, setResponse] = useState([]);
+axios.defaults.baseURL = 'http://172.16.1.138:81';
+
+ const useAxios = () => {
+    const [response, setResponse] = useState(undefined);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [controller, setController] = useState();
 
-    const axiosFetch = async (configObj) => {
-        const {
-            axiosInstance,
-            method,
-            url,
-            requestConfig = {}
-        } = configObj;
+    const fetchData = async (params) => {
+      try {
+        setLoading(true)
+       const result = await axios.request(params);
+       setResponse(result.data);
+       setError("")
+       } catch( error ) {
+         setError(error);
+         setResponse(undefined)
+       } finally {
+         setLoading(false);
+       }
+    };
 
-        try {
-            setLoading(true);
-            const ctrl = new AbortController();
-            setController(ctrl);
-            const res = await axiosInstance[method.toLowerCase()](url, {
-                ...requestConfig,
-                signal: ctrl.signal
-            });
-            console.log(res);
-            setResponse(res.data);
-        } catch (err) {
-            console.log(err.message);
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    }
 
-    useEffect(() => {
-        // useEffect cleanup function
-        return () => controller && controller.abort();
-
-    }, [controller]);
-
-    return [response, error, loading, axiosFetch];
-}
-
+    return [ response, error, loading,fetchData ];
+};
 export default useAxios

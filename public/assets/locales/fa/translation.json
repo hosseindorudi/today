@@ -97,5 +97,6 @@
   "auth.password":"رمز عبور",
   "auth.signin":"ورود",
   "auth.operator":"اپراتور",
-  "auth.user":"کاربر"
+  "auth.user":"کاربر",
+  "auth.chooseOperator":"نوع کاربر را انتخاب کنید"
 }
