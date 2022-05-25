@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pagenotfound from "./Components/404/Pagenotfound";
 import ProtectedRoutes from "./layouts/ProtectedRoutes";
+import TabContextProvider from "./contexts/TabContextProvider";
 
 function App() {
   const [app, setApp] = useState({
@@ -39,6 +40,7 @@ function App() {
   return (
     <div className={"App " + assignFont()}>
       <AppContext.Provider value={{ app, setApp }}>
+        <TabContextProvider>
         <Routes>
           <Route path="/" element={<Auth />} />
           <Route element={<ProtectedRoutes />}>
@@ -47,6 +49,7 @@ function App() {
           <Route path="*" element={<Pagenotfound />} />
         </Routes>
         <ToastContainer rtl={currentLanguage.dir ? true : false} />
+        </TabContextProvider>
       </AppContext.Provider>
     </div>
   );

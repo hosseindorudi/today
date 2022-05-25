@@ -3,24 +3,16 @@ import React, { useContext } from "react";
 import { Tabs,Tab } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../../contexts/AppContext";
+import { TabContext } from "../../../contexts/TabContextProvider";
 import "./MainTabControl.css";
 
 function MainTabControl() {
   const { app, setApp } = useContext(AppContext);
+  const tabContext = useContext(TabContext);
   const { t } = useTranslation();
-  const handleClickRemove = (event,path,index) => {
+  const handleClickRemove = (event,menu) => {
     event.stopPropagation();
-    let selected = app.forms.filter((e) => e.path !== path);
-    updateState("forms",selected)
-    if(path===app.activeTab &&selected.length){
-     if(selected[index-1]){
-      updateState("activeTab",selected[index-1].path)
-     }else{
-      updateState("activeTab",selected[index].path)
-     }
-    }
-    
-
+    tabContext.addRemoveTabs(menu,"remove")
   };
   const updateState = (key, value) => {
     setApp((prev) => ({ ...prev, [key]: value }));
@@ -28,7 +20,8 @@ function MainTabControl() {
  
   return (
     <div>
-      {app.forms.length > 0 && (
+    
+      {tabContext.tabs.length > 0 && (
         <Tabs
           activeKey={app.activeTab}
           onSelect={(k) => updateState("activeTab",k)}
@@ -36,7 +29,7 @@ function MainTabControl() {
           id="mainTab"
           className="mb-3"
         >
-          {app.forms.map((Menu, index) => (
+          {tabContext.tabs.map((Menu, index) => (
             <Tab
               key={index}
               eventKey={Menu.path}
@@ -44,7 +37,7 @@ function MainTabControl() {
                 <span className="spanTab">
                   {t(Menu.title)}{" "}
                   <span
-                    onClick={(e) => handleClickRemove(e,Menu.path,index)}
+                    onClick={(e) => handleClickRemove(e,Menu)}
                     title= {t("TabExit")}
                     className="tabExitBtn"
                   >
@@ -54,6 +47,7 @@ function MainTabControl() {
               }
             >
               {Menu.Component}
+             
             </Tab>
           ))}
         </Tabs>
