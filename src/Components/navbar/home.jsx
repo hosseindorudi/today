@@ -1,12 +1,12 @@
 import React, { lazy, useContext } from "react";
 import { TabContext } from "../../contexts/TabContextProvider";
-const Dashboard=lazy(()=>import('../../Views/operatorDashboard/OperatorDashboard'))
+const OperatorDashboard=lazy(()=>import('../../Views/operatorDashboard/OperatorDashboard'))
 const Home = () => {
   const tabContext = useContext(TabContext);
   const dashboard = {
     title: "dashboard",
     path: "/dashboard",
-    component: <Dashboard />
+    Component:<OperatorDashboard/>
   };
   const handleClick = () => {
     tabContext.addRemoveTabs(dashboard,"add")

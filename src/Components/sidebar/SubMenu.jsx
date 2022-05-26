@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TabContext } from "../../contexts/TabContextProvider";
-import * as bs from 'react-icons/bs'
-import { Button } from "react-bootstrap";
-const SubMenu = ({ item }) => {
+import * as cg from 'react-icons/cg'
+
+const SubMenu = ({ item,search }) => {
   const [subnav, setSubnav] = useState(false);
   const tabContext=useContext(TabContext)
   const showSubnav = () => setSubnav(!subnav);
@@ -43,7 +43,7 @@ const SubMenu = ({ item }) => {
           </div>
         </button>
       )}
-      {subnav &&
+      {!search &&subnav &&
         item.subNav.map((item, index) => (
           item.button?
           (
@@ -56,7 +56,7 @@ const SubMenu = ({ item }) => {
             {item.icon}
             <span className="SidebarLabel">{t(item.title)}</span>
           </button> 
-          <button className="btnIconSidebar" onClick={()=>handleClickMenu(item.button)}><bs.BsFillPlusCircleFill/></button>
+          <button className="btnIconSidebar" onClick={()=>handleClickMenu(item.button)}><cg.CgAddR size={20}/></button>
           </div>
           ):
           (

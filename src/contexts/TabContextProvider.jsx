@@ -1,7 +1,10 @@
 import React, { useContext, useState } from "react";
 import AppContext from "./AppContext";
 
-export const TabContext = React.createContext({ tabs: [], addRemoveTabs: () => [] });
+export const TabContext = React.createContext({
+  tabs: [],
+  addRemoveTabs: () => [],
+});
 
 const TabContextProvider = (props) => {
   const [tabs, setTabs] = useState([]);
@@ -11,18 +14,14 @@ const TabContextProvider = (props) => {
     const found = tabs.find((i) => i.path === item.path);
     if (!found) {
       if (tabs.length === maxTabLength) {
-        const updatedData = tabs.map((obj, index) => {
-          if (index === 0) {
-            return {
-              ...obj,
-              title: item.title,
-              path: item.path,
-              Component: item.Component,
-            };
-          } else return obj;
-        });
+        const newState = [...tabs];
+        newState[0] = {
+          title: item.title,
+          path: item.path,
+          Component: item.Component,
+        };
         return (
-          setTabs(updatedData),
+          setTabs(newState),
           setApp((prev) => ({ ...prev, activeTab: item.path }))
         );
       }
@@ -35,23 +34,20 @@ const TabContextProvider = (props) => {
         setApp((prev) => ({ ...prev, activeTab: item.path }))
       );
     }
-    setApp((prev) => ({ ...prev, activeTab: item.path }))
-
+    setApp((prev) => ({ ...prev, activeTab: item.path }));
   };
   const removeFromTab = (item) => {
-    const isFound=(e)=>e.path===item.path
-    let index=tabs.findIndex(isFound)
-    let filtered = tabs.filter((e) => e.path !==item.path);
-    setTabs(filtered)
-    if(item.path===app.activeTab&&filtered.length){
-        if(filtered[index-1]){
-         setApp((prev) => ({ ...prev, activeTab: filtered[index-1].path }))
-       
-        }else{
-            setApp((prev) => ({ ...prev, activeTab: filtered[index].path }))
-        }
-       }
-
+    const isFound = (e) => e.path === item.path;
+    let index = tabs.findIndex(isFound);
+    let filtered = tabs.filter((e) => e.path !== item.path);
+    setTabs(filtered);
+    if (item.path === app.activeTab && filtered.length) {
+      if (filtered[index - 1]) {
+        setApp((prev) => ({ ...prev, activeTab: filtered[index - 1].path }));
+      } else {
+        setApp((prev) => ({ ...prev, activeTab: filtered[index].path }));
+      }
+    }
   };
   const addTabs = (tab, action) => {
     switch (action) {

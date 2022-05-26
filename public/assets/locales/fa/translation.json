@@ -117,6 +117,8 @@
   "routes.exitCheckList":"چک لیست خروجی",
   "routes.phoneIssues":"ایرادات گوشی",
   "routes.rules":"قوانین",
+  "routes.pricing":"قیمت گذاری",
+  "routes.ratingTechnician":"رتبه بندی تکنسین",
   "routes.reports":"گذارشات",
   "routes.inventory":"انبار"
 }

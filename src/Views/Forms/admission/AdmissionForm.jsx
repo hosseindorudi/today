@@ -1,5 +1,5 @@
 
-import './productForm.css'
+import './AdmissionForm.css'
 
 import PatternLock from './patternLock/PatternLock';
 import { useEffect, useRef, useState, useContext } from 'react';
@@ -16,7 +16,7 @@ var base64 = require('base-64');
 
 
 
-const ProductForm = () => {
+const AdmissionForm = () => {
   
   const [patternLock, setpatternLock] = useState(false);
   const [patternLockSize, setPatternLockSize] = useState("0");
@@ -254,4 +254,4 @@ const ProductForm = () => {
   )
 }
 
-export default ProductForm
+export default AdmissionForm

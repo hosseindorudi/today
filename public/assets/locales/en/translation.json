@@ -116,6 +116,8 @@
   "routes.exitCheckList": "Output checklist",
   "routes.phoneIssues": "Phone defects",
   "routes.rules":"Rules",
+  "routes.pricing":"Pricing",
+  "routes.ratingTechnician":"Technician ranking",
   "routes.reports": "Requests",
   "routes.inventory":"Store"
 }

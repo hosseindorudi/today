@@ -46,7 +46,8 @@ function MainTabControl() {
                 </span>
               }
             >
-              <menu.Component/>
+              {menu.Component}
+              
              
             </Tab>
           ))}

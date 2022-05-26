@@ -59,11 +59,11 @@ const Sidebar = () => {
             </div>
             {search.length>0?
             foundMenues.map((item,index)=>{
-              return <SubMenu item={item} key={index} />;
+              return <SubMenu item={item} key={index} search={search}/>;
             })
             :
             Routes.map((item, index) => {
-              return <SubMenu item={item} key={index} />;
+              return <SubMenu item={item} key={index} search={search}/>;
             })}
           </div>
         </nav>
