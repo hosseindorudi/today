@@ -120,5 +120,6 @@
   "routes.pricing":"قیمت گذاری",
   "routes.ratingTechnician":"رتبه بندی تکنسین",
   "routes.reports":"گذارشات",
-  "routes.inventory":"انبار"
+  "routes.inventory":"انبار",
+  "btn.exit":"خروج"
 }

@@ -119,5 +119,6 @@
   "routes.pricing":"Pricing",
   "routes.ratingTechnician":"Technician ranking",
   "routes.reports": "Requests",
-  "routes.inventory":"Store"
+  "routes.inventory":"Store",
+  "btn.exit":"Exit"
 }

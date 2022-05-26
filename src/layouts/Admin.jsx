@@ -6,13 +6,11 @@ import NavMenu from "../Components/navbar/navMenu";
 import Sidebar from "../Components/sidebar/sidebar";
 import MainTabControl from "../Components/Tabs/TabControl/MainTabControl";
 import useWindowSize from "../customHooks/useWindowSize";
-import * as fa from 'react-icons/fa'
 import "./Admin.css";
-import { useNavigate } from "react-router-dom";
+import LogOut from "../Components/navbar/logOut";
 
 function Admin() {
-  const [dropDown, setDropDown] = useState(false);
-  const navigate=useNavigate()
+  
   const [menu, setMenu] = useState(false);
   const windowSize=useWindowSize()
 
@@ -20,10 +18,7 @@ function Admin() {
   const handleClickMenu = () => {
     setMenu(!menu);
   };
-  const handleLogOut=()=>{
-    localStorage.removeItem("token");
-    navigate("/", { replace: true });
-  }
+  
   return (
     <div className="mainparent">
       <div className="header">
@@ -37,35 +32,7 @@ function Admin() {
             <div>حسین درودی</div>
           </span>
 
-          <div
-            className="logOut"
-            onClick={() => {
-              setDropDown(!dropDown)
-            }}
-          >
-            <div className="logOutReletive">
-              <>
-            <fa.FaSignOutAlt/></>
-              <div
-                className="dropdown-content"
-                style={{ display: dropDown ? "flex" : "none" }}
-              >
-                <div>
-                  <fa.FaUserAlt/>
-                  <button className="dropDownLink" >
-                    پروفایل
-                  </button>
-                </div>
-
-                <div onClick={handleLogOut}>
-                  <fa.FaSignOutAlt/>
-                  <button className="dropDownLink" >
-                    خروج
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <LogOut />
         </div>
         <div className="headerMid"></div>
         <div className="headerRight">
