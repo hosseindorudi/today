@@ -57,9 +57,9 @@ function Admin() {
           <MainTabControl />
         </div>
       </div>
-      <div className="footer">
+ 
         <Footer />
-      </div>
+    
     </div>
   );
 }

@@ -20,6 +20,8 @@
 }
 .sidebarWithBtn{
   display: flex;
+  align-items: center;
+
 }
 .sidebarNavRTL{
 right: 0;
@@ -44,7 +46,7 @@ left: unset;
   list-style: none;
   height: 60px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 13px;
   width: 100%;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
@@ -69,7 +71,11 @@ left: unset;
 .btnIconSidebar{
   background: none;
   border: none;
-  width: 20%;
+  width: fit-content;
+  height: fit-content;
+}
+.btnIconSidebar:hover{
+  background:#6e6d6d;
 }
 .DropdownLinkBtn {
   background:gray;
@@ -84,7 +90,7 @@ left: unset;
   justify-content: flex-start;
   text-decoration: none;
   color: #f5f5f5;
-  font-size: 15px;
+  font-size: 13px;
   
 }
 .DropdownLink {
@@ -100,7 +106,7 @@ left: unset;
   justify-content: flex-start;
   text-decoration: none;
   color: #f5f5f5;
-  font-size: 15px;
+  font-size: 13px;
   
 }
 .logo{
@@ -112,6 +118,7 @@ left: unset;
 }
 .logo >img{
   border-radius: 10px;
+  width: 50%;
 }
 .DropdownLink:active {
     background-color: #3a3b3a;
@@ -134,6 +141,12 @@ left: unset;
     right: 0 !important;
     transition: 350ms;
     width: 100%;
+  }
+  @media screen and (max-width: 1200px) {
+    .SidebarLink,.DropdownLinkBtn,.DropdownLink{
+      font-size: 10px;
+    }
+    
   }
   @media screen and (max-width: 960px) {
     #sidebarNav{

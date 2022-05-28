@@ -48,7 +48,7 @@ export const Routes = [
         button:{
           Component:<OperatorGroupForm/>,
           path:"/panelGroupForm",
-          title:"routes.group"
+          title:"routes.groupForm"
         },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
@@ -60,7 +60,7 @@ export const Routes = [
         button:{
           Component:<OperatorForm/>,
           path:"/panelOperatorForm",
-          title:"routes.operator"
+          title:"routes.operatorForm"
         },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
@@ -72,7 +72,7 @@ export const Routes = [
         button:{
           Component:<VirtualIpForm/>,
           path:"/panelValidIpsForm",
-          title:"routes.validIps"
+          title:"routes.validIpsForm"
         },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
@@ -127,7 +127,7 @@ export const Routes = [
         button:{
           Component:<OperatorGroupForm/>,
           path:"/representativegroupForm",
-          title:"routes.group"
+          title:"routes.groupForm"
         },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
@@ -139,7 +139,7 @@ export const Routes = [
         button:{
           Component:<OperatorForm/>,
           path:"/representativeForm",
-          title:"routes.representative"
+          title:"routes.representativeForm"
         },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
@@ -151,7 +151,7 @@ export const Routes = [
         button:{
           Component:<VirtualIpForm/>,
           path:"/representativeValidIpsForm",
-          title:"routes.validIps"
+          title:"routes.validIpsForm"
         },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
@@ -199,7 +199,7 @@ export const Routes = [
         button:{
           Component:<AdmissionForm/>,
           path:"/admissionForm",
-          title:"routes.admission"
+          title:"routes.admissionForm"
         },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
@@ -218,7 +218,7 @@ export const Routes = [
       button:{
         Component:<CheckListForm formType={"Entry"}/>,
         path:"/entryCheckListForm",
-        title:"routes.entryCheckList"
+        title:"routes.entryCheckListForm"
       },
       icon: <IoIcons.IoIosPaper />,
       cName: 'sub-nav'
@@ -230,7 +230,7 @@ export const Routes = [
       button:{
         Component:<CheckListForm formType={"Exit"}/>,
         path:"/exitCheckListForm",
-        title:"routes.exitCheckList"
+        title:"routes.exitCheckListForm"
       },
       icon: <IoIcons.IoIosPaper />,
       cName: 'sub-nav'
@@ -242,7 +242,7 @@ export const Routes = [
       button:{
         Component:<PhoneDefectsForm/>,
         path:"/phoneIssuesForm",
-        title:"routes.phoneIssues"
+        title:"routes.phoneIssuesForm"
       },
       icon: <IoIcons.IoIosPaper />,
       cName: 'sub-nav'
