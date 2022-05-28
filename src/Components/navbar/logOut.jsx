@@ -1,23 +1,39 @@
-import React, { useContext } from 'react'
-import AppContext from '../../contexts/AppContext';
+import React, { useEffect, useRef, useState } from 'react'
 import * as fa from 'react-icons/fa'
 import { t } from "i18next";
 import { useNavigate } from 'react-router-dom';
 const LogOut = () => {
 
-    const { app,setApp } = useContext(AppContext);
+    const [open, setopen] = useState(false)
+    const ref=useRef()
     const navigate=useNavigate()
     const click=()=>{
-        setApp((prev) => ({ ...prev, logOutOpen:!app.logOutOpen }));
+        setopen(!open)
     }
     const handleLogOut=()=>{
         localStorage.removeItem("token");
         navigate("/", { replace: true });
       }
+    const clickOutSideLogOut=(event)=>{
+        if (
+            ref.current &&
+            !ref.current.contains(event.target)
+          ) {
+            setopen(false)
+          }
+      }
+      useEffect(() => {
+        document.addEventListener("mousedown", clickOutSideLogOut);
+        return () => {
+            document.removeEventListener("mousedown",clickOutSideLogOut);
+        };
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
   return (
 
     <div
     className="logOut"
+    ref={ref}
     onClick={click}
   >
     <div className="logOutReletive">
@@ -25,7 +41,7 @@ const LogOut = () => {
     <fa.FaSignOutAlt/></>
       <div
         className="dropdown-content"
-        style={{ display: app.logOutOpen ? "flex" : "none" }}
+        style={{ display: open ? "flex" : "none" }}
       >
         <div>
           <fa.FaUserAlt/>

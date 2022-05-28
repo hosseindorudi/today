@@ -6,9 +6,7 @@ const AppContext = React.createContext({
         activeTab:"",
         lang:'',
         langCode:'',
-        sidebarOpen:false,
-        langOpen:false,
-        logOutOpen:false
+        sidebarOpen:false
     }, setApp: () => {}
 })
 export default AppContext
