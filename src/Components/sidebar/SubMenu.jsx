@@ -5,6 +5,7 @@ import * as cg from 'react-icons/cg'
 
 const SubMenu = ({ item,search }) => {
   const [subnav, setSubnav] = useState(false);
+  const role=[100050,100001,100002,100003]
   const tabContext=useContext(TabContext)
   const showSubnav = () => setSubnav(!subnav);
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ const SubMenu = ({ item,search }) => {
   return (
     <>
       {item.subNav ? (
+        role.includes(item.access)&&
         <div className="SidebarLink" onClick={item.subNav && showSubnav}>
           <div>
             {item.icon}
@@ -29,6 +31,7 @@ const SubMenu = ({ item,search }) => {
           </div>
         </div>
       ) : (
+        role.includes(item.access)&&
         <button className="SidebarLink" onClick={() => handleClickMenu(item)}>
           <div>
             {item.icon}
@@ -45,7 +48,7 @@ const SubMenu = ({ item,search }) => {
       )}
       {!search &&subnav &&
         item.subNav.map((item, index) => (
-          item.button?
+          item.button?role.includes(item.access)&&
           (
             <div className="sidebarWithBtn">
             <button
@@ -56,9 +59,12 @@ const SubMenu = ({ item,search }) => {
             {item.icon}
             <span className="SidebarLabel">{t(item.title)}</span>
           </button> 
+          {role.includes(item.button.access)&&
           <button className="btnIconSidebar" onClick={()=>handleClickMenu(item.button)}><cg.CgAddR size={20}/></button>
+            }
           </div>
           ):
+          role.includes(item.access)&&
           (
             <button
             className="DropdownLink"
