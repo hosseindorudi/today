@@ -19,20 +19,18 @@ const Auth = () => {
   const { ip, os, browser } = useOsInformation();
   const { app } = useContext(AppContext);
   const navigate = useNavigate();
-  const search = useLocation().search;
   const username = useRef();
   const password = useRef();
   const loginURL = "/Operator/Authentication/Login";
-  const name = new URLSearchParams(search).get("type");
   const { t } = useTranslation();
-  const radioTypes = ["operator", "user"];
+  const radioTypes = ["operator", "agent"];
   const [radioType, setRadioType] = useState("");
   const [passVisible, setpassVisible] = useState(false);
   const handleChangeRadio = (event) => {
     setRadioType(event.target.id);
   };
   useEffect(() => {
-    name && setRadioType(name);
+    app.type && setRadioType(app.type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleSubmit = (e) => {

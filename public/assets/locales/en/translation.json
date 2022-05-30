@@ -97,6 +97,7 @@
   "auth.signin":"login",
   "auth.operator":"operator",
   "auth.user":"user",
+  "auth.agent":"agent",
   "auth.chooseOperator":"selectTheUserType",
   "routes.panel":"panel",
   "routes.online":"Online",

@@ -3,6 +3,36 @@ import * as CgIcon from 'react-icons/cg';
 import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
 import { menues } from './data/Enums';
+const InventoryGroupForm=lazy(()=>import("./Views/Forms/inventoryGroup/InventoryGroupForm"))
+const InventoryGroup=lazy(()=>import("./Views/Forms/inventoryGroup/InventoryGroup"))
+const WarrantyCancelationForm=lazy(()=>import("./Views/Forms/warrantyCancelation/WarrantyCancelationForm"))
+const WarrantyCancelation=lazy(()=>import("./Views/Forms/warrantyCancelation/WarrantyCancelation"))
+const PartRequestForm=lazy(()=>import("./Views/Forms/partRequest/PartRequestForm"))
+const PartRequest=lazy(()=>import("./Views/Forms/partRequest/PartRequest"))
+const WorksDoneOnPhoneForm=lazy(()=>import("./Views/Forms/worksDoneOnPhone/WorksDoneOnPhoneForm"))
+const WorksDoneOnPhone=lazy(()=>import("./Views/Forms/worksDoneOnPhone/WorksDoneOnPhone"))
+const ExtraServices=lazy(()=>import("./Views/Forms/extraServices/ExtraServices"))
+const ExtraServicesForm=lazy(()=>import("./Views/Forms/extraServices/ExtraServicesForm"))
+const AgentsAbility=lazy(()=>import("./Views/Forms/agentsAbility/AgentsAbility"))
+const AgentsAbilityForm=lazy(()=>import("./Views/Forms/agentsAbility/AgentsAbilityForm"))
+const SystemMsgType=lazy(()=>import("./Views/Forms/systemMsgtype/SystemMsgType"))
+const SystemMsgTypeForm=lazy(()=>import("./Views/Forms/systemMsgtype/SystemMsgTypeForm"))
+const CustomerSendMsgType=lazy(()=>import("./Views/Forms/CustomerSendMsgType/CustomerSendMsgType"))
+const CustomerSendMsgTypeForm=lazy(()=>import("./Views/Forms/CustomerSendMsgType/CustomerSendMsgTypeForm"))
+const CustomerReceivedMsgType=lazy(()=>import("./Views/Forms/customerReceivedMsgType/CustomerReceivedMsgType"))
+const CustomerReceivedMsgTypeForm=lazy(()=>import("./Views/Forms/customerReceivedMsgType/CustomerReceivedMsgTypeForm"))
+const WarrantyType=lazy(()=>import("./Views/Forms/warrantyType/WarrantyType"))
+const WarrantyTypeForm=lazy(()=>import("./Views/Forms/warrantyType/WarrantyTypeForm"))
+const PhoneStatus=lazy(()=>import("./Views/Forms/phoneStatus/PhoneStatus"))
+const PhoneStatusForm=lazy(()=>import("./Views/Forms/phoneStatus/PhoneStatusForm"))
+const StatusAfterWork=lazy(()=>import("./Views/Forms/StatusAfterWork/StatusAfterWork"))
+const StatusAfterWorkForm=lazy(()=>import("./Views/Forms/StatusAfterWork/StatusAfterWorkForm"))
+const StatusAfterCheck=lazy(()=>import("./Views/Forms/statusAfterCheck/StatusAfterCheck"))
+const StatusAfterCheckForm=lazy(()=>import("./Views/Forms/statusAfterCheck/StatusAfterCheckForm"))
+const AdmissionCheckList=lazy(()=>import("./Views/Forms/admissionCheckList/AdmissionCheckList"))
+const AdmissionCheckListForm=lazy(()=>import("./Views/Forms/admissionCheckList/AdmissionCheckListForm"))
+const PartsForm=lazy(()=>import("./Views/Forms/parts/PartsForm"))
+const Parts=lazy(()=>import("./Views/Forms/parts/Parts"))
 const Online=lazy(()=>import('./Views/Forms/online/online'))
 const Group=lazy(()=>import('./Views/Forms/operatorGroupForm/Group'))
 const OperatorGroupForm=lazy(()=>import('./Views/Forms/operatorGroupForm/OperatorGroupForm'))
@@ -282,6 +312,287 @@ export const Routes = [
       icon: <IoIcons.IoIosPaper />,
       cName: 'sub-nav'
     },
+    {
+      title: 'routes.parts',
+      path:'/parts',
+      access:menues.parts,
+      Component:<Parts/>,
+      button:{
+        Component:<PartsForm/>,
+        path:"/partsForm",
+        title:"routes.partsForm",
+        access:menues.partForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.admissionCheckList',
+      path:'/admissionCheckList',
+      access:menues.admissionCheckList,
+      Component:<AdmissionCheckList/>,
+      button:{
+        Component:<AdmissionCheckListForm/>,
+        path:"/admissionCheckListForm",
+        title:"routes.admissionCheckListForm",
+        access:menues.admissionCheckListForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.phoneStatusAftertechCheck',
+      path:'/phoneStatusAftertechCheck',
+      access:menues.phoneStatusAftertechCheck,
+      Component:<StatusAfterCheck/>,
+      button:{
+        Component:<StatusAfterCheckForm/>,
+        path:"/phoneStatusAftertechCheckForm",
+        title:"routes.phoneStatusAftertechCheckForm",
+        access:menues.phoneStatusAftertechCheckForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.phoneStatusAftertechWork',
+      path:'/phoneStatusAftertechWork',
+      access:menues.phoneStatusAftertechWork,
+      Component:<StatusAfterWork/>,
+      button:{
+        Component:<StatusAfterWorkForm/>,
+        path:"/phoneStatusAftertechWorkForm",
+        title:"routes.phoneStatusAftertechWorkForm",
+        access:menues.phoneStatusAftertechWorkForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.phoneStatus',
+      path:'/phoneStatus',
+      access:menues.phoneStatus,
+      Component:<PhoneStatus/>,
+      button:{
+        Component:<PhoneStatusForm/>,
+        path:"/phoneStatusForm",
+        title:"routes.phoneStatusForm",
+        access:menues.phoneStatusForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.garanteeType',
+      path:'/garanteeType',
+      access:menues.garanteeType,
+      Component:<WarrantyType/>,
+      button:{
+        Component:<WarrantyTypeForm/>,
+        path:"/garanteeTypeForm",
+        title:"routes.garanteeTypeForm",
+        access:menues.garanteeTypeForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.receivedCustomerMsgType',
+      path:'/receivedCustomerMsgType',
+      access:menues.receivedCustomerMsgType,
+      Component:<CustomerReceivedMsgType/>,
+      button:{
+        Component:<CustomerReceivedMsgTypeForm/>,
+        path:"/receivedCustomerMsgTypeForm",
+        title:"routes.receivedCustomerMsgTypeForm",
+        access:menues.receivedCustomerMsgTypeForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.sendCustomerMsgType',
+      path:'/sendCustomerMsgType',
+      access:menues.sendCustomerMsgType,
+      Component:<CustomerSendMsgType/>,
+      button:{
+        Component:<CustomerSendMsgTypeForm/>,
+        path:"/sendCustomerMsgTypeForm",
+        title:"routes.sendCustomerMsgTypeForm",
+        access:menues.sendCustomerMsgTypeForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.systemMsgType',
+      path:'/systemMsgType',
+      access:menues.systemMsgType,
+      Component:<SystemMsgType/>,
+      button:{
+        Component:<SystemMsgTypeForm/>,
+        path:"/systemMsgTypeForm",
+        title:"routes.systemMsgTypeForm",
+        access:menues.systemMsgTypeForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.agentsAbility',
+      path:'/agentsAbility',
+      access:menues.agentsAbility,
+      Component:<AgentsAbility/>,
+      button:{
+        Component:<AgentsAbilityForm/>,
+        path:"/agentsAbilityForm",
+        title:"routes.agentsAbilityForm",
+        access:menues.agentsAbilityForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    // {
+    //   title: 'routes.techAbility',
+    //   path:'/techAbility',
+    //   access:menues.techAbility,
+    //   Component:,
+    //   button:{
+    //     Component:,
+    //     path:"/techAbilityForm",
+    //     title:"routes.techAbilityForm",
+    //     access:menues.techAbilityForm,
+    //   },
+    //   icon: <IoIcons.IoIosPaper />,
+    //   cName: 'sub-nav'
+    // },
+    // {
+    //   title: 'routes.techAbility',
+    //   path:'/techAbility',
+    //   access:menues.techAbility,
+    //   Component:,
+    //   button:{
+    //     Component:,
+    //     path:"/techAbilityForm",
+    //     title:"routes.techAbilityForm",
+    //     access:menues.techAbilityForm,
+    //   },
+    //   icon: <IoIcons.IoIosPaper />,
+    //   cName: 'sub-nav'
+    // },
+    // {
+    //   title: 'routes.product',
+    //   path:'/product',
+    //   access:menues.product,
+    //   Component:,
+    //   button:{
+    //     Component:,
+    //     path:"/productForm",
+    //     title:"routes.productForm",
+    //     access:menues.productForm,
+    //   },
+    //   icon: <IoIcons.IoIosPaper />,
+    //   cName: 'sub-nav'
+    // },
+    // {
+    //   title: 'routes.productGroup',
+    //   path:'/productGroup',
+    //   access:menues.productGroup,
+    //   Component:,
+    //   button:{
+    //     Component:,
+    //     path:"/productGroupForm",
+    //     title:"routes.productGroupForm",
+    //     access:menues.productGroupForm,
+    //   },
+    //   icon: <IoIcons.IoIosPaper />,
+    //   cName: 'sub-nav'
+    // },
+    // {
+    //   title: 'routes.accessories',
+    //   path:'/accessories',
+    //   access:menues.accessories,
+    //   Component:,
+    //   button:{
+    //     Component:,
+    //     path:"/accessoriesForm",
+    //     title:"routes.accessoriesForm",
+    //     access:menues.accessoriesForm,
+    //   },
+    //   icon: <IoIcons.IoIosPaper />,
+    //   cName: 'sub-nav'
+    // },
+    {
+      title: 'routes.inventoryGroup',
+      path:'/inventoryGroup',
+      access:menues.inventoryGroup,
+      Component:<InventoryGroup/>,
+      button:{
+        Component:<InventoryGroupForm/>,
+        path:"/inventoryGroupForm",
+        title:"routes.inventoryGroupForm",
+        access:menues.inventoryGroupForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.warrantyCancelation',
+      path:'/warrantyCancelation',
+      access:menues.warrantyCancelation,
+      Component:<WarrantyCancelation/>,
+      button:{
+        Component:<WarrantyCancelationForm/>,
+        path:"/warrantyCancelationForm",
+        title:"routes.warrantyCancelationForm",
+        access:menues.warrantyCancelationForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.partRequest',
+      path:'/partRequest',
+      access:menues.partRequest,
+      Component:<PartRequest/>,
+      button:{
+        Component:<PartRequestForm/>,
+        path:"/partRequestForm",
+        title:"routes.partRequestForm",
+        access:menues.partRequestForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.worksDoneOnPhone',
+      path:'/worksDoneOnPhone',
+      access:menues.worksDoneOnPhone,
+      Component:<WorksDoneOnPhone/>,
+      button:{
+        Component:<WorksDoneOnPhoneForm/>,
+        path:"/worksDoneOnPhoneForm",
+        title:"routes.worksDoneOnPhoneForm",
+        access:menues.worksDoneOnPhoneForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.extraServices',
+      path:'/extraServices',
+      access:menues.extraServices,
+      Component:<ExtraServices/>,
+      button:{
+        Component:<ExtraServicesForm/>,
+        path:"/extraServicesForm",
+        title:"routes.extraServicesForm",
+        access:menues.extraServicesForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    }
+
 ]},
 {
   title: 'routes.rules',

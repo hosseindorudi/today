@@ -1,13 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { lazy, useContext, useState } from "react";
 import AppContext from "./AppContext";
-
+const OperatorDashboard=lazy(()=>import('../Views/operatorDashboard/OperatorDashboard'))
 export const TabContext = React.createContext({
   tabs: [],
   addRemoveTabs: () => [],
 });
 
 const TabContextProvider = (props) => {
-  const [tabs, setTabs] = useState([]);
+  const [tabs, setTabs] = useState([{
+    title: "dashboard",
+    path: "/dashboard",
+    Component:<OperatorDashboard/>
+  }]);
   const { app, setApp } = useContext(AppContext);
   const maxTabLength = 6;
   const addToTab = (item) => {

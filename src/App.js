@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { languages } from "./assets/languages/languages";
 import "./assets/css/App.css";
 import Admin from "./layouts/Admin";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import AppContext from "./contexts/AppContext";
 import Auth from "./layouts/Auth";
 import { ToastContainer } from "react-toastify";
@@ -14,9 +14,11 @@ import { AuthProvider } from "./contexts/AuthProvider";
 import RequireAuth from "./Components/RequireAuth";
 
 function App() {
+  const search = useLocation().search;
+  const typeOfUser = new URLSearchParams(search).get("type");
   const [app, setApp] = useState({
     forms: [],
-    activeTab: "",
+    activeTab: "/dashboard",
     lang: "",
     langCode: "",
     sidebarOpen: false,
@@ -30,6 +32,7 @@ function App() {
       ...prev,
       lang: currentLanguage.code,
       langCode: currentLanguage.no,
+      type:typeOfUser?typeOfUser:undefined
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
