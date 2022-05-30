@@ -8,8 +8,10 @@ import Auth from "./layouts/Auth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pagenotfound from "./Components/404/Pagenotfound";
-import ProtectedRoutes from "./layouts/ProtectedRoutes";
+
 import TabContextProvider from "./contexts/TabContextProvider";
+import { AuthProvider } from "./contexts/AuthProvider";
+import RequireAuth from "./Components/RequireAuth";
 
 function App() {
   const [app, setApp] = useState({
@@ -21,7 +23,6 @@ function App() {
   });
   const currentLanguageCode = localStorage.getItem("i18nextLng") || "fa";
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
-
   useEffect(() => {
     document.body.dir = currentLanguage.dir || "ltr";
     document.documentElement.setAttribute("lang", currentLanguage.code);
@@ -39,18 +40,21 @@ function App() {
 
   return (
     <div className={"App " + assignFont()}>
+      <AuthProvider>
       <AppContext.Provider value={{ app, setApp }}>
         <TabContextProvider>
+
         <Routes>
-          <Route path="/" element={<Auth />} />
-          <Route element={<ProtectedRoutes />}>
-            <Route path="/home" element={<Admin />} />
-          </Route>
+          <Route path="/auth" element={<Auth />} />
+            <Route element={<RequireAuth/>}>
+                <Route path="/" element={<Admin/>}/>
+            </Route>
           <Route path="*" element={<Pagenotfound />} />
         </Routes>
         <ToastContainer rtl={currentLanguage.dir ? true : false} />
         </TabContextProvider>
       </AppContext.Provider>
+      </AuthProvider>
     </div>
   );
 }

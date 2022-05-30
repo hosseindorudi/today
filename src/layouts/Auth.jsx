@@ -13,6 +13,9 @@ import AppContext from "../contexts/AppContext";
 
 const Auth = () => {
   const [response, error, loading, fetchData] = useAxios();
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const { ip, os, browser } = useOsInformation();
   const { app } = useContext(AppContext);
   const navigate = useNavigate();
@@ -59,8 +62,8 @@ const Auth = () => {
 
   const setToken = useCallback((token) => {
     localStorage.setItem("token",token);
-   return navigate("/home", { replace: true });
-  }, [navigate]);
+   return navigate(from, { replace: true });
+  }, [navigate,from]);
  
   const handleError=(message)=>{
     username.current.value=''
