@@ -169,5 +169,9 @@
   "routes.productGroupForm":"فرم گروه محصولات",
   "routes.accessories":"لوازم همراه گوشی",
   "routes.accessoriesForm":"فرم لوازم همراه گوشی",
-  "loading":"در حال بارگزاری..."
+  "loading":"در حال بارگزاری...",
+  "OperatorGroup.switch":"فعال/غیر فعال",
+  "operatorGroup.ip":"آی پی",
+  "ip.till":"تا",
+  "ip.from":"از"
 }

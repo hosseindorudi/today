@@ -9,10 +9,10 @@
 
 .OperatorGroupFormMainDiv {
     
-    height: 600px;
-    width: 600px;
-    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    /* height: 600px; */
+    width: 100%;
+    /* -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75); */
 }
 
 .OperatorGroupFormTitle {
@@ -23,22 +23,13 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding-inline: 20px;
     
 }
 
-.switch-holderForm {
+.OperatorGroupFormform .switch{
     display: flex;
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    box-shadow: -8px -8px 15px rgba(255,255,255,.7),
-                10px 10px 10px rgba(0,0,0, .3),
-                inset 8px 8px 15px rgba(255,255,255,.7),
-                inset 10px 10px 10px rgba(0,0,0, .3);
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    margin: 15px auto;
+    flex-direction: row;
 }
 
 
@@ -98,10 +89,8 @@
 .inputDiv {
     display: flex;
     align-items: flex-start;
-    width: 90%;
+    width: 50%;
     flex-direction: column;
-    margin: 20px auto;
-    
 }
 
 .OperatorGroupFormInputTitle {
@@ -129,10 +118,26 @@
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    width: 90%;
-    margin: 20px auto;
+    width: 50%;
+   
 }
-
+.OperatorGroupFormform .ipTextFields{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2px;
+    align-items: center;
+}
+.OperatorGroupFormform .ipTextFields>input{
+    width: 20%;
+    margin: 5px;
+    text-align: center;
+}
+.OperatorGroupFormform .addBtn{
+    /* margin-inline: 10%; */
+    display: flex;
+    justify-content:space-around;
+}
 .OperatorGroupFormInputDesc {
     margin: 3px 0;
     border: 1px solid lightgray;
@@ -172,4 +177,23 @@
     box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
     transform: translateY(-5px);
     background: #3effa5;
+  }
+
+
+  .accordionOperatorGroup{
+      width: 100%;
+  }
+  .accordionOperatorGroup .accordion-item{
+      border: none;
+  }
+  .accordionOperatorGroup .accordion-button{
+    width: fit-content;
+    background-color: none !important;
+    color: none;
+    background: none;
+    box-shadow: none;
+  }
+  .submitBtn{
+      display: flex;
+      justify-content: center;
   }
