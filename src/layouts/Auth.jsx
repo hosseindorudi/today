@@ -75,7 +75,7 @@ const Auth = () => {
       response.result?setToken(response.message):handleError(response.message)
     }
     if(error){
-    handleError(error.response.data.title)
+    handleError(error.response?.data?.title)
     }
   }, [response,error,setToken])
   const handlePasswordVisible = () => {
