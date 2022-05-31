@@ -12,7 +12,7 @@ import AdapterJalali from '@date-io/date-fns-jalali';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-var base64 = require('base-64');
+// var base64 = require('base-64');
 
 
 
@@ -20,25 +20,25 @@ const AdmissionForm = () => {
   
   const [patternLock, setpatternLock] = useState(false);
   const [patternLockSize, setPatternLockSize] = useState("0");
-  const [value, setValue] = useState(new Date());
+  // const [value, setValue] = useState(new Date());
   const [warrantyDateBeg, setWarrantyDateBeg] = useState(new Date());
   const [warrantyDateEnd, setWarrantyDateEnd] = useState(new Date());
   const [firstImg, setFirstImg] = useState();
-  const [secondImg, setSecondImg] = useState();
+  // const [secondImg, setSecondImg] = useState();
   const [todayDate, setTodayDate] = useState('');
   const [todayTime, setTodayTime] = useState('');
   const currentLang = useContext(AppContext);
 
   let sigPad = useRef({});
 
-  const signaturePadClicked = () => {
-    console.log(sigPad.current.toDataURL());
-    var encodedData = base64.encode(sigPad.current.toDataURL());
-    console.log(encodedData);
-    // var decodedData = base64.decode(encodedData);
-    // console.log(decodedData);
-    // console.log(sigPad.current.fromDataURL(sigPad.current.toDataURL()));
-  }
+  // const signaturePadClicked = () => {
+  //   console.log(sigPad.current.toDataURL());
+  //   var encodedData = base64.encode(sigPad.current.toDataURL());
+  //   console.log(encodedData);
+  //   // var decodedData = base64.decode(encodedData);
+  //   // console.log(decodedData);
+  //   // console.log(sigPad.current.fromDataURL(sigPad.current.toDataURL()));
+  // }
 
 
   const onImageChange = (e) => {

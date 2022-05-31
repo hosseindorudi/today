@@ -2,9 +2,9 @@ import React from 'react'
 import './operatorGroupForm.css'
 import { useTranslation } from 'react-i18next';
 
-const switchToggleBtn = {
+// const switchToggleBtn = {
     
-}
+// }
 const OperatorGroupForm = () => {
     const {t}=useTranslation()
 

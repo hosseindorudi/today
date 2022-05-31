@@ -5,7 +5,7 @@ const Pagenotfound = () => {
   return (
     <div className="parent404">
             <div className='middleLayer404'>
-                <img src={sad}/>
+                <img src={sad} alt='notfound'/>
                 <h1>404</h1>
                 <h3>PAGE NOT FOUND</h3>
             </div>

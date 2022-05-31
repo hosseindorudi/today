@@ -160,7 +160,14 @@
   "routes.warrantyCancelation":"ابطال گارانتی",
   "routes.warrantyCancelationForm":"فرم ابطال گارانتی",
   "routes.inventoryGroup":"دسته بندی انبار",
-  "routes.inventoryGroupForm":"فرم دسته بندی انبار"
-
-
+  "routes.inventoryGroupForm":"فرم دسته بندی انبار",
+  "routes.techAbility":"توانمندی های تکنسین",
+  "routes.techAbilityForm":"فرم توانمندی های تکنسین ",
+  "routes.product":"محصول",
+  "routes.productForm":"فرم محصول",
+  "routes.productGroup":"گروه محصولات",
+  "routes.productGroupForm":"فرم گروه محصولات",
+  "routes.accessories":"لوازم همراه گوشی",
+  "routes.accessoriesForm":"فرم لوازم همراه گوشی",
+  "loading":"در حال بارگزاری..."
 }

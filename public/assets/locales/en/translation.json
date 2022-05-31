@@ -80,6 +80,7 @@
   "operator":"operator",
   "operatorSelector":"group:",
   "operatorTitle":"operator",
+  "loading":"loading...",
   "operatorName":"name:",
   "operatorPass":"passWord:",
   "operatorPhoneNum":"phoneNumber:",

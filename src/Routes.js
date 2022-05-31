@@ -1,8 +1,15 @@
 import React, { lazy } from 'react';
-import * as CgIcon from 'react-icons/cg';
 import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
 import { menues } from './data/Enums';
+const Accessories=lazy(()=>import("./Views/Forms/accessories/Accessories"))
+const AccessoriesForm=lazy(()=>import("./Views/Forms/accessories/AccessoriesForm"))
+const ProductGroupForm=lazy(()=>import("./Views/Forms/productGroup/ProductGroupForm"))
+const ProductGroup=lazy(()=>import("./Views/Forms/productGroup/ProductGroup"))
+const Product=lazy(()=>import("./Views/Forms/product/Product"))
+const ProductForm=lazy(()=>import("./Views/Forms/product/ProductForm"))
+const TechAbilityForm=lazy(()=>import("./Views/Forms/techAbility/TechAbilityForm"))
+const TechAbility=lazy(()=>import("./Views/Forms/techAbility/TechAbility"))
 const InventoryGroupForm=lazy(()=>import("./Views/Forms/inventoryGroup/InventoryGroupForm"))
 const InventoryGroup=lazy(()=>import("./Views/Forms/inventoryGroup/InventoryGroup"))
 const WarrantyCancelationForm=lazy(()=>import("./Views/Forms/warrantyCancelation/WarrantyCancelationForm"))
@@ -52,12 +59,6 @@ const PhoneDefects=lazy(()=>import('./Views/Forms/phoneDefects/PhoneDefects'))
 const PhoneDefectsForm=lazy(()=>import('./Views/Forms/phoneDefects/PhoneDefectsForm'))
 const Pricing=lazy(()=>import('./Views/Forms/pricing/Pricing'))
 const TechnicianRating=lazy(()=>import('./Views/Forms/technicianRating/TechnicianRating'))
-
-
-
-
-const TableParent=lazy(()=>import('./Views/TableParent/TableParent'))
-
 export const Routes = [
   {
     title: 'routes.panel',
@@ -452,76 +453,62 @@ export const Routes = [
       icon: <IoIcons.IoIosPaper />,
       cName: 'sub-nav'
     },
-    // {
-    //   title: 'routes.techAbility',
-    //   path:'/techAbility',
-    //   access:menues.techAbility,
-    //   Component:,
-    //   button:{
-    //     Component:,
-    //     path:"/techAbilityForm",
-    //     title:"routes.techAbilityForm",
-    //     access:menues.techAbilityForm,
-    //   },
-    //   icon: <IoIcons.IoIosPaper />,
-    //   cName: 'sub-nav'
-    // },
-    // {
-    //   title: 'routes.techAbility',
-    //   path:'/techAbility',
-    //   access:menues.techAbility,
-    //   Component:,
-    //   button:{
-    //     Component:,
-    //     path:"/techAbilityForm",
-    //     title:"routes.techAbilityForm",
-    //     access:menues.techAbilityForm,
-    //   },
-    //   icon: <IoIcons.IoIosPaper />,
-    //   cName: 'sub-nav'
-    // },
-    // {
-    //   title: 'routes.product',
-    //   path:'/product',
-    //   access:menues.product,
-    //   Component:,
-    //   button:{
-    //     Component:,
-    //     path:"/productForm",
-    //     title:"routes.productForm",
-    //     access:menues.productForm,
-    //   },
-    //   icon: <IoIcons.IoIosPaper />,
-    //   cName: 'sub-nav'
-    // },
-    // {
-    //   title: 'routes.productGroup',
-    //   path:'/productGroup',
-    //   access:menues.productGroup,
-    //   Component:,
-    //   button:{
-    //     Component:,
-    //     path:"/productGroupForm",
-    //     title:"routes.productGroupForm",
-    //     access:menues.productGroupForm,
-    //   },
-    //   icon: <IoIcons.IoIosPaper />,
-    //   cName: 'sub-nav'
-    // },
-    // {
-    //   title: 'routes.accessories',
-    //   path:'/accessories',
-    //   access:menues.accessories,
-    //   Component:,
-    //   button:{
-    //     Component:,
-    //     path:"/accessoriesForm",
-    //     title:"routes.accessoriesForm",
-    //     access:menues.accessoriesForm,
-    //   },
-    //   icon: <IoIcons.IoIosPaper />,
-    //   cName: 'sub-nav'
-    // },
+    {
+      title: 'routes.techAbility',
+      path:'/techAbility',
+      access:menues.techAbility,
+      Component:<TechAbility/>,
+      button:{
+        Component:<TechAbilityForm/>,
+        path:"/techAbilityForm",
+        title:"routes.techAbilityForm",
+        access:menues.techAbilityForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.product',
+      path:'/product',
+      access:menues.product,
+      Component:<Product/>,
+      button:{
+        Component:<ProductForm/>,
+        path:"/productForm",
+        title:"routes.productForm",
+        access:menues.productForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.productGroup',
+      path:'/productGroup',
+      access:menues.productGroup,
+      Component:<ProductGroup/>,
+      button:{
+        Component:<ProductGroupForm/>,
+        path:"/productGroupForm",
+        title:"routes.productGroupForm",
+        access:menues.productGroupForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.accessories',
+      path:'/accessories',
+      access:menues.accessories,
+      Component:<Accessories/>,
+      button:{
+        Component:<AccessoriesForm/>,
+        path:"/accessoriesForm",
+        title:"routes.accessoriesForm",
+        access:menues.accessoriesForm,
+      },
+      icon: <IoIcons.IoIosPaper />,
+      cName: 'sub-nav'
+    },
     {
       title: 'routes.inventoryGroup',
       path:'/inventoryGroup',

@@ -61,6 +61,14 @@
   warrantyCancelationForm:100098,
   inventoryGroup:100099,
   inventoryGroupForm:100100,
+  techAbility:100101,
+  techAbilityForm:100102,
+  product:100103,
+  productForm:100104,
+  productGroup:100105,
+  productGroupForm:100106,
+  accessories:100107,
+  accessoriesForm:100108,
 
 
 

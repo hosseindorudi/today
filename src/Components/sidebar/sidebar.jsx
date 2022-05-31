@@ -35,7 +35,8 @@ const Sidebar = () => {
               title: prop.title,
               path: prop.path,
               component:prop.component,
-              icon: prop.icon
+              icon: prop.icon,
+              access: prop.access
             }
           
             setFoundMenues(prevState=>[...prevState,obj])
