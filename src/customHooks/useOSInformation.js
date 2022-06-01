@@ -13,6 +13,7 @@ const useOsInformation = () => {
     useEffect(()=> {
 
         const getData = async()=>{
+           
             const res = await axios.get('https://geolocation-db.com/json/')
             setOsInfo({
                 ip:res.data.IPv4,
@@ -20,11 +21,24 @@ const useOsInformation = () => {
                 browser:Platform.Browser
             })
         }
-
+        const getLocation = () => {
+            if (!navigator.geolocation) {
+             console.log('Geolocation is not supported by your browser');
+            } else {
+              console.log('Locating...');
+              navigator.geolocation.getCurrentPosition((position) => {
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+              }, () => {
+                console.log('Unable to retrieve your location');
+              });
+            }
+          }
         
        
 
         getData();
+        getLocation();
 
         
 

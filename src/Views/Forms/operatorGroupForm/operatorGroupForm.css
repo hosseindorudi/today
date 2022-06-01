@@ -127,16 +127,58 @@
     justify-content: center;
     margin-top: 2px;
     align-items: center;
+    width: 40%;
+}
+.OperatorGroupFormform .accordionBody{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .OperatorGroupFormform .ipTextFields>input{
-    width: 20%;
+    width: 100%;
     margin: 5px;
     text-align: center;
 }
+.OperatorGroupFormform .browserSelects{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2px;
+    align-items: center;
+    width: 40%;
+
+}
+.radiousSelect{
+    margin: 5px;
+}
+.OperatorGroupFormform .locations{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2px;
+    align-items: center;
+    width: 40%;
+}
+.OperatorGroupFormform .locations>input{
+    margin: 5px;
+    text-align: center;
+}
+.browserSelects .form-select{
+    width: 50%;
+    text-align: center;
+}
+
+.OperatorGroupFormform hr{
+    color: black;
+    height: 1px;
+    width: 50%;
+}
 .OperatorGroupFormform .addBtn{
+    width: 50%;
     /* margin-inline: 10%; */
     display: flex;
-    justify-content:space-around;
+    justify-content:space-between;
 }
 .OperatorGroupFormInputDesc {
     margin: 3px 0;

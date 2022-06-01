@@ -173,5 +173,9 @@
   "OperatorGroup.switch":"فعال/غیر فعال",
   "operatorGroup.ip":"آی پی",
   "ip.till":"تا",
-  "ip.from":"از"
+  "ip.from":"از",
+  "operatorGroup.browser":"مرورگر",
+  "operatorGroup.locations":"موقعیت",
+  "radious":"شعاع",
+  "fromTime":"از ساعت"
 }

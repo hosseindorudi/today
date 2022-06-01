@@ -1,11 +1,11 @@
 import React from 'react'
 import './opratorDashboard.css'
 import {useState} from 'react'
-import Modal from './modal/Modal'
+// import Modal from './modal/Modal'
 import useOsInformation from '../../customHooks/useOSInformation'
 
 const OperatorDashboard = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
 
   const { ip, os, browser } = useOsInformation();
@@ -259,9 +259,9 @@ const OperatorDashboard = () => {
           </div>
           
           
-          <button className='opratorDashNotePlusBTN' onClick={() => setIsOpen(true)}><i class="fa fa-plus" aria-hidden="true"></i></button>
+          <button className='opratorDashNotePlusBTN' ><i class="fa fa-plus" aria-hidden="true"></i></button>
       </div>
-      {isOpen && <Modal setIsOpen={setIsOpen} />}
+      {/* {isOpen && <Modal setIsOpen={setIsOpen} />} */}
       <div className="opratorDashAlert">
       <h3>لیست پیام ها</h3>
       <table className='opratorDashActivityTable'>
