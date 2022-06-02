@@ -11,9 +11,14 @@
     
     height: 650px;
     width: 600px;
-    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    border: 1px solid lightgray;
+    border-radius: 5px;
 }
+.OperatorGroupFormform .switch{
+    display: flex;
+    flex-direction: row;
+}
+
 
 .OperatorFormTitle {
     margin-bottom: 20px;
@@ -25,7 +30,7 @@
     flex-direction: column;    
 }
 
-.switch-holder {
+.switch-holderOperator {
     display: flex;
     padding: 10px 20px;
     border-radius: 10px;
@@ -43,17 +48,17 @@
 
 
 
-.switch-toggle {
+.switch-toggleOperator {
     height: 40px;
 }
 
-.switch-toggle input[type="checkbox"] {
+.switch-toggleOperator input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     z-index: -2;
 }
 
-.switch-toggle input[type="checkbox"] + label {
+.switch-toggleOperator input[type="checkbox"] + label {
     position: relative;
     display: inline-block;
     width: 150px;
@@ -66,7 +71,7 @@
     
 }
 
-.switch-toggle input[type="checkbox"] + label::before {
+.switch-toggleOperator input[type="checkbox"] + label::before {
     position: absolute;
     content: 'OFF';
     font-size: 12px;
@@ -83,7 +88,7 @@
     transition: .3s ease-in-out;
 }
 
-.switch-toggle input[type="checkbox"]:checked + label::before {
+.switch-toggleOperator input[type="checkbox"]:checked + label::before {
     left: 50%;
     content: 'ON';
     color: #fff;
@@ -174,14 +179,14 @@
     background: #006bb3;
   }
 
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
+  #OperatorFormInputPhone1::-webkit-outer-spin-button,
+  #OperatorFormInputPhone1::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
   
   /* Firefox */
-  input[type=number] {
+  #OperatorFormInputPhone1[type=number] {
     -moz-appearance: textfield;
   }
 

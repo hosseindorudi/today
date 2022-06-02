@@ -239,3 +239,9 @@
       display: flex;
       justify-content: center;
   }
+  .datePickerGroup{
+    direction: ltr;
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+  }

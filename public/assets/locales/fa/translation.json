@@ -177,5 +177,7 @@
   "operatorGroup.browser":"مرورگر",
   "operatorGroup.locations":"موقعیت",
   "radious":"شعاع",
-  "fromTime":"از ساعت"
+  "fromTime":"از ساعت",
+  "startDate":"تاریخ شروع",
+  "endDate":"تاریخ پایان"
 }

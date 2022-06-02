@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import AppContext from '../../../contexts/AppContext';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { Form } from 'react-bootstrap';
 
 
 const Operator = () => {
@@ -21,12 +22,13 @@ const Operator = () => {
     <div className="OperatorFormMainDiv">
       
       <form action='' className='OperatorFormform' >
-            <div class="switch-holder">
-              <div class="switch-toggle">
-                  <input type="checkbox" id="bluetooth"/>
-                  <label for="bluetooth"></label>
-              </div>
-            </div>
+      <div class="switch">
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              label={t("OperatorGroup.switch")}
+            />
+          </div>
             <div className="inputDiv">
               <label htmlFor="OperatorFormInputTitle1">{t("operatorSelector")}</label>
                 <select className="OperatorFormInputTitle" id='OperatorFormInputTitle1'>
@@ -50,25 +52,31 @@ const Operator = () => {
             <div className="inputDiv">
                 <label id="OperatorFormInputExp1">{t("operatorDatePick")}</label>
                 {currentLang.app.lang === 'fa' ?(
+                  <div style={{direction: "ltr"}}>
                     <LocalizationProvider dateAdapter={AdapterJalali}>
                         <DatePicker
+                        label="تاریخ شروع"
                         mask="____/__/__"
                         value={operatorDateExp}
-                        onChange={(newValue) => {setOperatorDateExp(newValue); console.log(newValue)}}
+                        onChange={(newValue) => {setOperatorDateExp(newValue)}}
                         renderInput={(params) => <TextField {...params} />}
                         />
                     </LocalizationProvider>  
 
-
-                ) : (<LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DesktopDatePicker
-                            
-                            inputFormat="MM/dd/yyyy"
-                            value={operatorDateExp}
-                            onChange={(newValue) => {setOperatorDateExp(newValue); console.log(newValue)}}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
-                      </LocalizationProvider>
+                    </div>
+                ) : 
+                (<div style={{direction: "ltr"}}>
+                
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DesktopDatePicker
+                          
+                          inputFormat="MM/dd/yyyy"
+                          value={operatorDateExp}
+                          onChange={(newValue) => {setOperatorDateExp(newValue); console.log(newValue)}}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                  </LocalizationProvider>
+                      </div>
                   )}
                            
               </div>

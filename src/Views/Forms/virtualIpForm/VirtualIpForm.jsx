@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next'
 import './virtualIpForm.css'
 
 
 const VirtualIpForm = () => {
 
-   
+    
 
     const {t} = useTranslation();
 
@@ -15,12 +16,12 @@ const VirtualIpForm = () => {
     <div className="OperatorVitualIpFormMainDivIP">
       
       <form action='' className='OperatorVitualIpFormformIP' >
-          <div class="switch-holderIP">
-              
-              <div class="switch-toggleIP">
-                  <input type="checkbox" id="bluetoothIP"/>
-                  <label for="bluetoothIP"></label>
-              </div>
+      <div class="switch">
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              label={t("OperatorGroup.switch")}
+            />
           </div>
           <div className="inputDivIP">
               <label htmlFor="OperatorVitualIpFormInputTitle1IP">{t("validIPAddressTitle")}</label>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "./operatorGroupForm.css";
 import { useTranslation } from "react-i18next";
 import { Accordion, Button, Form } from "react-bootstrap";
@@ -9,10 +9,12 @@ import { browser, radius } from "../../../data/constants";
 import MapModal from "../../../Components/GoogleMap/MapModal";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from "@mui/x-date-pickers";
 import AdapterJalali from '@date-io/date-fns-jalali';
+import AppContext from "../../../contexts/AppContext";
 const OperatorGroupForm = () => {
+  const {app} = useContext(AppContext)
   const title=useRef()
   const description=useRef()
   const [ips, setIps] = useState([]);
@@ -104,6 +106,7 @@ const OperatorGroupForm = () => {
     console.log(title.current.value,description.current.value,ips,browsers,locations,maxSession,fromDate,endDate)
 
   }
+
   return (
     <div className="OperatorGroupForm">
       <h5 className="OperatorGroupFormTitle">{t("operatorGroupFormHeader")}</h5>
@@ -250,11 +253,13 @@ const OperatorGroupForm = () => {
                     </Form.Group>
                   </div>
                   <hr />
-                  <div style={{ direction: "ltr" }}>
-                    <LocalizationProvider dateAdapter={AdapterJalali}>
+                  <div className="datePickerGroup" >
+                   
+                    <LocalizationProvider dateAdapter={app.lang==="fa"?AdapterJalali:AdapterDateFns}>
+                    <div>
                       <DatePicker
                         mask="____/__/__"
-                        label="تاریخ شروع"
+                        label={t("startDate")}
                         value={fromDate}
                         onChange={(newValue) => {
                           setFromDate(newValue);
@@ -267,6 +272,7 @@ const OperatorGroupForm = () => {
                         }}
                         renderInput={(params) => (
                           <TextField
+                          
                             {...params}
                             inputProps={{
                               ...params.inputProps,
@@ -274,11 +280,12 @@ const OperatorGroupForm = () => {
                           />
                         )}
                       />
-                    </LocalizationProvider>
-                    <LocalizationProvider dateAdapter={AdapterJalali}>
+                    
+                    </div>
+                    <div>
                       <DatePicker
                         mask="____/__/__"
-                        label="تاریخ پایان"
+                        label={t("endDate")}
                         value={endDate}
                         onChange={(newValue) => {
                           setEndDate(newValue);
@@ -298,6 +305,7 @@ const OperatorGroupForm = () => {
                           />
                         )}
                       />
+                      </div>
                     </LocalizationProvider>
                   </div>
                 </Accordion.Body>

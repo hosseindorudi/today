@@ -15,7 +15,9 @@
     margin: 10px auto;
 }
 
-
+.parentOfModal{
+    position: relative;
+}
 
 .operatorDashboardInformation {
     flex: 1;
