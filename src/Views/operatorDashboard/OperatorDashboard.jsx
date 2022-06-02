@@ -31,6 +31,11 @@ const OperatorDashboard = () => {
           </div>
           <hr />
           <div className="dashInformationDiv">
+              <span>35.1,51.36</span>
+              <span>:GeoLocation</span>
+          </div>
+          <hr />
+          <div className="dashInformationDiv">
               <span>حسین درودی</span>
               <span>:Operator</span>
           </div>

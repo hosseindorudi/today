@@ -1,0 +1,59 @@
+.formInput{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.inputPeriority{
+    padding: 15px;
+    margin: 10px 0px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+.inputPeriority:hover {
+    border: 1px solid #006bb3;
+}
+
+
+
+
+.formInputsLabel{
+    font-size: 15px;
+    color: gray;
+}
+
+.formInputSpan{
+    font-size: 12px;
+    padding: 3px;
+    color: red;
+    display: none;
+}
+
+.inputPeriority:invalid[focused="true"]{
+    border: 1px solid red;
+    outline: none;
+}
+.inputPeriority:focus {
+    border: 1px solid #006bb3;
+    outline: none;
+}
+
+.inputPeriority:invalid[focused="true"] ~ span{
+    display: block;
+}
+
+.inputPeriority:valid[focused="true"]{
+    border: 1px solid green;
+}
+
+.inputPeriorityDesc {
+    height: 120px;
+    resize: none;
+}
+
+.inputPeriorityColor {
+    width: 100%;
+    display: block;
+    align-self: center;
+}
