@@ -3,10 +3,10 @@ import './opratorDashboard.css'
 import {useState} from 'react'
 import Modal from './modal/Modal'
 import useOsInformation from '../../customHooks/useOSInformation'
-
+import useGeoLocation from "../../customHooks/useGeoLocation";
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const location = useGeoLocation();
 
   const { ip, os, browser } = useOsInformation();
 
@@ -31,7 +31,7 @@ const OperatorDashboard = () => {
           </div>
           <hr />
           <div className="dashInformationDiv">
-              <span>35.1,51.36</span>
+              <span>{location.loaded?<>{`${location.coordinates.lat},${location.coordinates.lng}`}</> :"not supported"}</span>
               <span>:GeoLocation</span>
           </div>
           <hr />

@@ -14,6 +14,7 @@ import { AuthProvider } from "./contexts/AuthProvider";
 import RequireAuth from "./Components/RequireAuth";
 
 function App() {
+  
   const search = useLocation().search;
   const typeOfUser = new URLSearchParams(search).get("type");
   const [app, setApp] = useState({
