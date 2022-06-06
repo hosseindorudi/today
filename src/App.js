@@ -27,6 +27,7 @@ function App() {
   const currentLanguageCode = localStorage.getItem("i18nextLng") || "fa";
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
   useEffect(() => {
+    localStorage.setItem("token","sdas")
     document.body.dir = currentLanguage.dir || "ltr";
     document.documentElement.setAttribute("lang", currentLanguage.code);
     setApp((prev) => ({
