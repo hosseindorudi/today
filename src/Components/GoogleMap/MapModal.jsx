@@ -1,6 +1,6 @@
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal'
-import MapIr from './Map';
+// import MapIr from './Map';
 function MapModal(props) {
     return (
       <Modal
@@ -10,7 +10,7 @@ function MapModal(props) {
         centered
       >
         <Modal.Body>
-         <MapIr/>
+         {/* <MapIr/> */}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
