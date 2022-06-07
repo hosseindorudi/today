@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import React,{ useRef,useState } from 'react'
 import { Form } from 'react-bootstrap';
-import FormInput from './formInput/FormInput';
+import FormInput from '../../../Components/periodity/formInput/FormInput';
 
 import './phoneDefect.css'
 const PhoneDefects = () => {
