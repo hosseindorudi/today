@@ -118,7 +118,9 @@ left: unset;
 }
 .logo >img{
   border-radius: 10px;
-  width: 50%;
+  
+  width: 40%;
+  height: 90px;
 }
 .DropdownLink:active {
     background-color: #3a3b3a;

@@ -5,7 +5,7 @@ import PatternLock from './patternLock/PatternLock';
 import { useEffect, useRef, useState, useContext } from 'react';
 import SignaturePad from "./signaturePad/src/index";
 import QRCode from "react-qr-code";
-import AppContext from '../../../contexts/AppContext';
+import AppContext from '../../../../contexts/AppContext';
 
 import TextField from '@mui/material/TextField';
 import AdapterJalali from '@date-io/date-fns-jalali';

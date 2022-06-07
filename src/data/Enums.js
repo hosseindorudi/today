@@ -69,7 +69,24 @@
   productGroupForm:100106,
   accessories:100107,
   accessoriesForm:100108,
-
+  workFlow:100109,
+  acceptDelivery:200001,
+  acceptDeliveryForm:200002,
+  changing:200003,
+  changingForm:200004,
+  sent:200005,
+  sentForm:200006,
+  archive:200007,
+  serviceQcEntry:200008,
+  serviceQcEntryForm:200009,
+  serviceAllocation:200010,
+  serviceAllocationForm:200011,
+  serviceTechnician:200012,
+  serviceTechnicianForm:200013,
+  serviceQcExit:200014,
+  serviceQcExitForm:200015,
+  serviceDelivery:200016,
+  serviceDeliveryForm:200017,
 
 
   //main

@@ -2,6 +2,22 @@ import React, { lazy } from 'react';
 import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
 import { menues } from './data/Enums';
+const Delivery=lazy(()=>import("./Views/Forms/service/delivery/Delivery"))
+const DeliveryForm=lazy(()=>import("./Views/Forms/service/delivery/DeliveryForm"))
+const TechnicianForm=lazy(()=>import("./Views/Forms/service/technecian/TechnicianForm"))
+const Technician=lazy(()=>import("./Views/Forms/service/technecian/Technician"))
+const Allocation=lazy(()=>import("./Views/Forms/service/alocation/Allocation"))
+const AllocationForm=lazy(()=>import("./Views/Forms/service/alocation/AllocationForm"))
+const QcEntry=lazy(()=>import("./Views/Forms/service/QCEntry/Qc"))
+const QcFormEntry=lazy(()=>import("./Views/Forms/service/QCEntry/QcForm"))
+const Archive=lazy(()=>import("./Views/Forms/service/archive/Archive"))
+const Sent=lazy(()=>import("./Views/Forms/service/sent/Sent"))
+const Change=lazy(()=>import("./Views/Forms/service/change/Change"))
+const ChangeForm=lazy(()=>import("./Views/Forms/service/change/ChangeForm"))
+const SentForm=lazy(()=>import("./Views/Forms/service/sent/SentForm"))
+const AcceptDelivery=lazy(()=>import("./Views/Forms/service/acceptDelivery/AcceptDelivery"))
+const AcceptDeliveryForm=lazy(()=>import("./Views/Forms/service/acceptDelivery/AcceptDeliveryForm"))
+const WorkFlow=lazy(()=>import("./Views/Forms/service/workFlow/WorkFlow"))
 const Accessories=lazy(()=>import("./Views/Forms/accessories/Accessories"))
 const AccessoriesForm=lazy(()=>import("./Views/Forms/accessories/AccessoriesForm"))
 const ProductGroupForm=lazy(()=>import("./Views/Forms/productGroup/ProductGroupForm"))
@@ -51,8 +67,8 @@ const Attacks=lazy(()=>import('./Views/Forms/attacks/Attacks'))
 const Incident=lazy(()=>import('./Views/Forms/incident/Incident'))
 const FailedLogin=lazy(()=>import('./Views/Forms/loginlogs/FailedLogin'))
 const SuccessLogin=lazy(()=>import('./Views/Forms/loginlogs/SuccessLogin'))
-const Admission=lazy(()=>import('./Views/Forms/admission/Admission'))
-const AdmissionForm=lazy(()=>import('./Views/Forms/admission/AdmissionForm'))
+const Admission=lazy(()=>import('./Views/Forms/service/admission/Admission'))
+const AdmissionForm=lazy(()=>import('./Views/Forms/service/admission/AdmissionForm'))
 const CheckList=lazy(()=>import('./Views/Forms/checkLists/Qc'))
 const CheckListForm=lazy(()=>import('./Views/Forms/checkLists/QcForm'))
 const PhoneDefects=lazy(()=>import('./Views/Forms/phoneDefects/PhoneDefects'))
@@ -250,6 +266,14 @@ export const Routes = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
       {
+        title: 'routes.workFlow',
+        path:'/workFlow',
+        access:menues.workFlow,
+        Component:<WorkFlow/>,
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
         title: 'routes.admission',
         path:'/admission',
         access:menues.admission,
@@ -260,6 +284,126 @@ export const Routes = [
           title:"routes.admissionForm",
           access:menues.admissionForm,
         },
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'routes.service.QcEntry',
+        path:'/service.QcEntry',
+        access:menues.serviceQcEntry,
+        Component:<QcEntry/>,
+        button:{
+          Component:<QcFormEntry/>,
+          path:"/service.QcEntryForm",
+          title:"routes.service.QcEntryForm",
+          access:menues.serviceQcEntryForm,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'routes.service.allocation',
+        path:'/service.allocation',
+        access:menues.serviceAllocation,
+        Component:<Allocation/>,
+        button:{
+          Component:<AllocationForm/>,
+          path:"/service.allocationForm",
+          title:"routes.service.allocationForm",
+          access:menues.serviceAllocationForm,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'routes.service.technician',
+        path:'/service.technician',
+        access:menues.serviceTechnician,
+        Component:<Technician/>,
+        button:{
+          Component:<TechnicianForm/>,
+          path:"/service.technicianForm",
+          title:"routes.service.technicianForm",
+          access:menues.serviceTechnicianForm,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'routes.service.qcExit',
+        path:'/service.qcExit',
+        access:menues.serviceQcExit,
+        Component:<Technician/>,
+        button:{
+          Component:<TechnicianForm/>,
+          path:"/service.qcExitForm",
+          title:'routes.service.qcExitForm',
+          access:menues.serviceQcExitForm,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'routes.service.delivery',
+        path:'/service.delivery',
+        access:menues.serviceDelivery,
+        Component:<Delivery/>,
+        button:{
+          Component:<DeliveryForm/>,
+          path:"/service.serviceDeliveryForm",
+          title:'routes.service.deliveryForm',
+          access:menues.serviceDeliveryForm,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'routes.acceptDelivery',
+        path:'/acceptDelivery',
+        access:menues.acceptDelivery,
+        Component:<AcceptDelivery/>,
+        button:{
+          Component:<AcceptDeliveryForm/>,
+          path:"/acceptDeliveryForm",
+          title:"routes.acceptDeliveryForm",
+          access:menues.acceptDeliveryForm,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'routes.changing',
+        path:'/changing',
+        access:menues.changing,
+        Component:<Change/>,
+        button:{
+          Component:<ChangeForm/>,
+          path:"/changingForm",
+          title:"routes.changingForm",
+          access:menues.changingForm,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'routes.sent',
+        path:'/sent',
+        access:menues.sent,
+        Component:<Sent/>,
+        button:{
+          Component:<SentForm/>,
+          path:"/sentForm",
+          title:"routes.sentForm",
+          access:menues.sentForm,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'routes.archive',
+        path:'/archive',
+        access:menues.archive,
+        Component:<Archive/>,
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },

@@ -1,25 +1,8 @@
 import React from "react";
-// import "./admission.css";
-import './main.scss';
-import CircularMenu from './CircularMenu';
+
 const Admission = () => {
   return (
-    <div className="page-container">
-    <CircularMenu
-       pages={
-         [
-           ["About", "#3E84E6"],
-           ["Contact", "#15AB88"],
-           ["Portfolio", "#eb5089"],
-           ["LinkedIn", "#AFD91A"],
-           ["Dribbble", "#F27127"],
-           ["Facebook", "#07C7F2"],
-           ["Twitter", "#9768D1"],
-           ["Instagram", "#F2B705"],
-         ]
-       }
-    />
-   </div>
+  <div></div>
 //     <div>
 
       
