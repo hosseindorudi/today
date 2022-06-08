@@ -66,7 +66,7 @@ const SubMenu = ({ item, search }) => {
           (item, index) =>
             item.button
               ? role.includes(item.access) && (
-                  <div className="sidebarWithBtn">
+                  <div className="sidebarWithBtn" key={index}>
                     <button
                       className="DropdownLinkBtn"
                       key={index}

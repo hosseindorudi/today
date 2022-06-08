@@ -8,9 +8,9 @@ import Language from "../Components/navbar/language";
 import { toast } from "react-toastify";
 import "./Auth.css";
 import useAxios from "../customHooks/useAxios";
-import useOsInformation from "../customHooks/useOSInformation";
 import AppContext from "../contexts/AppContext";
 import useRequest from '../customHooks/useRequest'
+import {login} from '../services/authService'
 const Auth = () => {
   const [response, error, loading, fetchData] = useAxios();
 
@@ -21,7 +21,6 @@ const Auth = () => {
   const navigate = useNavigate();
   const username = useRef();
   const password = useRef();
-  const loginURL = "/Operator/Authentication/Login";
   const { t } = useTranslation();
   const radioTypes = ["operator", "agent"];
   const [radioType, setRadioType] = useState("");
@@ -41,7 +40,7 @@ const Auth = () => {
       });
     fetchData({
       method: "POST",
-      url: loginURL,
+      url: login,
       headers: {
         accept: "*/*",
       },

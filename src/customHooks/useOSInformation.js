@@ -20,13 +20,12 @@ const useOsInformation = () => {
                 os:Platform.OS,
                 browser:Platform.Browser
             })
+            console.log("useOs")
         }
         getData();
 
         
-
-
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return osInfo ;

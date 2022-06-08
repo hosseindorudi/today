@@ -1,0 +1,137 @@
+.tableModalParebt {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+}
+
+.tableModalContainer {
+    width: 700px;
+    height: 700px;
+    background-color: #fff;
+    color: white;
+    z-index: 15;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    position: relative;
+}
+
+.tableModalHeader {
+    height: 50px;
+    background: white;
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.tableModalHeading{
+    margin: 0;
+    padding: 10px;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+}
+
+.closeBtn {
+    cursor: pointer;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 18px;
+    color: #2c3e50;
+    background: white;
+    transition: all 0.25s ease;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.06);
+    position: absolute;
+    right: 0;
+    top: 0;
+    align-self: flex-end;
+    margin-top: -7px;
+    margin-right: -7px;
+  }
+  
+  .closeBtn:hover {
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    transform: translate(-4px, 4px);
+  }
+  .tableModalContent {
+      height: 500px;
+      width: 100%;
+      padding: 5px;
+  }
+
+  .tableModalForm{
+      width: 100%;
+      height: 100%;
+  }
+
+  .tableModalFormDiv {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      overflow-y: scroll;
+      height: 100%;
+  }
+
+
+  .formTableInputs {
+    margin: 3px auto;
+    margin-top: 2px;
+    margin-bottom: 13px;
+    height: 40px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.formTableInputs:hover {
+    border: 1px solid black;
+}
+
+.formTableInputs:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+.submitBTNDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.tableModalSumitBtn {
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 11px 28px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: none;
+    color: #fff;
+    background: #54ff3e;
+    transition: all 0.25s ease;
+  }
+  
+  .tableModalSumitBtn:hover {
+    box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+    transform: translateY(-5px);
+    background: #3effa5;
+  }
+
+  .tableModalLabel{
+      color: black;
+      margin-inline-start: 100px;
+  }

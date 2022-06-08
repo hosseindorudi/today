@@ -13,8 +13,9 @@ import TabContextProvider from "./contexts/TabContextProvider";
 import { AuthProvider } from "./contexts/AuthProvider";
 import RequireAuth from "./Components/RequireAuth";
 
+import OsInformationProvider from "./contexts/OsInformationProvider";
+
 function App() {
- 
   const search = useLocation().search;
   const typeOfUser = new URLSearchParams(search).get("type");
   const [app, setApp] = useState({
@@ -27,7 +28,6 @@ function App() {
   const currentLanguageCode = localStorage.getItem("i18nextLng") || "fa";
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
   useEffect(() => {
-    localStorage.setItem("token","sdas")
     document.body.dir = currentLanguage.dir || "ltr";
     document.documentElement.setAttribute("lang", currentLanguage.code);
     setApp((prev) => ({
@@ -48,6 +48,7 @@ function App() {
       <AuthProvider>
       <AppContext.Provider value={{ app, setApp }}>
         <TabContextProvider>
+        <OsInformationProvider>
 
         <Routes>
           <Route path="/auth" element={<Auth />} />
@@ -57,6 +58,7 @@ function App() {
           <Route path="*" element={<Pagenotfound />} />
         </Routes>
         <ToastContainer rtl={currentLanguage.dir ? true : false} />
+        </OsInformationProvider>
         </TabContextProvider>
       </AppContext.Provider>
       </AuthProvider>
