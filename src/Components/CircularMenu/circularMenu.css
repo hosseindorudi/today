@@ -34,7 +34,7 @@
   }
   
   .menu-button {
-    background-image: url(../../assets/imgs/logo.png);
+    /* background-image: url(../../assets/imgs/logo.png); */
     /* background-color: #290366; */
     transform: scale(1.01);
     z-index: 100;

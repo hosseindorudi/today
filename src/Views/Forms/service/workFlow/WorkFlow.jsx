@@ -45,7 +45,6 @@ const WorkFlow = () => {
     {
       title: 'routes.admission',
       path:'/admission',
-      no:2,
       color: "silver",
       Component:<Admission/>,
       button:{

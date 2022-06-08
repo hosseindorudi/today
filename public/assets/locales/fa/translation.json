@@ -17,6 +17,7 @@
   "Messages":"پیام ها",
   "Support":"پشتیبانی",
   "User":"نام کاربری",
+  
   "login.password":"رمز عبور:",
   "signIn":"وارد شدن",
   "btn.signIn":"ورود",
@@ -117,7 +118,7 @@
   "routes.representative":"نماینده",
   "routes.representativeForm":"فرم نماینده",
   "routes.services":"خدمات پس از فروش",
-  "routes.admission":"پذیرش",
+  "routes.admission":"پذیرش شده",
   "routes.admissionForm":"فرم پذیرش",
   "routes.basicDefinations":"تعاریف پایه",
   "routes.entryCheckList":"چک لیست ورودی",

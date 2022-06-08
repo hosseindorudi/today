@@ -1,32 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './opratorDashboard.css'
 import {useState} from 'react'
 import Modal from './modal/Modal'
-import useOsInformation from '../../customHooks/useOSInformation'
 import useGeoLocation from "../../customHooks/useGeoLocation";
+import { OsContext } from '../../contexts/OsInformationProvider'
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useGeoLocation();
-
-  const { ip, os, browser } = useOsInformation();
+  const {os} = useContext(OsContext)
 
   return (
     <div className="mainOperatorDash">
       <div className="firstOperatorColumn">
         <div className="operatorDashboardInformation">
           <div className="dashInformationDiv">
-              <span>{ip}</span>
+              <span>{os.ip}</span>
               <span>:IP</span>
           </div>
           <hr />
           <div className="dashInformationDiv">
           {/* {Platform.OSVersion} */}
-              <span>{os}</span>
+              <span>{os.os}</span>
               <span>:OS</span>
           </div>
           <hr />
           <div className="dashInformationDiv">
-              <span>{browser}</span>
+              <span>{os.browser}</span>
               <span>:Browser</span>
           </div>
           <hr />
