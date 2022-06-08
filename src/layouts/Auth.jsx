@@ -10,13 +10,13 @@ import "./Auth.css";
 import useAxios from "../customHooks/useAxios";
 import useOsInformation from "../customHooks/useOSInformation";
 import AppContext from "../contexts/AppContext";
-
+import useRequest from '../customHooks/useRequest'
 const Auth = () => {
   const [response, error, loading, fetchData] = useAxios();
 
   const location = useLocation();
+  const request=useRequest()
   const from = location.state?.from?.pathname || "/";
-  const { ip, os, browser } = useOsInformation();
   const { app } = useContext(AppContext);
   const navigate = useNavigate();
   const username = useRef();
@@ -46,11 +46,7 @@ const Auth = () => {
         accept: "*/*",
       },
       data: {
-        language: app.langCode,
-        os: os,
-        browser: browser,
-        ip: ip,
-        token: "",
+        request:request,
         username: username.current.value,
         password: password.current.value,
         isOperator: radioType === "operator" ? true : false,
