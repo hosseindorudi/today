@@ -1,0 +1,141 @@
+.tableModalParebtPost {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+}
+
+.tableModalContainerPost {
+    width: 700px;
+    height: 300px;
+    background-color: #fff;
+    color: white;
+    z-index: 15;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    position: relative;
+}
+
+.tableModalHeaderPost {
+    height: 50px;
+    background: white;
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.tableModalHeadingPost{
+    margin: 0;
+    padding: 10px;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+}
+
+.closeBtnPost {
+    cursor: pointer;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 18px;
+    color: #2c3e50;
+    background: white;
+    transition: all 0.25s ease;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.06);
+    position: absolute;
+    right: 0;
+    top: 0;
+    align-self: flex-end;
+    margin-top: -7px;
+    margin-right: -7px;
+  }
+  
+  .closeBtnPost:hover {
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    transform: translate(-4px, 4px);
+  }
+  .tableModalContentPost {
+      height: 500px;
+      width: 100%;
+      padding: 5px;
+  }
+
+  .tableModalFormPost{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .tableModalFormDivPost {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      overflow-y: scroll;
+      height: 100%;
+  }
+
+
+.divForInputs {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.finalDivinput > label {
+    color: #000;
+}
+
+.finalDivinput {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 250px;
+}
+
+.submitBTNDivPost {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.tablePostModalSumitBtnModalSubmit {
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 11px 28px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: none;
+    color: #fff;
+    background: rgb(195, 0, 255);
+    transition: all 0.25s ease;
+  }
+  
+  .tablePostModalSumitBtnModalSubmit:hover {
+    box-shadow: 0 10px 20px -10px rgba(136, 62, 255, 0.6);
+    transform: translateY(-5px);
+    background: rgb(195, 0, 255);
+  }
+
+  .H1Postmodal {
+      color: #000;
+  }
+

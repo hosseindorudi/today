@@ -32,10 +32,10 @@ const WorkFlow = () => {
       title: 'routes.service.QcEntry',
       path:'/service.QcEntry',
       no:1,
-      Component:<QcEntry/>,
+      Component:<QcFormEntry/>,
       color: "purple",
       button:{
-        Component:<QcFormEntry/>,
+        Component:<QcEntry/>,
         path:"/service.QcEntryForm",
         title:"routes.service.QcEntryForm",
       
@@ -85,9 +85,9 @@ const WorkFlow = () => {
       path:'/service.qcExit',
       no:6,
       color: "yellowgreen",
-      Component:<QcExit/>,
+      Component:<QcExitForm/>,
       button:{
-        Component:<QcExitForm/>,
+        Component:<QcExit/>,
         path:"/service.qcExitForm",
         title:'routes.service.qcExitForm',
       
@@ -112,6 +112,7 @@ const WorkFlow = () => {
       title: 'routes.acceptDelivery',
       path:'/acceptDelivery',
       Component:<AcceptDelivery/>,
+      color:"success",
       button:{
         Component:<AcceptDeliveryForm/>,
         path:"/acceptDeliveryForm",
@@ -122,6 +123,7 @@ const WorkFlow = () => {
     {
       title: 'routes.changing',
       path:'/changing',
+      color:"warning",
       Component:<Change/>,
       button:{
         Component:<ChangeForm/>,
@@ -132,6 +134,7 @@ const WorkFlow = () => {
     {
       title: 'routes.sent',
       path:'/sent',
+      color:"info",
       Component:<Sent/>,
       button:{
         Component:<SentForm/>,
@@ -143,6 +146,7 @@ const WorkFlow = () => {
     {
       title: 'routes.archive',
       path:'/archive',
+      color:"primary",
       Component:<Archive/>
     },
   ];
@@ -180,7 +184,7 @@ const WorkFlow = () => {
             arrow
             placement={"top-end"}
           >
-            <Button className="btnBottomWorkFlow" variant="outline-primary" onClick={() => handleClick(i)}>{t(i.title)}</Button>
+            <Button className="btnBottomWorkFlow" variant={i.color} onClick={() => handleClick(i)}>{t(i.title)}</Button>
           </Tooltip>
         ))}
       </div>

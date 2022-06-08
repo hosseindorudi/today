@@ -1,0 +1,13 @@
+.upArrow {
+    opacity: .1;
+    display: inline-flex;
+    align-items: center;
+    margin: 0 auto;
+
+}
+
+.upArrow:hover {
+    opacity: 1;
+    background-color: rgb(173, 171, 171);
+    border-radius: 50%;
+}
