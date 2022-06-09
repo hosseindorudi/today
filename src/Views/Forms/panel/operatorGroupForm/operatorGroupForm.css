@@ -244,4 +244,9 @@
     display: flex;
     width: 50%;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .switchDate {
+      margin: 0 10px;
   }
