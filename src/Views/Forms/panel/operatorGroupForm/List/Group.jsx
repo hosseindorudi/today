@@ -10,14 +10,17 @@ import DownArrow from "./Arrows/downArrow/DownArrow";
 import TableButtons from "./TableButtons/TableButtons";
 import TableModal from "./TableModal/TableModal";
 import TableDeleteRow from "./TableDletRow/TableDeleteRow";
-import { Breadcrumb } from "react-bootstrap";
+import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
 import { groupRead } from "../../../../../services/groupService";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
-import { Backdrop } from "@mui/material";
 import { toast } from "react-toastify";
+import BackDrop from "../../../../../Components/backDrop/BackDrop";
+import { convertUTC } from "../../../../../validation/functions";
+import { t } from "i18next";
 const Group = () => {
+  const filteredColumns = ["isLimited", "id", "registrar"];
   const [response, error, loading, fetchData] = useAxios();
   const request = useRequest();
   const [columnSideBar, setColumnSideBar] = useState(false);
@@ -31,6 +34,8 @@ const Group = () => {
   const [checkAllC, setCheckAllC] = useState(true);
   const [productsColumns, setproductsColumns] = useState([]);
   const [isSorted, setIsSorted] = useState("0");
+  const abortController = new AbortController();
+
 
   const getTable = () => {
     fetchData({
@@ -40,6 +45,7 @@ const Group = () => {
         accept: "*/*",
       },
       data: request,
+      signal:abortController.signal
     });
   };
   const handleError = (message) => {
@@ -47,32 +53,31 @@ const Group = () => {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };
-
   useEffect(() => {
     getTable();
+    return ()=>abortController.abort()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     if (response) {
-       
-      response.response.result ?setData(response.record): handleError(response.message)
+      response.response.result
+        ? setData(response.record)
+        : handleError(response.response.message);
     }
     if (error) {
       handleError(error.response?.data?.title);
     }
   }, [response, error]);
-const setData=(result)=>{
-  
-    setPosts(result)
+  const setData = (result) => {
+    setPosts(result);
     setproductsColumns(
-        result[0]
-          ? Object.keys(result[0]).map((key) => {
-              return { Header: key, accessor: key, show: true };
-            })
-          : []
-      );
-}
+      result[0]
+        ? Object.keys(result[0]).map((key) => {
+            return { Header: key, accessor: key, show: true };
+          })
+        : []
+    );
+  };
   //   useEffect(() => {
   //     setproductsColumns(posts[0]
   //         ? Object.keys(posts[0])
@@ -82,15 +87,15 @@ const setData=(result)=>{
   //         : []);
   //         console.log("useeffect called")
   //   },[posts])
-//   useMemo(() => {
-//     setproductsColumns(
-//       posts[0]
-//         ? Object.keys(posts[0]).map((key) => {
-//             return { Header: key, accessor: key, show: true };
-//           })
-//         : []
-//     );
-//   }, [posts]);
+  //   useMemo(() => {
+  //     setproductsColumns(
+  //       posts[0]
+  //         ? Object.keys(posts[0]).map((key) => {
+  //             return { Header: key, accessor: key, show: true };
+  //           })
+  //         : []
+  //     );
+  //   }, [posts]);
 
   const CheckBoxChangeHandler = (columnIndex) => {
     let newArr = [...productsColumns];
@@ -110,10 +115,30 @@ const setData=(result)=>{
       setproductsColumns(arr);
     }
   };
-
+  const checkValues = (type, value,post) => {
+    switch (type) {
+      case "dateSet":
+        return convertUTC(value);
+      case "isActive":
+        return (
+          <Form.Check
+            type="switch"
+            disabled
+            checked={value}
+          />
+        );
+        case "limitFrom":
+          return post.isLimited? convertUTC(value):"-"
+          case "limitTo":
+          return post.isLimited? convertUTC(value):"-"
+      default:
+        return value;
+      
+    }
+  };
   return (
     <>
-      {loading && <Backdrop open={true} />}
+      {loading && <BackDrop open={true} />}
       {productsColumns.length > 0 && (
         <>
           {tableModalOpen && (
@@ -229,13 +254,13 @@ const setData=(result)=>{
                 <div className="reacttableParentMainRight">
                   <div className="reacttableParentMainRightUp">
                     <span className="reacttableParentMainRightUpInformation">
-                      اطلاعات
+                      {t("table.information")}
                     </span>
                     <div className="reacttableParentMainRightUpInformationDiv"></div>
                   </div>
                   <div className="reacttableParentMainRightDown">
                     <span className="reacttableParentMainRightDownToolBox">
-                      ابزار
+                      {t("table.tools")}
                     </span>
                     <div className="reacttableParentMainRightDownToolBoxDiv">
                       <div
@@ -295,7 +320,9 @@ const setData=(result)=>{
                           <tr className="MainTableTr">
                             <th className="MainTableTh"> </th>
                             {productsColumns
-                              .filter((p, i) => p["Header"] !== "id")
+                              .filter(
+                                (p, i) => !filteredColumns.includes(p["Header"])
+                              )
                               .map((column, index) => (
                                 <th
                                   className="MainTableTh"
@@ -332,7 +359,7 @@ const setData=(result)=>{
                                 />
                               </td>
                               {Object.keys(post)
-                                .filter((p, i) => p !== "id")
+                                .filter((p, i) => !filteredColumns.includes(p))
                                 .map((key, index) => {
                                   return (
                                     <td
@@ -348,7 +375,7 @@ const setData=(result)=>{
                                           : null,
                                       }}
                                     >
-                                      {post[key]}
+                                      {checkValues(key, post[key],post)}
                                     </td>
                                   );
                                 })}
@@ -432,7 +459,7 @@ const setData=(result)=>{
                   <div></div>
                 </div>
                 {productsColumns
-                  .filter((p, i) => p["Header"] !== "id")
+                  .filter((p, i) =>!filteredColumns.includes( p["Header"]))
                   .map((column, index) => (
                     <>
                       <div className="checkBoxTableParent" key={index}>
