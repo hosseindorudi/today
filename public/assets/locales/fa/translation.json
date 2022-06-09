@@ -203,5 +203,19 @@
   "menu.tech":"تکنسین",
   "menu.assign":"تخصیص",
   "menu.qcEntry":"QC ورودی",
-  "menu.admission":"پذیرش"
+  "menu.admission":"پذیرش",
+  "table.information":"اطلاعات",
+  "table.tools":"ابزار",
+  "table.groups":"دسته ها",
+  "isActive":"فعال",
+  "title":"موضوع",
+  "description":"توضیحات",
+  "maxSession":"حداکثر ورود",
+  "limitFrom":"محدودیت از",
+  "limitTo":"محدودیت تا",
+  "dateSet":"تاریخ",
+  "table.deleteTitle":"آیا مطمعن هستید؟",
+  "table.noReturn":"شما نمی توانید این را برگردانید!",
+  "sweetAlert.yes":"بله",
+  "sweetAlert.cancel":"انصراف"
 }

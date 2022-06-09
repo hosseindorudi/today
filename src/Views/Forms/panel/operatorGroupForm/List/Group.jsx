@@ -1,5 +1,6 @@
 import "./groupTable.css";
 import React, { useContext, useEffect, useMemo, useState } from "react";
+import Swal from 'sweetalert2'
 import TextField from "@mui/material/TextField";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -12,7 +13,7 @@ import TableModal from "./TableModal/TableModal";
 import TableDeleteRow from "./TableDletRow/TableDeleteRow";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
-import { groupRead } from "../../../../../services/groupService";
+import { groupDelete, groupRead } from "../../../../../services/groupService";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { toast } from "react-toastify";
@@ -30,7 +31,6 @@ const Group = () => {
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
   const [posts, setPosts] = useState([]);
-  const [tableDeleteModalOpen, setTableDeleteModalOpen] = useState(false);
   const [checkAllC, setCheckAllC] = useState(true);
   const [productsColumns, setproductsColumns] = useState([]);
   const [isSorted, setIsSorted] = useState("0");
@@ -60,6 +60,7 @@ const Group = () => {
   }, []);
   useEffect(() => {
     if (response) {
+      
       response.response.result
         ? setData(response.record)
         : handleError(response.response.message);
@@ -136,6 +137,42 @@ const Group = () => {
       
     }
   };
+  const deleteRecord=(id)=>{
+  
+    fetchData({
+      method: "POST",
+      url: groupDelete,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        request:request,
+        id:id
+      },
+      signal:abortController.signal
+    });
+  }
+  const deleteCalled=(id)=>{
+    Swal.fire({
+      title:t("table.deleteTitle"),
+      text: t("table.noReturn"),
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: t("sweetAlert.yes"),
+      cancelButtonText:t("sweetAlert.cancel")
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteRecord(id)
+        // Swal.fire(
+        //   'Deleted!',
+        //   'Your file has been deleted.',
+        //   'success'
+        // )
+      }
+    })
+  }
   return (
     <>
       {loading && <BackDrop open={true} />}
@@ -148,12 +185,7 @@ const Group = () => {
               setTableModalOpen={setTableModalOpen}
             />
           )}
-          {tableDeleteModalOpen && (
-            <TableDeleteRow
-              rowValus={rowValus}
-              setTableDeleteModalOpen={setTableDeleteModalOpen}
-            />
-          )}
+
           <div className="reacttableParent">
             <div
               className="reacttableParentRight"
@@ -288,7 +320,7 @@ const Group = () => {
                             setColumnSideBar(!columnSideBar);
                           }}
                         >
-                          دسته ها
+                          {t("table.groups")}
                         </button>
                       </div>
                       <button className="reactTableParentExportButton">
@@ -331,7 +363,7 @@ const Group = () => {
                                     display: !column["show"] ? "none" : null,
                                   }}
                                 >
-                                  {column["Header"]}
+                                  {t(column["Header"])}
                                   <button className="sortingArrowsBTN">
                                     {isSorted === "0" ? (
                                       <UpArrow />
@@ -350,8 +382,8 @@ const Group = () => {
                             <tr key={index}>
                               <td className="TableMainTd">
                                 <TableButtons
-                                  setTableDeleteModalOpen={
-                                    setTableDeleteModalOpen
+                                  deleteCalled={
+                                    deleteCalled
                                   }
                                   setRowValues={setRowValues}
                                   rowValue={post}
@@ -464,7 +496,7 @@ const Group = () => {
                     <>
                       <div className="checkBoxTableParent" key={index}>
                         <label htmlFor="todo" data-content="Get out of bed">
-                          {column["Header"]}
+                          {t(column["Header"])}
                         </label>
                         <input
                           type="checkbox"
