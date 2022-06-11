@@ -4,6 +4,16 @@ import * as RiIcons from 'react-icons/ri';
 import { menues } from './data/Enums';
 import Agent from './Views/Forms/agent/agentForm/Agent';
 import AgentForm from './Views/Forms/agent/agentForm/AgentForm';
+const AccessDefine=lazy(()=>import("./Views/Forms/definations/accessories/accessDefine/AccessDefine"))
+const AdmissionCheckDefine=lazy(()=>import("./Views/Forms/definations/admissionCheckList/admissionCheckDefine/AdmissionCheckDefine"))
+const AgentAbilityDefine=lazy(()=>import("./Views/Forms/definations/agentsAbility/agentAbilityDefine/AgentAbilityDefine"))
+const CheckListEntryFormDefine=lazy(()=>import("./Views/Forms/definations/checkLists/checkListEntry/checkListEntryForm/CheckListEntryFormDefine"))
+const CheckListExitFormDefine=lazy(()=>import("./Views/Forms/definations/checkLists/checkListExit/checkListExitFormDefine/CheckListExitFormDefine"))
+const CustomerReceivedMsgTypeDefine=lazy(()=>import("./Views/Forms/definations/customerReceivedMsgType/customerReceivedMsgTypeDefine/CustomerReceivedMsgTypeDefine"))
+const CustomerSendMsgTypeDefine=lazy(()=>import("./Views/Forms/definations/CustomerSendMsgType/CustomerSendMsgTypeDefine/CustomerSendMsgTypeDefine"))
+const ExtraServicesDefine=lazy(()=>import("./Views/Forms/definations/extraServices/extraServicesDefine/ExtraServicesDefine"))
+const InventoryGroupDefine=lazy(()=>import("./Views/Forms/definations/inventoryGroup/inventoryGroup/InventoryGroupDefine"))
+const PartRequestDefine=lazy(()=>import("./Views/Forms/definations/partRequest/partRequestDefine/PartRequestDefine"))
 const Delivery=lazy(()=>import("./Views/Forms/service/delivery/Delivery"))
 const DeliveryForm=lazy(()=>import("./Views/Forms/service/delivery/DeliveryForm"))
 const TechnicianForm=lazy(()=>import("./Views/Forms/service/technecian/TechnicianForm"))
@@ -23,42 +33,35 @@ const AcceptDelivery=lazy(()=>import("./Views/Forms/service/acceptDelivery/Accep
 const AcceptDeliveryForm=lazy(()=>import("./Views/Forms/service/acceptDelivery/AcceptDeliveryForm"))
 const WorkFlow=lazy(()=>import("./Views/Forms/service/workFlow/WorkFlow"))
 const Accessories=lazy(()=>import("./Views/Forms/definations/accessories/Accessories"))
-const AccessoriesForm=lazy(()=>import("./Views/Forms/definations/accessories/AccessoriesForm"))
-const ProductGroupForm=lazy(()=>import("./Views/Forms/definations/productGroup/ProductGroupForm"))
+const ProductGroupForm=lazy(()=>import("./Views/Forms/definations/productGroup/productGroupDefine/ProductGroupDefine"))
 const ProductGroup=lazy(()=>import("./Views/Forms/definations/productGroup/ProductGroup"))
 const Product=lazy(()=>import("./Views/Forms/definations/product/Product"))
-const ProductForm=lazy(()=>import("./Views/Forms/definations/product/ProductForm"))
-const TechAbilityForm=lazy(()=>import("./Views/Forms/definations/techAbility/TechAbilityForm"))
+const ProductForm=lazy(()=>import("./Views/Forms/definations/product/productDefine/ProductDefine"))
+const TechAbilityForm=lazy(()=>import("./Views/Forms/definations/techAbility/techAbilityDefine/TechAbilityDefine"))
 const TechAbility=lazy(()=>import("./Views/Forms/definations/techAbility/TechAbility"))
-const InventoryGroupForm=lazy(()=>import("./Views/Forms/definations/inventoryGroup/InventoryGroupForm"))
 const InventoryGroup=lazy(()=>import("./Views/Forms/definations/inventoryGroup/InventoryGroup"))
-const WarrantyCancelationForm=lazy(()=>import("./Views/Forms/definations/warrantyCancelation/WarrantyCancelationForm"))
+const WarrantyCancelationForm=lazy(()=>import("./Views/Forms/definations/warrantyCancelation/warrantyCancelationDefine/WarrantyCancelationDefine"))
 const WarrantyCancelation=lazy(()=>import("./Views/Forms/definations/warrantyCancelation/WarrantyCancelation"))
-const PartRequestForm=lazy(()=>import("./Views/Forms/definations/partRequest/PartRequestForm"))
 const PartRequest=lazy(()=>import("./Views/Forms/definations/partRequest/PartRequest"))
-const WorksDoneOnPhoneForm=lazy(()=>import("./Views/Forms/definations/worksDoneOnPhone/WorksDoneOnPhoneForm"))
+const WorksDoneOnPhoneForm=lazy(()=>import("./Views/Forms/definations/worksDoneOnPhone/worksDoneOnPhoneDefine/WorksDoneOnPhoneDefine"))
 const WorksDoneOnPhone=lazy(()=>import("./Views/Forms/definations/worksDoneOnPhone/WorksDoneOnPhone"))
 const ExtraServices=lazy(()=>import("./Views/Forms/definations/extraServices/ExtraServices"))
-const ExtraServicesForm=lazy(()=>import("./Views/Forms/definations/extraServices/ExtraServicesForm"))
 const AgentsAbility=lazy(()=>import("./Views/Forms/definations/agentsAbility/AgentsAbility"))
-const AgentsAbilityForm=lazy(()=>import("./Views/Forms/definations/agentsAbility/AgentsAbilityForm"))
+
 const SystemMsgType=lazy(()=>import("./Views/Forms/definations/systemMsgtype/SystemMsgType"))
-const SystemMsgTypeForm=lazy(()=>import("./Views/Forms/definations/systemMsgtype/SystemMsgTypeForm"))
+const SystemMsgTypeForm=lazy(()=>import("./Views/Forms/definations/systemMsgtype/systemMsgtypeDefine/SystemMsgtypeDefine"))
 const CustomerSendMsgType=lazy(()=>import("./Views/Forms/definations/CustomerSendMsgType/CustomerSendMsgType"))
-const CustomerSendMsgTypeForm=lazy(()=>import("./Views/Forms/definations/CustomerSendMsgType/CustomerSendMsgTypeForm"))
 const CustomerReceivedMsgType=lazy(()=>import("./Views/Forms/definations/customerReceivedMsgType/CustomerReceivedMsgType"))
-const CustomerReceivedMsgTypeForm=lazy(()=>import("./Views/Forms/definations/customerReceivedMsgType/CustomerReceivedMsgTypeForm"))
 const WarrantyType=lazy(()=>import("./Views/Forms/definations/warrantyType/WarrantyType"))
-const WarrantyTypeForm=lazy(()=>import("./Views/Forms/definations/warrantyType/WarrantyTypeForm"))
+const WarrantyTypeForm=lazy(()=>import("./Views/Forms/definations/warrantyType/warrantyTypeDefine/WarrantyTypeDefine"))
 const PhoneStatus=lazy(()=>import("./Views/Forms/definations/phoneStatus/PhoneStatus"))
-const PhoneStatusForm=lazy(()=>import("./Views/Forms/definations/phoneStatus/PhoneStatusForm"))
+const PhoneStatusForm=lazy(()=>import("./Views/Forms/definations/phoneStatus/phoneStatusDefine/PhoneStatusDefine"))
 const StatusAfterWork=lazy(()=>import("./Views/Forms/definations/StatusAfterWork/StatusAfterWork"))
-const StatusAfterWorkForm=lazy(()=>import("./Views/Forms/definations/StatusAfterWork/StatusAfterWorkForm"))
+const StatusAfterWorkForm=lazy(()=>import("./Views/Forms/definations/StatusAfterWork/StatusAfterWorkDefine/StatusAfterWorkDefine"))
 const StatusAfterCheck=lazy(()=>import("./Views/Forms/definations/statusAfterCheck/StatusAfterCheck"))
-const StatusAfterCheckForm=lazy(()=>import("./Views/Forms/definations/statusAfterCheck/StatusAfterCheckForm"))
+const StatusAfterCheckForm=lazy(()=>import("./Views/Forms/definations/statusAfterCheck/statusAfterCheckDefine/StatusAfterCheckDefine"))
 const AdmissionCheckList=lazy(()=>import("./Views/Forms/definations/admissionCheckList/AdmissionCheckList"))
-const AdmissionCheckListForm=lazy(()=>import("./Views/Forms/definations/admissionCheckList/AdmissionCheckListForm"))
-const PartsForm=lazy(()=>import("./Views/Forms/definations/parts/PartsForm"))
+const PartsDefine=lazy(()=>import("./Views/Forms/definations/parts/partsDefine/PartsDefine"))
 const Parts=lazy(()=>import("./Views/Forms/definations/parts/Parts"))
 const Online=lazy(()=>import('./Views/Forms/panel/online/online'))
 const agentOnline=lazy(()=>import('./Views/Forms/agent/online/online'))
@@ -83,11 +86,9 @@ const agentSuccessLogin=lazy(()=>import('./Views/Forms/agent/loginlogs/SuccessLo
 const Admission=lazy(()=>import('./Views/Forms/service/admission/Admission'))
 const AdmissionForm=lazy(()=>import('./Views/Forms/service/admission/AdmissionForm'))
 const CheckListEntry=lazy(()=>import('./Views/Forms/definations/checkLists/checkListEntry/CheckListEntry'))
-const CheckListEntryForm=lazy(()=>import('./Views/Forms/definations/checkLists/checkListEntry/CheckListEntryForm'))
 const CheckListExit=lazy(()=>import('./Views/Forms/definations/checkLists/checkListExit/CheckListExit'))
-const CheckListExitForm=lazy(()=>import('./Views/Forms/definations/checkLists/checkListExit/CheckListExitForm'))
 const PhoneDefects=lazy(()=>import('./Views/Forms/definations/phoneDefects/PhoneDefects'))
-const PhoneDefectsForm=lazy(()=>import('./Views/Forms/definations/phoneDefects/PhoneDefectsForm'))
+const PhoneDefectsForm=lazy(()=>import('./Views/Forms/definations/phoneDefects/phoneDefectDefine/PhoneDefectDefine'))
 const Pricing=lazy(()=>import('./Views/Forms/rules/pricing/Pricing'))
 const TechnicianRating=lazy(()=>import('./Views/Forms/rules/technicianRating/TechnicianRating'))
 export const Routes = [
@@ -436,7 +437,7 @@ export const Routes = [
       access:menues.entryCheckList,
       Component:<CheckListEntry/>,
       button:{
-        Component:<CheckListEntryForm />,
+        Component:<CheckListEntryFormDefine />,
         path:"/entryCheckListForm",
         title:"routes.entryCheckListForm",
         access:menues.entryCheckListForm,
@@ -450,7 +451,7 @@ export const Routes = [
       access:menues.exitCheckList,
       Component:<CheckListExit/>,
       button:{
-        Component:<CheckListExitForm/>,
+        Component:<CheckListExitFormDefine/>,
         path:"/exitCheckListForm",
         title:"routes.exitCheckListForm",
         access:menues.exitCheckListForm,
@@ -478,7 +479,7 @@ export const Routes = [
       access:menues.parts,
       Component:<Parts/>,
       button:{
-        Component:<PartsForm/>,
+        Component:<PartsDefine/>,
         path:"/partsForm",
         title:"routes.partsForm",
         access:menues.partForm,
@@ -492,7 +493,7 @@ export const Routes = [
       access:menues.admissionCheckList,
       Component:<AdmissionCheckList/>,
       button:{
-        Component:<AdmissionCheckListForm/>,
+        Component:<AdmissionCheckDefine/>,
         path:"/admissionCheckListForm",
         title:"routes.admissionCheckListForm",
         access:menues.admissionCheckListForm,
@@ -562,7 +563,7 @@ export const Routes = [
       access:menues.receivedCustomerMsgType,
       Component:<CustomerReceivedMsgType/>,
       button:{
-        Component:<CustomerReceivedMsgTypeForm/>,
+        Component:<CustomerReceivedMsgTypeDefine/>,
         path:"/receivedCustomerMsgTypeForm",
         title:"routes.receivedCustomerMsgTypeForm",
         access:menues.receivedCustomerMsgTypeForm,
@@ -576,7 +577,7 @@ export const Routes = [
       access:menues.sendCustomerMsgType,
       Component:<CustomerSendMsgType/>,
       button:{
-        Component:<CustomerSendMsgTypeForm/>,
+        Component:<CustomerSendMsgTypeDefine/>,
         path:"/sendCustomerMsgTypeForm",
         title:"routes.sendCustomerMsgTypeForm",
         access:menues.sendCustomerMsgTypeForm,
@@ -604,7 +605,7 @@ export const Routes = [
       access:menues.agentsAbility,
       Component:<AgentsAbility/>,
       button:{
-        Component:<AgentsAbilityForm/>,
+        Component:<AgentAbilityDefine/>,
         path:"/agentsAbilityForm",
         title:"routes.agentsAbilityForm",
         access:menues.agentsAbilityForm,
@@ -660,7 +661,7 @@ export const Routes = [
       access:menues.accessories,
       Component:<Accessories/>,
       button:{
-        Component:<AccessoriesForm/>,
+        Component:<AccessDefine/>,
         path:"/accessoriesForm",
         title:"routes.accessoriesForm",
         access:menues.accessoriesForm,
@@ -674,7 +675,7 @@ export const Routes = [
       access:menues.inventoryGroup,
       Component:<InventoryGroup/>,
       button:{
-        Component:<InventoryGroupForm/>,
+        Component:<InventoryGroupDefine/>,
         path:"/inventoryGroupForm",
         title:"routes.inventoryGroupForm",
         access:menues.inventoryGroupForm,
@@ -702,7 +703,7 @@ export const Routes = [
       access:menues.partRequest,
       Component:<PartRequest/>,
       button:{
-        Component:<PartRequestForm/>,
+        Component:<PartRequestDefine/>,
         path:"/partRequestForm",
         title:"routes.partRequestForm",
         access:menues.partRequestForm,
@@ -730,7 +731,7 @@ export const Routes = [
       access:menues.extraServices,
       Component:<ExtraServices/>,
       button:{
-        Component:<ExtraServicesForm/>,
+        Component:<ExtraServicesDefine/>,
         path:"/extraServicesForm",
         title:"routes.extraServicesForm",
         access:menues.extraServicesForm,
