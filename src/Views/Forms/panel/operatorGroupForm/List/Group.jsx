@@ -1,6 +1,12 @@
 import "./groupTable.css";
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import Swal from 'sweetalert2'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -13,16 +19,33 @@ import TableModal from "./TableModal/TableModal";
 import TableDeleteRow from "./TableDletRow/TableDeleteRow";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
-import { groupDelete, groupRead } from "../../../../../services/groupService";
+import {
+  groupDelete,
+  groupGetOneRecord,
+  groupRead,
+  groupReadPaging,
+  groupReadPaing,
+} from "../../../../../services/groupService";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { toast } from "react-toastify";
 import BackDrop from "../../../../../Components/backDrop/BackDrop";
-import { convertUTC } from "../../../../../validation/functions";
+import {
+  convertUTC,
+  setDatePickerDate,
+} from "../../../../../validation/functions";
 import { t } from "i18next";
+import TableBottom from "../../../../../Components/Table/TableBottom/TableBottom";
+import { Pagination } from "@mui/material";
 const Group = () => {
-  const filteredColumns = ["isLimited", "id", "registrar"];
-  const [response, error, loading, fetchData] = useAxios();
+  const filteredColumns = ["IsLimited", "Id", "Registrar"];
+  const [response, loading, fetchData] = useAxios();
+  const [requestType, setRequestType] = useState("READ");
+  const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [flt_Title, setFlt_Title] = useState("");
+  const [totalPages, setTotalPages] = useState(1);
+  const [numberOfRecordsPerPage, setNumberOfRecordsPerPage] = useState(100);
   const request = useRequest();
   const [columnSideBar, setColumnSideBar] = useState(false);
   const [search, setSearch] = useState(false);
@@ -33,9 +56,8 @@ const Group = () => {
   const [posts, setPosts] = useState([]);
   const [checkAllC, setCheckAllC] = useState(true);
   const [productsColumns, setproductsColumns] = useState([]);
-  const [isSorted, setIsSorted] = useState("0");
+  // const [isSorted, setIsSorted] = useState("0");
   const abortController = new AbortController();
-
 
   const getTable = () => {
     fetchData({
@@ -45,7 +67,26 @@ const Group = () => {
         accept: "*/*",
       },
       data: request,
-      signal:abortController.signal
+      signal: abortController.signal,
+    });
+  };
+  const readPaging = (paging) => {
+    fetchData({
+      method: "POST",
+      url: groupReadPaging,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        request: request,
+        paging: paging,
+        filter: {
+          flt_Title: flt_Title,
+          flt_FromDate: seartBegin ? setDatePickerDate(seartBegin) : "",
+          flt_ToDate: seartEnd ? setDatePickerDate(seartEnd) : "",
+        },
+      },
+      signal: abortController.signal,
     });
   };
   const handleError = (message) => {
@@ -55,26 +96,54 @@ const Group = () => {
   };
   useEffect(() => {
     getTable();
-    return ()=>abortController.abort()
+    return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const handleResponse = useCallback(
+    (response) => {
+      switch (requestType) {
+        case "DELETE":
+          handleDeleted();
+          break;
+        case "READ":
+          setData(response);
+          break;
+        case "GETONERECORD":
+          console.log(response);
+          break;
+        default:
+          break;
+      }
+    },
+    [requestType]
+  );
+  const handleDeleted = () => {};
   useEffect(() => {
     if (response) {
-      
-      response.response.result
-        ? setData(response.record)
-        : handleError(response.response.message);
+      response.Result
+        ? handleResponse(response)
+        : handleError(response.Message);
     }
-    if (error) {
-      handleError(error.response?.data?.title);
-    }
-  }, [response, error]);
-  const setData = (result) => {
-    setPosts(result);
+  }, [response, handleResponse]);
+
+  const setData = (response) => {
+    const res = response.Record;
+    const paging = response.Paging;
+    setPosts(res);
+    setCurrentPage(paging.CurrentPage);
+    setTotalPages(paging.TotalPages);
+    setSort({ sortBy: paging.SortBy, isAscending: paging.IsAscending });
+    setNumberOfRecordsPerPage(paging.NumberOfRecordsPerPage);
     setproductsColumns(
-      result[0]
-        ? Object.keys(result[0]).map((key) => {
-            return { Header: key, accessor: key, show: true };
+      res[0]
+        ? Object.keys(res[0]).map((key) => {
+            return {
+              Header: key,
+              accessor: key,
+              show: true,
+              isSorted: paging.SortBy === key ? true : false,
+              IsAscending: paging.SortBy === key ? paging.IsAscending : false,
+            };
           })
         : []
     );
@@ -116,29 +185,22 @@ const Group = () => {
       setproductsColumns(arr);
     }
   };
-  const checkValues = (type, value,post) => {
+  const checkValues = (type, value, post) => {
     switch (type) {
-      case "dateSet":
+      case "DateSet":
         return convertUTC(value);
-      case "isActive":
-        return (
-          <Form.Check
-            type="switch"
-            disabled
-            checked={value}
-          />
-        );
-        case "limitFrom":
-          return post.isLimited? convertUTC(value):"-"
-          case "limitTo":
-          return post.isLimited? convertUTC(value):"-"
+      case "IsActive":
+        return <Form.Check type="switch" disabled checked={value} />;
+      case "LimitFrom":
+        return post.IsLimited ? convertUTC(value) : "-";
+      case "LimitTo":
+        return post.IsLimited ? convertUTC(value) : "-";
       default:
         return value;
-      
     }
   };
-  const deleteRecord=(id)=>{
-  
+  const deleteRecord = (id) => {
+    setRequestType("DELETE");
     fetchData({
       method: "POST",
       url: groupDelete,
@@ -146,33 +208,79 @@ const Group = () => {
         accept: "*/*",
       },
       data: {
-        request:request,
-        id:id
+        request: request,
+        id: id,
       },
-      signal:abortController.signal
+      signal: abortController.signal,
     });
-  }
-  const deleteCalled=(id)=>{
+  };
+  const deleteCalled = (id) => {
     Swal.fire({
-      title:t("table.deleteTitle"),
+      title: t("table.deleteTitle"),
       text: t("table.noReturn"),
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
       confirmButtonText: t("sweetAlert.yes"),
-      cancelButtonText:t("sweetAlert.cancel")
+      cancelButtonText: t("sweetAlert.cancel"),
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteRecord(id)
+        deleteRecord(id);
         // Swal.fire(
         //   'Deleted!',
         //   'Your file has been deleted.',
         //   'success'
         // )
       }
-    })
-  }
+    });
+  };
+  const handleClickSort = (column) => {
+    setSort({ SortBy: column.accessor, isAscending: !column.isAscending });
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: !column.IsAscending,
+      SortBy: column.accessor,
+    };
+    readPaging(paging);
+  };
+  const handleChangeSelect = (e) => {
+    const paging = {
+      NumberOfRecordsPerPage: e.target.value,
+      CurrentPage: currentPage,
+      IsAscending: sort.isAscending,
+      SortBy: sort.sortBy,
+    };
+    readPaging(paging);
+  };
+  const handleClickEdit = (id) => {
+    setRequestType("GETONERECORD");
+    fetchData({
+      method: "POST",
+      url: groupGetOneRecord,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        request: request,
+        id: id,
+      },
+      signal: abortController.signal,
+    });
+  };
+  const handleChangeTitle = (event) => {
+    setFlt_Title(event.target.value);
+  };
+  const setPage = (event,value) => {
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: value,
+      IsAscending: sort.isAscending,
+      SortBy: sort.sortBy,
+    };
+    readPaging(paging);
+  };
   return (
     <>
       {loading && <BackDrop open={true} />}
@@ -215,6 +323,13 @@ const Group = () => {
                     className="searchField"
                     style={{ display: search ? "flex" : "none" }}
                   >
+                    <Form.Group>
+                      <Form.Control
+                        type="text"
+                        placeholder="جستجو"
+                        onChange={handleChangeTitle}
+                      />
+                    </Form.Group>
                     <div style={{ direction: "ltr" }}>
                       <LocalizationProvider dateAdapter={AdapterJalali}>
                         <DatePicker
@@ -364,14 +479,26 @@ const Group = () => {
                                   }}
                                 >
                                   {t(column["Header"])}
-                                  <button className="sortingArrowsBTN">
-                                    {isSorted === "0" ? (
+                                  <button
+                                    className="sortingArrowsBTN"
+                                    onClick={() => handleClickSort(column)}
+                                  >
+                                    {column["isSorted"] ? (
+                                      column["IsAscending"] ? (
+                                        <MainUpArrow />
+                                      ) : (
+                                        <DownArrow />
+                                      )
+                                    ) : (
+                                      <UpArrow />
+                                    )}
+                                    {/* {isSorted === "0" ? (
                                       <UpArrow />
                                     ) : isSorted === "1" ? (
                                       <MainUpArrow />
                                     ) : (
                                       <DownArrow />
-                                    )}
+                                    )} */}
                                   </button>
                                 </th>
                               ))}
@@ -382,12 +509,11 @@ const Group = () => {
                             <tr key={index}>
                               <td className="TableMainTd">
                                 <TableButtons
-                                  deleteCalled={
-                                    deleteCalled
-                                  }
+                                  deleteCalled={deleteCalled}
                                   setRowValues={setRowValues}
                                   rowValue={post}
                                   setTableModalOpen={setTableModalOpen}
+                                  handleClickEdit={handleClickEdit}
                                 />
                               </td>
                               {Object.keys(post)
@@ -407,7 +533,7 @@ const Group = () => {
                                           : null,
                                       }}
                                     >
-                                      {checkValues(key, post[key],post)}
+                                      {checkValues(key, post[key], post)}
                                     </td>
                                   );
                                 })}
@@ -421,26 +547,13 @@ const Group = () => {
               </div>
               <div className="reacttableParentDown">
                 <div className="downPaginationMain">
-                  <ul className="page">
-                    <li className="page__btn">
-                      <button className="material-icons downPaginationBTN">
-                        &laquo;
-                      </button>
-                    </li>
-                    <li className="page__numbers"> 1</li>
-                    <li className="page__numbers active">2</li>
-                    <li className="page__numbers">3</li>
-                    <li className="page__numbers">4</li>
-                    <li className="page__numbers">5</li>
-                    <li className="page__numbers">6</li>
-                    <li className="page__dots">...</li>
-                    <li className="page__numbers"> 10</li>
-                    <li className="page__btn">
-                      <button className="material-icons downPaginationBTN">
-                        &raquo;
-                      </button>
-                    </li>
-                  </ul>
+                  <div className="page">
+                    <Pagination
+                      page={currentPage}
+                      onChange={setPage}
+                      count={totalPages}
+                    />
+                  </div>
                 </div>
                 <div className="downpaginationButtins">
                   <input
@@ -448,9 +561,14 @@ const Group = () => {
                     className="pageNumber"
                     placeholder="شماره صفحه "
                     min={1}
-                    max={10}
+                    max={totalPages}
+                    value={currentPage}
                   />
-                  <select className="paginationSelector">
+                  <select
+                    className="paginationSelector"
+                    value={numberOfRecordsPerPage}
+                    onChange={handleChangeSelect}
+                  >
                     {[25, 50, 100].map((v, i) => (
                       <option key={i} value={v}>
                         {v}
@@ -460,6 +578,7 @@ const Group = () => {
                   <button className="sendForm">ارسال</button>
                 </div>
               </div>
+            
             </div>
             <div className="reactTableParentMiddle1">
               <div
@@ -491,7 +610,7 @@ const Group = () => {
                   <div></div>
                 </div>
                 {productsColumns
-                  .filter((p, i) =>!filteredColumns.includes( p["Header"]))
+                  .filter((p, i) => !filteredColumns.includes(p["Header"]))
                   .map((column, index) => (
                     <>
                       <div className="checkBoxTableParent" key={index}>

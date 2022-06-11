@@ -33,7 +33,7 @@ const OperatorGroupForm = () => {
   const [browsers, setBrowsers] = useState([]);
   const [activeDate, setActiveDate] = useState(false)
   const { t } = useTranslation();
-  const [response, error, loading, fetchData] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request=useRequest();
   const [activation, setActivation] = useState(false);
   const groupURL = '/Operator/Group/Create';
@@ -180,11 +180,11 @@ const handleSeccess=(message)=>{
       response.result?handleSeccess(response.message):handleError(response.message)
       response.result && handleClickMenu() ;
     }
-    if(error){
-    handleError(error.response?.data?.title)
+    // if(error){
+    // handleError(error.response?.data?.title)
     
-    }
-  }, [response,error])
+    // }
+  }, [response])
   return (
     <>
     {loading && <BackDrop  open={true}/>}

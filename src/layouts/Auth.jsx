@@ -12,7 +12,7 @@ import AppContext from "../contexts/AppContext";
 import useRequest from '../customHooks/useRequest'
 import {login} from '../services/authService'
 const Auth = () => {
-  const [response, error, loading, fetchData] = useAxios();
+  const [response, loading, fetchData] = useAxios();
 
   const location = useLocation();
   const request=useRequest()
@@ -54,6 +54,7 @@ const Auth = () => {
   };
 
   const setToken = useCallback((token) => {
+    console.log(token)
     localStorage.setItem("token",token);
    return navigate(from, { replace: true });
   }, [navigate,from]);
@@ -67,12 +68,13 @@ const Auth = () => {
   }
   useEffect(() => {
     if(response){
-      response.result?setToken(response.message):handleError(response.message)
+      
+      response.Result?setToken(response.Message):handleError(response.Message)
     }
-    if(error){
-    handleError(error.response?.data?.title)
-    }
-  }, [response,error,setToken])
+    // if(error){
+    // handleError(error.response?.data?.title)
+    // }
+  }, [response,setToken])
   const handlePasswordVisible = () => {
     setpassVisible(!passVisible);
   };

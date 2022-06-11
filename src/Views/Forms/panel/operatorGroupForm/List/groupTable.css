@@ -383,6 +383,9 @@ table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
     background: #ffffff;
     box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
   }
+  .page nav{
+    direction: ltr;
+  }
   .downPaginationBTN {
       border: none;
       background-color: transparent;
