@@ -8,3 +8,10 @@ export const convertUTC=(utc)=>{
              return new Intl.DateTimeFormat('en-US').format(local)
      }
 }
+
+export const  setDatePickerDate = (dater) => {
+    let finalDate =dater.getFullYear() + "-" + ("0" + (dater.getMonth() + 1)).slice(-2) + "-" + ("0" + dater.getDate()).slice(-2) ;
+    
+    return finalDate.toString();
+
+}

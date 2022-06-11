@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./operatorGroupForm.css";
 import { useTranslation } from "react-i18next";
 import { Accordion, Button, Form } from "react-bootstrap";
@@ -13,19 +13,51 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from "@mui/x-date-pickers";
 import AdapterJalali from '@date-io/date-fns-jalali';
 import AppContext from "../../../../contexts/AppContext";
+import useRequest from "../../../../customHooks/useRequest";
+import useAxios from "../../../../customHooks/useAxios";
+import { toast } from "react-toastify";
+import BackDrop from '../../../../Components/backDrop/BackDrop';
+import { TabContext } from "../../../../contexts/TabContextProvider";
+import Group from "./List/Group";
+import {setDatePickerDate} from '../../../../validation/functions'
 const OperatorGroupForm = () => {
   const {app} = useContext(AppContext)
   const title=useRef()
   const description=useRef()
   const [ips, setIps] = useState([]);
-  const [modalShow, setModalShow] = React.useState(false);
-  const [fromDate, setFromDate] = React.useState(null);
-  const [endDate, setEndDate] = React.useState(null);
+  const [modalShow, setModalShow] = useState(false);
+  const [fromDate, setFromDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [maxSession, setMaxSession] = useState(1);
   const [locations, setLocations] = useState([]);
   const [browsers, setBrowsers] = useState([]);
+  const [activeDate, setActiveDate] = useState(false)
   const { t } = useTranslation();
+  const [response, error, loading, fetchData] = useAxios();
+  const request=useRequest();
+  const [activation, setActivation] = useState(false);
+  const groupURL = '/Operator/Group/Create';
+  const tabContext = useContext(TabContext);
+  const abortController = new AbortController();
 
+  const handleClickMenu = () => {
+    tabContext.addRemoveTabs(
+      {
+        title: "routes.groupForm",
+        path: "/panelGroupForm",
+        Component:<OperatorGroupForm/>
+      }
+      , "remove");
+    tabContext.addRemoveTabs(
+      
+      {
+        title: "routes.group",
+        path: "/panelgroup",
+        Component:<Group/>
+      }
+      
+      , "add");
+  };
   const handleAddIP = () => {
     let ip = {
       from: "0.0.0.0",
@@ -101,13 +133,61 @@ const OperatorGroupForm = () => {
   const handleClickMap = (index) => {
     setModalShow(true);
   };
-  const handleSubmit=(e)=>{
-    e.preventDefault()
-    console.log(title.current.value,description.current.value,ips,browsers,locations,maxSession,fromDate,endDate)
+  
+const handleSubmit=(e)=>{
+  e.preventDefault()
+  fetchData({
+  method: "POST",
+  url: groupURL,
+  headers: {
+    accept: "*/*",
+  },
+  signal:abortController.signal,
+  data: {
+    
+    id: 0,
+    isActive: activation,
+    title: title.current.value,
+    description: description.current.value,
+    maxSession: maxSession,
+    isLimited: (fromDate !== null && endDate !== null) ? true : false ,
+    limitFrom: fromDate ? setDatePickerDate(fromDate) : "2000-01-01",
+    limitTo: fromDate ? setDatePickerDate(endDate) : "2000-01-01",
+    registrar: 0,
+    dateSet: "2000-01-01",
+    request:request,
+  },
+});
 
-  }
 
+}
+const handleError=(message)=>{
+  
+  toast.error(message, {
+    position: toast.POSITION.BOTTOM_CENTER,
+  });
+  
+}
+const handleSeccess=(message)=>{
+  
+  toast.success(message, {
+    position: toast.POSITION.BOTTOM_CENTER,
+  });
+}
+
+  useEffect(() => {
+    if(response){
+      response.result?handleSeccess(response.message):handleError(response.message)
+      response.result && handleClickMenu() ;
+    }
+    if(error){
+    handleError(error.response?.data?.title)
+    
+    }
+  }, [response,error])
   return (
+    <>
+    {loading && <BackDrop  open={true}/>}
     <div className="OperatorGroupForm">
       <h5 className="OperatorGroupFormTitle">{t("operatorGroupFormHeader")}</h5>
       <div className="OperatorGroupFormMainDiv">
@@ -117,6 +197,8 @@ const OperatorGroupForm = () => {
               type="switch"
               id="custom-switch"
               label={t("OperatorGroup.switch")}
+              onChange={()=> setActivation(prev => !prev)}
+              checked ={activation}
             />
           </div>
           <div className="inputDiv">
@@ -258,16 +340,18 @@ const OperatorGroupForm = () => {
                     <LocalizationProvider dateAdapter={app.lang==="fa"?AdapterJalali:AdapterDateFns}>
                     <div>
                       <DatePicker
+                        disabled={!activeDate}
                         mask="____/__/__"
                         label={t("startDate")}
                         value={fromDate}
                         onChange={(newValue) => {
                           setFromDate(newValue);
                           if (endDate !== null && newValue > endDate) {
-                            alert(
-                              "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد"
-                            );
-                            setFromDate(null);
+                            toast.error("تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد", {
+                              position: toast.POSITION.BOTTOM_CENTER,
+                            });
+                            
+                            setEndDate(null);
                           }
                         }}
                         renderInput={(params) => (
@@ -282,18 +366,28 @@ const OperatorGroupForm = () => {
                       />
                     
                     </div>
+                    <div class="switchDate">
+                        <Form.Check
+                          type="switch"
+                          id="custom-switch"
+                          onChange={()=> setActiveDate(prev => !prev)}
+                          checked ={activeDate}
+                        />
+                      </div>
                     <div>
                       <DatePicker
+                      disabled={!activeDate}
                         mask="____/__/__"
                         label={t("endDate")}
                         value={endDate}
                         onChange={(newValue) => {
                           setEndDate(newValue);
-                          if (fromDate !== null && newValue > fromDate) {
-                            alert(
-                              "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد"
-                            );
-                            setFromDate(null);
+                          if (fromDate !== null && newValue < fromDate) {
+                            toast.error("تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد", {
+                              position: toast.POSITION.BOTTOM_CENTER,
+                            });
+                            
+                            setEndDate(null);
                           }
                         }}
                         renderInput={(params) => (
@@ -326,6 +420,7 @@ const OperatorGroupForm = () => {
         <MapModal show={modalShow} onHide={() => setModalShow(false)} />
       )}
     </div>
+    </>
   );
 };
 
