@@ -222,7 +222,7 @@
     margin:  0 8px;
 }
 .reacttableParentMiddleMiddleMid {
-    width: 100%;
+    width: 100px;
     height: 100%;
     
   }
@@ -234,7 +234,8 @@
   align-items: center;
 }
   .MainTableCss {
-    height: 100%;
+    height: fit-content;
+    width: 100%;
     overflow: scroll;
     border-spacing: 20px;
     
@@ -242,7 +243,7 @@
   }
 
   
-table {
+  .MainTableCss {
     /* table-layout: fixed; */
     
     border-collapse: collapse;
@@ -258,8 +259,8 @@ table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
     
   }
   
-  table th,
-  table td {
+ .MainTableTh,
+ .TableMainTd {
     max-width: 300px;
     padding: 8px 8px;
     border: 1px solid #ddd;
@@ -269,7 +270,7 @@ table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
     text-align: center;
   }
   
-  table thead {
+.MainTableThead {
     position: sticky;
     inset-block-start: 0;
     background-color: #ddd;
