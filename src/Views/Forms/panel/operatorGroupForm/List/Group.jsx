@@ -16,7 +16,6 @@ import MainUpArrow from "./Arrows/MainUpArrow/MainUpArrow";
 import DownArrow from "./Arrows/downArrow/DownArrow";
 import TableButtons from "./TableButtons/TableButtons";
 import TableModal from "./TableModal/TableModal";
-import TableDeleteRow from "./TableDletRow/TableDeleteRow";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
 import {
@@ -24,7 +23,6 @@ import {
   groupGetOneRecord,
   groupRead,
   groupReadPaging,
-  groupReadPaing,
 } from "../../../../../services/groupService";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
@@ -35,12 +33,11 @@ import {
   setDatePickerDate,
 } from "../../../../../validation/functions";
 import { t } from "i18next";
-import TableBottom from "../../../../../Components/Table/TableBottom/TableBottom";
 import { Pagination } from "@mui/material";
 const Group = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar"];
   const [response, loading, fetchData] = useAxios();
-  const [requestType, setRequestType] = useState("READ");
+  const [requestType, setRequestType] = useState("");
   const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
   const [currentPage, setCurrentPage] = useState(1);
   const [flt_Title, setFlt_Title] = useState("");
@@ -71,6 +68,7 @@ const Group = () => {
     });
   };
   const readPaging = (paging) => {
+    setRequestType("READPAGING");
     fetchData({
       method: "POST",
       url: groupReadPaging,
@@ -78,7 +76,7 @@ const Group = () => {
         accept: "*/*",
       },
       data: {
-        request: request,
+        Request: request,
         paging: paging,
         filter: {
           flt_Title: flt_Title,
@@ -95,13 +93,33 @@ const Group = () => {
     });
   };
   useEffect(() => {
+    setRequestType("READ");
     getTable();
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const handleDeleted = () => {
+    Swal.fire(
+      t("sweetAlert.deleted"),
+      t("sweetAlert.recordDeleted"),
+      "success"
+    );
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  };
+  const setUpdate = (res) => {
+    const record = res.Record;
+    setRowValues(record);
+    setTableModalOpen(true);
+  };
   const handleResponse = useCallback(
-    (response) => {
-      switch (requestType) {
+    (response, type) => {
+      switch (type) {
         case "DELETE":
           handleDeleted();
           break;
@@ -109,21 +127,26 @@ const Group = () => {
           setData(response);
           break;
         case "GETONERECORD":
-          console.log(response);
+          setUpdate(response);
+          break;
+        case "READPAGING":
+          setData(response);
           break;
         default:
           break;
       }
     },
-    [requestType]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
-  const handleDeleted = () => {};
+
   useEffect(() => {
     if (response) {
       response.Result
-        ? handleResponse(response)
+        ? handleResponse(response, requestType)
         : handleError(response.Message);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
 
   const setData = (response) => {
@@ -132,7 +155,7 @@ const Group = () => {
     setPosts(res);
     setCurrentPage(paging.CurrentPage);
     setTotalPages(paging.TotalPages);
-    setSort({ sortBy: paging.SortBy, isAscending: paging.IsAscending });
+    setSort({ SortBy: paging.SortBy, IsAscending: paging.IsAscending });
     setNumberOfRecordsPerPage(paging.NumberOfRecordsPerPage);
     setproductsColumns(
       res[0]
@@ -155,7 +178,7 @@ const Group = () => {
   //             return { Header: key, accessor: key, show : true };
   //             })
   //         : []);
-  //         console.log("useeffect called")
+  //
   //   },[posts])
   //   useMemo(() => {
   //     setproductsColumns(
@@ -208,8 +231,8 @@ const Group = () => {
         accept: "*/*",
       },
       data: {
-        request: request,
-        id: id,
+        Request: request,
+        Id: id,
       },
       signal: abortController.signal,
     });
@@ -236,7 +259,7 @@ const Group = () => {
     });
   };
   const handleClickSort = (column) => {
-    setSort({ SortBy: column.accessor, isAscending: !column.isAscending });
+    setSort({ SortBy: column.accessor, IsAscending: !column.IsAscending });
     const paging = {
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: currentPage,
@@ -249,8 +272,8 @@ const Group = () => {
     const paging = {
       NumberOfRecordsPerPage: e.target.value,
       CurrentPage: currentPage,
-      IsAscending: sort.isAscending,
-      SortBy: sort.sortBy,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
     };
     readPaging(paging);
   };
@@ -272,25 +295,53 @@ const Group = () => {
   const handleChangeTitle = (event) => {
     setFlt_Title(event.target.value);
   };
-  const setPage = (event,value) => {
+  const setPage = (event, value) => {
     const paging = {
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: value,
-      IsAscending: sort.isAscending,
-      SortBy: sort.sortBy,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
     };
     readPaging(paging);
   };
+  const handleClearFilter = () => {
+    setFlt_Title("");
+    setSearchBegin(null);
+    setSearchEnd(null);
+  };
+  const updated = () => {
+    setTableModalOpen(false)
+    toast.success(t("updatedRecord"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  };
+  const handleClickSend=()=>{
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  }
   return (
     <>
       {loading && <BackDrop open={true} />}
-      {productsColumns.length > 0 && (
+      {/* {productsColumns.length > 0 && ( */}
         <>
           {tableModalOpen && (
             <TableModal
               rowValus={rowValus}
-              setRowValues={setRowValues}
-              setTableModalOpen={setTableModalOpen}
+              onHide={() => setTableModalOpen(false)}
+              tableModalShow={tableModalOpen}
+              updated={updated}
             />
           )}
 
@@ -323,11 +374,19 @@ const Group = () => {
                     className="searchField"
                     style={{ display: search ? "flex" : "none" }}
                   >
+                    <div>
+                      <fa.FaTimes
+                        color="red"
+                        onClick={handleClearFilter}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </div>
                     <Form.Group>
                       <Form.Control
                         type="text"
                         placeholder="جستجو"
                         onChange={handleChangeTitle}
+                        value={flt_Title}
                       />
                     </Form.Group>
                     <div style={{ direction: "ltr" }}>
@@ -462,7 +521,8 @@ const Group = () => {
                 <div className="reacttableParentMainLeft">
                   <div className="reacttableParentMainLeftRight">
                     <div className="reacttableParentMiddleMiddleMid">
-                      <table className="MainTableCss">
+                      {productsColumns.length>0? 
+                       <table className="MainTableCss">
                         <thead className="MainTableThead">
                           <tr className="MainTableTr">
                             <th className="MainTableTh"> </th>
@@ -492,13 +552,7 @@ const Group = () => {
                                     ) : (
                                       <UpArrow />
                                     )}
-                                    {/* {isSorted === "0" ? (
-                                      <UpArrow />
-                                    ) : isSorted === "1" ? (
-                                      <MainUpArrow />
-                                    ) : (
-                                      <DownArrow />
-                                    )} */}
+                                   
                                   </button>
                                 </th>
                               ))}
@@ -510,9 +564,7 @@ const Group = () => {
                               <td className="TableMainTd">
                                 <TableButtons
                                   deleteCalled={deleteCalled}
-                                  setRowValues={setRowValues}
                                   rowValue={post}
-                                  setTableModalOpen={setTableModalOpen}
                                   handleClickEdit={handleClickEdit}
                                 />
                               </td>
@@ -540,7 +592,12 @@ const Group = () => {
                             </tr>
                           ))}
                         </tbody>
-                      </table>
+                      </table> 
+                      :
+                      <div className="noDataTable">
+                        <b>{t("noDataFound.table")}</b>
+                      </div>
+                      }
                     </div>
                   </div>
                 </div>
@@ -556,14 +613,15 @@ const Group = () => {
                   </div>
                 </div>
                 <div className="downpaginationButtins">
-                  <input
+                  {/* <input
                     type="number"
                     className="pageNumber"
                     placeholder="شماره صفحه "
                     min={1}
                     max={totalPages}
                     value={currentPage}
-                  />
+                    onChange={handleChangePage}
+                  /> */}
                   <select
                     className="paginationSelector"
                     value={numberOfRecordsPerPage}
@@ -575,10 +633,9 @@ const Group = () => {
                       </option>
                     ))}
                   </select>
-                  <button className="sendForm">ارسال</button>
+                  <button className="sendForm" onClick={handleClickSend}>{t("sendGroup")}</button>
                 </div>
               </div>
-            
             </div>
             <div className="reactTableParentMiddle1">
               <div
@@ -632,7 +689,7 @@ const Group = () => {
             </div>
           </div>
         </>
-      )}
+      {/* )} */}
     </>
   );
 };

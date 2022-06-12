@@ -242,5 +242,10 @@
   "table.deleteTitle":"آیا مطمعن هستید؟",
   "table.noReturn":"شما نمی توانید این را برگردانید!",
   "sweetAlert.yes":"بله",
-  "sweetAlert.cancel":"انصراف"
+  "sweetAlert.cancel":"انصراف",
+  "sweetAlert.deleted":"حذف شد!",
+  "sweetAlert.recordDeleted":"رکورد مورد نظر حذف شد.",
+  "updatedRecord":"رکورد با موفقیعت بروز شد",
+  "sendGroup":"ارسال",
+  "noDataFound.table":"اطلاعاتی پیدا نشد"
 }
