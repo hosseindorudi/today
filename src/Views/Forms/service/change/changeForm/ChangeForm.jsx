@@ -62,7 +62,8 @@ const ChangeForm = () => {
             <thead className="changeFormThead">
               <tr className="changeFormTr">
                 <th className="changeFormTh">ردیف</th>
-                <th className="changeFormTh">تاریخ</th>
+                <th className="changeFormTh">تاریخ پذیرش</th>
+                <th className="changeFormTh">تاریخ تعویض</th>
                 <th className="changeFormTh">مارک</th>
                 <th className="changeFormTh">نوع</th>
                 <th className="changeFormTh">مدل</th>
@@ -73,6 +74,7 @@ const ChangeForm = () => {
               <tr className="changeFormTr">
                 <td className="changeFormTd">1</td>
                 <td className="changeFormTd">1400/4/3</td>
+                <td className="changeFormTd"><hr className='changeFormHrtable'/></td>
                 <td className="changeFormTd">apple</td>
                 <td className="changeFormTd">mobile</td>
                 <td className="changeFormTd">12pro</td>
@@ -86,6 +88,7 @@ const ChangeForm = () => {
               </tr>
               <tr className="changeFormTr">
                 <td className="changeFormTd">2</td>
+                <td className="changeFormTd"><hr className='changeFormHrtable'/></td>
                 <td className="changeFormTd">1400/4/10</td>
                 <td className="changeFormTd">apple</td>
                 <td className="changeFormTd">mobile</td>

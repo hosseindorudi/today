@@ -37,7 +37,7 @@ const SentForm = () => {
               </div>
           </div>
           <div className='sentFormMainRightDiv'>
-              <label className="sentFormlabel">تلفن مشتری:</label>
+              <label className="sentFormlabel">نوع تحویل دستگاه به مشتری:</label>
               <div className="sentFormRecievtionDiv3">
               <select className="sentFormSelectSendType">
                 <option value="0" disabled>نوع تحویل دستگاه به مشتری</option>
@@ -113,7 +113,7 @@ const SentForm = () => {
           <div className='sentFormMainRightDiv9'>
               <label className="sentFormlabel1">کد مرسوله:</label>
               <div className="sentFormRecievtionDiv10">
-                <input className="sentFormlabelInput"/>
+                <input className="sentFormlabelInput" type='number' min={15} max={15}/>
               </div>
           </div>
           <div className='sentFormMainRightDiv9'>

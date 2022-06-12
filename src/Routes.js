@@ -322,12 +322,6 @@ export const Routes = [
         path:'/service.allocation',
         access:menues.serviceAllocation,
         Component:<Allocation/>,
-        button:{
-          Component:<AllocationForm/>,
-          path:"/service.allocationForm",
-          title:"routes.service.allocationForm",
-          access:menues.serviceAllocationForm,
-        },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },
@@ -364,12 +358,6 @@ export const Routes = [
         path:'/service.delivery',
         access:menues.serviceDelivery,
         Component:<Delivery/>,
-        button:{
-          Component:<DeliveryForm/>,
-          path:"/service.serviceDeliveryForm",
-          title:'routes.service.deliveryForm',
-          access:menues.serviceDeliveryForm,
-        },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },
@@ -378,12 +366,6 @@ export const Routes = [
         path:'/acceptDelivery',
         access:menues.acceptDelivery,
         Component:<AcceptDelivery/>,
-        button:{
-          Component:<AcceptDeliveryForm/>,
-          path:"/acceptDeliveryForm",
-          title:"routes.acceptDeliveryForm",
-          access:menues.acceptDeliveryForm,
-        },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },

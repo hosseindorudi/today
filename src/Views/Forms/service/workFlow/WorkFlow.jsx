@@ -59,12 +59,6 @@ const WorkFlow = () => {
       Component:<Allocation/>,
       color: "indianred",
       no:0,
-      button:{
-        Component:<AllocationForm/>,
-        path:"/service.service.allocationForm",
-        title:"routes.service.allocationForm",
-      
-      },
 
     },
     {
@@ -98,12 +92,6 @@ const WorkFlow = () => {
       no:0,
       color: "cadetblue",
       Component:<Delivery/>,
-      button:{
-        Component:<DeliveryForm/>,
-        path:"/service.serviceDeliveryForm",
-        title:'routes.service.deliveryForm',
-        
-      }
     },
   ];
   const buttons = [
@@ -112,12 +100,6 @@ const WorkFlow = () => {
       path:'/acceptDelivery',
       Component:<AcceptDelivery/>,
       color:"success",
-      button:{
-        Component:<AcceptDeliveryForm/>,
-        path:"/acceptDeliveryForm",
-        title:"routes.acceptDeliveryForm",
-      },
-
     },
     {
       title: 'routes.changing',
