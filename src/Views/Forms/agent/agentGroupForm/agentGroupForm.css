@@ -86,7 +86,7 @@
 }
 
 
-.inputDiv {
+.inputDivGroup {
     display: flex;
     align-items: flex-start;
     width: 50%;
@@ -113,7 +113,7 @@
     border: 1px solid #00b33c;
 }
 
-.inputDivDesc {
+.inputDivDescGroup {
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -244,4 +244,9 @@
     display: flex;
     width: 50%;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .switchDate {
+      margin: 0 10px;
   }
