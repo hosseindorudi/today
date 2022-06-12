@@ -25,6 +25,14 @@ const TabContextProvider = (props) => {
         //   path: item.path,
         //   Component: item.Component,
         // })
+        newState.map((n,i) => {
+          if(i == 0) {
+            n['title'] = item.title;
+            n['path'] = item.path;
+            n['Component'] = item.Component;
+
+          }
+        })
         newState[0] = {
           title: item.title,
           path: item.path,
