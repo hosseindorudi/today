@@ -51,6 +51,7 @@ const Group = () => {
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
   const [posts, setPosts] = useState([]);
+  const [IsFavorite,setIsFavorite]=useState(false)
   const [checkAllC, setCheckAllC] = useState(true);
   const [productsColumns, setproductsColumns] = useState([]);
   // const [isSorted, setIsSorted] = useState("0");
@@ -95,6 +96,7 @@ const Group = () => {
   useEffect(() => {
     setRequestType("READ");
     getTable();
+    console.log("called")
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -152,6 +154,7 @@ const Group = () => {
   const setData = (response) => {
     const res = response.Record;
     const paging = response.Paging;
+    setIsFavorite(response.IsFavorite)
     setPosts(res);
     setCurrentPage(paging.CurrentPage);
     setTotalPages(paging.TotalPages);
@@ -171,25 +174,6 @@ const Group = () => {
         : []
     );
   };
-  //   useEffect(() => {
-  //     setproductsColumns(posts[0]
-  //         ? Object.keys(posts[0])
-  //             .map((key) => {
-  //             return { Header: key, accessor: key, show : true };
-  //             })
-  //         : []);
-  //
-  //   },[posts])
-  //   useMemo(() => {
-  //     setproductsColumns(
-  //       posts[0]
-  //         ? Object.keys(posts[0]).map((key) => {
-  //             return { Header: key, accessor: key, show: true };
-  //           })
-  //         : []
-  //     );
-  //   }, [posts]);
-
   const CheckBoxChangeHandler = (columnIndex) => {
     let newArr = [...productsColumns];
     newArr[columnIndex + 1]["show"] = !newArr[columnIndex + 1]["show"];
@@ -250,11 +234,6 @@ const Group = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         deleteRecord(id);
-        // Swal.fire(
-        //   'Deleted!',
-        //   'Your file has been deleted.',
-        //   'success'
-        // )
       }
     });
   };
@@ -330,6 +309,9 @@ const Group = () => {
       SortBy: sort.SortBy,
     };
     readPaging(paging);
+  }
+ const handleClickFav=()=>{
+    
   }
   return (
     <>
@@ -509,7 +491,7 @@ const Group = () => {
                       <button className="reactTableParentAccessButton">
                         <fa.FaUserLock />
                       </button>
-                      <button className="reactTableParentFavoritButton">
+                      <button className="reactTableParentFavoritButton" onClick={handleClickFav}>
                         <fa.FaRegStar />
                       </button>
                       <button className="reactTableParentHelpButton">
