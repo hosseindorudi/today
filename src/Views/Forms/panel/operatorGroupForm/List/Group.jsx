@@ -520,7 +520,7 @@ const Group = () => {
                 </div>
                 <div className="reacttableParentMainLeft">
                   <div className="reacttableParentMainLeftRight">
-                    <div className="reacttableParentMiddleMiddleMid">
+                    <div className="reacttableParentMiddleMiddleMid" style={{width: productsColumns.length ===0 ? '100%' : '100px'}}>
                       {productsColumns.length>0? 
                        <table className="MainTableCss">
                         <thead className="MainTableThead">
