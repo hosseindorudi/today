@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import SignaturePad from "./signaturePad/src/index";
 import QRCode from "react-qr-code";
 import AppContext from '../../../../contexts/AppContext';
-
+import Multiselect from 'multiselect-react-dropdown';
 import TextField from '@mui/material/TextField';
 import AdapterJalali from '@date-io/date-fns-jalali';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -18,7 +18,7 @@ var base64 = require('base-64');
 
 
 const AdmissionForm = () => {
-  
+  const [multiValue, setMultiValue] = useState([])
   const [patternLock, setpatternLock] = useState(false);
   const [patternLockSize, setPatternLockSize] = useState("0");
   const [value, setValue] = useState(new Date());
@@ -130,7 +130,7 @@ const AdmissionForm = () => {
           
           
           <select className="selectSendType" style={{display: !patternLock ? 'block' : 'none'}}>
-            <option value="0">نوع تحویل دستگاه به مشتری</option>
+            <option value="0" disabled>نوع تحویل دستگاه به مشتری</option>
             <option value="1">پست</option>
             <option value="2">تی پاکس</option>
             <option value="3">DTS</option>
@@ -147,8 +147,11 @@ const AdmissionForm = () => {
                 <DatePicker
                   mask="____/__/__"
                   value={warrantyDateBeg}
+                  label="."
                   onChange={(newValue) => {setWarrantyDateBeg(newValue); console.log(newValue)}}
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={(params) => <TextField {...params} inputProps={{
+                    ...params.inputProps,
+                  }}/>}
                 />
              </LocalizationProvider>
 
@@ -163,8 +166,11 @@ const AdmissionForm = () => {
                 <DatePicker
                   mask="____/__/__"
                   value={warrantyDateEnd}
+                  label="."
                   onChange={(newValue) => setWarrantyDateEnd(newValue)}
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={(params) => <TextField {...params} inputProps={{
+                                ...params.inputProps,
+                              }}/>}
                 />
              </LocalizationProvider>
           </div>
@@ -175,16 +181,17 @@ const AdmissionForm = () => {
       <div className="middleForm">
         
           <select className="selectwaranty">
-            <option value="0">گارانتی</option>
-            <option value="1">غیر گارانتی</option>
-            <option value="2">استعلام تکنسین</option>
+            <option value="0" disabled>نوع گارانتی</option>
+            <option value="1">گارانتی</option>
+            <option value="2">غیر گارانتی</option>
+            <option value="3">استعلام تکنسین</option>
           </select>
         
          
 
         
           <select className="selectwaranty">
-            <option value="0">نوع کار:</option>
+            <option value="0" disabled>نوع کار:</option>
             <option value="1">بدون سابقه</option>
             <option value="2">برگشتی عادی</option>
             <option value="3">برگشتی ویژه</option>
@@ -210,13 +217,28 @@ const AdmissionForm = () => {
           <input type="text" className="deviceSerial" placeholder='شرکت وارد کننده: '/>
        
         
-        <select className="selectwaranty" >
-            <option value="0">لوازم همراه:</option>
-            <option value="1">بدون سابقه</option>
-            <option value="2">برگشتی عادی</option>
-            <option value="3">برگشتی ویژه</option>
-            <option value="4">VIP</option>
-          </select>
+         
+                  <div className='selectwaranty1' style={{direction:"ltr"}}>
+                      <Multiselect
+                      
+                      emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
+                      id='multiSelected'
+                      options={[
+                          {name: 'نصب نرم افزار', id: 1},
+                          {name: 'بکاپ گیری', id: 2},
+                          {name: 'گلس', id: 3},
+                          {name: 'برنامه جانبی', id: 4},
+                          {name: 'ساخت اکانت', id: 5},
+                      ]}
+                      onSelect={(e)=>{ setMultiValue(prev => prev = e); console.log(multiValue)}} // Function will trigger on select event
+                      onRemove={(e)=>{setMultiValue(prev => prev = e);console.log(multiValue)}} // Function will trigger on remove event
+                      displayValue="name" // Property name to display in the dropdown options
+                      placeholder="لوازم همراه"
+                      hidePlaceholder ={true}
+                      showArrow={false}
+                      />
+                  </div>
+         
         
         <div className="deviceFaildAndPicture" style={{marginTop:5}}>
           <textarea type="text"  id='deviceFailedDescription' placeholder='توضیحات کارشناس پذیرش: '/>

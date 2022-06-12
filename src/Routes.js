@@ -27,8 +27,8 @@ const QcFormEntry=lazy(()=>import("./Views/Forms/service/QCEntry/QcForm"))
 const Archive=lazy(()=>import("./Views/Forms/service/archive/Archive"))
 const Sent=lazy(()=>import("./Views/Forms/service/sent/Sent"))
 const Change=lazy(()=>import("./Views/Forms/service/change/Change"))
-const ChangeForm=lazy(()=>import("./Views/Forms/service/change/ChangeForm"))
-const SentForm=lazy(()=>import("./Views/Forms/service/sent/SentForm"))
+const ChangeForm=lazy(()=>import("./Views/Forms/service/change/changeForm/ChangeForm"))
+const SentForm=lazy(()=>import("./Views/Forms/service/sent/sentForm/SentForm"))
 const AcceptDelivery=lazy(()=>import("./Views/Forms/service/acceptDelivery/AcceptDelivery"))
 const AcceptDeliveryForm=lazy(()=>import("./Views/Forms/service/acceptDelivery/AcceptDeliveryForm"))
 const WorkFlow=lazy(()=>import("./Views/Forms/service/workFlow/WorkFlow"))
@@ -322,12 +322,6 @@ export const Routes = [
         path:'/service.allocation',
         access:menues.serviceAllocation,
         Component:<Allocation/>,
-        button:{
-          Component:<AllocationForm/>,
-          path:"/service.allocationForm",
-          title:"routes.service.allocationForm",
-          access:menues.serviceAllocationForm,
-        },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },
@@ -364,12 +358,6 @@ export const Routes = [
         path:'/service.delivery',
         access:menues.serviceDelivery,
         Component:<Delivery/>,
-        button:{
-          Component:<DeliveryForm/>,
-          path:"/service.serviceDeliveryForm",
-          title:'routes.service.deliveryForm',
-          access:menues.serviceDeliveryForm,
-        },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },
@@ -378,12 +366,6 @@ export const Routes = [
         path:'/acceptDelivery',
         access:menues.acceptDelivery,
         Component:<AcceptDelivery/>,
-        button:{
-          Component:<AcceptDeliveryForm/>,
-          path:"/acceptDeliveryForm",
-          title:"routes.acceptDeliveryForm",
-          access:menues.acceptDeliveryForm,
-        },
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },

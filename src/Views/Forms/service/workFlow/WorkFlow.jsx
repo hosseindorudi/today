@@ -17,10 +17,10 @@ const AllocationForm=lazy(()=>import("../alocation/AllocationForm"))
 const Admission=lazy(()=>import("../admission/Admission"))
 const AdmissionForm=lazy(()=>import("../admission/AdmissionForm"))
 const Change=lazy(()=>import("../../../../Views/Forms/service/change/Change"))
-const ChangeForm=lazy(()=>import("../../../../Views/Forms/service/change/ChangeForm"))
+const ChangeForm=lazy(()=>import("../change/changeForm/ChangeForm"))
 const Archive=lazy(()=>import("../../../../Views/Forms/service/archive/Archive"))
 const Sent=lazy(()=>import("../../../../Views/Forms/service/sent/Sent"))
-const SentForm=lazy(()=>import("../../../../Views/Forms/service/sent/SentForm"))
+const SentForm=lazy(()=>import("../sent/sentForm/SentForm"))
 const AcceptDelivery=lazy(()=>import("../../../../Views/Forms/service/acceptDelivery/AcceptDelivery"))
 const AcceptDeliveryForm=lazy(()=>import("../../../../Views/Forms/service/acceptDelivery/AcceptDeliveryForm"))
 const QcEntry=lazy(()=>import("../QCEntry/Qc"))
@@ -59,12 +59,6 @@ const WorkFlow = () => {
       Component:<Allocation/>,
       color: "indianred",
       no:0,
-      button:{
-        Component:<AllocationForm/>,
-        path:"/service.service.allocationForm",
-        title:"routes.service.allocationForm",
-      
-      },
 
     },
     {
@@ -98,12 +92,6 @@ const WorkFlow = () => {
       no:0,
       color: "cadetblue",
       Component:<Delivery/>,
-      button:{
-        Component:<DeliveryForm/>,
-        path:"/service.serviceDeliveryForm",
-        title:'routes.service.deliveryForm',
-        
-      }
     },
   ];
   const buttons = [
@@ -112,12 +100,6 @@ const WorkFlow = () => {
       path:'/acceptDelivery',
       Component:<AcceptDelivery/>,
       color:"success",
-      button:{
-        Component:<AcceptDeliveryForm/>,
-        path:"/acceptDeliveryForm",
-        title:"routes.acceptDeliveryForm",
-      },
-
     },
     {
       title: 'routes.changing',
