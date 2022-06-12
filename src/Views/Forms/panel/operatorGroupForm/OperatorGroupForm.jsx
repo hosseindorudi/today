@@ -177,8 +177,8 @@ const handleSeccess=(message)=>{
 
   useEffect(() => {
     if(response){
-      response.result?handleSeccess(response.message):handleError(response.message)
-      response.result && handleClickMenu() ;
+      response.Result?handleSeccess(response.message):handleError(response.message)
+      response.Result && handleClickMenu() ;
     }
     // if(error){
     // handleError(error.response?.data?.title)
