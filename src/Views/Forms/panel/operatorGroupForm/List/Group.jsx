@@ -18,8 +18,11 @@ import TableButtons from "./TableButtons/TableButtons";
 import TableModal from "./TableModal/TableModal";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
+import * as cg from "react-icons/cg";
 import {
   groupDelete,
+  groupExport,
+  groupFavorite,
   groupGetOneRecord,
   groupRead,
   groupReadPaging,
@@ -96,7 +99,7 @@ const Group = () => {
   useEffect(() => {
     setRequestType("READ");
     getTable();
-    console.log("called")
+    
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -119,6 +122,12 @@ const Group = () => {
     setRowValues(record);
     setTableModalOpen(true);
   };
+  const favorited=()=>{
+    toast.success(t("favorited"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  }
+
   const handleResponse = useCallback(
     (response, type) => {
       switch (type) {
@@ -133,6 +142,9 @@ const Group = () => {
           break;
         case "READPAGING":
           setData(response);
+          break;
+        case "FAVORITE":
+          favorited();
           break;
         default:
           break;
@@ -265,8 +277,8 @@ const Group = () => {
         accept: "*/*",
       },
       data: {
-        request: request,
-        id: id,
+        Request: request,
+        Id: id,
       },
       signal: abortController.signal,
     });
@@ -311,8 +323,22 @@ const Group = () => {
     readPaging(paging);
   }
  const handleClickFav=()=>{
-    
+  setRequestType("FAVORITE");
+  fetchData({
+    method: "POST",
+    url: groupFavorite,
+    headers: {
+      accept: "*/*",
+    },
+    data: request,
+    signal: abortController.signal,
+  });
   }
+  const handleClickHelp=()=>{
+    window.open("https://www.google.com");
+
+  }
+
   return (
     <>
       {loading && <BackDrop open={true} />}
@@ -479,23 +505,23 @@ const Group = () => {
                           {t("table.groups")}
                         </button>
                       </div>
-                      <button className="reactTableParentExportButton">
-                        <fa.FaFileExport />
+                      <button className="reactTableParentExportButton" title="exportCSV">
+                        <cg.CgExport />
                       </button>
-                      <button className="reactTableParentImportButton">
-                        <fa.FaFileImport />
+                      <button className="reactTableParentImportButton" title="importCSV">
+                        <fa.FaFileCsv />
                       </button>
                       <button className="reactTableParentLogButton">
-                        <fa.FaMicroblog />
+                        <fa.FaHistory />
                       </button>
                       <button className="reactTableParentAccessButton">
                         <fa.FaUserLock />
                       </button>
-                      <button className="reactTableParentFavoritButton" onClick={handleClickFav}>
+                      <button disabled={IsFavorite} className={`reactTableParentFavoritButton ${IsFavorite? "favactive":""}`} onClick={handleClickFav}>
                         <fa.FaRegStar />
                       </button>
-                      <button className="reactTableParentHelpButton">
-                        <fa.FaHireAHelper />
+                      <button className="reactTableParentHelpButton" onClick={handleClickHelp}>
+                        <fa.FaQuestionCircle />
                       </button>
                     </div>
                   </div>
@@ -548,6 +574,7 @@ const Group = () => {
                                   deleteCalled={deleteCalled}
                                   rowValue={post}
                                   handleClickEdit={handleClickEdit}
+                                
                                 />
                               </td>
                               {Object.keys(post)
