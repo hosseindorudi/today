@@ -18,17 +18,20 @@ import {
 } from "../../../services/groupService";
 
 import "./importModal.css";
+import ModalCheckResult from "./ModalCheckResult";
 
 const ImportCSVModal = (props) => {
-    const { app } = useContext(AppContext);
-    const { os } = useContext(OsContext);
-    const accessToken = localStorage.getItem("token");
-    const location = useGeoLocation();
+  const { app } = useContext(AppContext);
+  const { os } = useContext(OsContext);
+  const accessToken = localStorage.getItem("token");
+  const location = useGeoLocation();
   const { readString } = usePapaParse();
+  const [showCheckResultModal, setShowCheckResultModal] = useState(false);
   const { CSVDownloader, Type } = useCSVDownloader();
+  const [checkResult, setCheckResult] = useState(null);
   const [response, loading, fetchData] = useAxios();
-  const [checkFile, setCheckFile] = useState(null)
-  const [importFile, setImportFile] = useState(null)
+  const [checkFile, setCheckFile] = useState(null);
+  const [importFile, setImportFile] = useState(null);
   const [requestType, setRequestType] = useState("");
   const [sample, setSample] = useState(null);
   const request = useRequest();
@@ -53,23 +56,56 @@ const ImportCSVModal = (props) => {
   const handleUploadCheck = () => {
     setRequestType("CHECK");
     var formData = new FormData();
-    formData.append('Request.Language', app.langCode);
-    formData.append('Request.OS',  os.os,);
-    formData.append('Request.IP', os.ip);
-    formData.append('Request.Browser', os.browser);
-    formData.append('Request.Latitude', location.loaded ? location.coordinates.lat : 0);
-    formData.append('Request.Longitude', location.loaded ? location.coordinates.lng : 0);
-    formData.append('Request.Token', accessToken ? accessToken : "");
-    formData.append('File', checkFile);
+    formData.append("Request.Language", app.langCode);
+    formData.append("Request.OS", os.os);
+    formData.append("Request.IP", os.ip);
+    formData.append("Request.Browser", os.browser);
+    formData.append(
+      "Request.Latitude",
+      location.loaded ? location.coordinates.lat : 0
+    );
+    formData.append(
+      "Request.Longitude",
+      location.loaded ? location.coordinates.lng : 0
+    );
+    formData.append("Request.Token", accessToken ? accessToken : "");
+    formData.append("File", checkFile);
     fetchData({
       method: "POST",
       url: groupCheckFile,
       headers: {
-        'Content-Type': 'multipart/form-data'
+        "Content-Type": "multipart/form-data",
       },
-      data:formData
+      data: formData,
     });
   };
+  const handleUploadImport = () => {
+    setRequestType("IMPORT");
+    var formData = new FormData();
+    formData.append("Request.Language", app.langCode);
+    formData.append("Request.OS", os.os);
+    formData.append("Request.IP", os.ip);
+    formData.append("Request.Browser", os.browser);
+    formData.append(
+      "Request.Latitude",
+      location.loaded ? location.coordinates.lat : 0
+    );
+    formData.append(
+      "Request.Longitude",
+      location.loaded ? location.coordinates.lng : 0
+    );
+    formData.append("Request.Token", accessToken ? accessToken : "");
+    formData.append("File", importFile);
+    fetchData({
+      method: "POST",
+      url: groupImportFile,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: formData,
+    });
+  };
+
   const handleSampleDownload = (res) => {
     const config = {
       worker: true,
@@ -79,8 +115,12 @@ const ImportCSVModal = (props) => {
     };
     readString(res, config);
   };
-  const handleCheckFileModal=(response)=>{
-
+  const handleCheckFileModal = (response) => {
+    setCheckResult(response.Message)
+    setShowCheckResultModal(true)
+  };
+  const handleImportSuccess=()=>{
+    
   }
   const handleResponse = useCallback((res, type) => {
     switch (type) {
@@ -88,10 +128,16 @@ const ImportCSVModal = (props) => {
         res.length ? handleSampleDownload(res) : noFileToast();
         break;
       case "CHECK":
-        res.length? handleCheckFileModal(res):noFileToast();
+        res.Result
+          ? handleCheckFileModal(res)
+          : toast.error(res.Message, {
+              position: toast.POSITION.TOP_CENTER,
+            });
         break;
       case "IMPORT":
-        console.log(res);
+       res.Result?handleImportSuccess(res):toast.error(res.Message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
         break;
       default:
         break;
@@ -99,109 +145,104 @@ const ImportCSVModal = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleUploadImport = () => {
-    setRequestType("IMPORT");
-    // fetchData({
-    //   method: "POST",
-    //   url: groupImportFile,
-    //   headers: {
-    //     accept: "*/*",
-    //   },
-    //   data: {
-    //     Request: request,
-    //     File: commaSeprated,
-    //   },
-    // });
-  };
-
+ 
   useEffect(() => {
     if (response) {
       handleResponse(response, requestType);
     }
   }, [response]);
-  const handleCheckFile=(event)=>{
-    setCheckFile(event.target.files[0])
-  }
-  const handleChangeImport=(event)=>{
-    setImportFile(event.target.files[0])
-  }
+  const handleCheckFile = (event) => {
+    setCheckFile(event.target.files[0]);
+  };
+  const handleChangeImport = (event) => {
+    setImportFile(event.target.files[0]);
+  };
   return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {t("importFile")}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="sampleFileModal">
-          <h4>{t("modalImport.sampleFile")}</h4>
-          <div className="smapleFileDownload">
-            <p>{t("modalImport.clickForDownload")}</p>
-            {sample&&
-            <CSVDownloader
-            className='csvDownloadBtn'
-              type={Type.Button}
-              filename={"sampleFile"}
-              bom={true}
-              config={{
-                delimiter: ";",
-              }}
-              data={sample}
-            >
-              {t("download")}
-            </CSVDownloader>
-                }
-            <Button
-              variant="info"
-              disabled={loading}
-              onClick={handleClickSample}
-            >
-              {t("createSample")}
-            </Button>
-          </div>
-        </div>
-        <div className="checkFile">
-          <h4>{t("modalImport.checkFile")}</h4>
-          <div className="checkFileButtons">
-            <p>{t("modalImport.checkFileUpload")}</p>
-            <div className="uploadButtonAndFile">
-             <input type={'file'} onChange={handleCheckFile}/>
+    <>
+      {showCheckResultModal && (
+        <ModalCheckResult
+          onHide={() => setShowCheckResultModal(false)}
+          show={showCheckResultModal}
+          data={checkResult}
+        />
+      )}
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {t("importFile")}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="sampleFileModal">
+            <h4>{t("modalImport.sampleFile")}</h4>
+            <div className="smapleFileDownload">
+              <p>{t("modalImport.clickForDownload")}</p>
+              {sample && (
+                <CSVDownloader
+                  className="csvDownloadBtn"
+                  type={Type.Button}
+                  filename={"sampleFile"}
+                  bom={true}
+                  config={{
+                    delimiter: ";",
+                  }}
+                  data={sample}
+                >
+                  {t("download")}
+                </CSVDownloader>
+              )}
               <Button
                 variant="info"
-                disabled={!checkFile ? true : false}
-                onClick={handleUploadCheck}
+                disabled={loading}
+                onClick={handleClickSample}
               >
-                {t("upload")}
+                {t("createSample")}
               </Button>
             </div>
           </div>
-        </div>
-        <div className="import">
-          <h4>{t("import")}</h4>
-          <div className="checkFileButtons">
-            <p>{t("modalImport.importCSV")}</p>
-            <div className="uploadButtonAndFile">
-            <input type={"file"} onChange={handleChangeImport}/>
-              <Button
-                variant="info"
-                disabled={!importFile ? true : false}
-                onClick={handleUploadImport}
-              >
-                {t("upload")}
-              </Button>
+          <div className="checkFile">
+            <h4>{t("modalImport.checkFile")}</h4>
+            <div className="checkFileButtons">
+              <p>{t("modalImport.checkFileUpload")}</p>
+              <div className="uploadButtonAndFile">
+                <input type={"file"} onChange={handleCheckFile} />
+                <Button
+                  variant="info"
+                  disabled={!checkFile || loading ? true : false}
+                  onClick={handleUploadCheck}
+                >
+                  {t("upload")}
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={() => props.onHide()}>{t("cancel")}</Button>
-      </Modal.Footer>
-    </Modal>
+          <div className="import">
+            <h4>{t("import")}</h4>
+            <div className="checkFileButtons">
+              <p>{t("modalImport.importCSV")}</p>
+              <div className="uploadButtonAndFile">
+                <input type={"file"} onChange={handleChangeImport} />
+                <Button
+                  variant="info"
+                  disabled={!importFile || loading ? true : false}
+                  onClick={handleUploadImport}
+                >
+                  {t("upload")}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => props.onHide()}>{t("cancel")}</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 

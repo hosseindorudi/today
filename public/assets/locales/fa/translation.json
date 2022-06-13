@@ -266,5 +266,7 @@
   "upload":"بارگزاری",
   "modalImport.importCSV":"CSV خود را وارد کنید",
   "cancel":"انصراف",
-  "createSample":"ساخت نمونه"
+  "createSample":"ساخت نمونه",
+  "errorOnImport":"خطا در بارگزاری",
+  "import":"وارد کردن"
 }

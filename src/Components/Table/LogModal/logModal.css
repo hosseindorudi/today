@@ -1,0 +1,11 @@
+.tableEyeBtn{
+    border: none;
+    background: none;
+}
+.modalLog td{
+    text-align: center;
+}
+.modalLog .modal-content{
+max-height: 500px;
+    overflow-y: auto;
+}
