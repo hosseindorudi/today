@@ -1,25 +1,38 @@
 import { t } from "i18next";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { useCSVReader,usePapaParse  } from "react-papaparse";
+import { useCSVReader, usePapaParse, useCSVDownloader } from "react-papaparse";
 
 import { toast } from "react-toastify";
+import AppContext from "../../../contexts/AppContext";
+import { OsContext } from "../../../contexts/OsInformationProvider";
 import useAxios from "../../../customHooks/useAxios";
+import useGeoLocation from "../../../customHooks/useGeoLocation";
 import useRequest from "../../../customHooks/useRequest";
-import { groupCheckFile, groupImportFile, groupSampleFile } from "../../../services/groupService";
-import { downloadCSVCode } from "../../../validation/functions";
+import useRequestFile from "../../../customHooks/useRequestFile";
+import {
+  groupCheckFile,
+  groupImportFile,
+  groupSampleFile,
+} from "../../../services/groupService";
+
 import "./importModal.css";
 
 const ImportCSVModal = (props) => {
-  const { CSVReader } = useCSVReader();
+    const { app } = useContext(AppContext);
+    const { os } = useContext(OsContext);
+    const accessToken = localStorage.getItem("token");
+    const location = useGeoLocation();
   const { readString } = usePapaParse();
-//   const { CSVDownloader, Type } = useCSVDownloader();
+  const { CSVDownloader, Type } = useCSVDownloader();
   const [response, loading, fetchData] = useAxios();
+  const [checkFile, setCheckFile] = useState(null)
+  const [importFile, setImportFile] = useState(null)
   const [requestType, setRequestType] = useState("");
-  const [data, setData] = useState(null)
-  const [importData, setImportData] = useState(null)
+  const [sample, setSample] = useState(null);
   const request = useRequest();
+  const [fetch]=useRequestFile()
 
   const handleClickSample = () => {
     setRequestType("SAMPLE");
@@ -37,79 +50,82 @@ const ImportCSVModal = (props) => {
       position: toast.POSITION.TOP_CENTER,
     });
   };
-  
-  const handleUploadCheck=()=>{
-    var commaSeprated = data.join(', ')
+
+  const handleUploadCheck = () => {
     setRequestType("CHECK");
+    var formData = new FormData();
+    formData.append('Request.Language', app.langCode);
+    formData.append('Request.OS',  os.os,);
+    formData.append('Request.IP', os.ip);
+    formData.append('Request.Browser', os.browser);
+    formData.append('Request.Latitude', location.loaded ? location.coordinates.lat : 0);
+    formData.append('Request.Longitude', location.loaded ? location.coordinates.lng : 0);
+    formData.append('Request.Token', accessToken ? accessToken : "");
+    formData.append('File', checkFile);
     fetchData({
       method: "POST",
       url: groupCheckFile,
       headers: {
-        accept: "*/*",
+        'Content-Type': 'multipart/form-data'
       },
-      data: {
-      Request:request,
-      File:commaSeprated
-    },
+      data:formData
     });
-  }
-  const makeCSV=(result)=>{
-    let val=result.join(", ")
-    console.log(result,val)
-    // downloadCSVCode(val,"s")
-    //     console.log(val)
-  }
-  const handleSampleDownload=(res)=>{
+  };
+  const handleSampleDownload = (res) => {
     const config = {
-        worker: true,
-        complete: (results) => {
-            makeCSV(results.data)
-        },
-      };
-      readString(res,config);
+      worker: true,
+      complete: (results) => {
+        setSample(results.data);
+      },
     };
-  const handleResponse = useCallback((res,type) => {
+    readString(res, config);
+  };
+  const handleCheckFileModal=(response)=>{
+
+  }
+  const handleResponse = useCallback((res, type) => {
     switch (type) {
       case "SAMPLE":
-      
         res.length ? handleSampleDownload(res) : noFileToast();
         break;
-        case "CHECK":
-        console.log(res)
+      case "CHECK":
+        res.length? handleCheckFileModal(res):noFileToast();
         break;
-        case "IMPORT":
-            console.log(res)
-            break;
+      case "IMPORT":
+        console.log(res);
+        break;
       default:
         break;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
 
-  const handleUploadImport=()=>{
-    var commaSeprated = importData.join(', ')
+  const handleUploadImport = () => {
     setRequestType("IMPORT");
-    fetchData({
-      method: "POST",
-      url: groupImportFile,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-      Request:request,
-      File:commaSeprated
-    },
-    });
-  }
+    // fetchData({
+    //   method: "POST",
+    //   url: groupImportFile,
+    //   headers: {
+    //     accept: "*/*",
+    //   },
+    //   data: {
+    //     Request: request,
+    //     File: commaSeprated,
+    //   },
+    // });
+  };
 
   useEffect(() => {
-   
     if (response) {
-       
-      handleResponse(response,requestType);
+      handleResponse(response, requestType);
     }
   }, [response]);
+  const handleCheckFile=(event)=>{
+    setCheckFile(event.target.files[0])
+  }
+  const handleChangeImport=(event)=>{
+    setImportFile(event.target.files[0])
+  }
   return (
     <Modal
       {...props}
@@ -127,12 +143,26 @@ const ImportCSVModal = (props) => {
           <h4>{t("modalImport.sampleFile")}</h4>
           <div className="smapleFileDownload">
             <p>{t("modalImport.clickForDownload")}</p>
+            {sample&&
+            <CSVDownloader
+            className='csvDownloadBtn'
+              type={Type.Button}
+              filename={"sampleFile"}
+              bom={true}
+              config={{
+                delimiter: ";",
+              }}
+              data={sample}
+            >
+              {t("download")}
+            </CSVDownloader>
+                }
             <Button
               variant="info"
               disabled={loading}
               onClick={handleClickSample}
             >
-              {t("download")}
+              {t("createSample")}
             </Button>
           </div>
         </div>
@@ -141,96 +171,36 @@ const ImportCSVModal = (props) => {
           <div className="checkFileButtons">
             <p>{t("modalImport.checkFileUpload")}</p>
             <div className="uploadButtonAndFile">
-              <CSVReader
-                onUploadAccepted={(results) => {
-                 setData(results.data)
-                }}
+             <input type={'file'} onChange={handleCheckFile}/>
+              <Button
+                variant="info"
+                disabled={!checkFile ? true : false}
+                onClick={handleUploadCheck}
               >
-                {({
-                  getRootProps,
-                  acceptedFile,
-                  ProgressBar,
-                  getRemoveFileProps,
-                }) => (
-                  <>
-                    <div className="csvReader">
-                      <button
-                        type="button"
-                        {...getRootProps()}
-                        className="browseFile"
-                      >
-                        Browse file
-                      </button>
-                      <div >
-                        {acceptedFile && acceptedFile.name}
-                      </div>
-                      {/* <button {...getRemoveFileProps()} className='remove'>
-                        Remove
-                      </button> */}
-                    </div>
-                    {/* <ProgressBar  className='progressBarBackgroundColor'/> */}
-                  </>
-                )}
-              </CSVReader>
-              <Button variant="info"disabled={!data?true:false} onClick={handleUploadCheck}>{t("upload")}</Button>
+                {t("upload")}
+              </Button>
             </div>
           </div>
         </div>
         <div className="import">
-        <h4>{t("import")}</h4>
-        <div className="checkFileButtons">
+          <h4>{t("import")}</h4>
+          <div className="checkFileButtons">
             <p>{t("modalImport.importCSV")}</p>
             <div className="uploadButtonAndFile">
-              <CSVReader
-                onUploadAccepted={(results) => {
-                 setImportData(results.data)
-                }}
+            <input type={"file"} onChange={handleChangeImport}/>
+              <Button
+                variant="info"
+                disabled={!importFile ? true : false}
+                onClick={handleUploadImport}
               >
-                {({
-                  getRootProps,
-                  acceptedFile,
-                  ProgressBar,
-                  getRemoveFileProps,
-                }) => (
-                  <>
-                    <div className="csvReader">
-                      <button
-                        type="button"
-                        {...getRootProps()}
-                        className="browseFile"
-                      >
-                        Browse file
-                      </button>
-                      <div >
-                        {acceptedFile && acceptedFile.name}
-                      </div>
-                      {/* <button {...getRemoveFileProps()} className='remove'>
-                        Remove
-                      </button> */}
-                    </div>
-                    {/* <ProgressBar  className='progressBarBackgroundColor'/> */}
-                  </>
-                )}
-              </CSVReader>
-              <Button variant="info" disabled={!importData?true:false} onClick={handleUploadImport}>{t("upload")}</Button>
+                {t("upload")}
+              </Button>
             </div>
-            </div>
-          
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer>
-      {/* <CSVDownloader
-      type={Type.Button}
-      filename={'filename'}
-      bom={true}
-      config={{
-        delimiter: ';',
-      }}
-      data={}
-    >
-      Download
-    </CSVDownloader> */}
-        <Button onClick={()=>props.onHide()}>{t("cancel")}</Button>
+        <Button onClick={() => props.onHide()}>{t("cancel")}</Button>
       </Modal.Footer>
     </Modal>
   );

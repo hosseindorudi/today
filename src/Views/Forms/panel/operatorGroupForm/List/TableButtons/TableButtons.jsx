@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import "./tableButtons.css";
 import * as fa from "react-icons/fa";
-import { groupExport } from "../../../../../../services/groupService";
+import {  groupExportId } from "../../../../../../services/groupService";
 import useAxios from "../../../../../../customHooks/useAxios";
 import useRequest from "../../../../../../customHooks/useRequest";
 import { toast } from "react-toastify";
@@ -31,7 +31,7 @@ const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
     //     console.log(csvContent)
     fetchData({
       method: "POST",
-      url: groupExport,
+      url: groupExportId,
       headers: {
         accept: "*/*",
       },

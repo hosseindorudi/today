@@ -692,7 +692,6 @@ const Group = () => {
                 {productsColumns
                   .filter((p, i) => !filteredColumns.includes(p["Header"]))
                   .map((column, index) => (
-                    <div key={index}>
                       <div className="checkBoxTableParent" key={index}>
                         <label htmlFor="todo" data-content="Get out of bed">
                           {t(column["Header"])}
@@ -706,7 +705,6 @@ const Group = () => {
                           onChange={() => CheckBoxChangeHandler(index)}
                         />
                       </div>
-                    </div>
                   ))}
               </div>
             </div>
