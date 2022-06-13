@@ -1,8 +1,9 @@
 import { t } from "i18next";
-import React, { useCallback, useEffect,CSSProperties } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { useCSVReader } from "react-papaparse";
+import { useCSVReader,usePapaParse  } from "react-papaparse";
+
 import { toast } from "react-toastify";
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
@@ -12,6 +13,8 @@ import "./importModal.css";
 
 const ImportCSVModal = (props) => {
   const { CSVReader } = useCSVReader();
+  const { readString } = usePapaParse();
+//   const { CSVDownloader, Type } = useCSVDownloader();
   const [response, loading, fetchData] = useAxios();
   const [requestType, setRequestType] = useState("");
   const [data, setData] = useState(null)
@@ -50,10 +53,26 @@ const ImportCSVModal = (props) => {
     },
     });
   }
-  const handleResponse = useCallback((res) => {
-    switch (requestType) {
+  const makeCSV=(result)=>{
+    let val=result.join(", ")
+    console.log(result,val)
+    // downloadCSVCode(val,"s")
+    //     console.log(val)
+  }
+  const handleSampleDownload=(res)=>{
+    const config = {
+        worker: true,
+        complete: (results) => {
+            makeCSV(results.data)
+        },
+      };
+      readString(res,config);
+    };
+  const handleResponse = useCallback((res,type) => {
+    switch (type) {
       case "SAMPLE":
-        res.length ? downloadCSVCode(res, "sample") : noFileToast();
+      
+        res.length ? handleSampleDownload(res) : noFileToast();
         break;
         case "CHECK":
         console.log(res)
@@ -66,11 +85,7 @@ const ImportCSVModal = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    if (response) {
-      handleResponse(response);
-    }
-  }, [response, handleResponse]);
+  
 
   const handleUploadImport=()=>{
     var commaSeprated = importData.join(', ')
@@ -87,6 +102,14 @@ const ImportCSVModal = (props) => {
     },
     });
   }
+
+  useEffect(() => {
+   
+    if (response) {
+       
+      handleResponse(response,requestType);
+    }
+  }, [response]);
   return (
     <Modal
       {...props}
@@ -196,6 +219,17 @@ const ImportCSVModal = (props) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
+      {/* <CSVDownloader
+      type={Type.Button}
+      filename={'filename'}
+      bom={true}
+      config={{
+        delimiter: ';',
+      }}
+      data={}
+    >
+      Download
+    </CSVDownloader> */}
         <Button onClick={()=>props.onHide()}>{t("cancel")}</Button>
       </Modal.Footer>
     </Modal>

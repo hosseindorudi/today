@@ -98,8 +98,8 @@ const Group = () => {
         paging: paging,
         filter: {
           flt_Title: flt_Title,
-          flt_FromDate: seartBegin ? setDatePickerDate(seartBegin) : "",
-          flt_ToDate: seartEnd ? setDatePickerDate(seartEnd) : "",
+          flt_FromDate: seartBegin ? setDatePickerDate(seartBegin) : null,
+          flt_ToDate: seartEnd ? setDatePickerDate(seartEnd) : null,
         },
       },
       signal: abortController.signal,
@@ -692,7 +692,7 @@ const Group = () => {
                 {productsColumns
                   .filter((p, i) => !filteredColumns.includes(p["Header"]))
                   .map((column, index) => (
-                    <>
+                    <div key={index}>
                       <div className="checkBoxTableParent" key={index}>
                         <label htmlFor="todo" data-content="Get out of bed">
                           {t(column["Header"])}
@@ -706,7 +706,7 @@ const Group = () => {
                           onChange={() => CheckBoxChangeHandler(index)}
                         />
                       </div>
-                    </>
+                    </div>
                   ))}
               </div>
             </div>
