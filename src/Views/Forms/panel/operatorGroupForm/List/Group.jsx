@@ -37,9 +37,14 @@ import {
 } from "../../../../../validation/functions";
 import { t } from "i18next";
 import { Pagination } from "@mui/material";
+import ImportCSV from "../../../../../Components/Table/ImportCSVButton/ImportCSV";
+import { TabContext } from "../../../../../contexts/TabContextProvider";
+import OperatorGroupForm from "../OperatorGroupForm";
+import { menues } from "../../../../../data/Enums";
 const Group = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar"];
   const [response, loading, fetchData] = useAxios();
+  const tabContext = useContext(TabContext);
   const [requestType, setRequestType] = useState("");
   const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,7 +64,16 @@ const Group = () => {
   const [productsColumns, setproductsColumns] = useState([]);
   // const [isSorted, setIsSorted] = useState("0");
   const abortController = new AbortController();
-
+  const handleAdd=()=>{
+    
+    const item={
+          Component:<OperatorGroupForm/>,
+          path:"/panelGroupForm",
+          title:"routes.groupForm",
+          access:menues.panelGroupForm
+    }
+    tabContext.addRemoveTabs(item, "add");
+  }
   const getTable = () => {
     fetchData({
       method: "POST",
@@ -123,6 +137,7 @@ const Group = () => {
     setTableModalOpen(true);
   };
   const favorited=()=>{
+    setIsFavorite(true)
     toast.success(t("favorited"), {
       position: toast.POSITION.TOP_CENTER,
     });
@@ -363,7 +378,7 @@ const Group = () => {
                 style={{ height: search ? 200 : 100 }}
               >
                 <div className="reacttableParentPlusButton">
-                  <button className="plusBUTTON">
+                  <button className="plusBUTTON" onClick={ handleAdd}>
                     <i className="fa fa-plus"></i>
                   </button>
                 </div>
@@ -508,19 +523,18 @@ const Group = () => {
                       <button className="reactTableParentExportButton" title="exportCSV">
                         <cg.CgExport />
                       </button>
-                      <button className="reactTableParentImportButton" title="importCSV">
-                        <fa.FaFileCsv />
-                      </button>
-                      <button className="reactTableParentLogButton">
+
+                      <ImportCSV/>
+                      <button className="reactTableParentLogButton" title='log'>
                         <fa.FaHistory />
                       </button>
                       <button className="reactTableParentAccessButton">
                         <fa.FaUserLock />
                       </button>
-                      <button disabled={IsFavorite} className={`reactTableParentFavoritButton ${IsFavorite? "favactive":""}`} onClick={handleClickFav}>
+                      <button disabled={IsFavorite} title="favorite" className={`reactTableParentFavoritButton ${IsFavorite? "favactive":""}`} onClick={handleClickFav}>
                         <fa.FaRegStar />
                       </button>
-                      <button className="reactTableParentHelpButton" onClick={handleClickHelp}>
+                      <button className="reactTableParentHelpButton" onClick={handleClickHelp} title="help">
                         <fa.FaQuestionCircle />
                       </button>
                     </div>

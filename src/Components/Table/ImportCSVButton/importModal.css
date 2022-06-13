@@ -1,0 +1,44 @@
+.smapleFileDownload{
+display: flex; 
+flex-direction: row;
+justify-content: space-between;
+}
+.checkFileButtons{
+    display: flex;
+    justify-content: space-between;
+    
+    align-items: center;
+
+}
+.uploadButtonAndFile{
+display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    direction: ltr;
+    gap: 15px;
+}
+.checkFileButtons input{
+    width: 70%;
+}
+.csvReader{
+    display:flex ;
+    flex-direction:row;
+}
+.browseFile{
+    /* width: 20%; */
+}
+/* .acceptedFile{
+    border: 1px solid #ccc;
+    height: 45;
+    line-height: 2.5;
+    padding-left: 10;
+    width: 80%;
+} */
+/* .remove{
+    border-radius: 0;
+    padding: 0 20px;
+} */
+.progressBarBackgroundColor{
+    background-color: red;
+}

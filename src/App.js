@@ -21,6 +21,7 @@ function App() {
   const [app, setApp] = useState({
     forms: [],
     activeTab: "/dashboard",
+    title:"dashboard",
     lang: "",
     langCode: "",
     sidebarOpen: false,

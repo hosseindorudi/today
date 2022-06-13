@@ -256,5 +256,14 @@
   "updatedRecord":"رکورد با موفقیعت بروز شد",
   "sendGroup":"ارسال",
   "noDataFound.table":"اطلاعاتی پیدا نشد",
-  "favorited":"عملیات با موفقیعت انجام شد"
+  "favorited":"عملیات با موفقیعت انجام شد",
+  "importFile":"وارد کردن فایل",
+  "modalImport.sampleFile":"نمونه فایل",
+  "download":"دانلود",
+  "modalImport.clickForDownload":"برای دیدن نمونه فایل کلیک کنید",
+  "modalImport.checkFile":"چک فایل",
+  "modalImport.checkFileUpload":"csv خود رای برای چک بارگزاری کنید",
+  "upload":"بارگزاری",
+  "modalImport.importCSV":"CSV خود را وارد کنید",
+  "cancel":"انصراف"
 }

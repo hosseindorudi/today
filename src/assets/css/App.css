@@ -21,3 +21,7 @@ body{
 .fontEn{
   font-family: 'IRANSansEn',serif !important;
 }
+.modal-header .btn-close{
+  padding: 0;
+  margin: 0;
+}

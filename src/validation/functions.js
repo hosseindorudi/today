@@ -1,3 +1,5 @@
+import { t } from "i18next"
+
 export const convertUTC=(utc)=>{
     const lang=localStorage.getItem("i18nextLng")
      var local=new Date(utc)
@@ -14,4 +16,15 @@ export const  setDatePickerDate = (dater) => {
     
     return finalDate.toString();
 
+}
+
+export const downloadCSVCode=(data,title)=>{
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += data + "\r\n";
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `${t(title)}.csv`);
+    document.body.appendChild(link); 
+    link.click();
 }

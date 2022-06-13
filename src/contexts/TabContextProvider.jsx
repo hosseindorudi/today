@@ -19,20 +19,6 @@ const TabContextProvider = (props) => {
     if (!found) {
       if (tabs.length === maxTabLength) {
         const newState = [...tabs];
-        // newState.shift()
-        // newState.unshift({
-        //   title: item.title,
-        //   path: item.path,
-        //   Component: item.Component,
-        // })
-        newState.map((n,i) => {
-          if(i == 0) {
-            n['title'] = item.title;
-            n['path'] = item.path;
-            n['Component'] = item.Component;
-
-          }
-        })
         newState[0] = {
           title: item.title,
           path: item.path,
@@ -41,7 +27,7 @@ const TabContextProvider = (props) => {
         
         return (
           setTabs(newState),
-          setApp((prev) => ({ ...prev, activeTab: item.path }))
+          setApp((prev) => ({ ...prev, activeTab: item.path,title:item.title }))
         );
       }
 
@@ -50,10 +36,10 @@ const TabContextProvider = (props) => {
           ...prev,
           { title: item.title, path: item.path, Component: item.Component },
         ]),
-        setApp((prev) => ({ ...prev, activeTab: item.path }))
+        setApp((prev) => ({ ...prev, activeTab: item.path,title:item.title }))
       );
     }
-    setApp((prev) => ({ ...prev, activeTab: item.path }));
+    setApp((prev) => ({ ...prev, activeTab: item.path,title:item.title }));
   };
   const removeFromTab = (item) => {
     const isFound = (e) => e.path === item.path;
@@ -62,9 +48,9 @@ const TabContextProvider = (props) => {
     setTabs(filtered);
     if (item.path === app.activeTab && filtered.length) {
       if (filtered[index - 1]) {
-        setApp((prev) => ({ ...prev, activeTab: filtered[index - 1].path }));
+        setApp((prev) => ({ ...prev, activeTab: filtered[index - 1].path,title:filtered[index - 1].title }));
       } else {
-        setApp((prev) => ({ ...prev, activeTab: filtered[index].path }));
+        setApp((prev) => ({ ...prev, activeTab: filtered[index].path,title:filtered[index].title }));
       }
     }
   };
