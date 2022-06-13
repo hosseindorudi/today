@@ -10,7 +10,7 @@ import { OsContext } from "../../../contexts/OsInformationProvider";
 import useAxios from "../../../customHooks/useAxios";
 import useGeoLocation from "../../../customHooks/useGeoLocation";
 import useRequest from "../../../customHooks/useRequest";
-import useRequestFile from "../../../customHooks/useRequestFile";
+
 import {
   groupCheckFile,
   groupImportFile,
@@ -32,7 +32,6 @@ const ImportCSVModal = (props) => {
   const [requestType, setRequestType] = useState("");
   const [sample, setSample] = useState(null);
   const request = useRequest();
-  const [fetch]=useRequestFile()
 
   const handleClickSample = () => {
     setRequestType("SAMPLE");
