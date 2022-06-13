@@ -91,6 +91,11 @@ const PhoneDefects=lazy(()=>import('./Views/Forms/definations/phoneDefects/Phone
 const PhoneDefectsForm=lazy(()=>import('./Views/Forms/definations/phoneDefects/phoneDefectDefine/PhoneDefectDefine'))
 const Pricing=lazy(()=>import('./Views/Forms/rules/pricing/Pricing'))
 const TechnicianRating=lazy(()=>import('./Views/Forms/rules/technicianRating/TechnicianRating'))
+const ConversationClubList = lazy(()=> import('./Views/Forms/customerClub/conversation/conversationList/ConversationList'))
+const ConversationClubForm = lazy(()=> import('./Views/Forms/customerClub/conversation/conversationForm/ConversationForm'))
+const DeliveryRecord = lazy(()=> import('./Views/Forms/distribution/deliveryRecord/DeliveryRecord'))
+const Orders = lazy(()=> import('./Views/Forms/distribution/orders/Orders'))
+const SmsForm = lazy(()=> import('./Views/Forms/setting/sms/SmsForm'))
 export const Routes = [
   {
     title: 'routes.panel',
@@ -764,5 +769,71 @@ export const Routes = [
       iconOpened: <RiIcons.RiArrowUpSFill />,
       subNav: [
        
-      ]}
+      ]},
+      {
+        title: 'routes.customerClub',
+        icon: <IoIcons.IoIosPaper />,
+        access:menues.customerClub,
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+        subNav: [
+          {
+            title: 'routes.conversation',
+            path:'/conversationClubList',
+            access:menues.conversationClubList,
+            Component:<ConversationClubList/>,
+            button:{
+              Component:<ConversationClubForm/>,
+              path:"/conversationClubForm",
+              title:"routes.conversationClubForm",
+              access:menues.conversationClubForm,
+            },
+            icon: <IoIcons.IoIosPaper />,
+            cName: 'sub-nav'
+          }
+          
+        ]},
+      {
+        title: 'routes.distribution',
+        icon: <IoIcons.IoIosPaper />,
+        access:menues.distribution,
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+        subNav: [
+          {
+            title: 'routes.deliveryRecord',
+            path:'/deliveryRecordList',
+            access:menues.deliveryRecordList,
+            Component:<DeliveryRecord/>,
+            icon: <IoIcons.IoIosPaper />,
+            cName: 'sub-nav'
+          },
+          {
+            title: 'routes.orders',
+            path:'/OrdersList',
+            access:menues.OrdersList,
+            Component:<Orders/>,
+            icon: <IoIcons.IoIosPaper />,
+            cName: 'sub-nav'
+          }
+          
+        ]},
+        {
+          title: 'routes.setting',
+          icon: <IoIcons.IoIosPaper />,
+          access:menues.setting,
+          iconClosed: <RiIcons.RiArrowDownSFill />,
+          iconOpened: <RiIcons.RiArrowUpSFill />,
+          subNav: [
+            {
+              title: 'routes.smsForm',
+              path:'/smsForm',
+              access:menues.sms,
+              Component:<SmsForm/>,
+              
+              icon: <IoIcons.IoIosPaper />,
+              cName: 'sub-nav'
+            }
+            
+          ]}
 ];

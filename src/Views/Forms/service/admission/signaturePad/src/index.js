@@ -1,6 +1,7 @@
 import React from "react";
 import Bezier from "./bezier";
 import Point from "./point"
+import './canvasCss.css'
 
 export default class SignaturePad extends React.Component {
 
@@ -76,9 +77,11 @@ export default class SignaturePad extends React.Component {
     // When zoomed out to less than 100%, for some very strange reason,
     // some browsers report devicePixelRatio as less than 1
     // and only part of the canvas is cleared then.
-    var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+    var ratio =  Math.max(1, 1);
     canvas.width = canvas.offsetWidth * ratio;
+    canvas.width = canvas.width === 0 ? (this.props.sigType === "agent" ? 473 : 354) : canvas.width 
     canvas.height = canvas.offsetHeight * ratio;
+    canvas.height = canvas.height === 0 ? 162 : canvas.height 
 
     ctx.scale(ratio, ratio);
     this._isEmpty = true;
@@ -321,7 +324,7 @@ export default class SignaturePad extends React.Component {
       <div id="signature-pad" className="m-signature-pad" >
         <span>{this.props.textTitle}</span>
         <div className="m-signature-pad--body">
-          <canvas ref="cv" style={{width: "100%"}}></canvas>
+          <canvas className="canvasForEver"  ref="cv" ></canvas>
         </div>
         { this.props.clearButton &&
           <div className="m-signature-pad--footer">

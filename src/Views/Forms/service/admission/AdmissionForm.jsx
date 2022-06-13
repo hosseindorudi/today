@@ -251,7 +251,7 @@ const AdmissionForm = () => {
         </div>
 
         <div className="signaturepadDiv">
-          <SignaturePad clearButton="true" ref={sigPad}  textTitle="امضا کارشناس پذیرش: " />
+          <SignaturePad clearButton="true" ref={sigPad} sigType={"agent"}  textTitle="امضا کارشناس پذیرش: " />
         </div>
       </div>
       <div className="leftForm">
@@ -270,7 +270,7 @@ const AdmissionForm = () => {
         <textarea type="text"  id='deviceFailedDescription' className="fanni" placeholder='توضیحات فنی: '/>
         
         <div className="signaturepadDiv1">
-          <SignaturePad clearButton="true"  textTitle="امضا مشتری: " />
+          <SignaturePad clearButton="true" sigType={"customer"}  textTitle="امضا مشتری: " />
         </div>
       </div>
     </div>

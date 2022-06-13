@@ -55,7 +55,7 @@ const Operator = () => {
                   <div style={{direction: "ltr"}}>
                     <LocalizationProvider dateAdapter={AdapterJalali}>
                         <DatePicker
-                        label="تاریخ شروع"
+                        label="-"
                         mask="____/__/__"
                         value={operatorDateExp}
                         onChange={(newValue) => {setOperatorDateExp(newValue)}}

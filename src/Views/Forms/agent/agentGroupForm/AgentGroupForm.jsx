@@ -119,7 +119,7 @@ const AgentGroupForm = () => {
               label={t("OperatorGroup.switch")}
             />
           </div>
-          <div className="inputDiv">
+          <div className="inputDivGroup">
             <label htmlFor="OperatorGroupFormInputTitle1">
               {t("operatorGroupFormTitle")}:
             </label>
@@ -131,7 +131,7 @@ const AgentGroupForm = () => {
               id="OperatorGroupFormInputTitle1"
             />
           </div>
-          <div className="inputDivDesc">
+          <div className="inputDivGroup">
             <label htmlFor="OperatorGroupFormInputDesc">
               {t("operatorGroupFormDesc")}:
             </label>

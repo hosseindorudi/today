@@ -13,11 +13,10 @@
     justify-content: center;
     width: 100%;
     margin: 10px auto;
+    height: 350px;
 }
 
-.parentOfModal{
-    position: relative;
-}
+
 
 .operatorDashboardInformation {
     flex: 1;
@@ -52,10 +51,10 @@
     flex: 4;
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     border: 1px solid lightgray;
-    height: fit-content;
+    height: 100%;
     padding: 10px;
 }
 

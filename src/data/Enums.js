@@ -87,7 +87,14 @@
   serviceQcExitForm:200015,
   serviceDelivery:200016,
   serviceDeliveryForm:200017,
-
+  customerClub:200018,
+  conversationClubForm:200019,
+  conversationClubList:200020,
+  distribution:200021,
+  deliveryRecordList:200022,
+  OrdersList:200023,
+  setting:200024,
+  sms:200025,
 
   //main
   panel:100050,

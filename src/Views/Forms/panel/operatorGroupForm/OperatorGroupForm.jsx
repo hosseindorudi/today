@@ -201,7 +201,7 @@ const handleSeccess=(message)=>{
               checked ={activation}
             />
           </div>
-          <div className="inputDiv">
+          <div className="inputDivGroup">
             <label htmlFor="OperatorGroupFormInputTitle1">
               {t("operatorGroupFormTitle")}:
             </label>
@@ -213,7 +213,7 @@ const handleSeccess=(message)=>{
               id="OperatorGroupFormInputTitle1"
             />
           </div>
-          <div className="inputDivDesc">
+          <div className="inputDivDescGroup">
             <label htmlFor="OperatorGroupFormInputDesc">
               {t("operatorGroupFormDesc")}:
             </label>

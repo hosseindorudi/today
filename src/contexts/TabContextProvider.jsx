@@ -19,11 +19,26 @@ const TabContextProvider = (props) => {
     if (!found) {
       if (tabs.length === maxTabLength) {
         const newState = [...tabs];
+        // newState.shift()
+        // newState.unshift({
+        //   title: item.title,
+        //   path: item.path,
+        //   Component: item.Component,
+        // })
+        newState.map((n,i) => {
+          if(i == 0) {
+            n['title'] = item.title;
+            n['path'] = item.path;
+            n['Component'] = item.Component;
+
+          }
+        })
         newState[0] = {
           title: item.title,
           path: item.path,
           Component: item.Component,
         };
+        
         return (
           setTabs(newState),
           setApp((prev) => ({ ...prev, activeTab: item.path }))
