@@ -1,22 +1,53 @@
 import './technician.css'
-import logo from "../../../../assets/imgs/logo.png";
-import React, { useEffect, useRef, useState } from "react";
-import { data, phone, qcExit } from "../../../../data/dataQc";
+import logo from "../../../../../assets/imgs/logo.png";
+import React, { useEffect, useContext, useState } from "react";
+import { data, phone, qcExit } from "../../../../../data/dataQc";
 import Multiselect from 'multiselect-react-dropdown';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
 import AdapterJalali from '@date-io/date-fns-jalali';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { setDatePickerDate } from '../../../../../validation/functions';
+import { TabContext } from "../../../../../contexts/TabContextProvider";
+import Technician from '../technicianList/Technician';
+
 const TechnicianForm = () => {
   // const [value,setValue] = useState();
-  const [multiValue, setMultiValue] = useState([])
-  const [multiValueWarranty,setMultiValueWarranty] = useState([]);
+
   const [time, setTime] = useState(new Date());
   const [date, setDate] = useState(new Date());
   const [qcState, setqcState] = useState();
   const [phonestate, setphonestate] = useState();
   const [loading, setloading] = useState(true);
+  const [warrantyType, setWarrantytype] = useState('0');
+  const [deviceStatus, setDeviceStatus] = useState('0');
+  const [extraService, setExtraService] = useState([]);
+  const [fallWarranty, setFallWarranty] = useState([]);
+  const [techText, settechText] = useState('')
+
+
+  const tabContext = useContext(TabContext);
+  const handleClickMenu = () => {
+    
+    tabContext.addRemoveTabs(
+      {
+        title: "routes.service.technicianForm",
+        path: "/service.technicianForm",
+        Component:<TechnicianForm/>
+      }
+      , "remove");
+    tabContext.addRemoveTabs(
+      
+      {
+        title: "routes.service.technician",
+        path: "/service.technician",
+        Component:<Technician/>
+      }
+      
+      , "add");
+  };
+
 
   useEffect(() => {
       setqcState(qcExit);
@@ -24,6 +55,21 @@ const TechnicianForm = () => {
       setloading(false);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const handleSubmitTech =() => {
+        let data ={
+            techText,
+            warrantyType,
+            deviceStatus,
+            extraService,
+            fallWarranty,
+            time,
+            date: setDatePickerDate(date)
+
+        }
+        console.log(JSON.stringify(data))
+        handleClickMenu()
+    }
     
 return (
   <main className='maintech'>
@@ -125,34 +171,34 @@ return (
                   <span>کد ایراد:</span>
                   <span>24568</span>
               </div>
-              <select className="selectSendTypeTech">
-                  <option disabled value="0">وضعیت گارانتی بعد از نظر تکنسین</option>
-                  <option value="1">گارانتی</option>
-                  <option value="2">بدون گارانتی</option>
-                  <option value="3">استعلام تکنسین</option>
+              <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
+                  <option disabled value="0" >وضعیت گارانتی بعد از نظر تکنسین</option>
+                  <option value="گارانتی">گارانتی</option>
+                  <option value="بدون گارانتی">بدون گارانتی</option>
+                  <option value="استعلام تکنسین">استعلام تکنسین</option>
               </select>
-              <textarea type="text" id='technicianDesc'  className='personInformationTech'  placeholder='توضیحات فنی تکنسین' />
+              <textarea type="text" id='technicianDesc' onChange={(e) => settechText(e.target.value)}  className='personInformationTech'  placeholder='توضیحات فنی تکنسین' />
               
-              <select className="selectSendTypeTech">
+              <select className="selectSendTypeTech" onChange={(e) => setDeviceStatus(e.target.value)}>
                   <option disabled value="0">وضعیت فعلی دستگاه</option>
                   <optgroup label="در انتظار مشتری:(قبل از باز شدن گوشی)">
-                      <option value="1">منتظر رمز و اکانت</option>
-                      <option value="2">در انتظار تایید مشتری</option>
+                      <option value="منتظر رمز و اکانت">منتظر رمز و اکانت</option>
+                      <option value="در انتظار تایید مشتری">در انتظار تایید مشتری</option>
                   </optgroup>
                   <optgroup label="در حال تعمیر:">
-                      <option value="3">تعمیرنرم افزاری</option>
-                      <option value="4">تعمیر سخت افزاری</option>
-                      <option value="5">در انتظار قطعه (قطعی)</option>
-                      <option value="6">در انتظار قطعه (تستی)</option>
-                      <option value="7">در انتظار کمک فنی</option>
-                      <option value="8">منتظر رمز و اکانت</option>
+                      <option value="تعمیرنرم افزاری">تعمیرنرم افزاری</option>
+                      <option value="تعمیر سخت افزاری">تعمیر سخت افزاری</option>
+                      <option value="در انتظار قطعه (قطعی)">در انتظار قطعه (قطعی)</option>
+                      <option value="در انتظار قطعه (تستی)">در انتظار قطعه (تستی)</option>
+                      <option value="در انتظار کمک فنی">در انتظار کمک فنی</option>
+                      <option value="منتظر رمز و اکانت">منتظر رمز و اکانت</option>
                   </optgroup>
                   <optgroup label="اتمام کار:">
-                      <option value="9">عدم مشاهده ایراد</option>
-                      <option value="10">مرجوع</option>
-                      <option value="11">انصراف مشتری از تعمیر</option>
-                      <option value="12">تعویض کامل</option>
-                      <option value="13">تعویض برد(ثبت imei)</option>
+                      <option value="عدم مشاهده ایراد">عدم مشاهده ایراد</option>
+                      <option value="مرجوع">مرجوع</option>
+                      <option value="انصراف مشتری از تعمیر">انصراف مشتری از تعمیر</option>
+                      <option value="تعویض کامل">تعویض کامل</option>
+                      <option value="تعویض برد(ثبت imei)">تعویض برد(ثبت imei)</option>
                   </optgroup>
               </select>
               <button className='techReqBtn'>درخواست قطعه</button>
@@ -177,8 +223,8 @@ return (
                           {name: 'ساخت اکانت', id: 5},
                       ]} // Options to display in the dropdown
                       // Preselected value to persist in dropdown
-                      onSelect={(e)=>{ setMultiValue(prev => prev = e); console.log(multiValue)}} // Function will trigger on select event
-                      onRemove={(e)=>{setMultiValue(prev => prev = e);console.log(multiValue)}} // Function will trigger on remove event
+                      onSelect={(e)=>{ setExtraService(e)}} // Function will trigger on select event
+                      onRemove={(e)=>{setExtraService(e)}} // Function will trigger on remove event
                       displayValue="name" // Property name to display in the dropdown options
                       placeholder=""
                       hidePlaceholder ={true}
@@ -214,8 +260,8 @@ return (
                       {name: 'ایراد ناشی از Jailbreak', id: 19},
                   ]} // Options to display in the dropdown
                   // Preselected value to persist in dropdown
-                  onSelect={(e)=>{ setMultiValueWarranty(prev => prev = e); console.log(multiValueWarranty)}} // Function will trigger on select event
-                  onRemove={(e)=>{setMultiValueWarranty(prev => prev = e);console.log(multiValueWarranty)}} // Function will trigger on remove event
+                  onSelect={(e)=>{ setFallWarranty(e)}} // Function will trigger on select event
+                  onRemove={(e)=>{setFallWarranty(e)}} // Function will trigger on remove event
                   displayValue="name" // Property name to display in the dropdown options
                   placeholder=""
                   hidePlaceholder ={true}
@@ -255,6 +301,7 @@ return (
                           />
                       </LocalizationProvider>
                   </div>
+                  <button className='technicianSubmitButton' onClick={handleSubmitTech}>ارسال</button>
 
           </div>
       </div>

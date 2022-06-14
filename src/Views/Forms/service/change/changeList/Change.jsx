@@ -1,5 +1,4 @@
-import React from 'react'
-
+import './changelist.css'
 const Change = () => {
   return (
     <div>Change</div>

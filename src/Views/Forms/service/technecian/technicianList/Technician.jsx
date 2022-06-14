@@ -1,4 +1,4 @@
-import React from 'react'
+import './technicianList.css'
 
 const Technician = () => {
   return (

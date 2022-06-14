@@ -105,7 +105,7 @@ input[type=number] {
 }
 
 .personInformation {
-    margin: 3px 0;
+    margin: 5px 0;
     border: 1px solid lightgray;
     width: 70%;
     border-radius: 3px; 
@@ -122,21 +122,34 @@ input[type=number] {
     outline: 1px solid #0072E5;
     border: 1px solid #0072E5;
 }
-
-
-#address {
-    
+.personInformationText {
+    margin: 5px 0;
+    border: 1px solid lightgray;
+    width: 70%;
+    border-radius: 3px; 
+    height: 100px;
+    padding: 10px;
+    font-size: 14px;
     resize: none;
     overflow: hidden;
-    height: 70px;
 }
+
+.personInformationText:hover {
+    border: 1px solid black;
+}
+
+.personInformationText:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
 
 
 
 .deviceFaildAndPicture {
     display: flex;
     flex-direction: column;
-    height: 80px;
+    height: 100px;
     width: 70%;
     border-radius: 5px;
 }
@@ -234,17 +247,18 @@ input[type=number] {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3px 6px;
-    border-radius: 10px;
+    padding: 3px 8px;
+    border-radius: 8px;
     color: #000;
     cursor: pointer;
     transition: all 0.4s ease;
     margin: 1px 5px;
+    font-size: 14px;
     
 }
 
 .btnPattern:hover {
-    background-color: lightgray;
+    background-color: rgb(211, 211, 211);
     color: #000;
 }
 .patternspan {
@@ -364,7 +378,7 @@ input[type=number] {
 
 
 .deviceSerial {
-    margin: 3px auto;
+    margin: 4px auto;
     margin-top: 15px;
     height: 40px;
     border: 1px solid lightgray;
@@ -386,7 +400,7 @@ input[type=number] {
 
 .signaturepadDiv {
     border: 1px solid lightgray;
-    margin-top: 20px;
+    margin-top: 10px;
     border-radius: 5px;
     width: 70%;
 }
@@ -455,3 +469,25 @@ input[type=number] {
 }
 
 
+
+.admissionButtonSubmit {
+    width: 70%;
+    margin-top: 5px;
+    height: 50px;
+    border: 1px solid rgb(79, 79, 218);
+    background-color: #fff;
+    border-radius: 5px;
+    color: rgb(79, 79, 218);
+    transition: all 400ms ease;
+}
+
+  .admissionButtonSubmit:hover {
+    color: #fff;
+    background-color: rgb(79, 79, 218);
+  }
+
+
+
+.logoAdmission {
+    object-fit: contain;
+}

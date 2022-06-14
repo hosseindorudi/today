@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState,useContext } from "react";
 import { Button, Form } from "react-bootstrap";
-import logo from "../../../../assets/imgs/logo.png";
-import Stopwatch from "../../../../Components/stopWatch/stopWatch";
-import { data, phone, qcExit } from "../../../../data/dataQc";
+import logo from "../../../../../assets/imgs/logo.png";
+import Stopwatch from "../../../../../Components/stopWatch/stopWatch";
+import { data, phone, qcExit } from "../../../../../data/dataQc";
+import { TabContext } from "../../../../../contexts/TabContextProvider";
 import "./Qc.css";
+import QcForm from "../qcEntryList/QcForm";
 const Qc = (props) => {
-  const form="entry"
   const [datastate, setData] = useState([]);
   const [qcState, setqcState] = useState();
   const [phonestate, setphonestate] = useState();
@@ -13,7 +14,26 @@ const Qc = (props) => {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [totalTimeSpent, settotalTimeSpent] = useState(0);
   const myRef = useRef();
-
+  const tabContext = useContext(TabContext);
+  const handleClickMenu = () => {
+    
+    tabContext.addRemoveTabs(
+      {
+        title: "routes.service.QcEntryForm",
+        path: "/service.QcEntryForm",
+        Component:<Qc/>
+      }
+      , "remove");
+    tabContext.addRemoveTabs(
+      
+      {
+        title: "routes.service.QcEntry",
+        path: "/service.QcEntry",
+        Component:<QcForm/>
+      }
+      
+      , "add");
+  };
   const setLastValue = (arr) => {
     setBtnDisabled(false);
     const result = Object.values(arr).reduce((r, { time }) => r + time, 0);
@@ -40,6 +60,7 @@ const Qc = (props) => {
   }, []);
   const handleSubmit = () => {
     console.log(datastate);
+    handleClickMenu();
   };
   return (
     <main>
@@ -49,7 +70,7 @@ const Qc = (props) => {
         <>
           <div className="first">
             <div className="formQc">
-              <div className="QcText">{form==="Exit"?"فرم QC خروجی" :"فرم QC ورودی"}</div>
+              <div className="QcText">{"فرم QC ورودی"}</div>
             </div>
             <div className="title">
               <div className="officeTitle">
@@ -91,12 +112,12 @@ const Qc = (props) => {
               </div>
               <div>
                 {" "}
-                <span>{form==="Exit"?"تکنسین" :"اپراتور پذیرش"} :</span>
-                <span>{form==="Exit"?qcState.tech:qcState.operator}</span>{" "}
+                <span>{"اپراتور پذیرش"} :</span>
+                <span>{qcState.operator} :</span>{" "}
               </div>
               <div>
                 {" "}
-                <span> {form==="Exit"?"اپراتور" :"اپراتور Qc"}:</span>
+                <span> {"اپراتور Qc"}:</span>
                 <span>{qcState.operatorQC}</span>{" "}
               </div>
             </div>
@@ -170,6 +191,7 @@ const Qc = (props) => {
                           rows={1}
                           size={"sm"}
                           value={d.describe}
+                          disabled={d.result || !d.running ? true : false}
                           name="describe"
                           onChange={(e) =>
                             handleChange(i, e.target.name, e.target.value)

@@ -329,7 +329,7 @@ table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
 
 
 
-.checkBoxTableParent > input {
+.tableParrentInputCheck {
     width: 17px;
     height: 17px;
 }
