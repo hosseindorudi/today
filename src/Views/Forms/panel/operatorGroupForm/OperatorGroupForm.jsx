@@ -45,7 +45,7 @@ const OperatorGroupForm = () => {
       {
         title: "routes.groupForm",
         path: "/panelGroupForm",
-        Component:<OperatorGroupForm/>
+        Component:OperatorGroupForm
       }
       , "remove");
     tabContext.addRemoveTabs(
@@ -53,7 +53,7 @@ const OperatorGroupForm = () => {
       {
         title: "routes.group",
         path: "/panelgroup",
-        Component:<Group/>
+        Component: Group
       }
       
       , "add");

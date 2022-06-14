@@ -70,7 +70,7 @@ const Group = () => {
   const abortController = new AbortController();
   const handleAdd = () => {
     const item = {
-      Component: <OperatorGroupForm />,
+      Component: OperatorGroupForm ,
       path: "/panelGroupForm",
       title: "routes.groupForm",
       access: menues.panelGroupForm,
