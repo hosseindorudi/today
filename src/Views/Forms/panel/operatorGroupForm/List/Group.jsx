@@ -45,6 +45,8 @@ import OperatorGroupForm from "../OperatorGroupForm";
 import { menues } from "../../../../../data/Enums";
 import LogModal from "../../../../../Components/Table/LogModal/LogModal";
 import ExportAllButton from "../../../../../Components/Table/ExportButton/ExportAllButton";
+// import { useRef } from "react";
+import useWindowSize from "../../../../../customHooks/useWindowSize";
 const Group = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar"];
   const [response, loading, fetchData,setResponse] = useAxios();
@@ -69,7 +71,41 @@ const Group = () => {
   const [IsFavorite, setIsFavorite] = useState(false);
   const [checkAllC, setCheckAllC] = useState(true);
   const [productsColumns, setproductsColumns] = useState([]);
+  // const refTable = useRef()
+  // const refDiv = useRef()
+  const withOfScreen = useWindowSize().width;
+  // const [tableWidth, setTableWith] = useState(0);
+  // const [minTableWidth, setMinTableWidth] = useState(1352)
+  // const [maxTableWidth, setMaxTableWidth] = useState(1592)
+  // useEffect(()=> {
+  //   if( 1800<withOfScreen<=2200 ){
+  //     setTableWith(0)
+  //   }else if( 1200<withOfScreen<=1800 ){
+  //     setTableWith(0)
+  //   }
+
+  // },[withOfScreen])
+  // useEffect(()=> {
+  //   switch (tableWidth){
+  //     case 0 :
+  //       setMaxTableWidth(1592)
+  //       setMinTableWidth(1352)
+  //     break;
+  //     case 1 :
+  //       setMaxTableWidth(withOfScreen - (withOfScreen * .2 + 240))
+  //       setMinTableWidth(590)
+  //     break;
+  //     case 2 :
+  //       setMaxTableWidth(610)
+  //       setMinTableWidth(500)
+  //     break;
+  //     case 3 :
+        
+  //     break;
+  //   }
+  // },[tableWidth])
   // const [isSorted, setIsSorted] = useState("0");
+
   const abortController = new AbortController();
   const handleAdd = () => {
     const item = {
@@ -447,14 +483,83 @@ const Group = () => {
           />
         )}
         <div className="reacttableParent">
-          <div
-            className="reacttableParentRight"
-            style={{ width: columnSideBar ? "calc(100% - 250px)" : "100%" }}
-          >
-            <div
-              className="reacttableParentUp"
-              style={{ height: search ? 200 : 100 }}
-            >
+          <div className="groupContainerRight">
+          <div className="reacttableParentMainRightUp">
+                  <span className="reacttableParentMainRightUpInformation">
+                    {t("table.information")}
+                  </span>
+                  <div className="reacttableParentMainRightUpInformationDiv"></div>
+                </div>
+                <div className="reacttableParentMainRightDown">
+                  <span className="reacttableParentMainRightDownToolBox">
+                    {t("table.tools")}
+                  </span>
+                  <div className="reacttableParentMainRightDownToolBoxDiv">
+                    <div
+                      onClick={() => {
+                        setSearch((prev) => !prev);
+                      }}
+                      style={{
+                        color:
+                          !search && seartBegin !== null && seartEnd !== null
+                            ? "red"
+                            : "lightgray",
+                      }}
+                    >
+                      <i
+                        className="fa fa-search searchDater"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                    <div className="reacttableParentMainRightDownToolBoxDivColumnBtn">
+                      <button
+                        className={
+                          columnSideBar ? "hold" : "columnBtnTableToggle"
+                        }
+                        onClick={() => {
+                          setColumnSideBar(!columnSideBar);
+                        }}
+                      >
+                        {t("table.groups")}
+                      </button>
+                    </div>
+
+                    <ExportAllButton numberOfRecordsPerPage={numberOfRecordsPerPage} currentPage={currentPage} sort={sort} flt_Title={flt_Title} seartBegin={seartBegin} seartEnd={seartEnd}/>
+                    <ImportCSV importSuccess={importSuccess}/>
+                    <button
+                      className="reactTableParentLogButton"
+                      title="log"
+                      onClick={handleClickLog}
+                    >
+                      <fa.FaHistory />
+                    </button>
+                    <button className="reactTableParentAccessButton">
+                      <fa.FaUserLock />
+                    </button>
+                    <button
+                      disabled={IsFavorite}
+                      title="favorite"
+                      className={`reactTableParentFavoritButton ${
+                        IsFavorite ? "favactive" : ""
+                      }`}
+                      onClick={handleClickFav}
+                    >
+                      <fa.FaRegStar />
+                    </button>
+                    <button
+                      className="reactTableParentHelpButton"
+                      onClick={handleClickHelp}
+                      title="help"
+                    >
+                      <fa.FaQuestionCircle />
+                    </button>
+                  </div>
+                </div>
+          </div>
+
+          <div className="groupContainerLeft">
+            <div className="tableSection">
+              <div className="searchSection">
               <div className="reacttableParentPlusButton">
                 <button className="plusBUTTON" onClick={handleAdd}>
                   <i className="fa fa-plus"></i>
@@ -527,7 +632,7 @@ const Group = () => {
                           if (seartBegin === null) {
                             alert("ابتدا تاریخ شروع را مشخص کنید!!!");
                             setSearchEnd(null);
-                            return;
+                            
                           }
                           if (seartBegin !== null && seartBegin > newValue) {
                             alert(
@@ -549,99 +654,18 @@ const Group = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              className="reacttableParentMain"
-              style={{
-                height: search ? "calc(100vh - 460px)" : "calc(100vh - 360px)",
-              }}
-            >
-              <div className="reacttableParentMainRight">
-                <div className="reacttableParentMainRightUp">
-                  <span className="reacttableParentMainRightUpInformation">
-                    {t("table.information")}
-                  </span>
-                  <div className="reacttableParentMainRightUpInformationDiv"></div>
-                </div>
-                <div className="reacttableParentMainRightDown">
-                  <span className="reacttableParentMainRightDownToolBox">
-                    {t("table.tools")}
-                  </span>
-                  <div className="reacttableParentMainRightDownToolBoxDiv">
-                    <div
-                      onClick={() => {
-                        setSearch((prev) => !prev);
-                      }}
-                      style={{
-                        color:
-                          !search && seartBegin !== null && seartEnd !== null
-                            ? "red"
-                            : "lightgray",
-                      }}
-                    >
-                      <i
-                        className="fa fa-search searchDater"
-                        aria-hidden="true"
-                      ></i>
-                    </div>
-                    <div className="reacttableParentMainRightDownToolBoxDivColumnBtn">
-                      <button
-                        className={
-                          columnSideBar ? "hold" : "columnBtnTableToggle"
-                        }
-                        onClick={() => {
-                          setColumnSideBar(!columnSideBar);
-                        }}
-                      >
-                        {t("table.groups")}
-                      </button>
-                    </div>
-
-                    <ExportAllButton numberOfRecordsPerPage={numberOfRecordsPerPage} currentPage={currentPage} sort={sort} flt_Title={flt_Title} seartBegin={seartBegin} seartEnd={seartEnd}/>
-                    <ImportCSV importSuccess={importSuccess}/>
-                    <button
-                      className="reactTableParentLogButton"
-                      title="log"
-                      onClick={handleClickLog}
-                    >
-                      <fa.FaHistory />
-                    </button>
-                    <button className="reactTableParentAccessButton">
-                      <fa.FaUserLock />
-                    </button>
-                    <button
-                      disabled={IsFavorite}
-                      title="favorite"
-                      className={`reactTableParentFavoritButton ${
-                        IsFavorite ? "favactive" : ""
-                      }`}
-                      onClick={handleClickFav}
-                    >
-                      <fa.FaRegStar />
-                    </button>
-                    <button
-                      className="reactTableParentHelpButton"
-                      onClick={handleClickHelp}
-                      title="help"
-                    >
-                      <fa.FaQuestionCircle />
-                    </button>
-                  </div>
-                </div>
               </div>
-              <div className="reacttableParentMainLeft">
-                <div className="reacttableParentMainLeftRight">
-                  <div
-                    className="reacttableParentMiddleMiddleMid"
-                    style={{
-                      width: productsColumns.length === 0 ? "100%" : "100px",
-                    }}
-                  >
-                    {productsColumns.length > 0 ? (
-                      <table className="MainTableCss">
+              <div className="tableAndPaging">
+                <div className="selfTabel">
+
+                <div className="div33"  style={{width: columnSideBar ? (withOfScreen - (withOfScreen * .2 + 370)) : (withOfScreen - (withOfScreen * .2 + 110) ) }}>
+                {productsColumns.length > 0 ? (
+                      <table className="MainTableCss" >
                         <thead className="MainTableThead">
                           <tr className="MainTableTr">
-                            <th className="MainTableTh"> </th>
+                            
+                          <th className="MainTableTh"> </th>
+                            
                             {productsColumns
                               .filter(
                                 (p, i) => !filteredColumns.includes(p["Header"])&&!unSelected.includes(p["Header"])
@@ -671,6 +695,7 @@ const Group = () => {
                                   </button>
                                 </th>
                               ))}
+                              
                           </tr>
                         </thead>
                         <tbody>
@@ -704,6 +729,15 @@ const Group = () => {
                                     </td>
                                   );
                                 })}
+                                
+                                <td> asdasdasd</td>
+                                <td> asdasdasd</td>
+                                <td> asdadasd</td>
+                                <td> asdadasd</td>
+                                <td> asdadasd</td>
+                                <td> asdadasd</td>
+                                <td> asdadasd</td>
+                                
                             </tr>
                           ))}
                         </tbody>
@@ -713,12 +747,12 @@ const Group = () => {
                         <b>{t("noDataFound.table")}</b>
                       </div>
                     )}
-                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="reacttableParentDown">
-              <div className="downPaginationMain">
+
+
+                </div>
+                <div className="selfPaging">
+                <div className="downPaginationMain">
                 <div className="page">
                   <Pagination
                     page={currentPage}
@@ -752,54 +786,56 @@ const Group = () => {
                   {t("sendGroup")}
                 </button>
               </div>
-            </div>
-          </div>
-          <div className="reactTableParentMiddle1">
-            <div
-              className="reactTableParentMiddle1BTN"
-              onClick={() => setColumnSideBar(!columnSideBar)}
-            ></div>
-          </div>
-          <div
-            className="reacttableParentLeft"
-            style={{ width: columnSideBar ? 250 : 0 }}
-          >
-            <div className="mainUnderCloseBtn">
-              <div className="checkBoxTableParentForAll">
-                <div></div>
-                <input
-                  type="radio"
-                  checked={checkAllC}
-                  id="checkAll"
-                  name="checkall"
-                  onChange={checkAllHandler}
-                />
-                <input
-                  type="radio"
-                  checked={!checkAllC}
-                  id="unCheckAll"
-                  name="checkall"
-                  onChange={checkAllHandler}
-                />
-                <div></div>
+                </div>
               </div>
-              {productsColumns
-                .filter((p, i) => !filteredColumns.includes(p["Header"]))
-                .map((column, index) => (
-                  <div className="checkBoxTableParent" key={index}>
-                    <label htmlFor="todo" data-content="Get out of bed">
-                      {t(column["Header"])}
-                    </label>
+            </div>
+
+            <div className="hiddingSection"style={{ width: columnSideBar ? 250 : 10 }}>
+              <div className="hiddenSectionBtn">
+                  <div
+                  className="reactTableParentMiddle1BTN"
+                  onClick={() => setColumnSideBar(!columnSideBar)}></div>
+              </div>
+              <div className="hiddenSectionCheck" >
+                <div className="mainUnderCloseBtn">
+                  <div className="checkBoxTableParentForAll">
+                    <div></div>
                     <input
-                      type="checkbox"
-                      id="todo"
-                      checked={unSelected.includes(column["Header"])?false:true}
-                      name="todo"
-                      value="todo"
-                      onChange={(e) => CheckBoxChangeHandler(e,column["Header"])}
+                      type="radio"
+                      checked={checkAllC}
+                      id="checkAll"
+                      name="checkall"
+                      onChange={checkAllHandler}
                     />
+                    <input
+                      type="radio"
+                      checked={!checkAllC}
+                      id="unCheckAll"
+                      name="checkall"
+                      onChange={checkAllHandler}
+                    />
+                    <div></div>
                   </div>
-                ))}
+                  {productsColumns
+                    .filter((p, i) => !filteredColumns.includes(p["Header"]))
+                    .map((column, index) => (
+                      <div className="checkBoxTableParent" key={index}>
+                        <label htmlFor="todo" data-content="Get out of bed">
+                          {t(column["Header"])}
+                        </label>
+                        <input
+                          type="checkbox"
+                          id="todo"
+                          checked={unSelected.includes(column["Header"])?false:true}
+                          name="todo"
+                          value="todo"
+                          onChange={(e) => CheckBoxChangeHandler(e,column["Header"])}
+                        />
+                      </div>
+                    ))}
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
