@@ -27,6 +27,7 @@ import {
   groupLog,
   groupRead,
   groupReadPaging,
+  groupSetUnselectedColumn,
 } from "../../../../../services/groupService";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
@@ -49,6 +50,7 @@ const Group = () => {
   const [response, loading, fetchData,setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [requestType, setRequestType] = useState("");
+  const [unSelected, setUnSelected] = useState([])
   const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
   const [currentPage, setCurrentPage] = useState(1);
   const [flt_Title, setFlt_Title] = useState("");
@@ -155,7 +157,15 @@ const Group = () => {
     setLog(res.Log);
     setShowLogModal(true);
   };
-
+  const unselectResponseHandler=()=>{
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  }
   const handleResponse = useCallback(
     (response, type) => {
       switch (type) {
@@ -177,6 +187,8 @@ const Group = () => {
         case "LOG":
           logResponse(response);
           break;
+        case "UNSELECT":
+          unselectResponseHandler()
         default:
           break;
       }
@@ -199,6 +211,7 @@ const Group = () => {
     const res = response.Record;
     const paging = response.Paging;
     setIsFavorite(response.IsFavorite);
+    setUnSelected(response.UnselectedColumn)
     setPosts(res);
     setCurrentPage(paging.CurrentPage);
     setTotalPages(paging.TotalPages);
@@ -218,22 +231,42 @@ const Group = () => {
         : []
     );
   };
-  const CheckBoxChangeHandler = (columnIndex) => {
-    let newArr = [...productsColumns];
-    newArr[columnIndex + 1]["show"] = !newArr[columnIndex + 1]["show"];
-    setproductsColumns(newArr);
+  const sendUnselectRequest=(temp)=>{
+    setRequestType("UNSELECT");
+    fetchData({
+      method: "POST",
+      url: groupSetUnselectedColumn,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        Column: temp
+      },
+      signal: abortController.signal,
+    });
+  }
+  const CheckBoxChangeHandler = (e,column) => {
+    let checked=e.target.checked;
+    let temp=unSelected
+    checked?temp=temp.filter(u=>u!==column):temp.push(column)
+    sendUnselectRequest(temp)
+
   };
   const checkAllHandler = (e) => {
+    let temp=unSelected
     if (e.target.id === "checkAll") {
-      setCheckAllC(!checkAllC);
-      let arr = [...productsColumns];
-      arr.map((a) => (a.show = true));
-      setproductsColumns(arr);
+      productsColumns
+        .filter((p, i) => !filteredColumns.includes(p["Header"]))
+        .map((column, index) => (temp=temp.filter(i=>i!==column["Header"]) )) 
+      sendUnselectRequest(temp)
+       setCheckAllC(!checkAllC);
     } else if (e.target.id === "unCheckAll") {
+      productsColumns
+      .filter((p, i) => !filteredColumns.includes(p["Header"]))
+      .map((column, index) => (temp.push(column["Header"]))) 
+      sendUnselectRequest(temp)
       setCheckAllC(!checkAllC);
-      let arr = [...productsColumns];
-      arr.map((a) => (a.show = false));
-      setproductsColumns(arr);
     }
   };
   const checkValues = (type, value, post) => {
@@ -382,6 +415,18 @@ const Group = () => {
       signal: abortController.signal,
     });
   };
+  const importSuccess=(message)=>{
+    toast.success(message, {
+      position: toast.POSITION.TOP_CENTER,
+    });
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  }
   return (
     <>
       {loading && <BackDrop open={true} />}
@@ -553,7 +598,7 @@ const Group = () => {
                     </div>
 
                     <ExportAllButton numberOfRecordsPerPage={numberOfRecordsPerPage} currentPage={currentPage} sort={sort} flt_Title={flt_Title} seartBegin={seartBegin} seartEnd={seartEnd}/>
-                    <ImportCSV />
+                    <ImportCSV importSuccess={importSuccess}/>
                     <button
                       className="reactTableParentLogButton"
                       title="log"
@@ -599,7 +644,7 @@ const Group = () => {
                             <th className="MainTableTh"> </th>
                             {productsColumns
                               .filter(
-                                (p, i) => !filteredColumns.includes(p["Header"])
+                                (p, i) => !filteredColumns.includes(p["Header"])&&!unSelected.includes(p["Header"])
                               )
                               .map((column, index) => (
                                 <th
@@ -639,7 +684,7 @@ const Group = () => {
                                 />
                               </td>
                               {Object.keys(post)
-                                .filter((p, i) => !filteredColumns.includes(p))
+                                .filter((p, i) => !filteredColumns.includes(p)&&!unSelected.includes(p))
                                 .map((key, index) => {
                                   return (
                                     <td
@@ -748,10 +793,10 @@ const Group = () => {
                     <input
                       type="checkbox"
                       id="todo"
-                      checked={column.show}
+                      checked={unSelected.includes(column["Header"])?false:true}
                       name="todo"
                       value="todo"
-                      onChange={() => CheckBoxChangeHandler(index)}
+                      onChange={(e) => CheckBoxChangeHandler(e,column["Header"])}
                     />
                   </div>
                 ))}

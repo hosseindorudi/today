@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-axios.defaults.baseURL = 'https://94.182.191.108';
+axios.defaults.baseURL = 'https://api.ctelecom.ir';
 
  const useAxios = () => {
     const [response, setResponse] = useState(undefined);

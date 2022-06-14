@@ -119,8 +119,9 @@ const ImportCSVModal = (props) => {
     setCheckResult(response.Message)
     setShowCheckResultModal(true)
   };
-  const handleImportSuccess=()=>{
-    
+  const handleImportSuccess=(res)=>{
+    props.onHide()
+    props.importSuccess(res.Message)
   }
   const handleResponse = useCallback((res, type) => {
     switch (type) {
