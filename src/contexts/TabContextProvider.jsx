@@ -10,7 +10,7 @@ const TabContextProvider = (props) => {
   const [tabs, setTabs] = useState([{
     title: "dashboard",
     path: "/dashboard",
-    Component:<OperatorDashboard/>
+    Component:OperatorDashboard
   }]);
   const { app, setApp } = useContext(AppContext);
   const maxTabLength = 6;

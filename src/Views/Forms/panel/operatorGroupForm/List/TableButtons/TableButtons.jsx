@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import "./tableButtons.css";
 import * as fa from "react-icons/fa";
-import { groupExport } from "../../../../../../services/groupService";
+import {  groupExportId } from "../../../../../../services/groupService";
 import useAxios from "../../../../../../customHooks/useAxios";
 import useRequest from "../../../../../../customHooks/useRequest";
 import { toast } from "react-toastify";
@@ -10,7 +10,7 @@ import AppContext from "../../../../../../contexts/AppContext";
 import { downloadCSVCode } from "../../../../../../validation/functions";
 
 const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
-  const [response, loading, fetchData] = useAxios();
+  const [response, loading, fetchData,setResponse] = useAxios();
   const {app}=useContext(AppContext)
   const request = useRequest();
   const { t } = useTranslation();
@@ -26,12 +26,9 @@ const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
   }, []);
 
   const handleExport = () => {
-    // let csvContent = "data:text/csv;charset=utf-8,"
-    //     + rows.map(e => e.join(",")).join("\n");
-    //     console.log(csvContent)
     fetchData({
       method: "POST",
-      url: groupExport,
+      url: groupExportId,
       headers: {
         accept: "*/*",
       },
@@ -45,6 +42,7 @@ const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
   useEffect(() => {
     if (response) {
       handleResponse(response);
+      setResponse(undefined)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);

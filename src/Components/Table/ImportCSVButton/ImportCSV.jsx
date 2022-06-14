@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import * as fa from 'react-icons/fa'
 import ImportCSVModal from './ImportCSVModal'
-const ImportCSV = () => {
+const ImportCSV = (props) => {
   const [modalShow, setModalShow] = useState(false)
   const handleOpenModalCSV=()=>{
     setModalShow(true)
@@ -9,7 +9,9 @@ const ImportCSV = () => {
 
   return (
     <>
-    <ImportCSVModal onHide={()=>setModalShow(false)} show={modalShow}/>
+    {modalShow&&
+    <ImportCSVModal onHide={()=>setModalShow(false)} show={modalShow} importSuccess={props.importSuccess}/>
+    } 
     <button className="reactTableParentImportButton" title="importCSV" onClick={handleOpenModalCSV}>
     <fa.FaFileCsv />
   </button>

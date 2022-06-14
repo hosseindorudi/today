@@ -32,10 +32,10 @@ const WorkFlow = () => {
       title: 'routes.service.QcEntry',
       path:'/service.QcEntry',
       no:1,
-      Component:<QcFormEntry/>,
+      Component:QcFormEntry,
       color: "purple",
       button:{
-        Component:<QcEntry/>,
+        Component:QcEntry,
         path:"/service.QcEntryForm",
         title:"routes.service.QcEntryForm",
       
@@ -46,9 +46,9 @@ const WorkFlow = () => {
       title: 'routes.admission',
       path:'/admission',
       color: "silver",
-      Component:<Admission/>,
+      Component:Admission,
       button:{
-        Component:<AdmissionForm/>,
+        Component:AdmissionForm,
         path:"/admissionForm",
         title:"routes.admissionForm",
       }
@@ -56,7 +56,7 @@ const WorkFlow = () => {
     {
       title: 'routes.service.allocation',
       path:'/service.service.allocation',
-      Component:<Allocation/>,
+      Component:Allocation,
       color: "indianred",
       no:0,
 
@@ -64,11 +64,11 @@ const WorkFlow = () => {
     {
       title: 'routes.service.technician',
       path:'/service.technician',
-      Component:<Technician/>,
+      Component:Technician,
       color: "green",
       no:5,
       button:{
-        Component:<TechnicianForm/>,
+        Component:TechnicianForm,
         path:"/service.technicianForm",
         title:"routes.service.technicianForm"
       }
@@ -78,9 +78,9 @@ const WorkFlow = () => {
       path:'/service.qcExit',
       no:6,
       color: "yellowgreen",
-      Component:<QcExitForm/>,
+      Component:QcExitForm,
       button:{
-        Component:<QcExit/>,
+        Component:QcExit,
         path:"/service.qcExitForm",
         title:'routes.service.qcExitForm',
       
@@ -91,23 +91,23 @@ const WorkFlow = () => {
       path:'/service.delivery',
       no:0,
       color: "cadetblue",
-      Component:<Delivery/>,
+      Component:Delivery,
     },
   ];
   const buttons = [
     {
       title: 'routes.acceptDelivery',
       path:'/acceptDelivery',
-      Component:<AcceptDelivery/>,
+      Component:AcceptDelivery,
       color:"success",
     },
     {
       title: 'routes.changing',
       path:'/changing',
       color:"warning",
-      Component:<Change/>,
+      Component:Change,
       button:{
-        Component:<ChangeForm/>,
+        Component:ChangeForm,
         path:"/changingForm",
         title:"routes.changingForm",
       }
@@ -116,9 +116,9 @@ const WorkFlow = () => {
       title: 'routes.sent',
       path:'/sent',
       color:"info",
-      Component:<Sent/>,
+      Component:Sent,
       button:{
-        Component:<SentForm/>,
+        Component:SentForm,
         path:"/sentForm",
         title:"routes.sentForm",
       },
@@ -128,7 +128,7 @@ const WorkFlow = () => {
       title: 'routes.archive',
       path:'/archive',
       color:"primary",
-      Component:<Archive/>
+      Component:Archive
     },
   ];
   const handleClick = (i) => {

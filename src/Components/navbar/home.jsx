@@ -6,7 +6,7 @@ const Home = () => {
   const dashboard = {
     title: "dashboard",
     path: "/dashboard",
-    Component:<OperatorDashboard/>
+    Component:OperatorDashboard
   };
   const handleClick = () => {
     tabContext.addRemoveTabs(dashboard,"add")

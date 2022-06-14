@@ -34,7 +34,7 @@ const Sidebar = () => {
             let obj={
               title: prop.title,
               path: prop.path,
-              component:prop.component,
+              Component:prop.Component,
               icon: prop.icon,
               access: prop.access
             }

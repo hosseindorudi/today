@@ -265,5 +265,10 @@
   "modalImport.checkFileUpload":"csv خود رای برای چک بارگزاری کنید",
   "upload":"بارگزاری",
   "modalImport.importCSV":"CSV خود را وارد کنید",
-  "cancel":"انصراف"
+  "cancel":"انصراف",
+  "createSample":"ساخت نمونه",
+  "errorOnImport":"خطا در بارگزاری",
+  "import":"وارد کردن",
+  "exportGroup":"خروجی گروه",
+  "logview":"مشاهده"
 }

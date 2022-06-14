@@ -100,15 +100,15 @@ export const Routes = [
   {
     title: 'routes.panel',
     access:menues.panel,
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+    icon: <IoIcons.IoIosPaper/> ,
+    iconClosed: <RiIcons.RiArrowDownSFill/> ,
+    iconOpened: <RiIcons.RiArrowUpSFill/> ,
     subNav: [
       {
         title: 'routes.online',
         path:'/panelonline',
-        Component:<Online/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:Online,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav',
         access:menues.panelonline
       },
@@ -116,165 +116,165 @@ export const Routes = [
         title: 'routes.group',
         path:'/panelgroup',
         access:menues.panelgroup,
-        Component:<Group/>,
+       Component:Group,
         button:{
-          Component:<OperatorGroupForm/>,
+         Component:OperatorGroupForm,
           path:"/panelGroupForm",
           title:"routes.groupForm",
           access:menues.panelGroupForm
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.operator',
         path:'/panelOperator',
         access:menues.panelOperator,
-        Component:<Operator/>,
+       Component:Operator,
         button:{
-          Component:<OperatorForm/>,
+         Component:OperatorForm,
           path:"/panelOperatorForm",
           title:"routes.operatorForm",
           access:menues.panelOperatorForm
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.validIps',
         path:'/panelValidIps',
         access:menues.panelValidIps,
-        Component:<ValidIps/>,
+       Component:ValidIps,
         button:{
-          Component:<VirtualIpForm/>,
+         Component:VirtualIpForm,
           path:"/panelValidIpsForm",
           title:"routes.validIpsForm",
           access:menues.panelValidIpsForm,
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.attacks',
         path:'/panelAttacks',
         access:menues.panelAttacks,
-        Component:<Attacks/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:Attacks,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.actions',
         path:'/panelActions',
         access:menues.panelActions,
-        Component:<Incident/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:Incident,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.unsuccesslogin',
         path:'/panelunsuccesslogin',
         access:menues.panelunsuccesslogin,
-        Component:<FailedLogin/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:FailedLogin,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.sucesslogin',
         path:'/panelsucesslogin',
         access:menues.panelsucesslogin,
-        Component:<SuccessLogin/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:SuccessLogin,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
     ]
   },
   {
     title: 'routes.GeneralRepresentative',
-    icon: <IoIcons.IoIosPaper />,
+    icon: <IoIcons.IoIosPaper/> ,
     access:menues.agents,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+    iconClosed: <RiIcons.RiArrowDownSFill/> ,
+    iconOpened: <RiIcons.RiArrowUpSFill/> ,
     subNav: [
       {
         title: 'routes.online',
         path:'/representativeonline',
         access:menues.representativeonline,
-        Component:<agentOnline/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:agentOnline,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.group',
         path:'/representativegroup',
         access:menues.representativegroup,
-        Component:<agentGroup/>,
+       Component:agentGroup,
         button:{
-          Component:<AgentGroupForm/>,
+         Component:AgentGroupForm,
           path:"/representativegroupForm",
           title:"routes.groupForm",
           access:menues.representativegroupForm,
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.representative',
         path:'/representative',
         access:menues.representative,
-        Component:<Agent/>,
+       Component:Agent,
         button:{
-          Component:<AgentForm/>,
+         Component:AgentForm,
           path:"/representativeForm",
           title:"routes.representativeForm",
           access:menues.representativeForm
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.validIps',
         path:'/representativeValidIps',
         access:menues.representativeValidIps,
-        Component:<agentValidIps/>,
+       Component:agentValidIps,
         button:{
-          Component:<agentVirtualIpForm/>,
+         Component:agentVirtualIpForm,
           path:"/representativeValidIpsForm",
           title:"routes.validIpsForm",
           access:menues.representativeValidIpsForm,
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.attacks',
         path:'/representativeAttacks',
         access:menues.representativeAttacks,
-        Component:<agentAttacks/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:agentAttacks,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.actions',
         path:'/representativeActions',
         access:menues.representativeActions,
-        Component:<agentIncident/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:agentIncident,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.unsuccesslogin',
         path:'/representativeunsuccesslogin',
         access:menues.representativeunsuccesslogin,
-        Component:<agentFailedLogin/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:agentFailedLogin,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.sucesslogin',
         path:'/representativesucesslogin',
         access:menues.representativesucesslogin,
-        Component:<agentSuccessLogin/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:agentSuccessLogin,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
     ]
@@ -282,556 +282,556 @@ export const Routes = [
   {
     title: 'routes.services',
     access:menues.services,
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+    icon: <IoIcons.IoIosPaper/> ,
+    iconClosed: <RiIcons.RiArrowDownSFill/> ,
+    iconOpened: <RiIcons.RiArrowUpSFill/> ,
     subNav: [
       {
         title: 'routes.workFlow',
         path:'/workFlow',
         access:menues.workFlow,
-        Component:<WorkFlow/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:WorkFlow,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.admission',
         path:'/admission',
         access:menues.admission,
-        Component:<Admission/>,
+       Component:Admission,
         button:{
-          Component:<AdmissionForm/>,
+         Component:AdmissionForm,
           path:"/admissionForm",
           title:"routes.admissionForm",
           access:menues.admissionForm,
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.service.QcEntry',
         path:'/service.QcEntry',
         access:menues.serviceQcEntry,
-        Component:<QcFormEntry/>,
+       Component:QcFormEntry,
         button:{
-          Component:<QcEntry/>,
+         Component:QcEntry,
           path:"/service.QcEntryForm",
           title:"routes.service.QcEntryForm",
           access:menues.serviceQcEntryForm,
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.service.allocation',
         path:'/service.allocation',
         access:menues.serviceAllocation,
-        Component:<Allocation/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:Allocation,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.service.technician',
         path:'/service.technician',
         access:menues.serviceTechnician,
-        Component:<Technician/>,
+       Component:Technician,
         button:{
-          Component:<TechnicianForm/>,
+         Component:TechnicianForm,
           path:"/service.technicianForm",
           title:"routes.service.technicianForm",
           access:menues.serviceTechnicianForm,
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.service.qcExit',
         path:'/service.qcExit',
         access:menues.serviceQcExit,
-        Component:<QcExit/>,
+       Component:QcExit,
         button:{
-          Component:<QcExitForm/>,
+         Component:QcExitForm,
           path:"/service.qcExitForm",
           title:'routes.service.qcExitForm',
           access:menues.serviceQcExitForm,
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.service.delivery',
         path:'/service.delivery',
         access:menues.serviceDelivery,
-        Component:<Delivery/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:Delivery,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.acceptDelivery',
         path:'/acceptDelivery',
         access:menues.acceptDelivery,
-        Component:<AcceptDelivery/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:AcceptDelivery,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.changing',
         path:'/changing',
         access:menues.changing,
-        Component:<Change/>,
+       Component:Change,
         button:{
-          Component:<ChangeForm/>,
+         Component:ChangeForm,
           path:"/changingForm",
           title:"routes.changingForm",
           access:menues.changingForm,
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.sent',
         path:'/sent',
         access:menues.sent,
-        Component:<Sent/>,
+       Component:Sent,
         button:{
-          Component:<SentForm/>,
+         Component:SentForm,
           path:"/sentForm",
           title:"routes.sentForm",
           access:menues.sentForm,
         },
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.archive',
         path:'/archive',
         access:menues.archive,
-        Component:<Archive/>,
-        icon: <IoIcons.IoIosPaper />,
+       Component:Archive,
+        icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
 ]},
 {
   title: 'routes.basicDefinations',
-  icon: <IoIcons.IoIosPaper />,
+  icon: <IoIcons.IoIosPaper/> ,
   access:menues.definations,
-  iconClosed: <RiIcons.RiArrowDownSFill />,
-  iconOpened: <RiIcons.RiArrowUpSFill />,
+  iconClosed: <RiIcons.RiArrowDownSFill/> ,
+  iconOpened: <RiIcons.RiArrowUpSFill/> ,
   subNav: [
     {
       title: 'routes.entryCheckList',
       path:'/entryCheckList',
       access:menues.entryCheckList,
-      Component:<CheckListEntry/>,
+     Component:CheckListEntry,
       button:{
-        Component:<CheckListEntryFormDefine />,
+       Component:CheckListEntryFormDefine ,
         path:"/entryCheckListForm",
         title:"routes.entryCheckListForm",
         access:menues.entryCheckListForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.exitCheckList',
       path:'/exitCheckList',
       access:menues.exitCheckList,
-      Component:<CheckListExit/>,
+     Component:CheckListExit,
       button:{
-        Component:<CheckListExitFormDefine/>,
+       Component:CheckListExitFormDefine,
         path:"/exitCheckListForm",
         title:"routes.exitCheckListForm",
         access:menues.exitCheckListForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.phoneIssues',
       path:'/phoneIssues',
       access:menues.phoneIssues,
-      Component:<PhoneDefects/>,
+     Component:PhoneDefects,
       button:{
-        Component:<PhoneDefectsForm/>,
+       Component:PhoneDefectsForm,
         path:"/phoneIssuesForm",
         title:"routes.phoneIssuesForm",
         access:menues.phoneIssuesForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.parts',
       path:'/parts',
       access:menues.parts,
-      Component:<Parts/>,
+     Component:Parts,
       button:{
-        Component:<PartsDefine/>,
+       Component:PartsDefine,
         path:"/partsForm",
         title:"routes.partsForm",
         access:menues.partForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.admissionCheckList',
       path:'/admissionCheckList',
       access:menues.admissionCheckList,
-      Component:<AdmissionCheckList/>,
+     Component:AdmissionCheckList,
       button:{
-        Component:<AdmissionCheckDefine/>,
+       Component:AdmissionCheckDefine,
         path:"/admissionCheckListForm",
         title:"routes.admissionCheckListForm",
         access:menues.admissionCheckListForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.phoneStatusAftertechCheck',
       path:'/phoneStatusAftertechCheck',
       access:menues.phoneStatusAftertechCheck,
-      Component:<StatusAfterCheck/>,
+     Component:StatusAfterCheck,
       button:{
-        Component:<StatusAfterCheckForm/>,
+       Component:StatusAfterCheckForm,
         path:"/phoneStatusAftertechCheckForm",
         title:"routes.phoneStatusAftertechCheckForm",
         access:menues.phoneStatusAftertechCheckForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.phoneStatusAftertechWork',
       path:'/phoneStatusAftertechWork',
       access:menues.phoneStatusAftertechWork,
-      Component:<StatusAfterWork/>,
+     Component:StatusAfterWork,
       button:{
-        Component:<StatusAfterWorkForm/>,
+       Component:StatusAfterWorkForm,
         path:"/phoneStatusAftertechWorkForm",
         title:"routes.phoneStatusAftertechWorkForm",
         access:menues.phoneStatusAftertechWorkForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.phoneStatus',
       path:'/phoneStatus',
       access:menues.phoneStatus,
-      Component:<PhoneStatus/>,
+     Component:PhoneStatus,
       button:{
-        Component:<PhoneStatusForm/>,
+       Component:PhoneStatusForm,
         path:"/phoneStatusForm",
         title:"routes.phoneStatusForm",
         access:menues.phoneStatusForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.garanteeType',
       path:'/garanteeType',
       access:menues.garanteeType,
-      Component:<WarrantyType/>,
+     Component:WarrantyType,
       button:{
-        Component:<WarrantyTypeForm/>,
+       Component:WarrantyTypeForm,
         path:"/garanteeTypeForm",
         title:"routes.garanteeTypeForm",
         access:menues.garanteeTypeForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.receivedCustomerMsgType',
       path:'/receivedCustomerMsgType',
       access:menues.receivedCustomerMsgType,
-      Component:<CustomerReceivedMsgType/>,
+     Component:CustomerReceivedMsgType,
       button:{
-        Component:<CustomerReceivedMsgTypeDefine/>,
+       Component:CustomerReceivedMsgTypeDefine,
         path:"/receivedCustomerMsgTypeForm",
         title:"routes.receivedCustomerMsgTypeForm",
         access:menues.receivedCustomerMsgTypeForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.sendCustomerMsgType',
       path:'/sendCustomerMsgType',
       access:menues.sendCustomerMsgType,
-      Component:<CustomerSendMsgType/>,
+     Component:CustomerSendMsgType,
       button:{
-        Component:<CustomerSendMsgTypeDefine/>,
+       Component:CustomerSendMsgTypeDefine,
         path:"/sendCustomerMsgTypeForm",
         title:"routes.sendCustomerMsgTypeForm",
         access:menues.sendCustomerMsgTypeForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.systemMsgType',
       path:'/systemMsgType',
       access:menues.systemMsgType,
-      Component:<SystemMsgType/>,
+     Component:SystemMsgType,
       button:{
-        Component:<SystemMsgTypeForm/>,
+       Component:SystemMsgTypeForm,
         path:"/systemMsgTypeForm",
         title:"routes.systemMsgTypeForm",
         access:menues.systemMsgTypeForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.agentsAbility',
       path:'/agentsAbility',
       access:menues.agentsAbility,
-      Component:<AgentsAbility/>,
+     Component:AgentsAbility,
       button:{
-        Component:<AgentAbilityDefine/>,
+       Component:AgentAbilityDefine,
         path:"/agentsAbilityForm",
         title:"routes.agentsAbilityForm",
         access:menues.agentsAbilityForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.techAbility',
       path:'/techAbility',
       access:menues.techAbility,
-      Component:<TechAbility/>,
+     Component:TechAbility,
       button:{
-        Component:<TechAbilityForm/>,
+       Component:TechAbilityForm,
         path:"/techAbilityForm",
         title:"routes.techAbilityForm",
         access:menues.techAbilityForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.product',
       path:'/product',
       access:menues.product,
-      Component:<Product/>,
+     Component:Product,
       button:{
-        Component:<ProductForm/>,
+       Component:ProductForm,
         path:"/productForm",
         title:"routes.productForm",
         access:menues.productForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.productGroup',
       path:'/productGroup',
       access:menues.productGroup,
-      Component:<ProductGroup/>,
+     Component:ProductGroup,
       button:{
-        Component:<ProductGroupForm/>,
+       Component:ProductGroupForm,
         path:"/productGroupForm",
         title:"routes.productGroupForm",
         access:menues.productGroupForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.accessories',
       path:'/accessories',
       access:menues.accessories,
-      Component:<Accessories/>,
+     Component:Accessories,
       button:{
-        Component:<AccessDefine/>,
+       Component:AccessDefine,
         path:"/accessoriesForm",
         title:"routes.accessoriesForm",
         access:menues.accessoriesForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.inventoryGroup',
       path:'/inventoryGroup',
       access:menues.inventoryGroup,
-      Component:<InventoryGroup/>,
+     Component:InventoryGroup,
       button:{
-        Component:<InventoryGroupDefine/>,
+       Component:InventoryGroupDefine,
         path:"/inventoryGroupForm",
         title:"routes.inventoryGroupForm",
         access:menues.inventoryGroupForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.warrantyCancelation',
       path:'/warrantyCancelation',
       access:menues.warrantyCancelation,
-      Component:<WarrantyCancelation/>,
+     Component:WarrantyCancelation,
       button:{
-        Component:<WarrantyCancelationForm/>,
+       Component:WarrantyCancelationForm,
         path:"/warrantyCancelationForm",
         title:"routes.warrantyCancelationForm",
         access:menues.warrantyCancelationForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.partRequest',
       path:'/partRequest',
       access:menues.partRequest,
-      Component:<PartRequest/>,
+     Component:PartRequest,
       button:{
-        Component:<PartRequestDefine/>,
+       Component:PartRequestDefine,
         path:"/partRequestForm",
         title:"routes.partRequestForm",
         access:menues.partRequestForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.worksDoneOnPhone',
       path:'/worksDoneOnPhone',
       access:menues.worksDoneOnPhone,
-      Component:<WorksDoneOnPhone/>,
+     Component:WorksDoneOnPhone,
       button:{
-        Component:<WorksDoneOnPhoneForm/>,
+       Component:WorksDoneOnPhoneForm,
         path:"/worksDoneOnPhoneForm",
         title:"routes.worksDoneOnPhoneForm",
         access:menues.worksDoneOnPhoneForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.extraServices',
       path:'/extraServices',
       access:menues.extraServices,
-      Component:<ExtraServices/>,
+     Component:ExtraServices,
       button:{
-        Component:<ExtraServicesDefine/>,
+       Component:ExtraServicesDefine,
         path:"/extraServicesForm",
         title:"routes.extraServicesForm",
         access:menues.extraServicesForm,
       },
-      icon: <IoIcons.IoIosPaper />,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     }
 
 ]},
 {
   title: 'routes.rules',
-  icon: <IoIcons.IoIosPaper />,
+  icon: <IoIcons.IoIosPaper/> ,
   access:menues.rules,
-  iconClosed: <RiIcons.RiArrowDownSFill />,
-  iconOpened: <RiIcons.RiArrowUpSFill />,
+  iconClosed: <RiIcons.RiArrowDownSFill/> ,
+  iconOpened: <RiIcons.RiArrowUpSFill/> ,
   subNav: [
     {
       title: 'routes.pricing',
       path:'/pricing',
       access:menues.pricing,
-      Component:<Pricing/>,
-      icon: <IoIcons.IoIosPaper />,
+     Component:Pricing,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
     {
       title: 'routes.ratingTechnician',
       path:'/ratingTechnician',
       access:menues.ratingTechnician,
-      Component:<TechnicianRating/>,
-      icon: <IoIcons.IoIosPaper />,
+     Component:TechnicianRating,
+      icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     }
   ]},
   {
     title: 'routes.reports',
     access:menues.reports,
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+    icon: <IoIcons.IoIosPaper/> ,
+    iconClosed: <RiIcons.RiArrowDownSFill/> ,
+    iconOpened: <RiIcons.RiArrowUpSFill/> ,
     subNav: [
      
     ]},
     {
       title: 'routes.inventory',
       access:menues.inventory,
-      icon: <IoIcons.IoIosPaper />,
-      iconClosed: <RiIcons.RiArrowDownSFill />,
-      iconOpened: <RiIcons.RiArrowUpSFill />,
+      icon: <IoIcons.IoIosPaper/> ,
+      iconClosed: <RiIcons.RiArrowDownSFill/> ,
+      iconOpened: <RiIcons.RiArrowUpSFill/> ,
       subNav: [
        
       ]},
       {
         title: 'routes.customerClub',
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         access:menues.customerClub,
-        iconClosed: <RiIcons.RiArrowDownSFill />,
-        iconOpened: <RiIcons.RiArrowUpSFill />,
+        iconClosed: <RiIcons.RiArrowDownSFill/> ,
+        iconOpened: <RiIcons.RiArrowUpSFill/> ,
         subNav: [
           {
             title: 'routes.conversation',
             path:'/conversationClubList',
             access:menues.conversationClubList,
-            Component:<ConversationClubList/>,
+           Component:ConversationClubList,
             button:{
-              Component:<ConversationClubForm/>,
+             Component:ConversationClubForm,
               path:"/conversationClubForm",
               title:"routes.conversationClubForm",
               access:menues.conversationClubForm,
             },
-            icon: <IoIcons.IoIosPaper />,
+            icon: <IoIcons.IoIosPaper/> ,
             cName: 'sub-nav'
           }
           
         ]},
       {
         title: 'routes.distribution',
-        icon: <IoIcons.IoIosPaper />,
+        icon: <IoIcons.IoIosPaper/> ,
         access:menues.distribution,
-        iconClosed: <RiIcons.RiArrowDownSFill />,
-        iconOpened: <RiIcons.RiArrowUpSFill />,
+        iconClosed: <RiIcons.RiArrowDownSFill/> ,
+        iconOpened: <RiIcons.RiArrowUpSFill/> ,
         subNav: [
           {
             title: 'routes.deliveryRecord',
             path:'/deliveryRecordList',
             access:menues.deliveryRecordList,
-            Component:<DeliveryRecord/>,
-            icon: <IoIcons.IoIosPaper />,
+           Component:DeliveryRecord,
+            icon: <IoIcons.IoIosPaper/> ,
             cName: 'sub-nav'
           },
           {
             title: 'routes.orders',
             path:'/OrdersList',
             access:menues.OrdersList,
-            Component:<Orders/>,
-            icon: <IoIcons.IoIosPaper />,
+           Component:Orders,
+            icon: <IoIcons.IoIosPaper/> ,
             cName: 'sub-nav'
           }
           
         ]},
         {
           title: 'routes.setting',
-          icon: <IoIcons.IoIosPaper />,
+          icon: <IoIcons.IoIosPaper/> ,
           access:menues.setting,
-          iconClosed: <RiIcons.RiArrowDownSFill />,
-          iconOpened: <RiIcons.RiArrowUpSFill />,
+          iconClosed: <RiIcons.RiArrowDownSFill/> ,
+          iconOpened: <RiIcons.RiArrowUpSFill/> ,
           subNav: [
             {
               title: 'routes.smsForm',
               path:'/smsForm',
               access:menues.sms,
-              Component:<SmsForm/>,
+             Component:SmsForm,
               
-              icon: <IoIcons.IoIosPaper />,
+              icon: <IoIcons.IoIosPaper/> ,
               cName: 'sub-nav'
             }
             
