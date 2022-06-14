@@ -34,7 +34,7 @@ const TechnicianForm = () => {
       {
         title: "routes.service.technicianForm",
         path: "/service.technicianForm",
-        Component:<TechnicianForm/>
+        Component:TechnicianForm
       }
       , "remove");
     tabContext.addRemoveTabs(
@@ -42,7 +42,7 @@ const TechnicianForm = () => {
       {
         title: "routes.service.technician",
         path: "/service.technician",
-        Component:<Technician/>
+        Component:Technician
       }
       
       , "add");

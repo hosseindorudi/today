@@ -87,7 +87,7 @@ const AdmissionForm = () => {
       {
         title: "routes.admissionForm",
         path: "/admissionForm",
-        Component:<AdmissionForm/>
+        Component:AdmissionForm
       }
       , "remove");
     tabContext.addRemoveTabs(
@@ -95,7 +95,7 @@ const AdmissionForm = () => {
       {
         title: "routes.admission",
         path: "/admission",
-        Component:<Admission/>
+        Component:Admission
       }
       
       , "add");

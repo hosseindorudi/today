@@ -18,7 +18,7 @@ const SentForm = () => {
       {
         title: "routes.sentForm",
         path: "/sentForm",
-        Component:<SentForm/>
+        Component:SentForm
       }
       , "remove");
     tabContext.addRemoveTabs(
@@ -26,7 +26,7 @@ const SentForm = () => {
       {
         title: "routes.sent",
         path: "/sent",
-        Component:<SentFormList/>
+        Component:SentFormList
       }
       
       , "add");

@@ -22,7 +22,7 @@ const Qc = (props) => {
       {
         title: "routes.service.qcExitForm",
         path: "/service.qcExitForm",
-        Component:<Qc/>
+        Component:Qc
       }
       , "remove");
     tabContext.addRemoveTabs(
@@ -30,7 +30,7 @@ const Qc = (props) => {
       {
         title: "routes.service.qcExit",
         path: "/service.qcExit",
-        Component:<QcExitList/>
+        Component:QcExitList
       }
       
       , "add");
