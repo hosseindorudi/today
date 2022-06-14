@@ -18,7 +18,7 @@ import TableButtons from "./TableButtons/TableButtons";
 import TableModal from "./TableModal/TableModal";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
-import * as cg from "react-icons/cg";
+
 import {
   groupDelete,
   groupExport,
@@ -43,9 +43,10 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import OperatorGroupForm from "../OperatorGroupForm";
 import { menues } from "../../../../../data/Enums";
 import LogModal from "../../../../../Components/Table/LogModal/LogModal";
+import ExportAllButton from "../../../../../Components/Table/ExportButton/ExportAllButton";
 const Group = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar"];
-  const [response, loading, fetchData] = useAxios();
+  const [response, loading, fetchData,setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [requestType, setRequestType] = useState("");
   const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
@@ -70,7 +71,7 @@ const Group = () => {
   const abortController = new AbortController();
   const handleAdd = () => {
     const item = {
-      Component: OperatorGroupForm ,
+      Component: OperatorGroupForm,
       path: "/panelGroupForm",
       title: "routes.groupForm",
       access: menues.panelGroupForm,
@@ -147,7 +148,7 @@ const Group = () => {
   };
   const logResponse = (res) => {
     if (!res.Log.length) {
-     return toast.info(t("noDataFound.table"), {
+      return toast.info(t("noDataFound.table"), {
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -189,6 +190,7 @@ const Group = () => {
       response.Result
         ? handleResponse(response, requestType)
         : handleError(response.Message);
+        setResponse(undefined)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
@@ -367,7 +369,7 @@ const Group = () => {
   const handleClickHelp = () => {
     window.open("https://www.google.com");
   };
-  const handleExport = () => {};
+
   const handleClickLog = () => {
     setRequestType("LOG");
     fetchData({
@@ -393,7 +395,11 @@ const Group = () => {
           />
         )}
         {showLogModal && (
-          <LogModal onHide={() => setShowLogModal(false)} logs={log} show={showLogModal}/>
+          <LogModal
+            onHide={() => setShowLogModal(false)}
+            logs={log}
+            show={showLogModal}
+          />
         )}
         <div className="reacttableParent">
           <div
@@ -545,14 +551,8 @@ const Group = () => {
                         {t("table.groups")}
                       </button>
                     </div>
-                    <button
-                      className="reactTableParentExportButton"
-                      title="exportCSV"
-                      onClick={handleExport}
-                    >
-                      <cg.CgExport />
-                    </button>
 
+                    <ExportAllButton numberOfRecordsPerPage={numberOfRecordsPerPage} currentPage={currentPage} sort={sort} flt_Title={flt_Title} seartBegin={seartBegin} seartEnd={seartEnd}/>
                     <ImportCSV />
                     <button
                       className="reactTableParentLogButton"

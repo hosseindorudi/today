@@ -10,7 +10,7 @@ import AppContext from "../../../../../../contexts/AppContext";
 import { downloadCSVCode } from "../../../../../../validation/functions";
 
 const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
-  const [response, loading, fetchData] = useAxios();
+  const [response, loading, fetchData,setResponse] = useAxios();
   const {app}=useContext(AppContext)
   const request = useRequest();
   const { t } = useTranslation();
@@ -26,9 +26,6 @@ const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
   }, []);
 
   const handleExport = () => {
-    // let csvContent = "data:text/csv;charset=utf-8,"
-    //     + rows.map(e => e.join(",")).join("\n");
-    //     console.log(csvContent)
     fetchData({
       method: "POST",
       url: groupExportId,
@@ -45,6 +42,7 @@ const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
   useEffect(() => {
     if (response) {
       handleResponse(response);
+      setResponse(undefined)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);

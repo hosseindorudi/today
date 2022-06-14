@@ -29,7 +29,7 @@ const ImportCSVModal = (props) => {
   const [showCheckResultModal, setShowCheckResultModal] = useState(false);
   const { CSVDownloader, Type } = useCSVDownloader();
   const [checkResult, setCheckResult] = useState(null);
-  const [response, loading, fetchData] = useAxios();
+  const [response, loading, fetchData,setResponse] = useAxios();
   const [checkFile, setCheckFile] = useState(null);
   const [importFile, setImportFile] = useState(null);
   const [requestType, setRequestType] = useState("");
@@ -149,6 +149,7 @@ const ImportCSVModal = (props) => {
   useEffect(() => {
     if (response) {
       handleResponse(response, requestType);
+      setResponse(undefined)
     }
   }, [response]);
   const handleCheckFile = (event) => {

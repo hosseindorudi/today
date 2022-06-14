@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Modal, Table } from "react-bootstrap";
+import { Button, Modal, Table } from "react-bootstrap";
 import "./logModal.css";
 import * as fa from 'react-icons/fa'
+import { t } from "i18next";
 const LogModal = (props) => {
   const logs = props.logs;
     const [showDescription, setShowDescription] = useState(false);
@@ -49,7 +50,7 @@ const LogModal = (props) => {
             {logs.map((log, index) => (
               <tr key={index}>
                 {Object.keys(log).map((key, index) => (
-                  <td key={key+index}>{key==="Description"&&log[key].length>0?<button onClick={()=>handleClickMore(log[key])} className={"tableEyeBtn"}><fa.FaRegEye/></button>:log[key]}</td>
+                  <td key={key+index}>{key==="Description"&&log[key].length>0?<Button variant="link" onClick={()=>handleClickMore(log[key])} >{t("logview")}</Button>:log[key]}</td>
                 ))}
               </tr>
             ))}

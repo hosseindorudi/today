@@ -268,5 +268,7 @@
   "cancel":"انصراف",
   "createSample":"ساخت نمونه",
   "errorOnImport":"خطا در بارگزاری",
-  "import":"وارد کردن"
+  "import":"وارد کردن",
+  "exportGroup":"خروجی گروه",
+  "logview":"مشاهده"
 }

@@ -26,6 +26,6 @@ axios.defaults.baseURL = 'https://94.182.191.108';
     };
 
 
-    return [ response, loading,fetchData ];
+    return [ response, loading,fetchData,setResponse ];
 };
 export default useAxios
