@@ -153,6 +153,19 @@
     outline: none;
     border-radius: 8px;
     height: 50px;
+    
+    
+}
+
+.sentFormlabelInput::-webkit-outer-spin-button,
+.sentFormlabelInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.sentFormlabelInput[type=number] {
+  -moz-appearance: textfield;
 }
 
 .sentFormlabelInput:hover {
@@ -185,12 +198,15 @@
 .sentFormDown {
     flex: 1;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     
 }
 
 .sentFormDownTotal {
     display: flex;
     flex-direction: column;
+    height: 100%;
     background-color: lightgray;
     align-items: flex-start;
     justify-content: space-evenly;
@@ -214,4 +230,54 @@
 
 .sentformDownlabelValue {
     flex: 1;
+}
+
+.sentFormButton {
+    width: 200px;
+    margin-inline-end: 40px;
+    outline: none;
+    border: 1px solid rgb(79, 79, 218);
+    height: 50px;
+    border-radius: 10px;
+    color: rgb(79, 79, 218);
+    background-color: #fff;
+    transition: all 400ms ease;
+}
+
+.sentFormButton:hover{
+    color: #fff;
+    background-color: rgb(79, 79, 218);
+}
+
+
+.sentFormlabelInput2 {
+    width: 95%;
+    utline: 1px solid #ff2b2b;
+    border: 1px solid #ff2b2b;
+    outline: none;
+    border-radius: 8px;
+    height: 50px;
+    
+    
+}
+
+.sentFormlabelInput2::-webkit-outer-spin-button,
+.sentFormlabelInput2::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.sentFormlabelInput2[type=number] {
+  -moz-appearance: textfield;
+}
+
+.sentFormlabelInput2:hover {
+    border: 1px solid #ff2b2b;
+}
+
+.sentFormlabelInput2:focus {
+    outline: 1px solid #ff2b2b;
+    border: 1px solid #ff2b2b;
+    
 }

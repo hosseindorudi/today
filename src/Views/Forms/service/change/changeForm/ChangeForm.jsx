@@ -3,6 +3,13 @@ import './changeForm.css'
 import logo from '../../../../../assets/imgs/logo22.png'
 import { FaSearch, FaWindowClose } from "react-icons/fa";
 const ChangeForm = () => {
+  
+
+  const handleSubmit =() => {
+    console.log("changed Sent")
+  }
+
+
   return (
     <div className="chnageFormmain">
       <div className="changeFormUp">
@@ -104,6 +111,7 @@ const ChangeForm = () => {
           </table>
         </div>
       </div>
+      <button className='changeFormSubmit' onClick={handleSubmit}>ارسال</button>
     </div>
   )
 }

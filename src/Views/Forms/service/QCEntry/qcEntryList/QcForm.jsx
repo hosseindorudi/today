@@ -1,4 +1,4 @@
-import React from 'react'
+import './qcEntryList.css'
 
 const QcForm = () => {
   return (
