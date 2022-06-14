@@ -7,7 +7,8 @@ const AppContext = React.createContext({
         title:"dashboard",
         lang:'',
         langCode:'',
-        sidebarOpen:false
+        sidebarOpen:false,
+        verified:false
     }, setApp: () => {}
 })
 export default AppContext

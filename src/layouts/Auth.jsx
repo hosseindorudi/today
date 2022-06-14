@@ -17,7 +17,7 @@ const Auth = () => {
   const location = useLocation();
   const request=useRequest()
   const from = location.state?.from?.pathname || "/";
-  const { app } = useContext(AppContext);
+  const { app,setApp } = useContext(AppContext);
   const navigate = useNavigate();
   const username = useRef();
   const password = useRef();
@@ -54,8 +54,11 @@ const Auth = () => {
   };
 
   const setToken = useCallback((token) => {
-    console.log(token)
     localStorage.setItem("token",token);
+    setApp((prev) => ({
+      ...prev,
+      verified:true
+    }));
    return navigate(from, { replace: true });
   }, [navigate,from]);
  

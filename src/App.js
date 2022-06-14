@@ -14,7 +14,6 @@ import { AuthProvider } from "./contexts/AuthProvider";
 import RequireAuth from "./Components/RequireAuth";
 
 import OsInformationProvider from "./contexts/OsInformationProvider";
-
 function App() {
   const search = useLocation().search;
   const typeOfUser = new URLSearchParams(search).get("type");
@@ -25,6 +24,7 @@ function App() {
     lang: "",
     langCode: "",
     sidebarOpen: false,
+    verified:false
   });
   const currentLanguageCode = localStorage.getItem("i18nextLng") || "fa";
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
@@ -39,18 +39,17 @@ function App() {
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const assignFont = () => {
     return currentLanguage.dir ? "fontFa" : "fontEn";
   };
 
   return (
     <div className={"App " + assignFont()}>
+       <OsInformationProvider>
       <AuthProvider>
       <AppContext.Provider value={{ app, setApp }}>
         <TabContextProvider>
-        <OsInformationProvider>
-
+       
         <Routes>
           <Route path="/auth" element={<Auth />} />
             <Route element={<RequireAuth/>}>
@@ -59,10 +58,10 @@ function App() {
           <Route path="*" element={<Pagenotfound />} />
         </Routes>
         <ToastContainer rtl={currentLanguage.dir ? true : false} />
-        </OsInformationProvider>
         </TabContextProvider>
       </AppContext.Provider>
       </AuthProvider>
+      </OsInformationProvider>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Footer from "../Components/Footer/footer";
 import Home from "../Components/navbar/home";
 import Language from "../Components/navbar/language";
@@ -8,13 +8,21 @@ import MainTabControl from "../Components/Tabs/TabControl/MainTabControl";
 import useWindowSize from "../customHooks/useWindowSize";
 import "./Admin.css";
 import LogOut from "../Components/navbar/logOut";
+import { OsContext } from "../contexts/OsInformationProvider";
+import useAuth from "../customHooks/useAuth";
+
 
 
 function Admin() {
-  
   const [menu, setMenu] = useState(false);
   const windowSize=useWindowSize()
-
+  const { loading } = useContext(OsContext);
+  const [verifyToken]=useAuth()
+  useEffect(() => {
+    if(!loading){
+      verifyToken()
+    }  
+  }, [loading]);
   
   const handleClickMenu = () => {
     setMenu(!menu);
