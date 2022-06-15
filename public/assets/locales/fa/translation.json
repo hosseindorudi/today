@@ -247,7 +247,7 @@
   "LimitFrom":"محدودیت از",
   "LimitTo":"محدودیت تا",
   "DateSet":"تاریخ",
-  "table.deleteTitle":"آیا مطمعن هستید؟",
+  "table.deleteTitle":"تایید نهایی",
   "table.noReturn":"شما نمی توانید این را برگردانید!",
   "sweetAlert.yes":"بله",
   "sweetAlert.cancel":"انصراف",
