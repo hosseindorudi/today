@@ -240,7 +240,7 @@
   align-items: center;
 }
   .MainTableCss {
-    height: 100%;
+
     width: 100%;
     transition: all 500ms ease;
     border-spacing: 20px;
@@ -751,7 +751,7 @@ ctTableParentAccessButton:hover{
   
   width: 100%;
   flex: 90%;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 .selfPaging {
 
