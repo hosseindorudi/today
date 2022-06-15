@@ -18,7 +18,8 @@ import TableButtons from "./TableButtons/TableButtons";
 import TableModal from "./TableModal/TableModal";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
-
+import * as fi from "react-icons/fi";
+import * as md from "react-icons/md"
 import {
   groupDelete,
   groupExport,
@@ -232,6 +233,15 @@ const Group = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
+  const handleRefresh = () => {
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  }
 
   useEffect(() => {
     if (response) {
@@ -559,11 +569,13 @@ const Group = () => {
 
           <div className="groupContainerLeft">
             <div className="tableSection">
-              <div className="searchSection">
+              <div className="searchSection" style={{height: search ? "15%" : "10%"}}>
               <div className="reacttableParentPlusButton">
+                <button className="groupListRefresh" onClick={handleRefresh}><fi.FiRefreshCcw/></button>
                 <button className="plusBUTTON" onClick={handleAdd}>
-                  <i className="fa fa-plus"></i>
+                  <md.MdPostAdd/>
                 </button>
+                
               </div>
 
               <div className="reacttableParentMiddleMiddleSide">
@@ -578,16 +590,17 @@ const Group = () => {
                 </div>
                 <div
                   className="searchField"
-                  style={{ display: search ? "flex" : "none" }}
+                  style={{ height: search ? "100%" : 0 }}
                 >
-                  <div>
+                  <div style={{ display: search ? "block" : "none" }}>
                     <fa.FaTimes
                       color="red"
                       onClick={handleClearFilter}
                       style={{ cursor: "pointer" }}
                     />
+                    
                   </div>
-                  <Form.Group>
+                  <Form.Group style={{ display: search ? "block" : "none" }}>
                     <Form.Control
                       type="text"
                       placeholder="جستجو"
@@ -595,7 +608,7 @@ const Group = () => {
                       value={flt_Title}
                     />
                   </Form.Group>
-                  <div style={{ direction: "ltr" }}>
+                  <div style={{ direction: "ltr", display: search ? "block" : "none" }}>
                     <LocalizationProvider dateAdapter={AdapterJalali}>
                       <DatePicker
                         mask="____/__/__"
@@ -621,7 +634,7 @@ const Group = () => {
                       />
                     </LocalizationProvider>
                   </div>
-                  <div style={{ direction: "ltr" }}>
+                  <div style={{ direction: "ltr", display: search ? "block" : "none" }}>
                     <LocalizationProvider dateAdapter={AdapterJalali}>
                       <DatePicker
                         label="تاریخ پایان"

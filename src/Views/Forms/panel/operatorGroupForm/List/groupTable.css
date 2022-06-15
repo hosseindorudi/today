@@ -40,23 +40,36 @@
     transition: all 500ms ease;
 }
 
+.groupListRefresh {
+  width: 60px;
+    height: 60px;
+    font-size: 40px;
+    border: none;
+    background-color: transparent;
+    color: #00AFB9;
+}
+
 .reacttableParentPlusButton {
     display: inline;
     transition: all 500ms ease;
     align-items: center;
-    margin-inline-start: 200px;
+    display: flex;
+    flex: 0.2;
+    justify-content: space-around;
+   
 }
 
 .plusBUTTON {
     background-color: #fff;
     border: 1px solid greenyellow;
     display: inline;
+    
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    font-size: 30px;
+    font-size: 35px;
     color: greenyellow;
     transition: all 0.5s ease;
 }
@@ -69,17 +82,17 @@
 
 .reacttableParentMiddleMiddleSide {
     display: flex;
-    flex: 1;
+    flex: .9;
     transition: all 500ms ease;
     flex-direction: column;
     align-items: flex-end;
     margin-inline-end: 20px;
-    height: 50px;
+
     border-radius: 5px;
     padding: 2px;
     margin-bottom: 3px;
     margin-top: 3px;
-    height: 100%;
+
   }
 
   .searchDater {
@@ -95,10 +108,11 @@
     align-items: center;
     justify-content: center;
     transition: all 500ms ease;
-    height: 100%;
+    height: 0;
   }
   .bredCrumbTable{
     height: fit-content;
+    transition: all 500ms ease;
   }
   
   .searchField > div {
@@ -385,6 +399,7 @@ table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
   .downPaginationMain {
     flex: 1;
     height: 100%;
+    transition: all 500ms ease;
   }
   
   
@@ -397,6 +412,7 @@ table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
     border-radius: 0.6rem;
     background: #ffffff;
     box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
+    transition: all 500ms ease;
   }
   .page nav{
     direction: ltr;
@@ -471,7 +487,7 @@ table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    
+    transition: all 500ms ease;
   }
   
   
@@ -518,6 +534,7 @@ table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
     outline: none;
     margin: 0 5px;
     cursor: pointer;
+    transition: all 500ms ease;
   }
   
   .paginationSelector:hover {
@@ -740,7 +757,7 @@ ctTableParentAccessButton:hover{
 
 .tableAndPaging {
   height: 90%;
-
+  transition: all 500ms ease;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -748,13 +765,13 @@ ctTableParentAccessButton:hover{
 }
 
 .selfTabel {
-  
+  transition: all 500ms ease;
   width: 100%;
   flex: 90%;
   overflow-x: auto;
 }
 .selfPaging {
-
+  transition: all 500ms ease;
   width: 100%;
   flex: 5%;
   display: flex;
