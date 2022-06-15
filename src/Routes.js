@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
-import { menues } from './data/Enums';
+import { enums } from './data/Enums';
 import Agent from './Views/Forms/agent/agentForm/Agent';
 import AgentForm from './Views/Forms/agent/agentForm/AgentForm';
 const AccessDefine=lazy(()=>import("./Views/Forms/definations/accessories/accessDefine/AccessDefine"))
@@ -99,741 +99,741 @@ const SmsForm = lazy(()=> import('./Views/Forms/setting/sms/SmsForm'))
 export const Routes = [
   {
     title: 'routes.panel',
-    access:menues.panel,
+    // access:enums.panel,
     icon: <IoIcons.IoIosPaper/> ,
     iconClosed: <RiIcons.RiArrowDownSFill/> ,
     iconOpened: <RiIcons.RiArrowUpSFill/> ,
     subNav: [
       {
         title: 'routes.online',
-        path:'/panelonline',
-       Component:Online,
+        path:'/operatoronline',
+        Component:Online,
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav',
-        access:menues.panelonline
+        access:enums.Operator_OnlineOperator_Read_r
       },
       {
         title: 'routes.group',
-        path:'/panelgroup',
-        access:menues.panelgroup,
-       Component:Group,
+        path:'/operatorgroup',
+        access:enums.Operator_Group_Read_r,
+        Component:Group,
         button:{
-         Component:OperatorGroupForm,
-          path:"/panelGroupForm",
+          Component:OperatorGroupForm,
+          path:"/operatorgroupcreate",
           title:"routes.groupForm",
-          access:menues.panelGroupForm
+          access:enums.Operator_Group_Create_w
         },
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.operator',
-        path:'/panelOperator',
-        access:menues.panelOperator,
+        path:'/operator',
+        access:enums.Operator_Operator_Read_r,
        Component:Operator,
         button:{
-         Component:OperatorForm,
-          path:"/panelOperatorForm",
+          Component:OperatorForm,
+          path:"/operatorcreate",
           title:"routes.operatorForm",
-          access:menues.panelOperatorForm
+          access:enums.Operator_Operator_Create_w
         },
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.validIps',
-        path:'/panelValidIps',
-        access:menues.panelValidIps,
+        path:'/operatorvalidIp',
+        access:enums.Operator_AllowedIp_Read_r,
        Component:ValidIps,
         button:{
-         Component:VirtualIpForm,
-          path:"/panelValidIpsForm",
+          Component:VirtualIpForm,
+          path:"/operatorcreatevalidip",
           title:"routes.validIpsForm",
-          access:menues.panelValidIpsForm,
+          access:enums.Operator_AllowedIp_Create_w,
         },
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.attacks',
-        path:'/panelAttacks',
-        access:menues.panelAttacks,
-       Component:Attacks,
+        path:'/optbruteforce',
+        access:enums.Operator_BruteForce_Read_r,
+        Component:Attacks,
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.actions',
-        path:'/panelActions',
-        access:menues.panelActions,
-       Component:Incident,
+        path:'/optevents',
+        access:enums.Operator_Event_Read_r,
+        Component:Incident,
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.unsuccesslogin',
-        path:'/panelunsuccesslogin',
-        access:menues.panelunsuccesslogin,
+        path:'/optfailedhistory',
+        access:enums.Operator_FailedHistory_Read_r,
        Component:FailedLogin,
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
       {
         title: 'routes.sucesslogin',
-        path:'/panelsucesslogin',
-        access:menues.panelsucesslogin,
+        path:'/oprloginhistory',
+        access:enums.Operator_LoginHistory_Read_r,
        Component:SuccessLogin,
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
     ]
   },
-  {
-    title: 'routes.GeneralRepresentative',
-    icon: <IoIcons.IoIosPaper/> ,
-    access:menues.agents,
-    iconClosed: <RiIcons.RiArrowDownSFill/> ,
-    iconOpened: <RiIcons.RiArrowUpSFill/> ,
-    subNav: [
-      {
-        title: 'routes.online',
-        path:'/representativeonline',
-        access:menues.representativeonline,
-       Component:agentOnline,
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.group',
-        path:'/representativegroup',
-        access:menues.representativegroup,
-       Component:agentGroup,
-        button:{
-         Component:AgentGroupForm,
-          path:"/representativegroupForm",
-          title:"routes.groupForm",
-          access:menues.representativegroupForm,
-        },
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.representative',
-        path:'/representative',
-        access:menues.representative,
-       Component:Agent,
-        button:{
-         Component:AgentForm,
-          path:"/representativeForm",
-          title:"routes.representativeForm",
-          access:menues.representativeForm
-        },
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.validIps',
-        path:'/representativeValidIps',
-        access:menues.representativeValidIps,
-       Component:agentValidIps,
-        button:{
-         Component:agentVirtualIpForm,
-          path:"/representativeValidIpsForm",
-          title:"routes.validIpsForm",
-          access:menues.representativeValidIpsForm,
-        },
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.attacks',
-        path:'/representativeAttacks',
-        access:menues.representativeAttacks,
-       Component:agentAttacks,
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.actions',
-        path:'/representativeActions',
-        access:menues.representativeActions,
-       Component:agentIncident,
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.unsuccesslogin',
-        path:'/representativeunsuccesslogin',
-        access:menues.representativeunsuccesslogin,
-       Component:agentFailedLogin,
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.sucesslogin',
-        path:'/representativesucesslogin',
-        access:menues.representativesucesslogin,
-       Component:agentSuccessLogin,
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-    ]
-  },
-  {
-    title: 'routes.services',
-    access:menues.services,
-    icon: <IoIcons.IoIosPaper/> ,
-    iconClosed: <RiIcons.RiArrowDownSFill/> ,
-    iconOpened: <RiIcons.RiArrowUpSFill/> ,
-    subNav: [
-      {
-        title: 'routes.workFlow',
-        path:'/workFlow',
-        access:menues.workFlow,
-       Component:WorkFlow,
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.admission',
-        path:'/admission',
-        access:menues.admission,
-       Component:Admission,
-        button:{
-         Component:AdmissionForm,
-          path:"/admissionForm",
-          title:"routes.admissionForm",
-          access:menues.admissionForm,
-        },
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.service.QcEntry',
-        path:'/service.QcEntry',
-        access:menues.serviceQcEntry,
-       Component:QcFormEntry,
-        button:{
-         Component:QcEntry,
-          path:"/service.QcEntryForm",
-          title:"routes.service.QcEntryForm",
-          access:menues.serviceQcEntryForm,
-        },
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.service.allocation',
-        path:'/service.allocation',
-        access:menues.serviceAllocation,
-       Component:Allocation,
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.service.technician',
-        path:'/service.technician',
-        access:menues.serviceTechnician,
-       Component:Technician,
-        button:{
-         Component:TechnicianForm,
-          path:"/service.technicianForm",
-          title:"routes.service.technicianForm",
-          access:menues.serviceTechnicianForm,
-        },
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.service.qcExit',
-        path:'/service.qcExit',
-        access:menues.serviceQcExit,
-       Component:QcExit,
-        button:{
-         Component:QcExitForm,
-          path:"/service.qcExitForm",
-          title:'routes.service.qcExitForm',
-          access:menues.serviceQcExitForm,
-        },
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.service.delivery',
-        path:'/service.delivery',
-        access:menues.serviceDelivery,
-       Component:Delivery,
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.acceptDelivery',
-        path:'/acceptDelivery',
-        access:menues.acceptDelivery,
-       Component:AcceptDelivery,
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.changing',
-        path:'/changing',
-        access:menues.changing,
-       Component:Change,
-        button:{
-         Component:ChangeForm,
-          path:"/changingForm",
-          title:"routes.changingForm",
-          access:menues.changingForm,
-        },
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.sent',
-        path:'/sent',
-        access:menues.sent,
-       Component:Sent,
-        button:{
-         Component:SentForm,
-          path:"/sentForm",
-          title:"routes.sentForm",
-          access:menues.sentForm,
-        },
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'routes.archive',
-        path:'/archive',
-        access:menues.archive,
-       Component:Archive,
-        icon: <IoIcons.IoIosPaper/> ,
-        cName: 'sub-nav'
-      },
-]},
-{
-  title: 'routes.basicDefinations',
-  icon: <IoIcons.IoIosPaper/> ,
-  access:menues.definations,
-  iconClosed: <RiIcons.RiArrowDownSFill/> ,
-  iconOpened: <RiIcons.RiArrowUpSFill/> ,
-  subNav: [
-    {
-      title: 'routes.entryCheckList',
-      path:'/entryCheckList',
-      access:menues.entryCheckList,
-     Component:CheckListEntry,
-      button:{
-       Component:CheckListEntryFormDefine ,
-        path:"/entryCheckListForm",
-        title:"routes.entryCheckListForm",
-        access:menues.entryCheckListForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.exitCheckList',
-      path:'/exitCheckList',
-      access:menues.exitCheckList,
-     Component:CheckListExit,
-      button:{
-       Component:CheckListExitFormDefine,
-        path:"/exitCheckListForm",
-        title:"routes.exitCheckListForm",
-        access:menues.exitCheckListForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.phoneIssues',
-      path:'/phoneIssues',
-      access:menues.phoneIssues,
-     Component:PhoneDefects,
-      button:{
-       Component:PhoneDefectsForm,
-        path:"/phoneIssuesForm",
-        title:"routes.phoneIssuesForm",
-        access:menues.phoneIssuesForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.parts',
-      path:'/parts',
-      access:menues.parts,
-     Component:Parts,
-      button:{
-       Component:PartsDefine,
-        path:"/partsForm",
-        title:"routes.partsForm",
-        access:menues.partForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.admissionCheckList',
-      path:'/admissionCheckList',
-      access:menues.admissionCheckList,
-     Component:AdmissionCheckList,
-      button:{
-       Component:AdmissionCheckDefine,
-        path:"/admissionCheckListForm",
-        title:"routes.admissionCheckListForm",
-        access:menues.admissionCheckListForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.phoneStatusAftertechCheck',
-      path:'/phoneStatusAftertechCheck',
-      access:menues.phoneStatusAftertechCheck,
-     Component:StatusAfterCheck,
-      button:{
-       Component:StatusAfterCheckForm,
-        path:"/phoneStatusAftertechCheckForm",
-        title:"routes.phoneStatusAftertechCheckForm",
-        access:menues.phoneStatusAftertechCheckForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.phoneStatusAftertechWork',
-      path:'/phoneStatusAftertechWork',
-      access:menues.phoneStatusAftertechWork,
-     Component:StatusAfterWork,
-      button:{
-       Component:StatusAfterWorkForm,
-        path:"/phoneStatusAftertechWorkForm",
-        title:"routes.phoneStatusAftertechWorkForm",
-        access:menues.phoneStatusAftertechWorkForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.phoneStatus',
-      path:'/phoneStatus',
-      access:menues.phoneStatus,
-     Component:PhoneStatus,
-      button:{
-       Component:PhoneStatusForm,
-        path:"/phoneStatusForm",
-        title:"routes.phoneStatusForm",
-        access:menues.phoneStatusForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.garanteeType',
-      path:'/garanteeType',
-      access:menues.garanteeType,
-     Component:WarrantyType,
-      button:{
-       Component:WarrantyTypeForm,
-        path:"/garanteeTypeForm",
-        title:"routes.garanteeTypeForm",
-        access:menues.garanteeTypeForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.receivedCustomerMsgType',
-      path:'/receivedCustomerMsgType',
-      access:menues.receivedCustomerMsgType,
-     Component:CustomerReceivedMsgType,
-      button:{
-       Component:CustomerReceivedMsgTypeDefine,
-        path:"/receivedCustomerMsgTypeForm",
-        title:"routes.receivedCustomerMsgTypeForm",
-        access:menues.receivedCustomerMsgTypeForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.sendCustomerMsgType',
-      path:'/sendCustomerMsgType',
-      access:menues.sendCustomerMsgType,
-     Component:CustomerSendMsgType,
-      button:{
-       Component:CustomerSendMsgTypeDefine,
-        path:"/sendCustomerMsgTypeForm",
-        title:"routes.sendCustomerMsgTypeForm",
-        access:menues.sendCustomerMsgTypeForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.systemMsgType',
-      path:'/systemMsgType',
-      access:menues.systemMsgType,
-     Component:SystemMsgType,
-      button:{
-       Component:SystemMsgTypeForm,
-        path:"/systemMsgTypeForm",
-        title:"routes.systemMsgTypeForm",
-        access:menues.systemMsgTypeForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.agentsAbility',
-      path:'/agentsAbility',
-      access:menues.agentsAbility,
-     Component:AgentsAbility,
-      button:{
-       Component:AgentAbilityDefine,
-        path:"/agentsAbilityForm",
-        title:"routes.agentsAbilityForm",
-        access:menues.agentsAbilityForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.techAbility',
-      path:'/techAbility',
-      access:menues.techAbility,
-     Component:TechAbility,
-      button:{
-       Component:TechAbilityForm,
-        path:"/techAbilityForm",
-        title:"routes.techAbilityForm",
-        access:menues.techAbilityForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.product',
-      path:'/product',
-      access:menues.product,
-     Component:Product,
-      button:{
-       Component:ProductForm,
-        path:"/productForm",
-        title:"routes.productForm",
-        access:menues.productForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.productGroup',
-      path:'/productGroup',
-      access:menues.productGroup,
-     Component:ProductGroup,
-      button:{
-       Component:ProductGroupForm,
-        path:"/productGroupForm",
-        title:"routes.productGroupForm",
-        access:menues.productGroupForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.accessories',
-      path:'/accessories',
-      access:menues.accessories,
-     Component:Accessories,
-      button:{
-       Component:AccessDefine,
-        path:"/accessoriesForm",
-        title:"routes.accessoriesForm",
-        access:menues.accessoriesForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.inventoryGroup',
-      path:'/inventoryGroup',
-      access:menues.inventoryGroup,
-     Component:InventoryGroup,
-      button:{
-       Component:InventoryGroupDefine,
-        path:"/inventoryGroupForm",
-        title:"routes.inventoryGroupForm",
-        access:menues.inventoryGroupForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.warrantyCancelation',
-      path:'/warrantyCancelation',
-      access:menues.warrantyCancelation,
-     Component:WarrantyCancelation,
-      button:{
-       Component:WarrantyCancelationForm,
-        path:"/warrantyCancelationForm",
-        title:"routes.warrantyCancelationForm",
-        access:menues.warrantyCancelationForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.partRequest',
-      path:'/partRequest',
-      access:menues.partRequest,
-     Component:PartRequest,
-      button:{
-       Component:PartRequestDefine,
-        path:"/partRequestForm",
-        title:"routes.partRequestForm",
-        access:menues.partRequestForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.worksDoneOnPhone',
-      path:'/worksDoneOnPhone',
-      access:menues.worksDoneOnPhone,
-     Component:WorksDoneOnPhone,
-      button:{
-       Component:WorksDoneOnPhoneForm,
-        path:"/worksDoneOnPhoneForm",
-        title:"routes.worksDoneOnPhoneForm",
-        access:menues.worksDoneOnPhoneForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.extraServices',
-      path:'/extraServices',
-      access:menues.extraServices,
-     Component:ExtraServices,
-      button:{
-       Component:ExtraServicesDefine,
-        path:"/extraServicesForm",
-        title:"routes.extraServicesForm",
-        access:menues.extraServicesForm,
-      },
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    }
+//   {
+//     title: 'routes.GeneralRepresentative',
+//     icon: <IoIcons.IoIosPaper/> ,
+//     access:enums.agents,
+//     iconClosed: <RiIcons.RiArrowDownSFill/> ,
+//     iconOpened: <RiIcons.RiArrowUpSFill/> ,
+//     subNav: [
+//       {
+//         title: 'routes.online',
+//         path:'/representativeonline',
+//         access:enums.representativeonline,
+//        Component:agentOnline,
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.group',
+//         path:'/representativegroup',
+//         access:enums.representativegroup,
+//        Component:agentGroup,
+//         button:{
+//          Component:AgentGroupForm,
+//           path:"/representativegroupForm",
+//           title:"routes.groupForm",
+//           access:enums.representativegroupForm,
+//         },
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.representative',
+//         path:'/representative',
+//         access:enums.representative,
+//        Component:Agent,
+//         button:{
+//          Component:AgentForm,
+//           path:"/representativeForm",
+//           title:"routes.representativeForm",
+//           access:enums.representativeForm
+//         },
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.validIps',
+//         path:'/representativeValidIps',
+//         access:enums.representativeValidIps,
+//        Component:agentValidIps,
+//         button:{
+//          Component:agentVirtualIpForm,
+//           path:"/representativeValidIpsForm",
+//           title:"routes.validIpsForm",
+//           access:enums.representativeValidIpsForm,
+//         },
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.attacks',
+//         path:'/representativeAttacks',
+//         access:enums.representativeAttacks,
+//        Component:agentAttacks,
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.actions',
+//         path:'/representativeActions',
+//         access:enums.representativeActions,
+//        Component:agentIncident,
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.unsuccesslogin',
+//         path:'/representativeunsuccesslogin',
+//         access:enums.representativeunsuccesslogin,
+//        Component:agentFailedLogin,
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.sucesslogin',
+//         path:'/representativesucesslogin',
+//         access:enums.representativesucesslogin,
+//        Component:agentSuccessLogin,
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//     ]
+//   },
+//   {
+//     title: 'routes.services',
+//     access:enums.services,
+//     icon: <IoIcons.IoIosPaper/> ,
+//     iconClosed: <RiIcons.RiArrowDownSFill/> ,
+//     iconOpened: <RiIcons.RiArrowUpSFill/> ,
+//     subNav: [
+//       {
+//         title: 'routes.workFlow',
+//         path:'/workFlow',
+//         access:enums.workFlow,
+//        Component:WorkFlow,
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.admission',
+//         path:'/admission',
+//         access:enums.admission,
+//        Component:Admission,
+//         button:{
+//          Component:AdmissionForm,
+//           path:"/admissionForm",
+//           title:"routes.admissionForm",
+//           access:enums.admissionForm,
+//         },
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.service.QcEntry',
+//         path:'/service.QcEntry',
+//         access:enums.serviceQcEntry,
+//        Component:QcFormEntry,
+//         button:{
+//          Component:QcEntry,
+//           path:"/service.QcEntryForm",
+//           title:"routes.service.QcEntryForm",
+//           access:enums.serviceQcEntryForm,
+//         },
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.service.allocation',
+//         path:'/service.allocation',
+//         access:enums.serviceAllocation,
+//        Component:Allocation,
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.service.technician',
+//         path:'/service.technician',
+//         access:enums.serviceTechnician,
+//        Component:Technician,
+//         button:{
+//          Component:TechnicianForm,
+//           path:"/service.technicianForm",
+//           title:"routes.service.technicianForm",
+//           access:enums.serviceTechnicianForm,
+//         },
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.service.qcExit',
+//         path:'/service.qcExit',
+//         access:enums.serviceQcExit,
+//        Component:QcExit,
+//         button:{
+//          Component:QcExitForm,
+//           path:"/service.qcExitForm",
+//           title:'routes.service.qcExitForm',
+//           access:enums.serviceQcExitForm,
+//         },
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.service.delivery',
+//         path:'/service.delivery',
+//         access:enums.serviceDelivery,
+//        Component:Delivery,
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.acceptDelivery',
+//         path:'/acceptDelivery',
+//         access:enums.acceptDelivery,
+//        Component:AcceptDelivery,
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.changing',
+//         path:'/changing',
+//         access:enums.changing,
+//        Component:Change,
+//         button:{
+//          Component:ChangeForm,
+//           path:"/changingForm",
+//           title:"routes.changingForm",
+//           access:enums.changingForm,
+//         },
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.sent',
+//         path:'/sent',
+//         access:enums.sent,
+//        Component:Sent,
+//         button:{
+//          Component:SentForm,
+//           path:"/sentForm",
+//           title:"routes.sentForm",
+//           access:enums.sentForm,
+//         },
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+//       {
+//         title: 'routes.archive',
+//         path:'/archive',
+//         access:enums.archive,
+//        Component:Archive,
+//         icon: <IoIcons.IoIosPaper/> ,
+//         cName: 'sub-nav'
+//       },
+// ]},
+// {
+//   title: 'routes.basicDefinations',
+//   icon: <IoIcons.IoIosPaper/> ,
+//   access:enums.definations,
+//   iconClosed: <RiIcons.RiArrowDownSFill/> ,
+//   iconOpened: <RiIcons.RiArrowUpSFill/> ,
+//   subNav: [
+//     {
+//       title: 'routes.entryCheckList',
+//       path:'/entryCheckList',
+//       access:enums.entryCheckList,
+//      Component:CheckListEntry,
+//       button:{
+//        Component:CheckListEntryFormDefine ,
+//         path:"/entryCheckListForm",
+//         title:"routes.entryCheckListForm",
+//         access:enums.entryCheckListForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.exitCheckList',
+//       path:'/exitCheckList',
+//       access:enums.exitCheckList,
+//      Component:CheckListExit,
+//       button:{
+//        Component:CheckListExitFormDefine,
+//         path:"/exitCheckListForm",
+//         title:"routes.exitCheckListForm",
+//         access:enums.exitCheckListForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.phoneIssues',
+//       path:'/phoneIssues',
+//       access:enums.phoneIssues,
+//      Component:PhoneDefects,
+//       button:{
+//        Component:PhoneDefectsForm,
+//         path:"/phoneIssuesForm",
+//         title:"routes.phoneIssuesForm",
+//         access:enums.phoneIssuesForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.parts',
+//       path:'/parts',
+//       access:enums.parts,
+//      Component:Parts,
+//       button:{
+//        Component:PartsDefine,
+//         path:"/partsForm",
+//         title:"routes.partsForm",
+//         access:enums.partForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.admissionCheckList',
+//       path:'/admissionCheckList',
+//       access:enums.admissionCheckList,
+//      Component:AdmissionCheckList,
+//       button:{
+//        Component:AdmissionCheckDefine,
+//         path:"/admissionCheckListForm",
+//         title:"routes.admissionCheckListForm",
+//         access:enums.admissionCheckListForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.phoneStatusAftertechCheck',
+//       path:'/phoneStatusAftertechCheck',
+//       access:enums.phoneStatusAftertechCheck,
+//      Component:StatusAfterCheck,
+//       button:{
+//        Component:StatusAfterCheckForm,
+//         path:"/phoneStatusAftertechCheckForm",
+//         title:"routes.phoneStatusAftertechCheckForm",
+//         access:enums.phoneStatusAftertechCheckForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.phoneStatusAftertechWork',
+//       path:'/phoneStatusAftertechWork',
+//       access:enums.phoneStatusAftertechWork,
+//      Component:StatusAfterWork,
+//       button:{
+//        Component:StatusAfterWorkForm,
+//         path:"/phoneStatusAftertechWorkForm",
+//         title:"routes.phoneStatusAftertechWorkForm",
+//         access:enums.phoneStatusAftertechWorkForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.phoneStatus',
+//       path:'/phoneStatus',
+//       access:enums.phoneStatus,
+//      Component:PhoneStatus,
+//       button:{
+//        Component:PhoneStatusForm,
+//         path:"/phoneStatusForm",
+//         title:"routes.phoneStatusForm",
+//         access:enums.phoneStatusForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.garanteeType',
+//       path:'/garanteeType',
+//       access:enums.garanteeType,
+//      Component:WarrantyType,
+//       button:{
+//        Component:WarrantyTypeForm,
+//         path:"/garanteeTypeForm",
+//         title:"routes.garanteeTypeForm",
+//         access:enums.garanteeTypeForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.receivedCustomerMsgType',
+//       path:'/receivedCustomerMsgType',
+//       access:enums.receivedCustomerMsgType,
+//      Component:CustomerReceivedMsgType,
+//       button:{
+//        Component:CustomerReceivedMsgTypeDefine,
+//         path:"/receivedCustomerMsgTypeForm",
+//         title:"routes.receivedCustomerMsgTypeForm",
+//         access:enums.receivedCustomerMsgTypeForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.sendCustomerMsgType',
+//       path:'/sendCustomerMsgType',
+//       access:enums.sendCustomerMsgType,
+//      Component:CustomerSendMsgType,
+//       button:{
+//        Component:CustomerSendMsgTypeDefine,
+//         path:"/sendCustomerMsgTypeForm",
+//         title:"routes.sendCustomerMsgTypeForm",
+//         access:enums.sendCustomerMsgTypeForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.systemMsgType',
+//       path:'/systemMsgType',
+//       access:enums.systemMsgType,
+//      Component:SystemMsgType,
+//       button:{
+//        Component:SystemMsgTypeForm,
+//         path:"/systemMsgTypeForm",
+//         title:"routes.systemMsgTypeForm",
+//         access:enums.systemMsgTypeForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.agentsAbility',
+//       path:'/agentsAbility',
+//       access:enums.agentsAbility,
+//      Component:AgentsAbility,
+//       button:{
+//        Component:AgentAbilityDefine,
+//         path:"/agentsAbilityForm",
+//         title:"routes.agentsAbilityForm",
+//         access:enums.agentsAbilityForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.techAbility',
+//       path:'/techAbility',
+//       access:enums.techAbility,
+//      Component:TechAbility,
+//       button:{
+//        Component:TechAbilityForm,
+//         path:"/techAbilityForm",
+//         title:"routes.techAbilityForm",
+//         access:enums.techAbilityForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.product',
+//       path:'/product',
+//       access:enums.product,
+//      Component:Product,
+//       button:{
+//        Component:ProductForm,
+//         path:"/productForm",
+//         title:"routes.productForm",
+//         access:enums.productForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.productGroup',
+//       path:'/productGroup',
+//       access:enums.productGroup,
+//      Component:ProductGroup,
+//       button:{
+//        Component:ProductGroupForm,
+//         path:"/productGroupForm",
+//         title:"routes.productGroupForm",
+//         access:enums.productGroupForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.accessories',
+//       path:'/accessories',
+//       access:enums.accessories,
+//      Component:Accessories,
+//       button:{
+//        Component:AccessDefine,
+//         path:"/accessoriesForm",
+//         title:"routes.accessoriesForm",
+//         access:enums.accessoriesForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.inventoryGroup',
+//       path:'/inventoryGroup',
+//       access:enums.inventoryGroup,
+//      Component:InventoryGroup,
+//       button:{
+//        Component:InventoryGroupDefine,
+//         path:"/inventoryGroupForm",
+//         title:"routes.inventoryGroupForm",
+//         access:enums.inventoryGroupForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.warrantyCancelation',
+//       path:'/warrantyCancelation',
+//       access:enums.warrantyCancelation,
+//      Component:WarrantyCancelation,
+//       button:{
+//        Component:WarrantyCancelationForm,
+//         path:"/warrantyCancelationForm",
+//         title:"routes.warrantyCancelationForm",
+//         access:enums.warrantyCancelationForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.partRequest',
+//       path:'/partRequest',
+//       access:enums.partRequest,
+//      Component:PartRequest,
+//       button:{
+//        Component:PartRequestDefine,
+//         path:"/partRequestForm",
+//         title:"routes.partRequestForm",
+//         access:enums.partRequestForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.worksDoneOnPhone',
+//       path:'/worksDoneOnPhone',
+//       access:enums.worksDoneOnPhone,
+//      Component:WorksDoneOnPhone,
+//       button:{
+//        Component:WorksDoneOnPhoneForm,
+//         path:"/worksDoneOnPhoneForm",
+//         title:"routes.worksDoneOnPhoneForm",
+//         access:enums.worksDoneOnPhoneForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.extraServices',
+//       path:'/extraServices',
+//       access:enums.extraServices,
+//      Component:ExtraServices,
+//       button:{
+//        Component:ExtraServicesDefine,
+//         path:"/extraServicesForm",
+//         title:"routes.extraServicesForm",
+//         access:enums.extraServicesForm,
+//       },
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     }
 
-]},
-{
-  title: 'routes.rules',
-  icon: <IoIcons.IoIosPaper/> ,
-  access:menues.rules,
-  iconClosed: <RiIcons.RiArrowDownSFill/> ,
-  iconOpened: <RiIcons.RiArrowUpSFill/> ,
-  subNav: [
-    {
-      title: 'routes.pricing',
-      path:'/pricing',
-      access:menues.pricing,
-     Component:Pricing,
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    },
-    {
-      title: 'routes.ratingTechnician',
-      path:'/ratingTechnician',
-      access:menues.ratingTechnician,
-     Component:TechnicianRating,
-      icon: <IoIcons.IoIosPaper/> ,
-      cName: 'sub-nav'
-    }
-  ]},
-  {
-    title: 'routes.reports',
-    access:menues.reports,
-    icon: <IoIcons.IoIosPaper/> ,
-    iconClosed: <RiIcons.RiArrowDownSFill/> ,
-    iconOpened: <RiIcons.RiArrowUpSFill/> ,
-    subNav: [
+// ]},
+// {
+//   title: 'routes.rules',
+//   icon: <IoIcons.IoIosPaper/> ,
+//   access:enums.rules,
+//   iconClosed: <RiIcons.RiArrowDownSFill/> ,
+//   iconOpened: <RiIcons.RiArrowUpSFill/> ,
+//   subNav: [
+//     {
+//       title: 'routes.pricing',
+//       path:'/pricing',
+//       access:enums.pricing,
+//      Component:Pricing,
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     },
+//     {
+//       title: 'routes.ratingTechnician',
+//       path:'/ratingTechnician',
+//       access:enums.ratingTechnician,
+//      Component:TechnicianRating,
+//       icon: <IoIcons.IoIosPaper/> ,
+//       cName: 'sub-nav'
+//     }
+//   ]},
+//   {
+//     title: 'routes.reports',
+//     access:enums.reports,
+//     icon: <IoIcons.IoIosPaper/> ,
+//     iconClosed: <RiIcons.RiArrowDownSFill/> ,
+//     iconOpened: <RiIcons.RiArrowUpSFill/> ,
+//     subNav: [
      
-    ]},
-    {
-      title: 'routes.inventory',
-      access:menues.inventory,
-      icon: <IoIcons.IoIosPaper/> ,
-      iconClosed: <RiIcons.RiArrowDownSFill/> ,
-      iconOpened: <RiIcons.RiArrowUpSFill/> ,
-      subNav: [
+//     ]},
+//     {
+//       title: 'routes.inventory',
+//       access:enums.inventory,
+//       icon: <IoIcons.IoIosPaper/> ,
+//       iconClosed: <RiIcons.RiArrowDownSFill/> ,
+//       iconOpened: <RiIcons.RiArrowUpSFill/> ,
+//       subNav: [
        
-      ]},
-      {
-        title: 'routes.customerClub',
-        icon: <IoIcons.IoIosPaper/> ,
-        access:menues.customerClub,
-        iconClosed: <RiIcons.RiArrowDownSFill/> ,
-        iconOpened: <RiIcons.RiArrowUpSFill/> ,
-        subNav: [
-          {
-            title: 'routes.conversation',
-            path:'/conversationClubList',
-            access:menues.conversationClubList,
-           Component:ConversationClubList,
-            button:{
-             Component:ConversationClubForm,
-              path:"/conversationClubForm",
-              title:"routes.conversationClubForm",
-              access:menues.conversationClubForm,
-            },
-            icon: <IoIcons.IoIosPaper/> ,
-            cName: 'sub-nav'
-          }
+//       ]},
+//       {
+//         title: 'routes.customerClub',
+//         icon: <IoIcons.IoIosPaper/> ,
+//         access:enums.customerClub,
+//         iconClosed: <RiIcons.RiArrowDownSFill/> ,
+//         iconOpened: <RiIcons.RiArrowUpSFill/> ,
+//         subNav: [
+//           {
+//             title: 'routes.conversation',
+//             path:'/conversationClubList',
+//             access:enums.conversationClubList,
+//            Component:ConversationClubList,
+//             button:{
+//              Component:ConversationClubForm,
+//               path:"/conversationClubForm",
+//               title:"routes.conversationClubForm",
+//               access:enums.conversationClubForm,
+//             },
+//             icon: <IoIcons.IoIosPaper/> ,
+//             cName: 'sub-nav'
+//           }
           
-        ]},
-      {
-        title: 'routes.distribution',
-        icon: <IoIcons.IoIosPaper/> ,
-        access:menues.distribution,
-        iconClosed: <RiIcons.RiArrowDownSFill/> ,
-        iconOpened: <RiIcons.RiArrowUpSFill/> ,
-        subNav: [
-          {
-            title: 'routes.deliveryRecord',
-            path:'/deliveryRecordList',
-            access:menues.deliveryRecordList,
-           Component:DeliveryRecord,
-            icon: <IoIcons.IoIosPaper/> ,
-            cName: 'sub-nav'
-          },
-          {
-            title: 'routes.orders',
-            path:'/OrdersList',
-            access:menues.OrdersList,
-           Component:Orders,
-            icon: <IoIcons.IoIosPaper/> ,
-            cName: 'sub-nav'
-          }
+//         ]},
+//       {
+//         title: 'routes.distribution',
+//         icon: <IoIcons.IoIosPaper/> ,
+//         access:enums.distribution,
+//         iconClosed: <RiIcons.RiArrowDownSFill/> ,
+//         iconOpened: <RiIcons.RiArrowUpSFill/> ,
+//         subNav: [
+//           {
+//             title: 'routes.deliveryRecord',
+//             path:'/deliveryRecordList',
+//             access:enums.deliveryRecordList,
+//            Component:DeliveryRecord,
+//             icon: <IoIcons.IoIosPaper/> ,
+//             cName: 'sub-nav'
+//           },
+//           {
+//             title: 'routes.orders',
+//             path:'/OrdersList',
+//             access:enums.OrdersList,
+//            Component:Orders,
+//             icon: <IoIcons.IoIosPaper/> ,
+//             cName: 'sub-nav'
+//           }
           
-        ]},
-        {
-          title: 'routes.setting',
-          icon: <IoIcons.IoIosPaper/> ,
-          access:menues.setting,
-          iconClosed: <RiIcons.RiArrowDownSFill/> ,
-          iconOpened: <RiIcons.RiArrowUpSFill/> ,
-          subNav: [
-            {
-              title: 'routes.smsForm',
-              path:'/smsForm',
-              access:menues.sms,
-             Component:SmsForm,
+//         ]},
+//         {
+//           title: 'routes.setting',
+//           icon: <IoIcons.IoIosPaper/> ,
+//           access:enums.setting,
+//           iconClosed: <RiIcons.RiArrowDownSFill/> ,
+//           iconOpened: <RiIcons.RiArrowUpSFill/> ,
+//           subNav: [
+//             {
+//               title: 'routes.smsForm',
+//               path:'/smsForm',
+//               access:enums.sms,
+//              Component:SmsForm,
               
-              icon: <IoIcons.IoIosPaper/> ,
-              cName: 'sub-nav'
-            }
+//               icon: <IoIcons.IoIosPaper/> ,
+//               cName: 'sub-nav'
+//             }
             
-          ]}
+//           ]}
 ];

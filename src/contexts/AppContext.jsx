@@ -8,7 +8,6 @@ const AppContext = React.createContext({
         lang:'',
         langCode:'',
         sidebarOpen:false,
-        verified:false
     }, setApp: () => {}
 })
 export default AppContext
