@@ -18,15 +18,15 @@ const TabContextProvider = (props) => {
     const found = tabs.find((i) => i.path === item.path);
     if (!found) {
       if (tabs.length === maxTabLength) {
-        const newState = [...tabs];
-        newState[0] = {
-          title: item.title,
-          path: item.path,
-          Component: item.Component,
-        };
-        
+        setTabs(existingItems => {
+            return existingItems.slice(1)
+          })
+          
         return (
-          setTabs(newState),
+          setTabs((prev) => [
+            ...prev,
+            { title: item.title, path: item.path, Component: item.Component },
+          ]),
           setApp((prev) => ({ ...prev, activeTab: item.path,title:item.title }))
         );
       }

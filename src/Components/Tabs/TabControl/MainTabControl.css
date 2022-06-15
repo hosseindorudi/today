@@ -6,6 +6,9 @@
     width: 9rem;
     
 }
+#mainTab li{
+    transition: all 500ms ease;
+}
 .nav-item .spanTab{
     display: flex;
     width: 7rem;

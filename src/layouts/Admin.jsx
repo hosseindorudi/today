@@ -10,7 +10,7 @@ import "./Admin.css";
 import LogOut from "../Components/navbar/logOut";
 import { OsContext } from "../contexts/OsInformationProvider";
 import useAuth from "../customHooks/useAuth";
-
+import * as fi from 'react-icons/fi'
 
 
 function Admin() {
@@ -30,6 +30,7 @@ function Admin() {
   
   return (
     <div className="mainparent">
+      <fi.FiRefreshCcw/>
       <div className="header">
         <div className="hederLeft">
           <div className="profileImg">
