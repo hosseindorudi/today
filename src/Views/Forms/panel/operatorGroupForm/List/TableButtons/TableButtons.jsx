@@ -8,13 +8,14 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../../../../../contexts/AppContext";
 import { downloadCSVCode } from "../../../../../../validation/functions";
+import useButtonAccess from "../../../../../../customHooks/useButtonAccess";
 
-const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
+const TableButtons = ({ rowValue, deleteCalled, handleClickEdit,deleteType,editType,exportType }) => {
   const [response, loading, fetchData,setResponse] = useAxios();
   const {app}=useContext(AppContext)
   const request = useRequest();
   const { t } = useTranslation();
-
+  const [isDisabled]=useButtonAccess()
   const handleResponse = useCallback((res) => {
     if (res.length) {
     return downloadCSVCode(res,app.title)
@@ -52,7 +53,7 @@ const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
         title="exportCSV"
         className="Approved widgetLgButton"
         onClick={handleExport}
-        disabled={loading}
+        disabled={loading || isDisabled(exportType)}
       >
         <fa.FaFileCsv />
       </button>
@@ -60,6 +61,7 @@ const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
         className="Approved widgetLgButton"
         onClick={() => handleClickEdit(rowValue.Id)}
         title="edit"
+        disabled={isDisabled(editType)}
       >
         <fa.FaEdit />
       </button>
@@ -72,6 +74,7 @@ const TableButtons = ({ rowValue, deleteCalled, handleClickEdit }) => {
         onClick={() => {
           deleteCalled(rowValue.Id);
         }}
+        disabled={isDisabled(deleteType)}
       >
         <fa.FaTrash />
       </button>

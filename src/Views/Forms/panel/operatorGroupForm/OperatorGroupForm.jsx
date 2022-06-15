@@ -20,6 +20,7 @@ import BackDrop from '../../../../Components/backDrop/BackDrop';
 import { TabContext } from "../../../../contexts/TabContextProvider";
 import Group from "./List/Group";
 import {setDatePickerDate} from '../../../../validation/functions'
+import { enums } from "../../../../data/Enums";
 const OperatorGroupForm = () => {
   const {app} = useContext(AppContext)
   const title=useRef()
@@ -44,16 +45,18 @@ const OperatorGroupForm = () => {
     tabContext.addRemoveTabs(
       {
         title: "routes.groupForm",
-        path: "/panelGroupForm",
-        Component:OperatorGroupForm
+        path: "/operatorgroupcreate",
+        Component:OperatorGroupForm,
+        access: enums.Operator_Group_Create_w,
       }
       , "remove");
     tabContext.addRemoveTabs(
       
       {
         title: "routes.group",
-        path: "/panelgroup",
-        Component: Group
+        path: "/operatorgroup",
+        Component: Group,
+        access: enums.Operator_Group_Read_r,
       }
       
       , "add");

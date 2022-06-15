@@ -43,17 +43,19 @@ import { Pagination } from "@mui/material";
 import ImportCSV from "../../../../../Components/Table/ImportCSVButton/ImportCSV";
 import { TabContext } from "../../../../../contexts/TabContextProvider";
 import OperatorGroupForm from "../OperatorGroupForm";
-import { menues } from "../../../../../data/Enums";
+import { enums, menues } from "../../../../../data/Enums";
 import LogModal from "../../../../../Components/Table/LogModal/LogModal";
 import ExportAllButton from "../../../../../Components/Table/ExportButton/ExportAllButton";
 // import { useRef } from "react";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
+import useButtonAccess from "../../../../../customHooks/useButtonAccess";
 const Group = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar"];
   const [response, loading, fetchData,setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [requestType, setRequestType] = useState("");
   const [unSelected, setUnSelected] = useState([])
+  const [isDisabled]=useButtonAccess()
   const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
   const [currentPage, setCurrentPage] = useState(1);
   const [flt_Title, setFlt_Title] = useState("");
@@ -111,9 +113,9 @@ const Group = () => {
   const handleAdd = () => {
     const item = {
       Component: OperatorGroupForm,
-      path: "/panelGroupForm",
+      path:"/operatorgroupcreate",
       title: "routes.groupForm",
-      access: menues.panelGroupForm,
+      access: enums.Operator_Group_Create_w,
     };
     tabContext.addRemoveTabs(item, "add");
   };
@@ -534,12 +536,14 @@ const Group = () => {
                       </button>
                     </div>
 
-                    <ExportAllButton numberOfRecordsPerPage={numberOfRecordsPerPage} currentPage={currentPage} sort={sort} flt_Title={flt_Title} seartBegin={seartBegin} seartEnd={seartEnd}/>
-                    <ImportCSV importSuccess={importSuccess}/>
+                    <ExportAllButton type={enums.Operator_Group_Export_r} numberOfRecordsPerPage={numberOfRecordsPerPage} currentPage={currentPage} sort={sort} flt_Title={flt_Title} seartBegin={seartBegin} seartEnd={seartEnd}/>
+                    <ImportCSV type={enums.Operator_Group_Import_w} importSuccess={importSuccess}/>
                     <button
                       className="reactTableParentLogButton"
                       title="log"
                       onClick={handleClickLog}
+                      disabled={isDisabled(enums.Operator_Group_Log_r)}
+
                     >
                       <fa.FaHistory />
                     </button>
@@ -572,7 +576,7 @@ const Group = () => {
               <div className="searchSection" style={{height: search ? "15%" : "10%"}}>
               <div className="reacttableParentPlusButton">
                 <button className="groupListRefresh" onClick={handleRefresh}><fi.FiRefreshCcw/></button>
-                <button className="plusBUTTON" onClick={handleAdd}>
+                <button className="plusBUTTON" onClick={handleAdd} disabled={isDisabled(enums.Operator_Group_Create_w)}>
                   <md.MdPostAdd/>
                 </button>
                 
@@ -717,6 +721,9 @@ const Group = () => {
                             <tr key={index}>
                               <td className="TableMainTd">
                                 <TableButtons
+                                  deleteType={enums.Operator_Group_Delete_w}
+                                  editType={enums.Operator_Group_Update_w}
+                                  exportType={enums.Operator_Group_Export_r}
                                   deleteCalled={deleteCalled}
                                   rowValue={post}
                                   handleClickEdit={handleClickEdit}

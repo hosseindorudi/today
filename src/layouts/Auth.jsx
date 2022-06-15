@@ -55,11 +55,11 @@ const Auth = () => {
 
   const setToken = useCallback((token) => {
     localStorage.setItem("token",token);
-    const roles=[109102,110101,110102,108102,107101,107102,105102,104102,103102,102102,102101]
-    setApp((prev) => ({
-      ...prev,
-      roles
-    }));
+    // const roles=[109102,110101,110102,108102,107101,107102,105102,104102,103102,102102,102101,107106]
+    // setApp((prev) => ({
+    //   ...prev,
+    //   roles
+    // }));
    return navigate(from, { replace: true });
   }, [navigate,from]);
  

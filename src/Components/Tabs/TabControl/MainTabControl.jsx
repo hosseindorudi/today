@@ -46,7 +46,6 @@ function MainTabControl() {
                 </span>
               }
             >
-              {console.log(<menu.Component/>)}
               {<menu.Component/>}
               
              

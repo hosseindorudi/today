@@ -6,9 +6,11 @@ import useRequest from '../../../customHooks/useRequest';
 import { groupExport } from '../../../services/groupService';
 import { downloadCSVCode, setDatePickerDate } from '../../../validation/functions';
 import { toast } from "react-toastify";
+import useButtonAccess from '../../../customHooks/useButtonAccess';
 const ExportAllButton = (props) => {
     const [response, loading, fetchData,setResponse] = useAxios();
     const request=useRequest()
+    const [isDisabled]=useButtonAccess()
     const abortController = new AbortController();
     const handleExport = () => {
         const paging = {
@@ -47,7 +49,6 @@ const ExportAllButton = (props) => {
       }
       useEffect(() => {
         if (response) {
-            console.log("res")
             response.length ? handleDownload(response) : noFileToast();
           
           }
@@ -55,7 +56,7 @@ const ExportAllButton = (props) => {
       }, [response])
   return (
     <button
-    disabled={loading}
+    disabled={loading || isDisabled(props.type)}
     className="reactTableParentExportButton"
     title="exportCSV"
     onClick={handleExport}

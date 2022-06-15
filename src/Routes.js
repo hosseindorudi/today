@@ -182,7 +182,7 @@ export const Routes = [
         title: 'routes.sucesslogin',
         path:'/oprloginhistory',
         access:enums.Operator_LoginHistory_Read_r,
-       Component:SuccessLogin,
+        Component:SuccessLogin,
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },

@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 axios.defaults.baseURL = 'https://api.ctelecom.ir';
 const useAuth = () => {
   const navigate=useNavigate()
-  const { app } = useContext(AppContext);
+  const { app,setApp } = useContext(AppContext);
   const { os } = useContext(OsContext);
   const location = useGeoLocation();
+  const roles=[109102,110101,110102,108102,107101,107102,105102,104102,103102,102102,102101,107106]
   const verifyToken=async()=>{
     const handleLogOut=()=>{
       localStorage.removeItem("token")
@@ -36,7 +37,10 @@ const useAuth = () => {
     const result = await axios.request(params);
     if(result.data){
       if(result.data.Result){
-       return 
+       return   setApp((prev) => ({
+        ...prev,
+        roles
+      }));
       }
       return handleLogOut()
     }
