@@ -730,13 +730,7 @@ const Group = () => {
                                   );
                                 })}
                                 
-                                <td> asdasdasd</td>
-                                <td> asdasdasd</td>
-                                <td> asdadasd</td>
-                                <td> asdadasd</td>
-                                <td> asdadasd</td>
-                                <td> asdadasd</td>
-                                <td> asdadasd</td>
+                                
                                 
                             </tr>
                           ))}
