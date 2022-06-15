@@ -280,6 +280,7 @@ table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
     position: sticky;
     inset-block-start: 0;
     background-color: #ddd;
+    z-index: 10;
   }
   
 

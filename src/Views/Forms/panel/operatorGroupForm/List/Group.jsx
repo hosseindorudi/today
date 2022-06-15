@@ -655,7 +655,7 @@ const Group = () => {
                 </div>
               </div>
               </div>
-              <div className="tableAndPaging">
+              <div className="tableAndPaging" style={{height : search ? "85%" : "90%"}}>
                 <div className="selfTabel">
 
                 <div className="div33"  style={{width: columnSideBar ? (withOfScreen - (withOfScreen * .2 + 370)) : (withOfScreen - (withOfScreen * .2 + 120) ) }}>
@@ -745,7 +745,7 @@ const Group = () => {
 
 
                 </div>
-                <div className="selfPaging">
+                <div className="selfPaging" >
                 <div className="downPaginationMain">
                 <div className="page">
                   <Pagination
