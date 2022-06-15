@@ -658,7 +658,7 @@ const Group = () => {
               <div className="tableAndPaging">
                 <div className="selfTabel">
 
-                <div className="div33"  style={{width: columnSideBar ? (withOfScreen - (withOfScreen * .2 + 370)) : (withOfScreen - (withOfScreen * .2 + 110) ) }}>
+                <div className="div33"  style={{width: columnSideBar ? (withOfScreen - (withOfScreen * .2 + 370)) : (withOfScreen - (withOfScreen * .2 + 120) ) }}>
                 {productsColumns.length > 0 ? (
                       <table className="MainTableCss" >
                         <thead className="MainTableThead">
