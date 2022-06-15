@@ -15,7 +15,7 @@ const TableButtons = ({ rowValue, deleteCalled, handleClickEdit,deleteType,editT
   const {app}=useContext(AppContext)
   const request = useRequest();
   const { t } = useTranslation();
-  const [isDisabled]=useButtonAccess()
+  const [haveAccess]=useButtonAccess()
   const handleResponse = useCallback((res) => {
     if (res.length) {
     return downloadCSVCode(res,app.title)
@@ -49,35 +49,40 @@ const TableButtons = ({ rowValue, deleteCalled, handleClickEdit,deleteType,editT
   }, [response, handleResponse]);
   return (
     <div className="widgetLgStatus">
+      {haveAccess(exportType)&& 
       <button
         title="exportCSV"
         className="Approved widgetLgButton"
         onClick={handleExport}
-        disabled={loading || isDisabled(exportType)}
+        disabled={loading }
       >
         <fa.FaFileCsv />
       </button>
+}
+      {haveAccess(editType)&&
       <button
         className="Approved widgetLgButton"
         onClick={() => handleClickEdit(rowValue.Id)}
         title="edit"
-        disabled={isDisabled(editType)}
+       
       >
         <fa.FaEdit />
       </button>
+          }
       <button className="Pending widgetLgButton">
         <fa.FaKey />
       </button>
+      {haveAccess(deleteType) &&
       <button
       title="delete"
         className="Declined widgetLgButton"
         onClick={() => {
           deleteCalled(rowValue.Id);
         }}
-        disabled={isDisabled(deleteType)}
       >
         <fa.FaTrash />
       </button>
+        }
     </div>
   );
 };

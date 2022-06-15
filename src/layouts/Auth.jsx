@@ -53,13 +53,12 @@ const Auth = () => {
     });
   };
 
-  const setToken = useCallback((token) => {
+  const setToken = useCallback((token,AccessList) => {
     localStorage.setItem("token",token);
-    // const roles=[109102,110101,110102,108102,107101,107102,105102,104102,103102,102102,102101,107106]
-    // setApp((prev) => ({
-    //   ...prev,
-    //   roles
-    // }));
+    setApp((prev) => ({
+      ...prev,
+      AccessList
+    }));
    return navigate(from, { replace: true });
   }, [navigate,from]);
  
@@ -73,7 +72,7 @@ const Auth = () => {
   useEffect(() => {
     if(response){
       
-      response.Result?setToken(response.Message):handleError(response.Message)
+      response.Result?setToken(response.Message,response.AccessList):handleError(response.Message)
     }
     // if(error){
     // handleError(error.response?.data?.title)

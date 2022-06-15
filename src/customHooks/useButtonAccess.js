@@ -5,15 +5,15 @@ import AppContext from "../contexts/AppContext";
 const useButtonAccess = () => {
   
   const { app } = useContext(AppContext);
-    const roles=app.roles
-  const isDisabled=(key)=>{
-    if(roles?.includes(key)){
-        return false
+    const AccessList=app.AccessList
+  const havAccess=(key)=>{
+    if(AccessList?.includes(key)){
+        return true
     }
-    return true
+    return false
   }
         
-  return [isDisabled];
+  return [havAccess];
 }
 
 export default useButtonAccess

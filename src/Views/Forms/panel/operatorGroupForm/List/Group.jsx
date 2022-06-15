@@ -19,7 +19,7 @@ import TableModal from "./TableModal/TableModal";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
 import * as fi from "react-icons/fi";
-import * as md from "react-icons/md"
+import * as md from "react-icons/md";
 import {
   groupDelete,
   groupExport,
@@ -43,7 +43,7 @@ import { Pagination } from "@mui/material";
 import ImportCSV from "../../../../../Components/Table/ImportCSVButton/ImportCSV";
 import { TabContext } from "../../../../../contexts/TabContextProvider";
 import OperatorGroupForm from "../OperatorGroupForm";
-import { enums, menues } from "../../../../../data/Enums";
+import { enums } from "../../../../../data/Enums";
 import LogModal from "../../../../../Components/Table/LogModal/LogModal";
 import ExportAllButton from "../../../../../Components/Table/ExportButton/ExportAllButton";
 // import { useRef } from "react";
@@ -51,11 +51,11 @@ import useWindowSize from "../../../../../customHooks/useWindowSize";
 import useButtonAccess from "../../../../../customHooks/useButtonAccess";
 const Group = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar"];
-  const [response, loading, fetchData,setResponse] = useAxios();
+  const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [requestType, setRequestType] = useState("");
-  const [unSelected, setUnSelected] = useState([])
-  const [isDisabled]=useButtonAccess()
+  const [unSelected, setUnSelected] = useState([]);
+  const [haveAccess] = useButtonAccess();
   const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
   const [currentPage, setCurrentPage] = useState(1);
   const [flt_Title, setFlt_Title] = useState("");
@@ -103,7 +103,7 @@ const Group = () => {
   //       setMinTableWidth(500)
   //     break;
   //     case 3 :
-        
+
   //     break;
   //   }
   // },[tableWidth])
@@ -113,7 +113,7 @@ const Group = () => {
   const handleAdd = () => {
     const item = {
       Component: OperatorGroupForm,
-      path:"/operatorgroupcreate",
+      path: "/operatorgroupcreate",
       title: "routes.groupForm",
       access: enums.Operator_Group_Create_w,
     };
@@ -196,7 +196,7 @@ const Group = () => {
     setLog(res.Log);
     setShowLogModal(true);
   };
-  const unselectResponseHandler=()=>{
+  const unselectResponseHandler = () => {
     const paging = {
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: currentPage,
@@ -204,7 +204,7 @@ const Group = () => {
       SortBy: sort.SortBy,
     };
     readPaging(paging);
-  }
+  };
   const handleResponse = useCallback(
     (response, type) => {
       switch (type) {
@@ -227,7 +227,7 @@ const Group = () => {
           logResponse(response);
           break;
         case "UNSELECT":
-          unselectResponseHandler()
+          unselectResponseHandler();
         default:
           break;
       }
@@ -243,14 +243,14 @@ const Group = () => {
       SortBy: sort.SortBy,
     };
     readPaging(paging);
-  }
+  };
 
   useEffect(() => {
     if (response) {
       response.Result
         ? handleResponse(response, requestType)
         : handleError(response.Message);
-        setResponse(undefined)
+      setResponse(undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
@@ -259,7 +259,7 @@ const Group = () => {
     const res = response.Record;
     const paging = response.Paging;
     setIsFavorite(response.IsFavorite);
-    setUnSelected(response.UnselectedColumn)
+    setUnSelected(response.UnselectedColumn);
     setPosts(res);
     setCurrentPage(paging.CurrentPage);
     setTotalPages(paging.TotalPages);
@@ -279,7 +279,7 @@ const Group = () => {
         : []
     );
   };
-  const sendUnselectRequest=(temp)=>{
+  const sendUnselectRequest = (temp) => {
     setRequestType("UNSELECT");
     fetchData({
       method: "POST",
@@ -289,31 +289,32 @@ const Group = () => {
       },
       data: {
         Request: request,
-        Column: temp
+        Column: temp,
       },
       signal: abortController.signal,
     });
-  }
-  const CheckBoxChangeHandler = (e,column) => {
-    let checked=e.target.checked;
-    let temp=unSelected
-    checked?temp=temp.filter(u=>u!==column):temp.push(column)
-    sendUnselectRequest(temp)
-
+  };
+  const CheckBoxChangeHandler = (e, column) => {
+    let checked = e.target.checked;
+    let temp = unSelected;
+    checked ? (temp = temp.filter((u) => u !== column)) : temp.push(column);
+    sendUnselectRequest(temp);
   };
   const checkAllHandler = (e) => {
-    let temp=unSelected
+    let temp = unSelected;
     if (e.target.id === "checkAll") {
       productsColumns
         .filter((p, i) => !filteredColumns.includes(p["Header"]))
-        .map((column, index) => (temp=temp.filter(i=>i!==column["Header"]) )) 
-      sendUnselectRequest(temp)
-       setCheckAllC(!checkAllC);
+        .map(
+          (column, index) => (temp = temp.filter((i) => i !== column["Header"]))
+        );
+      sendUnselectRequest(temp);
+      setCheckAllC(!checkAllC);
     } else if (e.target.id === "unCheckAll") {
       productsColumns
-      .filter((p, i) => !filteredColumns.includes(p["Header"]))
-      .map((column, index) => (temp.push(column["Header"]))) 
-      sendUnselectRequest(temp)
+        .filter((p, i) => !filteredColumns.includes(p["Header"]))
+        .map((column, index) => temp.push(column["Header"]));
+      sendUnselectRequest(temp);
       setCheckAllC(!checkAllC);
     }
   };
@@ -463,7 +464,7 @@ const Group = () => {
       signal: abortController.signal,
     });
   };
-  const importSuccess=(message)=>{
+  const importSuccess = (message) => {
     toast.success(message, {
       position: toast.POSITION.TOP_CENTER,
     });
@@ -474,7 +475,7 @@ const Group = () => {
       SortBy: sort.SortBy,
     };
     readPaging(paging);
-  }
+  };
   return (
     <>
       {loading && <BackDrop open={true} />}
@@ -496,197 +497,229 @@ const Group = () => {
         )}
         <div className="reacttableParent">
           <div className="groupContainerRight">
-          <div className="reacttableParentMainRightUp">
-                  <span className="reacttableParentMainRightUpInformation">
-                    {t("table.information")}
-                  </span>
-                  <div className="reacttableParentMainRightUpInformationDiv"></div>
+            <div className="reacttableParentMainRightUp">
+              <span className="reacttableParentMainRightUpInformation">
+                {t("table.information")}
+              </span>
+              <div className="reacttableParentMainRightUpInformationDiv"></div>
+            </div>
+            <div className="reacttableParentMainRightDown">
+              <span className="reacttableParentMainRightDownToolBox">
+                {t("table.tools")}
+              </span>
+              <div className="reacttableParentMainRightDownToolBoxDiv">
+                <div
+                  onClick={() => {
+                    setSearch((prev) => !prev);
+                  }}
+                  style={{
+                    color:
+                      !search && seartBegin !== null && seartEnd !== null
+                        ? "red"
+                        : "lightgray",
+                  }}
+                >
+                  <i
+                    className="fa fa-search searchDater"
+                    aria-hidden="true"
+                  ></i>
                 </div>
-                <div className="reacttableParentMainRightDown">
-                  <span className="reacttableParentMainRightDownToolBox">
-                    {t("table.tools")}
-                  </span>
-                  <div className="reacttableParentMainRightDownToolBoxDiv">
-                    <div
-                      onClick={() => {
-                        setSearch((prev) => !prev);
-                      }}
-                      style={{
-                        color:
-                          !search && seartBegin !== null && seartEnd !== null
-                            ? "red"
-                            : "lightgray",
-                      }}
-                    >
-                      <i
-                        className="fa fa-search searchDater"
-                        aria-hidden="true"
-                      ></i>
-                    </div>
-                    <div className="reacttableParentMainRightDownToolBoxDivColumnBtn">
-                      <button
-                        className={
-                          columnSideBar ? "hold" : "columnBtnTableToggle"
-                        }
-                        onClick={() => {
-                          setColumnSideBar(!columnSideBar);
-                        }}
-                      >
-                        {t("table.groups")}
-                      </button>
-                    </div>
-
-                    <ExportAllButton type={enums.Operator_Group_Export_r} numberOfRecordsPerPage={numberOfRecordsPerPage} currentPage={currentPage} sort={sort} flt_Title={flt_Title} seartBegin={seartBegin} seartEnd={seartEnd}/>
-                    <ImportCSV type={enums.Operator_Group_Import_w} importSuccess={importSuccess}/>
-                    <button
-                      className="reactTableParentLogButton"
-                      title="log"
-                      onClick={handleClickLog}
-                      disabled={isDisabled(enums.Operator_Group_Log_r)}
-
-                    >
-                      <fa.FaHistory />
-                    </button>
-                    <button className="reactTableParentAccessButton">
-                      <fa.FaUserLock />
-                    </button>
-                    <button
-                      disabled={IsFavorite}
-                      title="favorite"
-                      className={`reactTableParentFavoritButton ${
-                        IsFavorite ? "favactive" : ""
-                      }`}
-                      onClick={handleClickFav}
-                    >
-                      <fa.FaRegStar />
-                    </button>
-                    <button
-                      className="reactTableParentHelpButton"
-                      onClick={handleClickHelp}
-                      title="help"
-                    >
-                      <fa.FaQuestionCircle />
-                    </button>
-                  </div>
+                <div className="reacttableParentMainRightDownToolBoxDivColumnBtn">
+                  <button
+                    className={columnSideBar ? "hold" : "columnBtnTableToggle"}
+                    onClick={() => {
+                      setColumnSideBar(!columnSideBar);
+                    }}
+                  >
+                    {t("table.groups")}
+                  </button>
                 </div>
+                {haveAccess(enums.Operator_Group_Export_r) && (
+                  <ExportAllButton
+                    numberOfRecordsPerPage={numberOfRecordsPerPage}
+                    currentPage={currentPage}
+                    sort={sort}
+                    flt_Title={flt_Title}
+                    seartBegin={seartBegin}
+                    seartEnd={seartEnd}
+                  />
+                )}
+                {haveAccess(enums.Operator_Group_Export_r) && (
+                  <ImportCSV importSuccess={importSuccess} />
+                )}
+                {haveAccess(enums.Operator_Group_Log_r) && (
+                  <button
+                    className="reactTableParentLogButton"
+                    title="log"
+                    onClick={handleClickLog}
+                  >
+                    <fa.FaHistory />
+                  </button>
+                )}
+                <button className="reactTableParentAccessButton">
+                  <fa.FaUserLock />
+                </button>
+                <button
+                  disabled={IsFavorite}
+                  title="favorite"
+                  className={`reactTableParentFavoritButton ${
+                    IsFavorite ? "favactive" : ""
+                  }`}
+                  onClick={handleClickFav}
+                >
+                  <fa.FaRegStar />
+                </button>
+                <button
+                  className="reactTableParentHelpButton"
+                  onClick={handleClickHelp}
+                  title="help"
+                >
+                  <fa.FaQuestionCircle />
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="groupContainerLeft">
             <div className="tableSection">
-              <div className="searchSection" style={{height: search ? "15%" : "10%"}}>
-              <div className="reacttableParentPlusButton">
-                <button className="groupListRefresh" onClick={handleRefresh}><fi.FiRefreshCcw/></button>
-                <button className="plusBUTTON" onClick={handleAdd} disabled={isDisabled(enums.Operator_Group_Create_w)}>
-                  <md.MdPostAdd/>
-                </button>
-                
-              </div>
+              <div
+                className="searchSection"
+                style={{ height: search ? "15%" : "10%" }}
+              >
+                <div className="reacttableParentPlusButton">
+                  <button className="groupListRefresh" onClick={handleRefresh}>
+                    <fi.FiRefreshCcw />
+                  </button>
+                  {haveAccess(enums.Operator_Group_Create_w) && (
+                    <button className="plusBUTTON" onClick={handleAdd}>
+                      <md.MdPostAdd />
+                    </button>
+                  )}
+                </div>
 
-              <div className="reacttableParentMiddleMiddleSide">
-                <div className="bredCrumbTable">
-                  <div role="presentation" style={{ direction: "ltr" }}>
-                    <Breadcrumb>
-                      <Breadcrumb.Item href="#">خانه</Breadcrumb.Item>
-                      <Breadcrumb.Item active>فرم</Breadcrumb.Item>
-                      <Breadcrumb.Item active>جدول</Breadcrumb.Item>
-                    </Breadcrumb>
+                <div className="reacttableParentMiddleMiddleSide">
+                  <div className="bredCrumbTable">
+                    <div role="presentation" style={{ direction: "ltr" }}>
+                      <Breadcrumb>
+                        <Breadcrumb.Item href="#">خانه</Breadcrumb.Item>
+                        <Breadcrumb.Item active>فرم</Breadcrumb.Item>
+                        <Breadcrumb.Item active>جدول</Breadcrumb.Item>
+                      </Breadcrumb>
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="searchField"
-                  style={{ height: search ? "100%" : 0 }}
-                >
-                  <div style={{ display: search ? "block" : "none" }}>
-                    <fa.FaTimes
-                      color="red"
-                      onClick={handleClearFilter}
-                      style={{ cursor: "pointer" }}
-                    />
-                    
-                  </div>
-                  <Form.Group style={{ display: search ? "block" : "none" }}>
-                    <Form.Control
-                    className="searchTextChange"
-                      type="text"
-                      placeholder="جستجو"
-                      onChange={handleChangeTitle}
-                      value={flt_Title}
-                    />
-                  </Form.Group>
-                  <div style={{ direction: "ltr", display: search ? "block" : "none" }}>
-                    <LocalizationProvider dateAdapter={AdapterJalali}>
-                      <DatePicker
-                        mask="____/__/__"
-                        label="تاریخ شروع"
-                        value={seartBegin}
-                        onChange={(newValue) => {
-                          setSearchBegin(newValue);
-                          if (seartEnd !== null && newValue > seartEnd) {
-                            alert(
-                              "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد"
-                            );
-                            setSearchBegin(null);
-                          }
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            inputProps={{
-                              ...params.inputProps,
-                            }}
-                          />
-                        )}
+                  <div
+                    className="searchField"
+                    style={{ height: search ? "100%" : 0 }}
+                  >
+                    <div style={{ display: search ? "block" : "none" }}>
+                      <fa.FaTimes
+                        color="red"
+                        onClick={handleClearFilter}
+                        style={{ cursor: "pointer" }}
                       />
-                    </LocalizationProvider>
-                  </div>
-                  <div style={{ direction: "ltr", display: search ? "block" : "none" }}>
-                    <LocalizationProvider dateAdapter={AdapterJalali}>
-                      <DatePicker
-                        label="تاریخ پایان"
-                        mask="____/__/__"
-                        value={seartEnd}
-                        onChange={(newValue) => {
-                          setSearchEnd(newValue);
-                          if (seartBegin === null) {
-                            alert("ابتدا تاریخ شروع را مشخص کنید!!!");
-                            setSearchEnd(null);
-                            
-                          }
-                          if (seartBegin !== null && seartBegin > newValue) {
-                            alert(
-                              "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد"
-                            );
-                            setSearchEnd(null);
-                          }
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            inputProps={{
-                              ...params.inputProps,
-                            }}
-                          />
-                        )}
+                    </div>
+                    <Form.Group style={{ display: search ? "block" : "none" }}>
+                      <Form.Control
+                        className="searchTextChange"
+                        type="text"
+                        placeholder="جستجو"
+                        onChange={handleChangeTitle}
+                        value={flt_Title}
                       />
-                    </LocalizationProvider>
+                    </Form.Group>
+                    <div
+                      style={{
+                        direction: "ltr",
+                        display: search ? "block" : "none",
+                      }}
+                    >
+                      <LocalizationProvider dateAdapter={AdapterJalali}>
+                        <DatePicker
+                          mask="____/__/__"
+                          label="تاریخ شروع"
+                          value={seartBegin}
+                          onChange={(newValue) => {
+                            setSearchBegin(newValue);
+                            if (seartEnd !== null && newValue > seartEnd) {
+                              alert(
+                                "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد"
+                              );
+                              setSearchBegin(null);
+                            }
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              inputProps={{
+                                ...params.inputProps,
+                              }}
+                            />
+                          )}
+                        />
+                      </LocalizationProvider>
+                    </div>
+                    <div
+                      style={{
+                        direction: "ltr",
+                        display: search ? "block" : "none",
+                      }}
+                    >
+                      <LocalizationProvider dateAdapter={AdapterJalali}>
+                        <DatePicker
+                          label="تاریخ پایان"
+                          mask="____/__/__"
+                          value={seartEnd}
+                          onChange={(newValue) => {
+                            setSearchEnd(newValue);
+                            if (seartBegin === null) {
+                              alert("ابتدا تاریخ شروع را مشخص کنید!!!");
+                              setSearchEnd(null);
+                            }
+                            if (seartBegin !== null && seartBegin > newValue) {
+                              alert(
+                                "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد"
+                              );
+                              setSearchEnd(null);
+                            }
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              inputProps={{
+                                ...params.inputProps,
+                              }}
+                            />
+                          )}
+                        />
+                      </LocalizationProvider>
+                    </div>
                   </div>
                 </div>
               </div>
-              </div>
-              <div className="tableAndPaging" style={{height : search ? "85%" : "90%"}}>
+              <div
+                className="tableAndPaging"
+                style={{ height: search ? "85%" : "90%" }}
+              >
                 <div className="selfTabel">
-
-                <div className="div33"  style={{width: columnSideBar ? (withOfScreen - (withOfScreen * .2 + 370)) : (withOfScreen - (withOfScreen * .2 + 120) ) }}>
-                {productsColumns.length > 0 ? (
-                      <table className="MainTableCss" >
+                  <div
+                    className="div33"
+                    style={{
+                      width: columnSideBar
+                        ? withOfScreen - (withOfScreen * 0.2 + 370)
+                        : withOfScreen - (withOfScreen * 0.2 + 120),
+                    }}
+                  >
+                    {productsColumns.length > 0 ? (
+                      <table className="MainTableCss">
                         <thead className="MainTableThead">
                           <tr className="MainTableTr">
-                            
-                          <th className="MainTableTh"> </th>
-                            
+                            <th className="MainTableTh"> </th>
+
                             {productsColumns
                               .filter(
-                                (p, i) => !filteredColumns.includes(p["Header"])&&!unSelected.includes(p["Header"])
+                                (p, i) =>
+                                  !filteredColumns.includes(p["Header"]) &&
+                                  !unSelected.includes(p["Header"])
                               )
                               .map((column, index) => (
                                 <th
@@ -713,7 +746,6 @@ const Group = () => {
                                   </button>
                                 </th>
                               ))}
-                              
                           </tr>
                         </thead>
                         <tbody>
@@ -730,7 +762,11 @@ const Group = () => {
                                 />
                               </td>
                               {Object.keys(post)
-                                .filter((p, i) => !filteredColumns.includes(p)&&!unSelected.includes(p))
+                                .filter(
+                                  (p, i) =>
+                                    !filteredColumns.includes(p) &&
+                                    !unSelected.includes(p)
+                                )
                                 .map((key, index) => {
                                   return (
                                     <td
@@ -750,9 +786,6 @@ const Group = () => {
                                     </td>
                                   );
                                 })}
-                                
-                                
-                                
                             </tr>
                           ))}
                         </tbody>
@@ -762,22 +795,20 @@ const Group = () => {
                         <b>{t("noDataFound.table")}</b>
                       </div>
                     )}
+                  </div>
                 </div>
-
-
-                </div>
-                <div className="selfPaging" >
-                <div className="downPaginationMain">
-                <div className="page">
-                  <Pagination
-                    page={currentPage}
-                    onChange={setPage}
-                    count={totalPages}
-                  />
-                </div>
-              </div>
-              <div className="downpaginationButtins">
-                {/* <input
+                <div className="selfPaging">
+                  <div className="downPaginationMain">
+                    <div className="page">
+                      <Pagination
+                        page={currentPage}
+                        onChange={setPage}
+                        count={totalPages}
+                      />
+                    </div>
+                  </div>
+                  <div className="downpaginationButtins">
+                    {/* <input
                     type="number"
                     className="pageNumber"
                     placeholder="شماره صفحه "
@@ -786,32 +817,36 @@ const Group = () => {
                     value={currentPage}
                     onChange={handleChangePage}
                   /> */}
-                <select
-                  className="paginationSelector"
-                  value={numberOfRecordsPerPage}
-                  onChange={handleChangeSelect}
-                >
-                  {[25, 50, 100].map((v, i) => (
-                    <option key={i} value={v}>
-                      {v}
-                    </option>
-                  ))}
-                </select>
-                <button className="sendForm" onClick={handleClickSend}>
-                  {t("sendGroup")}
-                </button>
-              </div>
+                    <select
+                      className="paginationSelector"
+                      value={numberOfRecordsPerPage}
+                      onChange={handleChangeSelect}
+                    >
+                      {[25, 50, 100].map((v, i) => (
+                        <option key={i} value={v}>
+                          {v}
+                        </option>
+                      ))}
+                    </select>
+                    <button className="sendForm" onClick={handleClickSend}>
+                      {t("sendGroup")}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="hiddingSection"style={{ width: columnSideBar ? 250 : 10 }}>
+            <div
+              className="hiddingSection"
+              style={{ width: columnSideBar ? 250 : 10 }}
+            >
               <div className="hiddenSectionBtn">
-                  <div
+                <div
                   className="reactTableParentMiddle1BTN"
-                  onClick={() => setColumnSideBar(!columnSideBar)}></div>
+                  onClick={() => setColumnSideBar(!columnSideBar)}
+                ></div>
               </div>
-              <div className="hiddenSectionCheck" >
+              <div className="hiddenSectionCheck">
                 <div className="mainUnderCloseBtn">
                   <div className="checkBoxTableParentForAll">
                     <div></div>
@@ -841,15 +876,18 @@ const Group = () => {
                         <input
                           type="checkbox"
                           id="todo"
-                          checked={unSelected.includes(column["Header"])?false:true}
+                          checked={
+                            unSelected.includes(column["Header"]) ? false : true
+                          }
                           name="todo"
                           value="todo"
-                          onChange={(e) => CheckBoxChangeHandler(e,column["Header"])}
+                          onChange={(e) =>
+                            CheckBoxChangeHandler(e, column["Header"])
+                          }
                         />
                       </div>
                     ))}
                 </div>
-
               </div>
             </div>
           </div>

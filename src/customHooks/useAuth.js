@@ -11,7 +11,6 @@ const useAuth = () => {
   const { app,setApp } = useContext(AppContext);
   const { os } = useContext(OsContext);
   const location = useGeoLocation();
-  const roles=[109102,110101,110102,108102,107101,107102,105102,104102,103102,102102,102101,107106]
   const verifyToken=async()=>{
     const handleLogOut=()=>{
       localStorage.removeItem("token")
@@ -37,9 +36,10 @@ const useAuth = () => {
     const result = await axios.request(params);
     if(result.data){
       if(result.data.Result){
-       return   setApp((prev) => ({
+        const AccessList=result.data.AccessList
+       return setApp((prev) => ({
         ...prev,
-        roles
+        AccessList
       }));
       }
       return handleLogOut()

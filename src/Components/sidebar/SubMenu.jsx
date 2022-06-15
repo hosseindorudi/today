@@ -8,7 +8,7 @@ const SubMenu = ({ item, search }) => {
   const [subnav, setSubnav] = useState(false);
   const tabContext = useContext(TabContext);
   const {app}=useContext(AppContext)
-  const roles=app.roles
+  const AccessList=app.AccessList
   const showSubnav = () => setSubnav(!subnav);
   const { t } = useTranslation();
   const handleClickMenu = (item) => {
@@ -33,7 +33,7 @@ const SubMenu = ({ item, search }) => {
               </div>
             </div>
           
-        : roles?.includes(item.access) && (
+        : AccessList?.includes(item.access) && (
             <button
               className="SidebarLink"
               onClick={() => handleClickMenu(item)}
@@ -56,7 +56,7 @@ const SubMenu = ({ item, search }) => {
         item.subNav.map(
           (item, index) =>
             item.button
-              ? roles?.includes(item.access) && (
+              ? AccessList?.includes(item.access) && (
                   <div className="sidebarWithBtn" key={index}>
                     <button
                       className="DropdownLinkBtn"
@@ -66,7 +66,7 @@ const SubMenu = ({ item, search }) => {
                       {item.icon}
                       <span className="SidebarLabel">{t(item.title)}</span>
                     </button>
-                    {roles?.includes(item.button.access) && (
+                    {AccessList?.includes(item.button.access) && (
                       <button
                         className="btnIconSidebar"
                         onClick={() => handleClickMenu(item.button)}
@@ -76,7 +76,7 @@ const SubMenu = ({ item, search }) => {
                     )}
                   </div>
                 )
-              : roles?.includes(item.access) && (
+              : AccessList?.includes(item.access) && (
                   <button
                     className="DropdownLink"
                     key={index}
