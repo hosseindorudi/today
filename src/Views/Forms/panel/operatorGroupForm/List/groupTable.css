@@ -786,3 +786,7 @@ ctTableParentAccessButton:hover{
   transition: all 500ms ease;
 
 }
+
+.searchTextChange {
+  height: 54px;
+}

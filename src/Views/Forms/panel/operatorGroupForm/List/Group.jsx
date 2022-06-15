@@ -602,6 +602,7 @@ const Group = () => {
                   </div>
                   <Form.Group style={{ display: search ? "block" : "none" }}>
                     <Form.Control
+                    className="searchTextChange"
                       type="text"
                       placeholder="جستجو"
                       onChange={handleChangeTitle}
