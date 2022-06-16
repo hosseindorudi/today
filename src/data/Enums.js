@@ -68,7 +68,7 @@
     Operator_Group_Import_w : 107105,
     Operator_Group_Export_r : 107106,
     Operator_Group_Log_r : 107107,
-    Operator_Group_AccessList : 107108,
+    Operator_Group_Permission_w : 107108,
 
 
     //tbl_Opr_LoginHistory

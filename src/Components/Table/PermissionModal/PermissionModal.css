@@ -1,0 +1,15 @@
+.tablePermission{
+    text-align: center;
+}
+
+.modalPermission .modal-body{
+    max-height: 500px ;
+    overflow: auto;
+}
+.modalPermission .checkboxes{
+    text-align: end;
+}
+.filterCheckboxes{
+    display: flex;
+    justify-content: space-between;
+}

@@ -21,13 +21,16 @@ import * as fa from "react-icons/fa";
 import * as fi from "react-icons/fi";
 import * as md from "react-icons/md";
 import {
+  groupAccessList,
   groupDelete,
   groupExport,
   groupFavorite,
   groupGetOneRecord,
+  groupGetPermission,
   groupLog,
   groupRead,
   groupReadPaging,
+  groupSetPermission,
   groupSetUnselectedColumn,
 } from "../../../../../services/groupService";
 import useAxios from "../../../../../customHooks/useAxios";
@@ -49,11 +52,18 @@ import ExportAllButton from "../../../../../Components/Table/ExportButton/Export
 // import { useRef } from "react";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
 import useButtonAccess from "../../../../../customHooks/useButtonAccess";
+import AccessListModal from "../../../../../Components/Table/AccessListModal/AccessListModal";
+import PermissionModal from "../../../../../Components/Table/PermissionModal/PermissionModal";
 const Group = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar"];
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
+  const [accessLists, setAccessLists] = useState(undefined);
+  const [showAccessListModal, setAccessListModal] = useState(false);
+  const [showGetPermissionModal,setShowGetPermissionModal]=useState(false)
+  const [permissions,setPermissions]=useState(undefined)
   const [requestType, setRequestType] = useState("");
+  const [groupId, setGroupId] = useState(undefined)
   const [unSelected, setUnSelected] = useState([]);
   const [haveAccess] = useButtonAccess();
   const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
@@ -205,6 +215,19 @@ const Group = () => {
     };
     readPaging(paging);
   };
+  const handleAccessListModal = (response) => {
+    setAccessLists(response.AccessList);
+    setAccessListModal(true);
+  };
+  const handleGetPermissionModal=(response)=>{
+    setPermissions(response.AccessList)
+    setShowGetPermissionModal(true)
+  }
+  const handleSetPermission=()=>{
+    toast.success(t("updatedRecord"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  }
   const handleResponse = useCallback(
     (response, type) => {
       switch (type) {
@@ -228,6 +251,16 @@ const Group = () => {
           break;
         case "UNSELECT":
           unselectResponseHandler();
+          break;
+        case "ACCESSLIST":
+          handleAccessListModal(response);
+          break;
+        case "GETPERMISSION":
+          handleGetPermissionModal(response);
+          break;
+        case "SETPERMISSIONS":
+          handleSetPermission(response)
+          break;
         default:
           break;
       }
@@ -476,6 +509,52 @@ const Group = () => {
     };
     readPaging(paging);
   };
+
+  const handleClickAccessList = () => {
+    setRequestType("ACCESSLIST");
+    fetchData({
+      method: "POST",
+      url: groupAccessList,
+      headers: {
+        accept: "*/*",
+      },
+      data: request,
+      signal: abortController.signal,
+    });
+  };
+  const handleClickGetPermission = (id) => {
+    setGroupId(id)
+    setRequestType("GETPERMISSION");
+    fetchData({
+      method: "POST",
+      url: groupGetPermission,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        id: id,
+      },
+      signal: abortController.signal,
+    });
+  };
+  const setPermission=(codes)=>{
+    setRequestType("SETPERMISSIONS");
+    setShowGetPermissionModal(false)
+    fetchData({
+      method: "POST",
+      url: groupSetPermission,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        id: groupId,
+        AccessList:codes
+      },
+      signal: abortController.signal,
+    });
+  }
   return (
     <>
       {loading && <BackDrop open={true} />}
@@ -493,6 +572,20 @@ const Group = () => {
             onHide={() => setShowLogModal(false)}
             logs={log}
             show={showLogModal}
+          />
+        )}
+        {showAccessListModal && (
+          <AccessListModal
+            accessList={accessLists}
+            show={showAccessListModal}
+            onHide={() => setAccessListModal(false)}
+          />
+        )}
+        {showGetPermissionModal &&(
+          <PermissionModal  permissions={permissions}
+          show={showGetPermissionModal}
+          onHide={() => setShowGetPermissionModal(false)}
+          setPermission={setPermission}
           />
         )}
         <div className="reacttableParent">
@@ -556,9 +649,15 @@ const Group = () => {
                     <fa.FaHistory />
                   </button>
                 )}
-                <button className="reactTableParentAccessButton">
+               
+                {haveAccess(enums.Operator_AccessList_Read_r) && (
+                <button
+                  className="reactTableParentAccessButton"
+                  onClick={handleClickAccessList}
+                >
                   <fa.FaUserLock />
                 </button>
+                )}
                 <button
                   disabled={IsFavorite}
                   title="favorite"
@@ -756,6 +855,12 @@ const Group = () => {
                                   deleteType={enums.Operator_Group_Delete_w}
                                   editType={enums.Operator_Group_Update_w}
                                   exportType={enums.Operator_Group_Export_r}
+                                  accessListType={
+                                    enums.Operator_Group_Permission_w
+                                  }
+                                  handleClickGetPermission={
+                                    handleClickGetPermission
+                                  }
                                   deleteCalled={deleteCalled}
                                   rowValue={post}
                                   handleClickEdit={handleClickEdit}

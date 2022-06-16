@@ -270,5 +270,10 @@
   "errorOnImport":"خطا در بارگزاری",
   "import":"وارد کردن",
   "exportGroup":"خروجی گروه",
-  "logview":"مشاهده"
+  "logview":"مشاهده",
+  "save":"ذخیره",
+  "all":"همه",
+  "none":"هیچکدام",
+  "readOnly":"نمایشی"
+
 }
