@@ -17,13 +17,13 @@ import { toast } from 'react-toastify';
 import BackDrop from '../../../../Components/backDrop/BackDrop';
 import { enums } from '../../../../data/Enums'
 import { TabContext } from '../../../../contexts/TabContextProvider';
-import OperatorForm from './Operator'
+import OperatorForm from './List/Operator'
 const Operator = () => {
     const currentLang = useContext(AppContext);
     const [operatorDateExp, setOperatorDateExp] = useState(new Date());
     const {t} = useTranslation();
     const abortController = new AbortController();
-    const [response, loading, fetchData] = useAxios();
+    const [response, loading, fetchData, setResponse] = useAxios();
     const request = useRequest()
     const [groupTitles, setGroupTitles] = useState([])
     const [name, setName] = useState("")
@@ -31,7 +31,7 @@ const Operator = () => {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [phone, setPhone] = useState("")
     const [selectGroup, setSelectGroup] =useState("")
-    const [isActiv, setIsActive] = useState(false)
+    const [isActiv, setIsActive] = useState(true)
     const [titleG, setTitleG] = useState("")
     const [nameVal, setNameVal] = useState(true)
     const [passVal, setPassVal] = useState(true)
@@ -76,6 +76,7 @@ const Operator = () => {
         
        
       })
+      
     },[])
 
     const handleError = (message) => {
@@ -95,8 +96,8 @@ const Operator = () => {
         if (response){
           (response.Result && response.Title) && setGroupTitles(response.Title) ;
           !response.Result && handleError(response.Message);
-          (response.Result && response.Message === "Ok") && handleSeccess(response.Message);
-          (response.Result && response.Message === "Ok") && handleClickMenu();
+          (response.Result && response.Message === "Ok" && !response.Title) && handleSeccess(response.Message);
+          (response.Result && response.Message === "Ok" && !response.Title) && handleClickMenu();
           
         }
         
@@ -173,6 +174,7 @@ const Operator = () => {
               id="custom-switch"
               label={t("OperatorGroup.switch")}
               value={isActiv}
+              checked={isActiv}
               onChange={(e)=> setIsActive(!isActiv)}
             />
           </div>

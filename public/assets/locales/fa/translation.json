@@ -274,6 +274,14 @@
   "save":"ذخیره",
   "all":"همه",
   "none":"هیچکدام",
-  "readOnly":"نمایشی"
+  "readOnly":"نمایشی",
+  "Group_Title":"گروه اپراتور",
+  "OperatorName":"نام اپراتور",
+  "Mobile":"شماره تماس",
+  "ExpireDate":"تاریخ انقضا",
+  "setoperatorDate":"تاریخ ثبت",
+  "operatorOldPass":"پسورد قدیم",
+  "operatornewPass":"پسورد جدید",
+  "operatornewPassConfirm":"تایید پسورد جدید"
 
 }
