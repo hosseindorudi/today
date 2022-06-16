@@ -17,6 +17,7 @@ import { toast } from 'react-toastify';
 import BackDrop from '../../../../Components/backDrop/BackDrop';
 import { enums } from '../../../../data/Enums'
 import { TabContext } from '../../../../contexts/TabContextProvider';
+import OperatorForm from './Operator'
 const Operator = () => {
     const currentLang = useContext(AppContext);
     const [operatorDateExp, setOperatorDateExp] = useState(new Date());
@@ -52,9 +53,9 @@ const Operator = () => {
       tabContext.addRemoveTabs(
         
         {
-          title: "routes.group",
-          path: "/operatorgroup",
-          Component: Operator,
+          title: "routes.operator",
+          path: "/operator",
+          Component: OperatorForm,
           access: enums.Operator_Operator_Read_r,
         }
         

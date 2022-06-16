@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="signin.css">
+
+    <title>ورود</title>
+  </head>
+  <body dir="rtl">
+  <div class="split-screen">
+      <div class="imageSide">
+          <section class="imageSection"><p></p></section>
+      </div>
+      <div class="loginSide">
+        <button class="button" onclick="myFunction('operator')"> ورود اپراتور <i class="fa fa-user"></i></button>
+        <button class="button" onclick="myFunction('agent')"> ورود نماینده <i class="fa fa-users"></i></button>
+        
+       
+      </div>
+  </div>
+  <script>
+    
+    function myFunction(type) {
+      window.location=`https://www.erp.ctelecom.ir?type=${type}`
+    }
+    </script>
+ 
+  </body>
+</html>

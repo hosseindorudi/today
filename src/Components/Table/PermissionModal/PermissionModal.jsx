@@ -4,10 +4,9 @@ import { Button, Form, Modal, Table } from "react-bootstrap";
 import "./PermissionModal.css";
 const PermissionModal = (props) => {
   const [permissions, setPermissions] = useState(props.permissions);
-  const [all, setAll] = useState(false);
-  const [none, setNone] = useState(false);
+
   const [filterValue, setFilterValue] = useState("")
-  const [readOnly, setReadOnly] = useState(false);
+
   const handleCheck = (codePage, e) => {
     const checked = e.target.checked;
     const temp = [...permissions];
