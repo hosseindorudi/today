@@ -125,6 +125,24 @@
     outline: 1px solid #006bb3;
     border: 1px solid #006bb3;
 }
+.OperatorFormInputTitleFail {
+    margin: 5px 0;
+    border: 1px solid #fa3131;
+    width: 100%;
+    border-radius: 3px; 
+    height: 45px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.OperatorFormInputTitleFail:hover {
+    border: 1px solid #fa3131;
+}
+
+.OperatorFormInputTitleFail:focus {
+    outline: 1px solid #fa3131;
+    border: 1px solid #fa3131;
+}
 
 .inputDivDesc {
     display: flex;
