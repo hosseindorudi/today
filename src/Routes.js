@@ -96,6 +96,7 @@ const ConversationClubForm = lazy(()=> import('./Views/Forms/customerClub/conver
 const DeliveryRecord = lazy(()=> import('./Views/Forms/distribution/deliveryRecord/DeliveryRecord'))
 const Orders = lazy(()=> import('./Views/Forms/distribution/orders/Orders'))
 const SmsForm = lazy(()=> import('./Views/Forms/setting/sms/SmsForm'))
+const AddmitionFirstForm = lazy(()=> import('./Views/Forms/service/admission/AdmitionFirstForm'))
 export const Routes = [
   {
     title: 'routes.panel',
@@ -117,6 +118,7 @@ export const Routes = [
         path:'/operatorgroup',
         access:enums.Operator_Group_Read_r,
         Component:Group,
+       
         button:{
           Component:OperatorGroupForm,
           path:"/operatorgroupcreate",
@@ -299,11 +301,17 @@ export const Routes = [
         path:'/admission',
         access:enums.Definition_AccessoriesInAdmission_Read_r,
        Component:Admission,
+        // button:{
+        //  Component:AdmissionForm,
+        //   path:"/admissionForm",
+        //   title:"routes.admissionForm",
+        //   access:enums.Definition_AccessoriesInAdmission_Read_r,
+        // },
         button:{
-         Component:AdmissionForm,
-          path:"/admissionForm",
-          title:"routes.admissionForm",
-          access:enums.Definition_AccessoriesInAdmission_Read_r,
+          Component:AddmitionFirstForm,
+          path:"/addmitionFirstForm",
+          title:"routes.admitionFirstForm",
+          access:enums.Operator_Group_Create_w
         },
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'

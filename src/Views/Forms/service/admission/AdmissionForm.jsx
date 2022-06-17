@@ -13,6 +13,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TabContext } from '../../../../contexts/TabContextProvider';
 import Admission from './Admission';
+import { IMEIvalidation, admissionNumberVal,phoneNumberValidation } from '../../../../validation/validation';
 
 
 
@@ -33,11 +34,52 @@ const AdmissionForm = () => {
   const [todayTime, setTodayTime] = useState('');
   const tabContext = useContext(TabContext);
   const currentLang = useContext(AppContext);
-  
+  const [imeiVal, setImeiVal] = useState(true)
+  const [imeiValSec, setImeiValSec] = useState(false)
  
   const sigPad = useRef({});
   const sigPadCustomer = useRef({});
 
+  const [arrayInputsVal, setArrayInputVal] = useState({
+    recievedId: true,
+    fullName: true,
+    phoneNumber:true,
+    state: true,
+    city: true,
+    address: true,
+    customerFailed: true,
+    phonemark: true,
+    phoneType: true,
+    phoneModel: true,
+    phoneRam: true,
+    phoneColor: true,
+    phoneCompony: true,
+    operatorDesc: true,
+    operatorSignatur: true,
+    techDesc: true,
+    customerSignatur: true,
+    
+  })
+  const [arrayInputsStart, setArrayInputStart] = useState({
+    recievedId: true,
+    fullName: true,
+    phoneNumber:true,
+    state: true,
+    city: true,
+    address: true,
+    customerFailed: true,
+    phonemark: true,
+    phoneType: true,
+    phoneModel: true,
+    phoneRam: true,
+    phoneColor: true,
+    phoneCompony: true,
+    operatorDesc: true,
+    operatorSignatur: true,
+    techDesc: true,
+    customerSignatur: true,
+    
+  })
 
   const [formInputs, setForminputs] = useState({
     admitDate:todayDate,
@@ -156,7 +198,14 @@ const AdmissionForm = () => {
   //   })
   // } 
 
+  
+  const handleIMEIChange = (e) => {
+    
+    (e.target.value && IMEIvalidation(e.target.value)) ?    setImeiValSec(true) : setImeiVal(false); 
+    !e.target.value ?    setImeiValSec(false) : setImeiVal(false); 
+    IMEIvalidation(e.target.value) ?    setForminputs({...formInputs, ['deviceSerial']: e.target.value})  : setForminputs({...formInputs, ['deviceSerial']: ""}); 
 
+  }
 
   
   useEffect(()=>{
@@ -166,6 +215,63 @@ const AdmissionForm = () => {
     setTodayTime(todayTime);
     
   },[currentLang.app.lang])
+
+  const admissionNumberBlur = (e) => {
+    formInputs['recievtionID'].match(admissionNumberVal) ? setArrayInputVal({...arrayInputsVal, ['recievedId'] : true}) : setArrayInputVal({...arrayInputsVal, ['recievedId'] : false})
+    setArrayInputStart({...arrayInputsStart, ['recievedId'] : false}) 
+  }
+  const fullNameBlur = (e) => {
+    formInputs['nameLastNameINFO'] !== "" ? setArrayInputVal({...arrayInputsVal, ['fullName'] : true}) : setArrayInputVal({...arrayInputsVal, ['fullName'] : false})
+    setArrayInputStart({...arrayInputsStart, ['fullName'] : false}) 
+  }
+  const phoneBlur = (e) => {
+    formInputs['phoneNumber'].match(phoneNumberValidation) ? setArrayInputVal({...arrayInputsVal, ['phoneNumber'] : true}) : setArrayInputVal({...arrayInputsVal, ['phoneNumber'] : false})
+    setArrayInputStart({...arrayInputsStart, ['phoneNumber'] : false}) 
+  }
+  const stateBlur = (e) => {
+    formInputs['state'] !== "" ? setArrayInputVal({...arrayInputsVal, ['state'] : true}) : setArrayInputVal({...arrayInputsVal, ['state'] : false})
+    setArrayInputStart({...arrayInputsStart, ['state'] : false}) 
+  }
+  const cityBlur = (e) => {
+    formInputs['city'] !== "" ? setArrayInputVal({...arrayInputsVal, ['city'] : true}) : setArrayInputVal({...arrayInputsVal, ['city'] : false})
+    setArrayInputStart({...arrayInputsStart, ['city'] : false}) 
+  }
+  const addresBlur = (e) => {
+    formInputs['address'] !== "" ? setArrayInputVal({...arrayInputsVal, ['address'] : true}) : setArrayInputVal({...arrayInputsVal, ['address'] : false})
+    setArrayInputStart({...arrayInputsStart, ['address'] : false}) 
+  }
+  const deviceFailedblur = (e) => {
+    formInputs['deviceFailedDescription'] !== "" ? setArrayInputVal({...arrayInputsVal, ['customerFailed'] : true}) : setArrayInputVal({...arrayInputsVal, ['customerFailed'] : false})
+    setArrayInputStart({...arrayInputsStart, ['customerFailed'] : false}) 
+  }
+  const markDeviceBlur = (e) => {
+    formInputs['deviceMark'] !== "" ? setArrayInputVal({...arrayInputsVal, ['phonemark'] : true}) : setArrayInputVal({...arrayInputsVal, ['phonemark'] : false})
+    setArrayInputStart({...arrayInputsStart, ['phonemark'] : false}) 
+  }
+  const deviceTypeBlur = (e) => {
+    formInputs['deviceType'] !== "" ? setArrayInputVal({...arrayInputsVal, ['phoneType'] : true}) : setArrayInputVal({...arrayInputsVal, ['phoneType'] : false})
+    setArrayInputStart({...arrayInputsStart, ['phoneType'] : false}) 
+  }
+  const deviceModelblur = (e) => {
+    formInputs['deviceModel'] !== "" ? setArrayInputVal({...arrayInputsVal, ['phoneModel'] : true}) : setArrayInputVal({...arrayInputsVal, ['phoneModel'] : false})
+    setArrayInputStart({...arrayInputsStart, ['phoneModel'] : false}) 
+  }
+  const deviceRamBlur = (e) => {
+    formInputs['deviceRam'] !== "" ? setArrayInputVal({...arrayInputsVal, ['phoneRam'] : true}) : setArrayInputVal({...arrayInputsVal, ['phoneRam'] : false})
+    setArrayInputStart({...arrayInputsStart, ['phoneRam'] : false}) 
+  }
+  const deviceColorBlur = (e) => {
+    formInputs['deviceColor'] !== "" ? setArrayInputVal({...arrayInputsVal, ['phoneColor'] : true}) : setArrayInputVal({...arrayInputsVal, ['phoneColor'] : false})
+    setArrayInputStart({...arrayInputsStart, ['phoneColor'] : false}) 
+  }
+  const deviceCompanyBlur = (e) => {
+    formInputs['deviceCompany'] !== "" ? setArrayInputVal({...arrayInputsVal, ['phoneCompony'] : true}) : setArrayInputVal({...arrayInputsVal, ['phoneCompony'] : false})
+    setArrayInputStart({...arrayInputsStart, ['phoneCompony'] : false}) 
+  }
+  const agentDescBlur = (e) => {
+    formInputs['techDescription'] !== "" ? setArrayInputVal({...arrayInputsVal, ['operatorDesc'] : true}) : setArrayInputVal({...arrayInputsVal, ['operatorDesc'] : false})
+    setArrayInputStart({...arrayInputsStart, ['operatorDesc'] : false}) 
+  }
 
   return (
     <div className="mainProductForm ">
@@ -180,17 +286,22 @@ const AdmissionForm = () => {
              <img src={formInputs['customerSigPic']} alt="" /> */}
           </div>
           
-            <input type="number" id='recievtionID' placeholder='شماره قبض پذیرش' onChange={(e) => setForminputs({...formInputs, ['recievtionID']: e.target.value})}/>
+            <input type="number" id='recievtionID' className={arrayInputsStart['recievedId'] ? "recivedIdClass" : (arrayInputsVal['recievedId'] ? 'recivedIdClassASeccess' : 'recivedIdClassFailed')} placeholder='شماره قبض پذیرش' onBlur={admissionNumberBlur} onChange={(e) => setForminputs({...formInputs, ['recievtionID']: e.target.value})}/>
           
           
-            <input type="text" id='nameLastNameINFO' className='personInformation' placeholder='نام و نام خانوادگی' onChange={(e) => setForminputs({...formInputs, ['nameLastNameINFO']: e.target.value})}/>
-            <input type="text" id='phoneNumber'  className='personInformation'  placeholder='شماره تماس' onChange={(e) => setForminputs({...formInputs, ['phoneNumber']: e.target.value})}/>
-            <input type="text" id='state'  className='personInformation'  placeholder='استان' onChange={(e) => setForminputs({...formInputs, ['state']: e.target.value})}/>
-            <input type="text" id='city'  className='personInformation'  placeholder='شهرستان' onChange={(e) => setForminputs({...formInputs, ['city']: e.target.value})}/>
-            <textarea type="text" id='address'  className='personInformationText'  placeholder='آدرس' onChange={(e) => setForminputs({...formInputs, ['address']: e.target.value})}/>
+            <input type="text" id='nameLastNameINFO' onBlur={fullNameBlur} className={arrayInputsStart['fullName'] ? "personInformation" : (arrayInputsVal['fullName'] ? 'personInformationSeccess' : 'personInformationFailed')}
+              placeholder='نام و نام خانوادگی' onChange={(e) => setForminputs({...formInputs, ['nameLastNameINFO']: e.target.value})}/>
+
+            <input type="text" id='phoneNumber'  className={arrayInputsStart['phoneNumber'] ? "personInformation" : (arrayInputsVal['phoneNumber'] ? 'personInformationSeccess' : 'personInformationFailed')} onBlur={phoneBlur}  placeholder='شماره تماس' onChange={(e) => setForminputs({...formInputs, ['phoneNumber']: e.target.value})}/>
+            <input type="text" id='state'  className={arrayInputsStart['state'] ? "personInformation" : (arrayInputsVal['state'] ? 'personInformationSeccess' : 'personInformationFailed')} onBlur={stateBlur}  placeholder='استان' onChange={(e) => setForminputs({...formInputs, ['state']: e.target.value})}/>
+            <input type="text" id='city' onBlur={cityBlur}  className={arrayInputsStart['city'] ? "personInformation" : (arrayInputsVal['city'] ? 'personInformationSeccess' : 'personInformationFailed')}  placeholder='شهرستان' onChange={(e) => setForminputs({...formInputs, ['city']: e.target.value})}/>
+            <textarea type="text" id='address' onBlur={addresBlur}  
+            className={arrayInputsStart['address'] ? "personInformationText" : (arrayInputsVal['address'] ? 'personInformationTextSeccess' : 'personInformationTextFailed')} 
+            placeholder='آدرس' onChange={(e) => setForminputs({...formInputs, ['address']: e.target.value})}/>
           
           <div className="deviceFaildAndPicture">
-            <textarea type="text"  id='deviceFailedDescription' placeholder='عیب به اظهار مشتری:' onChange={(e) => setForminputs({...formInputs, ['deviceFailedDescription']: e.target.value})}/>
+            <textarea type="text"   className={arrayInputsStart['customerFailed'] ? "deviceFailedDescription" : (arrayInputsVal['customerFailed'] ? 'deviceFailedDescriptionSeccess' : 'deviceFailedDescriptionFailed')} 
+             onBlur={deviceFailedblur} placeholder='عیب به اظهار مشتری:' onChange={(e) => setForminputs({...formInputs, ['deviceFailedDescription']: e.target.value})}/>
             {/* <div className='failedBTNParent'>
             <label htmlFor="firstBtnfile"><i className="fa fa-camera failedBTN" aria-hidden="true"></i></label>
             <input type="file" id='firstBtnfile' accept="image/png, image/gif, image/jpeg" onChange={onImageChange} /> */}
@@ -297,21 +408,26 @@ const AdmissionForm = () => {
         
         
           
-          <input type="text" className="deviceSerial" placeholder='سریال دستگاه: ' onChange={(e) => setForminputs({...formInputs, ['deviceSerial']: e.target.value})}/>
+          <input type="text" className={imeiValSec ? "deviceSerialSeccess" : (imeiVal ? "deviceSerial" : "deviceSerialFailed")} placeholder='سریال دستگاه: ' onBlur={handleIMEIChange}/>
        
         
-          <input type="text" className="deviceSerial" placeholder='مارک دستگاه: ' onChange={(e) => setForminputs({...formInputs, ['deviceMark']: e.target.value})}/>
+          <input type="text" className={arrayInputsStart['phonemark'] ? "deviceSerial" : (arrayInputsVal['phonemark'] ? 'deviceSerialSeccess' : 'deviceSerialFailed')} 
+           placeholder='مارک دستگاه: ' onBlur={markDeviceBlur} onChange={(e) => setForminputs({...formInputs, ['deviceMark']: e.target.value})}/>
      
      
-          <input type="text" className="deviceSerial" placeholder='نوع دستگاه: 'onChange={(e) => setForminputs({...formInputs, ['deviceType']: e.target.value})}/>
+          <input type="text" className={arrayInputsStart['phoneType'] ? "deviceSerial" : (arrayInputsVal['phoneType'] ? 'deviceSerialSeccess' : 'deviceSerialFailed')} 
+          onBlur={deviceTypeBlur} placeholder='نوع دستگاه: 'onChange={(e) => setForminputs({...formInputs, ['deviceType']: e.target.value})}/>
        
-          <input type="text" className="deviceSerial" placeholder='مدل دستگاه: ' onChange={(e) => setForminputs({...formInputs, ['deviceModel']: e.target.value})}/>
+          <input type="text" className={arrayInputsStart['phoneModel'] ? "deviceSerial" : (arrayInputsVal['phoneModel'] ? 'deviceSerialSeccess' : 'deviceSerialFailed')} 
+           onBlur={deviceModelblur} placeholder='مدل دستگاه: ' onChange={(e) => setForminputs({...formInputs, ['deviceModel']: e.target.value})}/>
       
-          <input type="text" className="deviceSerial" placeholder='حافظه و رام: ' onChange={(e) => setForminputs({...formInputs, ['deviceRam']: e.target.value})}/>
+          <input type="text" className={arrayInputsStart['phoneRam'] ? "deviceSerial" : (arrayInputsVal['phoneRam'] ? 'deviceSerialSeccess' : 'deviceSerialFailed')}
+           onBlur={deviceRamBlur} placeholder='حافظه و رام: ' onChange={(e) => setForminputs({...formInputs, ['deviceRam']: e.target.value})}/>
        
-          <input type="text" className="deviceSerial" placeholder='رنگ: ' onChange={(e) => setForminputs({...formInputs, ['deviceColor']: e.target.value})}/>
+          <input type="text" className={arrayInputsStart['phoneColor'] ? "deviceSerial" : (arrayInputsVal['phoneColor'] ? 'deviceSerialSeccess' : 'deviceSerialFailed')}
+           onBlur={deviceColorBlur} placeholder='رنگ: ' onChange={(e) => setForminputs({...formInputs, ['deviceColor']: e.target.value})}/>
         
-          <input type="text" className="deviceSerial" placeholder='شرکت وارد کننده: 'onChange={(e) => setForminputs({...formInputs, ['deviceCompany']: e.target.value})}/>
+          <input type="text" className={arrayInputsStart['phoneCompony'] ? "deviceSerial" : (arrayInputsVal['phoneCompony'] ? 'deviceSerialSeccess' : 'deviceSerialFailed')}  onBlur={deviceCompanyBlur} placeholder='شرکت وارد کننده: 'onChange={(e) => setForminputs({...formInputs, ['deviceCompany']: e.target.value})}/>
        
         
          
@@ -338,7 +454,7 @@ const AdmissionForm = () => {
          
         
         <div className="deviceFaildAndPicture" style={{marginTop:5}}>
-          <textarea type="text"  id='deviceFailedDescription' placeholder='توضیحات کارشناس پذیرش: ' onChange={(e) => setForminputs({...formInputs, ['techDescription']: e.target.value})}/>
+          <textarea type="text"  className={arrayInputsStart['operatorDesc'] ? "deviceFailedDescription" : (arrayInputsVal['operatorDesc'] ? 'deviceFailedDescriptionSeccess' : 'deviceFailedDescriptionFailed')} onBlur={agentDescBlur} placeholder='توضیحات کارشناس پذیرش: ' onChange={(e) => setForminputs({...formInputs, ['techDescription']: e.target.value})}/>
           {/* <div className='failedBTNParent'>
           <label htmlFor="secondBtnfile"><i className="fa fa-camera failedBTN" aria-hidden="true"></i></label>
             <input type="file" id='secondBtnfile' accept="image/png, image/gif, image/jpeg" onChange={techDescImageChange}/> */}
@@ -361,10 +477,10 @@ const AdmissionForm = () => {
         </div>
 
         
-        <textarea type="text"  id='deviceFailedDescription' className="warrantyExp" placeholder='توضیحات ابطال گارانتی: ' onChange={(e) => setForminputs({...formInputs, ['warrantyDescription']: e.target.value})}/>
+        <textarea type="text"   className="warrantyExp deviceFailedDescription" placeholder='توضیحات ابطال گارانتی: ' onChange={(e) => setForminputs({...formInputs, ['warrantyDescription']: e.target.value})}/>
         
         
-        <textarea type="text"  id='deviceFailedDescription' className="fanni" placeholder='توضیحات فنی: ' onChange={(e) => setForminputs({...formInputs, ['technicalDescription']: e.target.value})}/>
+        <textarea type="text"   className="fanni deviceFailedDescription" placeholder='توضیحات فنی: ' onChange={(e) => setForminputs({...formInputs, ['technicalDescription']: e.target.value})}/>
         
         <div className="signaturepadDiv1">
           <SignaturePad ref={sigPadCustomer} clearButton="true" sigType={"customer"}  textTitle="امضا مشتری: " />

@@ -407,10 +407,12 @@ const Operator = () => {
       IsAscending: sort.IsAscending,
       SortBy: sort.SortBy,
     };
+    console.log(paging)
     readPaging(paging);
   };
 
   useEffect(() => {
+    
     if (response) {
       response.Result
         ? handleResponse(response, requestType)
@@ -446,6 +448,7 @@ const Operator = () => {
   };
 
   const readPaging = (paging) => {
+    console.log(paging)
     setRequestType("READPAGING");
     fetchData({
       method: "POST",
@@ -465,6 +468,7 @@ const Operator = () => {
       signal: abortController.signal,
     });
   };
+
 
 
   const handleClickLog = () => {
@@ -828,7 +832,7 @@ const Operator = () => {
                                     className="sortingArrowsBTN"
                                     onClick={() => handleClickSort(column)}
                                   >
-                                    {column["isSorted"] ? (
+                                    {column["Header"] !== "Group_Title" ? (column["isSorted"] ? (
                                       column["IsAscending"] ? (
                                         <MainUpArrow />
                                       ) : (
@@ -836,7 +840,7 @@ const Operator = () => {
                                       )
                                     ) : (
                                       <UpArrow />
-                                    )}
+                                    )) : ("")}
                                   </button>
                                 </th>
                               ))}

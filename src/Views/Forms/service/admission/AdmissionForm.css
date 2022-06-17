@@ -71,7 +71,7 @@
 
 
 
-#recievtionID {
+.recivedIdClass {
     margin: 3px auto;
     margin-top: 15px;
     height: 40px;
@@ -82,13 +82,81 @@
     font-size: 14px; 
 }
 
-#recievtionID:hover {
+.recivedIdClass:hover {
     border: 1px solid black;
 }
 
-#recievtionID:focus {
+.recivedIdClass:focus {
 	outline: 1px solid #0072E5;
     border: 1px solid #0072E5;
+}
+.recivedIdClassFailed {
+    margin: 3px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid red;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.recivedIdClassFailed:hover {
+    border: 1px solid red;
+}
+
+.recivedIdClassFailed:focus {
+	outline: 1px solid red;
+    border: 1px solid red;
+}
+
+.recivedIdClassFailed:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .recivedIdClassFailed:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .recivedIdClassFailed:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: red;
+  }
+
+
+
+.recivedIdClass:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #0072E5;
+    opacity: 1; /* Firefox */
+  }
+  
+  .recivedIdClass:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: #0072E5;
+  }
+  
+  .recivedIdClass:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: #0072E5;
+  }
+
+
+.recivedIdClassASeccess {
+    margin: 3px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid green;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.recivedIdClassASeccess:hover {
+    border: 1px solid green;
+}
+
+.recivedIdClassASeccess:focus {
+	outline: 1px solid green;
+    border: 1px solid green;
 }
 
 
@@ -122,6 +190,84 @@ input[type=number] {
     outline: 1px solid #0072E5;
     border: 1px solid #0072E5;
 }
+
+.personInformation:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #0072E5;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformation:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: #0072E5;
+  }
+  
+  .personInformation:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: #0072E5;
+  }
+
+.personInformationSeccess {
+    margin: 5px 0;
+    border: 1px solid green;
+    width: 70%;
+    border-radius: 3px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.personInformationSeccess:hover {
+    border: 1px solid green;
+}
+
+.personInformationSeccess:focus {
+    outline: 1px solid green;
+    border: 1px solid green;
+}
+.personInformationSeccess::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: green;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformationSeccess:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: green;
+  }
+  
+  .personInformationSeccess::-ms-input-placeholder { /* Microsoft Edge */
+    color: green;
+  }
+
+.personInformationFailed {
+    margin: 5px 0;
+    border: 1px solid red;
+    width: 70%;
+    border-radius: 3px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.personInformationFailed:hover {
+    border: 1px solid red;
+}
+
+.personInformationFailed:focus {
+    outline: 1px solid red;
+    border: 1px solid red;
+}
+
+.personInformationFailed::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformationFailed:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .personInformationFailed::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+  }
+
+
 .personInformationText {
     margin: 5px 0;
     border: 1px solid lightgray;
@@ -143,6 +289,86 @@ input[type=number] {
     border: 1px solid #0072E5;
 }
 
+.personInformationTextFailed {
+    margin: 5px 0;
+    border: 1px solid red;
+    width: 70%;
+    border-radius: 3px; 
+    height: 100px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+    overflow: hidden;
+}
+
+.personInformationTextFailed:hover {
+    border: 1px solid red;
+}
+
+.personInformationTextFailed:focus {
+	outline: 1px solid red;
+    border: 1px solid red;
+}
+
+.personInformationTextFailed::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformationTextFailed:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .personInformationTextFailed::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: red;
+  }
+
+
+
+.personInformationText:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #0072E5;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformationText:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: #0072E5;
+  }
+  
+  .personInformationText:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: #0072E5;
+  }
+
+  .personInformationTextSeccess {
+    margin: 5px 0;
+    border: 1px solid green;
+    width: 70%;
+    border-radius: 3px; 
+    height: 100px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+    overflow: hidden;
+}
+  .personInformationTextSeccess:hover {
+    border: 1px solid green;
+}
+
+.personInformationTextSeccess:focus {
+    outline: 1px solid green;
+    border: 1px solid green;
+}
+.personInformationTextSeccess::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: green;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformationTextSeccess:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: green;
+  }
+  
+  .personInformationTextSeccess::-ms-input-placeholder { /* Microsoft Edge */
+    color: green;
+  }
 
 
 
@@ -154,16 +380,14 @@ input[type=number] {
     border-radius: 5px;
 }
 
-#deviceFailedDescription:hover {
-    border: 1px solid black;
-}
+
 
 .deviceFaildAndPicture:focus {
     outline: 1px solid #0072E5;
     border: 1px solid #0072E5;
 }
 
-#deviceFailedDescription {
+.deviceFailedDescription {
     height: 100px;
     padding: 5px;
     font-size: 14px;
@@ -172,11 +396,94 @@ input[type=number] {
     overflow: hidden;
     border-radius: 3px;
 }
+.deviceFailedDescription:hover {
+    border: 1px solid black;
+}
 
-#deviceFailedDescription:focus {
+.deviceFailedDescription:focus {
     outline: 1px solid #0072E5;
     border: 1px solid #0072E5;
 }
+
+
+.deviceFailedDescriptionFailed {
+    height: 100px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid red;
+    resize: none;
+    overflow: hidden;
+    border-radius: 3px
+}
+
+.deviceFailedDescriptionFailed:hover {
+    border: 1px solid red;
+}
+
+.deviceFailedDescriptionFailed:focus {
+	outline: 1px solid red;
+    border: 1px solid red;
+}
+
+.deviceFailedDescriptionFailed::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceFailedDescriptionFailed:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .deviceFailedDescriptionFailed::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: red;
+  }
+
+
+
+.deviceFailedDescription:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #0072E5;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceFailedDescription:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: #0072E5;
+  }
+  
+  .deviceFailedDescription:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: #0072E5;
+  }
+
+  .deviceFailedDescriptionSeccess {
+    height: 100px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid green;
+    resize: none;
+    overflow: hidden;
+    border-radius: 3px
+}
+  .deviceFailedDescriptionSeccess:hover {
+    border: 1px solid green;
+}
+
+.deviceFailedDescriptionSeccess:focus {
+    outline: 1px solid green;
+    border: 1px solid green;
+}
+.deviceFailedDescriptionSeccess::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: green;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceFailedDescriptionSeccess:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: green;
+  }
+  
+  .deviceFailedDescriptionSeccess::-ms-input-placeholder { /* Microsoft Edge */
+    color: green;
+  }
+
+
 
 .failedBTNParent{
     display: flex;
@@ -396,6 +703,87 @@ input[type=number] {
     outline: 1px solid #0072E5;
     border: 1px solid #0072E5;
 }
+
+
+.deviceSerial:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #0072E5;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceSerial:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #0072E5;
+  }
+  
+  .deviceSerial:focus::-ms-input-placeholder { /* Microsoft Edge */
+    color: #0072E5;
+  }
+
+.deviceSerialFailed {
+    margin: 4px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid red;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.deviceSerialFailed:hover {
+    border: 1px solid red;
+}
+
+.deviceSerialFailed:focus {
+    outline: 1px solid red;
+    border: 1px solid red;
+}
+
+
+.deviceSerialFailed::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceSerialFailed:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .deviceSerialFailed::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+  }
+
+.deviceSerialSeccess {
+    margin: 4px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid green;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.deviceSerialSeccess:hover {
+    border: 1px solid green;
+}
+
+.deviceSerialSeccess:focus {
+    outline: 1px solid green;
+    border: 1px solid green;
+}
+
+.deviceSerialSeccess::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: green;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceSerialSeccess:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: green;
+  }
+  
+  .deviceSerialSeccess::-ms-input-placeholder { /* Microsoft Edge */
+    color: green;
+  }
 
 
 .signaturepadDiv {

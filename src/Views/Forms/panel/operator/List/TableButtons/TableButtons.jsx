@@ -41,19 +41,7 @@ const TableButtons = ({
     }
   }, []);
 
-  const handleExport = () => {
-    fetchData({
-      method: "POST",
-      url: groupExportId,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Request: request,
-        Id: rowValue.Id,
-      },
-    });
-  };
+ 
   const handleExportOperator = () => {
     fetchData({
       method: "POST",
