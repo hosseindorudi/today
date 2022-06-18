@@ -197,6 +197,7 @@
   "routes.setting":"تنضیمات",
   "routes.smsForm":"پیامک",
   "routes.admitionFirstForm":"فرم پذیرش",
+  "routes.CustomerList": "مشتری",
 
   "accesoriesDefineHeader": "تعین اولویت لوازم همراه گوشی",
   "admissionDefineHeader": "تعین اولویت لیست پذیرش",
