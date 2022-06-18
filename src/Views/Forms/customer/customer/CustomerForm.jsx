@@ -30,7 +30,7 @@ const CustomerForm = () => {
     const [response, loading, fetchData, setResponse] = useAxios();
     const request = useRequest()
     const [groupTitles, setGroupTitles] = useState([])
-    const [groupTitleId, setGroupTitleId] = useState("")
+    const [groupTitleId, setGroupTitleId] = useState()
     const tabContext = useContext(TabContext);
     const [isActive, setIsActive] = useState(true)
     const  [firstname, setFirstName] = useState("");
@@ -102,6 +102,7 @@ const CustomerForm = () => {
       useEffect(()=> {
         if (response){
           (response.Result && response.Title) && setGroupTitles(response.Title) ;
+          (response.Result && response.Title) && setGroupTitleId(response.Title[0].Id) ;
           !response.Result && handleError(response.Message);
           (response.Result && response.Message === "Ok" && !response.Title) && handleSeccess(response.Message);
           (response.Result && response.Message === "Ok" && !response.Title) && handleClickMenu();
@@ -165,7 +166,7 @@ const CustomerForm = () => {
               })}
         }
     }
-
+    
 
   return (
 
@@ -218,7 +219,7 @@ const CustomerForm = () => {
                     <select name="" id="" className="customerGender" onChange={(e) =>setGroupTitleId(e.target.value)}>
                         <option disabled>گروه مشتری</option>
                         {groupTitles.map((gt, i) => (
-                            <option value={gt.Id} key={i}>{gt.Value}</option>
+                            <option value={gt.Id} key={gt.Id}>{gt.Value}</option>
                         ))}
                     </select>
                 </div>
