@@ -1,10 +1,37 @@
 .m-signature-pad--body {
-    width: 100%;
-    height: 165px;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .canvasForEver {
-    height: 162px;
+    height: 100%;
     width: 100%;
+    z-index: 10;
+    
+
+    
+}
+
+.buttonForDiv {
+    position: relative;
+    height: fit-content;
+    width: 100px;
+    z-index: 99;
+    
+    
+}
+
+
+.newBtnClear {
+    z-index: 100;
+    cursor: pointer;
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
+    height: 30px;
     
 }

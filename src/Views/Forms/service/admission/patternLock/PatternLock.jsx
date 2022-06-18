@@ -13,11 +13,11 @@ const PatternLock = ( {size, setpatternLock, setForminputs, formInputs} ) => {
           patternLinesBackgroundColor = {"#3BF0DB"}
           patternCircleVisibleBorder ={"2px solid #F4A261"}
           patternCircleVisible = {true}
-          patternDotsRadius={4} 
+          patternDotsRadius={3.5} 
           patternCircleRadius={10} 
           matrix={patternSize} 
           backgroundColor={"#84766B"} 
-          onCompletePattern={(pattern) => { setForminputs({...formInputs, ['patternLock']: pattern}); setpatternLock(false); }}/>
+          onCompletePattern={(pattern) => {  setpatternLock(false); }}/>
 
 
 
