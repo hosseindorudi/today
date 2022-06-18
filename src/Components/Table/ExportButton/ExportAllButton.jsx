@@ -19,7 +19,7 @@ const ExportAllButton = (props) => {
         };
         fetchData({
           method: "POST",
-          url: groupExport,
+          url: props.exportLink,
           headers: {
             accept: "*/*",
           },

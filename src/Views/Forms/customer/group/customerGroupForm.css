@@ -1,0 +1,252 @@
+.OperatorGroupForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.OperatorGroupFormMainDiv {
+    
+    /* height: 600px; */
+    width: 100%;
+    /* -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75); */
+}
+
+.OperatorGroupFormTitle {
+    margin-bottom: 20px;
+}
+
+.OperatorGroupFormform {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-inline: 20px;
+    
+}
+
+.OperatorGroupFormform .switch{
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+.switch-toggleForm {
+    height: 40px;
+}
+
+.switch-toggleForm input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    z-index: -2;
+}
+
+.switch-toggleForm input[type="checkbox"] + label {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 0;
+    cursor: pointer;
+    box-shadow: inset -8px -8px 15px rgba(255,255,255,.6),
+                inset 10px 10px 10px rgba(0,0,0, .25);
+    
+}
+
+.switch-toggleForm input[type="checkbox"] + label::before {
+    position: absolute;
+    content: 'OFF';
+    font-size: 12px;
+    text-align: center;
+    line-height: 25px;
+    top: 8px;
+    left: 11px;
+    width: 60px;
+    height: 25px;
+    border-radius: 20px;
+    background-color: #d1dad3;
+    box-shadow: -3px -3px 5px rgba(255,255,255,.5),
+                3px 3px 5px rgba(0,0,0, .25);
+    transition: .3s ease-in-out;
+}
+
+.switch-toggleForm input[type="checkbox"]:checked + label::before {
+    left: 50%;
+    content: 'ON';
+    color: #fff;
+    
+    background-color: #00b33c;
+    box-shadow: -3px -3px 5px rgba(255,255,255,.5),
+                3px 3px 5px #00b33c;
+}
+
+
+.inputDivGroup {
+    display: flex;
+    align-items: flex-start;
+    width: 50%;
+    flex-direction: column;
+}
+
+.OperatorGroupFormInputTitle {
+    margin: 3px 0;
+    border: 1px solid lightgray;
+    width: 100%;
+    border-radius: 3px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 14px;
+    margin: 8px auto;
+}
+
+.OperatorGroupFormInputTitle:hover {
+    border: 1px solid rgb(30, 214, 144);
+}
+
+.OperatorGroupFormInputTitle:focus {
+    outline: 1px solid #00b33c;
+    border: 1px solid #00b33c;
+}
+
+.inputDivDescGroup {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+   
+}
+.OperatorGroupFormform .ipTextFields{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2px;
+    align-items: center;
+    width: 40%;
+}
+.OperatorGroupFormform .accordionBody{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.OperatorGroupFormform .ipTextFields>input{
+    width: 100%;
+    margin: 5px;
+    text-align: center;
+}
+.OperatorGroupFormform .browserSelects{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2px;
+    align-items: center;
+    width: 40%;
+
+}
+.radiousSelect{
+    margin: 5px;
+}
+.OperatorGroupFormform .locations{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2px;
+    align-items: center;
+    width: 40%;
+}
+.OperatorGroupFormform .locations>input{
+    margin: 5px;
+    text-align: center;
+}
+.browserSelects .form-select{
+    width: 50%;
+    text-align: center;
+}
+
+.OperatorGroupFormform hr{
+    color: black;
+    height: 1px;
+    width: 50%;
+}
+.OperatorGroupFormform .addBtn{
+    width: 50%;
+    /* margin-inline: 10%; */
+    display: flex;
+    justify-content:space-between;
+}
+.OperatorGroupFormInputDesc {
+    margin: 3px 0;
+    border: 1px solid lightgray;
+    width: 100%;
+    border-radius: 3px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 14px;
+    margin: 8px auto;
+    height: 200px;
+    resize: none;
+}
+
+.OperatorGroupFormInputDesc:hover {
+    border: 1px solid rgb(30, 214, 144);
+}
+
+.OperatorGroupFormInputDesc:focus {
+    outline: 1px solid #00b33c;
+    border: 1px solid #00b33c;
+}
+
+.deleteBtnForm {
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 11px 28px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: none;
+    color: #fff;
+    background: #3eff8e;
+    transition: all 0.25s ease;
+  }
+  
+  .deleteBtnForm:hover {
+    box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+    transform: translateY(-5px);
+    background: #3effa5;
+  }
+
+
+  .accordionOperatorGroup{
+      width: 100%;
+  }
+  .accordionOperatorGroup .accordion-item{
+      border: none;
+  }
+  .accordionOperatorGroup .accordion-button{
+    width: fit-content;
+    background-color: none !important;
+    color: none;
+    background: none;
+    box-shadow: none;
+  }
+  .submitBtn{
+      display: flex;
+      justify-content: center;
+  }
+  .datePickerGroup{
+    direction: ltr;
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .switchDate {
+      margin: 0 10px;
+  }

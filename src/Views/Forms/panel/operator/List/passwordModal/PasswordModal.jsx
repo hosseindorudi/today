@@ -75,28 +75,28 @@ const PasswordModal = (props) => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>{t("operatorOldPass")}</Form.Label>
               <Form.Control
-                
+                value={oldPass}
                 type="Password"
                 placeholder={t("operatorOldPass")}
-                onClick={(e)=> setOldPass(e.target.value)}
+                onChange={(e)=> setOldPass(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>{t("operatornewPass")}</Form.Label>
               <Form.Control
-               
+                value={newPass}
                 type="Password"
                 placeholder={t("operatornewPass")}
-                onClick={(e)=> setNewPass(e.target.value)}
+                onChange={(e)=> setNewPass(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>{t("operatornewPassConfirm")}</Form.Label>
               <Form.Control
-               
+                value={newpassConfirm}
                 type="Password"
                 placeholder={t("operatornewPassConfirm")}
-                onClick={(e)=> setNewPassConfirm(e.target.value)}
+                onChange={(e)=> setNewPassConfirm(e.target.value)}
               />
             </Form.Group>
 

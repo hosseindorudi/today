@@ -5,7 +5,7 @@ import { OsContext } from "../contexts/OsInformationProvider";
 import { verify } from "../services/authService";
 import useGeoLocation from "./useGeoLocation";
 import { useNavigate } from 'react-router-dom';
-axios.defaults.baseURL = 'https://api.ctelecom.ir';
+axios.defaults.baseURL =process.env.REACT_APP_API_URL;
 const useAuth = () => {
   const navigate=useNavigate()
   const { app,setApp } = useContext(AppContext);

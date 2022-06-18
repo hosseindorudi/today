@@ -22,14 +22,17 @@ import * as fi from "react-icons/fi";
 import * as md from "react-icons/md";
 import {
   groupAccessList,
+  groupCheckFile,
   groupDelete,
   groupExport,
   groupFavorite,
   groupGetOneRecord,
   groupGetPermission,
+  groupImportFile,
   groupLog,
   groupRead,
   groupReadPaging,
+  groupSampleFile,
   groupSetPermission,
   groupSetUnselectedColumn,
 } from "../../../../../services/groupService";
@@ -635,10 +638,11 @@ const Group = () => {
                     flt_Title={flt_Title}
                     seartBegin={seartBegin}
                     seartEnd={seartEnd}
+                    exportLink={groupExport}
                   />
                 )}
-                {haveAccess(enums.Operator_Group_Export_r) && (
-                  <ImportCSV importSuccess={importSuccess} />
+                {haveAccess(enums.Operator_Group_Import_w) && (
+                  <ImportCSV importSuccess={importSuccess} sampleUrl={groupSampleFile} fileCheckURL={groupCheckFile} importURL={groupImportFile}/>
                 )}
                 {haveAccess(enums.Operator_Group_Log_r) && (
                   <button

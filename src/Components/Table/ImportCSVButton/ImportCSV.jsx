@@ -10,7 +10,7 @@ const ImportCSV = (props) => {
   return (
     <>
     {modalShow&&
-    <ImportCSVModal onHide={()=>setModalShow(false)} show={modalShow} importSuccess={props.importSuccess}/>
+    <ImportCSVModal onHide={()=>setModalShow(false)} show={modalShow} importSuccess={props.importSuccess} sampleUrl={props.groupSampleFile} fileCheckURL={props.groupCheckFile} importURL={props.groupImportFile}/>
     } 
     <button  className="reactTableParentImportButton" title="importCSV" onClick={handleOpenModalCSV}>
     <fa.FaFileCsv />

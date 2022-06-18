@@ -1,6 +1,5 @@
-import Group from './List/Group'
-import React, { lazy, useContext, useEffect, useRef, useState } from "react";
-import "./operatorGroupForm.css";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import "./customerGroupForm.css";
 import { useTranslation } from "react-i18next";
 import { Accordion, Button, Form } from "react-bootstrap";
 import * as bs from "react-icons/bs";
@@ -14,16 +13,17 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from "@mui/x-date-pickers";
 import AdapterJalali from '@date-io/date-fns-jalali';
 import AppContext from "../../../../contexts/AppContext";
-
 import useRequest from "../../../../customHooks/useRequest";
 import useAxios from "../../../../customHooks/useAxios";
 import { toast } from "react-toastify";
 import BackDrop from '../../../../Components/backDrop/BackDrop';
 import { TabContext } from "../../../../contexts/TabContextProvider";
+// import Group from "./List/Group";
 import {setDatePickerDate} from '../../../../validation/functions'
 import { enums } from "../../../../data/Enums";
-import { groupCreate } from "../../../../services/groupService";
-const OperatorGroupForm = () => {
+import { customerGroupCreate } from "../../../../services/groupService";
+import CustomerGroup from "./List/CustomerGroup";
+const CustomerGroupForm = () => {
   const {app} = useContext(AppContext)
   const title=useRef()
   const description=useRef()
@@ -39,25 +39,26 @@ const OperatorGroupForm = () => {
   const [response, loading, fetchData] = useAxios();
   const request=useRequest();
   const [activation, setActivation] = useState(false);
+  // const groupURL = '/Operator/Group/Create';
   const tabContext = useContext(TabContext);
   const abortController = new AbortController();
 
   const handleClickMenu = () => {
     tabContext.addRemoveTabs(
       {
-        title: "routes.groupForm",
-        path: "/operatorgroupcreate",
-        Component:OperatorGroupForm,
-        access: enums.Operator_Group_Create_w,
+        Component:CustomerGroupForm,
+        path:'/customergroupform',
+        title:"routes.groupForm",
+        access:enums.Customer_Group_Create_w,
       }
       , "remove");
     tabContext.addRemoveTabs(
       
       {
         title: "routes.group",
-        path: "/operatorgroup",
-        Component: Group,
-        access: enums.Operator_Group_Read_r,
+        path: "/customergroup",
+        Component: CustomerGroup,
+        access: enums.Customer_Group_Read_r,
       }
       
       , "add");
@@ -142,7 +143,7 @@ const handleSubmit=(e)=>{
   e.preventDefault()
   fetchData({
   method: "POST",
-  url: groupCreate,
+  url: customerGroupCreate,
   headers: {
     accept: "*/*",
   },
@@ -181,7 +182,7 @@ const handleSeccess=(message)=>{
 
   useEffect(() => {
     if(response){
-      response.Result?handleSeccess(response.message):handleError(response.message)
+      response.Result?handleSeccess(response.Message):handleError(response.Message)
       response.Result && handleClickMenu() ;
     }
     // if(error){
@@ -193,7 +194,7 @@ const handleSeccess=(message)=>{
     <>
     {loading && <BackDrop  open={true}/>}
     <div className="OperatorGroupForm">
-      <h5 className="OperatorGroupFormTitle">{t("operatorGroupFormHeader")}</h5>
+      <h5 className="OperatorGroupFormTitle">{t("customer.groupCreate")}</h5>
       <div className="OperatorGroupFormMainDiv">
         <form onSubmit={handleSubmit} className="OperatorGroupFormform">
           <div class="switch">
@@ -428,4 +429,4 @@ const handleSeccess=(message)=>{
   );
 };
 
-export default OperatorGroupForm;
+export default CustomerGroupForm;

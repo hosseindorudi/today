@@ -1,8 +1,9 @@
-import './operatorList.css'
+import "./groupTable.css";
 import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import Swal from "sweetalert2";
@@ -19,26 +20,31 @@ import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
 import * as fi from "react-icons/fi";
 import * as md from "react-icons/md";
-
-import { readOpt,
-  readpaging,
-  getoneRecord,
-  updateRecord,
-  setUnselectedColumn,
-  deleteRecordOpt,
-  sampleFile,
-  checkFile, 
-  importFile, 
-  exportFile, 
-  exportId, 
-  logTable, 
-  setToFavorit, 
-  accessList, 
-  changePassword,
-  sampleFileOperator,
-  checkFileOperator,
-  importFileOperator, 
-} from '../../../../../services/operatorService';
+import {
+  customerGroupAccessList,
+  customerGroupCheckFile,
+  customerGroupDelete,
+  customerGroupExport,
+  customerGroupFavorite,
+  customerGroupGetOneRecord,
+  customerGroupImport,
+  customerGroupLog,
+  customerGroupRead,
+  customerGroupReadPaging,
+  customerGroupSample,
+  customerGroupSetUnselectedColumn,
+  groupAccessList,
+  groupDelete,
+  groupExport,
+  groupFavorite,
+  groupGetOneRecord,
+  groupGetPermission,
+  groupLog,
+  groupRead,
+  groupReadPaging,
+  groupSetPermission,
+  groupSetUnselectedColumn,
+} from "../../../../../services/groupService";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { toast } from "react-toastify";
@@ -49,24 +55,27 @@ import {
 } from "../../../../../validation/functions";
 import { t } from "i18next";
 import { Pagination } from "@mui/material";
+import ImportCSV from "../../../../../Components/Table/ImportCSVButton/ImportCSV";
 import { TabContext } from "../../../../../contexts/TabContextProvider";
+import CustomerGroupForm from "../CustomerGroupForm";
 import { enums } from "../../../../../data/Enums";
 import LogModal from "../../../../../Components/Table/LogModal/LogModal";
+import ExportAllButton from "../../../../../Components/Table/ExportButton/ExportAllButton";
+// import { useRef } from "react";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
 import useButtonAccess from "../../../../../customHooks/useButtonAccess";
 import AccessListModal from "../../../../../Components/Table/AccessListModal/AccessListModal";
-import OperatorForm from '../OperatorForm'
-import PasswordModal from './passwordModal/PasswordModal';
-import ExportAllButton from '../../../../../Components/Table/ExportButton/ExportAllButton';
-import ImportCSV from '../../../../../Components/Table/ImportCSVButton/ImportCSV';
-const Operator = () => {
-
-  const filteredColumns = ["Language_EId", "Id", "Group_Id", "Password", "Registrar"];
+import PermissionModal from "../../../../../Components/Table/PermissionModal/PermissionModal";
+const CustomerGroup = () => {
+  const filteredColumns = ["IsLimited", "Id", "Registrar"];
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);
   const [showAccessListModal, setAccessListModal] = useState(false);
+  const [showGetPermissionModal,setShowGetPermissionModal]=useState(false)
+  const [permissions,setPermissions]=useState(undefined)
   const [requestType, setRequestType] = useState("");
+  const [groupId, setGroupId] = useState(undefined)
   const [unSelected, setUnSelected] = useState([]);
   const [haveAccess] = useButtonAccess();
   const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
@@ -89,26 +98,43 @@ const Operator = () => {
   const [productsColumns, setproductsColumns] = useState([]);
   const withOfScreen = useWindowSize().width;
   const abortController = new AbortController();
-  const [passwordModalOpen, setPasswordmodalOpen] = useState(false);
-
   const handleAdd = () => {
     const item = {
-      Component: OperatorForm,
-      path: "/operatorcreate",
-      title: "routes.operatorForm",
-      access: enums.Operator_Operator_Create_w,
+      Component: CustomerGroupForm,
+      path:'/customergroupform',
+      title:"routes.groupForm",
+      access:enums.Customer_Group_Create_w,
     };
     tabContext.addRemoveTabs(item, "add");
   };
-
   const getTable = () => {
     fetchData({
       method: "POST",
-      url: readOpt,
+      url: customerGroupRead,
       headers: {
         accept: "*/*",
       },
       data: request,
+      signal: abortController.signal,
+    });
+  };
+  const readPaging = (paging) => {
+    setRequestType("READPAGING");
+    fetchData({
+      method: "POST",
+      url: customerGroupReadPaging,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        paging: paging,
+        filter: {
+          flt_Title: flt_Title,
+          flt_FromDate: seartBegin ? setDatePickerDate(seartBegin) : null,
+          flt_ToDate: seartEnd ? setDatePickerDate(seartEnd) : null,
+        },
+      },
       signal: abortController.signal,
     });
   };
@@ -117,23 +143,6 @@ const Operator = () => {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };
-
-  const deleteRecord = (id) => {
-    setRequestType("DELETE");
-    fetchData({
-      method: "POST",
-      url: deleteRecordOpt,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Request: request,
-        Id: id,
-      },
-      signal: abortController.signal,
-    });
-  };
-
   useEffect(() => {
     setRequestType("READ");
     getTable();
@@ -141,7 +150,62 @@ const Operator = () => {
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const handleDeleted = () => {
+    Swal.fire(
+      t("sweetAlert.deleted"),
+      t("sweetAlert.recordDeleted"),
+      "success"
+    );
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  };
+  const setUpdate = (res) => {
+    const record = res.Record;
+    setRowValues(record);
+    setTableModalOpen(true);
+  };
+  const favorited = () => {
+    setIsFavorite(true);
+    toast.success(t("favorited"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+  const logResponse = (res) => {
+    if (!res.Log.length) {
+      return toast.info(t("noDataFound.table"), {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+    setLog(res.Log);
+    setShowLogModal(true);
+  };
+  const unselectResponseHandler = () => {
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  };
+  const handleAccessListModal = (response) => {
+    setAccessLists(response.AccessList);
+    setAccessListModal(true);
+  };
+  const handleGetPermissionModal=(response)=>{
+    setPermissions(response.AccessList)
+    setShowGetPermissionModal(true)
+  }
+  const handleSetPermission=()=>{
+    toast.success(t("updatedRecord"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  }
   const handleResponse = useCallback(
     (response, type) => {
       switch (type) {
@@ -153,9 +217,6 @@ const Operator = () => {
           break;
         case "GETONERECORD":
           setUpdate(response);
-          break;
-        case "GETONERECORDPASS":
-          setPasswordFor(response);
           break;
         case "READPAGING":
           setData(response);
@@ -172,6 +233,12 @@ const Operator = () => {
         case "ACCESSLIST":
           handleAccessListModal(response);
           break;
+        // case "GETPERMISSION":
+        //   handleGetPermissionModal(response);
+        //   break;
+        // case "SETPERMISSIONS":
+        //   handleSetPermission(response)
+        //   break;
         default:
           break;
       }
@@ -179,246 +246,17 @@ const Operator = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
-
-  const handleDeleted = () => {
-    Swal.fire(
-      t("sweetAlert.deleted"),
-      t("sweetAlert.recordDeleted"),
-      "success"
-    );
+  const handleRefresh = () => {
     const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: currentPage,
       IsAscending: sort.IsAscending,
       SortBy: sort.SortBy,
     };
-    readPaging(paging);
-  };
-
-  const setUpdate = (res) => {
-    const record = res.Record;
-    setRowValues(record);
-    setTableModalOpen(true);
-  };
-  const setPasswordFor = (res) => {
-    const record = res.Record;
-    setRowValues(record);
-    setPasswordmodalOpen(true);
-  };
-  const updatedPassword=()=>{
-    setPasswordmodalOpen(false)
-    toast.success(t("operator.passwordChanged"), {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  }
-  const favorited = () => {
-    setIsFavorite(true);
-    toast.success(t("favorited"), {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  };
-
-  const logResponse = (res) => {
-    if (!res.Log.length) {
-      return toast.info(t("noDataFound.table"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-    setLog(res.Log);
-    setShowLogModal(true);
-  };
-
-  const unselectResponseHandler = () => {
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
-  const handleAccessListModal = (response) => {
-    setAccessLists(response.AccessList);
-    setAccessListModal(true);
-  };
-
-  const handleClearFilter = () => {
-    
-     
-    setFlt_Title("");
-    setSearchBegin(null);
-    setSearchEnd(null);
-    
-    getTable();
-    
-  };
-
-  const handleChangeTitle = (event) => {
-    setFlt_Title(event.target.value);
-  };
-
-  const handleClickSort = (column) => {
-    setSort({ SortBy: column.accessor, IsAscending: !column.IsAscending });
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: !column.IsAscending,
-      SortBy: column.accessor,
-    };
-    readPaging(paging);
-  };
-
-  const deleteCalled = (id) => {
-    Swal.fire({
-      title: t("table.deleteTitle"),
-      text: t("table.noReturn"),
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: t("sweetAlert.yes"),
-      cancelButtonText: t("sweetAlert.cancel"),
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteRecord(id);
-      }
-    });
-  };
-
-  const handleClickEdit = (id) => {
-    setRequestType("GETONERECORD");
-    fetchData({
-      method: "POST",
-      url: getoneRecord,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Request: request,
-        Id: id,
-      },
-      signal: abortController.signal,
-    });
-  };
-  const handlePassEdit = (id) => {
-    setRequestType("GETONERECORDPASS");
-    fetchData({
-      method: "POST",
-      url: getoneRecord,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Request: request,
-        Id: id,
-      },
-      signal: abortController.signal,
-    });
-  };
-
-  const checkValues = (type, value, post) => {
-    switch (type) {
-      case "DateSet":
-        return convertUTC(value);
-      case "IsActive":
-        return <Form.Check type="switch" disabled checked={value} />;
-      case "LimitFrom":
-        return post.IsLimited ? convertUTC(value) : "-";
-      case "LimitTo":
-        return post.IsLimited ? convertUTC(value) : "-";
-      default:
-        return value;
-    }
-  };
-
-  const handleChangeSelect = (e) => {
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: e.target.value,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
-  const handleClickSend = () => {
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
-  const sendUnselectRequest = (temp) => {
-    setRequestType("UNSELECT");
-    fetchData({
-      method: "POST",
-      url: setUnselectedColumn,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Request: request,
-        Column: temp,
-      },
-      signal: abortController.signal,
-    });
-  };
-
-  const checkAllHandler = (e) => {
-    let temp = unSelected;
-    if (e.target.id === "checkAll") {
-      productsColumns
-        .filter((p, i) => !filteredColumns.includes(p["Header"]))
-        .map(
-          (column, index) => (temp = temp.filter((i) => i !== column["Header"]))
-        );
-      sendUnselectRequest(temp);
-      setCheckAllC(!checkAllC);
-    } else if (e.target.id === "unCheckAll") {
-      productsColumns
-        .filter((p, i) => !filteredColumns.includes(p["Header"]))
-        .map((column, index) => temp.push(column["Header"]));
-      sendUnselectRequest(temp);
-      setCheckAllC(!checkAllC);
-    }
-  };
-
-  const CheckBoxChangeHandler = (e, column) => {
-    let checked = e.target.checked;
-    let temp = unSelected;
-    checked ? (temp = temp.filter((u) => u !== column)) : temp.push(column);
-    sendUnselectRequest(temp);
-  };
-
-  const setPage = (event, value) => {
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: value,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    console.log(paging)
     readPaging(paging);
   };
 
   useEffect(() => {
-    
     if (response) {
       response.Result
         ? handleResponse(response, requestType)
@@ -452,49 +290,209 @@ const Operator = () => {
         : []
     );
   };
-
-  const readPaging = (paging) => {
-    console.log(paging)
-    setRequestType("READPAGING");
+  const sendUnselectRequest = (temp) => {
+    setRequestType("UNSELECT");
     fetchData({
       method: "POST",
-      url: readpaging,
+      url: customerGroupSetUnselectedColumn,
       headers: {
         accept: "*/*",
       },
       data: {
         Request: request,
-        paging: paging,
-        filter: {
-          Flt_OperatorName: flt_Title,
-          Flt_FromDate: seartBegin ? setDatePickerDate(seartBegin) : null,
-          Flt_ToDate: seartEnd ? setDatePickerDate(seartEnd) : null,
-        },
+        Column: temp,
       },
       signal: abortController.signal,
     });
   };
-
-
-
-  const handleClickLog = () => {
-    setRequestType("LOG");
+  const CheckBoxChangeHandler = (e, column) => {
+    let checked = e.target.checked;
+    let temp = unSelected;
+    checked ? (temp = temp.filter((u) => u !== column)) : temp.push(column);
+    sendUnselectRequest(temp);
+  };
+  const checkAllHandler = (e) => {
+    let temp = unSelected;
+    if (e.target.id === "checkAll") {
+      productsColumns
+        .filter((p, i) => !filteredColumns.includes(p["Header"]))
+        .map(
+          (column, index) => (temp = temp.filter((i) => i !== column["Header"]))
+        );
+      sendUnselectRequest(temp);
+      setCheckAllC(!checkAllC);
+    } else if (e.target.id === "unCheckAll") {
+      productsColumns
+        .filter((p, i) => !filteredColumns.includes(p["Header"]))
+        .map((column, index) => temp.push(column["Header"]));
+      sendUnselectRequest(temp);
+      setCheckAllC(!checkAllC);
+    }
+  };
+  const checkValues = (type, value, post) => {
+    switch (type) {
+      case "DateSet":
+        return convertUTC(value);
+      case "IsActive":
+        return <Form.Check type="switch" disabled checked={value} />;
+      case "LimitFrom":
+        return post.IsLimited ? convertUTC(value) : "-";
+      case "LimitTo":
+        return post.IsLimited ? convertUTC(value) : "-";
+      default:
+        return value;
+    }
+  };
+  const deleteRecord = (id) => {
+    setRequestType("DELETE");
     fetchData({
       method: "POST",
-      url: logTable,
+      url: customerGroupDelete,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        Id: id,
+      },
+      signal: abortController.signal,
+    });
+  };
+  const deleteCalled = (id) => {
+    Swal.fire({
+      title: t("table.deleteTitle"),
+      text: t("table.noReturn"),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: t("sweetAlert.yes"),
+      cancelButtonText: t("sweetAlert.cancel"),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteRecord(id);
+      }
+    });
+  };
+  const handleClickSort = (column) => {
+    setSort({ SortBy: column.accessor, IsAscending: !column.IsAscending });
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: !column.IsAscending,
+      SortBy: column.accessor,
+    };
+    readPaging(paging);
+  };
+  const handleChangeSelect = (e) => {
+    const paging = {
+      NumberOfRecordsPerPage: e.target.value,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  };
+  const handleClickEdit = (id) => {
+    setRequestType("GETONERECORD");
+    fetchData({
+      method: "POST",
+      url: customerGroupGetOneRecord,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        Id: id,
+      },
+      signal: abortController.signal,
+    });
+  };
+  const handleChangeTitle = (event) => {
+    setFlt_Title(event.target.value);
+  };
+  const setPage = (event, value) => {
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: value,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  };
+  const handleClearFilter = () => {
+    setFlt_Title("");
+    setSearchBegin(null);
+    setSearchEnd(null);
+  };
+  const updated = () => {
+    setTableModalOpen(false);
+    toast.success(t("updatedRecord"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  };
+  const handleClickSend = () => {
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
+  };
+  const handleClickFav = () => {
+    setRequestType("FAVORITE");
+    fetchData({
+      method: "POST",
+      url: customerGroupFavorite,
       headers: {
         accept: "*/*",
       },
       data: request,
       signal: abortController.signal,
     });
+  };
+  const handleClickHelp = () => {
+    window.open("https://www.google.com");
+  };
+
+  const handleClickLog = () => {
+    setRequestType("LOG");
+    fetchData({
+      method: "POST",
+      url: customerGroupLog,
+      headers: {
+        accept: "*/*",
+      },
+      data: request,
+      signal: abortController.signal,
+    });
+  };
+  const importSuccess = (message) => {
+    toast.success(message, {
+      position: toast.POSITION.TOP_CENTER,
+    });
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging);
   };
 
   const handleClickAccessList = () => {
     setRequestType("ACCESSLIST");
     fetchData({
       method: "POST",
-      url: accessList,
+      url: customerGroupAccessList,
       headers: {
         accept: "*/*",
       },
@@ -502,63 +500,40 @@ const Operator = () => {
       signal: abortController.signal,
     });
   };
-
-  const handleClickFav = () => {
-    setRequestType("FAVORITE");
-    fetchData({
-      method: "POST",
-      url: setToFavorit,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
-      signal: abortController.signal,
-    });
-  };
-
-  const handleClickHelp = () => {
-    window.open("https://www.google.com");
-  };
-
-  const handleRefresh = () => {
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
-
-  const updated = () => {
-    setTableModalOpen(false);
-    toast.success(t("updatedRecord"), {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  }
-
-
-  const importSuccess = (message) => {
-    toast.success(message, {
-      position: toast.POSITION.TOP_CENTER,
-    });
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
+  // const handleClickGetPermission = (id) => {
+  //   setGroupId(id)
+  //   setRequestType("GETPERMISSION");
+  //   fetchData({
+  //     method: "POST",
+  //     url: groupGetPermission,
+  //     headers: {
+  //       accept: "*/*",
+  //     },
+  //     data: {
+  //       Request: request,
+  //       id: id,
+  //     },
+  //     signal: abortController.signal,
+  //   });
+  // };
+  // const setPermission=(codes)=>{
+  //   setRequestType("SETPERMISSIONS");
+  //   setShowGetPermissionModal(false)
+  //   fetchData({
+  //     method: "POST",
+  //     url: groupSetPermission,
+  //     headers: {
+  //       accept: "*/*",
+  //     },
+  //     data: {
+  //       Request: request,
+  //       id: groupId,
+  //       AccessList:codes
+  //     },
+  //     signal: abortController.signal,
+  //   });
+  // }
   return (
-    
-
     <>
       {loading && <BackDrop open={true} />}
       <>
@@ -568,14 +543,6 @@ const Operator = () => {
             onHide={() => setTableModalOpen(false)}
             tableModalShow={tableModalOpen}
             updated={updated}
-          />
-        )}
-        {passwordModalOpen && (
-          <PasswordModal
-            rowValus={rowValus}
-            show={passwordModalOpen}
-            onHide={() => setPasswordmodalOpen(false)}
-            updated={updatedPassword}
           />
         )}
         {showLogModal && (
@@ -592,8 +559,13 @@ const Operator = () => {
             onHide={() => setAccessListModal(false)}
           />
         )}
-        
-        
+        {/* {showGetPermissionModal &&(
+          <PermissionModal  permissions={permissions}
+          show={showGetPermissionModal}
+          onHide={() => setShowGetPermissionModal(false)}
+          setPermission={setPermission}
+          />
+        )} */}
         <div className="reacttableParent">
           <div className="groupContainerRight">
             <div className="reacttableParentMainRightUp">
@@ -633,7 +605,7 @@ const Operator = () => {
                     {t("table.groups")}
                   </button>
                 </div>
-                {haveAccess(enums.Operator_Operator_Export_r) && (
+                {haveAccess(enums.Customer_Group_Export_r) && (
                   <ExportAllButton
                     numberOfRecordsPerPage={numberOfRecordsPerPage}
                     currentPage={currentPage}
@@ -641,13 +613,13 @@ const Operator = () => {
                     flt_Title={flt_Title}
                     seartBegin={seartBegin}
                     seartEnd={seartEnd}
-                    exportLink={exportFile}
+                    exportLink={customerGroupExport}
                   />
                 )}
-                {haveAccess(enums.Operator_Operator_Import_w) && (
-                  <ImportCSV importSuccess={importSuccess} sampleUrl={sampleFileOperator} fileCheckURL={checkFileOperator} importURL={importFileOperator}/>
+                {haveAccess(enums.Customer_Group_Import_w) && (
+                  <ImportCSV importSuccess={importSuccess} sampleUrl={customerGroupSample} fileCheckURL={customerGroupCheckFile} importURL={customerGroupImport}/>
                 )}
-                {haveAccess(enums.Operator_Operator_Log_r) && (
+                {haveAccess(enums.Customer_Group_Log_r) && (
                   <button
                     className="reactTableParentLogButton"
                     title="log"
@@ -696,7 +668,7 @@ const Operator = () => {
                   <button className="groupListRefresh" onClick={handleRefresh}>
                     <fi.FiRefreshCcw />
                   </button>
-                  {haveAccess(enums.Operator_Operator_Create_w) && (
+                  {haveAccess(enums.Customer_Group_Create_w) && (
                     <button className="plusBUTTON" onClick={handleAdd}>
                       <md.MdPostAdd />
                     </button>
@@ -840,7 +812,7 @@ const Operator = () => {
                                     className="sortingArrowsBTN"
                                     onClick={() => handleClickSort(column)}
                                   >
-                                    {column["Header"] !== "Group_Title" ? (column["isSorted"] ? (
+                                    {column["isSorted"] ? (
                                       column["IsAscending"] ? (
                                         <MainUpArrow />
                                       ) : (
@@ -848,7 +820,7 @@ const Operator = () => {
                                       )
                                     ) : (
                                       <UpArrow />
-                                    )) : ("")}
+                                    )}
                                   </button>
                                 </th>
                               ))}
@@ -859,17 +831,18 @@ const Operator = () => {
                             <tr key={index}>
                               <td className="TableMainTd">
                                 <TableButtons
-                                  deleteTypeOperator={enums.Operator_Operator_Delete_w}
-                                  editTypeOperator={enums.Operator_Operator_Update_w}
-                                  exportTypeOperator={enums.Operator_Operator_Export_r}
-                                  changePassword={
-                                    enums.Operator_Operator_ChangePassword_w
+                                  deleteType={enums.Customer_Group_Delete_w}
+                                  editType={enums.Customer_Group_Update_w}
+                                  exportType={enums.Customer_Group_Export_r}
+                                  accessListType={
+                                    enums.Customer_Group_Permission_w
                                   }
-                                  
+                                  // handleClickGetPermission={
+                                  //   handleClickGetPermission
+                                  // }
                                   deleteCalled={deleteCalled}
                                   rowValue={post}
                                   handleClickEdit={handleClickEdit}
-                                  handlePassEdit={handlePassEdit}
                                 />
                               </td>
                               {Object.keys(post)
@@ -1006,9 +979,7 @@ const Operator = () => {
       </>
       {/* )} */}
     </>
-    
+  );
+};
 
-  )
-}
-
-export default Operator
+export default CustomerGroup;

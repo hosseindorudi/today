@@ -283,6 +283,9 @@
   "setoperatorDate":"تاریخ ثبت",
   "operatorOldPass":"پسورد قدیم",
   "operatornewPass":"پسورد جدید",
-  "operatornewPassConfirm":"تایید پسورد جدید"
+  "operatornewPassConfirm":"تایید پسورد جدید",
+  "routes.customer":"مشتری",
+  "customer.groupCreate":"ساخت گروه مشتری",
+  "operator.passwordChanged":"پسوورد با موفقیعت بروز شد"
 
 }

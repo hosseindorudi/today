@@ -2,7 +2,7 @@ import { t } from "i18next";
 import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { useCSVReader, usePapaParse, useCSVDownloader } from "react-papaparse";
+import {  usePapaParse, useCSVDownloader } from "react-papaparse";
 
 import { toast } from "react-toastify";
 import AppContext from "../../../contexts/AppContext";
@@ -10,12 +10,6 @@ import { OsContext } from "../../../contexts/OsInformationProvider";
 import useAxios from "../../../customHooks/useAxios";
 import useGeoLocation from "../../../customHooks/useGeoLocation";
 import useRequest from "../../../customHooks/useRequest";
-
-import {
-  groupCheckFile,
-  groupImportFile,
-  groupSampleFile,
-} from "../../../services/groupService";
 
 import "./importModal.css";
 import ModalCheckResult from "./ModalCheckResult";
@@ -40,7 +34,7 @@ const ImportCSVModal = (props) => {
     setRequestType("SAMPLE");
     fetchData({
       method: "POST",
-      url: groupSampleFile,
+      url: props.groupSampleFile,
       headers: {
         accept: "*/*",
       },
@@ -72,7 +66,7 @@ const ImportCSVModal = (props) => {
     formData.append("File", checkFile);
     fetchData({
       method: "POST",
-      url: groupCheckFile,
+      url: props.groupCheckFile,
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -98,7 +92,7 @@ const ImportCSVModal = (props) => {
     formData.append("File", importFile);
     fetchData({
       method: "POST",
-      url: groupImportFile,
+      url: props.groupImportFile,
       headers: {
         "Content-Type": "multipart/form-data",
       },
