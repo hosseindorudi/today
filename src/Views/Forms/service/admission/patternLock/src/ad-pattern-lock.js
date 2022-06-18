@@ -58,8 +58,7 @@ class AdPatternLock extends Component {
         this.setState({
             currentPoint: null
         });
-        this.patternHolder.current.removeEventListener(this.moveEvent, this._onMove);
-        document.removeEventListener(this.endEvent, this._onEnd);
+        
     };
 
     updatePath = (id, x, y) => {
@@ -105,7 +104,7 @@ class AdPatternLock extends Component {
         const {patternLinesHeight, patternLinesBackgroundColor, patternDotsRadius} = this.props;
         const lineLengthAngle = getLengthAngle(p1.x, p2.x, p1.y, p2.y);
         lines.push(
-            <div key={key} className="pattern-lines" 
+            <div key={key} className="pattern-lines"
                  style={
                      {
                          left: p1.x,
@@ -115,8 +114,7 @@ class AdPatternLock extends Component {
                          height: patternLinesHeight,
                          borderRadius: patternLinesHeight / 2,
                          transformOrigin: `${patternLinesHeight / 2}px ${patternLinesHeight / 2}px`,
-                         backgroundColor: patternLinesBackgroundColor,
-                         visibility: 'visible'
+                         backgroundColor: patternLinesBackgroundColor
                      }
                  }
             />
