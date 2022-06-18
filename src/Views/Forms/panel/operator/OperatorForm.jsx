@@ -122,7 +122,7 @@ const Operator = () => {
           OperatorName:name,
           Password:password,
           Mobile:phone,
-          ExpireDate:"2022-06-16T05:34:40.867Z",
+          ExpireDate:setDatePickerDate(operatorDateExp),
           Registrar:0,
           DateSet : "2022-06-16T05:34:40.867Z",
           Group_Title: "",
