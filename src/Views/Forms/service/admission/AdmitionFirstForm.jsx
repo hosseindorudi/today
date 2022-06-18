@@ -72,7 +72,10 @@ const AdmitionFirstForm = () => {
             <lable className="idCodeLabel">شماره ملی را وارد کنید</lable>
             <input type="number" className="idCodeInput"  onChange={(e)=> setIdCode(e.target.value)}/>
         </div>
-        <button className='admitionFirstFormSubmit' onClick={handleSubmit}>ارسال</button>
+        <div className="firstFormButtons">
+          <button className='admitionFirstFormSubmit' onClick={handleSubmit}>ارسال</button>
+          <button className="admitionFirstFormCreate" >ثبت نام</button>
+        </div>
     </div>
   )
 }

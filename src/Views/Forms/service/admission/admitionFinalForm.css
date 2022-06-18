@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     padding: 8px;
+    justify-content: space-between;
 
 }
 
@@ -85,11 +86,66 @@
     right: 0;
     border: 1px solid lightgray;
     width: 100%;
-    height: 200px;
+    height: 210px;
     z-index: 5;
     border-radius: 5px;
-    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
+.infoCustomerDiv {
+    flex: 0.9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+}
+
+.firstNameDiv{
+    display: flex;
+    align-items: flex-start;
+    margin-inline-start: 40px;
+    
+
+}
+
+.firstNameSpanKey {
+    font-size: 14px;
+    flex: 0.15;
+    font-weight: bold;
+}
+.firstNameSpanValue {
+    font-size: 14px;
+    flex: 0.85;
+    margin-inline-start: 25px;
+}
+
+
+.buttonCustomerEditDiv{
+    flex: 0.1;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+
+}
+
+.editCustomer {
+    margin-bottom: 5px;
+    border: none;
+    border: 1px solid rgb(36, 255, 36);
+    color: rgb(36, 255, 36);
+    background-color: #fff;
+    border-radius: 5px;
+    transition: all 500ms ease;
+}
+
+.editCustomer:hover{
+    border: 1px solid rgb(36, 255, 36);
+    color: #fff;
+    background-color: rgb(36, 255, 36);
+}
+
 .groupList {
     width: 100%;
     flex: 1;
@@ -114,16 +170,54 @@
     right: 0;
     border: 1px solid lightgray;
     width: 100%;
-    height: 200px;
+    height: 210px;
     z-index: 5;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
+.grouptDivRight{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-around;
+}
+
+.grouptDivRightMainDiv{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.groupDivSpanKey{
+    font-size: 14px;
+    flex: 1;
+    font-weight: bold;
+    margin-inline-start: 25px;
+}
+.groupDivSpanValue{
+    font-size: 14px;
+    flex: 1;
+}
+
+.grouptDivLeft{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-around;
+}
+
 .admitionItems {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     height: 300px;
+    z-index: 1;
     position: relative;
 }
 
@@ -144,9 +238,325 @@
     border: 1px solid lightgray;
     width: 100%;
     height: 250px;
-    z-index: 5;
+    z-index: 1;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+
 }
+
+.textFieldDescDiv{
+  height: 80%;
+  margin-inline-start: 30px;
+  position: relative;
+  flex: 1;
+  margin: 0 5px;
+}
+
+.failedDescSpan{
+    position: absolute;
+    z-index: 10;
+    top: -10px;
+    right: 10px;
+    background-color: #fff;
+    padding: 0 5px;
+    font-weight: bold;
+    transition: all 500ms  ease;
+
+}
+.failedDescSpan2{
+    position: absolute;
+    z-index: 10;
+    top: -10px;
+    right: 10px;
+    background-color: #fff;
+    padding: 0 5px;
+    font-weight: bold;
+    color: #0072E5;
+    transition: all 500ms  ease;
+
+}
+.DescDivFinal {
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    margin: 0 3px;
+    transition: all 500ms  ease;
+
+}
+.DescDivFinal2 {
+    height: 100%;
+    width: 100%;
+    border: 1px solid #0072E5;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    margin: 0 3px;
+    transition: all 500ms  ease;
+
+}
+
+.textFieldDesc {
+    height: 80%;
+    resize: none;
+    position: absolute;
+    border-radius: 5px;
+    border: none;
+}
+
+.textFieldDesc:hover {
+    border: none
+}
+
+.textFieldDesc:focus {
+    border: none;
+    outline: none;
+}
+
+.acountPatternDiv {
+    flex: 1;
+    height: 80%;
+    margin: 0 3px;
+    position: relative;
+}
+
+.acountpatternSpan {
+    position: absolute;
+    top: -10px;
+    right: 8px;
+    font-weight: bold;
+    background-color: #fff;
+    padding: 0 5px;
+
+}
+
+.paternAcountDiv {
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 0;
+    flex-direction: column;
+}
+
+.patternAcountButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 10px;
+}
+
+.btnPattern {
+    background-color: #fff;
+    border: 1px solid lightgray;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 8px;
+    border-radius: 8px;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin: 1px 5px;
+    font-size: 14px;
+
+    
+}
+
+.btnPattern:hover {
+    background-color: rgb(211, 211, 211);
+    color: #000;
+}
+
+.patternLock {
+    z-index: 10;
+}
+
+
+.sectionDiv {
+    flex: 1;
+    margin: 1px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.selectionLock {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+
+
+
+.selectionLock:focus {
+    outline: none;
+}
+
+.acountInformationDiv {
+    flex: 1;
+    height: 80%;
+    margin: 0 3px;
+    position: relative;
+
+}
+
+.aountCustomerSpan {
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    padding: 0 5px;
+    background-color: #fff;
+    z-index: 10;
+    font-weight: bold;
+}
+
+.acountCustomerDiv {
+    position: absolute;
+    border: 1px solid lightgray;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.acountDmailDiv {
+    position: relative;
+    width: 90%;
+    height: 50px;
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    transition: all 500ms  ease;
+
+
+}
+.acountDmailDiv2 {
+    position: relative;
+    width: 90%;
+    height: 50px;
+    margin-top: 20px;
+    border: 1px solid #0072E5;
+    border-radius: 5px;
+    transition: all 500ms  ease;
+
+}
+
+.acountDivGmailSpan {
+    position: absolute;
+    top: -10px;
+    z-index: 10;
+    background-color: #fff;
+    padding: 0 5px;
+    margin: 0 5px;
+    transition: all 500ms  ease;
+
+}
+.acountDivGmailSpan2 {
+    position: absolute;
+    top: -10px;
+    z-index: 10;
+    background-color: #fff;
+    padding: 0 5px;
+    margin: 0 5px;
+    color: #0072E5;
+    transition: all 500ms  ease;
+
+}
+
+.acountInputSpan {
+    position: absolute;
+    width: 100%;
+    border: none;
+    outline: none;
+    top: 10px;
+    
+}
+
+.deviceExtraDiv {
+    flex: 1;
+    height: 80%;
+    margin: 0 3px;
+    position: relative;
+
+}
+
+.extraDeviceDiv {
+    border: 1px solid lightgray;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+    
+}
+
+.multiSelectDiv {
+    width: 80%;
+    height: 50px;
+}
+.extraDeviceSpan{
+    position: absolute;
+    top: -11px;
+    padding: 0 5px;
+    margin: 0 8px;
+    background-color: #fff;
+    z-index: 10;
+    font-weight: bold;
+}
+
+.agentSignatur {
+    flex: 1;
+    height: 80%;
+    margin: 0 3px;
+    position: relative;
+
+}
+
+.signaturePadDiv{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    /* z-index: -1; */
+}
+
+
+.agentSigSpan {
+    position: absolute;
+    font-weight: bold;
+    top: -10px;
+    padding: 0 5px;
+    margin: 0 5px;
+    background-color: #fff;
+    z-index: 10;
+}
+
+.sigMainDiv {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
 .agentItems {
     display: flex;
     align-items: center;
@@ -154,6 +564,7 @@
     width: 100%;
     height: 250px;
     position: relative;
+    z-index: 0;
 }
 
 .agentSpan{
@@ -175,13 +586,106 @@
     height: 250px;
     z-index: 5;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.agentDescription {
+    height: 100%;
+    flex: 0.75;
+    margin-inline-start: 40px;
+    margin-inline-end: 25px;
+}
+
+.agentescriptionDiv {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+    /* padding-top: 20px; */
+}
+
+.agentDescriptionSpan {
+    position: absolute;
+    top: 5px;
+    margin: 0 8px;
+    padding: 0 5px;
+    background-color: #fff;
+    z-index: 10;
+    font-weight: bold;
+    transition: all 500ms  ease;
+}
+.agentDescriptionSpan2 {
+    position: absolute;
+    top: 5px;
+    margin: 0 8px;
+    padding: 0 5px;
+    background-color: #fff;
+    z-index: 10;
+    font-weight: bold;
+    color: #0072E5;
+    transition: all 500ms  ease;
+
+}
+.agentDescriptionInputDiv {
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    border: 1px solid lightgray;
+    top: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: all 500ms  ease;
+
+}
+.agentDescriptionInputDiv2 {
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    border: 1px solid #0072E5;
+    top: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: all 500ms  ease;
+
+}
+
+.agenttextAreaDesc {
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 90%;
+}
+
+.agenttextAreaDesc:focus{
+    border: none;
+    outline: none;
+}
+
+
+.agentSigPadDiv {
+    height: 90%;
+    flex: 0.25;
+   /* margin-inline-end: 40px; */
+    position: relative;
+    z-index: 5;
+}
+
+.ButtonDiv {
+    position: relative;
+    height: 50px;
 }
 
 .admitionFinalFormSubmit{
+
     position: absolute;
-    bottom: 55px;
-    right: 53%;
+    top: 100px;
     width: 300px;
+    right: 40%;
     background-color: #fff;
     color: #0072E5;
     border: 1px solid #0072E5;

@@ -3,11 +3,17 @@ import Bezier from "./bezier";
 import Point from "./point"
 import './canvasCss.css'
 
+
 export default class SignaturePad extends React.Component {
+
+ 
 
   constructor(props) {
     super(props);
-
+    this.state = {
+      type: ""
+    }
+ 
     this.velocityFilterWeight = this.props.velocityFilterWeight || 0.7;
     this.minWidth = this.props.minWidth || 0.5;
     this.maxWidth = this.props.maxWidth || 2.5;
@@ -21,6 +27,7 @@ export default class SignaturePad extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({type: this.props.sigType})
     this._canvas = this.refs.cv;
     this._ctx = this._canvas.getContext("2d");
     this.clear();
@@ -79,9 +86,9 @@ export default class SignaturePad extends React.Component {
     // and only part of the canvas is cleared then.
     var ratio =  Math.max(1, 1);
     canvas.width = canvas.offsetWidth * ratio;
-    canvas.width = canvas.width === 0 ? (this.props.sigType === "agent" ? 473 : 354) : canvas.width 
+    canvas.width = canvas.width === 0 ? (this.props.sigType === "customer" ? 326 : 398) : canvas.width 
     canvas.height = canvas.offsetHeight * ratio;
-    canvas.height = canvas.height === 0 ? 162 : canvas.height 
+    canvas.height = canvas.height === 0 ? (this.props.sigType === "customer" ? 190 : 210) : canvas.height 
 
     ctx.scale(ratio, ratio);
     this._isEmpty = true;
@@ -322,13 +329,13 @@ export default class SignaturePad extends React.Component {
   render() {
     return (
       <div id="signature-pad" className="m-signature-pad" >
-        <span>{this.props.textTitle}</span>
-        <div className="m-signature-pad--body">
-          <canvas className="canvasForEver"  ref="cv" ></canvas>
+        <div className="m-signature-pad--body" style={{width: this.state.type === "customer" ? 326 : 398, height: this.state.type === "customer" ? 160 : 180}}>
+          <canvas className="canvasForEver"  ref="cv"  style={{width: this.state.type === "customer" ? 326 : 398, height: this.state.type === "customer" ? 190 : 200}}></canvas>
         </div>
+        <br/>
         { this.props.clearButton &&
-          <div className="m-signature-pad--footer">
-            <button className="btn btn-default button clear" onClick={this.clear.bind(this)}>پاک کردن</button>
+          <div className="m-signature-pad--footer buttonForDiv">
+            <button className="btn btn-default button clear newBtnClear" onClick={this.clear.bind(this)}>پاک کردن</button>
           </div>
         }
       </div>
