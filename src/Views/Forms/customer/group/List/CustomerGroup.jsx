@@ -3,7 +3,6 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import Swal from "sweetalert2";
@@ -11,10 +10,10 @@ import TextField from "@mui/material/TextField";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import UpArrow from "./Arrows/upArrow/UpArrow";
-import MainUpArrow from "./Arrows/MainUpArrow/MainUpArrow";
-import DownArrow from "./Arrows/downArrow/DownArrow";
-import TableButtons from "./TableButtons/TableButtons";
+import UpArrow from "../../../../../Components/Table/Arrows/upArrow/UpArrow";
+import MainUpArrow from "../../../../../Components/Table/Arrows/MainUpArrow/MainUpArrow";
+import DownArrow from  "../../../../../Components/Table/Arrows/downArrow/DownArrow";
+import TableButtons from  "../../../../../Components/Table/TableButtons/TableButtons";
 import TableModal from "./TableModal/TableModal";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
@@ -33,17 +32,6 @@ import {
   customerGroupReadPaging,
   customerGroupSample,
   customerGroupSetUnselectedColumn,
-  groupAccessList,
-  groupDelete,
-  groupExport,
-  groupFavorite,
-  groupGetOneRecord,
-  groupGetPermission,
-  groupLog,
-  groupRead,
-  groupReadPaging,
-  groupSetPermission,
-  groupSetUnselectedColumn,
 } from "../../../../../services/groupService";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
@@ -61,13 +49,11 @@ import CustomerGroupForm from "../CustomerGroupForm";
 import { enums } from "../../../../../data/Enums";
 import LogModal from "../../../../../Components/Table/LogModal/LogModal";
 import ExportAllButton from "../../../../../Components/Table/ExportButton/ExportAllButton";
-// import { useRef } from "react";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
 import useButtonAccess from "../../../../../customHooks/useButtonAccess";
 import AccessListModal from "../../../../../Components/Table/AccessListModal/AccessListModal";
-import PermissionModal from "../../../../../Components/Table/PermissionModal/PermissionModal";
 const CustomerGroup = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType"];
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);
@@ -830,20 +816,22 @@ const CustomerGroup = () => {
                           {posts.map((post, index) => (
                             <tr key={index}>
                               <td className="TableMainTd">
-                                <TableButtons
+                              <TableButtons
+                                  exportLink={customerGroupExport}
+                                  exportType={enums.Customer_Group_Export_r}
                                   deleteType={enums.Customer_Group_Delete_w}
                                   editType={enums.Customer_Group_Update_w}
-                                  exportType={enums.Customer_Group_Export_r}
-                                  accessListType={
-                                    enums.Customer_Group_Permission_w
+                                  accessListType={""}
+                                 
+                                  changePasswordType={
+                                   ""
                                   }
-                                  // handleClickGetPermission={
-                                  //   handleClickGetPermission
-                                  // }
                                   deleteCalled={deleteCalled}
                                   rowValue={post}
                                   handleClickEdit={handleClickEdit}
+                                  // handlePassEdit={handlePassEdit}
                                 />
+                               
                               </td>
                               {Object.keys(post)
                                 .filter(

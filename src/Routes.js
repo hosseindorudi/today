@@ -68,7 +68,7 @@ const AdmissionCheckList=lazy(()=>import("./Views/Forms/definations/admissionChe
 const PartsDefine=lazy(()=>import("./Views/Forms/definations/parts/partsDefine/PartsDefine"))
 const Parts=lazy(()=>import("./Views/Forms/definations/parts/Parts"))
 const Online=lazy(()=>import('./Views/Forms/panel/online/online'))
-const agentOnline=lazy(()=>import('./Views/Forms/agent/online/online'))
+// const agentOnline=lazy(()=>import('./Views/Forms/agent/online/online'))
 const Group=lazy(()=>import('./Views/Forms/panel/operatorGroupForm/List/Group'))
 const OperatorGroupForm=lazy(()=>import('./Views/Forms/panel/operatorGroupForm/OperatorGroupForm'))
 const agentGroup=lazy(()=>import('./Views/Forms/agent/agentGroupForm/Group'))

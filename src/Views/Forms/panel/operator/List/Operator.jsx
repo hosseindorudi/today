@@ -10,10 +10,10 @@ import TextField from "@mui/material/TextField";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import UpArrow from "./Arrows/upArrow/UpArrow";
-import MainUpArrow from "./Arrows/MainUpArrow/MainUpArrow";
-import DownArrow from "./Arrows/downArrow/DownArrow";
-import TableButtons from "./TableButtons/TableButtons";
+import UpArrow from "../../../../../Components/Table/Arrows/upArrow/UpArrow";
+import MainUpArrow from "../../../../../Components/Table/Arrows/MainUpArrow/MainUpArrow";
+import DownArrow from "../../../../../Components/Table/Arrows/downArrow/DownArrow";
+import TableButtons from "../../../../../Components/Table/TableButtons/TableButtons"
 import TableModal from "./TableModal/TableModal";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
@@ -37,7 +37,9 @@ import { readOpt,
   changePassword,
   sampleFileOperator,
   checkFileOperator,
-  importFileOperator, 
+  importFileOperator,
+  operatorExportId,
+  operatorChangePassword, 
 } from '../../../../../services/operatorService';
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
@@ -56,9 +58,9 @@ import useWindowSize from "../../../../../customHooks/useWindowSize";
 import useButtonAccess from "../../../../../customHooks/useButtonAccess";
 import AccessListModal from "../../../../../Components/Table/AccessListModal/AccessListModal";
 import OperatorForm from '../OperatorForm'
-import PasswordModal from './passwordModal/PasswordModal';
 import ExportAllButton from '../../../../../Components/Table/ExportButton/ExportAllButton';
 import ImportCSV from '../../../../../Components/Table/ImportCSVButton/ImportCSV';
+import PasswordModal from '../../../../../Components/Table/passwordModal/PasswordModal';
 const Operator = () => {
 
   const filteredColumns = ["Language_EId", "Id", "Group_Id", "Password", "Registrar"];
@@ -572,6 +574,7 @@ const Operator = () => {
         )}
         {passwordModalOpen && (
           <PasswordModal
+            changePasswordURL={operatorChangePassword}
             rowValus={rowValus}
             show={passwordModalOpen}
             onHide={() => setPasswordmodalOpen(false)}
@@ -859,13 +862,14 @@ const Operator = () => {
                             <tr key={index}>
                               <td className="TableMainTd">
                                 <TableButtons
-                                  deleteTypeOperator={enums.Operator_Operator_Delete_w}
-                                  editTypeOperator={enums.Operator_Operator_Update_w}
-                                  exportTypeOperator={enums.Operator_Operator_Export_r}
-                                  changePassword={
+                                  exportLink={operatorExportId}
+                                  exportType={enums.Operator_Operator_Export_r}
+                                  editType={enums.Operator_Operator_Update_w}
+                                  accessListType={""}
+                                  deleteType={enums.Operator_Operator_Delete_w}
+                                  changePasswordType={
                                     enums.Operator_Operator_ChangePassword_w
                                   }
-                                  
                                   deleteCalled={deleteCalled}
                                   rowValue={post}
                                   handleClickEdit={handleClickEdit}

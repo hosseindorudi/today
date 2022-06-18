@@ -11,10 +11,10 @@ import TextField from "@mui/material/TextField";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import UpArrow from "./Arrows/upArrow/UpArrow";
-import MainUpArrow from "./Arrows/MainUpArrow/MainUpArrow";
-import DownArrow from "./Arrows/downArrow/DownArrow";
-import TableButtons from "./TableButtons/TableButtons";
+import UpArrow from "../../../../../Components/Table/Arrows/upArrow/UpArrow"
+import MainUpArrow from "../../../../../Components/Table/Arrows/MainUpArrow/MainUpArrow"
+import DownArrow from "../../../../../Components/Table/Arrows/downArrow/DownArrow"
+import TableButtons from "../../../../../Components/Table/TableButtons/TableButtons"
 import TableModal from "./TableModal/TableModal";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
@@ -25,6 +25,7 @@ import {
   groupCheckFile,
   groupDelete,
   groupExport,
+  groupExportId,
   groupFavorite,
   groupGetOneRecord,
   groupGetPermission,
@@ -87,40 +88,9 @@ const Group = () => {
   const [IsFavorite, setIsFavorite] = useState(false);
   const [checkAllC, setCheckAllC] = useState(true);
   const [productsColumns, setproductsColumns] = useState([]);
-  // const refTable = useRef()
-  // const refDiv = useRef()
+
   const withOfScreen = useWindowSize().width;
-  // const [tableWidth, setTableWith] = useState(0);
-  // const [minTableWidth, setMinTableWidth] = useState(1352)
-  // const [maxTableWidth, setMaxTableWidth] = useState(1592)
-  // useEffect(()=> {
-  //   if( 1800<withOfScreen<=2200 ){
-  //     setTableWith(0)
-  //   }else if( 1200<withOfScreen<=1800 ){
-  //     setTableWith(0)
-  //   }
-
-  // },[withOfScreen])
-  // useEffect(()=> {
-  //   switch (tableWidth){
-  //     case 0 :
-  //       setMaxTableWidth(1592)
-  //       setMinTableWidth(1352)
-  //     break;
-  //     case 1 :
-  //       setMaxTableWidth(withOfScreen - (withOfScreen * .2 + 240))
-  //       setMinTableWidth(590)
-  //     break;
-  //     case 2 :
-  //       setMaxTableWidth(610)
-  //       setMinTableWidth(500)
-  //     break;
-  //     case 3 :
-
-  //     break;
-  //   }
-  // },[tableWidth])
-  // const [isSorted, setIsSorted] = useState("0");
+  
 
   const abortController = new AbortController();
   const handleAdd = () => {
@@ -855,19 +825,22 @@ const Group = () => {
                           {posts.map((post, index) => (
                             <tr key={index}>
                               <td className="TableMainTd">
-                                <TableButtons
-                                  deleteType={enums.Operator_Group_Delete_w}
+                              <TableButtons
+                                  exportLink={groupExportId}
+                                  exportType={enums.Operator_Operator_Export_r}
                                   editType={enums.Operator_Group_Update_w}
-                                  exportType={enums.Operator_Group_Export_r}
-                                  accessListType={
-                                    enums.Operator_Group_Permission_w
-                                  }
-                                  handleClickGetPermission={
-                                    handleClickGetPermission
+                                  accessListType={enums.Operator_Group_Permission_w}
+                                  deleteType={enums.Operator_Group_Delete_w}
+                                  changePasswordType={
+                                   ""
                                   }
                                   deleteCalled={deleteCalled}
                                   rowValue={post}
                                   handleClickEdit={handleClickEdit}
+                                  // handlePassEdit={handlePassEdit}
+                                  handleClickGetPermission={
+                                    handleClickGetPermission
+                                  }
                                 />
                               </td>
                               {Object.keys(post)

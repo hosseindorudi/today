@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-axios.defaults.baseURL = "https://api.ctelecom.ir"
+axios.defaults.baseURL = process.env.REACT_APP_API_URL
 
  const useAxios = () => {
     const [response, setResponse] = useState(undefined);
