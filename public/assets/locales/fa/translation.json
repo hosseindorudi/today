@@ -198,6 +198,7 @@
   "routes.smsForm":"پیامک",
   "routes.admitionFirstForm":"فرم پذیرش",
   "routes.CustomerList": "مشتری",
+  "routes.customerForm":"فرم مشتری",
 
   "accesoriesDefineHeader": "تعین اولویت لوازم همراه گوشی",
   "admissionDefineHeader": "تعین اولویت لیست پذیرش",
