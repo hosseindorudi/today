@@ -286,6 +286,8 @@
   "operatornewPassConfirm":"تایید پسورد جدید",
   "routes.customer":"مشتری",
   "customer.groupCreate":"ساخت گروه مشتری",
-  "operator.passwordChanged":"پسوورد با موفقیعت بروز شد"
+  "operator.passwordChanged":"پسوورد با موفقیعت بروز شد",
+  "customerTitle":"ثبت نام مشتری"
+  
 
 }
