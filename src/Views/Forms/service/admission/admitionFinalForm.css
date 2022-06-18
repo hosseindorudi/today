@@ -700,3 +700,21 @@
     background-color: #0072E5;
     color: #fff;
 }
+
+
+
+@media only screen and (max-width:  480px) {
+    
+  }
+@media only screen and (max-width:   768px) {
+    
+  }
+@media only screen and (max-width:  1024px) {
+    
+  }
+@media only screen and (max-width:  1200px) {
+    
+  }
+@media only screen and (min-width:  1201px) {
+    
+  }
