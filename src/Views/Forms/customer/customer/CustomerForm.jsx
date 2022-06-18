@@ -18,9 +18,9 @@ import { TabContext } from '../../../../contexts/TabContextProvider';
 import { useTranslation } from 'react-i18next';
 import { customerGroupReadTitle,customerCustomerCreate } from '../../../../services/groupService';
 import { idCodeValidation, phoneNumberValidation } from '../../../../validation/validation';
+import CustomerList from './list/CustomerList'
 
 import { setDatePickerDate } from '../../../../validation/functions';
-import CustomerList from './list/CustomerList'
 
 const CustomerForm = () => {
     const currentLang = useContext(AppContext);
@@ -137,7 +137,7 @@ const CustomerForm = () => {
                   
                   Id:0,
                   Group_Id: Number(groupTitleId),
-                  Language_EId:0,
+                  Language_EId:1,
                   IsActive:isActive,
                   CustomerName:name,
                   Password:password,
@@ -152,7 +152,7 @@ const CustomerForm = () => {
                   Email:email,
                   Description:description,
                   SourceType:0,
-                  ExpireDate:setDatePickerDate(operatorDateExp),
+                  ExpireDate:"2022-06-16T05:34:40.867Z",
                   Registrar:0,
                   DateSet : "2022-06-16T05:34:40.867Z",
                   Group_Title: "",

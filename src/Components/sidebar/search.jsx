@@ -9,7 +9,7 @@ function Search(props) {
     <InputGroup className="mb-3">
     <InputGroup.Text id="basic-addon1"><BsSearch/></InputGroup.Text>
     <FormControl
-      placeholder={t("search")}
+      
       aria-label="search"
       aria-describedby="basic-addon1"
      
