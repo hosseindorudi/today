@@ -278,7 +278,19 @@
   "all":"همه",
   "none":"هیچکدام",
   "readOnly":"نمایشی",
-  "Group_Title":"گروه اپراتور",
+  "Group_Title":"گروه ",
+  "CustomerName":"نام مشتری",
+  "IdCardNumber":"شماره ملی",
+  "FirstName":"نام",
+  "LastName":"نام خوانوادگی",
+  "Gender":"جنسیت",
+  "Mobile1":"موبایل1",
+  "male":"مرد",
+  "female":"زن",
+  "Mobile2":"موبایل2",
+  "Phone":"تلفن",
+  "Fax":"فکس",
+  "Email":"ایمیل",
   "OperatorName":"نام اپراتور",
   "Mobile":"شماره تماس",
   "ExpireDate":"تاریخ انقضا",
@@ -289,7 +301,9 @@
   "routes.customer":"مشتری",
   "customer.groupCreate":"ساخت گروه مشتری",
   "operator.passwordChanged":"پسوورد با موفقیعت بروز شد",
-  "customerTitle":"ثبت نام مشتری"
+  "customerTitle":"ثبت نام مشتری",
+  "username":"نام کاریری",
+  "password":"رمز عبور"
   
 
 }

@@ -1,11 +1,10 @@
 import { useRef, useEffect } from "react";
 import {  Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import useAxios from "../../../../../../customHooks/useAxios";
-import useRequest from "../../../../../../customHooks/useRequest";
+import useAxios from "../../../customHooks/useAxios";
+import useRequest from "../../../customHooks/useRequest";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { changePassword } from "../../../../../../services/operatorService";
 
 const PasswordModal = (props) => {
     const [response, loading, fetchData, setResponse] = useAxios();

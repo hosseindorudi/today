@@ -15,7 +15,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { onlyNumberAndDot } from "../../../../../../validation/validation";
 import { browser, radius } from "../../../../../../data/constants";
 import useAxios from "../../../../../../customHooks/useAxios";
-import { groupUpdate } from "../../../../../../services/groupService";
+import { customerGroupUpdate, groupUpdate } from "../../../../../../services/groupService";
 import { setDatePickerDate } from "../../../../../../validation/functions";
 
 const TableModal = (props) => {
@@ -45,7 +45,6 @@ const TableModal = (props) => {
     setMaxSession(values.MaxSession)
     setFromDate(values.IsLimited?new Date(values.LimitFrom):null)
     setEndDate(values.IsLimited?new Date(values.LimitTo):null)
-    console.log(values)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -132,7 +131,7 @@ const TableModal = (props) => {
 
     fetchData({
       method: "POST",
-      url: groupUpdate,
+      url: customerGroupUpdate,
       headers: {
         accept: "*/*",
       },

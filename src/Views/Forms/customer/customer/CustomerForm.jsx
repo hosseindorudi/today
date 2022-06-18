@@ -16,11 +16,12 @@ import BackDrop from '../../../../Components/backDrop/BackDrop';
 import { enums } from '../../../../data/Enums'
 import { TabContext } from '../../../../contexts/TabContextProvider';
 import { useTranslation } from 'react-i18next';
-import { customerGroupReadTitle,customerCustomerCreate } from '../../../../services/groupService';
+import { customerGroupReadTitle } from '../../../../services/groupService';
 import { idCodeValidation, phoneNumberValidation } from '../../../../validation/validation';
 import CustomerList from './list/CustomerList'
 
 import { setDatePickerDate } from '../../../../validation/functions';
+import { customerCreate } from '../../../../services/customerService';
 
 const CustomerForm = () => {
     const currentLang = useContext(AppContext);
@@ -130,7 +131,7 @@ const CustomerForm = () => {
         else {
             { fetchData({
                 method: "POST",
-                url: customerCustomerCreate,
+                url:customerCreate,
                 headers: {
                   accept: "*/*",
                 },
