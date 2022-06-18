@@ -25,6 +25,7 @@ const AcceptDelivery=lazy(()=>import("../../../../Views/Forms/service/acceptDeli
 const AcceptDeliveryForm=lazy(()=>import("../../../../Views/Forms/service/acceptDelivery/AcceptDeliveryForm"))
 const QcEntry=lazy(()=>import("../QCEntry/qcEntryForm/Qc"))
 const QcFormEntry=lazy(()=>import("../QCEntry/qcEntryList/QcForm"))
+const AdmitionFinalForm=lazy(()=>import("../admission/AmitionFinalForm"))
 const WorkFlow = () => {
    const tabContext = useContext(TabContext);
   const pages = [
@@ -48,7 +49,7 @@ const WorkFlow = () => {
       color: "silver",
       Component:Admission,
       button:{
-        Component:AdmissionForm,
+        Component:AdmitionFinalForm,
         path:"/admissionForm",
         title:"routes.admissionForm",
       }
