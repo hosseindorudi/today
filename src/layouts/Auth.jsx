@@ -23,7 +23,7 @@ const Auth = () => {
   const password = useRef();
   const { t } = useTranslation();
   const radioTypes = ["operator", "agent"];
-  const [radioType, setRadioType] = useState("");
+  const [radioType, setRadioType] = useState("operator");
   const [passVisible, setpassVisible] = useState(false);
   const handleChangeRadio = (event) => {
     setRadioType(event.target.id);

@@ -6,6 +6,8 @@ import Agent from './Views/Forms/agent/agentForm/Agent';
 import AgentForm from './Views/Forms/agent/agentForm/AgentForm';
 import CustomerGroup from './Views/Forms/customer/group/List/CustomerGroup';
 const CustomerGroupForm=lazy(()=>import("./Views/Forms/customer/group/CustomerGroupForm"))
+const CustomerList=lazy(()=>import("./Views/Forms/customer/customer/list/CustomerList"))
+const CustomerForm=lazy(()=>import("./Views/Forms/customer/customer/CustomerForm"))
 const AccessDefine=lazy(()=>import("./Views/Forms/definations/accessories/accessDefine/AccessDefine"))
 const AdmissionCheckDefine=lazy(()=>import("./Views/Forms/definations/admissionCheckList/admissionCheckDefine/AdmissionCheckDefine"))
 const AgentAbilityDefine=lazy(()=>import("./Views/Forms/definations/agentsAbility/agentAbilityDefine/AgentAbilityDefine"))
@@ -211,6 +213,20 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav',
         access:enums.Customer_Group_Read_r
+      },
+      {
+        title: 'routes.CustomerList',
+        path:'/customerList',
+        Component:CustomerList,
+        button:{
+          Component:CustomerForm,
+          path:'/customerform',
+          title:"routes.customerForm",
+          access:enums.Customer_Customer_Create_w ,
+        },
+        icon: <IoIcons.IoIosPaper/> ,
+        cName: 'sub-nav',
+        access:enums.Customer_Customer_Read_r
       },
     ]
   },

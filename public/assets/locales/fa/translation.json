@@ -197,6 +197,8 @@
   "routes.setting":"تنضیمات",
   "routes.smsForm":"پیامک",
   "routes.admitionFirstForm":"فرم پذیرش",
+  "routes.CustomerList": "مشتری",
+  "routes.customerForm":"فرم مشتری",
 
   "accesoriesDefineHeader": "تعین اولویت لوازم همراه گوشی",
   "admissionDefineHeader": "تعین اولویت لیست پذیرش",
@@ -220,7 +222,7 @@
   "WarrantyCancelationDefineHeader": "تعین اولویت ابطال گارانتی",
   "WarrantyTypeDefineHeader": "تعین اولویت نوع گارانتی",
   "WorksDoneOnPhoneDefineHeader": "تعین اولویت کارهای صورت گرفته بر روی گوشی",
-
+  
   "loading":"در حال بارگزاری...",
   "OperatorGroup.switch":"فعال/غیر فعال",
   "operatorGroup.ip":"آی پی",
@@ -286,6 +288,8 @@
   "operatornewPassConfirm":"تایید پسورد جدید",
   "routes.customer":"مشتری",
   "customer.groupCreate":"ساخت گروه مشتری",
-  "operator.passwordChanged":"پسوورد با موفقیعت بروز شد"
+  "operator.passwordChanged":"پسوورد با موفقیعت بروز شد",
+  "customerTitle":"ثبت نام مشتری"
+  
 
 }

@@ -37,7 +37,7 @@ function Admin() {
             </div>
           </div>
           <span className="profileName">
-            <div>حسین درودی</div>
+            <div> admin</div>
           </span>
 
           <LogOut />
