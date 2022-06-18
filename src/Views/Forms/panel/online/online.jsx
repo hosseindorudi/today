@@ -1,10 +1,9 @@
 import React from 'react'
 
-
 const Online = () => {
   return (
-    <div></div>
-  )
+    <div>online</div>
+
 }
 
 export default Online
