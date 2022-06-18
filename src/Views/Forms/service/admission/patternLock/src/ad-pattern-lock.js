@@ -58,8 +58,7 @@ class AdPatternLock extends Component {
         this.setState({
             currentPoint: null
         });
-        this.patternHolder.current.removeEventListener(this.moveEvent, this._onMove);
-        document.removeEventListener(this.endEvent, this._onEnd);
+        
     };
 
     updatePath = (id, x, y) => {
