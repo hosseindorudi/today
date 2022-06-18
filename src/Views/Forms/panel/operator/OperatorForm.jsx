@@ -27,6 +27,7 @@ const Operator = () => {
     const [response, loading, fetchData, setResponse] = useAxios();
     const request = useRequest()
     const [groupTitles, setGroupTitles] = useState([])
+    const [groupTitleId, setGroupTitleId] = useState()
     const [name, setName] = useState("")
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -96,6 +97,7 @@ const Operator = () => {
     useEffect(()=> {
         if (response){
           (response.Result && response.Title) && setGroupTitles(response.Title) ;
+          (response.Result && response.Title) && setSelectGroup(response.Title[0].Id) ;
           !response.Result && handleError(response.Message);
           (response.Result && response.Message === "Ok" && !response.Title) && handleSeccess(response.Message);
           (response.Result && response.Message === "Ok" && !response.Title) && handleClickMenu();
@@ -186,9 +188,9 @@ const Operator = () => {
                 <select className="OperatorFormInputTitle" id='OperatorFormInputTitle1' 
                   onChange={(e)=> {setSelectGroup(e.target.value)} }
                 >
-                
+                <option disabled></option>
                 {groupTitles.map((group, i) => (
-                  <option key={i} value={group.Id}>{group.Value}</option>
+                  <option key={i} value={String(group.Id)}>{group.Value}</option>
                 ))}
 
             </select>
