@@ -210,3 +210,10 @@
 #OperatorFormInputExp1 {
     margin-bottom: 4px;
 }
+
+.errorMsg {
+    color: red;
+    margin-bottom: 0;
+    font-size: 13px;
+
+}

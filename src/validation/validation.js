@@ -1,42 +1,42 @@
 // export const idCodeValidation = "^[0-9]{10}$";
+const admissionNumberVal = "^[0-9]{15}$";
+ const idCodeValidation = (idCode) => {
+    let arrayIdCode = [];
+    let sum = 0;
+    let result = 0;
+    arrayIdCode = idCode.split('');
+    if (arrayIdCode.length !== 10){
+        return false;
+    }else if (idCode === '0000000000' || idCode === '1111111111' || idCode === '2222222222' ||
+            idCode === '3333333333' || idCode === '4444444444' || idCode === '5555555555' || 
+            idCode === '6666666666' || idCode === '7777777777' || idCode === '8888888888' || 
+            idCode === '9999999999'          
+    ){
+        return false;
 
-// export const idCodeValidation = (idCode) => {
-//     let arrayIdCode = [];
-//     let sum = 0;
-//     let result = 0;
-//     arrayIdCode = idCode.split('');
-//     if (arrayIdCode.length !== 10){
-//         return false;
-//     }else if (idCode === '0000000000' || idCode === '1111111111' || idCode === '2222222222' ||
-//             idCode === '3333333333' || idCode === '4444444444' || idCode === '5555555555' || 
-//             idCode === '6666666666' || idCode === '7777777777' || idCode === '8888888888' || 
-//             idCode === '9999999999'          
-//     ){
-//         return false;
+    }else {
+        for(let i = 0 ; i < arrayIdCode.length -1 ; i++) {
+            sum += parseInt(arrayIdCode[i]) * (10-i);
+        }
+        result = sum % 11 ;
+        if (result < 2) {
+            if(parseInt(arrayIdCode[9]) === result) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (parseInt(arrayIdCode[9]) === (11 - result)){
+                return true;
+            }else {
+                return false;
+            }
+        }
+    }
 
-//     }else {
-//         for(let i = 0 ; i < arrayIdCode.length -1 ; i++) {
-//             sum += parseInt(arrayIdCode[i]) * (10-i);
-//         }
-//         result = sum % 11 ;
-//         if (result < 2) {
-//             if(parseInt(arrayIdCode[9]) === result) {
-//                 return true;
-//             } else {
-//                 return false;
-//             }
-//         } else {
-//             if (parseInt(arrayIdCode[9]) === (11 - result)){
-//                 return true;
-//             }else {
-//                 return false;
-//             }
-//         }
-//     }
+};
 
-// };
-
-// export const phoneNumberValidation = "^[0]?[9][0|3|1|9|2]+[0-9]{8}$";
+const phoneNumberValidation = "^[0]?[9][0|3|1|9|2]+[0-9]{8}$"
 
 // export const emailValidation = "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
 
@@ -56,35 +56,39 @@ const onlyNumberAndDot="^[0-9.\b]+$"
 //     lon : "^(-?(?:1[0-7]|[1-9])?\d(?:\.\d{1,18})?|180(?:\.0{1,18})?)$"
 // }
 
-// export const IMEIvalidation = (imei) => {
+const IMEIvalidation = (imei) => {
 
-//     let arrayIMEI = [];
-//     let sum = 0;
-//     let multiply = 0;
-//     arrayIMEI = imei.split('');
+    let arrayIMEI = [];
+    let sum = 0;
+    let multiply = 0;
+    arrayIMEI = imei.split('');
     
-//     for(let i =0 ; i< imei.length ; i++){
-//         if (i % 2 === 0 ){
-//             sum += parseInt(arrayIMEI[i]);
-//         }else{
+    for(let i =0 ; i< imei.length ; i++){
+        if (i % 2 === 0 ){
+            sum += parseInt(arrayIMEI[i]);
+        }else{
             
-//             multiply = parseInt(arrayIMEI[i]) * 2;
-//             if (multiply > 9 ) {
+            multiply = parseInt(arrayIMEI[i]) * 2;
+            if (multiply > 9 ) {
                 
-//                 sum += multiply % 10 + Math.floor(multiply / 10) ;
-//             }else {
-//                 sum += multiply;
-//             }
-//         }
-//     }
+                sum += multiply % 10 + Math.floor(multiply / 10) ;
+            }else {
+                sum += multiply;
+            }
+        }
+    }
 
-//     if (sum % 10 === 0 ) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
+    if (sum % 10 === 0 ) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 module.exports={
-    onlyNumberAndDot
+    onlyNumberAndDot,
+    phoneNumberValidation,
+    IMEIvalidation,
+    admissionNumberVal,
+    idCodeValidation
 }

@@ -84,7 +84,7 @@
   "operatorTitle":"اپراتور",
   "operatorName":"نام:",
   "operatorPass":"رمزعبور:",
-  "operatorPhoneNum":"شماره مبایل:",
+  "operatorPhoneNum":"شماره موبایل:",
   "operatorDatePick":"تاریخ انقضا:",
   "operatorSubmitBtn":"ارسال",
   "Ip-Validation":"دسترسی آی پی",
@@ -196,6 +196,7 @@
   "routes.orders":"ثبت تحویل",
   "routes.setting":"تنضیمات",
   "routes.smsForm":"پیامک",
+  "routes.admitionFirstForm":"فرم پذیرش",
 
   "accesoriesDefineHeader": "تعین اولویت لوازم همراه گوشی",
   "admissionDefineHeader": "تعین اولویت لیست پذیرش",

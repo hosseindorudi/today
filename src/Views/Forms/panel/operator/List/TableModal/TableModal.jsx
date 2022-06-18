@@ -41,7 +41,7 @@ const TableModal = (props) => {
   useEffect(() => {
     const values=props.rowValus
     title.current.value=values.OperatorName
-    description.current.value=values.Group_Title
+    description.current.value=values.Group_Id
     phone.current.value=values.Mobile
     setActivation(values.IsActive)
     setOperatorDateExp(values.ExpireDate?new Date(values.ExpireDate):null)
