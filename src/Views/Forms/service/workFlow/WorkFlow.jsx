@@ -12,6 +12,7 @@ const Delivery=lazy(()=>import("../delivery/Delivery"))
 const DeliveryForm=lazy(()=>import("../delivery/DeliveryForm"))
 const QcExitForm=lazy(()=>import("../QcExit/qcExitList/QcExitList"))
 const QcExit=lazy(()=>import("../QcExit/qcExitForm/Qc"))
+const Registered=lazy(()=>import("../registered/Registered"))
 const TechnicianForm=lazy(()=>import("../technecian/technicianForm/TechnicianForm"))
 const Technician=lazy(()=>import("../technecian/technicianList/Technician"))
 const Allocation=lazy(()=>import("../alocation/Allocation"))
@@ -23,15 +24,36 @@ const ChangeForm=lazy(()=>import("../change/changeForm/ChangeForm"))
 const Archive=lazy(()=>import("../../../../Views/Forms/service/archive/Archive"))
 const Sent=lazy(()=>import("../sent/sentFormList/SentFormList"))
 const SentForm=lazy(()=>import("../sent/sentForm/SentForm"))
-const AcceptDelivery=lazy(()=>import("../../../../Views/Forms/service/acceptDelivery/AcceptDelivery"))
-const AcceptDeliveryForm=lazy(()=>import("../../../../Views/Forms/service/acceptDelivery/AcceptDeliveryForm"))
 const QcEntry=lazy(()=>import("../QCEntry/qcEntryForm/Qc"))
+const SentCustomer=lazy(()=>import("../sentCustomer/SentCustomer"))
+const SentCustomerForm=lazy(()=>import("../sentCustomer/SentCustomerForm"))
 const QcFormEntry=lazy(()=>import("../QCEntry/qcEntryList/QcForm"))
 const AdmitionFinalForm=lazy(()=>import("../admission/AmitionFinalForm"))
 const WorkFlow = () => {
    const tabContext = useContext(TabContext);
    const [havAccess]=useButtonAccess()
   const pages = [
+  
+    {
+      title: 'routes.registered',
+      path:'/registered',
+      Component:Registered,
+      access:enums.AfterSales_New_Registered_Read_r
+      
+    },
+    {
+      title: 'routes.admission',
+      path:'/admission',
+      color: "silver",
+      Component:Admission,
+      access:enums.AfterSales_New_Admission_Read_r,
+      button:{
+        Component:AdmitionFinalForm,
+        path:"/admissionForm",
+        title:"routes.admissionForm",
+        access:enums.AfterSales_New_Admission_Create_w
+      }
+    },
     {
       title: 'routes.service.QcEntry',
       path:'/service.QcEntry',
@@ -47,19 +69,6 @@ const WorkFlow = () => {
       
       },
      
-    },
-    {
-      title: 'routes.admission',
-      path:'/admission',
-      color: "silver",
-      Component:Admission,
-      access:enums.AfterSales_New_Admission_Read_r,
-      button:{
-        Component:AdmitionFinalForm,
-        path:"/admissionForm",
-        title:"routes.admissionForm",
-        access:enums.AfterSales_New_Admission_Create_w
-      }
     },
     {
       title: 'routes.service.allocation',
@@ -110,17 +119,8 @@ const WorkFlow = () => {
   ];
   const buttons = [
     {
-      title: 'routes.acceptDelivery',
-      path:'/acceptDelivery',
-      Component:AcceptDelivery,
-      color:"success",
-      access:enums.AfterSales_New_DeliveryInPerson_Read_r
-      
-    },
-    {
       title: 'routes.changing',
       path:'/changing',
-      color:"warning",
       Component:Change,
       access:enums.AfterSales_New_Replacement_Read_r,
       button:{
@@ -131,23 +131,34 @@ const WorkFlow = () => {
       }
     },
     {
-      title: 'routes.sent',
+      title: 'routes.sentAgent',
       path:'/sent',
-      color:"info",
       Component:Sent,
       access:enums.AfterSales_New_SendToAgent_Read_r,
       button:{
         Component:SentForm,
         path:"/sentForm",
-        title:"routes.sentForm",
+        title:"routes.sentAgentForm",
         access:enums.AfterSales_New_SendToAgent_Create_w,
+      },
+     
+    },
+    {
+      title: 'routes.sentCustomer',
+      path:'/sentCustomer',
+      Component:SentCustomer,
+      access:enums.AfterSales_New_SendToCustomer_Read_r,
+      button:{
+        Component:SentCustomerForm,
+        path:"/sentcustomerform",
+        title:"routes.sentcustomerform",
+        access:enums.AfterSales_New_SendToCustomer_Create_w,
       },
      
     },
     {
       title: 'routes.archive',
       path:'/archive',
-      color:"primary",
       Component:Archive,
       access:enums.AfterSales_Archive_Read_r
     },
@@ -186,7 +197,7 @@ const WorkFlow = () => {
             arrow
             placement={"top-end"}
           >
-            <Button className="btnBottomWorkFlow" variant={i.color} disabled={!havAccess(i.access)} onClick={() => handleClick(i)}>{t(i.title)}</Button>
+            <Button className="btnBottomWorkFlow"  disabled={!havAccess(i.access)} onClick={() => handleClick(i)}>{t(i.title)}</Button>
           </Tooltip>
         ))}
       </div>

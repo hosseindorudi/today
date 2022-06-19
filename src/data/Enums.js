@@ -6,16 +6,16 @@
     Customer_Customer_ChangePassword_w : 305108,
 
 
-    AfterSales_New_Registration : 1302110,
-    AfterSales_New_Registration_Create_w : 1300111,
-    AfterSales_New_Registration_Read_r : 1300112,
-    AfterSales_New_Registration_Update_w : 1300113,
-    AfterSales_New_Registration_Delete_w : 1300114,
-    AfterSales_New_Registration_Import_w : 1300115,
-    AfterSales_New_Registration_Export_r : 1300116,
-    AfterSales_New_Registration_Log_r : 1300117,
+    AfterSales_New_Registered : 1300110,
+    AfterSales_New_Registered_Create_w : 1300111,
+    AfterSales_New_Registered_Read_r : 1300112,
+    AfterSales_New_Registered_Update_w : 1300113,
+    AfterSales_New_Registered_Delete_w : 1300114,
+    AfterSales_New_Registered_Import_w : 1300115,
+    AfterSales_New_Registered_Export_r : 1300116,
+    AfterSales_New_Registered_Log_r : 1300117,
 
-    AfterSales_New_Admission : 1302120,
+    AfterSales_New_Admission : 1300120,
     AfterSales_New_Admission_Create_w : 1300121,
     AfterSales_New_Admission_Read_r : 1300122,
     AfterSales_New_Admission_Update_w : 1300123,
@@ -24,7 +24,7 @@
     AfterSales_New_Admission_Export_r : 1300126,
     AfterSales_New_Admission_Log_r : 1300127,
 
-    AfterSales_New_InputQualityControl : 1302130,
+    AfterSales_New_InputQualityControl : 1300130,
     AfterSales_New_InputQualityControl_Create_w : 1300131,
     AfterSales_New_InputQualityControl_Read_r : 1300132,
     AfterSales_New_InputQualityControl_Update_w : 1300133,
@@ -33,7 +33,7 @@
     AfterSales_New_InputQualityControl_Export_r : 1300136,
     AfterSales_New_InputQualityControl_Log_r : 1300137,
 
-    AfterSales_New_AssignToTechnician : 1302140,
+    AfterSales_New_AssignToTechnician : 1300140,
     AfterSales_New_AssignToTechnician_Create_w : 1300141,
     AfterSales_New_AssignToTechnician_Read_r : 1300142,
     AfterSales_New_AssignToTechnician_Update_w : 1300143,
@@ -42,7 +42,7 @@
     AfterSales_New_AssignToTechnician_Export_r : 1300146,
     AfterSales_New_AssignToTechnician_Log_r : 1300147,
 
-    AfterSales_New_Repair : 1302150,
+    AfterSales_New_Repair : 1300150,
     AfterSales_New_Repair_Create_w : 1300151,
     AfterSales_New_Repair_Read_r : 1300152,
     AfterSales_New_Repair_Update_w : 1300153,
@@ -51,7 +51,7 @@
     AfterSales_New_Repair_Export_r : 1300156,
     AfterSales_New_Repair_Log_r : 1300157,
 
-    AfterSales_New_OutputQualityControl : 1302160,
+    AfterSales_New_OutputQualityControl : 1300160,
     AfterSales_New_OutputQualityControl_Create_w : 1300161,
     AfterSales_New_OutputQualityControl_Read_r : 1300162,
     AfterSales_New_OutputQualityControl_Update_w : 1300163,
@@ -60,7 +60,7 @@
     AfterSales_New_OutputQualityControl_Export_r : 1300166,
     AfterSales_New_OutputQualityControl_Log_r : 1300167,
 
-    AfterSales_New_Replacement : 1302170,
+    AfterSales_New_Replacement : 1300170,
     AfterSales_New_Replacement_Create_w : 1300171,
     AfterSales_New_Replacement_Read_r : 1300172,
     AfterSales_New_Replacement_Update_w : 1300173,
@@ -69,7 +69,7 @@
     AfterSales_New_Replacement_Export_r : 1300176,
     AfterSales_New_Replacement_Log_r : 1300177,
 
-    AfterSales_New_DeliveryInPerson : 1302180,
+    AfterSales_New_DeliveryInPerson : 1300180,
     AfterSales_New_DeliveryInPerson_Create_w : 1300181,
     AfterSales_New_DeliveryInPerson_Read_r : 1300182,
     AfterSales_New_DeliveryInPerson_Update_w : 1300183,
@@ -78,7 +78,7 @@
     AfterSales_New_DeliveryInPerson_Export_r : 1300186,
     AfterSales_New_DeliveryInPerson_Log_r : 1300187,
 
-    AfterSales_New_SendToAgent : 1302190,
+    AfterSales_New_SendToAgent : 1300190,
     AfterSales_New_SendToAgent_Create_w : 1300191,
     AfterSales_New_SendToAgent_Read_r : 1300192,
     AfterSales_New_SendToAgent_Update_w : 1300193,
@@ -87,7 +87,7 @@
     AfterSales_New_SendToAgent_Export_r : 1300196,
     AfterSales_New_SendToAgent_Log_r : 1300197,
 
-    AfterSales_New_SendToCustomer : 1302200,
+    AfterSales_New_SendToCustomer : 1300200,
     AfterSales_New_SendToCustomer_Create_w : 1300201,
     AfterSales_New_SendToCustomer_Read_r : 1300202,
     AfterSales_New_SendToCustomer_Update_w : 1300203,
@@ -340,7 +340,16 @@
     Customer_Dashboard_Index_Read_r : 300101,
 
 
-
+    //tbl_Cst_AccessList
+    Customer_AccessList : 301100,
+    Customer_AccessList_Create_w : 301101,
+    Customer_AccessList_Read_r : 301102,
+    Customer_AccessList_Update_w : 301103,
+    Customer_AccessList_Delete_w : 301104,
+    Customer_AccessList_Import_w : 301105,
+    Customer_AccessList_Export_r : 301106,
+    Customer_AccessList_Log_r : 301107,
+    Customer_AccessList_ChangePassword_w : 301108,
 
 
     //tbl_Cst_AllowedIp
@@ -412,7 +421,6 @@
     Customer_Group_Import_w : 309105,
     Customer_Group_Export_r : 309106,
     Customer_Group_Log_r : 309107,
-    Customer_Group_Permission_w:309109,
     //Customer_Group_Etc_w : 309108
 
 
@@ -816,18 +824,6 @@
     //Dashboard
     AfterSales_Dashboard_Index : 1300100,
     AfterSales_Dashboard_Index_Read_r : 1300101,
-
-
-    //tbl_Afs_Admission
-    AfterSales_Admission : 1302100,
-    AfterSales_Admission_Create_w : 1302101,
-    AfterSales_Admission_Read_r : 1302102,
-    AfterSales_Admission_Update_w : 1302103,
-    AfterSales_Admission_Delete_w : 1302104,
-    AfterSales_Admission_Import_w : 1302105,
-    AfterSales_Admission_Export_r : 1302106,
-    AfterSales_Admission_Log_r : 1302107,
-    //AfterSales_Admission_Etc_w : 1302108
 
 
     //tbl_Afs_Archive

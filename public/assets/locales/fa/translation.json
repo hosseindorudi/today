@@ -145,8 +145,8 @@
   "routes.service.technicianForm":"فرم تکنسین",
   "routes.changing":"تعویض",
   "routes.changingForm":"فرم تعویض",
-  "routes.sent":"ارسالی",
-  "routes.sentForm":"فرم ارسالی",
+  "routes.sentAgent":"ارسال به نماینده",
+  "routes.sentAgentForm":"فرم ارسال به نماینده",
   "routes.archive":"بایگانی",
   "routes.service.QcEntry":"Qc ورودی",
   "routes.service.QcEntryForm":"فرم QC ورودی",
@@ -304,7 +304,10 @@
   "customerTitle":"ثبت نام مشتری",
   "username":"نام کاریری",
   "password":"رمز عبور",
-"customer.group":"گروه مشتری"
+"customer.group":"گروه مشتری",
+"routes.registered":"ثبت شده",
+"routes.sentCustomer":"ارسال مشتری",
+"routes.sentcustomerform":"فرم ارسال مشتری"
   
 
 }

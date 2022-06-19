@@ -5,6 +5,7 @@ import { enums } from './data/Enums';
 import Agent from './Views/Forms/agent/agentForm/Agent';
 import AgentForm from './Views/Forms/agent/agentForm/AgentForm';
 import CustomerGroup from './Views/Forms/customer/group/List/CustomerGroup';
+import Registered from './Views/Forms/service/registered/Registered';
 const CustomerGroupForm=lazy(()=>import("./Views/Forms/customer/group/CustomerGroupForm"))
 const CustomerList=lazy(()=>import("./Views/Forms/customer/customer/list/CustomerList"))
 const CustomerForm=lazy(()=>import("./Views/Forms/customer/customer/CustomerForm"))
@@ -33,8 +34,7 @@ const Sent=lazy(()=>import("./Views/Forms/service/sent/sentFormList/SentFormList
 const Change=lazy(()=>import("./Views/Forms/service/change/changeList/Change"))
 const ChangeForm=lazy(()=>import("./Views/Forms/service/change/changeForm/ChangeForm"))
 const SentForm=lazy(()=>import("./Views/Forms/service/sent/sentForm/SentForm"))
-const AcceptDelivery=lazy(()=>import("./Views/Forms/service/acceptDelivery/AcceptDelivery"))
-const AcceptDeliveryForm=lazy(()=>import("./Views/Forms/service/acceptDelivery/AcceptDeliveryForm"))
+
 const WorkFlow=lazy(()=>import("./Views/Forms/service/workFlow/WorkFlow"))
 const Accessories=lazy(()=>import("./Views/Forms/definations/accessories/Accessories"))
 const ProductGroupForm=lazy(()=>import("./Views/Forms/definations/productGroup/productGroupDefine/ProductGroupDefine"))
@@ -408,10 +408,10 @@ export const Routes = [
         cName: 'sub-nav'
       },
       {
-        title: 'routes.acceptDelivery',
-        path:'/acceptDelivery',
-        access:enums.AfterSales_New_DeliveryInPerson_Read_r,
-         Component:AcceptDelivery,
+        title: 'routes.registered',
+        path:'/registered',
+        access:enums.AfterSales_New_Registered_Read_r,
+        Component:Registered,
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
       },
@@ -430,14 +430,14 @@ export const Routes = [
         cName: 'sub-nav'
       },
       {
-        title: 'routes.sent',
+        title: 'routes.sentAgent',
         path:'/sent',
         access:enums.AfterSales_New_SendToAgent_Read_r,
        Component:Sent,
         button:{
          Component:SentForm,
           path:"/sentForm",
-          title:"routes.sentForm",
+          title:"routes.sentAgentForm",
           access:enums.AfterSales_New_SendToAgent_Create_w,
         },
         icon: <IoIcons.IoIosPaper/> ,
