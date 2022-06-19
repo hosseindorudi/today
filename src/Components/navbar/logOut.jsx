@@ -13,6 +13,7 @@ const LogOut = () => {
     const handleLogOut=()=>{
         localStorage.removeItem("token");
         navigate("/", { replace: true });
+        window.location.reload();
         
       }
     const clickOutSideLogOut=(event)=>{
