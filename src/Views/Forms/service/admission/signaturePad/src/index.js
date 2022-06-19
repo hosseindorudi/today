@@ -86,9 +86,9 @@ export default class SignaturePad extends React.Component {
     // and only part of the canvas is cleared then.
     var ratio =  Math.max(1, 1);
     canvas.width = canvas.offsetWidth * ratio;
-    canvas.width = canvas.width === 0 ? (this.props.sigType === "customer" ? 326 : 398) : canvas.width 
+    canvas.width = canvas.width 
     canvas.height = canvas.offsetHeight * ratio;
-    canvas.height = canvas.height === 0 ? (this.props.sigType === "customer" ? 190 : 210) : canvas.height 
+    canvas.height = canvas.height 
 
     ctx.scale(ratio, ratio);
     this._isEmpty = true;
@@ -329,13 +329,12 @@ export default class SignaturePad extends React.Component {
   render() {
     return (
       <div id="signature-pad" className="m-signature-pad" >
-        <div className="m-signature-pad--body" style={{width: this.state.type === "customer" ? 326 : 398, height: this.state.type === "customer" ? 160 : 180}}>
-          <canvas className="canvasForEver"  ref="cv"  style={{width: this.state.type === "customer" ? 326 : 398, height: this.state.type === "customer" ? 190 : 200}}></canvas>
+        <div className="m-signature-pad--body" >
+          <canvas className="canvasForEver"  ref="cv"  ></canvas>
         </div>
-        <br/>
         { this.props.clearButton &&
           <div className="m-signature-pad--footer buttonForDiv">
-            <button className="btn btn-default button clear newBtnClear" onClick={this.clear.bind(this)}>پاک کردن</button>
+            <button className="newBtnClear" onClick={this.clear.bind(this)}>پاک کردن</button>
           </div>
         }
       </div>

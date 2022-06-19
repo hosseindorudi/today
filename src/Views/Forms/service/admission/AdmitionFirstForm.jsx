@@ -51,8 +51,8 @@ const AdmitionFirstForm = () => {
         idCodeValidation(idCode) ?  setIdCodeValidate(true) : setIdCodeValidate(false);
         phoneNumber.match(phoneNumberValidation) ? setPhoneValidate(true) : setPhoneValidate(false);
         
-        (!phoneValidate & idCodeValidate)  ? handleError("شماره تماس نامعتبر است") : (phoneValidate & !idCodeValidate) ? handleError("شماره ملی نامعتبر است")
-        : (!phoneValidate & !idCodeValidate) ? handleError("شماره تماس و شماره ملی نامعتبر است") : handleClickMenu();
+        (!phoneValidate & idCodeValidate | !phoneNumber)  ? handleError("شماره تماس نامعتبر است") : (phoneValidate & !idCodeValidate | !idCode) ? handleError("شماره ملی نامعتبر است")
+        : (!phoneValidate & !idCodeValidate ) ? handleError("شماره تماس و شماره ملی نامعتبر است") : (idCode & phoneNumber & idCodeValidate & phoneNumberValidation) && handleClickMenu() ;
 
 
     }
@@ -66,11 +66,11 @@ const AdmitionFirstForm = () => {
         </h1>
         <div className="imeimainDiv">
             <lable className="imeiLabel">شماره تماس را وارد کنید</lable>
-            <input type="number" className="imeiInput"   onChange={(e)=> setphoneNumber(e.target.value)}/>
+            <input type="number" className="imeiInput" value={phoneNumber}  onChange={(e)=> setphoneNumber(e.target.value)}/>
         </div>
         <div className="idCodeMainDiv">
             <lable className="idCodeLabel">شماره ملی را وارد کنید</lable>
-            <input type="number" className="idCodeInput"  onChange={(e)=> setIdCode(e.target.value)}/>
+            <input type="number" className="idCodeInput" value={idCode}  onChange={(e)=> setIdCode(e.target.value)}/>
         </div>
         <div className="firstFormButtons">
           <button className='admitionFirstFormSubmit' onClick={handleSubmit}>ارسال</button>
