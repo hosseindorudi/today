@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { TabContext } from "../../contexts/TabContextProvider";
 import Tooltip from '@mui/material/Tooltip';
 import * as bs from 'react-icons/bs'
+import useButtonAccess from "../../customHooks/useButtonAccess";
 function CircularMenuItem({ 
     item,
     rotation, 
@@ -12,6 +13,7 @@ function CircularMenuItem({
 })
 {
     const tabContext = useContext(TabContext);
+    const [havAccess]=useButtonAccess()
     const [show] = useState(true);
     const target = useRef(null);
     const { t } = useTranslation();
@@ -29,7 +31,7 @@ function CircularMenuItem({
                 PopperProps={{
                   disablePortal: true,
                 }}
-                open={item.button?true:false}
+                open={item.button && havAccess(item.button.access)?true:false}
                 disableFocusListener
                 disableHoverListener
                 disableTouchListener
@@ -38,6 +40,7 @@ function CircularMenuItem({
                 placement={rotation>=60&&rotation<180 ?"bottom":"top"}
               >
         <Button
+            disabled={!havAccess(item.access)}
             className="menu-item"
             ref={target}
             style={{

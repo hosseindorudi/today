@@ -148,7 +148,7 @@ const TableModal = (props) => {
             IdCardNumber: idCode,
             FirstName:firstname,
             LastName: lastName,
-            Gender: gender,
+            Gender: gender==="true"?true:false,
             Mobile1: phoneNumber1,
             Mobile2: phoneNumber2,
             Phone: housephone,

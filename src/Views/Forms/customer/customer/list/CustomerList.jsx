@@ -318,6 +318,8 @@ const CustomerList = () => {
         return convertUTC(value);
       case "IsActive":
         return <Form.Check type="switch" disabled checked={value} />;
+        case "Gender":
+        return value?t("male"):t("female");
       case "LimitFrom":
         return post.IsLimited ? convertUTC(value) : "-";
       case "LimitTo":

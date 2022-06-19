@@ -6,6 +6,8 @@ import { Button } from "react-bootstrap";
 import * as bs from 'react-icons/bs'
 import Tooltip from '@mui/material/Tooltip';
 import { TabContext } from "../../../../contexts/TabContextProvider";
+import { enums } from "../../../../data/Enums";
+import useButtonAccess from "../../../../customHooks/useButtonAccess";
 const Delivery=lazy(()=>import("../delivery/Delivery"))
 const DeliveryForm=lazy(()=>import("../delivery/DeliveryForm"))
 const QcExitForm=lazy(()=>import("../QcExit/qcExitList/QcExitList"))
@@ -28,6 +30,7 @@ const QcFormEntry=lazy(()=>import("../QCEntry/qcEntryList/QcForm"))
 const AdmitionFinalForm=lazy(()=>import("../admission/AmitionFinalForm"))
 const WorkFlow = () => {
    const tabContext = useContext(TabContext);
+   const [havAccess]=useButtonAccess()
   const pages = [
     {
       title: 'routes.service.QcEntry',
@@ -35,10 +38,12 @@ const WorkFlow = () => {
       no:1,
       Component:QcFormEntry,
       color: "purple",
+      access:enums.AfterSales_New_InputQualityControl_Read_r,
       button:{
         Component:QcEntry,
         path:"/service.QcEntryForm",
         title:"routes.service.QcEntryForm",
+        access:enums.AfterSales_New_InputQualityControl_Create_w
       
       },
      
@@ -48,17 +53,20 @@ const WorkFlow = () => {
       path:'/admission',
       color: "silver",
       Component:Admission,
+      access:enums.AfterSales_New_Admission_Read_r,
       button:{
         Component:AdmitionFinalForm,
         path:"/admissionForm",
         title:"routes.admissionForm",
+        access:enums.AfterSales_New_Admission_Create_w
       }
     },
     {
       title: 'routes.service.allocation',
-      path:'/service.service.allocation',
+      path:'/service.allocation',
       Component:Allocation,
       color: "indianred",
+      access:"",
       no:0,
 
     },
@@ -68,10 +76,12 @@ const WorkFlow = () => {
       Component:Technician,
       color: "green",
       no:5,
+      access:enums.AfterSales_New_AssignToTechnician_Create_w,
       button:{
         Component:TechnicianForm,
         path:"/service.technicianForm",
-        title:"routes.service.technicianForm"
+        title:"routes.service.technicianForm",
+        access:enums.AfterSales_New_AssignToTechnician_Read_r,
       }
     },
     {
@@ -80,10 +90,12 @@ const WorkFlow = () => {
       no:6,
       color: "yellowgreen",
       Component:QcExitForm,
+      access:enums.AfterSales_New_OutputQualityControl_Read_r,
       button:{
         Component:QcExit,
         path:"/service.qcExitForm",
         title:'routes.service.qcExitForm',
+        access:enums.AfterSales_New_OutputQualityControl_Create_w
       
       }
     },
@@ -93,6 +105,7 @@ const WorkFlow = () => {
       no:0,
       color: "cadetblue",
       Component:Delivery,
+      access:enums.AfterSales_New_DeliveryInPerson_Read_r
     },
   ];
   const buttons = [
@@ -101,16 +114,20 @@ const WorkFlow = () => {
       path:'/acceptDelivery',
       Component:AcceptDelivery,
       color:"success",
+      access:''
+      
     },
     {
       title: 'routes.changing',
       path:'/changing',
       color:"warning",
       Component:Change,
+      access:enums.AfterSales_New_Replacement_Read_r,
       button:{
         Component:ChangeForm,
         path:"/changingForm",
         title:"routes.changingForm",
+        access:enums.AfterSales_New_Replacement_Create_w
       }
     },
     {
@@ -118,10 +135,12 @@ const WorkFlow = () => {
       path:'/sent',
       color:"info",
       Component:Sent,
+      access:"",
       button:{
         Component:SentForm,
         path:"/sentForm",
         title:"routes.sentForm",
+        access:""
       },
      
     },
@@ -129,7 +148,8 @@ const WorkFlow = () => {
       title: 'routes.archive',
       path:'/archive',
       color:"primary",
-      Component:Archive
+      Component:Archive,
+      access:enums.AfterSales_Archive_Read_r
     },
   ];
   const handleClick = (i) => {
@@ -151,7 +171,7 @@ const WorkFlow = () => {
             PopperProps={{
               disablePortal: true,
             }}
-            open={i.button ? true : false}
+            open={i.button &&havAccess(i.button.access) ? true : false}
             disableFocusListener
             disableHoverListener
             disableTouchListener
@@ -166,7 +186,7 @@ const WorkFlow = () => {
             arrow
             placement={"top-end"}
           >
-            <Button className="btnBottomWorkFlow" variant={i.color} onClick={() => handleClick(i)}>{t(i.title)}</Button>
+            <Button className="btnBottomWorkFlow" variant={i.color} disabled={!havAccess(i.access)} onClick={() => handleClick(i)}>{t(i.title)}</Button>
           </Tooltip>
         ))}
       </div>
