@@ -33,7 +33,7 @@ const FormInput = (props) => {
                 
                 </textarea>
         </>) : (<>
-            <input className={inputProps.name === 'color' ? "inputPeriority inputPeriorityColor" : "inputPeriority"} 
+            <input className={inputProps.name === 'color' ? "inputPeriorityColor" : "inputPeriority"} 
                 {...inputProps}
                
                 onChange={onChange}

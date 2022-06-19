@@ -452,27 +452,27 @@ export const Routes = [
         cName: 'sub-nav'
       },
 ]},
-// {
-//   title: 'routes.basicDefinations',
-//   icon: <IoIcons.IoIosPaper/> ,
-//   access:enums.definations,
-//   iconClosed: <RiIcons.RiArrowDownSFill/> ,
-//   iconOpened: <RiIcons.RiArrowUpSFill/> ,
-//   subNav: [
-//     {
-//       title: 'routes.entryCheckList',
-//       path:'/entryCheckList',
-//       access:enums.entryCheckList,
-//      Component:CheckListEntry,
-//       button:{
-//        Component:CheckListEntryFormDefine ,
-//         path:"/entryCheckListForm",
-//         title:"routes.entryCheckListForm",
-//         access:enums.entryCheckListForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
+{
+  title: 'routes.basicDefinations',
+  icon: <IoIcons.IoIosPaper/> ,
+  // access:enums.definations,
+  iconClosed: <RiIcons.RiArrowDownSFill/> ,
+  iconOpened: <RiIcons.RiArrowUpSFill/> ,
+  subNav: [
+    // {
+    //   title: 'routes.entryCheckList',
+    //   path:'/entryCheckList',
+    //   access:enums.entryCheckList,
+    //  Component:CheckListEntry,
+    //   button:{
+    //    Component:CheckListEntryFormDefine ,
+    //     path:"/entryCheckListForm",
+    //     title:"routes.entryCheckListForm",
+    //     access:enums.entryCheckListForm,
+    //   },
+    //   icon: <IoIcons.IoIosPaper/> ,
+    //   cName: 'sub-nav'
+    // },
 //     {
 //       title: 'routes.exitCheckList',
 //       path:'/exitCheckList',
@@ -501,20 +501,20 @@ export const Routes = [
 //       icon: <IoIcons.IoIosPaper/> ,
 //       cName: 'sub-nav'
 //     },
-//     {
-//       title: 'routes.parts',
-//       path:'/parts',
-//       access:enums.parts,
-//      Component:Parts,
-//       button:{
-//        Component:PartsDefine,
-//         path:"/partsForm",
-//         title:"routes.partsForm",
-//         access:enums.partForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
+    {
+      title: 'routes.parts',
+      path:'/parts',
+      access:enums.Definition_Part_Read_r,
+     Component:Parts,
+      button:{
+       Component:PartsDefine,
+        path:"/partsForm",
+        title:"routes.partsForm",
+        access:enums.Definition_Part_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
 //     {
 //       title: 'routes.admissionCheckList',
 //       path:'/admissionCheckList',
@@ -655,34 +655,34 @@ export const Routes = [
 //       icon: <IoIcons.IoIosPaper/> ,
 //       cName: 'sub-nav'
 //     },
-//     {
-//       title: 'routes.product',
-//       path:'/product',
-//       access:enums.product,
-//      Component:Product,
-//       button:{
-//        Component:ProductForm,
-//         path:"/productForm",
-//         title:"routes.productForm",
-//         access:enums.productForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
-//     {
-//       title: 'routes.productGroup',
-//       path:'/productGroup',
-//       access:enums.productGroup,
-//      Component:ProductGroup,
-//       button:{
-//        Component:ProductGroupForm,
-//         path:"/productGroupForm",
-//         title:"routes.productGroupForm",
-//         access:enums.productGroupForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
+    {
+      title: 'routes.product',
+      path:'/product',
+      access:enums.Definition_Product_Read_r ,
+       Component:Product,
+      button:{
+       Component:ProductForm,
+        path:"/productForm",
+        title:"routes.productForm",
+        access:enums.Definition_Product_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.productGroup',
+      path:'/productGroup',
+      access:enums.Definition_ProductGroup_Read_r,
+      Component:ProductGroup,
+      button:{
+       Component:ProductGroupForm,
+        path:"/productGroupForm",
+        title:"routes.productGroupForm",
+        access:enums.Definition_ProductGroup_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
 //     {
 //       title: 'routes.accessories',
 //       path:'/accessories',
@@ -768,7 +768,7 @@ export const Routes = [
 //       cName: 'sub-nav'
 //     }
 
-// ]},
+]},
 // {
 //   title: 'routes.rules',
 //   icon: <IoIcons.IoIosPaper/> ,
