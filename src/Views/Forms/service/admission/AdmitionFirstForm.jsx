@@ -20,18 +20,17 @@ const AdmitionFirstForm = () => {
         tabContext.addRemoveTabs(
           {
             title: "routes.admitionFirstForm",
-            path: "/addmitionFirstForm",
+            path: "/admissionForm",
             Component:AdmitionFirstForm,
-            access: enums.admitionfirstForm,
+            access: enums.AfterSales_New_Admission_Create_w,
           }
           , "remove");
         tabContext.addRemoveTabs(
           
           {
             title: "routes.admissionForm",
-            path: "/admissionForm",
+            path: "/admissionFinal",
             Component: AmitionFinalForm,
-            access: enums.Definition_AccessoriesInAdmission_Read_r,
           }
           
           , "add");
