@@ -366,7 +366,7 @@ export const Routes = [
       {
         title: 'routes.service.allocation',
         path:'/service.allocation',
-        // access:enums.serviceAllocation,
+        access:enums.AfterSales_New_AssignToTechnician_Read_r,
         Component:Allocation,
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
@@ -374,13 +374,13 @@ export const Routes = [
       {
         title: 'routes.service.technician',
         path:'/service.technician',
-        access:enums.AfterSales_New_AssignToTechnician_Create_w,
+        access:enums.AfterSales_New_Repair_Read_r,
         Component:Technician,
         button:{
           Component:TechnicianForm,
           path:"/service.technicianForm",
           title:"routes.service.technicianForm",
-          access:enums.AfterSales_New_AssignToTechnician_Read_r,
+          access:enums.AfterSales_New_Repair_Create_w,
         },
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
@@ -410,7 +410,7 @@ export const Routes = [
       {
         title: 'routes.acceptDelivery',
         path:'/acceptDelivery',
-        access:"",
+        access:enums.AfterSales_New_DeliveryInPerson_Read_r,
          Component:AcceptDelivery,
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
@@ -432,13 +432,13 @@ export const Routes = [
       {
         title: 'routes.sent',
         path:'/sent',
-        access:"",
+        access:enums.AfterSales_New_SendToAgent_Read_r,
        Component:Sent,
         button:{
          Component:SentForm,
           path:"/sentForm",
           title:"routes.sentForm",
-          access:"",
+          access:enums.AfterSales_New_SendToAgent_Create_w,
         },
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'

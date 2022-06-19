@@ -66,7 +66,7 @@ const WorkFlow = () => {
       path:'/service.allocation',
       Component:Allocation,
       color: "indianred",
-      access:"",
+      access:enums.AfterSales_New_AssignToTechnician_Read_r,
       no:0,
 
     },
@@ -76,12 +76,12 @@ const WorkFlow = () => {
       Component:Technician,
       color: "green",
       no:5,
-      access:enums.AfterSales_New_AssignToTechnician_Create_w,
+      access:enums.AfterSales_New_Repair_Read_r,
       button:{
         Component:TechnicianForm,
         path:"/service.technicianForm",
         title:"routes.service.technicianForm",
-        access:enums.AfterSales_New_AssignToTechnician_Read_r,
+        access:enums.AfterSales_New_Repair_Create_w,
       }
     },
     {
@@ -114,7 +114,7 @@ const WorkFlow = () => {
       path:'/acceptDelivery',
       Component:AcceptDelivery,
       color:"success",
-      access:''
+      access:enums.AfterSales_New_DeliveryInPerson_Read_r
       
     },
     {
@@ -135,12 +135,12 @@ const WorkFlow = () => {
       path:'/sent',
       color:"info",
       Component:Sent,
-      access:"",
+      access:enums.AfterSales_New_SendToAgent_Read_r,
       button:{
         Component:SentForm,
         path:"/sentForm",
         title:"routes.sentForm",
-        access:""
+        access:enums.AfterSales_New_SendToAgent_Create_w,
       },
      
     },
