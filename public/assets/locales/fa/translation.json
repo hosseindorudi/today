@@ -303,7 +303,8 @@
   "operator.passwordChanged":"پسوورد با موفقیعت بروز شد",
   "customerTitle":"ثبت نام مشتری",
   "username":"نام کاریری",
-  "password":"رمز عبور"
+  "password":"رمز عبور",
+"customer.group":"گروه مشتری"
   
 
 }

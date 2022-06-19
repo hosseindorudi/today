@@ -1,28 +1,16 @@
-.tableModal{
-    display: flex;
-    flex-direction: column;
-}
-.tableModal .switch{
+.updateCustomerModal .switchModalCustomer{
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.tableModal .addBtn{
+.updateCustomerModal .updateModalRow{
     display: flex;
     justify-content: space-around;
-}
-.tableModal  .ipTextFields,.tableModal .browserSelects,.tableModal .locations{
-    display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    margin: 10px;
-    padding-block: 10px;
 }
-.datePickerTableModal{
-    direction: ltr;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+.updateCustomerModal .FormGroupUpdateModal{
+    width: 40%;
+}
+.updateModalRow .textAreaUpdate{
+    width: 90%;
 }

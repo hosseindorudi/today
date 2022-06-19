@@ -19,20 +19,6 @@ import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
 import * as fi from "react-icons/fi";
 import * as md from "react-icons/md";
-import {
-  customerGroupAccessList,
-  customerGroupCheckFile,
-  customerGroupDelete,
-  customerGroupExport,
-  customerGroupFavorite,
-  customerGroupGetOneRecord,
-  customerGroupImport,
-  customerGroupLog,
-  customerGroupRead,
-  customerGroupReadPaging,
-  customerGroupSample,
-  customerGroupSetUnselectedColumn,
-} from "../../../../../services/groupService";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { toast } from "react-toastify";
@@ -60,11 +46,11 @@ const CustomerList = () => {
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);
   const [showAccessListModal, setAccessListModal] = useState(false);
-  const [showGetPermissionModal,setShowGetPermissionModal]=useState(false)
-  const [permissions,setPermissions]=useState(undefined)
+  // const [showGetPermissionModal,setShowGetPermissionModal]=useState(false)
+  // const [permissions,setPermissions]=useState(undefined)
   const [passwordModalOpen, setPasswordmodalOpen] = useState(false);
   const [requestType, setRequestType] = useState("");
-  const [groupId, setGroupId] = useState(undefined)
+  // const [groupId, setGroupId] = useState(undefined)
   const [unSelected, setUnSelected] = useState([]);
   const [haveAccess] = useButtonAccess();
   const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
