@@ -11,7 +11,7 @@ import useAxios from '../../../../customHooks/useAxios';
 import useRequest from '../../../../customHooks/useRequest';
 import AppContext from '../../../../contexts/AppContext';
 import { useTranslation } from 'react-i18next';
-import { admitionCreate } from '../../../../services/admitionService'
+import { admitionCreate } from '../../../../services/admitionService'; 
 
 const AmitionFinalForm = () => {
     const [textRecieved, setTextRecieved] = useState("")
@@ -52,14 +52,13 @@ const AmitionFinalForm = () => {
       }
 
       useEffect(()=> {
-        // if (response){
-        //   (response.Result && response.Title) && setGroupTitles(response.Title) ;
-        //   (response.Result && response.Title) && setSelectGroup(response.Title[0].Id) ;
-        //   !response.Result && handleError(response.Message);
+        if (response){
+          
+          !response.Result && handleError(response.Message);
         //   (response.Result && response.Message === "Ok" && !response.Title) && handleSeccess(response.Message);
         //   (response.Result && response.Message === "Ok" && !response.Title) && handleClickMenu();
           
-        // }
+        }
         
     },[response])
 

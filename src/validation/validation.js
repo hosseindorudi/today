@@ -36,7 +36,7 @@ const admissionNumberVal = "^[0-9]{15}$";
 
 };
 
-const phoneNumberValidation = "^[0]?[9][0|3|1|9|2]+[0-9]{8}$"
+const phoneNumberValidation = /^[0]?[9][0|3|1|9|2]+[0-9]{8}$/
 
 // export const emailValidation = "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
 

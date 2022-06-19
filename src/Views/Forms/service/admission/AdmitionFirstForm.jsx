@@ -48,10 +48,11 @@ const AdmitionFirstForm = () => {
         e.preventDefault();
 
         idCodeValidation(idCode) ?  setIdCodeValidate(true) : setIdCodeValidate(false);
+
         phoneNumber.match(phoneNumberValidation) ? setPhoneValidate(true) : setPhoneValidate(false);
         
-        (!phoneValidate & idCodeValidate | !phoneNumber)  ? handleError("شماره تماس نامعتبر است") : (phoneValidate & !idCodeValidate | !idCode) ? handleError("شماره ملی نامعتبر است")
-        : (!phoneValidate & !idCodeValidate ) ? handleError("شماره تماس و شماره ملی نامعتبر است") : (idCode & phoneNumber & idCodeValidate & phoneNumberValidation) && handleClickMenu() ;
+
+        (!phoneNumber.match(phoneNumberValidation) & !idCodeValidation(idCode) ) ? handleError("شماره تماس و شماره ملی نامعتبر است") :  handleClickMenu() ;
 
 
     }
