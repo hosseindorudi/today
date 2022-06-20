@@ -97,6 +97,7 @@ const ProductDefine = () => {
         break;
         case "SUBMIT":
         handleSuccess()
+        break;
       default:
         break;
     }

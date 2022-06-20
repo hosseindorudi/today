@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import TableModal from "./TableModal/TableModal";
+import TableModal from "./TableModal/TableModal";
 import { Breadcrumb, Form } from "react-bootstrap";
 import * as fa from "react-icons/fa";
 import * as fi from "react-icons/fi";
@@ -461,14 +461,14 @@ const Parts = () => {
     <>
       {loading && <BackDrop open={true} />}
       <>
-        {/* {tableModalOpen && (
+        {tableModalOpen && (
           <TableModal
             rowValus={rowValus}
             onHide={() => setTableModalOpen(false)}
             tableModalShow={tableModalOpen}
             updated={updated}
           />
-        )} */}
+        )}
         {showLogModal && (
           <LogModal
             onHide={() => setShowLogModal(false)}

@@ -1,4 +1,4 @@
-import './operatorList.css'
+import '../../../../../assets/css/table.css'
 import React, {
   useCallback,
   useContext,

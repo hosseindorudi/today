@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {  Button,  Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
+
+
 import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { productReadTitle } from "../../../../../services/productService";
-import { PartUpdate } from "../../../../../services/partService";
-import { t } from "i18next";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-
+import { t } from "i18next";
+import { TabContext } from "../../../../../contexts/TabContextProvider";
+import { productUpdate } from "../../../../../services/productService";
+import { productGroupReadTitle } from "../../../../../services/productGroup";
 
 const TableModal = (props) => {
   const val=props.rowValus
   const [type,setType]=useState("")
-  const [products, setProducts] = useState([]);
+  const [productGroups, setProductGroups] = useState([])
   const [values, setValues] = useState({
     title: val.Title,
     color: `#${val.Color}`,
     periority: val.Priority,
     desc: val.Description,
-    productId:val.Product_Id
+    groupId:val.ProductGroup_Id
   });
  
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -84,7 +86,7 @@ const TableModal = (props) => {
   const handleResponse = (response, type) => {
     switch (type) {
       case "READTITLE":
-        setProducts(response.Title);
+        setProductGroups(response.Title);
         break;
         case "SUBMIT":
         handleSuccess()
@@ -107,7 +109,7 @@ const TableModal = (props) => {
     setType("READTITLE");
     fetchData({
       method: "POST",
-      url: productReadTitle,
+      url: productGroupReadTitle,
       headers: {
         accept: "*/*",
       },
@@ -123,15 +125,15 @@ const TableModal = (props) => {
     setType("SUBMIT")
     fetchData({
       method: "POST",
-      url: PartUpdate,
+      url: productUpdate,
       headers: {
         accept: "*/*",
       },
       data: {
         Request: request,
         Id: val.Id,
-        Product_Id: values.productId,
-        Product_Title: "",
+        ProductGroup_Id: values.groupId,
+        ProductGroup_Title:"",
         Priority: values.periority,
         Title: values.title,
         Description: values.desc,
@@ -142,7 +144,8 @@ const TableModal = (props) => {
       },
       signal: abortController.signal,
     });
-  }
+  
+  };
   return (
     <Modal
     show={props.tableModalShow}
@@ -156,16 +159,16 @@ const TableModal = (props) => {
     <Modal.Body>
     <form className="periorityFormsEdit">
     <div className="formInput">
-    <label className="formInputsLabel">{t("product")}</label>
+              <label className="formInputsLabel">{t("productGroup")}</label>
               <Form.Select
-                name="productId"
-                value={values.productId}
+                name="groupId"
+                value={values.groupId}
                 onChange={onChange}
               >
-                <option value={0} disabled>
-                  {t("product")}
+                <option  disabled>
+                  {t("productGroup")}
                 </option>
-                {products.map((p, i) => (
+                {productGroups.map((p, i) => (
                   <option key={i} value={p.Id}>
                     {p.Value}
                   </option>

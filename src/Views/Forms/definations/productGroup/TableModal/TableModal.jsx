@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {  Button,  Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
+
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { productReadTitle } from "../../../../../services/productService";
-import { PartUpdate } from "../../../../../services/partService";
-import { t } from "i18next";
+import AppContext from "../../../../../contexts/AppContext";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-
+import { t } from "i18next";
+import { TabContext } from "../../../../../contexts/TabContextProvider";
+import { productGroupUpdate } from "../../../../../services/productGroup";
 
 const TableModal = (props) => {
   const val=props.rowValus
-  const [type,setType]=useState("")
-  const [products, setProducts] = useState([]);
   const [values, setValues] = useState({
     title: val.Title,
     color: `#${val.Color}`,
     periority: val.Priority,
     desc: val.Description,
-    productId:val.Product_Id
   });
- 
   const [response, loading, fetchData, setResponse] = useAxios();
+  const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
 
@@ -75,63 +74,31 @@ const TableModal = (props) => {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };
+  const handleResponse = () => {
+    props.updated()
+  };
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-  };
-  const handleSuccess=()=>{
-    props.updated()
-  }
-  const handleResponse = (response, type) => {
-    switch (type) {
-      case "READTITLE":
-        setProducts(response.Title);
-        break;
-        case "SUBMIT":
-        handleSuccess()
-        break;
-      default:
-        break;
-    }
-    
   };
   useEffect(() => {
     if (response) {
       response.Result
-        ? handleResponse(response,type)
+        ? handleResponse(response)
         : handleError(response.Message);
     }
-    setResponse(undefined)
   }, [response]);
 
-  useEffect(() => {
-    setType("READTITLE");
-    fetchData({
-      method: "POST",
-      url: productReadTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
-
-      signal: abortController.signal,
-    });
-    return () => abortController.abort();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    setType("SUBMIT")
     fetchData({
       method: "POST",
-      url: PartUpdate,
+      url: productGroupUpdate,
       headers: {
         accept: "*/*",
       },
       data: {
         Request: request,
         Id: val.Id,
-        Product_Id: values.productId,
-        Product_Title: "",
         Priority: values.periority,
         Title: values.title,
         Description: values.desc,
@@ -142,50 +109,34 @@ const TableModal = (props) => {
       },
       signal: abortController.signal,
     });
-  }
+  
+  };
   return (
     <Modal
-    show={props.tableModalShow}
-    size="lg"
-    aria-labelledby="contained-modal-title-vcenter"
-    centered
-    onHide={props.onHide}
-    className='editModalPeriority'
-  >
-    <Modal.Header closeButton></Modal.Header>
-    <Modal.Body>
-    <form className="periorityFormsEdit">
-    <div className="formInput">
-    <label className="formInputsLabel">{t("product")}</label>
-              <Form.Select
-                name="productId"
-                value={values.productId}
+      show={props.tableModalShow}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      onHide={props.onHide}
+      className='editModalPeriority'
+    >
+      <Modal.Header closeButton></Modal.Header>
+      <Modal.Body>
+      <form className="periorityFormsEdit">
+            {inputs.map((input) => (
+              <FormInput
+                key={input.id}
+                {...input}
+                value={values[input.name]}
                 onChange={onChange}
-              >
-                <option value={0} disabled>
-                  {t("product")}
-                </option>
-                {products.map((p, i) => (
-                  <option key={i} value={p.Id}>
-                    {p.Value}
-                  </option>
-                ))}
-              </Form.Select>
-            </div>
-          {inputs.map((input) => (
-            <FormInput
-              key={input.id}
-              {...input}
-              value={values[input.name]}
-              onChange={onChange}
-            />
-          ))}
-      </form>
-    </Modal.Body>
-    <Modal.Footer>
-      <Button disabled={loading} onClick={handleSubmit}> {t("submit")}</Button>
-    </Modal.Footer>
-  </Modal>
+              />
+            ))}
+        </form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button disabled={loading} onClick={handleSubmit}> {t("submit")}</Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
