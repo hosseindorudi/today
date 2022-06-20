@@ -65,7 +65,7 @@ const CheckListEntryFormDefine = () => {
       },
     ];
     const handleResponse = () => {
-      toast.success(t("group.created"), {
+      toast.success(t("item.created"), {
         position: toast.POSITION.TOP_CENTER,
       });
       tabContext.addRemoveTabs(

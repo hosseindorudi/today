@@ -1,27 +1,29 @@
-import { t } from 'i18next';
-import React,{ useContext, useEffect, useState } from 'react'
-import FormInput from '../../../../../../Components/periodity/formInput/FormInput';
-import { TabContext } from '../../../../../../contexts/TabContextProvider';
-import useAxios from '../../../../../../customHooks/useAxios';
-import useRequest from '../../../../../../customHooks/useRequest';
+import React, { useContext, useEffect, useState } from "react";
+import {  Button, Modal } from "react-bootstrap";
+import "./tableModal.css";
 
-import { enums } from '../../../../../../data/Enums';
+
 import { toast } from "react-toastify";
-import '../../../../../../assets/css/periorityForm.css'
-import { outputQualityControlCreate } from '../../../../../../services/outPutQualityControlService';
-import CheckListExit from '../CheckListExit';
-const CheckListExitFormDefine = () => {
+import useRequest from "../../../../../../customHooks/useRequest";
+import useAxios from "../../../../../../customHooks/useAxios";
+import FormInput from "../../../../../../Components/periodity/formInput/FormInput";
+import { t } from "i18next";
+import { TabContext } from "../../../../../../contexts/TabContextProvider";
+import {outputQualityControlUpdate} from '../../../../../../services/outPutQualityControlService'
 
+
+const TableModal = (props) => {
+  const val=props.rowValus
+  const [values, setValues] = useState({
+    title: val.Title,
+    color: `#${val.Color}`,
+    periority: val.Priority,
+    desc: val.Description,
+  });
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
-  const [values, setValues] = useState({
-    title: "",
-    color: "#000000",
-    periority: 1,
-    desc: "",
-  });
 
   const inputs = [
     {
@@ -65,61 +67,38 @@ const CheckListExitFormDefine = () => {
       value: values.desc,
     },
   ];
-  const handleResponse = () => {
-    toast.success(t("item.created"), {
-      position: toast.POSITION.TOP_CENTER,
-    });
-    tabContext.addRemoveTabs(
-      {
-        Component:CheckListExitFormDefine,
-        path:"/exitCheckListForm",
-        title:"routes.exitCheckListForm",
-        access:enums.Definition_OutputQualityControl_Create_w,
-      },
-      "remove"
-    );
-    tabContext.addRemoveTabs(
-      {
-        title: 'routes.exitCheckList',
-      path:'/exitCheckList',
-      access:enums.Definition_OutputQualityControl_Read_r,
-     Component:CheckListExit,
-      },
 
-      "add"
-    );
-  };
+
   const handleError = (message) => {
     toast.error(message, {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };
-
+  const handleResponse = () => {
+    props.updated()
+  };
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
   useEffect(() => {
     if (response) {
       response.Result
         ? handleResponse(response)
         : handleError(response.Message);
-      setResponse(undefined);
     }
-    return () => abortController.abort();
   }, [response]);
-
-  const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchData({
       method: "POST",
-      url: outputQualityControlCreate,
+      url:outputQualityControlUpdate ,
       headers: {
         accept: "*/*",
       },
       data: {
         Request: request,
-        Id: 0,
+        Id: val.Id,
         Priority: values.periority,
         Title: values.title,
         Description: values.desc,
@@ -130,15 +109,20 @@ const CheckListExitFormDefine = () => {
       },
       signal: abortController.signal,
     });
+  
   };
-return (
-<div className="periorityFormMain">
-      <div className="periorityFormHeader">
-        <h1>{t("routes.exitCheckListForm")}</h1>
-      </div>
-      <div className="periorityFormmainDiv">
-        <div className="periorityFormForm">
-          <form onSubmit={handleSubmit} className="periorityForms">
+  return (
+    <Modal
+      show={props.tableModalShow}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      onHide={props.onHide}
+      className='editModalPeriority'
+    >
+      <Modal.Header closeButton></Modal.Header>
+      <Modal.Body>
+      <form className="periorityFormsEdit">
             {inputs.map((input) => (
               <FormInput
                 key={input.id}
@@ -147,12 +131,13 @@ return (
                 onChange={onChange}
               />
             ))}
-    
-            <button disabled={loading} className="periorityFormSubmit">{t("submit")}</button>
-          </form>
-        </div>
-      </div>
-    </div>
-)
-}
-export default CheckListExitFormDefine
+        </form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button disabled={loading} onClick={handleSubmit}> {t("submit")}</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
+export default TableModal;
