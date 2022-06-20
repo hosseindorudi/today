@@ -1,56 +1,55 @@
-import { Pagination } from "@mui/material";
-import React, { useContext, useEffect, useState, useCallback } from "react";
-import { toast } from "react-toastify";
-import BackDrop from "../../../../Components/backDrop/BackDrop";
-import AccessListModal from "../../../../Components/Table/AccessListModal/AccessListModal";
-import DownArrow from "../../../../Components/Table/Arrows/downArrow/DownArrow";
-import MainUpArrow from "../../../../Components/Table/Arrows/MainUpArrow/MainUpArrow";
-import UpArrow from "../../../../Components/Table/Arrows/upArrow/UpArrow";
-import ExportAllButton from "../../../../Components/Table/ExportButton/ExportAllButton";
-import LogModal from "../../../../Components/Table/LogModal/LogModal";
-import TableButtons from "../../../../Components/Table/TableButtons/TableButtons";
-import { TabContext } from "../../../../contexts/TabContextProvider";
-import useAxios from "../../../../customHooks/useAxios";
-import useButtonAccess from "../../../../customHooks/useButtonAccess";
-import useRequest from "../../../../customHooks/useRequest";
-import useWindowSize from "../../../../customHooks/useWindowSize";
-import { t } from "i18next";
+import { Pagination } from '@mui/material';
+import React, { useCallback, useContext, useState, useEffect } from 'react'
+import { Breadcrumb, Form } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import BackDrop from '../../../../../Components/backDrop/BackDrop';
+import AccessListModal from '../../../../../Components/Table/AccessListModal/AccessListModal';
+import DownArrow from '../../../../../Components/Table/Arrows/downArrow/DownArrow';
+import MainUpArrow from '../../../../../Components/Table/Arrows/MainUpArrow/MainUpArrow';
+import UpArrow from '../../../../../Components/Table/Arrows/upArrow/UpArrow';
+import ExportAllButton from '../../../../../Components/Table/ExportButton/ExportAllButton';
+import LogModal from '../../../../../Components/Table/LogModal/LogModal';
+import TableButtons from '../../../../../Components/Table/TableButtons/TableButtons';
+import { TabContext } from '../../../../../contexts/TabContextProvider';
+import useAxios from '../../../../../customHooks/useAxios';
+import useButtonAccess from '../../../../../customHooks/useButtonAccess';
+import useRequest from '../../../../../customHooks/useRequest';
+import useWindowSize from '../../../../../customHooks/useWindowSize';
 import { 
-  admitionRead,
-  admitionReadPaging,
-  admitionReadTitle,
-  admitionGetOneRecord,
-  admitionUpdate,
-  admitionSetColumn,
-  admitionDelete,
-  admitionSampleFile,
-  admitionCheckFile,
-  admitionImport,
-  admitionExport,
-  admitionExportId,
-  admitionLog,
-  admitionFavorite,
-  admitionAccessList
-} from "../../../../services/admitionService";
-import { convertUTC } from "../../../../validation/functions";
-import { Breadcrumb, Form } from "react-bootstrap";
+      admitionCreate,
+      admitionRead,
+      admitionReadPaging,
+      admitionReadTitle,
+      admitionGetOneRecord,
+      admitionUpdate,
+      admitionSetColumn,
+      admitionDelete,
+      admitionSampleFile,
+      admitionCheckFile,
+      admitionImport,
+      admitionExport,
+      admitionExportId,
+      admitionLog,
+      admitionFavorite,
+      admitionAccessList
+ } from '../../../../../services/admitionService';
+import { convertUTC } from '../../../../../validation/functions';
+import { t } from "i18next";
 import * as fa from "react-icons/fa";
 import * as fi from "react-icons/fi";
 import * as md from "react-icons/md";
-import { setDatePickerDate } from "../../../../validation/functions";
-import { enums } from "../../../../data/Enums";
-import ImportCSV from "../../../../Components/Table/ImportCSVButton/ImportCSV";
-import AdmitionFirstForm from './AdmitionFirstForm'
 import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import './admission.css'
-import AdmissionModal from "./tableModal/AdmissionModal";
+import { setDatePickerDate } from '../../../../../validation/functions';
+import { enums } from '../../../../../data/Enums';
+import SignatureModal from '../../../../../Components/Table/SignatureModal/SignatureModal';
 
-const Admission = () => {
 
+const Delivery = () => {
+ 
 
   const filteredColumns = ["Language_EId", "Id", "Group_Id", "Password", "Registrar"];
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -81,485 +80,422 @@ const Admission = () => {
   const withOfScreen = useWindowSize().width;
   const abortController = new AbortController();
   const [passwordModalOpen, setPasswordmodalOpen] = useState(false);
+  const [openSendModal, setOpenSendModal] = useState(false)
 
 
-  const handleAdd = () => {
-    const item = {
-      Component: AdmitionFirstForm,
-      path: "/admissionForm",
-      title: "routes.admissionForm",
-      access: enums.AfterSales_New_Admission_Create_w,
+
+   // const handleAdd = () => {
+    //   const item = {
+    //     Component: OperatorForm,
+    //     path: "/operatorcreate",
+    //     title: "routes.operatorForm",
+    //     access: enums.Operator_Operator_Create_w,
+    //   };
+    //   tabContext.addRemoveTabs(item, "add");
+    // };
+  
+    const getTable = () => {
+      fetchData({
+        method: "POST",
+        url: admitionRead,
+        headers: {
+          accept: "*/*",
+        },
+        data: request,
+        signal: abortController.signal,
+      });
     };
-    tabContext.addRemoveTabs(item, "add");
-  };
+    const handleError = (message) => {
+      toast.error(message, {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    };
+  
 
-
-
-  const getTable = () => {
-    fetchData({
-      method: "POST",
-      url: admitionRead,
-      headers: {
-        accept: "*/*",
+  
+    useEffect(() => {
+      setRequestType("READ");
+      getTable();
+  
+      return () => abortController.abort();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+  
+    const handleResponse = useCallback(
+      (response, type) => {
+        switch (type) {
+          case "READ":
+            setData(response);
+            break;
+          case "READPAGING":
+            setData(response);
+            break;
+          case "FAVORITE":
+            favorited();
+            break;
+          case "Send":
+            sendRecord();
+            break;
+          case "sendSignature":
+            sendSig();
+            break;
+          case "LOG":
+            logResponse(response);
+            break;
+          case "UNSELECT":
+            unselectResponseHandler();
+            break;
+          case "ACCESSLIST":
+            handleAccessListModal(response);
+            break;
+          default:
+            break;
+        }
       },
-      data: request,
-      signal: abortController.signal,
-    });
-  };
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
-
-  useEffect(() => {
-    setRequestType("READ");
-    getTable();
-
-    return () => abortController.abort();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      []
+    );
+  
 
 
-  const handleResponse = useCallback(
-    (response, type) => {
-      switch (type) {
-        case "READ":
-          setData(response);
-          break;
-        case "DELETE":
-          handleDeleted();
-          break;
-        case "GETONERECORD":
-          setUpdate(response);
-          break;
-        case "READPAGING":
-          setData(response);
-          break;
-        case "FAVORITE":
-          favorited();
-          break;
-        case "LOG":
-          logResponse(response);
-          break;
-        case "UNSELECT":
-          unselectResponseHandler();
-          break;
-        case "ACCESSLIST":
-          handleAccessListModal(response);
-          break;
-        default:
-          break;
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
 
-  const setUpdate = (res) => {
-    const record = res.Record;
-    setRowValues(record);
-    setTableModalOpen(true);
-  };
-
-  const favorited = () => {
-    setIsFavorite(true);
-    toast.success(t("favorited"), {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  };
-
-
-  const logResponse = (res) => {
-    if (!res.Log.length) {
-      return toast.info(t("noDataFound.table"), {
+    const favorited = () => {
+      setIsFavorite(true);
+      toast.success(t("favorited"), {
         position: toast.POSITION.TOP_CENTER,
       });
-    }
-    setLog(res.Log);
-    setShowLogModal(true);
-  };
-
+    };
   
-  const unselectResponseHandler = () => {
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
-  const handleAccessListModal = (response) => {
-    setAccessLists(response.AccessList);
-    setAccessListModal(true);
-  };
-
-  const handleClearFilter = () => {
-    
-     
-    setFlt_Title("");
-    setSearchBegin(null);
-    setSearchEnd(null);
-    
-    getTable();
-    
-  };
-
-
-  const handleChangeTitle = (event) => {
-    setFlt_Title(event.target.value);
-  };
-
-  const handleClickSort = (column) => {
-    setSort({ SortBy: column.accessor, IsAscending: !column.IsAscending });
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: !column.IsAscending,
-      SortBy: column.accessor,
-    };
-    readPaging(paging);
-  };
-
-
-  const handleClickEdit = (id) => {
-    setRequestType("GETONERECORD");
-    fetchData({
-      method: "POST",
-      url: admitionGetOneRecord,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Request: request,
-        Id: id,
-      },
-      signal: abortController.signal,
-    });
-  };
-
-  
-  const checkValues = (type, value, post) => {
-    switch (type) {
-      case "DateSet":
-        return convertUTC(value);
-      case "IsActive":
-        return <Form.Check type="switch" disabled checked={value} />;
-      case "LimitFrom":
-        return post.IsLimited ? convertUTC(value) : "-";
-      case "LimitTo":
-        return post.IsLimited ? convertUTC(value) : "-";
-      default:
-        return value;
-    }
-  };
-
-
-  const handleChangeSelect = (e) => {
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: e.target.value,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
-
-  const handleClickSend = () => {
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
-  const sendUnselectRequest = (temp) => {
-    setRequestType("UNSELECT");
-    fetchData({
-      method: "POST",
-      url: admitionSetColumn,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Request: request,
-        Column: temp,
-      },
-      signal: abortController.signal,
-    });
-  };
-
-
-  const checkAllHandler = (e) => {
-    let temp = unSelected;
-    if (e.target.id === "checkAll") {
-      productsColumns
-        .filter((p, i) => !filteredColumns.includes(p["Header"]))
-        .map(
-          (column, index) => (temp = temp.filter((i) => i !== column["Header"]))
-        );
-      sendUnselectRequest(temp);
-      setCheckAllC(!checkAllC);
-    } else if (e.target.id === "unCheckAll") {
-      productsColumns
-        .filter((p, i) => !filteredColumns.includes(p["Header"]))
-        .map((column, index) => temp.push(column["Header"]));
-      sendUnselectRequest(temp);
-      setCheckAllC(!checkAllC);
-    }
-  };
-
-  const CheckBoxChangeHandler = (e, column) => {
-    let checked = e.target.checked;
-    let temp = unSelected;
-    checked ? (temp = temp.filter((u) => u !== column)) : temp.push(column);
-    sendUnselectRequest(temp);
-  };
-
-
-  const setPage = (event, value) => {
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: value,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    console.log(paging)
-    readPaging(paging);
-  };
-
-
-  useEffect(() => {
-    
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response, handleResponse]);
-
-
-  const setData = (response) => {
-    const res = response.Record;
-    const paging = response.Paging;
-    setIsFavorite(response.IsFavorite);
-    setUnSelected(response.UnselectedColumn);
-    setPosts(res);
-    setCurrentPage(paging.CurrentPage);
-    setTotalPages(paging.TotalPages);
-    setSort({ SortBy: paging.SortBy, IsAscending: paging.IsAscending });
-    setNumberOfRecordsPerPage(paging.NumberOfRecordsPerPage);
-    setproductsColumns(
-      res[0]
-        ? Object.keys(res[0]).map((key) => {
-            return {
-              Header: key,
-              accessor: key,
-              show: true,
-              isSorted: paging.SortBy === key ? true : false,
-              IsAscending: paging.SortBy === key ? paging.IsAscending : false,
-            };
-          })
-        : []
-    );
-  };
-
-
-  const readPaging = (paging) => {
-    console.log(paging)
-    setRequestType("READPAGING");
-    fetchData({
-      method: "POST",
-      url: admitionReadPaging,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Request: request,
-        paging: paging,
-        filter: {
-          Flt_IMEI1: flt_Title,
-          // Flt_CustomerMobile:null,
-          // Flt_CustomerFamily:null,
-          // Flt_CustomerIdCardNumber:null,
-          // Flt_ProductGroup_Id:null,
-          // Flt_ModelNumber:null,
-          // Flt_SerialNumber:null,
-          // Flt_CodeNumber:null,
-          // Flt_IMEI2:null,
-          // Flt_AdmissionNumber:null,
-          Flt_FromDate: seartBegin ? setDatePickerDate(seartBegin) : null,
-          Flt_ToDate: seartEnd ? setDatePickerDate(seartEnd) : null,
-        },
-      },
-      signal: abortController.signal,
-    });
-  };
-
-
-  const handleClickLog = () => {
-    setRequestType("LOG");
-    fetchData({
-      method: "POST",
-      url: admitionLog,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
-      signal: abortController.signal,
-    });
-  };
-
-  const handleClickAccessList = () => {
-    setRequestType("ACCESSLIST");
-    fetchData({
-      method: "POST",
-      url: admitionAccessList,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
-      signal: abortController.signal,
-    });
-  };
-
-  const handleClickFav = () => {
-    setRequestType("FAVORITE");
-    fetchData({
-      method: "POST",
-      url: admitionFavorite,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
-      signal: abortController.signal,
-    });
-  };
-
-
-  const handleClickHelp = () => {
-    window.open("https://www.google.com");
-  };
-
-  const handleRefresh = () => {
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
-
-  const updated = () => {
-    setTableModalOpen(false);
-    toast.success(t("updatedRecord"), {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  }
-
-
-  const importSuccess = (message) => {
-    toast.success(message, {
-      position: toast.POSITION.TOP_CENTER,
-    });
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
-  const handleDeleted = () => {
-    Swal.fire(
-      t("sweetAlert.deleted"),
-      t("sweetAlert.recordDeleted"),
-      "success"
-    );
-    const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
-      NumberOfRecordsPerPage: numberOfRecordsPerPage,
-      CurrentPage: currentPage,
-      IsAscending: sort.IsAscending,
-      SortBy: sort.SortBy,
-    };
-    readPaging(paging);
-  };
-
-  const deleteCalled = (id) => {
-    Swal.fire({
-      title: t("table.deleteTitle"),
-      text: t("table.noReturn"),
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: t("sweetAlert.yes"),
-      cancelButtonText: t("sweetAlert.cancel"),
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deleteRecord(id);
+    const logResponse = (res) => {
+      if (!res.Log.length) {
+        return toast.info(t("noDataFound.table"), {
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
-    });
-  };
+      setLog(res.Log);
+      setShowLogModal(true);
+    };
+  
+    const unselectResponseHandler = () => {
+      const paging = {
+        TotalPage:totalPages ,
+        TotalRecord:0,
+        NumberOfRecordsPerPage: numberOfRecordsPerPage,
+        CurrentPage: currentPage,
+        IsAscending: sort.IsAscending,
+        SortBy: sort.SortBy,
+      };
+      readPaging(paging);
+    };
+  
+    const handleAccessListModal = (response) => {
+      setAccessLists(response.AccessList);
+      setAccessListModal(true);
+    };
+  
+    const handleClearFilter = () => {
+      
+       
+      setFlt_Title("");
+      setSearchBegin(null);
+      setSearchEnd(null);
+      
+      getTable();
+      
+    };
+  
+    const handleChangeTitle = (event) => {
+      setFlt_Title(event.target.value);
+    };
+  
+    const handleClickSort = (column) => {
+      setSort({ SortBy: column.accessor, IsAscending: !column.IsAscending });
+      const paging = {
+        TotalPage:totalPages ,
+        TotalRecord:0,
+        NumberOfRecordsPerPage: numberOfRecordsPerPage,
+        CurrentPage: currentPage,
+        IsAscending: !column.IsAscending,
+        SortBy: column.accessor,
+      };
+      readPaging(paging);
+    };
+  
 
-  const deleteRecord = (id) => {
-    setRequestType("DELETE");
-    fetchData({
-      method: "POST",
-      url: admitionDelete,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Request: request,
-        Id: id,
-      },
-      signal: abortController.signal,
-    });
-  };
+
+  
+    const checkValues = (type, value, post) => {
+      switch (type) {
+        case "DateSet":
+          return convertUTC(value);
+        case "IsActive":
+          return <Form.Check type="switch" disabled checked={value} />;
+        case "LimitFrom":
+          return post.IsLimited ? convertUTC(value) : "-";
+        case "LimitTo":
+          return post.IsLimited ? convertUTC(value) : "-";
+        default:
+          return value;
+      }
+    };
+  
+    const handleChangeSelect = (e) => {
+      const paging = {
+        TotalPage:totalPages ,
+        TotalRecord:0,
+        NumberOfRecordsPerPage: e.target.value,
+        CurrentPage: currentPage,
+        IsAscending: sort.IsAscending,
+        SortBy: sort.SortBy,
+      };
+      readPaging(paging);
+    };
+  
+    const handleClickSend = () => {
+      const paging = {
+        TotalPage:totalPages ,
+        TotalRecord:0,
+        NumberOfRecordsPerPage: numberOfRecordsPerPage,
+        CurrentPage: currentPage,
+        IsAscending: sort.IsAscending,
+        SortBy: sort.SortBy,
+      };
+      readPaging(paging);
+    };
+  
+    const sendUnselectRequest = (temp) => {
+      setRequestType("UNSELECT");
+      fetchData({
+        method: "POST",
+        url: admitionSetColumn,
+        headers: {
+          accept: "*/*",
+        },
+        data: {
+          Request: request,
+          Column: temp,
+        },
+        signal: abortController.signal,
+      });
+    };
+  
+    const checkAllHandler = (e) => {
+      let temp = unSelected;
+      if (e.target.id === "checkAll") {
+        productsColumns
+          .filter((p, i) => !filteredColumns.includes(p["Header"]))
+          .map(
+            (column, index) => (temp = temp.filter((i) => i !== column["Header"]))
+          );
+        sendUnselectRequest(temp);
+        setCheckAllC(!checkAllC);
+      } else if (e.target.id === "unCheckAll") {
+        productsColumns
+          .filter((p, i) => !filteredColumns.includes(p["Header"]))
+          .map((column, index) => temp.push(column["Header"]));
+        sendUnselectRequest(temp);
+        setCheckAllC(!checkAllC);
+      }
+    };
+  
+    const CheckBoxChangeHandler = (e, column) => {
+      let checked = e.target.checked;
+      let temp = unSelected;
+      checked ? (temp = temp.filter((u) => u !== column)) : temp.push(column);
+      sendUnselectRequest(temp);
+    };
+  
+    const setPage = (event, value) => {
+      const paging = {
+        TotalPage:totalPages ,
+        TotalRecord:0,
+        NumberOfRecordsPerPage: numberOfRecordsPerPage,
+        CurrentPage: value,
+        IsAscending: sort.IsAscending,
+        SortBy: sort.SortBy,
+      };
+      console.log(paging)
+      readPaging(paging);
+    };
+  
+    useEffect(() => {
+      
+      if (response) {
+        response.Result
+          ? handleResponse(response, requestType)
+          : handleError(response.Message);
+        setResponse(undefined);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [response, handleResponse]);
+  
+    const setData = (response) => {
+      const res = response.Record;
+      const paging = response.Paging;
+      setIsFavorite(response.IsFavorite);
+      setUnSelected(response.UnselectedColumn);
+      setPosts(res);
+      setCurrentPage(paging.CurrentPage);
+      setTotalPages(paging.TotalPages);
+      setSort({ SortBy: paging.SortBy, IsAscending: paging.IsAscending });
+      setNumberOfRecordsPerPage(paging.NumberOfRecordsPerPage);
+      setproductsColumns(
+        res[0]
+          ? Object.keys(res[0]).map((key) => {
+              return {
+                Header: key,
+                accessor: key,
+                show: true,
+                isSorted: paging.SortBy === key ? true : false,
+                IsAscending: paging.SortBy === key ? paging.IsAscending : false,
+              };
+            })
+          : []
+      );
+    };
+  
+    const readPaging = (paging) => {
+      console.log(paging)
+      setRequestType("READPAGING");
+      fetchData({
+        method: "POST",
+        url: admitionReadPaging,
+        headers: {
+          accept: "*/*",
+        },
+        data: {
+          Request: request,
+          paging: paging,
+          filter: {
+            Flt_OperatorName: flt_Title,
+            Flt_FromDate: seartBegin ? setDatePickerDate(seartBegin) : null,
+            Flt_ToDate: seartEnd ? setDatePickerDate(seartEnd) : null,
+          },
+        },
+        signal: abortController.signal,
+      });
+    };
+  
+  
+  
+    const handleClickLog = () => {
+      setRequestType("LOG");
+      fetchData({
+        method: "POST",
+        url: admitionLog,
+        headers: {
+          accept: "*/*",
+        },
+        data: request,
+        signal: abortController.signal,
+      });
+    };
 
 
-
-  return (
+    const sendCalled = (id) => {
+      Swal.fire({
+        title: "تایید ارسال",
+        text: "آیا میخواهید این آیتم را ارسال کنید",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: t("sweetAlert.yes"),
+        cancelButtonText: t("sweetAlert.cancel"),
+      }).then((result) => {
+        if (result.isConfirmed) {
+          sendRecord(id);
+        }
+      });
+    };
     
+    const sendRecord = (id) => {
+      setRequestType("Send");
+      fetchData({
+        method: "POST",
+        url: "",
+        headers: {
+          accept: "*/*",
+        },
+        data: {
+          Request: request,
+          Id: id,
+        },
+        signal: abortController.signal,
+      });
+    };
 
+
+    const sendSig = (id) => {
+      setRequestType("sendSignature");
+      fetchData({
+        method: "POST",
+        url: "",
+        headers: {
+          accept: "*/*",
+        },
+        data: {
+          Request: request,
+          Id: id,
+        },
+        signal: abortController.signal,
+      });
+    };
+
+
+    const handleClickAccessList = () => {
+      setRequestType("ACCESSLIST");
+      fetchData({
+        method: "POST",
+        url: admitionAccessList,
+        headers: {
+          accept: "*/*",
+        },
+        data: request,
+        signal: abortController.signal,
+      });
+    };
+  
+    const handleClickFav = () => {
+      setRequestType("FAVORITE");
+      fetchData({
+        method: "POST",
+        url: admitionFavorite,
+        headers: {
+          accept: "*/*",
+        },
+        data: request,
+        signal: abortController.signal,
+      });
+    };
+  
+    const handleClickHelp = () => {
+      window.open("https://www.google.com");
+    };
+  
+    const handleRefresh = () => {
+      const paging = {
+        TotalPage:totalPages ,
+        TotalRecord:0,
+        NumberOfRecordsPerPage: numberOfRecordsPerPage,
+        CurrentPage: currentPage,
+        IsAscending: sort.IsAscending,
+        SortBy: sort.SortBy,
+      };
+      readPaging(paging);
+    };
+
+
+
+
+    
+  return (
+      
+  
     <>
       {loading && <BackDrop open={true} />}
       <>
-        {tableModalOpen && (
-          <AdmissionModal
-            rowValus={rowValus}
-            onHide={() => setTableModalOpen(false)}
-            tableModalShow={tableModalOpen}
-            updated={updated}
-          />
-        )}
+        
         
         {showLogModal && (
           <LogModal
@@ -568,11 +504,20 @@ const Admission = () => {
             show={showLogModal}
           />
         )}
+
         {showAccessListModal && (
           <AccessListModal
             accessList={accessLists}
             show={showAccessListModal}
             onHide={() => setAccessListModal(false)}
+          />
+        )}
+
+        {openSendModal && (
+          <SignatureModal
+            rowValus={rowValus}
+            show={openSendModal}
+            onHide={() => setOpenSendModal(false)}
           />
         )}
         
@@ -616,7 +561,7 @@ const Admission = () => {
                     {t("table.groups")}
                   </button>
                 </div>
-                {haveAccess(enums.Operator_Operator_Export_r) && (
+                {haveAccess(enums.AfterSales_New_Admission_Export_r) && (
                   <ExportAllButton
                     numberOfRecordsPerPage={numberOfRecordsPerPage}
                     currentPage={currentPage}
@@ -627,10 +572,8 @@ const Admission = () => {
                     exportLink={admitionExport}
                   />
                 )}
-                {haveAccess(enums.Operator_Operator_Import_w) && (
-                  <ImportCSV importSuccess={importSuccess} sampleUrl={admitionSampleFile} fileCheckURL={admitionCheckFile} importURL={admitionImport}/>
-                )}
-                {haveAccess(enums.Operator_Operator_Log_r) && (
+                
+                {haveAccess(enums.AfterSales_New_Admission_Log_r) && (
                   <button
                     className="reactTableParentLogButton"
                     title="log"
@@ -640,7 +583,7 @@ const Admission = () => {
                   </button>
                 )}
                
-                {haveAccess(enums.Operator_AccessList_Read_r) && (
+                {haveAccess(enums.AfterSales_New_Admission_Read_r) && (
                 <button
                   className="reactTableParentAccessButton"
                   onClick={handleClickAccessList}
@@ -679,11 +622,7 @@ const Admission = () => {
                   <button className="groupListRefresh" onClick={handleRefresh}>
                     <fi.FiRefreshCcw />
                   </button>
-                  {haveAccess(enums.Operator_Operator_Create_w) && (
-                    <button className="plusBUTTON" onClick={handleAdd}>
-                      <md.MdPostAdd />
-                    </button>
-                  )}
+                  
                 </div>
 
                 <div className="reacttableParentMiddleMiddleSide">
@@ -844,12 +783,14 @@ const Admission = () => {
                                 <TableButtons
                                   exportLink={admitionExportId}
                                   exportType={enums.AfterSales_New_Admission_Export_r}
-                                  editType={enums.AfterSales_New_Admission_Update_w}
                                   accessListType={""}
-                                  deleteType={enums.AfterSales_New_Admission_Delete_w}
-                                  deleteCalled={deleteCalled}
                                   rowValue={post}
-                                  handleClickEdit={handleClickEdit}
+                                  sendCalled= {sendCalled}
+                                  sendAccessType = {""}
+                                  accessSendSigType = {""}
+                                  setOpenSendModal = {setOpenSendModal}
+                                  setRowValues= {setRowValues}
+
                                 />
                               </td>
                               {Object.keys(post)
@@ -989,15 +930,6 @@ const Admission = () => {
     
 
   )
-  
+}
 
-
-
-
-
-
-
-
-};
-
-export default Admission;
+export default Delivery

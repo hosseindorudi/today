@@ -8,7 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { TabContext } from "../../../../contexts/TabContextProvider";
 import { enums } from "../../../../data/Enums";
 import useButtonAccess from "../../../../customHooks/useButtonAccess";
-const Delivery=lazy(()=>import("../delivery/Delivery"))
+const Delivery=lazy(()=>import("../delivery/deliveryList/Delivery"))
 const DeliveryForm=lazy(()=>import("../delivery/DeliveryForm"))
 const QcExitForm=lazy(()=>import("../QcExit/qcExitList/QcExitList"))
 const QcExit=lazy(()=>import("../QcExit/qcExitForm/Qc"))

@@ -103,6 +103,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 80%;
+    
 }
 
 .firstNameDiv{
@@ -380,7 +381,7 @@
 }
 
 .patternLock {
-    z-index: 10;
+    z-index: 100;
     position: relative;
 }
 
@@ -585,7 +586,7 @@
     border: 1px solid lightgray;
     width: 100%;
     height: 250px;
-    z-index: 5;
+    z-index: 0;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -703,3 +704,344 @@
     background-color: #0072E5;
     color: #fff;
 }
+
+
+@media screen and ( max-height: 1080px ) { 
+    .recievedSpan{
+        top: -5px;
+    }
+    .recievedDiv {
+        top: 8px;
+    }
+
+    .customerSpan {
+        top: -10px;
+    }
+    .customerDiv {
+        top: 3px;
+    }
+    .firstNameSpanValue {
+        font-size: 13px;
+    }
+    .firstNameSpanKey {
+        font-size: 13px;
+        flex: 0.2;
+        font-weight: bolder;
+    }
+
+    .editCustomer {
+        font-size: 12px;
+        margin-inline-end: 3px;
+    }
+
+    .groupSpan {
+        top: -10px;
+    }
+    .groupDiv {
+        top: 3px;
+    }
+
+    .groupDivSpanKey {
+        font-size: 13px;
+        font-weight: bolder;
+    }
+    .groupDivSpanValue {
+        font-size: 13px;
+    }
+
+    .admitionSpan {
+        top: -40px;
+    }
+
+    .admitionItemsDiv {
+        top: -27px;
+    }
+
+    .agentSpan {
+        top: -30px;
+    }
+    .agentItemsDiv {
+        top: -17px;
+    }
+ }
+
+ @media screen and ( max-height: 1000px ) { 
+    .recievedSpan{
+        top: -3px;
+        font-size: 12px;
+        font-weight: bolder;
+    }
+    .recievedDiv > span {
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .recievedDiv {
+        top: 8px;
+        height: 35px;
+    }
+    .recievedNew {
+        font-size: 10px;
+        font-weight: bolder;
+    }
+
+    .customerSpan {
+        top: -5px;
+        font-weight: bolder;
+        font-size: 12px;
+    }
+    .customerDiv {
+        top: 0px;
+        height: 180px;
+    }
+    .firstNameSpanValue {
+        font-size: 12px;
+    }
+    .firstNameSpanKey {
+        font-size: 12px;
+        flex: 0.2;
+        font-weight: bolder;
+    }
+
+    .editCustomer {
+        font-size: 12px;
+        margin-inline-end: 3px;
+    }
+
+    .groupSpan {
+        top: -8px;
+        font-weight: bolder;
+        font-size: 12px;
+    }
+    .groupDiv {
+        top: 0px;
+        height: 180px;
+    }
+
+    .groupDivSpanKey {
+        font-size: 12px;
+        font-weight: bolder;
+    }
+    .groupDivSpanValue {
+        font-size: 12px;
+    }
+
+    .admitionSpan {
+        top: -10px;
+        font-size: 12px;
+    }
+
+    .admitionItemsDiv {
+        top: 3px;
+        height: 200px;
+
+    }
+
+    .agentSpan {
+        top: 3px;
+        font-size: 12px;
+        font-weight: bolder;
+    }
+    .agentItemsDiv {
+        top: 13px;
+    }
+
+    .failedDescSpan {
+        font-size: 12px;
+        top: -8px;
+    }
+    .acountpatternSpan {
+        font-size: 12px;
+        top: -8px;
+    }
+    .aountCustomerSpan {
+        font-size: 12px;
+        top: -8px;
+    }
+    .extraDeviceSpan {
+        font-size: 12px;
+        top: -8px;
+    }
+    .agentSigSpan {
+        font-size: 12px;
+        top: -8px;
+    }
+
+    .admitionThirdDiv{
+        height: fit-content;
+    }
+
+    .btnPattern {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .selectionLock {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .acountDivGmailSpan {
+        font-size: 12px;
+    }
+
+    .agentItemsDiv {
+        height: 200px;
+    }
+
+    .agentDescriptionSpan {
+        font-size: 12px;
+        top: 5;
+    }
+
+    .m-signature-pad--body {
+        height: 130px;
+    }
+
+    .admitionFinalFormSubmit {
+        font-size: 13px;
+        height: 30px;
+        width: 200px;
+        font-weight: bolder;
+        margin-top: 15px;
+    }
+ }
+ @media screen and ( max-height: 840px ) { 
+    .recievedSpan{
+        top: -3px;
+        font-size: 12px;
+        font-weight: bolder;
+    }
+    .recievedDiv > span {
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .recievedDiv {
+        top: 8px;
+        height: 30px;
+    }
+    .recievedNew {
+        font-size: 10px;
+        font-weight: bolder;
+    }
+
+    .customerSpan {
+        top: -8px;
+        font-weight: bolder;
+        font-size: 12px;
+    }
+    .customerDiv {
+        top: 0px;
+        height: 150px;
+    }
+    .firstNameSpanValue {
+        font-size: 12px;
+    }
+    .firstNameSpanKey {
+        font-size: 12px;
+        flex: 0.2;
+        font-weight: bolder;
+    }
+
+    .editCustomer {
+        font-size: 10px;
+        margin-inline-end: 3px;
+    }
+
+    .groupSpan {
+        top: -8px;
+        font-weight: bolder;
+        font-size: 12px;
+    }
+    .groupDiv {
+        top: 0px;
+        height: 150px;
+    }
+
+    .groupDivSpanKey {
+        font-size: 12px;
+        font-weight: bolder;
+    }
+    .groupDivSpanValue {
+        font-size: 12px;
+    }
+
+    .admitionSpan {
+        top: -10px;
+        font-size: 12px;
+    }
+
+    .admitionItemsDiv {
+        top: 3px;
+        height: 200px;
+
+    }
+
+    .agentSpan {
+        top: 3px;
+        font-size: 12px;
+        font-weight: bolder;
+    }
+    .agentItemsDiv {
+        top: 13px;
+    }
+
+    .failedDescSpan {
+        font-size: 12px;
+        top: -8px;
+    }
+    .acountpatternSpan {
+        font-size: 12px;
+        top: -8px;
+    }
+    .aountCustomerSpan {
+        font-size: 12px;
+        top: -8px;
+    }
+    .extraDeviceSpan {
+        font-size: 12px;
+        top: -8px;
+    }
+    .agentSigSpan {
+        font-size: 12px;
+        top: -8px;
+    }
+
+    .admitionItemsDiv{
+        height: 150px;
+    }
+
+    .btnPattern {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .selectionLock {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .acountDivGmailSpan {
+        font-size: 12px;
+    }
+
+    .agentItemsDiv {
+        height: 150px;
+    }
+
+    .agentDescriptionSpan {
+        font-size: 12px;
+        top: 5;
+    }
+
+    .m-signature-pad--body {
+        height: 95px;
+    }
+
+    .admitionFinalFormSubmit {
+        font-size: 13px;
+        height: 30px;
+        width: 200px;
+        font-weight: bolder;
+        margin-top: 15px;
+    }
+ }

@@ -19,7 +19,7 @@ const CustomerSendMsgTypeDefine=lazy(()=>import("./Views/Forms/definations/Custo
 const ExtraServicesDefine=lazy(()=>import("./Views/Forms/definations/extraServices/extraServicesDefine/ExtraServicesDefine"))
 const InventoryGroupDefine=lazy(()=>import("./Views/Forms/definations/inventoryGroup/inventoryGroup/InventoryGroupDefine"))
 const PartRequestDefine=lazy(()=>import("./Views/Forms/definations/partRequest/partRequestDefine/PartRequestDefine"))
-const Delivery=lazy(()=>import("./Views/Forms/service/delivery/Delivery"))
+const Delivery=lazy(()=>import("./Views/Forms/service/delivery/deliveryList/Delivery"))
 const DeliveryForm=lazy(()=>import("./Views/Forms/service/delivery/DeliveryForm"))
 const TechnicianForm=lazy(()=>import("./Views/Forms/service/technecian/technicianForm/TechnicianForm"))
 const Technician=lazy(()=>import("./Views/Forms/service/technecian/technicianList/Technician"))
