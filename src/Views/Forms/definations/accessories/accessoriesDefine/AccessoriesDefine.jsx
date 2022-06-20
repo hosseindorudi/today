@@ -6,10 +6,11 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
-import { productGroupCreate } from "../../../../../services/productGroup";
-import ProductGroup from "../ProductGroup";
 import '../../../../../assets/css/periorityForm.css'
-const ProductGroupDefine = () => {
+import Accessories from "../Accessories";
+import { admissionAccessoryCreate } from "../../../../../services/admissionAccessory";
+const AccessoriesDefine = () => {
+
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const request = useRequest();
@@ -69,19 +70,19 @@ const ProductGroupDefine = () => {
     });
     tabContext.addRemoveTabs(
       {
-        Component: ProductGroupDefine,
-        path: "/productGroupForm",
-        title: "routes.productGroupForm",
-        access: enums.Definition_ProductGroup_Create_w,
+        Component:AccessoriesDefine,
+        path:"/accessoriesForm",
+        title:"routes.accessoriesForm",
+        access:enums.Definition_AdmissionAccessory_Create_w,
       },
       "remove"
     );
     tabContext.addRemoveTabs(
       {
-        title: "routes.productGroup",
-        path: "/productGroup",
-        access: enums.Definition_ProductGroup_Read_r,
-        Component: ProductGroup,
+        title: 'routes.accessories',
+        path:'/accessories',
+        access:enums.Definition_AdmissionAccessory_Read_r,
+       Component:Accessories,
       },
 
       "add"
@@ -111,7 +112,7 @@ const ProductGroupDefine = () => {
     e.preventDefault();
     fetchData({
       method: "POST",
-      url: productGroupCreate,
+      url: admissionAccessoryCreate,
       headers: {
         accept: "*/*",
       },
@@ -129,29 +130,29 @@ const ProductGroupDefine = () => {
       signal: abortController.signal,
     });
   };
-  return (
-    <div className="periorityFormMain">
-      <div className="periorityFormHeader">
-        <h1>{t("ProductGroupDefineHeader")}</h1>
-      </div>
-      <div className="periorityFormmainDiv">
-        <div className="periorityFormForm">
-          <form onSubmit={handleSubmit} className="periorityForms">
-            {inputs.map((input) => (
-              <FormInput
-                key={input.id}
-                {...input}
-                value={values[input.name]}
-                onChange={onChange}
-              />
-            ))}
+return (
+  <div className="periorityFormMain">
+  <div className="periorityFormHeader">
+    <h1>{t("admissionAccessories")}</h1>
+  </div>
+  <div className="periorityFormmainDiv">
+    <div className="periorityFormForm">
+      <form onSubmit={handleSubmit} className="periorityForms">
+        {inputs.map((input) => (
+          <FormInput
+            key={input.id}
+            {...input}
+            value={values[input.name]}
+            onChange={onChange}
+          />
+        ))}
 
-            <button disabled={loading} className="periorityFormSubmit">{t("submit")}</button>
-          </form>
-        </div>
-      </div>
+        <button disabled={loading} className="periorityFormSubmit">{t("submit")}</button>
+      </form>
     </div>
-  );
-};
+  </div>
+</div>
+)
+}
 
-export default ProductGroupDefine;
+export default AccessoriesDefine

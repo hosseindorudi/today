@@ -10,7 +10,7 @@ import { enums } from "../../../../../data/Enums";
 import { productGroupReadTitle } from "../../../../../services/productGroup";
 import { productCreate } from "../../../../../services/productService";
 import Product from "../Product";
-import "./productDefine.css";
+import '../../../../../assets/css/periorityForm.css'
 const ProductDefine = () => {
   const [type, setType] = useState("");
   const tabContext = useContext(TabContext);

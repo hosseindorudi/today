@@ -85,12 +85,12 @@ const WorkFlow = () => {
       Component:Technician,
       color: "green",
       no:5,
-      access:enums.AfterSales_New_Repair_Read_r,
+      access:enums.AfterSales_New_Technician_Read_r,
       button:{
         Component:TechnicianForm,
         path:"/service.technicianForm",
         title:"routes.service.technicianForm",
-        access:enums.AfterSales_New_Repair_Create_w,
+        access:enums.AfterSales_New_Technician_Create_w,
       }
     },
     {
@@ -134,12 +134,12 @@ const WorkFlow = () => {
       title: 'routes.sentAgent',
       path:'/sent',
       Component:Sent,
-      access:enums.AfterSales_New_SendToAgent_Read_r,
+      access:enums.AfterSales_New_PostToAgent_Read_r,
       button:{
         Component:SentForm,
         path:"/sentForm",
         title:"routes.sentAgentForm",
-        access:enums.AfterSales_New_SendToAgent_Create_w,
+        access:enums.AfterSales_New_PostToAgent_Create_w,
       },
      
     },
@@ -147,12 +147,12 @@ const WorkFlow = () => {
       title: 'routes.sentCustomer',
       path:'/sentCustomer',
       Component:SentCustomer,
-      access:enums.AfterSales_New_SendToCustomer_Read_r,
+      access:enums.AfterSales_New_PostToCustomer_Read_r,
       button:{
         Component:SentCustomerForm,
         path:"/sentcustomerform",
         title:"routes.sentcustomerform",
-        access:enums.AfterSales_New_SendToCustomer_Create_w,
+        access:enums.AfterSales_New_PostToCustomer_Create_w,
       },
      
     },

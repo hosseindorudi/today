@@ -5,11 +5,14 @@ import { enums } from './data/Enums';
 import Agent from './Views/Forms/agent/agentForm/Agent';
 import AgentForm from './Views/Forms/agent/agentForm/AgentForm';
 import CustomerGroup from './Views/Forms/customer/group/List/CustomerGroup';
+import AccessoriesDefine from './Views/Forms/definations/accessories/accessoriesDefine/AccessoriesDefine';
 import Registered from './Views/Forms/service/registered/Registered';
+import SentCustomer from './Views/Forms/service/sentCustomer/SentCustomer';
+import SentCustomerForm from './Views/Forms/service/sentCustomer/SentCustomerForm';
 const CustomerGroupForm=lazy(()=>import("./Views/Forms/customer/group/CustomerGroupForm"))
 const CustomerList=lazy(()=>import("./Views/Forms/customer/customer/list/CustomerList"))
 const CustomerForm=lazy(()=>import("./Views/Forms/customer/customer/CustomerForm"))
-const AccessDefine=lazy(()=>import("./Views/Forms/definations/accessories/accessDefine/AccessDefine"))
+const AccessDefine=lazy(()=>import("./Views/Forms/definations/accessories/accessoriesDefine/AccessoriesDefine"))
 const AdmissionCheckDefine=lazy(()=>import("./Views/Forms/definations/admissionCheckList/admissionCheckDefine/AdmissionCheckDefine"))
 const AgentAbilityDefine=lazy(()=>import("./Views/Forms/definations/agentsAbility/agentAbilityDefine/AgentAbilityDefine"))
 const CheckListEntryFormDefine=lazy(()=>import("./Views/Forms/definations/checkLists/checkListEntry/checkListEntryForm/CheckListEntryFormDefine"))
@@ -374,13 +377,13 @@ export const Routes = [
       {
         title: 'routes.service.technician',
         path:'/service.technician',
-        access:enums.AfterSales_New_Repair_Read_r,
+        access:enums.AfterSales_New_Technician_Read_r,
         Component:Technician,
         button:{
           Component:TechnicianForm,
           path:"/service.technicianForm",
           title:"routes.service.technicianForm",
-          access:enums.AfterSales_New_Repair_Create_w,
+          access:enums.AfterSales_New_Technician_Create_w,
         },
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
@@ -432,16 +435,28 @@ export const Routes = [
       {
         title: 'routes.sentAgent',
         path:'/sent',
-        access:enums.AfterSales_New_SendToAgent_Read_r,
+        access:enums.AfterSales_New_PostToAgent_Read_r,
        Component:Sent,
         button:{
          Component:SentForm,
           path:"/sentForm",
           title:"routes.sentAgentForm",
-          access:enums.AfterSales_New_SendToAgent_Create_w,
+          access:enums.AfterSales_New_PostToAgent_Create_w,
         },
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'
+      },
+      {
+        title: 'routes.sentCustomer',
+        path:'/sentCustomer',
+        Component:SentCustomer,
+        access:enums.AfterSales_New_PostToCustomer_Read_r,
+        button:{
+          Component:SentCustomerForm,
+          path:"/sentcustomerform",
+          title:"routes.sentcustomerform",
+          access:enums.AfterSales_New_PostToCustomer_Create_w,
+        }
       },
       {
         title: 'routes.archive',
@@ -459,48 +474,48 @@ export const Routes = [
   iconClosed: <RiIcons.RiArrowDownSFill/> ,
   iconOpened: <RiIcons.RiArrowUpSFill/> ,
   subNav: [
-    // {
-    //   title: 'routes.entryCheckList',
-    //   path:'/entryCheckList',
-    //   access:enums.entryCheckList,
-    //  Component:CheckListEntry,
-    //   button:{
-    //    Component:CheckListEntryFormDefine ,
-    //     path:"/entryCheckListForm",
-    //     title:"routes.entryCheckListForm",
-    //     access:enums.entryCheckListForm,
-    //   },
-    //   icon: <IoIcons.IoIosPaper/> ,
-    //   cName: 'sub-nav'
-    // },
-//     {
-//       title: 'routes.exitCheckList',
-//       path:'/exitCheckList',
-//       access:enums.exitCheckList,
-//      Component:CheckListExit,
-//       button:{
-//        Component:CheckListExitFormDefine,
-//         path:"/exitCheckListForm",
-//         title:"routes.exitCheckListForm",
-//         access:enums.exitCheckListForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
-//     {
-//       title: 'routes.phoneIssues',
-//       path:'/phoneIssues',
-//       access:enums.phoneIssues,
-//      Component:PhoneDefects,
-//       button:{
-//        Component:PhoneDefectsForm,
-//         path:"/phoneIssuesForm",
-//         title:"routes.phoneIssuesForm",
-//         access:enums.phoneIssuesForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
+    {
+      title: 'routes.entryCheckList',
+      path:'/entryCheckList',
+      access:enums.Definition_InputQualityControl_Read_r,
+     Component:CheckListEntry,
+      button:{
+       Component:CheckListEntryFormDefine ,
+        path:"/entryCheckListForm",
+        title:"routes.entryCheckListForm",
+        access:enums.Definition_InputQualityControl_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.exitCheckList',
+      path:'/exitCheckList',
+      access:enums.Definition_OutputQualityControl_Read_r,
+     Component:CheckListExit,
+      button:{
+       Component:CheckListExitFormDefine,
+        path:"/exitCheckListForm",
+        title:"routes.exitCheckListForm",
+        access:enums.Definition_OutputQualityControl_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
+    {
+      title: 'routes.phoneIssues',
+      path:'/phoneIssues',
+      access:enums.Definition_Defect_Read_r,
+     Component:PhoneDefects,
+      button:{
+       Component:PhoneDefectsForm,
+        path:"/phoneIssuesForm",
+        title:"routes.phoneIssuesForm",
+        access:enums.Definition_Defect_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
     {
       title: 'routes.parts',
       path:'/parts',
@@ -571,20 +586,20 @@ export const Routes = [
 //       icon: <IoIcons.IoIosPaper/> ,
 //       cName: 'sub-nav'
 //     },
-//     {
-//       title: 'routes.garanteeType',
-//       path:'/garanteeType',
-//       access:enums.garanteeType,
-//      Component:WarrantyType,
-//       button:{
-//        Component:WarrantyTypeForm,
-//         path:"/garanteeTypeForm",
-//         title:"routes.garanteeTypeForm",
-//         access:enums.garanteeTypeForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
+    {
+      title: 'routes.garanteeType',
+      path:'/garanteeType',
+      access:enums.Definition_WarrantyType_Read_r,
+     Component:WarrantyType,
+      button:{
+       Component:WarrantyTypeForm,
+        path:"/garanteeTypeForm",
+        title:"routes.garanteeTypeForm",
+        access:enums.Definition_WarrantyType_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
 //     {
 //       title: 'routes.receivedCustomerMsgType',
 //       path:'/receivedCustomerMsgType',
@@ -683,20 +698,20 @@ export const Routes = [
       icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
-//     {
-//       title: 'routes.accessories',
-//       path:'/accessories',
-//       access:enums.accessories,
-//      Component:Accessories,
-//       button:{
-//        Component:AccessDefine,
-//         path:"/accessoriesForm",
-//         title:"routes.accessoriesForm",
-//         access:enums.accessoriesForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
+    {
+      title: 'routes.accessories',
+      path:'/accessories',
+      access:enums.Definition_AdmissionAccessory_Read_r,
+     Component:Accessories,
+      button:{
+       Component:AccessoriesDefine,
+        path:"/accessoriesForm",
+        title:"routes.accessoriesForm",
+        access:enums.Definition_AdmissionAccessory_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
 //     {
 //       title: 'routes.inventoryGroup',
 //       path:'/inventoryGroup',
@@ -711,20 +726,20 @@ export const Routes = [
 //       icon: <IoIcons.IoIosPaper/> ,
 //       cName: 'sub-nav'
 //     },
-//     {
-//       title: 'routes.warrantyCancelation',
-//       path:'/warrantyCancelation',
-//       access:enums.warrantyCancelation,
-//      Component:WarrantyCancelation,
-//       button:{
-//        Component:WarrantyCancelationForm,
-//         path:"/warrantyCancelationForm",
-//         title:"routes.warrantyCancelationForm",
-//         access:enums.warrantyCancelationForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
+    {
+      title: 'routes.warrantyCancelation',
+      path:'/warrantyCancelation',
+      access:enums.Definition_ReasonForCancellationOfWarranty_Read_r,
+     Component:WarrantyCancelation,
+      button:{
+       Component:WarrantyCancelationForm,
+        path:"/warrantyCancelationForm",
+        title:"routes.warrantyCancelationForm",
+        access:enums.Definition_ReasonForCancellationOfWarranty_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
 //     {
 //       title: 'routes.partRequest',
 //       path:'/partRequest',
@@ -753,20 +768,20 @@ export const Routes = [
 //       icon: <IoIcons.IoIosPaper/> ,
 //       cName: 'sub-nav'
 //     },
-//     {
-//       title: 'routes.extraServices',
-//       path:'/extraServices',
-//       access:enums.extraServices,
-//      Component:ExtraServices,
-//       button:{
-//        Component:ExtraServicesDefine,
-//         path:"/extraServicesForm",
-//         title:"routes.extraServicesForm",
-//         access:enums.extraServicesForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     }
+    {
+      title: 'routes.extraServices',
+      path:'/extraServices',
+      access:enums.Definition_AdditionalService_Read_r,
+     Component:ExtraServices,
+      button:{
+       Component:ExtraServicesDefine,
+        path:"/extraServicesForm",
+        title:"routes.extraServicesForm",
+        access:enums.Definition_AdditionalService_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    }
 
 ]},
 // {

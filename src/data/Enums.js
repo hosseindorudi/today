@@ -1,5 +1,5 @@
  const enums = {
-    //Custom
+         //Custom
 
     Operator_Group_Permission_w : 107108,
     Operator_Operator_ChangePassword_w : 110108,
@@ -42,14 +42,14 @@
     AfterSales_New_AssignToTechnician_Export_r : 1300146,
     AfterSales_New_AssignToTechnician_Log_r : 1300147,
 
-    AfterSales_New_Repair : 1300150,
-    AfterSales_New_Repair_Create_w : 1300151,
-    AfterSales_New_Repair_Read_r : 1300152,
-    AfterSales_New_Repair_Update_w : 1300153,
-    AfterSales_New_Repair_Delete_w : 1300154,
-    AfterSales_New_Repair_Import_w : 1300155,
-    AfterSales_New_Repair_Export_r : 1300156,
-    AfterSales_New_Repair_Log_r : 1300157,
+    AfterSales_New_Technician : 1300150,
+    AfterSales_New_Technician_Create_w : 1300151,
+    AfterSales_New_Technician_Read_r : 1300152,
+    AfterSales_New_Technician_Update_w : 1300153,
+    AfterSales_New_Technician_Delete_w : 1300154,
+    AfterSales_New_Technician_Import_w : 1300155,
+    AfterSales_New_Technician_Export_r : 1300156,
+    AfterSales_New_Technician_Log_r : 1300157,
 
     AfterSales_New_OutputQualityControl : 1300160,
     AfterSales_New_OutputQualityControl_Create_w : 1300161,
@@ -78,23 +78,39 @@
     AfterSales_New_DeliveryInPerson_Export_r : 1300186,
     AfterSales_New_DeliveryInPerson_Log_r : 1300187,
 
-    AfterSales_New_SendToAgent : 1300190,
-    AfterSales_New_SendToAgent_Create_w : 1300191,
-    AfterSales_New_SendToAgent_Read_r : 1300192,
-    AfterSales_New_SendToAgent_Update_w : 1300193,
-    AfterSales_New_SendToAgent_Delete_w : 1300194,
-    AfterSales_New_SendToAgent_Import_w : 1300195,
-    AfterSales_New_SendToAgent_Export_r : 1300196,
-    AfterSales_New_SendToAgent_Log_r : 1300197,
+    AfterSales_New_Courier : 1300190,
+    AfterSales_New_Courier_Create_w : 1300191,
+    AfterSales_New_Courier_Read_r : 1300192,
+    AfterSales_New_Courier_Update_w : 1300193,
+    AfterSales_New_Courier_Delete_w : 1300194,
+    AfterSales_New_Courier_Import_w : 1300195,
+    AfterSales_New_Courier_Export_r : 1300196,
+    AfterSales_New_Courier_Log_r : 1300197,
 
-    AfterSales_New_SendToCustomer : 1300200,
-    AfterSales_New_SendToCustomer_Create_w : 1300201,
-    AfterSales_New_SendToCustomer_Read_r : 1300202,
-    AfterSales_New_SendToCustomer_Update_w : 1300203,
-    AfterSales_New_SendToCustomer_Delete_w : 1300204,
-    AfterSales_New_SendToCustomer_Import_w : 1300205,
-    AfterSales_New_SendToCustomer_Export_r : 1300206,
-    AfterSales_New_SendToCustomer_Log_r : 1300207,
+    AfterSales_New_PostToAgent : 1300200,
+    AfterSales_New_PostToAgent_Create_w : 1300201,
+    AfterSales_New_PostToAgent_Read_r : 1300202,
+    AfterSales_New_PostToAgent_Update_w : 1300203,
+    AfterSales_New_PostToAgent_Delete_w : 1300204,
+    AfterSales_New_PostToAgent_Import_w : 1300205,
+    AfterSales_New_PostToAgent_Export_r : 1300206,
+    AfterSales_New_PostToAgent_Log_r : 1300207,
+
+    AfterSales_New_PostToCustomer : 1300210,
+    AfterSales_New_PostToCustomer_Create_w : 1300211,
+    AfterSales_New_PostToCustomer_Read_r : 1300212,
+    AfterSales_New_PostToCustomer_Update_w : 1300213,
+    AfterSales_New_PostToCustomer_Delete_w : 1300214,
+    AfterSales_New_PostToCustomer_Import_w : 1300215,
+    AfterSales_New_PostToCustomer_Export_r : 1300216,
+    AfterSales_New_PostToCustomer_Log_r : 1300217,
+
+    AfterSales_New_Archive : 1300220,
+    AfterSales_New_Archive_Read_r : 1300222,
+    AfterSales_New_Archive_Update_w : 1300223,
+    AfterSales_New_Archive_Export_r : 1300226,
+    AfterSales_New_Archive_Log_r : 1300227,
+
 
 
 
@@ -175,7 +191,7 @@
     Operator_Group_Import_w : 107105,
     Operator_Group_Export_r : 107106,
     Operator_Group_Log_r : 107107,
-    //Operator_Group__Etc_w : 107108,
+    //Operator_Group_Etc_w : 107108
 
 
     //tbl_Opr_LoginHistory
@@ -211,7 +227,7 @@
     Operator_Operator_Import_w : 110105,
     Operator_Operator_Export_r : 110106,
     Operator_Operator_Log_r : 110107,
-    //Operator_Operator__Etc_w : 110108,
+    //Operator_Operator_Etc_w : 110108
 
 
 
@@ -349,7 +365,7 @@
     Customer_AccessList_Import_w : 301105,
     Customer_AccessList_Export_r : 301106,
     Customer_AccessList_Log_r : 301107,
-    Customer_AccessList_ChangePassword_w : 301108,
+    //Customer_AccessList_Etc_w : 301108
 
 
     //tbl_Cst_AllowedIp
@@ -385,7 +401,7 @@
     Customer_Customer_Import_w : 305105,
     Customer_Customer_Export_r : 305106,
     Customer_Customer_Log_r : 305107,
-    //Customer_Customer__Etc_w : 305108,
+    //Customer_Customer_Etc_w : 305108
 
 
     //tbl_Cst_Event
@@ -457,28 +473,28 @@
     Definition_Dashboard_Index_Read_r : 400101,
 
 
-    //tbl_Dfn_AccessoriesInAdmission
-    Definition_AccessoriesInAdmission : 401100,
-    Definition_AccessoriesInAdmission_Create_w : 401101,
-    Definition_AccessoriesInAdmission_Read_r : 401102,
-    Definition_AccessoriesInAdmission_Update_w : 401103,
-    Definition_AccessoriesInAdmission_Delete_w : 401104,
-    Definition_AccessoriesInAdmission_Import_w : 401105,
-    Definition_AccessoriesInAdmission_Export_r : 401106,
-    Definition_AccessoriesInAdmission_Log_r : 401107,
-    //Definition_AccessoriesInAdmission_Etc_w : 401108
-
-
     //tbl_Dfn_AdditionalService
-    Definition_AdditionalService : 402100,
-    Definition_AdditionalService_Create_w : 402101,
-    Definition_AdditionalService_Read_r : 402102,
-    Definition_AdditionalService_Update_w : 402103,
-    Definition_AdditionalService_Delete_w : 402104,
-    Definition_AdditionalService_Import_w : 402105,
-    Definition_AdditionalService_Export_r : 402106,
-    Definition_AdditionalService_Log_r : 402107,
-    //Definition_AdditionalService_Etc_w : 402108
+    Definition_AdditionalService : 401100,
+    Definition_AdditionalService_Create_w : 401101,
+    Definition_AdditionalService_Read_r : 401102,
+    Definition_AdditionalService_Update_w : 401103,
+    Definition_AdditionalService_Delete_w : 401104,
+    Definition_AdditionalService_Import_w : 401105,
+    Definition_AdditionalService_Export_r : 401106,
+    Definition_AdditionalService_Log_r : 401107,
+    //Definition_AdditionalService_Etc_w : 401108
+
+
+    //tbl_Dfn_AdmissionAccessory
+    Definition_AdmissionAccessory : 402100,
+    Definition_AdmissionAccessory_Create_w : 402101,
+    Definition_AdmissionAccessory_Read_r : 402102,
+    Definition_AdmissionAccessory_Update_w : 402103,
+    Definition_AdmissionAccessory_Delete_w : 402104,
+    Definition_AdmissionAccessory_Import_w : 402105,
+    Definition_AdmissionAccessory_Export_r : 402106,
+    Definition_AdmissionAccessory_Log_r : 402107,
+    //Definition_AdmissionAccessory_Etc_w : 402108
 
 
     //tbl_Dfn_AdmissionChecklist
@@ -553,40 +569,28 @@
     //Definition_Defect_Etc_w : 408108
 
 
-    //tbl_Dfn_InputChecklist
-    Definition_InputChecklist : 409100,
-    Definition_InputChecklist_Create_w : 409101,
-    Definition_InputChecklist_Read_r : 409102,
-    Definition_InputChecklist_Update_w : 409103,
-    Definition_InputChecklist_Delete_w : 409104,
-    Definition_InputChecklist_Import_w : 409105,
-    Definition_InputChecklist_Export_r : 409106,
-    Definition_InputChecklist_Log_r : 409107,
-    //Definition_InputChecklist_Etc_w : 409108
+    //tbl_Dfn_InputQualityControl
+    Definition_InputQualityControl : 409100,
+    Definition_InputQualityControl_Create_w : 409101,
+    Definition_InputQualityControl_Read_r : 409102,
+    Definition_InputQualityControl_Update_w : 409103,
+    Definition_InputQualityControl_Delete_w : 409104,
+    Definition_InputQualityControl_Import_w : 409105,
+    Definition_InputQualityControl_Export_r : 409106,
+    Definition_InputQualityControl_Log_r : 409107,
+    //Definition_InputQualityControl_Etc_w : 409108
 
 
-    //tbl_Dfn_Language
-    Definition_Language : 410100,
-    Definition_Language_Create_w : 410101,
-    Definition_Language_Read_r : 410102,
-    Definition_Language_Update_w : 410103,
-    Definition_Language_Delete_w : 410104,
-    Definition_Language_Import_w : 410105,
-    Definition_Language_Export_r : 410106,
-    Definition_Language_Log_r : 410107,
-    //Definition_Language_Etc_w : 410108
-
-
-    //tbl_Dfn_OutputChecklist
-    Definition_OutputChecklist : 411100,
-    Definition_OutputChecklist_Create_w : 411101,
-    Definition_OutputChecklist_Read_r : 411102,
-    Definition_OutputChecklist_Update_w : 411103,
-    Definition_OutputChecklist_Delete_w : 411104,
-    Definition_OutputChecklist_Import_w : 411105,
-    Definition_OutputChecklist_Export_r : 411106,
-    Definition_OutputChecklist_Log_r : 411107,
-    //Definition_OutputChecklist_Etc_w : 411108
+    //tbl_Dfn_OutputQualityControl
+    Definition_OutputQualityControl : 411100,
+    Definition_OutputQualityControl_Create_w : 411101,
+    Definition_OutputQualityControl_Read_r : 411102,
+    Definition_OutputQualityControl_Update_w : 411103,
+    Definition_OutputQualityControl_Delete_w : 411104,
+    Definition_OutputQualityControl_Import_w : 411105,
+    Definition_OutputQualityControl_Export_r : 411106,
+    Definition_OutputQualityControl_Log_r : 411107,
+    //Definition_OutputQualityControl_Etc_w : 411108
 
 
     //tbl_Dfn_Part
@@ -697,40 +701,40 @@
     //Definition_Section_Etc_w : 420108
 
 
-    //tbl_Dfn_StatusPhoneInDuring
-    Definition_StatusPhoneInDuring : 421100,
-    Definition_StatusPhoneInDuring_Create_w : 421101,
-    Definition_StatusPhoneInDuring_Read_r : 421102,
-    Definition_StatusPhoneInDuring_Update_w : 421103,
-    Definition_StatusPhoneInDuring_Delete_w : 421104,
-    Definition_StatusPhoneInDuring_Import_w : 421105,
-    Definition_StatusPhoneInDuring_Export_r : 421106,
-    Definition_StatusPhoneInDuring_Log_r : 421107,
-    //Definition_StatusPhoneInDuring_Etc_w : 421108
+    //tbl_Dfn_StatusDeviceEnd
+    Definition_StatusDeviceEnd : 421100,
+    Definition_StatusDeviceEnd_Create_w : 421101,
+    Definition_StatusDeviceEnd_Read_r : 421102,
+    Definition_StatusDeviceEnd_Update_w : 421103,
+    Definition_StatusDeviceEnd_Delete_w : 421104,
+    Definition_StatusDeviceEnd_Import_w : 421105,
+    Definition_StatusDeviceEnd_Export_r : 421106,
+    Definition_StatusDeviceEnd_Log_r : 421107,
+    //Definition_StatusDeviceEnd_Etc_w : 421108
 
 
-    //tbl_Dfn_StatusPhoneInEnd
-    Definition_StatusPhoneInEnd : 422100,
-    Definition_StatusPhoneInEnd_Create_w : 422101,
-    Definition_StatusPhoneInEnd_Read_r : 422102,
-    Definition_StatusPhoneInEnd_Update_w : 422103,
-    Definition_StatusPhoneInEnd_Delete_w : 422104,
-    Definition_StatusPhoneInEnd_Import_w : 422105,
-    Definition_StatusPhoneInEnd_Export_r : 422106,
-    Definition_StatusPhoneInEnd_Log_r : 422107,
-    //Definition_StatusPhoneInEnd_Etc_w : 422108
+    //tbl_Dfn_StatusDeviceProgress
+    Definition_StatusDeviceProgress : 422100,
+    Definition_StatusDeviceProgress_Create_w : 422101,
+    Definition_StatusDeviceProgress_Read_r : 422102,
+    Definition_StatusDeviceProgress_Update_w : 422103,
+    Definition_StatusDeviceProgress_Delete_w : 422104,
+    Definition_StatusDeviceProgress_Import_w : 422105,
+    Definition_StatusDeviceProgress_Export_r : 422106,
+    Definition_StatusDeviceProgress_Log_r : 422107,
+    //Definition_StatusDeviceProgress_Etc_w : 422108
 
 
-    //tbl_Dfn_StatusPhoneInStart
-    Definition_StatusPhoneInStart : 423100,
-    Definition_StatusPhoneInStart_Create_w : 423101,
-    Definition_StatusPhoneInStart_Read_r : 423102,
-    Definition_StatusPhoneInStart_Update_w : 423103,
-    Definition_StatusPhoneInStart_Delete_w : 423104,
-    Definition_StatusPhoneInStart_Import_w : 423105,
-    Definition_StatusPhoneInStart_Export_r : 423106,
-    Definition_StatusPhoneInStart_Log_r : 423107,
-    //Definition_StatusPhoneInStart_Etc_w : 423108
+    //tbl_Dfn_StatusDeviceStart
+    Definition_StatusDeviceStart : 423100,
+    Definition_StatusDeviceStart_Create_w : 423101,
+    Definition_StatusDeviceStart_Read_r : 423102,
+    Definition_StatusDeviceStart_Update_w : 423103,
+    Definition_StatusDeviceStart_Delete_w : 423104,
+    Definition_StatusDeviceStart_Import_w : 423105,
+    Definition_StatusDeviceStart_Export_r : 423106,
+    Definition_StatusDeviceStart_Log_r : 423107,
+    //Definition_StatusDeviceStart_Etc_w : 423108
 
 
     //tbl_Dfn_Technician
@@ -824,18 +828,6 @@
     //Dashboard
     AfterSales_Dashboard_Index : 1300100,
     AfterSales_Dashboard_Index_Read_r : 1300101,
-
-
-    //tbl_Afs_Archive
-    AfterSales_Archive : 1303100,
-    AfterSales_Archive_Create_w : 1303101,
-    AfterSales_Archive_Read_r : 1303102,
-    AfterSales_Archive_Update_w : 1303103,
-    AfterSales_Archive_Delete_w : 1303104,
-    AfterSales_Archive_Import_w : 1303105,
-    AfterSales_Archive_Export_r : 1303106,
-    AfterSales_Archive_Log_r : 1303107,
-    //AfterSales_Archive_Etc_w : 1303108
 }
 module.exports={
     enums

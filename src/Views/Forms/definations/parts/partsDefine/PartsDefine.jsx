@@ -10,7 +10,7 @@ import { enums } from '../../../../../data/Enums';
 import { partCreate } from '../../../../../services/partService';
 import { productReadTitle } from '../../../../../services/productService';
 import Parts from '../Parts';
-import './partsDefine.css'
+import '../../../../../assets/css/periorityForm.css'
 
 const PartsDefine = () => {
     const [type, setType] = useState("");

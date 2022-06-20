@@ -3,7 +3,7 @@ import React,{ useState } from 'react'
 import { Form } from 'react-bootstrap';
 import FormInput from '../../../../../Components/periodity/formInput/FormInput';
 
-import './admissionCheckDefine.css'
+// import './admissionCheckDefine.css'
 const AdmissionCheckDefine = () => {
 
   const [values, setValues] = useState({
