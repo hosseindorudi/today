@@ -17,6 +17,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import { useTranslation } from 'react-i18next';
 import { warrantyTypeReadTitle } from '../../../../../services/warrantyType';
 import { reasonForCancellationOfWarrantyReadTitle } from '../../../../../services/warrantyCancellationService';
+import { admissionAccessoryReadTitle } from '../../../../../services/admissionAccessory';
 import { toast } from 'react-toastify';
 import useAxios from '../../../../../customHooks/useAxios';
 import useRequest from '../../../../../customHooks/useRequest';
@@ -29,8 +30,8 @@ const TechnicianForm = () => {
   const [qcState, setqcState] = useState();
   const [phonestate, setphonestate] = useState();
 //   const [loading, setloading] = useState(true);
-  const [warrantyType, setWarrantytype] = useState('0');
-  const [deviceStatus, setDeviceStatus] = useState('0');
+  const [warrantyType, setWarrantytype] = useState();
+  const [deviceStatus, setDeviceStatus] = useState();
   const [extraService, setExtraService] = useState([]);
   const [fallWarranty, setFallWarranty] = useState([]);
   const [firstImg, setFirstImg] = useState();
@@ -38,6 +39,8 @@ const TechnicianForm = () => {
   const [groupTitleId, setGroupTitleId] = useState()
   const [groupTitlesCANCLE, setGroupTitlesCANCEL] = useState([])
   const [groupTitleCANCELId, setGroupTitleCANCEELId] = useState()
+  const [deffectTitles, setDeffectTitles] = useState([])
+  const [deffectTitlesId, setDeffectTitlesId] = useState()
   const [techText, settechText] = useState('')
 
   const abortController = new AbortController();
@@ -158,12 +161,29 @@ const TechnicianForm = () => {
                   
                   
                 break;
+            case "DeffectTitles":
+                setType("DeffectTitles")
+                fetchData({
+                    method: "POST",
+                    url: admissionAccessoryReadTitle,
+                    headers: {
+                      accept: "*/*",
+                    },
+                    data: request,
+                    signal:abortController.signal,
+                    
+                   
+                  })
+                  
+                  
+                break;
         
             default:
                 break;
         }
     }
 
+                    
 
   const handleResponse=(response,type)=>{
     switch (type) {
@@ -179,7 +199,18 @@ const TechnicianForm = () => {
             console.log(response.Title)
             response.Title.length&&setGroupTitleCANCEELId(response.Title[0].Id)
             setResponse(undefined)
+            handleFunctions("DeffectTitles")
+        break;
+      case "DeffectTitles":
+            console.log(response.Title)
+            
 
+            response.Title.map((m,i) => (
+                setDeffectTitles(prev => [...prev, {name:m.Value, id: m.Id}])
+            ))
+            response.Title.length&&setDeffectTitlesId(response.Title[0].Id)
+            setResponse(undefined)
+            
         break;
       case "SUBMIT" :
         handleSeccess(t("customer.created"));
@@ -302,15 +333,17 @@ return (
                     <div className="techWarranty">
                         <label htmlFor="techW">گارانتی</label>
                         <div id='techW' className="techWarDiv">
-                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
-                                <option disabled value="0" >وضعیت گارانتی بعد از نظر تکنسین</option>
+                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)} value={warrantyType}>
+                                <option disabled >وضعیت گارانتی بعد از نظر تکنسین</option>
                                 {groupTitles.map((gt, i) => (
                                     <option value={gt.Id} key={gt.Id}>{gt.Value}</option>
                                 ))}
                             </select>
                             <textarea  className='techWarrantyText1' placeholder='توضیحات'/>
-                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
-                                <option disabled value="0" >علت ابطال گارانتی</option>
+
+
+                            <select className="selectSendTypeTech" onChange={(e) => setDeviceStatus(e.target.value)} value={deviceStatus}>
+                                <option disabled  >علت ابطال گارانتی</option>
                                 {groupTitlesCANCLE.map((gt, i) => (
                                     <option value={gt.Id} key={gt.Id}>{gt.Value}</option>
                                 ))}
@@ -322,14 +355,14 @@ return (
                     <div className="techStatus">
                         <label htmlFor="techS">وضعیت</label>
                         <div className="techSt" id='techS'>
-                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
+                            <select className="selectSendTypeTech" >
                                 <option disabled value="0" >نظر اولیه</option>
                                 <option value="گارانتی">گارانتی</option>
                                 <option value="بدون گارانتی">بدون گارانتی</option>
                                 <option value="استعلام تکنسین">استعلام تکنسین</option>
                             </select>
                             <textarea  className='techWarrantyText' placeholder='توضیحات'/>
-                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
+                            <select className="selectSendTypeTech" >
                                 <option disabled value="0" >وضعیت نظر اولیه</option>
                                 <option value="گارانتی">گارانتی</option>
                                 <option value="بدون گارانتی">بدون گارانتی</option>
@@ -337,7 +370,7 @@ return (
                             </select>
                             <textarea  className='techWarrantyText' placeholder='توضیحات'/>
                             
-                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
+                            <select className="selectSendTypeTech" >
                                 <option disabled value="0" >وضعیت نهایی</option>
                                 <option value="گارانتی">گارانتی</option>
                                 <option value="بدون گارانتی">بدون گارانتی</option>
@@ -360,13 +393,7 @@ return (
                                 
                                 emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
                                 id='multiSelected'
-                                options={[
-                                    {name: 'نصب نرم افزار', id: 1},
-                                    {name: 'بکاپ گیری', id: 2},
-                                    {name: 'گلس', id: 3},
-                                    {name: 'برنامه جانبی', id: 4},
-                                    {name: 'ساخت اکانت', id: 5},
-                                ]}
+                                options={deffectTitles}
 
                                 displayValue="name" // Property name to display in the dropdown options
                                 placeholder="لوازم همراه"

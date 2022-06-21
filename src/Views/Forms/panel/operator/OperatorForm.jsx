@@ -118,7 +118,8 @@ const Operator = () => {
     }
     useEffect(()=> {
       if (response){
-        response.Result?handleResponse(response,type):handleError(response.Message)          
+        response.Result?handleResponse(response,type):handleError(response.Message)  
+        setResponse(undefined)   
       }
   },[response])
 
@@ -203,7 +204,7 @@ const Operator = () => {
           </div>
             <div className="inputDiv">
               <label htmlFor="OperatorFormInputTitle1">{t("operatorSelector")}</label>
-                <select className="OperatorFormInputTitle" id='OperatorFormInputTitle1' 
+                <select className="OperatorFormInputTitle" id='OperatorFormInputTitle1'  value={selectGroup}
                   onChange={(e)=> {setSelectGroup(e.target.value)} }
                 >
                 <option disabled></option>
