@@ -41,7 +41,7 @@ const Operator = () => {
     const [phoneVal, setPhoneVal] = useState(true)
     const tabContext = useContext(TabContext);
     const namepattern = /^[پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأءًٌٍَُِّ\s]{4,12}/
-   
+    const [type, setType] = useState("")
 
     const handleClickMenu = () => {
       tabContext.addRemoveTabs(
@@ -67,6 +67,7 @@ const Operator = () => {
     
     
     useEffect(()=> {
+      setType("READTITLE")
       fetchData({
         method: "POST",
         url: groupTitle,
@@ -96,20 +97,37 @@ const Operator = () => {
 
     useEffect(()=> {
         if (response){
-          (response.Result && response.Title) && setGroupTitles(response.Title) ;
-          (response.Result && response.Title) && setSelectGroup(response.Title[0].Id) ;
-          !response.Result && handleError(response.Message);
-          (response.Result && response.Message === "Ok" && !response.Title) && handleSeccess(response.Message);
-          (response.Result && response.Message === "Ok" && !response.Title) && handleClickMenu();
+          response.Result?handleResponse(response,type):handleError(response.Message)  
           
         }
         
     },[response])
 
+    const handleResponse=(response,type)=>{
+      switch (type) {
+        case "READTITLE":
+              setGroupTitles(response.Title)
+              response.Title.length&&setGroupTitleId(response.Title[0].Id)
+          break;
+        case "SUBMIT" :
+          handleSeccess(t("customer.created"));
+          handleClickMenu();
+        default:
+          break;
+      }
+    }
+    useEffect(()=> {
+      if (response){
+        response.Result?handleResponse(response,type):handleError(response.Message)          
+      }
+  },[response])
+
     const handleSubmitForm = (e) => {
       e.preventDefault();
       if (nameVal && passConfirmVal && passVal && phoneVal)
-     { fetchData({
+     { 
+      setType("SUBMIT")
+      fetchData({
         method: "POST",
         url: createOpt,
         headers: {

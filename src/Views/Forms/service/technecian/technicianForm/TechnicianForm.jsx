@@ -15,22 +15,34 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import Technician from '../technicianList/Technician';
 import Multiselect from 'multiselect-react-dropdown';
 import { useTranslation } from 'react-i18next';
-
+import { warrantyTypeReadTitle } from '../../../../../services/warrantyType';
+import { reasonForCancellationOfWarrantyReadTitle } from '../../../../../services/warrantyCancellationService';
+import { toast } from 'react-toastify';
+import useAxios from '../../../../../customHooks/useAxios';
+import useRequest from '../../../../../customHooks/useRequest';
 const TechnicianForm = () => {
+    const [type, setType] = useState("")
   // const [value,setValue] = useState();
   const [ips, setIps] = useState([]);
   const [time, setTime] = useState(new Date());
   const [date, setDate] = useState(new Date());
   const [qcState, setqcState] = useState();
   const [phonestate, setphonestate] = useState();
-  const [loading, setloading] = useState(true);
+//   const [loading, setloading] = useState(true);
   const [warrantyType, setWarrantytype] = useState('0');
   const [deviceStatus, setDeviceStatus] = useState('0');
   const [extraService, setExtraService] = useState([]);
   const [fallWarranty, setFallWarranty] = useState([]);
   const [firstImg, setFirstImg] = useState();
-
+  const [groupTitles, setGroupTitles] = useState([])
+  const [groupTitleId, setGroupTitleId] = useState()
+  const [groupTitlesCANCLE, setGroupTitlesCANCEL] = useState([])
+  const [groupTitleCANCELId, setGroupTitleCANCEELId] = useState()
   const [techText, settechText] = useState('')
+
+  const abortController = new AbortController();
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const request = useRequest()
   const { t } = useTranslation();
   const handleAddIP = () => {
     let ip = {
@@ -49,6 +61,19 @@ const TechnicianForm = () => {
 
     
   };
+
+  const handleError = (message) => {
+    toast.error(message, {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  };
+
+  const handleSeccess=(message)=>{
+    
+    toast.success(message, {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  }
 
   const changeValue = (event, index, type) => {
     
@@ -91,12 +116,88 @@ const TechnicianForm = () => {
   };
 
 
+
+  useEffect(()=> { 
+    handleFunctions("READTITLEWARANTY")
+    
+    
+      
+    },[])
+
+    const handleFunctions = (type) => {
+        switch (type) {
+            case "READTITLEWARANTY":
+                setType("READTITLEWARANTY")
+                fetchData({
+                    method: "POST",
+                    url: warrantyTypeReadTitle,
+                    headers: {
+                      accept: "*/*",
+                    },
+                    data: request,
+                    signal:abortController.signal,
+                  })
+                  
+                  handleFunctions("READTITLCANCEL")
+                  
+                break;
+            case "READTITLCANCEL":
+                setType("READTITLCANCEL")
+                fetchData({
+                    method: "POST",
+                    url: reasonForCancellationOfWarrantyReadTitle,
+                    headers: {
+                      accept: "*/*",
+                    },
+                    data: request,
+                    signal:abortController.signal,
+                    
+                   
+                  })
+                  
+                  
+                break;
+        
+            default:
+                break;
+        }
+    }
+
+
+  const handleResponse=(response,type)=>{
+    switch (type) {
+      case "READTITLEWARANTY":
+            setGroupTitles(response.Title)
+            console.log(response.Title)
+            response.Title.length&&setGroupTitleId(response.Title[0].Id)
+            setResponse(undefined)
+        break;
+      case "READTITLCANCEL":
+            setGroupTitlesCANCEL(response.Title)
+            console.log(response.Title)
+            response.Title.length&&setGroupTitleCANCEELId(response.Title[0].Id)
+            setResponse(undefined)
+
+        break;
+      case "SUBMIT" :
+        handleSeccess(t("customer.created"));
+        handleClickMenu();
+      default:
+        break;
+    }
+  }
+
   useEffect(() => {
       setqcState(qcExit);
       setphonestate(phone);
-      setloading(false);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+        useEffect(()=> {
+            if (response){
+            response.Result?handleResponse(response,type):handleError(response.Message)          
+            }
+        },[response])
 
     const handleSubmitTech =() => {
         let data ={
@@ -201,16 +302,16 @@ return (
                         <div id='techW' className="techWarDiv">
                             <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
                                 <option disabled value="0" >وضعیت گارانتی بعد از نظر تکنسین</option>
-                                <option value="گارانتی">گارانتی</option>
-                                <option value="بدون گارانتی">بدون گارانتی</option>
-                                <option value="استعلام تکنسین">استعلام تکنسین</option>
+                                {groupTitles.map((gt, i) => (
+                                    <option value={gt.Id} key={gt.Id}>{gt.Value}</option>
+                                ))}
                             </select>
                             <textarea  className='techWarrantyText1' placeholder='توضیحات'/>
                             <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
                                 <option disabled value="0" >علت ابطال گارانتی</option>
-                                <option value="گارانتی">گارانتی</option>
-                                <option value="بدون گارانتی">بدون گارانتی</option>
-                                <option value="استعلام تکنسین">استعلام تکنسین</option>
+                                {groupTitlesCANCLE.map((gt, i) => (
+                                    <option value={gt.Id} key={gt.Id}>{gt.Value}</option>
+                                ))}
                             </select>
                             <textarea  className='techWarrantyText1' placeholder='توضیحات'/>
                             

@@ -30,7 +30,7 @@ const CheckListEntryFormDefine = () => {
         label: t("title"),
         placeholder: t("title"),
         errorMessage: t("title.errorMessage"),
-        pattern: "^[\u0600-\u06FF,A-Za-z0-9]{4,12}",
+        pattern: "^[\u0600-\u06FF,A-Za-z0-9,\ ]{4,12}",
         required: true,
         value: values.title,
       },
