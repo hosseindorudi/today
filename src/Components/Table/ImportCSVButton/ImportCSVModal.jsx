@@ -34,7 +34,7 @@ const ImportCSVModal = (props) => {
     setRequestType("SAMPLE");
     fetchData({
       method: "POST",
-      url: props.groupSampleFile,
+      url: props.sampleUrl,
       headers: {
         accept: "*/*",
       },
@@ -66,7 +66,7 @@ const ImportCSVModal = (props) => {
     formData.append("File", checkFile);
     fetchData({
       method: "POST",
-      url: props.groupCheckFile,
+      url: props.fileCheckURL,
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -92,7 +92,7 @@ const ImportCSVModal = (props) => {
     formData.append("File", importFile);
     fetchData({
       method: "POST",
-      url: props.groupImportFile,
+      url: props.importURL,
       headers: {
         "Content-Type": "multipart/form-data",
       },

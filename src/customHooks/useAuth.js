@@ -33,7 +33,7 @@ const useAuth = () => {
         longitude: location.loaded ? location.coordinates.lng : 0,
       }
     }
-    const result = await axios.request(params);
+    const result = await axios.request(params)
     if(result.data){
       if(result.data.Result){
         const AccessList=result.data.AccessList
