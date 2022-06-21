@@ -118,8 +118,9 @@ const TechnicianForm = () => {
 
 
   useEffect(()=> { 
+
     handleFunctions("READTITLEWARANTY")
-    
+  
     
       
     },[])
@@ -138,7 +139,7 @@ const TechnicianForm = () => {
                     signal:abortController.signal,
                   })
                   
-                  handleFunctions("READTITLCANCEL")
+                  
                   
                 break;
             case "READTITLCANCEL":
@@ -171,6 +172,7 @@ const TechnicianForm = () => {
             console.log(response.Title)
             response.Title.length&&setGroupTitleId(response.Title[0].Id)
             setResponse(undefined)
+            handleFunctions("READTITLCANCEL")
         break;
       case "READTITLCANCEL":
             setGroupTitlesCANCEL(response.Title)
