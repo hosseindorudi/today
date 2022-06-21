@@ -1,11 +1,17 @@
 import { t } from "i18next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Modal, Table } from "react-bootstrap";
 import "./PermissionModal.css";
 const PermissionModal = (props) => {
-  const [permissions, setPermissions] = useState(props.permissions);
-
-  const [filterValue, setFilterValue] = useState("")
+  const [permissions, setPermissions] = useState([]);
+  const [checked, setChecked] = useState("");
+  const values = props.permissions;
+  const [filterValue, setFilterValue] = useState("");
+  const radioTypes = ["READONLY", "ALL", "NONE"];
+  useEffect(() => {
+    setPermissions(values);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleCheck = (codePage, e) => {
     const checked = e.target.checked;
@@ -26,6 +32,7 @@ const PermissionModal = (props) => {
     props.setPermission(selectedNumbers);
   };
   const handleChange = (key) => {
+    setChecked(key);
     let temp = [...permissions];
     switch (key) {
       case "NONE":
@@ -48,17 +55,17 @@ const PermissionModal = (props) => {
         break;
     }
   };
-  const handleFilter=(e)=>{
-    let arr = props.permissions;
-    setFilterValue(e.target.value)
+  const handleFilter = (e) => {
+    setChecked("");
+    setFilterValue(e.target.value);
     let searchValue = e.target.value;
 
-    arr = arr.filter(function (arr) {
+    let arr = values.filter(function (arr) {
       return arr.Page.toLowerCase().indexOf(searchValue) !== -1; // returns true or false
     });
-    
-    setPermissions(arr)
-  }
+
+    setPermissions(arr);
+  };
   return (
     <Modal
       {...props}
@@ -70,47 +77,36 @@ const PermissionModal = (props) => {
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
         <div className="filterCheckboxes">
-        <div>
+          <div>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-           
-              <Form.Control type="text" placeholder="page" onChange={handleFilter} value={filterValue}/>
+              <Form.Control
+                type="text"
+                placeholder="page"
+                onChange={handleFilter}
+                value={filterValue}
+              />
             </Form.Group>
           </div>
           <div key={`inline-radio`} className="mb-3 checkboxes">
-            <Form.Check
-              inline
-              label={t("all")}
-              name="group1"
-              key={"ALL"}
-              onChange={() => handleChange("ALL")}
-              type="radio"
-              id={`inline-radio-1`}
-            />
-            <Form.Check
-              inline
-              key={"NONE"}
-              label={t("none")}
-              onChange={() => handleChange("NONE")}
-              name="group1"
-              type="radio"
-              id={`inline-radio-2`}
-            />
-            <Form.Check
-              inline
-              key={"READONLY"}
-              name="group1"
-              onChange={() => handleChange("READONLY")}
-              label={t("readOnly")}
-              type="radio"
-              id={`inline-radio-3`}
-            />
+            {radioTypes.map((r, i) => (
+              <Form.Check
+                inline
+                value={checked}
+                checked={checked===r?true:false}
+                label={t(r.toLocaleLowerCase())}
+                name="group1"
+                key={i}
+                onChange={() => handleChange(r)}
+                type="radio"
+                id={`inline-radio-1`}
+              />
+            ))}
           </div>
-         
         </div>
         <Table className="tablePermission">
           <thead>
             <tr>
-              {Object.keys(permissions[0])
+              {Object.keys(permissions.length > 0 && permissions[0])
                 .filter((f) => f !== "CodePage")
                 .map((k) => (
                   <th key={k}>{k}</th>

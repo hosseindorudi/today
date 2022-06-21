@@ -59,7 +59,7 @@ import useButtonAccess from "../../../../../customHooks/useButtonAccess";
 import AccessListModal from "../../../../../Components/Table/AccessListModal/AccessListModal";
 import PermissionModal from "../../../../../Components/Table/PermissionModal/PermissionModal";
 const Group = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);
