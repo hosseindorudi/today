@@ -13,6 +13,10 @@ import AppContext from '../../../../contexts/AppContext';
 import { useTranslation } from 'react-i18next';
 import { admitionCreate } from '../../../../services/admitionService'; 
 
+import { productGroupCreate } from '../../../../services/productGroup';
+import Admission from './Admission';
+
+
 const AmitionFinalForm = () => {
     const [textRecieved, setTextRecieved] = useState("")
     const [textDivVal, setTextDivVal] = useState(false)
@@ -34,7 +38,64 @@ const AmitionFinalForm = () => {
     const [response, loading, fetchData, setResponse] = useAxios();
     const request = useRequest();
     const {t} = useTranslation();
+    const tabContext = useContext(TabContext);
+    
+    const handleClickMenu = () => {
+        tabContext.addRemoveTabs(
+          {
+            title: "routes.groupForm",
+            path: "/operatorgroupcreate",
+            Component:AmitionFinalForm,
+            access: enums.AfterSales_New_Admission_Create_w,
+          }
+          , "remove");
+        tabContext.addRemoveTabs(
+          
+          {
+            title: "routes.admission",
+            path: "/admission",
+            Component: Admission,
+            access: enums.AfterSales_New_Admission_Read_r,
+          }
+          
+          , "add");
+      };
 
+
+
+    // useEffect(()=> {
+
+    // }, [])
+
+
+    // const handleResponse = (response, type) => {
+    //     switch (type) {
+    //       case "READTITLE":
+    //         setProducts(response.Title);
+    //         break;
+    //         case "SUBMIT":
+    //         handleSuccess()
+    //       default:
+    //         break;
+    //     }
+        
+    //   };
+
+    //   useEffect(() => {
+    //     setType("READTITLEPRODUCTGROUP");
+    //     fetchData({
+    //       method: "POST",
+    //       url: productGroupReadTitle,
+    //       headers: {
+    //         accept: "*/*",
+    //       },
+    //       data: request,
+    
+    //       signal: abortController.signal,
+    //     });
+    //     return () => abortController.abort();
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    //   }, []);
 
 
 
@@ -57,7 +118,10 @@ const AmitionFinalForm = () => {
           !response.Result && handleError(response.Message);
         //   (response.Result && response.Message === "Ok" && !response.Title) && handleSeccess(response.Message);
         //   (response.Result && response.Message === "Ok" && !response.Title) && handleClickMenu();
-          
+        (response.Result && response.Message === "Ok" ) && handleSeccess(response.Message);
+        (response.Result && response.Message === "Ok" ) && handleClickMenu();
+
+        setResponse(undefined);
         }
         
     },[response])
@@ -83,28 +147,28 @@ const AmitionFinalForm = () => {
             data: {
               
               Id:0,
-              Customer_Id: 1,
-              ProductGroup_Id:1,
-              Product_Id:1,
-              Part_Id:1,
+              Customer_Id: 10,
+              ProductGroup_Id:2,
+              Product_Id:2,
+              Part_Id:2,
               ModelNumber:"09368659286",
               SerialNumber:"phone",
-              IMEI1:"",
-              IMEI2:"",
-              CodeNumber : "",
-              AdmissionNumber: "",
+              IMEI1:"asdasd",
+              IMEI2:"asdasdasd",
+              CodeNumber : "asdasdasd",
+              AdmissionNumber: "asdasdasd",
               IsHavePassword: true,
-              Password: "",
-              IsHaveAccount: "",
-              Account: "",
-              Defect: "",
-              Customer_Description: "",
-              Customer_Signature: "",
-              Operator_Description: "",
-              Operator_Signature: "",
+              Password: "asd",
+              IsHaveAccount: account.length ? true : false,
+              Account: account,
+              Defect: "sdfasdasdasd",
+              Customer_Description: textRecieved,
+              Customer_Signature: String(sigPadCustomer.current.toDataURL()),
+              Operator_Description: operatorDesc,
+              Operator_Signature: String(sigPad.current.toDataURL()),
               SourceType: 1,
               Registrar: 1,
-              DateSet: "",
+              DateSet: "2022-06-20T04:46:16.961Z",
               Customer_Title: "",
               ProductGroup_Title: "",
               Product_Title: "",
@@ -234,7 +298,8 @@ const AmitionFinalForm = () => {
 
             
         </div>
-        <div className="admitionThirdDiv">
+
+    <div className="admitionThirdDiv">
 
         <span className="admitionSpan">پذیرش</span>
             <div className="admitionItemsDiv">
@@ -334,7 +399,7 @@ const AmitionFinalForm = () => {
         <div className="admitionButtonDiv">
         <button className="admitionFinalFormSubmit" onClick={(e) => submitAdmitionForm(e)}>ارسال</button>
         </div>
-    </div>
+</div>
   )
 }
 

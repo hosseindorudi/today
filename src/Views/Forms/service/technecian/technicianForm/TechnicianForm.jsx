@@ -2,7 +2,9 @@ import './technician.css'
 import logo from "../../../../../assets/imgs/logo.png";
 import React, { useEffect, useContext, useState } from "react";
 import { data, phone, qcExit } from "../../../../../data/dataQc";
-import Multiselect from 'multiselect-react-dropdown';
+import { Accordion, Button, Form } from "react-bootstrap";
+import * as bs from "react-icons/bs";
+import * as fa from "react-icons/fa";
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import TextField from '@mui/material/TextField';
@@ -11,10 +13,12 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { setDatePickerDate } from '../../../../../validation/functions';
 import { TabContext } from "../../../../../contexts/TabContextProvider";
 import Technician from '../technicianList/Technician';
+import Multiselect from 'multiselect-react-dropdown';
+import { useTranslation } from 'react-i18next';
 
 const TechnicianForm = () => {
   // const [value,setValue] = useState();
-
+  const [ips, setIps] = useState([]);
   const [time, setTime] = useState(new Date());
   const [date, setDate] = useState(new Date());
   const [qcState, setqcState] = useState();
@@ -24,7 +28,45 @@ const TechnicianForm = () => {
   const [deviceStatus, setDeviceStatus] = useState('0');
   const [extraService, setExtraService] = useState([]);
   const [fallWarranty, setFallWarranty] = useState([]);
+  const [firstImg, setFirstImg] = useState();
+
   const [techText, settechText] = useState('')
+  const { t } = useTranslation();
+  const handleAddIP = () => {
+    let ip = {
+      from: "0.0.0.0",
+      to: "0.0.0.0",
+    };
+    setIps((prev) => [...prev, ip]);
+  };
+
+  const onImageChange = async (e) => {
+    const file = e.target.files[0];
+    // console.log(file)
+    // setFirstImg(URL.createObjectURL(file));
+    // setFirstImg(file);
+    // console.log(URL.createObjectURL(file))
+
+    
+  };
+
+  const changeValue = (event, index, type) => {
+    
+      let newArr = ips.map((item, i) => {
+        if (index === i) {
+          return { ...item, [type]: event.target.value };
+        } else {
+          return item;
+        }
+      });
+      setIps(newArr);
+    
+  };
+
+  const handleClickRemoveIP = (index) => {
+    let filter = ips.filter((item, i) => i !== index);
+    setIps(filter);
+  };
 
 
   const tabContext = useContext(TabContext);
@@ -77,27 +119,227 @@ return (
       "loading..."
     ) : (
       <>
-      <div className="first">
-          <div className="formQc">
-              <div className="QcText">
-                  فرم تکنسین
-              </div>
-          </div> 
-          <div className="title">
-              <div className="officeTitle">
-                  <span>شرکت پیشتازان فناوری سیب طلایی</span>
-                  <br />
-                  <b>CTELECOM</b>
-              </div>
-          </div>
-          <div className="logo">
-              <div className="logoDiv">
-                  <img src={logo} alt="logo" />
-              </div>
-          </div>
-          
+      {
+
+
+        <div className="techmainDiv">
+            <div className="techFirstDiv">
+                <div className="techRight">
+                    <div>
+                        {" "}
+                        <span>نام  مالک دستگاه:</span>
+                        <span>حسین درودی</span>{" "}
+                    </div>
+                    <div>
+                        {" "}
+                        <span>نام خانوادگی مالک دستگاه:</span>
+                        <span>حسین درودی</span>{" "}
+                    </div>
+                    <div>
+                        {" "}
+                        <span>استان:</span>
+                        <span>تهران</span>{" "}
+                    </div>
+                    <div>
+                        <span>شهرستان:</span>
+                        <span>تهران</span>{" "}
+                    </div>
+                </div>
+                <div className="tehMiddle">
+                    <div >
+                        {" "}
+                        <span>مارک:</span>
+                        <span>حسین درودی</span>{" "}
+                    </div>
+                    <div>
+                        {" "}
+                        <span>مدل:</span>
+                        <span>حسین درودی</span>{" "}
+                    </div>
+                    <div>
+                        {" "}
+                        <span>نوع:</span>
+                        <span>تهران</span>{" "}
+                    </div>
+                    <div>
+                        <span>سریال:</span>
+                        <span>تهران</span>{" "}
+                    </div>
+                    <div>
+                        <span>رنگ:</span>
+                        <span>تهران</span>{" "}
+                    </div>
+                    <div>
+                        <span>گیگ:</span>
+                        <span>تهران</span>{" "}
+                    </div>
+                </div>
+                <div className="techLeft">
+                    <div>
+                        {" "}
+                        <span>تاریخ پذیرش :</span>
+                        <span>حسین درودی</span>{" "}
+                    </div>
+                    <div>
+                        {" "}
+                        <span>ساعت پذیرش:</span>
+                        <span>حسین درودی</span>{" "}
+                    </div>
+                    <div>
+                        {" "}
+                        <span>اپراتور پذیرش:</span>
+                        <span>تهران</span>{" "}
+                    </div>
+                    
+                </div>
+            </div>
+            <hr className='techHR'/>
+            <div className="techSecondDiv">
+                <div className="techWarrantyStatus">
+                    <div className="techWarranty">
+                        <label htmlFor="techW">گارانتی</label>
+                        <div id='techW' className="techWarDiv">
+                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
+                                <option disabled value="0" >وضعیت گارانتی بعد از نظر تکنسین</option>
+                                <option value="گارانتی">گارانتی</option>
+                                <option value="بدون گارانتی">بدون گارانتی</option>
+                                <option value="استعلام تکنسین">استعلام تکنسین</option>
+                            </select>
+                            <textarea  className='techWarrantyText1' placeholder='توضیحات'/>
+                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
+                                <option disabled value="0" >علت ابطال گارانتی</option>
+                                <option value="گارانتی">گارانتی</option>
+                                <option value="بدون گارانتی">بدون گارانتی</option>
+                                <option value="استعلام تکنسین">استعلام تکنسین</option>
+                            </select>
+                            <textarea  className='techWarrantyText1' placeholder='توضیحات'/>
+                            
+                        </div>
+                    </div>
+                    <div className="techStatus">
+                        <label htmlFor="techS">وضعیت</label>
+                        <div className="techSt" id='techS'>
+                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
+                                <option disabled value="0" >نظر اولیه</option>
+                                <option value="گارانتی">گارانتی</option>
+                                <option value="بدون گارانتی">بدون گارانتی</option>
+                                <option value="استعلام تکنسین">استعلام تکنسین</option>
+                            </select>
+                            <textarea  className='techWarrantyText' placeholder='توضیحات'/>
+                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
+                                <option disabled value="0" >وضعیت نظر اولیه</option>
+                                <option value="گارانتی">گارانتی</option>
+                                <option value="بدون گارانتی">بدون گارانتی</option>
+                                <option value="استعلام تکنسین">استعلام تکنسین</option>
+                            </select>
+                            <textarea  className='techWarrantyText' placeholder='توضیحات'/>
+                            
+                            <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
+                                <option disabled value="0" >وضعیت نهایی</option>
+                                <option value="گارانتی">گارانتی</option>
+                                <option value="بدون گارانتی">بدون گارانتی</option>
+                                <option value="استعلام تکنسین">استعلام تکنسین</option>
+                            </select>
+                            <textarea  className='techWarrantyText' placeholder='توضیحات'/>
+                        </div>
+                    </div>
+                </div>
+                <div className="techDescDiv">
+                    <label htmlFor="techdescription" className="techDescLabel">توضیحات فنی</label>
+                    <textarea className='technicalDescription' name="" id="techdescription" cols="30" rows="8"></textarea>
+                </div>
+                <div className="techFooterDiv">
+                    <div className="techDownRight">
+                        <label htmlFor="" className='labelMargin'>خدمات اضافی</label>
+                        <div className="techDownRightDiv">
+                            <div className="mSelectDiv" >
+                                <Multiselect
+                                
+                                emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
+                                id='multiSelected'
+                                options={[
+                                    {name: 'نصب نرم افزار', id: 1},
+                                    {name: 'بکاپ گیری', id: 2},
+                                    {name: 'گلس', id: 3},
+                                    {name: 'برنامه جانبی', id: 4},
+                                    {name: 'ساخت اکانت', id: 5},
+                                ]}
+
+                                displayValue="name" // Property name to display in the dropdown options
+                                placeholder="لوازم همراه"
+                                hidePlaceholder ={true}
+                                showArrow={true}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="techDownMiddle">
+                        <label htmlFor="" className='labelMargin'>پیوست ها</label>
+                        <div className="techDownRightDiv">
+                            <div className="accordingDiv">
+                                <Accordion>
+                                    <Accordion.Item eventKey="0">
+                                        <Accordion.Header></Accordion.Header>
+                                            <Accordion.Body className="accordionBody">
+                                                <div className="addBtn">
+                                                    <bs.BsFillPlusCircleFill
+                                                    size={25}
+                                                    style={{ cursor: "pointer" }}
+                                                    onClick={handleAddIP}
+                                                    />
+                                                    <b>عکس</b>
+                                                </div>
+                                                {ips.map((i, index) => (
+                                                    <div className="ipTextFields" key={index}>
+                                                    <fa.FaMinus
+                                                        size={25}
+                                                        style={{ cursor: "pointer" }}
+                                                        onClick={() => handleClickRemoveIP(index)}
+                                                    />
+                                                    
+                                                    <div className='failedBTNParent'>
+                                                        <label htmlFor="firstBtnfile"><i className="fa fa-camera failedBTN" aria-hidden="true"></i></label>
+                                                        <input type="file" id='firstBtnfile' accept="image/png, image/gif, image/jpeg" onChange={onImageChange} />
+                                                         <span>{firstImg ? firstImg.name : '' }</span>
+                                                    </div>
+                                                    
+                                                    </div>
+                                                ))}
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                </Accordion>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div className="techDownLeft">
+                        <label htmlFor="" className='labelMargin'>اجرت کل</label>
+                        <div className="techDownRightDiv">
+                            <div className='tipDiv'>
+                                <input type="number" className='tip' />
+                                <span>تومان</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      /* <div className="techFirstDiv">
+        <span>اطلاعات</span> <hr className='' />
       </div>
-      <hr />
       <div className="second">
               <div className="right">
                   <div>
@@ -131,6 +373,36 @@ return (
                       {" "}
                       <span>اپراتور:</span>
                       <span>{qcState.operatorQC}</span>{" "}
+                  </div>
+              </div>
+              <div className="left">
+                  <div>
+                      <span>نوع گارانتی:</span>
+                      <span>{phonestate.garanteeType}</span>
+                  </div>
+                  <div>
+                      <span>سریال دستگاه:</span>
+                      <span>{phonestate.serial}</span>
+                  </div>
+                  <div>
+                      <span>مارک:</span>
+                      <span>{phonestate.brand}</span>
+                  </div>
+                  <div>
+                      <span>نوع:</span>
+                      <span>{phonestate.type}</span>
+                  </div>
+                  <div>
+                      <span>مدل:</span>
+                      <span>{phonestate.model}</span>
+                  </div>
+                  <div>
+                      <span>رنگ:</span>
+                      <span>{phonestate.color}</span>
+                  </div>
+                  <div>
+                      <span>گیگ:</span>
+                      <span>{phonestate.storage}</span>
                   </div>
               </div>
               <div className="left">
@@ -304,7 +576,7 @@ return (
                   <button className='technicianSubmitButton' onClick={handleSubmitTech}>ارسال</button>
 
           </div>
-      </div>
+      </div> */}
 
       </>
     )}

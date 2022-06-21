@@ -20,6 +20,7 @@ import { setDatePickerDate } from "../../../../../../validation/functions";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 const TableModal = (props) => {
+  
   const currentLang = useContext(AppContext);
   const { app } = useContext(AppContext);
   const [type, setType] = useState("")

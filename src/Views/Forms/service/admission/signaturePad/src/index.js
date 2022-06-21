@@ -93,6 +93,7 @@ export default class SignaturePad extends React.Component {
     ctx.scale(ratio, ratio);
     this._isEmpty = true;
   }
+  
 
   _reset() {
     this.points = [];
