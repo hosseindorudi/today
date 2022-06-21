@@ -199,7 +199,7 @@
   "routes.admitionFirstForm":"فرم پذیرش",
   "routes.CustomerList": "مشتری",
   "routes.customerForm":"فرم مشتری",
-
+  "customer.created":"مشتری ساخته شد",
   "accesoriesDefineHeader": "فرم لوازم همراه گوشی",
   "admissionDefineHeader": "فرم لیست پذیرش",
   "agentAbilityDefineHeader": "فرم توانایی های نماینده",

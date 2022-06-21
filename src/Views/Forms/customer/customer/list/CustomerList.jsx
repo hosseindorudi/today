@@ -41,7 +41,7 @@ import AccessListModal from "../../../../../Components/Table/AccessListModal/Acc
 import { customerAccessList, customerChangePassword, customerCheckFile, customerDelete, customerExport, customerExportId, customerFavorite, customerGetOneRecord, customerImportFile, customerLog, customerRead, customerReadPaging, customerSampleFile, customerSetUnselectedColumn } from "../../../../../services/customerService";
 import PasswordModal from "../../../../../Components/Table/passwordModal/PasswordModal";
 const CustomerList = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType","Password"];
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);

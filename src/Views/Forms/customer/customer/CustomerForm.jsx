@@ -24,6 +24,7 @@ import { setDatePickerDate } from '../../../../validation/functions';
 import { customerCreate } from '../../../../services/customerService';
 
 const CustomerForm = () => {
+    const [type, setType] = useState("")
     const currentLang = useContext(AppContext);
     const [operatorDateExp, setOperatorDateExp] = useState(new Date());
     const {t} = useTranslation();
@@ -73,6 +74,7 @@ const CustomerForm = () => {
 
 
     useEffect(()=> {
+      setType("READTITLE")
         fetchData({
           method: "POST",
           url: customerGroupReadTitle,
@@ -99,17 +101,23 @@ const CustomerForm = () => {
           position: toast.POSITION.BOTTOM_CENTER,
         });
       }
-
+      const handleResponse=(response,type)=>{
+        switch (type) {
+          case "READTITLE":
+                setGroupTitles(response.Title)
+                response.Title.length&&setGroupTitleId(response.Title[0].Id)
+            break;
+          case "SUBMIT" :
+            handleSeccess(t("customer.created"));
+            handleClickMenu();
+          default:
+            break;
+        }
+      }
       useEffect(()=> {
         if (response){
-          (response.Result && response.Title) && setGroupTitles(response.Title) ;
-          (response.Result && response.Title) && setGroupTitleId(response.Title[0].Id) ;
-          !response.Result && handleError(response.Message);
-          (response.Result && response.Message === "Ok" && !response.Title) && handleSeccess(response.Message);
-          (response.Result && response.Message === "Ok" && !response.Title) && handleClickMenu();
-          
+          response.Result?handleResponse(response,type):handleError(response.Message)          
         }
-        
     },[response])
 
     const handleSubmitForm = (e) => {
@@ -129,7 +137,9 @@ const CustomerForm = () => {
             return
         }
         else {
-            { fetchData({
+            { 
+              setType("SUBMIT")
+              fetchData({
                 method: "POST",
                 url:customerCreate,
                 headers: {
