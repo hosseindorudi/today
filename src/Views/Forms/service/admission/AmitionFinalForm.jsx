@@ -12,12 +12,13 @@ import useRequest from '../../../../customHooks/useRequest';
 import AppContext from '../../../../contexts/AppContext';
 import { useTranslation } from 'react-i18next';
 import { admitionCreate } from '../../../../services/admitionService'; 
-
+import { admissionAccessoryReadTitle } from '../../../../services/admissionAccessory';
 import { productGroupCreate } from '../../../../services/productGroup';
 import Admission from './Admission';
 
 
 const AmitionFinalForm = () => {
+    const [type, setType] = useState("")
     const [textRecieved, setTextRecieved] = useState("")
     const [textDivVal, setTextDivVal] = useState(false)
     const [patternLock, setpatternLock] = useState(false);
@@ -32,6 +33,8 @@ const AmitionFinalForm = () => {
     const [operatorDesc, setOperatorDesc] = useState("")
     const [customerSignature, setCustomerSignature] = useState("")
     const [operatorSignature, setOperatorSignature] = useState("")
+    const [accessoryTitles, setAccessoriesTitles] = useState([])
+    const [accessoryTitlesId, setAccessoriesTitlesId] = useState()
     const sigPad = useRef({});
     const sigPadCustomer = useRef({});
     const abortController = new AbortController();
@@ -62,40 +65,67 @@ const AmitionFinalForm = () => {
       };
 
 
+      useEffect(()=> { 
 
-    // useEffect(()=> {
-
-    // }, [])
-
-
-    // const handleResponse = (response, type) => {
-    //     switch (type) {
-    //       case "READTITLE":
-    //         setProducts(response.Title);
-    //         break;
-    //         case "SUBMIT":
-    //         handleSuccess()
-    //       default:
-    //         break;
-    //     }
+        handleFunctions("Accessory")
+      
         
-    //   };
-
-    //   useEffect(() => {
-    //     setType("READTITLEPRODUCTGROUP");
-    //     fetchData({
-    //       method: "POST",
-    //       url: productGroupReadTitle,
-    //       headers: {
-    //         accept: "*/*",
-    //       },
-    //       data: request,
+          
+        },[])
     
-    //       signal: abortController.signal,
-    //     });
-    //     return () => abortController.abort();
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    //   }, []);
+        const handleFunctions = (type) => {
+            switch (type) {
+                case "Accessory":
+                    setType("Accessory")
+                    fetchData({
+                        method: "POST",
+                        url: admissionAccessoryReadTitle,
+                        headers: {
+                          accept: "*/*",
+                        },
+                        data: request,
+                        signal:abortController.signal,
+                      })
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+
+
+      useEffect(()=> {
+        if (response){
+        response.Result?handleResponse(response,type):handleError(response.Message)          
+        }
+    },[response])
+
+      const handleResponse=(response,type)=>{
+        switch (type) {
+          
+          case "Accessory":
+                console.log(response.Title)
+                
+    
+                response.Title.map((m,i) => (
+                    setAccessoriesTitles(prev => [...prev, {name:m.Value, id: m.Id}])
+                ))
+                response.Title.length&&setAccessoriesTitlesId(response.Title[0].Id)
+
+                setResponse(undefined)
+                
+            break;
+          case "SUBMIT" :
+            handleSeccess(t("customer.created"));
+            handleClickMenu();
+          default:
+            break;
+        }
+      }
+
+
+
+   
 
 
 
@@ -111,25 +141,6 @@ const AmitionFinalForm = () => {
           position: toast.POSITION.BOTTOM_CENTER,
         });
       }
-
-      useEffect(()=> {
-        if (response){
-          
-          !response.Result && handleError(response.Message);
-        //   (response.Result && response.Message === "Ok" && !response.Title) && handleSeccess(response.Message);
-        //   (response.Result && response.Message === "Ok" && !response.Title) && handleClickMenu();
-        (response.Result && response.Message === "Ok" ) && handleSeccess(response.Message);
-        (response.Result && response.Message === "Ok" ) && handleClickMenu();
-
-        setResponse(undefined);
-        }
-        
-    },[response])
-
-
-
-
-
 
 
 
@@ -346,13 +357,7 @@ const AmitionFinalForm = () => {
                         
                             emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
                             id='multiSelected'
-                            options={[
-                                {name: 'نصب نرم افزار', id: 1},
-                                {name: 'بکاپ گیری', id: 2},
-                                {name: 'گلس', id: 3},
-                                {name: 'برنامه جانبی', id: 4},
-                                {name: 'ساخت اکانت', id: 5},
-                            ]}
+                            options={accessoryTitles}
 
                             displayValue="name" // Property name to display in the dropdown options
                             placeholder="لوازم همراه"
