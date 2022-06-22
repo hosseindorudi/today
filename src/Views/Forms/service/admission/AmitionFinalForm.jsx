@@ -15,8 +15,9 @@ import { admitionCreate } from '../../../../services/admitionService';
 import { admissionAccessoryReadTitle } from '../../../../services/admissionAccessory';
 import { productGroupCreate } from '../../../../services/productGroup';
 import Admission from './Admission';
-
-
+import { defectReadTitle } from '../../../../services/defectService';
+import Select, { StylesConfig } from 'react-select';
+import chroma from 'chroma-js';
 const AmitionFinalForm = () => {
     const [type, setType] = useState("")
     const [textRecieved, setTextRecieved] = useState("")
@@ -24,8 +25,9 @@ const AmitionFinalForm = () => {
     const [patternLock, setpatternLock] = useState(false);
     const [patternLockSize, setPatternLockSize] = useState("0");
     const [gmailVal, setGmailVal] = useState(false);
+    const [passVal, setPassVal] = useState(false);
     const [agentDescVal, setAgentDescVal] = useState(false)
-    const [patternArr, setPatternArr] = useState([])
+    const [patternArr, setPatternArr] = useState("")
     const [isHavPass, setIsHavPass] = useState(false)
     const [password, setPassword] = useState("")
     const [isHaveAccount, setishaveAccount] = useState(false)
@@ -34,7 +36,12 @@ const AmitionFinalForm = () => {
     const [customerSignature, setCustomerSignature] = useState("")
     const [operatorSignature, setOperatorSignature] = useState("")
     const [accessoryTitles, setAccessoriesTitles] = useState([])
+    const [deffectTitles, setDeffectTitles] = useState([])
     const [accessoryTitlesId, setAccessoriesTitlesId] = useState()
+    const [deffectTitlesId, setDeffectTitlesId] = useState()
+
+    const [selectesDeffect, setSelectedDeffect] = useState([])
+    const [selectesAccessory, setSelectedAccessory] = useState([])
     const sigPad = useRef({});
     const sigPadCustomer = useRef({});
     const abortController = new AbortController();
@@ -87,6 +94,18 @@ const AmitionFinalForm = () => {
                         signal:abortController.signal,
                       })
                     break;
+                case "Deffect":
+                    setType("Deffect")
+                    fetchData({
+                        method: "POST",
+                        url: defectReadTitle,
+                        headers: {
+                          accept: "*/*",
+                        },
+                        data: request,
+                        signal:abortController.signal,
+                      })
+                    break;
                 
                 default:
                     break;
@@ -108,9 +127,22 @@ const AmitionFinalForm = () => {
                 
     
                 response.Title.map((m,i) => (
-                    setAccessoriesTitles(prev => [...prev, {name:m.Value, id: m.Id}])
+                    setAccessoriesTitles(prev => [...prev, {value: m.Id,label:m.Title, color: `#${m.Color}` }])
                 ))
                 response.Title.length&&setAccessoriesTitlesId(response.Title[0].Id)
+
+                setResponse(undefined)
+                handleFunctions("Deffect")
+                
+            break;
+          case "Deffect":
+                console.log(response.Title)
+                
+    
+                response.Title.map((m,i) => (
+                    setDeffectTitles(prev => [...prev, {value: m.Id,label:m.Title, color: `#${m.Color}` }])
+                ))
+                response.Title.length&&setDeffectTitlesId(response.Title[0].Id)
 
                 setResponse(undefined)
                 
@@ -142,37 +174,53 @@ const AmitionFinalForm = () => {
         });
       }
 
+      console.log(password)
 
 
 
     const submitAdmitionForm = (e)=> {
         e.preventDefault()
+        let myDeffects = []
+        selectesDeffect.map((d,i) => (
+            myDeffects.push(d.value)
+        ))
+        let myAccessory = []
+        selectesAccessory.map((d,i) => (
+            myAccessory.push(d.value)
+        ))
 
-
+        setType("SUBMIT")
         fetchData({
             method: "POST",
             url: admitionCreate,
             headers: {
               accept: "*/*",
             },
+            
             data: {
               
               Id:0,
-              Customer_Id: 10,
-              ProductGroup_Id:2,
-              Product_Id:2,
-              Part_Id:2,
+              Customer_Id: 1,
+              ProductGroup_Id:1,
+              Product_Id:1,
+              Part_Id:1,
+              AdmissionStep_EId:1,
+              IsArchive:true,
+              ModelName:"iPhone",
               ModelNumber:"09368659286",
               SerialNumber:"phone",
               IMEI1:"asdasd",
               IMEI2:"asdasdasd",
               CodeNumber : "asdasdasd",
               AdmissionNumber: "asdasdasd",
-              IsHavePassword: true,
-              Password: "asd",
+              IsHavePassword: false,  //password.length ? true : false
+              Password: password,
+              IsHavePattern:patternArr.length ? true: false,
+              Pattern:patternArr.length ?patternArr : "",
               IsHaveAccount: account.length ? true : false,
-              Account: account,
-              Defect: "sdfasdasdasd",
+              Account:account.length? account : "",
+              AdmissionDefect: myDeffects,
+              AdmissionAccessory:myAccessory,
               Customer_Description: textRecieved,
               Customer_Signature: String(sigPadCustomer.current.toDataURL()),
               Operator_Description: operatorDesc,
@@ -195,6 +243,59 @@ const AmitionFinalForm = () => {
 
 
 
+    }
+
+    const colourStyles = {
+        control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+            const color = chroma(data.color);
+            return {
+              ...styles,
+              backgroundColor: isDisabled
+                ? undefined
+                : isSelected
+                ? data.color
+                : isFocused
+                ? color.alpha(0.1).css()
+                : undefined,
+              color: isDisabled
+                ? '#ccc'
+                : isSelected
+                ? chroma.contrast(color, 'white') > 2
+                  ? 'white'
+                  : 'black'
+                : data.color,
+              cursor: isDisabled ? 'not-allowed' : 'default',
+        
+              ':active': {
+                ...styles[':active'],
+                backgroundColor: !isDisabled
+                  ? isSelected
+                    ? data.color
+                    : color.alpha(0.3).css()
+                  : undefined,
+              },
+            };
+          },
+          multiValue: (styles, { data }) => {
+            const color = chroma(data.color);
+            return {
+              ...styles,
+              backgroundColor: color.alpha(0.1).css(),
+            };
+          },
+          multiValueLabel: (styles, { data }) => ({
+            ...styles,
+            color: data.color,
+          }),
+          multiValueRemove: (styles, { data }) => ({
+            ...styles,
+            color: data.color,
+            ':hover': {
+              backgroundColor: data.color,
+              color: 'white',
+            },
+          }),
     }
 
 
@@ -314,14 +415,63 @@ const AmitionFinalForm = () => {
 
         <span className="admitionSpan">پذیرش</span>
             <div className="admitionItemsDiv">
-                <div className="textFieldDescDiv">
-                    <span className={textDivVal ? "failedDescSpan2" :'failedDescSpan'} >ایرادات</span>
-                    <div className={textDivVal ? "DescDivFinal2" :'DescDivFinal'} >
-                        <textarea name="" className='textFieldDesc' onFocus={(e) => setTextDivVal(true)} 
-                            onBlur={(e) => setTextDivVal(false)}
-                        cols="30" rows="10" value={textRecieved} onChange={(e) => setTextRecieved(e.target.value)}></textarea>
-                    </div>
+                <div className="deviceExtraDiv">
+                    <span className="extraDeviceSpan">ایرادات</span>
+                    <div className="extraDeviceDiv" style={{direction:"ltr"}}>
+                        <div className='multiSelectDiv'>
+                            {/* <Multiselect
+                            
+                            emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
+                            id='multiSelected'
+                            options={deffectTitles}
+                            onSelect={(e) => {setSelectedDeffect(e)}}
+                            onRemove={(e) => {setSelectedDeffect(e)}}
+                            displayValue="name" // Property name to display in the dropdown options
+                            placeholder="ایرادات"
+                            hidePlaceholder ={true}
+                            showArrow={false}
+                            /> */}
+                            <Select
+                                closeMenuOnSelect={false}
+                                isMulti
+                                options={deffectTitles}
+                                styles={colourStyles}
+                                value={selectesDeffect}
+                                onChange={(e) => setSelectedDeffect(e)}
+                                placeholder="ایرادات"
+                            />
+                        </div>
+                        </div>
                 </div>
+                <div className="deviceExtraDiv">
+                    <span className="extraDeviceSpan">لوازم جانبی</span>
+                    <div className="extraDeviceDiv" style={{direction:"ltr"}}>
+                        <div className='multiSelectDiv'>
+                            {/* <Multiselect
+                            onSelect={(e) => {setSelectedAccessory(e)}}
+                            onRemove={(e) => {setSelectedAccessory(e)}}
+                            emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
+                            id='multiSelected'
+                            options={accessoryTitles}
+
+                            displayValue="name" // Property name to display in the dropdown options
+                            placeholder="لوازم همراه"
+                            hidePlaceholder ={true}
+                            showArrow={false}
+                            /> */}
+                            <Select
+                                closeMenuOnSelect={false}
+                                isMulti
+                                options={accessoryTitles}
+                                styles={colourStyles}
+                                value={selectesAccessory}
+                                onChange={(e) => setSelectedAccessory(e)}
+                                placeholder="لوازم جانبی"
+                            />
+                        </div>
+                        </div>
+                </div>
+                
                 <div className="acountPatternDiv">
                     <span className="acountpatternSpan">پترن (اختیاری)</span>
                     <div className="paternAcountDiv">
@@ -340,6 +490,7 @@ const AmitionFinalForm = () => {
                         <div className='patternLock' style={{display: patternLock ? 'block' : 'none'}}><PatternLock  setPatternArr={setPatternArr}  size={patternLockSize} setpatternLock = {setpatternLock} /></div>
                     </div>
                 </div>
+
                 <div className="acountInformationDiv">
                     <span className="aountCustomerSpan">اطلاعات اکانت</span>
                     <div className="acountCustomerDiv">
@@ -347,25 +498,21 @@ const AmitionFinalForm = () => {
                             <span className={gmailVal ? "acountDivGmailSpan2" : "acountDivGmailSpan"}>ایمیل</span>
                             <input type="email" value={account} onFocus={(e) => setGmailVal(true)} onBlur={(e) => setGmailVal(false)} onChange={(e)=> setAccount(e.target.value)} className="acountInputSpan" />
                         </div>
+                 
+                    
+                        <div  className={passVal ? "acountDmailDiv2" : "acountDmailDiv"}>
+                            <span className={passVal ? "acountDivGmailSpan2" : "acountDivGmailSpan"}>رمز عبور</span>
+                            <input type="password" value={password} onFocus={(e) => setPassVal(true)} onBlur={(e) => setPassVal(false)} onChange={(e)=> setPassword(e.target.value)} className="acountInputSpan" />
+                        </div>
                     </div>
                 </div>
-                <div className="deviceExtraDiv">
-                    <span className="extraDeviceSpan">لوازم جانبی</span>
-                    <div className="extraDeviceDiv" style={{direction:"ltr"}}>
-                        <div className='multiSelectDiv'>
-                            <Multiselect
-                        
-                            emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
-                            id='multiSelected'
-                            options={accessoryTitles}
-
-                            displayValue="name" // Property name to display in the dropdown options
-                            placeholder="لوازم همراه"
-                            hidePlaceholder ={true}
-                            showArrow={false}
-                            />
-                        </div>
-                        </div>
+                <div className="textFieldDescDiv">
+                    <span className={textDivVal ? "failedDescSpan2" :'failedDescSpan'} >توضیحات</span>
+                    <div className={textDivVal ? "DescDivFinal2" :'DescDivFinal'} >
+                        <textarea name="" className='textFieldDesc' onFocus={(e) => setTextDivVal(true)} 
+                            onBlur={(e) => setTextDivVal(false)}
+                        cols="30" rows="10" value={textRecieved} onChange={(e) => setTextRecieved(e.target.value)}></textarea>
+                    </div>
                 </div>
                 <div className="agentSignatur">
                     <span className="agentSigSpan">امضا</span>

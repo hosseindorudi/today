@@ -52,7 +52,8 @@ import AdmissionModal from "./tableModal/AdmissionModal";
 const Admission = () => {
 
 
-  const filteredColumns = ["Language_EId", "Id", "Group_Id", "Password", "Registrar"];
+  const filteredColumns = ["Language_EId", "Id", "Group_Id", "SourceType", "Registrar","Customer_Id","ProductGroup_Id","Product_Id","Part_Id","AdmissionStep_EId","Operator_Signature","Customer_Signature"];
+  const filterArrowColumns = ["ProductGroup_Title","Product_Title","Part_Title","Customer_Title","Group_Title"]
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);
@@ -250,6 +251,14 @@ const Admission = () => {
       case "DateSet":
         return convertUTC(value);
       case "IsActive":
+        return <Form.Check type="switch" disabled checked={value} />;
+      case "IsHavePassword":
+        return <Form.Check type="switch" disabled checked={value} />;
+      case "IsHavePattern":
+        return <Form.Check type="switch" disabled checked={value} />;
+      case "IsHaveAccount":
+        return <Form.Check type="switch" disabled checked={value} />;
+      case "IsArchive":
         return <Form.Check type="switch" disabled checked={value} />;
       case "LimitFrom":
         return post.IsLimited ? convertUTC(value) : "-";
@@ -823,7 +832,8 @@ const Admission = () => {
                                     className="sortingArrowsBTN"
                                     onClick={() => handleClickSort(column)}
                                   >
-                                    {column["Header"] !== "Group_Title" ? (column["isSorted"] ? (
+                                    
+                                    {!filterArrowColumns.includes(column["Header"])  ? (column["isSorted"] ? (
                                       column["IsAscending"] ? (
                                         <MainUpArrow />
                                       ) : (
