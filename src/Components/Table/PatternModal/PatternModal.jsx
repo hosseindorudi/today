@@ -18,13 +18,14 @@ const PatternModal = (props) => {
       onHide={props.onHide}
     >
       <Modal.Header closeButton></Modal.Header>
-      <Modal.Body>
+      <Modal.Body >
         <div className="tableModal">
          
             
           
             <div className="patternModalDiv">
               <PatternLock 
+                    width={props.width}
                     setPatternArr={props.setPatternArr} 
                     size={props.size} 
                     setpatternLock={props.setpatternLock}

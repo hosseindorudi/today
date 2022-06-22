@@ -99,8 +99,10 @@ class AdPatternLock extends Component {
 
         return lines;
     };
+    
 
     insertLine = (p1, p2, key, lines) => {
+        
         const {patternLinesHeight, patternLinesBackgroundColor, patternDotsRadius} = this.props;
         const lineLengthAngle = getLengthAngle(p1.x, p2.x, p1.y, p2.y);
         lines.push(
@@ -108,7 +110,7 @@ class AdPatternLock extends Component {
             <div key={key} className="pattern-lines"
                  style={
                      {
-                         left: p1.x -670,
+                         left: p1.x - 10,
                          top: p1.y - 80,
                          width: lineLengthAngle.length + patternDotsRadius * 2,
                          transform: `rotate(${lineLengthAngle.angle}deg)`,

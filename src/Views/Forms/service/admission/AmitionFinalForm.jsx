@@ -19,6 +19,7 @@ import { defectReadTitle } from '../../../../services/defectService';
 import Select, { StylesConfig } from 'react-select';
 import chroma from 'chroma-js';
 import PatternModal from '../../../../Components/Table/PatternModal/PatternModal';
+import useWindowSize from '../../../../customHooks/useWindowSize';
 const AmitionFinalForm = () => {
     const [type, setType] = useState("")
     const [textRecieved, setTextRecieved] = useState("")
@@ -50,6 +51,8 @@ const AmitionFinalForm = () => {
     const request = useRequest();
     const {t} = useTranslation();
     const tabContext = useContext(TabContext);
+    const {width} = useWindowSize()
+    console.log(width)
     
     const handleClickMenu = () => {
         tabContext.addRemoveTabs(
@@ -310,6 +313,7 @@ const AmitionFinalForm = () => {
             onHide={() => setpatternLock(false)}
             tableModalShow={patternLock}
             show={patternLock}
+            width={width}
           />
         )}
     

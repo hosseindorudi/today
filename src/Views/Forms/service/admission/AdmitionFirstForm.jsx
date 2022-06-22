@@ -56,7 +56,7 @@ const AdmitionFirstForm = () => {
                     },
                     data: {
                       Id: 0,
-                      Group_Id: 1,
+                      Group_Id: 5,
                       Language_EId: 1,
                       IsActive: true,
                       CustomerName: `${idCode}_${randomVal}`,
@@ -86,7 +86,7 @@ const AdmitionFirstForm = () => {
                 break;
         }
     }
-
+    
     const handleSeccess=(message)=>{
     
       toast.success(message, {
