@@ -8,6 +8,7 @@ import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { BrowserRouter } from 'react-router-dom';
 import BackDrop from './Components/backDrop/BackDrop';
+import ErrorBoundary from './Components/errorBoundary/ErrorBoundary'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
@@ -31,12 +32,13 @@ i18next
     },
   })
 root.render(
-
+  <ErrorBoundary>
   <Suspense fallback={ <BackDrop open={true}/>}>
     <BrowserRouter>
     <App />
   </BrowserRouter>
   </Suspense>
+  </ErrorBoundary>
  
 );
 
