@@ -39,7 +39,7 @@ const AmitionFinalForm = () => {
     const [deffectTitles, setDeffectTitles] = useState([])
     const [accessoryTitlesId, setAccessoriesTitlesId] = useState()
     const [deffectTitlesId, setDeffectTitlesId] = useState()
-
+    const [imeiInp, setIMEIInp] = useState("")
     const [selectesDeffect, setSelectedDeffect] = useState([])
     const [selectesAccessory, setSelectedAccessory] = useState([])
     const sigPad = useRef({});
@@ -209,7 +209,7 @@ const AmitionFinalForm = () => {
               ModelName:"iPhone",
               ModelNumber:"09368659286",
               SerialNumber:"phone",
-              IMEI1:"asdasd",
+              IMEI1:imeiInp,
               IMEI2:"asdasdasd",
               CodeNumber : "asdasdasd",
               AdmissionNumber: "asdasdasd",
@@ -308,6 +308,7 @@ const AmitionFinalForm = () => {
             <span>555555555555555</span>
                 <button className='recievedNew'>جدید</button>
             </div>
+            <input type="text" className='admissionIMEI' placeholder='IMEI' value={imeiInp} onChange={(e)=> setIMEIInp(e.target.value)} />
         </div>
         <div className="admitionSecondDiv">
 
@@ -373,16 +374,10 @@ const AmitionFinalForm = () => {
                         <span className="groupDivSpanKey">کد:</span>
                         <span className="groupDivSpanValue">09120000000</span>
                     </div>
-                    <div className="grouptDivRightMainDiv">
-                        <span className="groupDivSpanKey">IMEI1:</span>
-                        <span className="groupDivSpanValue">09120000000</span>
-                    </div>
+                    
                 </div>
                 <div className="grouptDivLeft">
-                    <div className="grouptDivRightMainDiv">
-                        <span className="groupDivSpanKey">IMEI2:</span>
-                        <span className="groupDivSpanValue">09120000000</span>
-                    </div>
+                    
                     <div className="grouptDivRightMainDiv">
                         <span className="groupDivSpanKey">حافظه:</span>
                         <span className="groupDivSpanValue">09120000000</span>
