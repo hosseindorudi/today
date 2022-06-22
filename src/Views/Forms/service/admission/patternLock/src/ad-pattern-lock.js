@@ -108,7 +108,7 @@ class AdPatternLock extends Component {
             <div key={key} className="pattern-lines"
                  style={
                      {
-                         left: p1.x -370,
+                         left: p1.x -670,
                          top: p1.y - 80,
                          width: lineLengthAngle.length + patternDotsRadius * 2,
                          transform: `rotate(${lineLengthAngle.angle}deg)`,
