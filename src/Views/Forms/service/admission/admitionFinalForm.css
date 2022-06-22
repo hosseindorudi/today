@@ -8,6 +8,7 @@
 }
 
 
+
 .recievedmainDiv {
     flex: 0.08;
     width: 100%;
@@ -15,6 +16,29 @@
     display: flex;
     position: relative;
 }
+
+.admissionIMEI {
+    position: absolute;
+    left: 0px;
+    height: 40px;
+    margin-inline-end: 10px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+
+}
+
+.admissionIMEI:hover {
+    border: 1px solid gray;
+}
+
+
+.admissionIMEI:focus {
+    border: 1px solid #0072E5;
+    outline: 1px solid #0072E5;
+
+}
+
+
 
 .recievedSpan {
     position: absolute;
