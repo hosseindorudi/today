@@ -21,6 +21,7 @@ import { admissionAccessoryReadTitle } from '../../../../../services/admissionAc
 import { toast } from 'react-toastify';
 import useAxios from '../../../../../customHooks/useAxios';
 import useRequest from '../../../../../customHooks/useRequest';
+import BackDrop from '../../../../../Components/backDrop/BackDrop';
 const TechnicianForm = () => {
     const [type, setType] = useState("")
   // const [value,setValue] = useState();
@@ -122,7 +123,7 @@ const TechnicianForm = () => {
 
   useEffect(()=> { 
 
-    handleFunctions("READTITLEWARANTY")
+    // handleFunctions("READTITLEWARANTY")
   
     
       
@@ -189,15 +190,11 @@ const TechnicianForm = () => {
     switch (type) {
       case "READTITLEWARANTY":
             setGroupTitles(response.Title)
-            console.log(response.Title)
-            response.Title.length&&setGroupTitleId(response.Title[0].Id)
             setResponse(undefined)
             handleFunctions("READTITLCANCEL")
         break;
       case "READTITLCANCEL":
             setGroupTitlesCANCEL(response.Title)
-            console.log(response.Title)
-            response.Title.length&&setGroupTitleCANCEELId(response.Title[0].Id)
             setResponse(undefined)
             handleFunctions("DeffectTitles")
         break;
@@ -249,79 +246,73 @@ const TechnicianForm = () => {
     
 return (
   <main className='maintech'>
-      {loading ? (
-      "loading..."
-    ) : (
-      <>
-      {
-
-
+    {loading?<BackDrop open={true}/>: 
         <div className="techmainDiv">
             <div className="techFirstDiv">
                 <div className="techRight">
                     <div>
                         {" "}
-                        <span>نام  مالک دستگاه:</span>
+                        <span>{t("tech.phoneOwnerName")}</span>
                         <span>حسین درودی</span>{" "}
                     </div>
                     <div>
                         {" "}
-                        <span>نام خانوادگی مالک دستگاه:</span>
+                        <span>{t("tech.phoneFamilyname")}</span>
                         <span>حسین درودی</span>{" "}
                     </div>
                     <div>
                         {" "}
-                        <span>استان:</span>
+                        <span>{t("tech.province")}</span>
                         <span>تهران</span>{" "}
                     </div>
                     <div>
-                        <span>شهرستان:</span>
+                        <span>{t("tech.city")}</span>
                         <span>تهران</span>{" "}
                     </div>
                 </div>
                 <div className="tehMiddle">
                     <div >
                         {" "}
-                        <span>مارک:</span>
+                        <span>{t("tech.brand")}</span>
                         <span>حسین درودی</span>{" "}
                     </div>
                     <div>
                         {" "}
-                        <span>مدل:</span>
+                        <span>{t("tech.model")}</span>
                         <span>حسین درودی</span>{" "}
                     </div>
                     <div>
                         {" "}
-                        <span>نوع:</span>
+                        <span>{t("tech.type")}</span>
                         <span>تهران</span>{" "}
                     </div>
                     <div>
-                        <span>سریال:</span>
+                        <span>{t("tech.serial")}</span>
                         <span>تهران</span>{" "}
                     </div>
                     <div>
-                        <span>رنگ:</span>
+                        <span>{t("tech.color")}</span>
                         <span>تهران</span>{" "}
                     </div>
                     <div>
-                        <span>گیگ:</span>
+                        <span>{t("tech.gig")}</span>
                         <span>تهران</span>{" "}
                     </div>
                 </div>
                 <div className="techLeft">
                     <div>
                         {" "}
-                        <span>تاریخ پذیرش :</span>
+                        <span>{t("tech.admissionDate")}</span>
                         <span>حسین درودی</span>{" "}
                     </div>
                     <div>
                         {" "}
-                        <span>ساعت پذیرش:</span>
+                        <span>{t("tech.admissionTime")}</span>
                         <span>حسین درودی</span>{" "}
                     </div>
                     <div>
                         {" "}
-                        <span>اپراتور پذیرش:</span>
+                        <span>{t("tech.admissionOperator")}</span>
                         <span>تهران</span>{" "}
                     </div>
                     
@@ -331,30 +322,36 @@ return (
             <div className="techSecondDiv">
                 <div className="techWarrantyStatus">
                     <div className="techWarranty">
-                        <label htmlFor="techW">گارانتی</label>
+                        <div className='techWarrantyType'>
+                        <label htmlFor="techW">{t("tech.warrantyStatus")}</label>
                         <div id='techW' className="techWarDiv">
                             <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)} value={warrantyType}>
-                                <option disabled >وضعیت گارانتی بعد از نظر تکنسین</option>
+                                <option disabled value={""} selected>{t("tech.warrantyStatus")}</option>
                                 {groupTitles.map((gt, i) => (
-                                    <option value={gt.Id} key={gt.Id}>{gt.Value}</option>
+                                    <option value={gt.Id} key={gt.Id}>{gt.Title}</option>
                                 ))}
                             </select>
-                            <textarea  className='techWarrantyText1' placeholder='توضیحات'/>
-
-
-                            <select className="selectSendTypeTech" onChange={(e) => setDeviceStatus(e.target.value)} value={deviceStatus}>
-                                <option disabled  >علت ابطال گارانتی</option>
-                                {groupTitlesCANCLE.map((gt, i) => (
-                                    <option value={gt.Id} key={gt.Id}>{gt.Value}</option>
-                                ))}
-                            </select>
-                            <textarea  className='techWarrantyText1' placeholder='توضیحات'/>
-                            
+                            <textarea  className='techWarrantyText1' placeholder={t("Description")} rows={"3"}/>
                         </div>
+                        </div>
+                        <div className='cancelReasonDiv'>
+                        <label htmlFor="techWT">{t("tech.warrantyCancellationReason")}</label>
+                        <div id='techWT' className='techWT'>
+                        <select className="selectSendTypeTech" onChange={(e) => setDeviceStatus(e.target.value)} value={deviceStatus}>
+                                <option disabled value={""} selected hidden>{t("tech.warrantyCancellationReason")}</option>
+                                {groupTitlesCANCLE.map((gt, i) => (
+                                    <option value={gt.Id} key={gt.Id}>{gt.Title}</option>
+                                ))}
+                            </select>
+                            <textarea  className='techWarrantyText1' placeholder={t("Description")} rows={"3"}/>
+                            </div>
+                        </div>
+                        
                     </div>
                     <div className="techStatus">
-                        <label htmlFor="techS">وضعیت</label>
-                        <div className="techSt" id='techS'>
+                        <div className='firstTechStatus'> 
+                        <label htmlFor="techSs">{t("tech.firstState")}</label>
+                        <div  id='techSs' className='techSs'>
                             <select className="selectSendTypeTech" >
                                 <option disabled value="0" >نظر اولیه</option>
                                 <option value="گارانتی">گارانتی</option>
@@ -362,6 +359,11 @@ return (
                                 <option value="استعلام تکنسین">استعلام تکنسین</option>
                             </select>
                             <textarea  className='techWarrantyText' placeholder='توضیحات'/>
+                        </div>
+                        </div>
+                        <div className='statusInProgressDiv'>
+                        <label htmlFor="techSProg">{t("tech.progressState")}</label>
+                            <div  id='techSProg' className='techSProg'>
                             <select className="selectSendTypeTech" >
                                 <option disabled value="0" >وضعیت نظر اولیه</option>
                                 <option value="گارانتی">گارانتی</option>
@@ -369,7 +371,11 @@ return (
                                 <option value="استعلام تکنسین">استعلام تکنسین</option>
                             </select>
                             <textarea  className='techWarrantyText' placeholder='توضیحات'/>
-                            
+                        </div>
+                        </div>
+                        <div className='finalTechStatus'>
+                        <label htmlFor="techSEnd">{t("tech.finalState")}</label>
+                            <div  id='techSEnd' className='techSEnd'>
                             <select className="selectSendTypeTech" >
                                 <option disabled value="0" >وضعیت نهایی</option>
                                 <option value="گارانتی">گارانتی</option>
@@ -378,28 +384,19 @@ return (
                             </select>
                             <textarea  className='techWarrantyText' placeholder='توضیحات'/>
                         </div>
+                        </div>
                     </div>
                 </div>
                 <div className="techDescDiv">
                     <label htmlFor="techdescription" className="techDescLabel">توضیحات فنی</label>
-                    <textarea className='technicalDescription' name="" id="techdescription" cols="30" rows="8"></textarea>
+                    <textarea className='technicalDescription' name="" id="techdescription"  rows="4"></textarea>
                 </div>
                 <div className="techFooterDiv">
                     <div className="techDownRight">
                         <label htmlFor="" className='labelMargin'>خدمات اضافی</label>
                         <div className="techDownRightDiv">
                             <div className="mSelectDiv" >
-                                <Multiselect
                                 
-                                emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
-                                id='multiSelected'
-                                options={deffectTitles}
-
-                                displayValue="name" // Property name to display in the dropdown options
-                                placeholder="لوازم همراه"
-                                hidePlaceholder ={true}
-                                showArrow={true}
-                                />
                             </div>
                         </div>
                     </div>
@@ -456,260 +453,8 @@ return (
 
             </div>
         </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      /* <div className="techFirstDiv">
-        <span>اطلاعات</span> <hr className='' />
-      </div>
-      <div className="second">
-              <div className="right">
-                  <div>
-                      <span>تاریخ پذیرش دستگاه:</span>
-                      <span>{qcState.date}</span>
-                  </div>
-                  <div>
-                      {" "}
-                      <span>ساعت پذیرش دستگاه:</span> <span>{qcState.time}</span>
-                  </div>
-                  <div>
-                      {" "}
-                      <span>نام و نام خانوادگی مالک دستگاه:</span>
-                      <span>{qcState.name}</span>{" "}
-                  </div>
-                  <div>
-                      {" "}
-                      <span>استان:</span>
-                      <span>{qcState.province}</span>{" "}
-                  </div>
-                  <div>
-                      <span>شهرستان:</span>
-                      <span>{qcState.city}</span>{" "}
-                  </div>
-                  <div>
-                      {" "}
-                      <span>تکنسین:</span>
-                      <span>{qcState.tech}</span>{" "}
-                  </div>
-                  <div>
-                      {" "}
-                      <span>اپراتور:</span>
-                      <span>{qcState.operatorQC}</span>{" "}
-                  </div>
-              </div>
-              <div className="left">
-                  <div>
-                      <span>نوع گارانتی:</span>
-                      <span>{phonestate.garanteeType}</span>
-                  </div>
-                  <div>
-                      <span>سریال دستگاه:</span>
-                      <span>{phonestate.serial}</span>
-                  </div>
-                  <div>
-                      <span>مارک:</span>
-                      <span>{phonestate.brand}</span>
-                  </div>
-                  <div>
-                      <span>نوع:</span>
-                      <span>{phonestate.type}</span>
-                  </div>
-                  <div>
-                      <span>مدل:</span>
-                      <span>{phonestate.model}</span>
-                  </div>
-                  <div>
-                      <span>رنگ:</span>
-                      <span>{phonestate.color}</span>
-                  </div>
-                  <div>
-                      <span>گیگ:</span>
-                      <span>{phonestate.storage}</span>
-                  </div>
-              </div>
-              <div className="left">
-                  <div>
-                      <span>نوع گارانتی:</span>
-                      <span>{phonestate.garanteeType}</span>
-                  </div>
-                  <div>
-                      <span>سریال دستگاه:</span>
-                      <span>{phonestate.serial}</span>
-                  </div>
-                  <div>
-                      <span>مارک:</span>
-                      <span>{phonestate.brand}</span>
-                  </div>
-                  <div>
-                      <span>نوع:</span>
-                      <span>{phonestate.type}</span>
-                  </div>
-                  <div>
-                      <span>مدل:</span>
-                      <span>{phonestate.model}</span>
-                  </div>
-                  <div>
-                      <span>رنگ:</span>
-                      <span>{phonestate.color}</span>
-                  </div>
-                  <div>
-                      <span>گیگ:</span>
-                      <span>{phonestate.storage}</span>
-                  </div>
-              </div>
-          </div>
-          <hr />
-      <div className="third">
-          <div className="thirdRight">
-              <div className="failedCode">
-                  <span>کد ایراد:</span>
-                  <span>24568</span>
-              </div>
-              <select className="selectSendTypeTech" onChange={(e) => setWarrantytype(e.target.value)}>
-                  <option disabled value="0" >وضعیت گارانتی بعد از نظر تکنسین</option>
-                  <option value="گارانتی">گارانتی</option>
-                  <option value="بدون گارانتی">بدون گارانتی</option>
-                  <option value="استعلام تکنسین">استعلام تکنسین</option>
-              </select>
-              <textarea type="text" id='technicianDesc' onChange={(e) => settechText(e.target.value)}  className='personInformationTech'  placeholder='توضیحات فنی تکنسین' />
-              
-              <select className="selectSendTypeTech" onChange={(e) => setDeviceStatus(e.target.value)}>
-                  <option disabled value="0">وضعیت فعلی دستگاه</option>
-                  <optgroup label="در انتظار مشتری:(قبل از باز شدن گوشی)">
-                      <option value="منتظر رمز و اکانت">منتظر رمز و اکانت</option>
-                      <option value="در انتظار تایید مشتری">در انتظار تایید مشتری</option>
-                  </optgroup>
-                  <optgroup label="در حال تعمیر:">
-                      <option value="تعمیرنرم افزاری">تعمیرنرم افزاری</option>
-                      <option value="تعمیر سخت افزاری">تعمیر سخت افزاری</option>
-                      <option value="در انتظار قطعه (قطعی)">در انتظار قطعه (قطعی)</option>
-                      <option value="در انتظار قطعه (تستی)">در انتظار قطعه (تستی)</option>
-                      <option value="در انتظار کمک فنی">در انتظار کمک فنی</option>
-                      <option value="منتظر رمز و اکانت">منتظر رمز و اکانت</option>
-                  </optgroup>
-                  <optgroup label="اتمام کار:">
-                      <option value="عدم مشاهده ایراد">عدم مشاهده ایراد</option>
-                      <option value="مرجوع">مرجوع</option>
-                      <option value="انصراف مشتری از تعمیر">انصراف مشتری از تعمیر</option>
-                      <option value="تعویض کامل">تعویض کامل</option>
-                      <option value="تعویض برد(ثبت imei)">تعویض برد(ثبت imei)</option>
-                  </optgroup>
-              </select>
-              <button className='techReqBtn'>درخواست قطعه</button>
-              
-          </div>
-          <div className="thirdLeft">
-              <div className="failedCodeLef">
-                  <span>اجرت:</span>
-                  <span>60 هزار تومان</span>
-              </div>
-              <div className="multiSelectDp">
-                  <label htmlFor="multiSelected">خدمات اضافه:</label>
-                  <div style={{direction:"ltr"}}>
-                      <Multiselect
-                      emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
-                      id='multiSelected'
-                      options={[
-                          {name: 'نصب نرم افزار', id: 1},
-                          {name: 'بکاپ گیری', id: 2},
-                          {name: 'گلس', id: 3},
-                          {name: 'برنامه جانبی', id: 4},
-                          {name: 'ساخت اکانت', id: 5},
-                      ]} // Options to display in the dropdown
-                      // Preselected value to persist in dropdown
-                      onSelect={(e)=>{ setExtraService(e)}} // Function will trigger on select event
-                      onRemove={(e)=>{setExtraService(e)}} // Function will trigger on remove event
-                      displayValue="name" // Property name to display in the dropdown options
-                      placeholder=""
-                      hidePlaceholder ={true}
-                      showArrow={true}
-                      />
-                  </div>
-              </div>
-              <div className="multiSelectDp">
-                  <label htmlFor="multiSelected">علت ابطال گارانتی:</label>
-                  <div style={{direction:"ltr"}}>
-              <Multiselect
-                  emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
-                  
-                  options={[
-                      {name: 'ضربات فیزیکی', id: 1},
-                      {name: 'اکسیده شدن', id: 2},
-                      {name: 'آتش سوزی', id: 3},
-                      {name: 'نفوذ مایعات', id: 4},
-                      {name: 'زنگ زدگی', id: 5},
-                      {name: 'شکستگی', id: 6},
-                      {name: 'نحنای دستگاه', id: 7},
-                      {name: 'بکارگیری آدابتورهای متفرقه', id: 8},
-                      {name: 'ارتقا و تغییر در قطعات', id: 9},
-                      {name: 'لقی یا شکستگی سوکت شارژر', id: 10},
-                      {name: 'استفاده در محیط های آلوده و پر گرد و غبار ', id: 11},
-                      {name: 'دستکاری قطعات توسط افراد غیر مجاز', id: 12},
-                      {name: 'ترشح مواد شیمیایی', id: 13},
-                      {name: 'ایراد ناشی از ROOT', id: 14},
-                      {name: 'ایراد ناشی ازFLASH در مراکز متفرقه', id: 15},
-                      {name: 'استفاده از اپ های آلوده', id: 16},
-                      {name: 'نوسان برق', id: 17},
-                      {name: 'آتش سوزی', id: 18},
-                      {name: 'ایراد ناشی از Jailbreak', id: 19},
-                  ]} // Options to display in the dropdown
-                  // Preselected value to persist in dropdown
-                  onSelect={(e)=>{ setFallWarranty(e)}} // Function will trigger on select event
-                  onRemove={(e)=>{setFallWarranty(e)}} // Function will trigger on remove event
-                  displayValue="name" // Property name to display in the dropdown options
-                  placeholder=""
-                  hidePlaceholder ={true}
-                  showArrow={true}
-                  />
-                  
-                  </div>
-                 
-              </div>
-              <div className="timepickerDiv" >
-                      
-                      <LocalizationProvider dateAdapter={AdapterJalali}>
-                          <TimePicker
-                              ampm={false}
-                              openTo="hours"
-                              views={['hours', 'minutes']}
-                              inputFormat="HH:mm"
-                              mask="__:__:__"
-                              label="ساعت اتمام سرویس"
-                              value={time}
-                              onChange={(newValue) => {
-                                  setTime(newValue);
-                              }}
-                              renderInput={(params) => <TextField {...params} />}
-                          />
-                      </LocalizationProvider>
-
-
-                      <LocalizationProvider dateAdapter={AdapterJalali}>
-                          <DatePicker
-                          mask="__/__/____"
-                          inputFormat="dd-MM-yyyy"
-                          value={date}
-                          label="تاریخ اتمام سرویس"
-                          onChange={(newValue) => {setDate(newValue)}}
-                          renderInput={(params) => <TextField {...params} />}
-                          />
-                      </LocalizationProvider>
-                  </div>
-                  <button className='technicianSubmitButton' onClick={handleSubmitTech}>ارسال</button>
-
-          </div>
-      </div> */}
-
-      </>
-    )}
+    }
+    
   </main>
 )
 }
