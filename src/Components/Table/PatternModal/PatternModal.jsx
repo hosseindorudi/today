@@ -10,6 +10,7 @@ const PatternModal = (props) => {
 
   return (
     <Modal
+    className='reletiveModal'
       show={props.show}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
@@ -21,7 +22,7 @@ const PatternModal = (props) => {
         <div className="tableModal">
          
             
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          
             <div className="patternModalDiv">
               <PatternLock 
                     setPatternArr={props.setPatternArr} 
@@ -29,7 +30,7 @@ const PatternModal = (props) => {
                     setpatternLock={props.setpatternLock}
                     />
             </div>
-            </Form.Group>
+            
             
 
             
