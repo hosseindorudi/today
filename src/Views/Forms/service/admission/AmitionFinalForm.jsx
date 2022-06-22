@@ -18,6 +18,7 @@ import Admission from './Admission';
 import { defectReadTitle } from '../../../../services/defectService';
 import Select, { StylesConfig } from 'react-select';
 import chroma from 'chroma-js';
+import PatternModal from '../../../../Components/Table/PatternModal/PatternModal';
 const AmitionFinalForm = () => {
     const [type, setType] = useState("")
     const [textRecieved, setTextRecieved] = useState("")
@@ -213,7 +214,7 @@ const AmitionFinalForm = () => {
               IMEI2:"asdasdasd",
               CodeNumber : "asdasdasd",
               AdmissionNumber: "asdasdasd",
-              IsHavePassword: false,  //password.length ? true : false
+              IsHavePassword:  password.length ? true : false, //
               Password: password,
               IsHavePattern:patternArr.length ? true: false,
               Pattern:patternArr.length ?patternArr : "",
@@ -300,6 +301,18 @@ const AmitionFinalForm = () => {
 
 
   return (
+    <>
+    {patternLock && (
+          <PatternModal
+            setPatternArr={setPatternArr}  
+            size={patternLockSize} 
+            setpatternLock = {setpatternLock}
+            onHide={() => setpatternLock(false)}
+            tableModalShow={patternLock}
+            show={patternLock}
+          />
+        )}
+    
     <div className="mainAdmitionDiv">
         <div className="recievedmainDiv">
             <span className="recievedSpan">شماره قبض</span>
@@ -482,7 +495,6 @@ const AmitionFinalForm = () => {
                             </select>
                             </div>
                         </div>
-                        <div className='patternLock' style={{display: patternLock ? 'block' : 'none'}}><PatternLock  setPatternArr={setPatternArr}  size={patternLockSize} setpatternLock = {setpatternLock} /></div>
                     </div>
                 </div>
 
@@ -547,6 +559,8 @@ const AmitionFinalForm = () => {
         <button className="admitionFinalFormSubmit" onClick={(e) => submitAdmitionForm(e)}>ارسال</button>
         </div>
 </div>
+
+</>
   )
 }
 

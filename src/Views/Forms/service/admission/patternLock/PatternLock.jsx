@@ -17,7 +17,7 @@ const PatternLock = ( {size, setpatternLock, setPatternArr} ) => {
           patternCircleRadius={10} 
           matrix={patternSize} 
           backgroundColor={"#84766B"} 
-          onCompletePattern={(pattern) => {   setpatternLock(false); setPatternArr(pattern.toString())}}/>
+          onCompletePattern={(pattern) => {    setPatternArr(pattern.toString())}}/>
 
 
 

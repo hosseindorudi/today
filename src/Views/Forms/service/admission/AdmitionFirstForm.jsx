@@ -59,7 +59,7 @@ const AdmitionFirstForm = () => {
                       Group_Id: 1,
                       Language_EId: 1,
                       IsActive: true,
-                      CustomerName: `${randomVal}_${idCode}`,
+                      CustomerName: `${idCode}_${randomVal}`,
                       Password: phoneNumber.toString(),
                       IdCardNumber: idCode,
                       FirstName: "Firstname",

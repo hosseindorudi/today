@@ -104,6 +104,7 @@ class AdPatternLock extends Component {
         const {patternLinesHeight, patternLinesBackgroundColor, patternDotsRadius} = this.props;
         const lineLengthAngle = getLengthAngle(p1.x, p2.x, p1.y, p2.y);
         lines.push(
+          
             <div key={key} className="pattern-lines"
                  style={
                      {
@@ -118,6 +119,7 @@ class AdPatternLock extends Component {
                      }
                  }
             />
+   
         )
     };
 
