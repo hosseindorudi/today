@@ -8,10 +8,9 @@ import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import '../../../../../assets/css/periorityForm.css'
 import { defintionInputs } from "../../../../../validation/functions";
-import StatusDeviceStart from "../StatusDeviceStart";
-import { statusDeviceStartCreate } from "../../../../../services/statusDeviceStart";
-
-const StatusDeviceStartDefine = () => {
+import StatusDeviceEnd from "../StatusDeviceEnd";
+import { statusDeviceEndCreate } from "../../../../../services/statusDeviceEndService";
+const StatusDeviceEndDefine = () => {
     const [response, loading, fetchData, setResponse] = useAxios();
     const tabContext = useContext(TabContext);
     const request = useRequest();
@@ -28,19 +27,19 @@ const StatusDeviceStartDefine = () => {
       });
       tabContext.addRemoveTabs(
         {
-            Component:StatusDeviceStartDefine,
-            path:"/StatusDeviceStartDefine",
-        title:"StatusDeviceStartDefine",
-            access:enums.Definition_StatusDeviceStart_Create_w,
+            Component:StatusDeviceEndDefine,
+            path:"/StatusDeviceEndDefine",
+            title:"StatusDeviceEndDefine",
+            access:enums.Definition_StatusDeviceEnd_Create_w,
         },
         "remove"
       );
       tabContext.addRemoveTabs(
         {
-          title: 'StatusDeviceStart',
-          path:'/StatusDeviceStart',
-            access:enums.Definition_StatusDeviceStart_Read_r,
-           Component:StatusDeviceStart,
+            title: 'StatusDeviceEnd',
+            path:'/StatusDeviceEnd',
+            access:enums.Definition_StatusDeviceEnd_Read_r,
+            Component:StatusDeviceEnd,
         },
   
         "add"
@@ -70,7 +69,7 @@ const StatusDeviceStartDefine = () => {
       e.preventDefault();
       fetchData({
         method: "POST",
-        url: statusDeviceStartCreate,
+        url: statusDeviceEndCreate,
         headers: {
           accept: "*/*",
         },
@@ -91,7 +90,7 @@ const StatusDeviceStartDefine = () => {
     return (
         <div className="periorityFormMain">
         <div className="periorityFormHeader">
-          <h1>{t("tech.firstState")}</h1>
+          <h1>{t("StatusDeviceEndDefine")}</h1>
         </div>
         <div className="periorityFormmainDiv">
           <div className="periorityFormForm">
@@ -113,4 +112,4 @@ const StatusDeviceStartDefine = () => {
     )
 }
 
-export default StatusDeviceStartDefine
+export default StatusDeviceEndDefine

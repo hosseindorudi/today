@@ -365,6 +365,10 @@
 "tech.progressState":"وضیعت فعلی",
 "tech.finalState":"وضعیت نهایی",
 "StatusDeviceStartDefine":"فرم وضیعت اولیه",
-"StatusDeviceStart":"وضیعت اولیه"
+"StatusDeviceStart":"وضیعت اولیه",
+"StatusDeviceProgress":"وضیعت فعلی دستگاه",
+"StatusDeviceProgressDefine":" فرم وضیعت فعلی دستگاه",
+"StatusDeviceEnd":"وضیعت پایانی دستگاه",
+"StatusDeviceEndDefine":"فرم وضیعت پایانی دستگاه"
 
 }

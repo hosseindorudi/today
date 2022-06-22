@@ -11,6 +11,10 @@ import StatusDeviceStart from './Views/Forms/definations/statusDeviceStart/Statu
 import Registered from './Views/Forms/service/registered/Registered';
 import SentCustomer from './Views/Forms/service/sentCustomer/SentCustomer';
 import SentCustomerForm from './Views/Forms/service/sentCustomer/SentCustomerForm';
+import StatusDeviceProgress from './Views/Forms/definations/statusDeviceProgress/StatusDeviceProgress';
+import StatusDeviceProgressDefine from './Views/Forms/definations/statusDeviceProgress/statusDeviceProgressDefine/StatusDeviceProgressDefine';
+import StatusDeviceEnd from './Views/Forms/definations/statusDeviceEnd/StatusDeviceEnd';
+import StatusDeviceEndDefine from './Views/Forms/definations/statusDeviceEnd/statusDeviceEndDefine/StatusDeviceEndDefine';
 const CustomerGroupForm=lazy(()=>import("./Views/Forms/customer/group/CustomerGroupForm"))
 const CustomerList=lazy(()=>import("./Views/Forms/customer/customer/list/CustomerList"))
 const CustomerForm=lazy(()=>import("./Views/Forms/customer/customer/CustomerForm"))
@@ -63,10 +67,8 @@ const CustomerSendMsgType=lazy(()=>import("./Views/Forms/definations/CustomerSen
 const CustomerReceivedMsgType=lazy(()=>import("./Views/Forms/definations/customerReceivedMsgType/CustomerReceivedMsgType"))
 const WarrantyType=lazy(()=>import("./Views/Forms/definations/warrantyType/WarrantyType"))
 const WarrantyTypeForm=lazy(()=>import("./Views/Forms/definations/warrantyType/warrantyTypeDefine/WarrantyTypeDefine"))
-const PhoneStatus=lazy(()=>import("./Views/Forms/definations/phoneStatus/PhoneStatus"))
-const PhoneStatusForm=lazy(()=>import("./Views/Forms/definations/phoneStatus/phoneStatusDefine/PhoneStatusDefine"))
-const StatusAfterWork=lazy(()=>import("./Views/Forms/definations/StatusAfterWork/StatusAfterWork"))
-const StatusAfterWorkForm=lazy(()=>import("./Views/Forms/definations/StatusAfterWork/StatusAfterWorkDefine/StatusAfterWorkDefine"))
+const StatusAfterWork=lazy(()=>import("./Views/Forms/definations/statusDeviceEnd/StatusDeviceEnd"))
+const StatusAfterWorkForm=lazy(()=>import("./Views/Forms/definations/statusDeviceEnd/statusDeviceEndDefine/StatusDeviceEndDefine"))
 const AdmissionCheckList=lazy(()=>import("./Views/Forms/definations/admissionCheckList/AdmissionCheckList"))
 const PartsDefine=lazy(()=>import("./Views/Forms/definations/parts/partsDefine/PartsDefine"))
 const Parts=lazy(()=>import("./Views/Forms/definations/parts/Parts"))
@@ -558,34 +560,34 @@ export const Routes = [
       icon: <IoIcons.IoIosPaper/> ,
       cName: 'sub-nav'
     },
-//     {
-//       title: 'routes.phoneStatusAftertechWork',
-//       path:'/phoneStatusAftertechWork',
-//       access:enums.phoneStatusAftertechWork,
-//      Component:StatusAfterWork,
-//       button:{
-//        Component:StatusAfterWorkForm,
-//         path:"/phoneStatusAftertechWorkForm",
-//         title:"routes.phoneStatusAftertechWorkForm",
-//         access:enums.phoneStatusAftertechWorkForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
-//     {
-//       title: 'routes.phoneStatus',
-//       path:'/phoneStatus',
-//       access:enums.phoneStatus,
-//      Component:PhoneStatus,
-//       button:{
-//        Component:PhoneStatusForm,
-//         path:"/phoneStatusForm",
-//         title:"routes.phoneStatusForm",
-//         access:enums.phoneStatusForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
+    {
+      title: 'StatusDeviceProgress',
+      path:'/statusdeviceprogress',
+      access:enums.Definition_StatusDeviceProgress_Read_r,
+     Component:StatusDeviceProgress,
+      button:{
+       Component:StatusDeviceProgressDefine,
+        path:"/statusdeviceprogressdefine",
+        title:"StatusDeviceProgressDefine",
+        access:enums.Definition_StatusDeviceProgress_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
+        {
+      title: 'StatusDeviceEnd',
+      path:'/StatusDeviceEnd',
+      access:enums.Definition_StatusDeviceEnd_Read_r,
+      Component:StatusDeviceEnd,
+      button:{
+       Component:StatusDeviceEndDefine,
+        path:"/StatusDeviceEndDefine",
+        title:"StatusDeviceEndDefine",
+        access:enums.Definition_StatusDeviceEnd_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
     {
       title: 'routes.garanteeType',
       path:'/garanteeType',

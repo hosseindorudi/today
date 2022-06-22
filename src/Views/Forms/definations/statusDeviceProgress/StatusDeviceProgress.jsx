@@ -34,9 +34,10 @@ import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import { convertUTC, setDatePickerDate } from "../../../../validation/functions";
 import ImportCSV from "../../../../Components/Table/ImportCSVButton/ImportCSV";
-import StatusDeviceStartDefine from "./statusDeviceStartDefine/StatusDeviceStartDefine";
-import { statusDeviceStartAccessList, statusDeviceStartCheckFile, statusDeviceStartDelete, statusDeviceStartExport, statusDeviceStartExportId, statusDeviceStartFavorite, statusDeviceStartGetOneRecord, statusDeviceStartImportFile, statusDeviceStartLog, statusDeviceStartRead, statusDeviceStartReadPaging, statusDeviceStartSampleFile, statusDeviceStartSetUnselectedColumn } from "../../../../services/statusDeviceStart";
-const StatusDeviceStart = () => {
+import StatusDeviceProgressDefine from "./statusDeviceProgressDefine/StatusDeviceProgressDefine";
+import { statusDeviceProgressAccessList, statusDeviceProgressCheckFile, statusDeviceProgressDelete, statusDeviceProgressExport, statusDeviceProgressFavorite, statusDeviceProgressGetOneRecord, statusDeviceProgressImportFile, statusDeviceProgressLog, statusDeviceProgressRead, statusDeviceProgressReadPaging, statusDeviceProgressSampleFile, statusDeviceProgressSetUnselectedColumn } from "../../../../services/statusDeviceProgress";
+import { statusDeviceStartExportId } from "../../../../services/statusDeviceStart";
+const StatusDeviceProgress = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
@@ -67,17 +68,17 @@ const StatusDeviceStart = () => {
   const abortController = new AbortController();
   const handleAdd = () => {
     const item = {
-      Component:StatusDeviceStartDefine,
-      path:"/StatusDeviceStartDefine",
-      title:"StatusDeviceStartDefine",
-      access:enums.Definition_StatusDeviceStart_Create_w,
+      Component:StatusDeviceProgressDefine,
+        path:"/statusdeviceprogressdefine",
+        title:"StatusDeviceProgressDefine",
+        access:enums.Definition_StatusDeviceProgress_Create_w,
     };
     tabContext.addRemoveTabs(item, "add");
   };
   const getTable = () => {
     fetchData({
       method: "POST",
-      url: statusDeviceStartRead,
+      url: statusDeviceProgressRead,
       headers: {
         accept: "*/*",
       },
@@ -89,7 +90,7 @@ const StatusDeviceStart = () => {
     setRequestType("READPAGING");
     fetchData({
       method: "POST",
-      url: statusDeviceStartReadPaging,
+      url: statusDeviceProgressReadPaging,
       headers: {
         accept: "*/*",
       },
@@ -246,7 +247,7 @@ const StatusDeviceStart = () => {
     setRequestType("UNSELECT");
     fetchData({
       method: "POST",
-      url: statusDeviceStartSetUnselectedColumn,
+      url: statusDeviceProgressSetUnselectedColumn,
       headers: {
         accept: "*/*",
       },
@@ -303,7 +304,7 @@ const StatusDeviceStart = () => {
     setRequestType("DELETE");
     fetchData({
       method: "POST",
-      url: statusDeviceStartDelete,
+      url: statusDeviceProgressDelete,
       headers: {
         accept: "*/*",
       },
@@ -353,7 +354,7 @@ const StatusDeviceStart = () => {
     setRequestType("GETONERECORD");
     fetchData({
       method: "POST",
-      url: statusDeviceStartGetOneRecord,
+      url: statusDeviceProgressGetOneRecord,
       headers: {
         accept: "*/*",
       },
@@ -407,7 +408,7 @@ const StatusDeviceStart = () => {
     setRequestType("FAVORITE");
     fetchData({
       method: "POST",
-      url: statusDeviceStartFavorite,
+      url: statusDeviceProgressFavorite,
       headers: {
         accept: "*/*",
       },
@@ -423,7 +424,7 @@ const StatusDeviceStart = () => {
     setRequestType("LOG");
     fetchData({
       method: "POST",
-      url: statusDeviceStartLog,
+      url: statusDeviceProgressLog,
       headers: {
         accept: "*/*",
       },
@@ -448,7 +449,7 @@ const StatusDeviceStart = () => {
     setRequestType("ACCESSLIST");
     fetchData({
       method: "POST",
-      url: statusDeviceStartAccessList,
+      url: statusDeviceProgressAccessList,
       headers: {
         accept: "*/*",
       },
@@ -521,7 +522,7 @@ const StatusDeviceStart = () => {
                     {t("table.groups")}
                   </button>
                 </div>
-                {haveAccess(enums.Definition_StatusDeviceStart_Export_r) && (
+                {haveAccess(enums.Definition_StatusDeviceProgress_Create_w) && (
                   <ExportAllButton
                     numberOfRecordsPerPage={numberOfRecordsPerPage}
                     currentPage={currentPage}
@@ -529,13 +530,13 @@ const StatusDeviceStart = () => {
                     flt_Title={flt_Title}
                     seartBegin={seartBegin}
                     seartEnd={seartEnd}
-                    exportLink={statusDeviceStartExport}
+                    exportLink={statusDeviceProgressExport}
                   />
                 )}
-                {haveAccess(enums.Definition_StatusDeviceStart_Import_w) && (
-                  <ImportCSV importSuccess={importSuccess} sampleUrl={statusDeviceStartSampleFile} fileCheckURL={statusDeviceStartCheckFile} importURL={statusDeviceStartImportFile}/>
+                {haveAccess(enums.Definition_StatusDeviceProgress_Import_w) && (
+                  <ImportCSV importSuccess={importSuccess} sampleUrl={statusDeviceProgressSampleFile} fileCheckURL={statusDeviceProgressCheckFile} importURL={statusDeviceProgressImportFile}/>
                 )}
-                {haveAccess(enums.Definition_StatusDeviceStart_Log_r) && (
+                {haveAccess(enums.Definition_StatusDeviceProgress_Log_r) && (
                   <button
                     className="reactTableParentLogButton"
                     title="log"
@@ -545,7 +546,7 @@ const StatusDeviceStart = () => {
                   </button>
                 )}
                
-                {haveAccess(enums.Operator_AccessList_Read_r) && (
+                {haveAccess(enums.Definition_StatusDeviceProgress_Read_r) && (
                 <button
                   className="reactTableParentAccessButton"
                   onClick={handleClickAccessList}
@@ -584,7 +585,7 @@ const StatusDeviceStart = () => {
                   <button className="groupListRefresh" onClick={handleRefresh}>
                     <fi.FiRefreshCcw />
                   </button>
-                  {haveAccess(enums.Definition_StatusDeviceStart_Create_w) && (
+                  {haveAccess(enums.Definition_StatusDeviceProgress_Create_w) && (
                     <button className="plusBUTTON" onClick={handleAdd}>
                       <md.MdPostAdd />
                     </button>
@@ -748,9 +749,9 @@ const StatusDeviceStart = () => {
                               <td className="TableMainTd">
                               <TableButtons
                                   exportLink={statusDeviceStartExportId}
-                                  deleteType={enums.Definition_StatusDeviceStart_Delete_w}
-                                  editType={enums.Definition_StatusDeviceStart_Update_w}
-                                  exportType={enums.Definition_StatusDeviceStart_Export_r}
+                                  deleteType={enums.Definition_StatusDeviceProgress_Delete_w}
+                                  editType={enums.Definition_StatusDeviceProgress_Update_w}
+                                  exportType={enums.Definition_StatusDeviceProgress_Export_r}
                                   accessListType={
                                     ""
                                   }
@@ -900,4 +901,4 @@ const StatusDeviceStart = () => {
 };
 
 
-export default StatusDeviceStart
+export default StatusDeviceProgress
