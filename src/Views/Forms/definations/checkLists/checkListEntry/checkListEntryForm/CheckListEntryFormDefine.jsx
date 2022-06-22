@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import '../../../../../../assets/css/periorityForm.css'
 import CheckListEntry from '../CheckListEntry';
 import { inputQualityControlCreate } from '../../../../../../services/inputQualityControlService';
+import { defintionInputs } from '../../../../../../validation/functions';
 const CheckListEntryFormDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
     const tabContext = useContext(TabContext);
@@ -22,48 +23,6 @@ const CheckListEntryFormDefine = () => {
       desc: "",
     });
   
-    const inputs = [
-      {
-        id: 1,
-        name: "title",
-        type: "text",
-        label: t("title"),
-        placeholder: t("title"),
-        errorMessage: t("title.errorMessage"),
-        pattern: "^[\u0600-\u06FF,A-Za-z0-9,\ ]{4,12}",
-        required: true,
-        value: values.title,
-      },
-      {
-        id: 2,
-        name: "color",
-        label: t("color"),
-        type: "color",
-        errorMessage: t("color.errorMessage"),
-        required: true,
-      },
-      {
-        id: 3,
-        name: "periority",
-        type: "number",
-        label: t("periodity"),
-        placeholder: t("periodity"),
-        errorMessage: t("periodity.errorMessage"),
-        required: true,
-        value: values.periority,
-      },
-      {
-        id: 4,
-        name: "desc",
-        type: "text",
-        label: t("description"),
-        placeholder: t("description"),
-        errorMessage: t("description.errorMessage"),
-        pattern: "^[\u0600-\u06FF]{20,250}",
-        required: true,
-        value: values.desc,
-      },
-    ];
     const handleResponse = () => {
       toast.success(t("item.created"), {
         position: toast.POSITION.TOP_CENTER,
@@ -138,7 +97,7 @@ return (
         <div className="periorityFormmainDiv">
           <div className="periorityFormForm">
             <form onSubmit={handleSubmit} className="periorityForms">
-              {inputs.map((input) => (
+              {defintionInputs(values).map((input) => (
                 <FormInput
                   key={input.id}
                   {...input}

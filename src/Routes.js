@@ -333,7 +333,7 @@ export const Routes = [
       {
         title: 'routes.workFlow',
         path:'/workFlow',
-        access:enums.AfterSales_Dashboard_Index,
+        access:enums.AfterSales_Dashboard_Index_Read_r,
         Component:WorkFlow,
         icon: <IoIcons.IoIosPaper/> ,
         cName: 'sub-nav'

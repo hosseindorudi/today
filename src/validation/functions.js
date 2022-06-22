@@ -28,3 +28,50 @@ export const downloadCSVCode=(data,title)=>{
     document.body.appendChild(link); 
     link.click();
 }
+
+export const defintionInputs=(values)=>{
+  const inputes=  [
+        {
+          id: 1,
+          name: "title",
+          type: "text",
+          label: t("title"),
+          placeholder: t("title"),
+          errorMessage: t("title.errorMessage"),
+          pattern: "^[\u0600-\u06FF,A-Za-z0-9 ]{2,100}",
+          required: true,
+          value: values.title,
+        },
+        {
+          id: 2,
+          name: "color",
+          label: t("color"),
+          type: "color",
+          errorMessage: t("color.errorMessage"),
+          required: true,
+          value:values.color
+        },
+        {
+          id: 3,
+          name: "periority",
+          type: "number",
+          label: t("periodity"),
+          placeholder: t("periodity"),
+          errorMessage: t("periodity.errorMessage"),
+          required: true,
+          value: values.periority,
+        },
+        {
+          id: 4,
+          name: "desc",
+          type: "text",
+          label: t("description"),
+          placeholder: t("description"),
+          errorMessage: t("description.errorMessage"),
+          pattern: "^[\u0600-\u06FF,A-Za-z0-9 ]{2,800}",
+          required: true,
+          value: values.desc,
+        },
+      ];
+      return inputes
+}

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {  Button, Modal } from "react-bootstrap";
+import {  Button, Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
 
 
@@ -10,6 +10,7 @@ import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
 import { TabContext } from "../../../../../contexts/TabContextProvider";
 import {warrantyTypeUpdate} from '../../../../../services/warrantyType'
+import { defintionInputs } from "../../../../../validation/functions";
 
 
 const TableModal = (props) => {
@@ -24,50 +25,6 @@ const TableModal = (props) => {
   const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
-
-  const inputs = [
-    {
-      id: 1,
-      name: "title",
-      type: "text",
-      label: t("title"),
-      placeholder: t("title"),
-      errorMessage: t("title.errorMessage"),
-      pattern: "^[\u0600-\u06FF,A-Za-z0-9,\ ]{4,12}",
-      required: true,
-      value: values.title,
-    },
-    {
-      id: 2,
-      name: "color",
-      label: t("color"),
-      type: "color",
-      errorMessage: t("color.errorMessage"),
-      required: true,
-    },
-    {
-      id: 3,
-      name: "periority",
-      type: "number",
-      label: t("periodity"),
-      placeholder: t("periodity"),
-      errorMessage: t("periodity.errorMessage"),
-      required: true,
-      value: values.periority,
-    },
-    {
-      id: 4,
-      name: "desc",
-      type: "text",
-      label: t("description"),
-      placeholder: t("description"),
-      errorMessage: t("description.errorMessage"),
-      pattern: "^[\u0600-\u06FF]{20,250}",
-      required: true,
-      value: values.desc,
-    },
-  ];
-
 
   const handleError = (message) => {
     toast.error(message, {
@@ -113,30 +70,32 @@ const TableModal = (props) => {
   };
   return (
     <Modal
-      show={props.tableModalShow}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      onHide={props.onHide}
-      className='editModalPeriority'
-    >
-      <Modal.Header closeButton></Modal.Header>
-      <Modal.Body>
-      <form className="periorityFormsEdit">
-            {inputs.map((input) => (
-              <FormInput
-                key={input.id}
-                {...input}
-                value={values[input.name]}
-                onChange={onChange}
-              />
-            ))}
-        </form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button disabled={loading} onClick={handleSubmit}> {t("submit")}</Button>
-      </Modal.Footer>
-    </Modal>
+    show={props.tableModalShow}
+    size="lg"
+    aria-labelledby="contained-modal-title-vcenter"
+    centered
+    onHide={props.onHide}
+    className='editModalPeriority'
+  >
+    <Modal.Header closeButton></Modal.Header>
+    <Form onSubmit={handleSubmit}>
+    <Modal.Body>
+    <div className="periorityFormsEdit">
+          {defintionInputs(values).map((input) => (
+            <FormInput
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              onChange={onChange}
+            />
+          ))}
+      </div>
+    </Modal.Body>
+    <Modal.Footer>
+      <Button disabled={loading} type='submit'> {t("submit")}</Button>
+    </Modal.Footer>
+    </Form>
+  </Modal>
   );
 };
 

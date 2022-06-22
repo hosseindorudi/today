@@ -11,6 +11,7 @@ import { productGroupReadTitle } from "../../../../../services/productGroup";
 import { productCreate } from "../../../../../services/productService";
 import Product from "../Product";
 import '../../../../../assets/css/periorityForm.css'
+import { defintionInputs } from "../../../../../validation/functions";
 const ProductDefine = () => {
   const [type, setType] = useState("");
   const tabContext = useContext(TabContext);
@@ -26,48 +27,6 @@ const ProductDefine = () => {
     groupId: 0,
   });
 
-  const inputs = [
-    {
-      id: 1,
-      name: "title",
-      type: "text",
-      label: t("title"),
-      placeholder: t("title"),
-      errorMessage: t("title.errorMessage"),
-      pattern: "^[\u0600-\u06FF,A-Za-z0-9,\ ]{4,12}",
-      required: true,
-      value: values.title,
-    },
-    {
-      id: 2,
-      name: "color",
-      label: t("color"),
-      type: "color",
-      errorMessage: t("color.errorMessage"),
-      required: true,
-    },
-    {
-      id: 3,
-      name: "periority",
-      type: "number",
-      label: t("periodity"),
-      placeholder: t("periodity"),
-      errorMessage: t("periodity.errorMessage"),
-      required: true,
-      value: values.periority,
-    },
-    {
-      id: 4,
-      name: "desc",
-      type: "text",
-      label: t("description"),
-      placeholder: t("description"),
-      errorMessage: t("description.errorMessage"),
-      pattern: "^[\u0600-\u06FF]{20,250}",
-      required: true,
-      value: values.desc,
-    },
-  ];
   const handleSuccess=()=>{
   toast.success(t("product.created"), {
         position: toast.POSITION.TOP_CENTER,
@@ -184,12 +143,12 @@ const ProductDefine = () => {
                 </option>
                 {products.map((p, i) => (
                   <option key={i} value={p.Id}>
-                    {p.Value}
+                    {p.Title}
                   </option>
                 ))}
               </Form.Select>
             </div>
-            {inputs.map((input) => (
+            {defintionInputs(values).map((input) => (
               <FormInput
                 key={input.id}
                 {...input}
