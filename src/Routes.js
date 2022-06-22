@@ -6,6 +6,8 @@ import Agent from './Views/Forms/agent/agentForm/Agent';
 import AgentForm from './Views/Forms/agent/agentForm/AgentForm';
 import CustomerGroup from './Views/Forms/customer/group/List/CustomerGroup';
 import AccessoriesDefine from './Views/Forms/definations/accessories/accessoriesDefine/AccessoriesDefine';
+import StatusDeviceStartDefine from './Views/Forms/definations/statusDeviceStart/statusDeviceStartDefine/StatusDeviceStartDefine';
+import StatusDeviceStart from './Views/Forms/definations/statusDeviceStart/StatusDeviceStart';
 import Registered from './Views/Forms/service/registered/Registered';
 import SentCustomer from './Views/Forms/service/sentCustomer/SentCustomer';
 import SentCustomerForm from './Views/Forms/service/sentCustomer/SentCustomerForm';
@@ -65,8 +67,6 @@ const PhoneStatus=lazy(()=>import("./Views/Forms/definations/phoneStatus/PhoneSt
 const PhoneStatusForm=lazy(()=>import("./Views/Forms/definations/phoneStatus/phoneStatusDefine/PhoneStatusDefine"))
 const StatusAfterWork=lazy(()=>import("./Views/Forms/definations/StatusAfterWork/StatusAfterWork"))
 const StatusAfterWorkForm=lazy(()=>import("./Views/Forms/definations/StatusAfterWork/StatusAfterWorkDefine/StatusAfterWorkDefine"))
-const StatusAfterCheck=lazy(()=>import("./Views/Forms/definations/statusAfterCheck/StatusAfterCheck"))
-const StatusAfterCheckForm=lazy(()=>import("./Views/Forms/definations/statusAfterCheck/statusAfterCheckDefine/StatusAfterCheckDefine"))
 const AdmissionCheckList=lazy(()=>import("./Views/Forms/definations/admissionCheckList/AdmissionCheckList"))
 const PartsDefine=lazy(()=>import("./Views/Forms/definations/parts/partsDefine/PartsDefine"))
 const Parts=lazy(()=>import("./Views/Forms/definations/parts/Parts"))
@@ -544,20 +544,20 @@ export const Routes = [
 //       icon: <IoIcons.IoIosPaper/> ,
 //       cName: 'sub-nav'
 //     },
-//     {
-//       title: 'routes.phoneStatusAftertechCheck',
-//       path:'/phoneStatusAftertechCheck',
-//       access:enums.phoneStatusAftertechCheck,
-//      Component:StatusAfterCheck,
-//       button:{
-//        Component:StatusAfterCheckForm,
-//         path:"/phoneStatusAftertechCheckForm",
-//         title:"routes.phoneStatusAftertechCheckForm",
-//         access:enums.phoneStatusAftertechCheckForm,
-//       },
-//       icon: <IoIcons.IoIosPaper/> ,
-//       cName: 'sub-nav'
-//     },
+    {
+      title: 'StatusDeviceStart',
+      path:'/StatusDeviceStart',
+      access:enums.Definition_StatusDeviceStart_Read_r,
+     Component:StatusDeviceStart,
+      button:{
+       Component:StatusDeviceStartDefine,
+        path:"/StatusDeviceStartDefine",
+        title:"StatusDeviceStartDefine",
+        access:enums.Definition_StatusDeviceStart_Create_w,
+      },
+      icon: <IoIcons.IoIosPaper/> ,
+      cName: 'sub-nav'
+    },
 //     {
 //       title: 'routes.phoneStatusAftertechWork',
 //       path:'/phoneStatusAftertechWork',

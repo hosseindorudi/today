@@ -1,9 +1,9 @@
 import React from 'react'
 
-const StatusAfterCheck = () => {
+const StatusDeviceStart = () => {
   return (
     <div>StatusAfterCheck</div>
   )
 }
 
-export default StatusAfterCheck
+export default StatusDeviceStart
