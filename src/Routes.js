@@ -124,7 +124,7 @@ export const Routes = [
       },
       {
         title: 'routes.group',
-        path:'/operatorgroup',
+        path:'/Operator/Group/Read',
         access:enums.Operator_Group_Read_r,
         Component:Group,
        
@@ -139,7 +139,7 @@ export const Routes = [
       },
       {
         title: 'routes.operator',
-        path:'/operator',
+        path:'/Operator/Operator/Read',
         access:enums.Operator_Operator_Read_r,
        Component:Operator,
         button:{
@@ -208,7 +208,7 @@ export const Routes = [
     subNav: [
       {
         title: 'routes.group',
-        path:'/customergroup',
+        path:'/Customer/Group/Read',
         Component:CustomerGroup,
         button:{
           Component:CustomerGroupForm,
@@ -222,7 +222,7 @@ export const Routes = [
       },
       {
         title: 'routes.CustomerList',
-        path:'/customerList',
+        path:'/Customer/Customer/Read',
         Component:CustomerList,
         button:{
           Component:CustomerForm,
@@ -344,7 +344,7 @@ export const Routes = [
       },
       {
         title: 'routes.admission',
-        path:'/admission',
+        path:'/AfterSales/Admission/Read',
         access:enums.AfterSales_New_Admission_Read_r,
         Component:Admission,
         button:{
