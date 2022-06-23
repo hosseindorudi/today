@@ -19,7 +19,7 @@ function MainTabControl() {
   };
  
   return (
-    <div>
+    <div className="tabParrentDiv">
     
       {tabContext.tabs.length > 0 && (
         <Tabs

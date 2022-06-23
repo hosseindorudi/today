@@ -204,10 +204,10 @@ const AmitionFinalForm = () => {
             data: {
               
               Id:0,
-              Customer_Id: 1,
-              ProductGroup_Id:1,
-              Product_Id:1,
-              Part_Id:1,
+              Customer_Id: 21,
+              ProductGroup_Id:5,
+              Product_Id:4,
+              Part_Id:2,
               AdmissionStep_EId:1,
               IsArchive:true,
               ModelName:"iPhone",
