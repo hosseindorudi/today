@@ -86,12 +86,12 @@ const WorkFlow = () => {
       color: "green",
       no:5,
       access:enums.AfterSales_New_Technician_Read_r,
-      button:{
-        Component:TechnicianForm,
-        path:"/service.technicianForm",
-        title:"routes.service.technicianForm",
-        access:enums.AfterSales_New_Technician_Create_w,
-      }
+      // button:{
+      //   Component:TechnicianForm,
+      //   path:"/service.technicianForm",
+      //   title:"routes.service.technicianForm",
+      //   access:enums.AfterSales_New_Technician_Create_w,
+      // }
     },
     {
       title: 'routes.service.qcExit',

@@ -109,7 +109,7 @@ const AddmitionFirstForm = lazy(()=> import('./Views/Forms/service/admission/Adm
 export const Routes = [
   {
     title: 'routes.panel',
-    // access:enums.panel,
+    access:enums.Module_Operator,
     icon: <IoIcons.IoIosPaper/> ,
     iconClosed: <RiIcons.RiArrowDownSFill/> ,
     iconOpened: <RiIcons.RiArrowUpSFill/> ,
@@ -201,6 +201,7 @@ export const Routes = [
   },
   {
     title: 'routes.customer',
+    access:enums.Module_Customer,
     icon: <IoIcons.IoIosPaper/> ,
     iconClosed: <RiIcons.RiArrowDownSFill/> ,
     iconOpened: <RiIcons.RiArrowUpSFill/> ,
@@ -238,7 +239,7 @@ export const Routes = [
 //   {
 //     title: 'routes.GeneralRepresentative',
 //     icon: <IoIcons.IoIosPaper/> ,
-//     access:enums.agents,
+//     access:enums.Module_Agent,
 //     iconClosed: <RiIcons.RiArrowDownSFill/> ,
 //     iconOpened: <RiIcons.RiArrowUpSFill/> ,
 //     subNav: [
@@ -328,6 +329,7 @@ export const Routes = [
 //   },
   {
     title: 'routes.services',
+    access:enums.Module_AfterSales,
     icon: <IoIcons.IoIosPaper/> ,
     iconClosed: <RiIcons.RiArrowDownSFill/> ,
     iconOpened: <RiIcons.RiArrowUpSFill/> ,
@@ -472,7 +474,7 @@ export const Routes = [
 {
   title: 'routes.basicDefinations',
   icon: <IoIcons.IoIosPaper/> ,
-  // access:enums.definations,
+  access:enums.Module_Definition,
   iconClosed: <RiIcons.RiArrowDownSFill/> ,
   iconOpened: <RiIcons.RiArrowUpSFill/> ,
   subNav: [

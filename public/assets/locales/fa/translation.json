@@ -369,6 +369,10 @@
 "StatusDeviceProgress":"وضیعت فعلی دستگاه",
 "StatusDeviceProgressDefine":" فرم وضیعت فعلی دستگاه",
 "StatusDeviceEnd":"وضیعت پایانی دستگاه",
-"StatusDeviceEndDefine":"فرم وضیعت پایانی دستگاه"
+"StatusDeviceEndDefine":"فرم وضیعت پایانی دستگاه",
+"tech.extraServices":"خدمات اضاف",
+"tech.techDescription":"توضیحات فنی",
+"tech.additions":"پیوست ها",
+"tech.pay":"مبلغ اجرت"
 
 }

@@ -75,3 +75,10 @@ export const defintionInputs=(values)=>{
       ];
       return inputes
 }
+
+export const createSelectOptions=(titles)=>{
+  const options=titles.map((m,i)=>(
+    {value: m.Id,label:m.Title, color: `#${m.Color}` }
+))
+return options
+}

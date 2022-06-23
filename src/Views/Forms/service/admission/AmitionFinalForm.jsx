@@ -1,7 +1,6 @@
 import { useRef, useState, useContext, useEffect } from 'react'
 import './admitionFinalForm.css'
 import PatternLock from './patternLock/PatternLock'
-import Multiselect from 'multiselect-react-dropdown';
 import SignaturePad from './signaturePad/src';
 import { toast } from 'react-toastify';
 import BackDrop from '../../../../Components/backDrop/BackDrop';
@@ -431,18 +430,7 @@ const AmitionFinalForm = () => {
                     <span className="extraDeviceSpan">ایرادات</span>
                     <div className="extraDeviceDiv" style={{direction:"ltr"}}>
                         <div className='multiSelectDiv'>
-                            {/* <Multiselect
-                            
-                            emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
-                            id='multiSelected'
-                            options={deffectTitles}
-                            onSelect={(e) => {setSelectedDeffect(e)}}
-                            onRemove={(e) => {setSelectedDeffect(e)}}
-                            displayValue="name" // Property name to display in the dropdown options
-                            placeholder="ایرادات"
-                            hidePlaceholder ={true}
-                            showArrow={false}
-                            /> */}
+                         
                             <Select
                                 closeMenuOnSelect={false}
                                 isMulti

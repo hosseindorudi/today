@@ -18,7 +18,7 @@ const SubMenu = ({ item, search }) => {
   return (
     <>
       {item.subNav
-        ? 
+        ? AccessList?.includes(item.access) && (
             <div className="SidebarLink" onClick={item.subNav && showSubnav}>
               <div>
                 {item.icon}
@@ -32,6 +32,7 @@ const SubMenu = ({ item, search }) => {
                   : null}
               </div>
             </div>
+        )
           
         : AccessList?.includes(item.access) && (
             <button
