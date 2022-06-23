@@ -928,6 +928,52 @@
         font-weight: bolder;
         margin-top: 15px;
     }
+
+    .css-6j8wv5-Input {
+        height: 20px !important;
+    }
+    .css-1t8y0t9-control {
+        height: 20px;
+    }
+    .css-319lph-ValueContainer {
+        height: 20px;
+    }
+
+    .css-14el2xx-placeholder {
+        font-size: 10px;
+    }
+
+    .newBtnClear {
+        font-size: 12px;
+    }
+
+
+
+    .css-tj5bde-Svg {
+        height: 13px;
+        width: 13px;
+    }
+    .css-g1d714-ValueContainer{
+        height: 15px;
+    }
+  
+    .css-b62m3t-container {
+        height: fit-content;
+    }
+
+    .css-1sb7lyj {
+        height: 15px;
+        width: 15px;
+    }
+
+    .css-tj5bde-Svg {
+        height: 13px;
+        width: 13px;
+    }
+
+    .css-wdywkq {
+        font-size: 5px;
+    }
  }
  @media screen and ( max-height: 840px ) { 
     .recievedSpan{
@@ -1067,6 +1113,72 @@
         width: 200px;
         font-weight: bolder;
         margin-top: 15px;
+    }
+
+    .admissionIMEI {
+        height: 22px;
+    }
+    .admissionIMEI::placeholder {
+       font-size: 10px;
+    }
+
+    .recievedNew {
+        font-size: 7px;
+    }
+
+    .css-6j8wv5-Input {
+        height: 20px !important;
+    }
+    .css-1t8y0t9-control {
+        height: 20px;
+    }
+    .css-319lph-ValueContainer {
+        height: 20px;
+    }
+
+    .css-14el2xx-placeholder {
+        font-size: 10px;
+    }
+
+    .newBtnClear {
+        font-size: 12px;
+    }
+
+    .css-1t8y0t9-control {
+        max-height: 70px;
+    }
+
+    .css-tj5bde-Svg {
+        height: 13px;
+        width: 13px;
+    }
+    .css-g1d714-ValueContainer{
+        height: 15px;
+    }
+    .css-1gtlzwf-multiValue {
+        height: 13px;
+        
+    }
+    .css-b62m3t-container {
+        height: fit-content;
+    }
+
+    .css-1sb7lyj {
+        height: 15px;
+        width: 15px;
+    }
+
+    .css-tj5bde-Svg {
+        height: 13px;
+        width: 13px;
+    }
+
+    .css-wdywkq {
+        font-size: 5px;
+    }
+
+    .admitionButtonDiv {
+        flex: .01;
     }
  }
  @media screen and ( max-height: 705px ) { 
