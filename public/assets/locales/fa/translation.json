@@ -373,6 +373,11 @@
 "tech.extraServices":"خدمات اضاف",
 "tech.techDescription":"توضیحات فنی",
 "tech.additions":"پیوست ها",
-"tech.pay":"مبلغ اجرت"
+"tech.pay":"مبلغ اجرت",
+"/AfterSales/Admission/Read": "لیست پذیرش",
+"/Customer/Customer/Read": "لیست مشتری",
+"/Customer/Group/Read": "لیست گروه مشتری",
+"/Operator/Group/Read": "لیست گروه اپراتور",
+"/Operator/Operator/Read": "لیست اپراتور"
 
 }

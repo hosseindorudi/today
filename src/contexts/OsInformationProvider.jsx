@@ -23,7 +23,7 @@ const OsInformationProvider = (props) => {
   }, [])
 
   return (
-    <OsContext.Provider value={{ os: os,loading:loading, setOs: setOs }}>
+    <OsContext.Provider value={{ os: os,loadingg:loading, setOs: setOs }}>
       {props.children}
     </OsContext.Provider>
   );

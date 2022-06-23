@@ -51,7 +51,7 @@ const AmitionFinalForm = () => {
     const {t} = useTranslation();
     const tabContext = useContext(TabContext);
     const {width} = useWindowSize()
-    console.log(width)
+
     
     const handleClickMenu = () => {
         tabContext.addRemoveTabs(
@@ -66,7 +66,7 @@ const AmitionFinalForm = () => {
           
           {
             title: "routes.admission",
-            path: "/admission",
+            path: "/AfterSales/Admission/Read",
             Component: Admission,
             access: enums.AfterSales_New_Admission_Read_r,
           }
@@ -177,7 +177,7 @@ const AmitionFinalForm = () => {
         });
       }
 
-      console.log(password)
+     
 
 
 
