@@ -1,6 +1,6 @@
 {
   "name": "panel",
-  "version": "0.1beta",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@date-io/date-fns-jalali": "^2.14.0",

@@ -15,7 +15,7 @@ import useButtonAccess from "../../../../customHooks/useButtonAccess";
 import useRequest from "../../../../customHooks/useRequest";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import { t } from "i18next";
-import { 
+import {
   admitionRead,
   admitionReadPaging,
   admitionReadTitle,
@@ -30,7 +30,7 @@ import {
   admitionExportId,
   admitionLog,
   admitionFavorite,
-  admitionAccessList
+  admitionAccessList,
 } from "../../../../services/admitionService";
 import { convertUTC } from "../../../../validation/functions";
 import { Breadcrumb, Form } from "react-bootstrap";
@@ -40,20 +40,37 @@ import * as md from "react-icons/md";
 import { setDatePickerDate } from "../../../../validation/functions";
 import { enums } from "../../../../data/Enums";
 import ImportCSV from "../../../../Components/Table/ImportCSVButton/ImportCSV";
-import AdmitionFirstForm from './AdmitionFirstForm'
+import AdmitionFirstForm from "./AdmitionFirstForm";
 import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import './admission.css'
+import "./admission.css";
 import AdmissionModal from "./tableModal/AdmissionModal";
 
 const Admission = () => {
-
-
-  const filteredColumns = ["Language_EId", "Id", "Group_Id", "SourceType", "Registrar","Customer_Id","ProductGroup_Id","Product_Id","Part_Id","AdmissionStep_EId","Operator_Signature","Customer_Signature"];
-  const filterArrowColumns = ["ProductGroup_Title","Product_Title","Part_Title","Customer_Title","Group_Title"]
+  const filteredColumns = [
+    "Language_EId",
+    "Id",
+    "Group_Id",
+    "SourceType",
+    "Registrar",
+    "Customer_Id",
+    "ProductGroup_Id",
+    "Product_Id",
+    "Part_Id",
+    "AdmissionStep_EId",
+    "Operator_Signature",
+    "Customer_Signature",
+  ];
+  const filterArrowColumns = [
+    "ProductGroup_Title",
+    "Product_Title",
+    "Part_Title",
+    "Customer_Title",
+    "Group_Title",
+  ];
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);
@@ -83,7 +100,6 @@ const Admission = () => {
   const abortController = new AbortController();
   const [passwordModalOpen, setPasswordmodalOpen] = useState(false);
 
-
   const handleAdd = () => {
     const item = {
       Component: AdmitionFirstForm,
@@ -93,8 +109,6 @@ const Admission = () => {
     };
     tabContext.addRemoveTabs(item, "add");
   };
-
-
 
   const getTable = () => {
     fetchData({
@@ -120,7 +134,6 @@ const Admission = () => {
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   const handleResponse = useCallback(
     (response, type) => {
@@ -170,7 +183,6 @@ const Admission = () => {
     });
   };
 
-
   const logResponse = (res) => {
     if (!res.Log.length) {
       return toast.info(t("noDataFound.table"), {
@@ -181,11 +193,10 @@ const Admission = () => {
     setShowLogModal(true);
   };
 
-  
   const unselectResponseHandler = () => {
     const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
+      TotalPage: totalPages,
+      TotalRecord: 0,
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: currentPage,
       IsAscending: sort.IsAscending,
@@ -200,16 +211,12 @@ const Admission = () => {
   };
 
   const handleClearFilter = () => {
-    
-     
     setFlt_Title("");
     setSearchBegin(null);
     setSearchEnd(null);
-    
-    getTable();
-    
-  };
 
+    getTable();
+  };
 
   const handleChangeTitle = (event) => {
     setFlt_Title(event.target.value);
@@ -218,8 +225,8 @@ const Admission = () => {
   const handleClickSort = (column) => {
     setSort({ SortBy: column.accessor, IsAscending: !column.IsAscending });
     const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
+      TotalPage: totalPages,
+      TotalRecord: 0,
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: currentPage,
       IsAscending: !column.IsAscending,
@@ -227,7 +234,6 @@ const Admission = () => {
     };
     readPaging(paging);
   };
-
 
   const handleClickEdit = (id) => {
     setRequestType("GETONERECORD");
@@ -245,7 +251,6 @@ const Admission = () => {
     });
   };
 
-  
   const checkValues = (type, value, post) => {
     switch (type) {
       case "DateSet":
@@ -269,11 +274,10 @@ const Admission = () => {
     }
   };
 
-
   const handleChangeSelect = (e) => {
     const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
+      TotalPage: totalPages,
+      TotalRecord: 0,
       NumberOfRecordsPerPage: e.target.value,
       CurrentPage: currentPage,
       IsAscending: sort.IsAscending,
@@ -282,11 +286,10 @@ const Admission = () => {
     readPaging(paging);
   };
 
-
   const handleClickSend = () => {
     const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
+      TotalPage: totalPages,
+      TotalRecord: 0,
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: currentPage,
       IsAscending: sort.IsAscending,
@@ -310,7 +313,6 @@ const Admission = () => {
       signal: abortController.signal,
     });
   };
-
 
   const checkAllHandler = (e) => {
     let temp = unSelected;
@@ -338,23 +340,20 @@ const Admission = () => {
     sendUnselectRequest(temp);
   };
 
-
   const setPage = (event, value) => {
     const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
+      TotalPage: totalPages,
+      TotalRecord: 0,
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: value,
       IsAscending: sort.IsAscending,
       SortBy: sort.SortBy,
     };
-    console.log(paging)
+    console.log(paging);
     readPaging(paging);
   };
 
-
   useEffect(() => {
-    
     if (response) {
       response.Result
         ? handleResponse(response, requestType)
@@ -363,7 +362,6 @@ const Admission = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
-
 
   const setData = (response) => {
     const res = response.Record;
@@ -390,9 +388,8 @@ const Admission = () => {
     );
   };
 
-
   const readPaging = (paging) => {
-    console.log(paging)
+    console.log(paging);
     setRequestType("READPAGING");
     fetchData({
       method: "POST",
@@ -421,7 +418,6 @@ const Admission = () => {
       signal: abortController.signal,
     });
   };
-
 
   const handleClickLog = () => {
     setRequestType("LOG");
@@ -462,15 +458,14 @@ const Admission = () => {
     });
   };
 
-
   const handleClickHelp = () => {
     window.open("https://www.google.com");
   };
 
   const handleRefresh = () => {
     const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
+      TotalPage: totalPages,
+      TotalRecord: 0,
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: currentPage,
       IsAscending: sort.IsAscending,
@@ -479,22 +474,20 @@ const Admission = () => {
     readPaging(paging);
   };
 
-
   const updated = () => {
     setTableModalOpen(false);
     toast.success(t("updatedRecord"), {
       position: toast.POSITION.TOP_CENTER,
     });
-  }
-
+  };
 
   const importSuccess = (message) => {
     toast.success(message, {
       position: toast.POSITION.TOP_CENTER,
     });
     const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
+      TotalPage: totalPages,
+      TotalRecord: 0,
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: currentPage,
       IsAscending: sort.IsAscending,
@@ -510,8 +503,8 @@ const Admission = () => {
       "success"
     );
     const paging = {
-      TotalPage:totalPages ,
-      TotalRecord:0,
+      TotalPage: totalPages,
+      TotalRecord: 0,
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: currentPage,
       IsAscending: sort.IsAscending,
@@ -553,11 +546,7 @@ const Admission = () => {
     });
   };
 
-
-
   return (
-    
-
     <>
       {loading && <BackDrop open={true} />}
       <>
@@ -569,7 +558,7 @@ const Admission = () => {
             updated={updated}
           />
         )}
-        
+
         {showLogModal && (
           <LogModal
             onHide={() => setShowLogModal(false)}
@@ -584,10 +573,12 @@ const Admission = () => {
             onHide={() => setAccessListModal(false)}
           />
         )}
-        
-        
+
         <div className="reacttableParent">
-          <div className="groupContainerRight">
+          <div
+            className="groupContainerRight"
+            style={{ display: withOfScreen > 4200 ? "flex" : "none" }}
+          >
             <div className="reacttableParentMainRightUp">
               <span className="reacttableParentMainRightUpInformation">
                 {t("table.information")}
@@ -637,7 +628,12 @@ const Admission = () => {
                   />
                 )}
                 {haveAccess(enums.Operator_Operator_Import_w) && (
-                  <ImportCSV importSuccess={importSuccess} sampleUrl={admitionSampleFile} fileCheckURL={admitionCheckFile} importURL={admitionImport}/>
+                  <ImportCSV
+                    importSuccess={importSuccess}
+                    sampleUrl={admitionSampleFile}
+                    fileCheckURL={admitionCheckFile}
+                    importURL={admitionImport}
+                  />
                 )}
                 {haveAccess(enums.Operator_Operator_Log_r) && (
                   <button
@@ -648,14 +644,14 @@ const Admission = () => {
                     <fa.FaHistory />
                   </button>
                 )}
-               
+
                 {haveAccess(enums.Operator_AccessList_Read_r) && (
-                <button
-                  className="reactTableParentAccessButton"
-                  onClick={handleClickAccessList}
-                >
-                  <fa.FaUserLock />
-                </button>
+                  <button
+                    className="reactTableParentAccessButton"
+                    onClick={handleClickAccessList}
+                  >
+                    <fa.FaUserLock />
+                  </button>
                 )}
                 <button
                   disabled={IsFavorite}
@@ -832,16 +828,21 @@ const Admission = () => {
                                     className="sortingArrowsBTN"
                                     onClick={() => handleClickSort(column)}
                                   >
-                                    
-                                    {!filterArrowColumns.includes(column["Header"])  ? (column["isSorted"] ? (
-                                      column["IsAscending"] ? (
-                                        <MainUpArrow />
+                                    {!filterArrowColumns.includes(
+                                      column["Header"]
+                                    ) ? (
+                                      column["isSorted"] ? (
+                                        column["IsAscending"] ? (
+                                          <MainUpArrow />
+                                        ) : (
+                                          <DownArrow />
+                                        )
                                       ) : (
-                                        <DownArrow />
+                                        <UpArrow />
                                       )
                                     ) : (
-                                      <UpArrow />
-                                    )) : ("")}
+                                      ""
+                                    )}
                                   </button>
                                 </th>
                               ))}
@@ -853,10 +854,16 @@ const Admission = () => {
                               <td className="TableMainTd">
                                 <TableButtons
                                   exportLink={admitionExportId}
-                                  exportType={enums.AfterSales_New_Admission_Export_r}
-                                  editType={enums.AfterSales_New_Admission_Update_w}
+                                  exportType={
+                                    enums.AfterSales_New_Admission_Export_r
+                                  }
+                                  editType={
+                                    enums.AfterSales_New_Admission_Update_w
+                                  }
                                   accessListType={""}
-                                  deleteType={enums.AfterSales_New_Admission_Delete_w}
+                                  deleteType={
+                                    enums.AfterSales_New_Admission_Delete_w
+                                  }
                                   deleteCalled={deleteCalled}
                                   rowValue={post}
                                   handleClickEdit={handleClickEdit}
@@ -939,7 +946,10 @@ const Admission = () => {
 
             <div
               className="hiddingSection"
-              style={{ width: columnSideBar ? 250 : 10 }}
+              style={{
+                width: columnSideBar ? 250 : 10,
+                display: withOfScreen > 420 ? "flex" : "none",
+              }}
             >
               <div className="hiddenSectionBtn">
                 <div
@@ -996,18 +1006,7 @@ const Admission = () => {
       </>
       {/* )} */}
     </>
-    
-
-  )
-  
-
-
-
-
-
-
-
-
+  );
 };
 
 export default Admission;

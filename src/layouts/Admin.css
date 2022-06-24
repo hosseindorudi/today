@@ -1,82 +1,77 @@
-
 .mainparent {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
 .header {
-    height: 50px;
+  height: 50px;
 
-
-    background-color: rgb(216, 221, 211);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    padding: 5px;
-    text-align: center;
-    border-radius: 2px;
-    
+  background-color: rgb(216, 221, 211);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  padding: 5px;
+  text-align: center;
+  border-radius: 2px;
 }
 
 .hederLeft {
-    flex: 1;
-    margin-right: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 5px 0; 
+  flex: 1;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px 0;
 }
 
 .firstIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    width: 30px;
-    margin: 0 2px;
-    cursor: pointer;
-    
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  margin: 0 2px;
+  cursor: pointer;
 }
 .firstIcon > i {
-    width: 100%;
-    height: 100%;
-    font-size: 25px;
+  width: 100%;
+  height: 100%;
+  font-size: 25px;
 }
 
 .secondIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    width: 30px;
-    margin: 0 2px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  margin: 0 2px;
+  cursor: pointer;
 }
 
 .secondIcon > i {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .thirdIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    width: 30px;
-    margin: 0 2px;
-    position: relative;
-    cursor: pointer;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  margin: 0 2px;
+  position: relative;
+  cursor: pointer;
 }
 
 .thirdIcon > i {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 /* .notification{
@@ -95,555 +90,1323 @@
 } */
 
 .forthIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    width: 30px;
-    margin: 0 2px;cursor: pointer;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  margin: 0 2px;
+  cursor: pointer;
 }
 
 .forthIcon > i {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .flagReletive {
-    position: relative;
+  position: relative;
 }
 
 .dropdown-content-flag {
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    /* height: 100px; */
-    /* margin-top: 10px; */
-    right: -20px;
-    position: absolute;
-    background-color: #fff;
-    width: fit-content;
-    /* overflow: auto;  */
-    border-radius: 5px;
-    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    z-index: 1;
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  /* height: 100px; */
+  /* margin-top: 10px; */
+  right: -20px;
+  position: absolute;
+  background-color: #fff;
+  width: fit-content;
+  /* overflow: auto;  */
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  z-index: 1;
 }
-.languageBtn> button:disabled{
-    color: #dddddd;
+.languageBtn > button:disabled {
+  color: #dddddd;
 }
-.dropDownFlagLink{
-    color: black;
-    margin-right: 10px;
-    background: none;
-    border: none;
-    text-decoration: none;
-    
+.dropDownFlagLink {
+  color: black;
+  margin-right: 10px;
+  background: none;
+  border: none;
+  text-decoration: none;
 }
-
-
 
 .headerMid {
-    flex: 1;
+  flex: 1;
 }
 
-.headerRight{
-    flex:1;
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    
+.headerRight {
+  flex: 1;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .logOut {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    width: 30px;
-    margin: 0 5px;
-    /* background-color: #fff; */
-    border-radius: 50%;
-    cursor: pointer;
-    
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  margin: 0 5px;
+  /* background-color: #fff; */
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .logOutReletive {
-    position: relative;
+  position: relative;
 }
 
-
 .dropdown-content {
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    height: 100px;
-    /* margin-top: 10px; */
-    
-    position: absolute;
-    background-color: #fff;
-    min-width: 160px;
-    overflow: auto; 
-    border-radius: 5px;
-    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    z-index: 1;
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  height: 100px;
+  /* margin-top: 10px; */
+
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  overflow: auto;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  z-index: 1;
 }
 
 .dropdown-content > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .dropImg {
-    height: 30px;
-    width: 30px;
-    background-color: rgb(156, 83, 224);
-    border-radius: 50%;
-    margin-right: 5px;
+  height: 30px;
+  width: 30px;
+  background-color: rgb(156, 83, 224);
+  border-radius: 50%;
+  margin-right: 5px;
 }
 
 .dropDownLink {
-    color: black;
-    margin-right: 10px;
-    text-decoration: none;
-    border: none;
-    background: none;
-    
+  color: black;
+  margin-right: 10px;
+  text-decoration: none;
+  border: none;
+  background: none;
 }
 
 .Icon {
-    height: 30px;
-    width: 30px;
-    margin: 0 5px;
-    border-radius: 50%;
-    background-color: #fff;
-    cursor: pointer;
+  height: 30px;
+  width: 30px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: #fff;
+  cursor: pointer;
 }
 
 .profileName {
-    margin: 0 5px;
-    font-size: 15px;
-    font-weight: 400;
+  margin: 0 5px;
+  font-size: 15px;
+  font-weight: 400;
 }
 
 .profileImg {
-    /* height: 30px;
+  /* height: 30px;
     width: 30px; */
-    margin: 0 5px;
-    border-radius: 50%;
-    /* background-color: #fff; */
+  margin: 0 5px;
+  border-radius: 50%;
+  /* background-color: #fff; */
 }
 
 .main {
-    height: calc(100vh - 90px);
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-
-    
+  height: calc(100vh - 90px);
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }
 
 .mainLeft {
-    flex: 80%;
-    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-
+  flex: 80%;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 }
 
 .mainRight {
-    flex:20%;
-    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-
-
+  flex: 20%;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 }
 
-
 .footer {
-    height: 40px;
-    background-color: rgb(216, 221, 211);
-    position: sticky;
-    border-radius: 2px;
-    width: 100%;
-    bottom: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  height: 40px;
+  background-color: rgb(216, 221, 211);
+  position: sticky;
+  border-radius: 2px;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .leftFooter {
-    flex:1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .middleFooter {
-    flex:1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rightFooter {
-    flex:1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(130, 127, 127);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(69, 67, 67);
+}
+
+@media screen and (max-width: 960px) {
+  .mainRight {
+    flex: none;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .header {
+    height: 40px;
+    width: 100%;
+  }
+  .profileImg {
+    height: 15px;
+    width: 15px;
+  }
+
+  .profileImg > div {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 12px !important;
+    width: 12px !important;
+  }
+
+  .profileImg > div > svg {
+    height: 12px;
+    width: 12px;
+  }
+
+  .profileName > div {
+    font-size: 12px;
+  }
+
+  .logOut {
+    height: 15px;
+    width: 15px;
+  }
+
+  .logOutReletive {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logOutReletive > svg {
+    height: 12px;
+    width: 12px;
+  }
+  .forthIcon {
+    height: 15px;
+    width: 15px;
+  }
+
+  .flagReletive {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flagReletive > svg {
+    height: 12px;
+    width: 12px;
+  }
+  .dropdown-content-flag {
+    right: -50px;
+    top: 14px;
+  }
+
+  .languageBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .dropDownFlagLink {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .thirdIcon {
+    height: 15px;
+    width: 15px;
+  }
+
+  .thirdIcon > div {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .thirdIcon > div > svg {
+    height: 12px;
+    width: 12px;
+  }
+  .secondIcon {
+    height: 15px;
+    width: 15px;
+  }
+
+  .secondIcon > div {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .secondIcon > div > svg {
+    height: 12px;
+    width: 12px;
+  }
+  .firstIcon {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .firstIcon > svg {
+    height: 12px;
+    width: 12px;
+  }
+
+  .main {
+    height: calc(100vh - 70px);
+  }
+
+  .tabParrentDiv {
+    height: 100%;
+  }
+
+  .tab-content {
+    height: 100%;
+  }
+
+  .firstOperatorColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100% !important;
+    flex-wrap: wrap;
+    height: 600px !important;
+  }
+
+  .mainOperatorDash {
+    width: 100% !important;
+  }
+
+  .operatorDashboardInformation {
+    width: 100%;
+    flex: 1 !important;
+    margin: 0 auto;
+  }
+
+  .operatorDashboardInformation > hr {
+    margin: 8px;
+  }
+
+  .dashInformationDiv {
+    width: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dashInformationDiv > span {
+    font-size: 10px;
+    text-align: start !important;
+    font-weight: bold;
+  }
+
+  .operatorDashboardFavarot {
+    flex: 1 !important;
+    width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .favarotContainer {
+    height: 100px !important;
+    width: 100px !important;
+  }
+
+  .favarotClose {
+    height: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .destroyFavarot {
+    width: fit-content;
+    height: 10px;
+    margin-top: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .destroyFavarot > svg {
+    height: 10px;
+    width: 10px;
+    margin: 0 !important;
+  }
+
+  .favarotIcon {
+    height: 50px !important;
+    width: 50px !important;
+  }
+  .favarotIcon > svg {
+    height: 50px !important;
+    width: 50px !important;
+  }
+
+  .TitleAndDestroy > span {
+    font-size: 10px;
+  }
+
+  .opratorDashActivity {
+    overflow: hidden !important;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    width: 500px !important;
+  }
+
+  .opratorDashActivity > h3 {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .opratorDashActivityTable {
+    overflow: auto !important;
+    width: 100% !important;
+  }
+
+  .opratorDashActivityTableThead {
+    height: 25px !important;
+  }
+
+  .opratorDashActivityTableTheadTrTh {
+    font-size: 11px;
+    font-weight: bolder;
+  }
+
+  .opratorDashActivityTableTbodyTrTd {
+    font-size: 11px;
+  }
+
+  .opratorDashNoteContainer {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .opratorDashNoteContainerInner {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .opratorDashNoteTitle {
+    font-size: 13px !important;
+  }
+  .opratorDashAlert > h3 {
+    font-size: 17px;
+    font-weight: bold;
+  }
+  .opratorDashListOfLogin > h3 {
+    font-size: 17px;
+    font-weight: bold;
+  }
+  .opratorDashListOfFailed > h3 {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .opratorDashNoteContainerInnerBackClose {
+    height: 10px;
+    width: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .opratorDashNoteContainerInnerBackClose > svg {
+    height: 10px;
+    width: 10px;
+  }
+
+  .opratorDashNoteDescription {
+    font-size: 10px;
+  }
 }
 
-
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+@media screen and (max-width: 420px) {
+  .header {
+    height: 40px;
+    width: 100%;
   }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgb(130, 127, 127);
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgb(69, 67, 67);
+  .profileImg {
+    height: 15px;
+    width: 15px;
   }
 
-
-  @media screen and (max-width: 960px) {
-    .mainRight{
-      flex: none;
-    }
-  }
-  
-
-  @media screen and (max-width: 650px) {
-    
-    .header {
-        height: 40px;
-        width: 100%;
-    }
-    .profileImg {
-        height: 15px;
-        width: 15px;
-    }
-
-    .profileImg > div  {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 12px !important;
-        width: 12px !important;
-    }
-
-    .profileImg > div > svg {
-        height: 12px;
-        width: 12px;
-    }
-
-    .profileName > div {
-        font-size: 12px;
-    }
-
-    .logOut {
-        height: 15px;
-        width: 15px;
-    }
-
-    .logOutReletive {
-        width: 12px;
-        height: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .logOutReletive >svg {
-        height: 12px;
-        width: 12px;
-    }
-    .forthIcon {
-        height: 15px;
-        width: 15px;
-    }
-
-    .flagReletive {
-        width: 12px;
-        height: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .flagReletive >svg {
-        height: 12px;
-        width: 12px;
-    }
-    .dropdown-content-flag {
-        right: -50px;
-        top: 14px;
-    }
-
-    .languageBtn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .dropDownFlagLink {
-        font-size: 12px;
-        text-align: center;
-       
-    }
-
-    .thirdIcon {
-        height: 15px;
-        width: 15px;
-    }
-
-    .thirdIcon > div {
-        width: 12px;
-        height: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .thirdIcon > div >svg {
-        height: 12px;
-        width: 12px;
-    }
-    .secondIcon {
-        height: 15px;
-        width: 15px;
-    }
-
-    .secondIcon > div {
-        width: 12px;
-        height: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .secondIcon > div >svg {
-        height: 12px;
-        width: 12px;
-    }
-    .firstIcon {
-        width: 12px;
-        height: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-
-
-    .firstIcon >svg {
-        height: 12px;
-        width: 12px;
-    }
-
-    .main {
-        height: calc(100vh - 70px);
-    }
-
-    .tabParrentDiv {
-        height: 100%;
-    }
-
-    .tab-content {
-        height: 100%;
-    }
-
-    .firstOperatorColumn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        width: 100% !important;
-        flex-wrap: wrap;
-        height: 600px !important;
-
-
-    }
-
-    .mainOperatorDash {
-        width: 100% !important;
-
-    }
-
-    .operatorDashboardInformation {
-        
-        width: 100%;
-        flex: 1 !important;
-        margin: 0 auto;
-    }
-
-    .operatorDashboardInformation > hr {
-        margin: 8px;
-    }
-
-    .dashInformationDiv {
-        width: 100% !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .dashInformationDiv > span {
-        font-size: 10px;
-        text-align: start !important;
-        font-weight: bold;
-    }
-
-    .operatorDashboardFavarot {
-        flex: 1 !important;
-        width: 100% !important;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .favarotContainer {
-        height: 100px !important;
-        width: 100px !important;
-    }
-
-    .favarotClose {
-        height: 10px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .destroyFavarot {
-        width: fit-content;
-        height: 10px;
-        margin-top: 0 !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .destroyFavarot > svg{
-        height: 10px;
-        width: 10px;
-        margin: 0 !important;
-    }
-
-    .favarotIcon {
-        height: 50px !important;
-        width: 50px !important;
-    }
-    .favarotIcon > svg {
-        height: 50px !important;
-        width: 50px !important;
-    }
-
-    .TitleAndDestroy >span {
-        font-size: 10px;
-    }
-
-    .opratorDashActivity {
-        
-        overflow: hidden !important;
-
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start !important;
-        justify-content: space-between !important;
-        width: 500px !important;
-
-    }
-
-    .opratorDashActivity > h3 {
-        font-size: 17px;
-        font-weight: bold;
-    }
-    
-
-    .opratorDashActivityTable {
-
-        overflow: auto !important;
-        width: 100% !important;
-    }
-
-    .opratorDashActivityTableThead {
-        height: 25px !important; 
-    }
-
-    .opratorDashActivityTableTheadTrTh {
-        font-size: 11px;
-        font-weight: bolder;
-    }
-
-    .opratorDashActivityTableTbodyTrTd {
-        font-size: 11px;
-    }
-
-
-    .opratorDashNoteContainer {
-        width: 100px !important;
-        height: 100px !important;
-    }
-
-    .opratorDashNoteContainerInner {
-        width: 100px !important;
-        height: 100px !important;
-    }
-
-    .opratorDashNoteTitle {
-        font-size: 13px !important;
-    }
-    .opratorDashAlert > h3 {
-        font-size: 17px;
-        font-weight: bold;
-    }
-    .opratorDashListOfLogin > h3 {
-        font-size: 17px;
-        font-weight: bold;
-    }
-    .opratorDashListOfFailed > h3 {
-        font-size: 17px;
-        font-weight: bold;
-    }
-
-
-    .opratorDashNoteContainerInnerBackClose {
-        height: 10px;
-        width: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .opratorDashNoteContainerInnerBackClose > svg {
-        height: 10px;
-        width: 10px;
-    }
-
-    .opratorDashNoteDescription {
-        font-size: 10px;
-    }
-
+  .profileImg > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 12px !important;
+    width: 12px !important;
   }
 
+  .profileImg > div > svg {
+    height: 12px;
+    width: 12px;
+  }
 
+  .profileName > div {
+    font-size: 12px;
+  }
 
+  .logOut {
+    height: 15px;
+    width: 15px;
+  }
 
+  .logOutReletive {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .logOutReletive > svg {
+    height: 12px;
+    width: 12px;
+  }
+  .forthIcon {
+    height: 15px;
+    width: 15px;
+  }
 
+  .flagReletive {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flagReletive > svg {
+    height: 12px;
+    width: 12px;
+  }
+  .dropdown-content-flag {
+    right: -50px;
+    top: 14px;
+  }
+
+  .languageBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .dropDownFlagLink {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .thirdIcon {
+    height: 15px;
+    width: 15px;
+  }
+
+  .thirdIcon > div {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .thirdIcon > div > svg {
+    height: 12px;
+    width: 12px;
+  }
+  .secondIcon {
+    height: 15px;
+    width: 15px;
+  }
+
+  .secondIcon > div {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .secondIcon > div > svg {
+    height: 12px;
+    width: 12px;
+  }
+  .firstIcon {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .firstIcon > svg {
+    height: 12px;
+    width: 12px;
+  }
+
+  .main {
+    height: calc(100vh - 70px);
+  }
+
+  .tabParrentDiv {
+    height: 100%;
+  }
+
+  .tab-content {
+    height: 100%;
+  }
+
+  .firstOperatorColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100% !important;
+    flex-wrap: wrap;
+    height: 600px !important;
+  }
+
+  .mainOperatorDash {
+    width: 100% !important;
+  }
+
+  .operatorDashboardInformation {
+    width: 100%;
+    flex: 1 !important;
+    margin: 0 auto;
+  }
+
+  .operatorDashboardInformation > hr {
+    margin: 8px;
+  }
+
+  .dashInformationDiv {
+    width: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dashInformationDiv > span {
+    font-size: 10px;
+    text-align: start !important;
+    font-weight: bold;
+  }
+
+  .operatorDashboardFavarot {
+    flex: 1 !important;
+    width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .favarotContainer {
+    height: 100px !important;
+    width: 100px !important;
+  }
+
+  .favarotClose {
+    height: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .destroyFavarot {
+    width: fit-content;
+    height: 10px;
+    margin-top: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .destroyFavarot > svg {
+    height: 10px;
+    width: 10px;
+    margin: 0 !important;
+  }
+
+  .favarotIcon {
+    height: 50px !important;
+    width: 50px !important;
+  }
+  .favarotIcon > svg {
+    height: 50px !important;
+    width: 50px !important;
+  }
+
+  .TitleAndDestroy > span {
+    font-size: 10px;
+  }
+
+  .opratorDashActivity {
+    overflow: scroll !important;
+    overflow-y: hidden !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    width: 300px !important;
+  }
+  .opratorDashListOfLogin {
+    overflow: scroll !important;
+    overflow-y: hidden !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    width: 300px !important;
+  }
+
+  .opratorDashActivity > h3 {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .opratorDashActivityTable {
+    overflow: hidden !important;
+    width: 340px !important;
+  }
+
+  .opratorDashActivityTableThead {
+    height: 25px !important;
+  }
+
+  .opratorDashActivityTableTheadTrTh {
+    font-size: 11px;
+    font-weight: bolder;
+  }
+
+  .opratorDashActivityTableTbodyTrTd {
+    font-size: 9px;
+    font-weight: lighter;
+  }
+
+  .opratorDashNoteContainer {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .opratorDashNoteContainerInner {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  .opratorDashNoteTitle {
+    font-size: 13px !important;
+  }
+  .opratorDashAlert > h3 {
+    font-size: 17px;
+    font-weight: bold;
+  }
+  .opratorDashListOfLogin > h3 {
+    font-size: 17px;
+    font-weight: bold;
+  }
+  .opratorDashListOfFailed > h3 {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .opratorDashNoteContainerInnerBackClose {
+    height: 10px;
+    width: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .opratorDashNoteContainerInnerBackClose > svg {
+    height: 10px;
+    width: 10px;
+  }
+
+  .opratorDashNoteDescription {
+    font-size: 10px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+  }
+
+  /* mobile-responsive */
+
+  .dropdown-content {
+    top: 13px;
+    right: -5px;
+  }
+  .dropDownLink {
+    font-size: 13px;
+  }
+
+  /* table_mobile_response */
+
+  .selfPaging {
+    margin-bottom: 20px !important;
+  }
+
+  .groupListRefresh {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 13px !important;
+  }
+  .plusBUTTON {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 13px !important;
+  }
+  .reacttableParentMainRightUp {
+    display: none !important;
+  }
+  .reacttableParentMainRightDownToolBoxDiv {
+    width: 50px !important;
+  }
+  .reactTableParentLogButton {
+    height: 30px !important;
+    width: 30px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .reactTableParentExportButton {
+    height: 30px !important;
+    width: 30px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .reactTableParentImportButton {
+    height: 30px !important;
+    width: 30px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .reactTableParentAccessButton {
+    height: 30px !important;
+    width: 30px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .reactTableParentFavoritButton {
+    height: 30px !important;
+    width: 30px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .reactTableParentHelpButton {
+    height: 30px !important;
+    width: 30px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .reacttableParentMainRightDownToolBoxDivColumnBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .columnBtnTableToggle {
+    font-size: 8px !important;
+    font-weight: bolder !important;
+  }
+
+  .bredCrumbTable {
+    display: none !important;
+  }
+  .searchSection {
+    flex: 5% !important;
+  }
+
+  .sendForm {
+    font-size: 10px !important;
+    font-weight: bolder !important;
+    width: fit-content !important;
+  }
+  .paginationSelector {
+    width: fit-content !important;
+    font-size: 10px !important;
+  }
+  .groupContainerLeft {
+    width: 100% !important;
+  }
+
+  .MainTableTh {
+    font-size: 10px !important;
+    width: fit-content !important;
+  }
+  .TableMainTd {
+    font-size: 10px !important;
+    width: fit-content !important;
+  }
+
+  /* admission First Form Mobile Responsive */
+
+  .admitionFirstFormMainDiv {
+    height: 100% !important;
+    width: 100% !important;
+    padding: 10px 5px !important;
+  }
+
+  .mainFormTitle {
+    margin-bottom: 10px !important;
+    font-size: 15px !important;
+  }
+  .imeiLabel {
+    font-size: 10px !important;
+  }
+  .idCodeLabel {
+    font-size: 10px !important;
+  }
+  .imeiInput {
+    height: 35px !important;
+  }
+  .imeiInput[type="number"] {
+    font-size: 15px !important;
+  }
+  .idCodeInput[type="number"] {
+    font-size: 15px !important;
+  }
+
+  .idCodeInput {
+    height: 35px !important;
+  }
+  .idCodeMainDiv {
+    margin-top: 15px !important;
+  }
+  .imeimainDiv {
+    margin-top: 15px !important;
+  }
+  .firstFormButtons {
+    flex-direction: column;
+    width: 100% !important;
+    margin-top: 10px !important;
+  }
+  .admitionFirstFormSubmit {
+    width: 80% !important;
+    margin-top: 10px !important;
+  }
+  .admitionFirstFormCreate {
+    width: 80% !important;
+    margin-top: 10px !important;
+  }
+
+  /* admitionFinalForm Responsive */
+
+  .recievedmainDiv {
+    flex-direction: column !important;
+  }
+  .admissionIMEI {
+    top: 35px !important;
+    width: 100% !important;
+    padding: 10px 20px !important;
+    margin: 0 auto !important;
+  }
+  .mainAdmitionDiv {
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+  }
+
+  .admitionSecondDiv {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .customerSpan {
+    top: 20px !important;
+  }
+
+  .customerDiv {
+    top: 26px !important;
+    height: fit-content !important;
+  }
+  .groupDiv {
+    top: 100px !important;
+    height: fit-content !important;
+  }
+  .admitionItemsDiv {
+    top: 130px !important;
+    height: 200px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .agentItemsDiv {
+    top: 320px !important;
+    height: fit-content !important;
+    width: 100% !important;
+    flex-direction: column !important;
+  }
+  .groupSpan {
+    top: 100px !important;
+  }
+  .admitionSpan {
+    top: 120px !important;
+  }
+
+  .recievedDiv {
+    margin: 0 auto !important;
+  }
+
+  .recievedDiv > span {
+    flex: 1 !important;
+  }
+  .recievedDiv > span:first-child {
+    flex: 0.5 !important;
+  }
+  .recievedDiv > button {
+    flex: 0.25 !important;
+    margin-inline-end: 35px !important;
+  }
+  .deviceExtraDiv {
+    width: 100% !important;
+  }
+
+  .multiSelectDiv {
+    width: 100% !important;
+    z-index: 20 !important;
+  }
+  .extraDeviceSpan {
+    top: 12px !important;
+  }
+  .extraDeviceSpan1 {
+    top: 70px !important;
+  }
+
+  .admitionThirdDiv {
+    height: fit-content !important;
+  }
+
+  .extraDeviceDiv {
+    top: 20px !important;
+    height: fit-content !important;
+  }
+  .extraDeviceDiv1 {
+    top: 80px !important;
+    height: fit-content !important;
+  }
+  .acountPatternDiv {
+    width: 100% !important;
+    height: fit-content !important;
+  }
+  .acountpatternSpan {
+    top: 140px !important;
+    z-index: 15;
+  }
+
+  .paternAcountDiv {
+    position: absolute !important;
+    top: 150px !important;
+    height: fit-content !important;
+  }
+  .acountCustomerDiv {
+    width: 100% !important;
+  }
+  .acountInformationDiv {
+    width: 100% !important;
+    height: fit-content !important;
+  }
+  .textFieldDescDiv {
+    width: 100% !important;
+    height: fit-content !important;
+  }
+
+  .acountDmailDiv {
+    flex: 1 !important;
+    height: 75px !important;
+    margin-top: 10px !important;
+    width: 100% !important;
+  }
+  .acountInputSpan {
+    flex: 1 !important;
+    height: 50px !important;
+    width: 100% !important;
+  }
+
+  .aountCustomerSpan {
+    top: 190px !important;
+  }
+  .acountCustomerDiv {
+    position: absolute !important;
+    top: 200px !important;
+    height: 200px !important;
+    padding: 5px 0 !important;
+  }
+  .failedDescSpan {
+    top: 400px !important;
+  }
+  .DescDivFinal {
+    height: 140px !important;
+    position: absolute !important;
+    top: 410px !important;
+  }
+  .textFieldDesc {
+    top: 0 !important;
+  }
+  .failedDescSpan2 {
+    top: 400px !important;
+  }
+  .DescDivFinal2 {
+    height: 140px !important;
+    position: absolute !important;
+    top: 410px !important;
+  }
+  .textFieldDesc2 {
+    top: 410px !important;
+  }
+  .agentSigSpan {
+    top: 540px !important;
+  }
+  .signaturePadDiv {
+    top: 550px !important;
+    height: 150px !important;
+  }
+  .agentSigSpan1 {
+    top: 720px !important;
+  }
+  .signaturePadDiv1 {
+    position: absolute !important;
+    top: 720px !important;
+    height: 170px !important;
+    width: 100% !important;
+    border: 1px solid lightgray !important;
+  }
+  .agentSignatur {
+    width: 100% !important;
+  }
+
+  .admitionForthDiv {
+    flex-direction: column !important;
+  }
+  .admitionButtonDiv {
+    position: absolute !important;
+    top: 590px !important;
+  }
+  .admitionFinalFormSubmit {
+    height: 100% !important;
+  }
+
+  .agentDescriptionInputDiv {
+    height: 150px !important;
+    width: 100% !important;
+    top: 560px !important;
+  }
+  .agentDescriptionInputDiv2 {
+    height: 150px !important;
+    width: 100% !important;
+    top: 560px !important;
+  }
+
+  .agentDescription {
+    width: 100% !important;
+    height: fit-content !important;
+  }
+
+  .agentSpan {
+    top: 850px !important;
+  }
+
+  .agentescriptionDiv {
+    width: 100% !important;
+    height: fit-content !important;
+  }
+  .agentDescriptionSpan {
+    top: 550px !important;
+  }
+  .agentDescriptionSpan2 {
+    top: 550px !important;
+  }
+  .agentSigPadDiv {
+    width: 100% !important;
+    height: fit-content !important;
+  }
+  .canvasForEver {
+    height: 100% !important;
+    width: 360px !important;
+  }
+
+  /* panell Group Form */
+
+  .inputDivGroup {
+    width: 100% !important;
+  }
+  .inputDivDescGroup {
+    width: 100% !important;
+  }
+  .addBtn {
+    width: 100% !important;
+  }
+  .ipTextFields {
+    flex-direction: column-reverse !important;
+  }
+  .browserSelects {
+    flex-direction: column-reverse !important;
+  }
+  .form-select {
+    width: 100% !important;
+  }
+
+  .datePickerGroup {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  /* operator form css  */
+
+  .OperatorForm {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .OperatorFormMainDiv {
+    width: 100% !important;
+  }
+
+  .deleteBtn {
+    margin-bottom: 100px !important;
+  }
+
+  /* ip valid form */
+
+  .OperatorVitualIpFormMainDivIP {
+    width: 360px !important;
+  }
+
+  .deleteBtnIP {
+    margin-bottom: 100px !important;
+  }
+
+  /* customer form mobile response */
+
+  .OperatorFormform {
+    width: 360px !important;
+    margin: 0 auto !important;
+  }
+
+  .customerFirstDiv {
+    flex-direction: column !important;
+    padding: 10px !important;
+  }
+  .customerThirdDiv {
+    flex-direction: column !important;
+    padding: 10px !important;
+  }
+
+  .customerFirstName {
+    width: 100% !important;
+    margin: 8px 0 !important;
+    padding: 10px !important;
+  }
+  #customerpassWord {
+    width: 100% !important;
+    margin: 8px 0 !important;
+    padding: 10px !important;
+  }
+
+  .customerSecondDiv {
+    flex-direction: column !important;
+    padding: 10px !important;
+  }
+
+  /* definitions mobile response */
+  .periorityFormmainDiv {
+    width: 100% !important;
+  }
+  .formInput {
+    width: 100% !important;
+  }
+  .periorityFormForm {
+    width: 100% !important;
+  }
+}
