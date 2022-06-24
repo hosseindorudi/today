@@ -1409,4 +1409,96 @@
   .periorityFormForm {
     width: 100% !important;
   }
+  #sidebarNav {
+    z-index: 10000 !important;
+  }
+
+  /* work flow  */
+  .circular-menu {
+    height: 50px !important;
+    width: 50px !important;
+  }
+
+  .menu-button > img {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .menu-item {
+    top: -30px !important;
+    height: 110px !important;
+  }
+  .buttonTextsAndBadge {
+    font-size: 9px !important;
+  }
+  .buttonTextsAndBadge > span:first-child {
+    transform: rotate(110deg);
+    margin-inline-start: 10px !important;
+  }
+  .buttonTextsAndBadge > span:last-child {
+    /* margin-inline-start: 10px !important; */
+    border-radius: 50% !important;
+  }
+
+  .btnFormCircularMenu {
+    top: 0 !important;
+  }
+
+  .badge {
+    height: fit-content !important;
+    font-size: 12px !important;
+  }
+
+  /* sent form css mobile responsive */
+
+  .sentFormUp {
+    flex-direction: column !important;
+  }
+
+  .sentFormMainRightDiv {
+    margin: 10px 0 !important;
+  }
+
+  .sentFormDown {
+    flex-direction: column !important;
+  }
+  .sentFormDownTotal {
+    width: 100% !important;
+    margin-inline-start: 0 !important;
+  }
+  .sentFormButton {
+    margin-bottom: 30px !important;
+    margin-top: 10px !important;
+  }
+
+  /* change for mobile response */
+
+  .chnageFormmain {
+    width: 100% !important;
+  }
+
+  .changeFormMid {
+    padding: 0 !important;
+    width: 100% !important;
+    flex-direction: column !important;
+  }
+  .changeFormMidRight {
+    width: 100% !important;
+  }
+  /* .chnageFormMidMid {
+    display: none !important;
+  } */
+
+  .changeFormTable {
+    width: 100% !important;
+  }
+  .changeFormDownTableMain {
+    width: 350px !important;
+    overflow: auto !important;
+  }
+  .changeFormUp {
+    display: none !important;
+  }
+  .changeFormMidLeft {
+    width: 100% !important;
+  }
 }
