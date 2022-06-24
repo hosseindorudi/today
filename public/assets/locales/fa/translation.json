@@ -373,6 +373,11 @@
 "tech.extraServices":"خدمات اضاف",
 "tech.techDescription":"توضیحات فنی",
 "tech.additions":"پیوست ها",
-"tech.pay":"مبلغ اجرت"
+"tech.pay":"مبلغ اجرت",
+"search.startDate":"تاریخ شروع",
+"search.endDate":"تاریخ پایان",
+"search.error":"تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+"search.errorChooseStart":"ابتدا تاریخ شروع را مشخص کنید!!!",
+"exportCSV":"خروجی CSV"
 
 }

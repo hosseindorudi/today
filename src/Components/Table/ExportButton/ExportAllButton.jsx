@@ -43,12 +43,11 @@ const ExportAllButton = (props) => {
       };
       const handleDownload=(res)=>{
         setResponse(undefined)
-            downloadCSVCode(res,t("exportGroup"))
+            downloadCSVCode(res,t("exportCSV"))
       }
       useEffect(() => {
         if (response) {
             response.length ? handleDownload(response) : noFileToast();
-          
           }
           return () => abortController.abort();
       }, [response])

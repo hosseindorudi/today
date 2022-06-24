@@ -1,4 +1,6 @@
 import { t } from "i18next"
+import { Form } from "react-bootstrap"
+import { toast } from "react-toastify"
 
 export const convertUTC=(utc)=>{
     const lang=localStorage.getItem("i18nextLng")
@@ -81,4 +83,27 @@ export const createSelectOptions=(titles)=>{
     {value: m.Id,label:m.Title, color: `#${m.Color}` }
 ))
 return options
+}
+
+export const checkTableValues=(type, value, post)=>{
+  switch (type) {
+    case "DateSet":
+      return convertUTC(value);
+    case "IsActive":
+      return <Form.Check type="switch" disabled checked={value} />;
+      case "Gender":
+      return value?t("male"):t("female");
+    case "LimitFrom":
+      return post.IsLimited ? convertUTC(value) : "-";
+    case "LimitTo":
+      return post.IsLimited ? convertUTC(value) : "-";
+    default:
+      return value;
+  }
+}
+
+export const handleError=(message)=>{
+  toast.error(message, {
+    position: toast.POSITION.BOTTOM_CENTER,
+  });
 }
