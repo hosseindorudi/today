@@ -15,6 +15,7 @@ import BackDrop from "../../backDrop/BackDrop";
 import AccessListModal from "../AccessListModal/AccessListModal";
 import LogModal from "../LogModal/LogModal";
 import PasswordModal from "../passwordModal/PasswordModal";
+import PermissionModal from "../PermissionModal/PermissionModal";
 import LeftSideContainer from "./LeftSideContainer";
 import RighSideContainer from "./RighSideContainer";
 import TableList from "./TableList";
@@ -23,6 +24,9 @@ const CustomTable = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const [response, loading, fetchData, setResponse] = useAxios();
   const [accessLists, setAccessLists] = useState(undefined);
+  const [groupId, setGroupId] = useState();
+  const [showGetPermissionModal,setShowGetPermissionModal]=useState(false)
+  const [permissions,setPermissions]=useState(undefined)
   const [showAccessListModal, setAccessListModal] = useState(false);
   const [passwordModalOpen, setPasswordmodalOpen] = useState(false);
   const [requestType, setRequestType] = useState("");
@@ -101,6 +105,15 @@ const CustomTable = forwardRef((props, ref) => {
       signal: abortController.signal,
     });
   };
+  const handleGetPermissionModal=(response)=>{
+    setPermissions(response.AccessList)
+    setShowGetPermissionModal(true)
+  }
+  const handleSetPermission=()=>{
+    toast.success(t("updatedRecord"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  }
   const handleClickFav = () => {
     setRequestType("FAVORITE");
     fetchData({
@@ -298,12 +311,12 @@ const CustomTable = forwardRef((props, ref) => {
         case "GETONERECORDPASS":
           setPasswordFor(response);
           break;
-        // case "GETPERMISSION":
-        //   handleGetPermissionModal(response);
-        //   break;
-        // case "SETPERMISSIONS":
-        //   handleSetPermission(response)
-        //   break;
+        case "GETPERMISSION":
+          handleGetPermissionModal(response);
+          break;
+        case "SETPERMISSIONS":
+          handleSetPermission(response)
+          break;
         default:
           break;
       }
@@ -342,6 +355,39 @@ const CustomTable = forwardRef((props, ref) => {
   const handleChangeTitle = (event) => {
     setFlt_Title(event.target.value);
   };
+  const handleClickGetPermission = (id) => {
+    setGroupId(id)
+    setRequestType("GETPERMISSION");
+    fetchData({
+      method: "POST",
+      url: props.getPermissionURL&&props.getPermissionURL,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        id: id,
+      },
+      signal: abortController.signal,
+    });
+  };
+  const setPermission=(codes)=>{
+    setRequestType("SETPERMISSIONS");
+    setShowGetPermissionModal(false)
+    fetchData({
+      method: "POST",
+      url: props.setPermissionURL&&props.setPermissionURL,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        id: groupId,
+        AccessList:codes
+      },
+      signal: abortController.signal,
+    });
+  }
   const deleteCalled = (id) => {
     Swal.fire({
       title: t("table.deleteTitle"),
@@ -446,6 +492,13 @@ const CustomTable = forwardRef((props, ref) => {
           updated={updatedPassword}
         />
       )}
+       {showGetPermissionModal &&(
+          <PermissionModal  permissions={permissions}
+          show={showGetPermissionModal}
+          onHide={() => setShowGetPermissionModal(false)}
+          setPermission={setPermission}
+          />
+        )}
       <div className="reacttableParent">
         <RighSideContainer
           {...props}
@@ -491,6 +544,7 @@ const CustomTable = forwardRef((props, ref) => {
             handleChangeSelect={handleChangeSelect}
             handleClickSend={handleClickSend}
             handleClearFilter={handleClearFilter}
+            handleClickGetPermission={handleClickGetPermission}
           />
           <LeftSideContainer
             {...props}

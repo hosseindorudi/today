@@ -15,7 +15,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { onlyNumberAndDot } from "../../../../../../validation/validation";
 import { browser, radius } from "../../../../../../data/constants";
 import useAxios from "../../../../../../customHooks/useAxios";
-import { customerGroupUpdate, groupUpdate } from "../../../../../../services/groupService";
+import { customerGroupUpdate, groupUpdate } from "../../../../../../services/customerGroupService";
 import { setDatePickerDate } from "../../../../../../validation/functions";
 
 const TableModal = (props) => {

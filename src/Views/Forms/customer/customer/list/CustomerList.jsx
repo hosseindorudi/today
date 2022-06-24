@@ -36,87 +36,77 @@ const CustomerList = () => {
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
 
-  const addObject= {
+  const addObject = {
     Component: CustomerForm,
     path: "/customerform",
     title: "routes.customerForm",
     access: enums.Customer_Customer_Create_w,
   };
-  const  setUpdate=(res)=>{
+  const setUpdate = (res) => {
     const record = res.Record;
     setRowValues(record);
     setTableModalOpen(true);
-   }
+  };
   const updated = () => {
     setTableModalOpen(false);
     toast.success(t("updatedRecord"), {
       position: toast.POSITION.TOP_CENTER,
     });
     //call update function in child class
-    childRef.current.updated()
+    childRef.current.updated();
   };
-
 
   const handleClickHelp = () => {
     window.open("https://www.google.com");
   };
 
-
-
-
-
-
-  
   return (
     <>
-    
-      <>
-        {tableModalOpen && (
-          <TableModal
-            rowValus={rowValus}
-            onHide={() => setTableModalOpen(false)}
-            tableModalShow={tableModalOpen}
-            updated={updated}
-          />
-        )}
-        {/* {showGetPermissionModal &&(
+      {tableModalOpen && (
+        <TableModal
+          rowValus={rowValus}
+          onHide={() => setTableModalOpen(false)}
+          tableModalShow={tableModalOpen}
+          updated={updated}
+        />
+      )}
+      {/* {showGetPermissionModal &&(
           <PermissionModal  permissions={permissions}
           show={showGetPermissionModal}
           onHide={() => setShowGetPermissionModal(false)}
           setPermission={setPermission}
           />
         )} */}
-        <CustomTable
-          ref={childRef}
-          ReadApi={customerRead}
-          deleteApi={customerDelete}
-          unSelectedAPI={customerSetUnselectedColumn}
-          sampleUrl={customerSampleFile}
-          fileCheckURL={customerCheckFile}
-          importURL={customerImportFile}
-          logApi={customerLog}
-          exportId={customerExportId}
-          changePasswordURL={customerChangePassword}
-          addObject={addObject}
-          exportAccess={enums.Customer_Customer_Export_r}
-          exportLink={customerExport}
-          importAccess={enums.Customer_Customer_Import_w}
-          logAccess={enums.Customer_Customer_Log_r}
-          readPagingApi={customerReadPaging}
-          accessListAccess={enums.Operator_AccessList_Read_r}
-          accessListApi={customerAccessList}
-          favouriteApi={customerFavorite}
-          handleClickHelp={handleClickHelp}
-          addFormAccess={enums.Customer_Customer_Create_w}
-          filteredColumns={filteredColumns}
-          deleteAccess={enums.Customer_Customer_Delete_w}
-          editAccess={enums.Customer_Customer_Update_w}
-          permissionsList={""}
-          changePasswordAccess={enums.Customer_Customer_ChangePassword_w}
-          getOneRecord={customerGetOneRecord}
-          setUpdate={setUpdate}
-        />
-      </>
+      <CustomTable
+        ref={childRef}
+        ReadApi={customerRead}
+        deleteApi={customerDelete}
+        unSelectedAPI={customerSetUnselectedColumn}
+        sampleUrl={customerSampleFile}
+        fileCheckURL={customerCheckFile}
+        importURL={customerImportFile}
+        logApi={customerLog}
+        exportId={customerExportId}
+        changePasswordURL={customerChangePassword}
+        addObject={addObject}
+        exportAccess={enums.Customer_Customer_Export_r}
+        exportLink={customerExport}
+        importAccess={enums.Customer_Customer_Import_w}
+        logAccess={enums.Customer_Customer_Log_r}
+        readPagingApi={customerReadPaging}
+        accessListAccess={enums.Operator_AccessList_Read_r}
+        accessListApi={customerAccessList}
+        favouriteApi={customerFavorite}
+        handleClickHelp={handleClickHelp}
+        addFormAccess={enums.Customer_Customer_Create_w}
+        filteredColumns={filteredColumns}
+        deleteAccess={enums.Customer_Customer_Delete_w}
+        editAccess={enums.Customer_Customer_Update_w}
+        permissionsAccess={""}
+        changePasswordAccess={enums.Customer_Customer_ChangePassword_w}
+        getOneRecord={customerGetOneRecord}
+        setUpdate={setUpdate}
+      />
     </>
   );
 };

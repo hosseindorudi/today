@@ -39,7 +39,8 @@ const TableList = ({
   deleteAccess,
   editAccess,
   exportAccess,
-  permissionsList,
+  permissionsAccess,
+  handleClickGetPermission,
   changePasswordAccess,
   deleteCalled,
   handleClickEdit,
@@ -224,12 +225,14 @@ const TableList = ({
                           deleteType={deleteAccess}
                           editType={editAccess}
                           exportType={exportAccess}
-                          accessListType={permissionsList}
+                          accessListType={permissionsAccess}
+                          handleClickGetPermission={handleClickGetPermission}
                           changePasswordType={changePasswordAccess}
                           deleteCalled={deleteCalled}
                           rowValue={post}
                           handleClickEdit={handleClickEdit}
                           handlePassEdit={handlePassEdit}
+                        
                         />
                       </td>
                       {Object.keys(post)
