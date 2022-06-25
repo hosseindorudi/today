@@ -1,5 +1,5 @@
 
-.tableModal{
+/* .tableModal{
     display: flex;
     flex-direction: column;
     z-index: 20;
@@ -8,19 +8,19 @@
     height: 100vh;
     width: 100% !important;
     
-}
+} */
 
 .reletiveModal {
     width: 100% !important;
 }
 
-.modal-dialog {
+/* .modal-dialog {
     width: 100% !important;
 }
 
 .modal-lg {
     max-width: none !important;
-}
+} */
 
 .tableModal .switch{
     display: flex;
