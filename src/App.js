@@ -13,9 +13,12 @@ import Pagenotfound from "./Components/404/Pagenotfound";
 import TabContextProvider from "./contexts/TabContextProvider";
 import { AuthProvider } from "./contexts/AuthProvider";
 import RequireAuth from "./Components/RequireAuth";
-
+import packageJson from '../package.json';
 import OsInformationProvider from "./contexts/OsInformationProvider";
+import CacheBuster from './Components/cachBuster'
+import BackDrop from "./Components/backDrop/BackDrop";
 function App() {
+  const isProduction = process.env.NODE_ENV === 'production';
   const search = useLocation().search;
   const typeOfUser = new URLSearchParams(search).get("type");
   const [app, setApp] = useState({
@@ -44,7 +47,14 @@ function App() {
   };
 
   return (
+    <CacheBuster
+      currentVersion={packageJson.version}
+      isEnabled={isProduction}
+      isVerboseMode={true}
+      loadingComponent={ <BackDrop open={true}/>}
+    >
     <div className={"App " + assignFont()}>
+      
        <OsInformationProvider>
       <AuthProvider>
       <AppContext.Provider value={{ app, setApp }}>
@@ -62,7 +72,9 @@ function App() {
       </AppContext.Provider>
       </AuthProvider>
       </OsInformationProvider>
+    
     </div>
+    </CacheBuster>
   );
 }
 
