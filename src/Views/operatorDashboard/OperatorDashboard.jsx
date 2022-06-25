@@ -1,15 +1,173 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './opratorDashboard.css'
 import {useState} from 'react'
 import Modal from './modal/Modal'
 import useGeoLocation from "../../customHooks/useGeoLocation";
 import { OsContext } from '../../contexts/OsInformationProvider'
+import { toast } from 'react-toastify';
+import { homeDashboard } from '../../services/dashboardServices';
+import useRequest from '../../customHooks/useRequest';
+import useAxios from '../../customHooks/useAxios';
+import AppContext from '../../contexts/AppContext';
+import BackDrop from '../../Components/backDrop/BackDrop';
+import { useTranslation } from 'react-i18next';
+import { TabContext } from '../../contexts/TabContextProvider';
+import Admission from '../Forms/service/admission/Admission';
+import { enums } from '../../data/Enums';
+import CustomerList from '../Forms/customer/customer/list/CustomerList';
+import CustomerGroup from '../Forms/customer/group/List/CustomerGroup';
+import Group from '../Forms/agent/agentGroupForm/Group';
+import Operator from '../Forms/panel/operator/List/Operator';
+
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useGeoLocation();
-  const {os} = useContext(OsContext)
+  const {os,loadingg} = useContext(OsContext)
+  const abortController = new AbortController();
+  const request = useRequest();
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const [dashboardInfoData, setDashboardInfoData] = useState({})
+  const accessToken = localStorage.getItem("token");
+  const [extraInfo, setExtraInfo] = useState([])
+  const { app } = useContext(AppContext);
+  const {t} = useTranslation();
+  const tabContext = useContext(TabContext);
+  const handleError = (message) => {
+    toast.error(message, {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  };
+
+  const handleSeccess=(message)=>{
+
+    toast.success(message, {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  }
+
+  const handleChangeFavoritPage = (type) => {
+      switch (type) {
+        case "/AfterSales/Admission/Read":
+          tabContext.addRemoveTabs(
+            {
+              title: "routes.admission",
+              path: "/AfterSales/Admission/Read",
+              Component:Admission,
+              access: enums.AfterSales_New_Admission_Read_r,
+            }
+            , "add");
+          break;
+        case "/Customer/Customer/Read":
+          tabContext.addRemoveTabs(
+            {
+              title: "routes.CustomerList",
+              path: "/Customer/Customer/Read",
+              Component:CustomerList,
+              access: enums.Customer_Customer_Read_r,
+            }
+            , "add");
+          break;
+        case "/Customer/Group/Read":
+          tabContext.addRemoveTabs(
+            {
+              title: "routes.group",
+              path: "/Customer/Group/Read",
+              Component:CustomerGroup,
+              access: enums.Customer_Group_Read_r,
+            }
+            , "add");
+          break;
+        case "/Operator/Group/Read":
+          tabContext.addRemoveTabs(
+            {
+              title: "routes.group",
+              path: "/Operator/Group/Read",
+              Component:Group,
+              access: enums.Operator_Group_Read_r,
+            }
+            , "add");
+          break;
+        case "/Operator/Operator/Read":
+          tabContext.addRemoveTabs(
+            {
+              title: "routes.operator",
+              path: "/Operator/Operator/Read",
+              Component:Operator,
+              access: enums.Operator_Operator_Read_r,
+            }
+            , "add");
+          break;
+      
+        default:
+          break;
+      }
+
+
+  }
+
+  
+
+  // setTimeout(()=> {
+    // fetchData({
+    //   method: "POST",
+    //   url: homeDashboard,
+    //   headers: {
+    //     accept: "*/*",
+    //   },
+      
+     
+    //   Request: request,
+      
+    //   signal:abortController.signal,
+      
+     
+    // })
+  // },3000)
+
+  useEffect(()=> {
+    if(!loadingg) {
+      fetchData({
+        method: "POST",
+        url: homeDashboard,
+        headers: {
+          accept: "*/*",
+        },
+        
+       
+        data: {
+          Language: app.langCode,
+          Os: os.os,
+          Browser: os.browser,
+          Ip: os.ip,
+          Token: accessToken ? accessToken : "",
+          Latitude: location.loaded ? location.coordinates.lat : 0,
+          Longitude: location.loaded ? location.coordinates.lng : 0,
+
+        },
+        
+        signal:abortController.signal,
+        
+       
+      })
+    }
+  }, [loadingg])
+
+  useEffect(()=> {
+    setExtraInfo(dashboardInfoData.Favorite)
+  }, [dashboardInfoData])
+  
+
+  useEffect(()=> {
+    if (response){
+    response.Result?setDashboardInfoData(response):handleError(response.Message)          
+    }
+},[response])
+
 
   return (
+
+    <>
+    {loadingg && <BackDrop open = {loadingg}/>}
     <div className="mainOperatorDash">
       <div className="firstOperatorColumn">
         <div className="operatorDashboardInformation">
@@ -35,59 +193,30 @@ const OperatorDashboard = () => {
           </div>
           <hr />
           <div className="dashInformationDiv">
-              <span>حسین درودی</span>
+              <span>{dashboardInfoData.OperatorName}</span>
               <span>:Operator</span>
           </div>
         </div>
         <div className="operatorDashboardFavarot">
-          <div className="favarotContainer">
-            
-            <div className="favarotClose"><button className="destroyFavarot"><i className="fa fa-times" aria-hidden="true"></i></button></div>
-            <div className="favarotIcon"><i className="fa fa-users" aria-hidden="true"></i></div>
-            <div className="TitleAndDestroy">
-              <span>موضوع</span>
-            </div>
-          </div>
-          <div className="favarotContainer">
-            
-            <div className="favarotClose"><button className="destroyFavarot"><i className="fa fa-times" aria-hidden="true"></i></button></div>
-            <div className="favarotIcon"><i className="fa fa-users" aria-hidden="true"></i></div>
-            <div className="TitleAndDestroy">
-              <span>موضوع</span>
-            </div>
-          </div>
-          <div className="favarotContainer">
-            
-            <div className="favarotClose"><button className="destroyFavarot"><i className="fa fa-times" aria-hidden="true"></i></button></div>
-            <div className="favarotIcon"><i className="fa fa-users" aria-hidden="true"></i></div>
-            <div className="TitleAndDestroy">
-              <span>موضوع</span>
-            </div>
-          </div>
-          <div className="favarotContainer">
-            
-            <div className="favarotClose"><button className="destroyFavarot"><i className="fa fa-times" aria-hidden="true"></i></button></div>
-            <div className="favarotIcon"><i className="fa fa-users" aria-hidden="true"></i></div>
-            <div className="TitleAndDestroy">
-              <span>موضوع</span>
-            </div>
-          </div>
-          <div className="favarotContainer">
-            
-            <div className="favarotClose"><button className="destroyFavarot"><i className="fa fa-times" aria-hidden="true"></i></button></div>
-            <div className="favarotIcon"><i className="fa fa-users" aria-hidden="true"></i></div>
-            <div className="TitleAndDestroy">
-              <span>موضوع</span>
-            </div>
-          </div>
-          <div className="favarotContainer">
-            
-            <div className="favarotClose"><button className="destroyFavarot"><i className="fa fa-times" aria-hidden="true"></i></button></div>
-            <div className="favarotIcon"><i className="fa fa-users" aria-hidden="true"></i></div>
-            <div className="TitleAndDestroy">
-              <span>موضوع</span>
-            </div>
-          </div>
+           {
+            extraInfo && (extraInfo.map((dashboard, i) => (
+              <>
+                <div className="favarotContainer" key={i}>
+              
+                <div className="favarotClose"><button className="destroyFavarot"><i className="fa fa-times" aria-hidden="true"></i></button></div>
+                <div className="favarotIcon" onClick={() => handleChangeFavoritPage(dashboard.Link)}><i  className={dashboard.Icon} aria-hidden="true"></i></div>
+                <div className="TitleAndDestroy">
+                  <span>{t(`${dashboard.Link}`)}</span>
+                </div>
+              </div>
+              </>
+            ))) 
+          } 
+
+       
+          
+          
+          
         </div>
       </div>
       <div className="opratorDashActivity">
@@ -527,6 +656,7 @@ const OperatorDashboard = () => {
         </table>
       </div>
     </div>
+    </>
   )
 }
 
