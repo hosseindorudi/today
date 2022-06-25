@@ -59,7 +59,7 @@ const WarrantyTypeDefine = () => {
           : handleError(response.Message);
         setResponse(undefined);
       }
-      return () => abortController.abort();
+    
     }, [response]);
   
     const onChange = (e) => {

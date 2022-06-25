@@ -1,19 +1,15 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { Accordion, Button, Form, Modal } from "react-bootstrap";
+import {  Button, Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
-import * as bs from "react-icons/bs";
-import * as fa from "react-icons/fa";
+
 import AppContext from "../../../../../../contexts/AppContext";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../../customHooks/useRequest";
 import { toast } from "react-toastify";
-import MapModal from "../../../../../../Components/GoogleMap/MapModal";
 import { TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { onlyNumberAndDot } from "../../../../../../validation/validation";
-import { browser, radius } from "../../../../../../data/constants";
 import useAxios from "../../../../../../customHooks/useAxios";
 import { groupTitle, updateRecord } from "../../../../../../services/operatorService";
 import { setDatePickerDate } from "../../../../../../validation/functions";
@@ -22,7 +18,6 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 const TableModal = (props) => {
   
   const currentLang = useContext(AppContext);
-  const { app } = useContext(AppContext);
   const [type, setType] = useState("")
   const [response, loading, fetchData] = useAxios();
   const title = useRef();

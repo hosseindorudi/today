@@ -1,5 +1,5 @@
 import Group from './List/Group'
-import React, { lazy, useContext, useEffect, useRef, useState } from "react";
+import React, {  useContext, useEffect, useRef, useState } from "react";
 import "./operatorGroupForm.css";
 import { useTranslation } from "react-i18next";
 import { Accordion, Button, Form } from "react-bootstrap";
@@ -184,10 +184,7 @@ const handleSeccess=(message)=>{
       response.Result?handleSeccess(response.message):handleError(response.message)
       response.Result && handleClickMenu() ;
     }
-    // if(error){
-    // handleError(error.response?.data?.title)
-    
-    // }
+
   }, [response])
   return (
     <>

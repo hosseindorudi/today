@@ -9,16 +9,12 @@ import { TabContext } from "../../../../contexts/TabContextProvider";
 import { enums } from "../../../../data/Enums";
 import useButtonAccess from "../../../../customHooks/useButtonAccess";
 const Delivery=lazy(()=>import("../delivery/deliveryList/Delivery"))
-const DeliveryForm=lazy(()=>import("../delivery/DeliveryForm"))
 const QcExitForm=lazy(()=>import("../QcExit/qcExitList/QcExitList"))
 const QcExit=lazy(()=>import("../QcExit/qcExitForm/Qc"))
 const Registered=lazy(()=>import("../registered/Registered"))
-const TechnicianForm=lazy(()=>import("../technecian/technicianForm/TechnicianForm"))
 const Technician=lazy(()=>import("../technecian/technicianList/Technician"))
 const Allocation=lazy(()=>import("../alocation/Allocation"))
-const AllocationForm=lazy(()=>import("../alocation/AllocationForm"))
 const Admission=lazy(()=>import("../admission/Admission"))
-const AdmissionForm=lazy(()=>import("../admission/AdmissionForm"))
 const Change=lazy(()=>import("../change/changeList/Change"))
 const ChangeForm=lazy(()=>import("../change/changeForm/ChangeForm"))
 const Archive=lazy(()=>import("../../../../Views/Forms/service/archive/Archive"))

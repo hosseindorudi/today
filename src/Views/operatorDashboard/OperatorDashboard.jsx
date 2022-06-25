@@ -6,7 +6,6 @@ import useGeoLocation from "../../customHooks/useGeoLocation";
 import { OsContext } from '../../contexts/OsInformationProvider'
 import { toast } from 'react-toastify';
 import { homeDashboard } from '../../services/dashboardServices';
-import useRequest from '../../customHooks/useRequest';
 import useAxios from '../../customHooks/useAxios';
 import AppContext from '../../contexts/AppContext';
 import BackDrop from '../../Components/backDrop/BackDrop';
@@ -24,8 +23,7 @@ const OperatorDashboard = () => {
   const location = useGeoLocation();
   const {os,loaded} = useContext(OsContext)
   const abortController = new AbortController();
-  const request = useRequest();
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [dashboardInfoData, setDashboardInfoData] = useState({})
   const accessToken = localStorage.getItem("token");
   const [extraInfo, setExtraInfo] = useState([])
@@ -38,12 +36,7 @@ const OperatorDashboard = () => {
     });
   };
 
-  const handleSeccess=(message)=>{
 
-    toast.success(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  }
 
   const handleChangeFavoritPage = (type) => {
       switch (type) {
@@ -150,6 +143,7 @@ const OperatorDashboard = () => {
        
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded])
 
   useEffect(()=> {

@@ -21,7 +21,7 @@ function Admin() {
     if(loaded){
       verifyToken()
     }  
-  }, [loaded]);
+  }, [loaded,verifyToken]);
   
   const handleClickMenu = () => {
     setMenu(!menu);

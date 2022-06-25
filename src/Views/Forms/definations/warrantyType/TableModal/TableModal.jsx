@@ -22,7 +22,6 @@ const TableModal = (props) => {
     desc: val.Description,
   });
   const [response, loading, fetchData, setResponse] = useAxios();
-  const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
 
@@ -42,8 +41,9 @@ const TableModal = (props) => {
       response.Result
         ? handleResponse(response)
         : handleError(response.Message);
+        setResponse(undefined)
     }
-  }, [response]);
+  }, [response,handleResponse]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

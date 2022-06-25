@@ -1,23 +1,18 @@
 import './archive.css'
-import React, { useContext, useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import useAxios from '../../../../customHooks/useAxios';
-import { TabContext } from '../../../../contexts/TabContextProvider';
+
 import useButtonAccess from '../../../../customHooks/useButtonAccess';
 import useRequest from '../../../../customHooks/useRequest';
 import useWindowSize from '../../../../customHooks/useWindowSize';
 import { 
-    admitionCreate,
+
     admitionRead,
     admitionReadPaging,
-    admitionReadTitle,
-    admitionGetOneRecord,
-    admitionUpdate,
+
     admitionSetColumn,
-    admitionDelete,
-    admitionSampleFile,
-    admitionCheckFile,
-    admitionImport,
+
     admitionExport,
     admitionExportId,
     admitionLog,
@@ -26,11 +21,10 @@ import {
 
 } from '../../../../services/admitionService';
 import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+
 import { convertUTC } from '../../../../validation/functions';
 import { Breadcrumb, Form } from 'react-bootstrap';
 import BackDrop from '../../../../Components/backDrop/BackDrop';
-import TableModal from '../../panel/operator/List/TableModal/TableModal';
 import LogModal from '../../../../Components/Table/LogModal/LogModal';
 import AccessListModal from '../../../../Components/Table/AccessListModal/AccessListModal';
 import ExportAllButton from '../../../../Components/Table/ExportButton/ExportAllButton';
@@ -42,8 +36,6 @@ import { Pagination } from '@mui/material';
 import { t } from "i18next";
 import * as fa from "react-icons/fa";
 import * as fi from "react-icons/fi";
-import * as md from "react-icons/md";
-import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -58,7 +50,7 @@ const Archive = () => {
 
     const filteredColumns = ["Language_EId", "Id", "Group_Id", "Password", "Registrar"];
     const [response, loading, fetchData, setResponse] = useAxios();
-    const tabContext = useContext(TabContext);
+ 
     const [accessLists, setAccessLists] = useState(undefined);
     const [showAccessListModal, setAccessListModal] = useState(false);
     const [requestType, setRequestType] = useState("");
@@ -76,15 +68,14 @@ const Archive = () => {
     const [seartEnd, setSearchEnd] = useState(null);
     const [showLogModal, setShowLogModal] = useState(false);
     const [log, setLog] = useState(null);
-    const [tableModalOpen, setTableModalOpen] = useState(false);
-    const [rowValus, setRowValues] = useState({});
+
     const [posts, setPosts] = useState([]);
     const [IsFavorite, setIsFavorite] = useState(false);
     const [checkAllC, setCheckAllC] = useState(true);
     const [productsColumns, setproductsColumns] = useState([]);
     const withOfScreen = useWindowSize().width;
     const abortController = new AbortController();
-    const [passwordModalOpen, setPasswordmodalOpen] = useState(false);
+  
   
     // const handleAdd = () => {
     //   const item = {

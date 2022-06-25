@@ -1,12 +1,10 @@
 import "./technician.css";
-import React, { useEffect, useContext, useState } from "react";
-import { TabContext } from "../../../../../contexts/TabContextProvider";
-import Technician from "../technicianList/Technician";
+import React, { useEffect, useState } from "react";
+
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
-import BackDrop from "../../../../../Components/backDrop/BackDrop";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { warrantyTypeReadTitle } from "../../../../../services/warrantyType";
 import { reasonForCancellationOfWarrantyReadTitle } from "../../../../../services/warrantyCancellationService";
@@ -19,7 +17,6 @@ import { createSelectOptions } from "../../../../../validation/functions";
 import { Button } from "react-bootstrap";
 import { technicianCreate } from "../../../../../services/technicianService";
 const TechnicianForm = () => {
-  const [type, setType] = useState("");
   const [techDescription, setTechDescription] = useState("");
   const [statusDeviceEndDescription, setStatusDeviceEndDescription] =
     useState("");
@@ -46,9 +43,8 @@ const TechnicianForm = () => {
   const [tip, setTip] = useState("");
   const [extraServicesOptions, setExtraServicesOptions] = useState([]);
   const [extraServicesValue, setExtraServicesValue] = useState([]);
-  const tabContext = useContext(TabContext);
   const abortController = new AbortController();
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [ fetchData, ] = useAxios();
   const request = useRequest();
   const { t } = useTranslation();
   const createParams = (service) => {

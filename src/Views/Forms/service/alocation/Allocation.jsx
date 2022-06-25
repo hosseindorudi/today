@@ -1,5 +1,5 @@
 import './appropriation.css'
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 
 const Allocation = () => {
   

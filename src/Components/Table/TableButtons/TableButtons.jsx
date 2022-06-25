@@ -36,7 +36,7 @@ const TableButtons = ({
         position: toast.POSITION.TOP_CENTER,
       });
     }
-  }, []);
+  }, [app.title,t]);
 
   const handleExport = () => {
     fetchData({

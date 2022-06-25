@@ -60,7 +60,7 @@ const Auth = () => {
       AccessList
     }));
    return navigate(from, { replace: true });
-  }, [navigate,from]);
+  }, [navigate,from,setApp]);
  
   const handleError=(message)=>{
     username.current.value=''

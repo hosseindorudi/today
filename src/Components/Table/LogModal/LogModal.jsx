@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
 import "./logModal.css";
-import * as fa from 'react-icons/fa'
 import { t } from "i18next";
 const LogModal = (props) => {
   const logs = props.logs;

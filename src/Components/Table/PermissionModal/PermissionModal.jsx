@@ -17,10 +17,10 @@ const PermissionModal = (props) => {
     const checked = e.target.checked;
     const temp = [...permissions];
     let index = temp.findIndex((i) => i.CodePage === codePage);
-    if (index != -1) {
+    if (index !== -1) {
       temp[index] = {
         ...temp[index],
-        ["IsSelected"]: checked,
+        IsSelected: checked,
       };
     }
     setPermissions(temp);
