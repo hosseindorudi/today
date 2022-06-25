@@ -378,6 +378,10 @@
 "/Customer/Customer/Read": "لیست مشتری",
 "/Customer/Group/Read": "لیست گروه مشتری",
 "/Operator/Group/Read": "لیست گروه اپراتور",
-"/Operator/Operator/Read": "لیست اپراتور"
-
+"/Operator/Operator/Read": "لیست اپراتور",
+"search.startDate":"تاریخ شروع",
+"search.endDate":"تاریخ پایان",
+"search.error":"تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+"search.errorChooseStart":"ابتدا تاریخ شروع را مشخص کنید!!!",
+"exportCSV":"خروجی CSV"
 }

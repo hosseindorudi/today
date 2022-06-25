@@ -16,7 +16,7 @@ import BackDrop from '../../../../Components/backDrop/BackDrop';
 import { enums } from '../../../../data/Enums'
 import { TabContext } from '../../../../contexts/TabContextProvider';
 import { useTranslation } from 'react-i18next';
-import { customerGroupReadTitle } from '../../../../services/groupService';
+import { customerGroupReadTitle } from '../../../../services/customerGroupService';
 import { idCodeValidation, phoneNumberValidation } from '../../../../validation/validation';
 import CustomerList from './list/CustomerList'
 

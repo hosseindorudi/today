@@ -21,7 +21,7 @@ import { TabContext } from "../../../../contexts/TabContextProvider";
 // import Group from "./List/Group";
 import {setDatePickerDate} from '../../../../validation/functions'
 import { enums } from "../../../../data/Enums";
-import { customerGroupCreate } from "../../../../services/groupService";
+import { customerGroupCreate } from "../../../../services/customerGroupService";
 import CustomerGroup from "./List/CustomerGroup";
 const CustomerGroupForm = () => {
   const {app} = useContext(AppContext)

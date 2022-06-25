@@ -5,7 +5,6 @@ import "./tableModal.css";
 import AppContext from "../../../../../../contexts/AppContext";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../../customHooks/useRequest";
-import { toast } from "react-toastify";
 import { TextField } from "@mui/material";
 import {
   DatePicker,
@@ -21,8 +20,8 @@ import {
 import useAxios from "../../../../../../customHooks/useAxios";
 import {
   customerGroupReadTitle
-} from "../../../../../../services/groupService";
-import { setDatePickerDate } from "../../../../../../validation/functions";
+} from "../../../../../../services/customerGroupService";
+import { handleError, setDatePickerDate } from "../../../../../../validation/functions";
 import { customerUpdate } from "../../../../../../services/customerService";
 
 const TableModal = (props) => {
@@ -62,6 +61,7 @@ const TableModal = (props) => {
     });
   };
   useEffect(() => {
+   
     getCustomerGroupTitle();
     setName(values.CustomerName);
     setDescription(values.Description);
@@ -81,11 +81,7 @@ const TableModal = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
+
   const handleResponse = (response, type) => {
     switch (type) {
       case "GROUPTITLE":
@@ -100,11 +96,14 @@ const TableModal = (props) => {
   };
 
   useEffect(() => {
+ 
     if (response) {
       response.Result
         ? handleResponse(response, type)
         : handleError(response.Message);
+        setResponse(undefined)
     }
+    return ()=>setResponse(undefined)
   }, [response]);
 
   const handleSubmitForm = (e) => {
@@ -131,7 +130,8 @@ const TableModal = (props) => {
       handleError("شماره همراه وارد شده صحیح نمیباشد");
       return;
     } else {
-      {
+      
+      setType("UPDATE")
         fetchData({
           method: "POST",
           url: customerUpdate,
@@ -164,7 +164,7 @@ const TableModal = (props) => {
           },
           signal: abortController.signal,
         });
-      }
+      
     }
   };
   return (
