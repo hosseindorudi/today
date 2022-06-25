@@ -15,13 +15,13 @@ import useAuth from "../customHooks/useAuth";
 function Admin() {
   const [menu, setMenu] = useState(false);
   const windowSize=useWindowSize()
-  const { loading } = useContext(OsContext);
+  const { loaded } = useContext(OsContext);
   const [verifyToken]=useAuth()
   useEffect(() => {
-    if(!loading){
+    if(loaded){
       verifyToken()
     }  
-  }, [loading]);
+  }, [loaded]);
   
   const handleClickMenu = () => {
     setMenu(!menu);

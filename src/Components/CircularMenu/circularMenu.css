@@ -96,13 +96,35 @@
   .close-circular-menu div :nth-child(2){
     transform: translate(-50%, -50%) rotate(45deg);
   }
+  @media screen and (max-width :1200px) {
   
+    .circular-menu {
+      height: 85px;
+      width: 85px;
+    }
+    .buttonTextsAndBadge{
+      font-size: 9px !important;
+    }
+  }
   @media screen and (max-width: 767px) {
     .circular-menu {
       height: 81px;
       width: 81px;
     }
+    .buttonTextsAndBadge{
+      font-size: 9px !important;
+    }
   }
+  @media screen and (max-width :600px) {
+    .circular-menu {
+      height: 70px;
+      width: 70px;
+    }
+    .buttonTextsAndBadge{
+      font-size: 7px !important;
+    }
+    
+}
   
   .blink_me {
     animation: blinker 1s linear infinite;

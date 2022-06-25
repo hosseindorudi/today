@@ -187,12 +187,12 @@ const WorkFlow = () => {
             disableHoverListener
             disableTouchListener
             title={
-              <button
-                className="btnFormCircularMenu"
-                onClick={() => handleClick(i.button)}
-              >
-                <bs.BsPlusLg />
-              </button>
+              // <button
+              //   className="btnFormCircularMenu"
+              //   onClick={() => handleClick(i.button)}
+              // >
+                <bs.BsPlusLg  className="btnFormCircularMenu" onClick={() => handleClick(i.button)}/>
+              // </button>
             }
             arrow
             placement={"top-end"}

@@ -35,7 +35,7 @@ function CircularMenuItem({
                 disableFocusListener
                 disableHoverListener
                 disableTouchListener
-                title={<button className="btnFormCircularMenu" onClick={()=>handleClick(item.button)}><bs.BsPlusLg/></button>}
+                title={<bs.BsPlusLg className="btnFormCircularMenu" onClick={()=>handleClick(item.button)}/>}
                 arrow
                 placement={rotation>=60&&rotation<180 ?"bottom":"top"}
               >

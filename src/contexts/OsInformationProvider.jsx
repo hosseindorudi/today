@@ -8,7 +8,7 @@ export const OsContext = React.createContext({
 
 const OsInformationProvider = (props) => {
   const [os, setOs] = useState({os:undefined,browser:undefined,ip:undefined});
-  const [loading,setLoading]=useState(true)
+  const [loaded,setLoaded]=useState(false)
   useEffect(() => {
     const getData = async()=>{
       const res = await axios.get('https://geolocation-db.com/json/')
@@ -17,13 +17,13 @@ const OsInformationProvider = (props) => {
           os:Platform.OS,
           browser:Platform.Browser
       })
-      setLoading(false)
+      setLoaded(true)
   }
   getData();
   }, [])
 
   return (
-    <OsContext.Provider value={{ os: os,loadingg:loading, setOs: setOs }}>
+    <OsContext.Provider value={{ os: os,loaded:loaded, setOs: setOs }}>
       {props.children}
     </OsContext.Provider>
   );

@@ -7,11 +7,15 @@ import AppContext from "../../contexts/AppContext";
 const SubMenu = ({ item, search }) => {
   const [subnav, setSubnav] = useState(false);
   const tabContext = useContext(TabContext);
-  const {app}=useContext(AppContext)
+  const {app,setApp}=useContext(AppContext)
   const AccessList=app.AccessList
   const showSubnav = () => setSubnav(!subnav);
   const { t } = useTranslation();
   const handleClickMenu = (item) => {
+    setApp((prev)=>({
+      ...prev,
+      sidebarOpen:false,
+    }))
     tabContext.addRemoveTabs(item, "add");
   };
 

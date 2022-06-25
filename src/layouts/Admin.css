@@ -302,7 +302,9 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(69, 67, 67);
 }
-
+#sidebarNav{
+  z-index: 9999;
+}
 @media screen and (max-width: 960px) {
   .mainRight {
     flex: none;
@@ -1409,17 +1411,17 @@
   .periorityFormForm {
     width: 100% !important;
   }
-  #sidebarNav {
+  /* #sidebarNav {
     z-index: 10000 !important;
-  }
+  } */
 
   /* work flow  */
-  .circular-menu {
+  /* .circular-menu {
     height: 50px !important;
     width: 50px !important;
-  }
+  } */
 
-  .menu-button > img {
+  /* .menu-button > img {
     width: 100px !important;
     height: 100px !important;
   }
@@ -1427,15 +1429,13 @@
     top: -30px !important;
     height: 110px !important;
   }
-  .buttonTextsAndBadge {
-    font-size: 9px !important;
-  }
+
   .buttonTextsAndBadge > span:first-child {
     transform: rotate(110deg);
     margin-inline-start: 10px !important;
   }
   .buttonTextsAndBadge > span:last-child {
-    /* margin-inline-start: 10px !important; */
+    
     border-radius: 50% !important;
   }
 
@@ -1446,7 +1446,7 @@
   .badge {
     height: fit-content !important;
     font-size: 12px !important;
-  }
+  } */
 
   /* sent form css mobile responsive */
 

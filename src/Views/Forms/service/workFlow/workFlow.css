@@ -20,9 +20,29 @@
     justify-content: space-around;
 }
 .bottomWorkFlow .btnBottomWorkFlow{
-    width: 100px;
-    height: 45px;
-    font-size: 12px;
+    width: 95px;
+    height: 40px;
+    font-size: 10px;
 }
-
+.btnFormCircularMenu{
+    cursor: pointer;
+}
+@media screen and (max-width : 1200px ) {
+    .bottomWorkFlow .btnBottomWorkFlow{
+      height: 40px;
+      width: 90px;
+      font-size: 10px;
+    }
+}
+@media screen and (max-width :600px) {
+    .bottomWorkFlow .btnBottomWorkFlow{
+        height: 30px;
+        width: 70px;
+        font-size: 7px;
+      }
+    
+}
+.menu-button{
+    background: transparent;
+}
   

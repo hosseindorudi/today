@@ -22,7 +22,7 @@ import Operator from '../Forms/panel/operator/List/Operator';
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useGeoLocation();
-  const {os,loadingg} = useContext(OsContext)
+  const {os,loaded} = useContext(OsContext)
   const abortController = new AbortController();
   const request = useRequest();
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -125,7 +125,7 @@ const OperatorDashboard = () => {
   // },3000)
 
   useEffect(()=> {
-    if(!loadingg) {
+    if(loaded) {
       fetchData({
         method: "POST",
         url: homeDashboard,
@@ -150,7 +150,7 @@ const OperatorDashboard = () => {
        
       })
     }
-  }, [loadingg])
+  }, [loaded])
 
   useEffect(()=> {
     setExtraInfo(dashboardInfoData.Favorite)
@@ -167,7 +167,7 @@ const OperatorDashboard = () => {
   return (
 
     <>
-    {loadingg && <BackDrop open = {loadingg}/>}
+    {loading && <BackDrop open = {loading}/>}
     <div className="mainOperatorDash">
       <div className="firstOperatorColumn">
         <div className="operatorDashboardInformation">
