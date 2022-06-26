@@ -9,21 +9,21 @@ const PatternModal = (props) => {
  
 
   return (
-    <Modal
-    className='reletiveModal'
-      show={props.show}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      onHide={props.onHide}
-    >
-      <Modal.Header closeButton></Modal.Header>
-      <Modal.Body >
-        <div className="tableModal">
+    // <Modal
+    // className='reletiveModal'
+    //   show={props.show}
+    //   size="lg"
+    //   aria-labelledby="contained-modal-title-vcenter"
+    //   centered
+    //   onHide={props.onHide}
+    // >
+    //   <Modal.Header closeButton></Modal.Header>
+    //   <Modal.Body >
+        <div className="patternModalMain">
          
             
           
-            <div className="patternModalDiv">
+            <div className="patternModalContained">
               <PatternLock 
                     width={props.width}
                     setPatternArr={props.setPatternArr} 
@@ -33,13 +33,13 @@ const PatternModal = (props) => {
             </div>
             
             
-
+         
             
             
          
         </div>
-      </Modal.Body>
-    </Modal>
+    //   </Modal.Body>
+    // </Modal>
   )
 }
 

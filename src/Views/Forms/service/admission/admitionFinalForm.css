@@ -545,6 +545,14 @@
   border-radius: 5px;
   /* z-index: -1; */
 }
+.signaturePadDiv1 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  /* z-index: -1; */
+}
 
 .agentSigSpan {
   position: absolute;
@@ -1374,4 +1382,5 @@
   .admitionButtonDiv {
     flex: 0.01;
   }
+  
 }

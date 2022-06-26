@@ -1276,6 +1276,11 @@
     height: 170px !important;
     width: 100% !important;
     border: 1px solid lightgray !important;
+
+  }
+
+  .sigMainDiv {
+    margin-bottom: 30px !important;
   }
   .agentSignatur {
     width: 100% !important;
@@ -1287,6 +1292,7 @@
   .admitionButtonDiv {
     position: absolute !important;
     top: 590px !important;
+    margin-top: 20px;
   }
   .admitionFinalFormSubmit {
     height: 100% !important;
@@ -1325,6 +1331,7 @@
   .agentSigPadDiv {
     width: 100% !important;
     height: fit-content !important;
+
   }
   .canvasForEver {
     height: 100% !important;
