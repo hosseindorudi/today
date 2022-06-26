@@ -14,8 +14,11 @@ const MobileModalsColumn = ({
 }) => {
     const {t}=useTranslation()
   return (
+
     <div className="mobileModalsColumnmain">
+
         <div className="mainAllColumns">
+            <h1 className="mobileModalColumnHeader">فیلتر ستون ها</h1>
         <div className="hiddenSectionCheck1">
         <div className="mainUnderCloseBtn">
           <div className="checkBoxTableParentForAll">

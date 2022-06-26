@@ -12,10 +12,12 @@ const MobileModel = ({setMobileModal,searchBegin,searchEnd,setSearchBegin,setSea
     <div className="mobileModelBg">
         <div className="mobileModelFilters">
             <div className="mobileModalFirst">
-
+            <h1 className="mobileModalHeader">فیلتر</h1>
             <div
               style={{
                 direction: "ltr",
+                marginTop: 5,
+                marginBottom:5
               }}
             >
               <LocalizationProvider dateAdapter={AdapterJalali}>
@@ -44,13 +46,14 @@ const MobileModel = ({setMobileModal,searchBegin,searchEnd,setSearchBegin,setSea
            
 
 
-            </div>
-            <div className="mobileModalSecond">
+            
+           
 
             <div
               style={{
                 direction: "ltr",
-
+                marginTop: 5,
+                marginBottom:5
               }}
             >
               <LocalizationProvider dateAdapter={AdapterJalali}>
@@ -81,8 +84,8 @@ const MobileModel = ({setMobileModal,searchBegin,searchEnd,setSearchBegin,setSea
               </LocalizationProvider>
             </div>
 
-            </div>
-            <div className="mobileModalThird">
+            
+            
             <Form.Group>
               <Form.Control
                 className="searchTextChange"

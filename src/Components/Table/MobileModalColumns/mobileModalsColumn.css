@@ -25,7 +25,9 @@
 
 .btnMobileColumns {
     width: 100%;
-    margin: 0 5px;
+    margin: 0;
+    margin-block-end: 5px;
+    margin-block-start: 5px;
     border-radius: 5px;
     background-color: #fff;
     border: 1px solid red;
@@ -36,4 +38,9 @@
 .btnMobileColumns:hover {
     background-color: red;
     color: #fff;
+}
+
+.mobileModalColumnHeader {
+    text-align: center;
+    margin: 4px auto;
 }

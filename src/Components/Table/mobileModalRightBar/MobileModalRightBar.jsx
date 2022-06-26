@@ -41,7 +41,26 @@ const MobileModalRightBar = ({
                 {t("table.information")}
                 </span>
                 <div className="reacttableParentMainRightUpInformationDiv1">
-
+                        <div className="mobileRightBarSpanStyle">
+                            <span className="mobileRightBarFirst">نام:</span>
+                            <span className="mobileRightBarSecond">حسین</span>
+                        </div>
+                        <div className="mobileRightBarSpanStyle">
+                            <span className="mobileRightBarFirst">نام خانوادگی:</span>
+                            <span className="mobileRightBarSecond">درودی</span>
+                        </div>
+                        <div className="mobileRightBarSpanStyle">
+                            <span className="mobileRightBarFirst">مرورگر:</span>
+                            <span className="mobileRightBarSecond">Chrome</span>
+                        </div>
+                        <div className="mobileRightBarSpanStyle">
+                            <span className="mobileRightBarFirst">آی پی:</span>
+                            <span className="mobileRightBarSecond">000.000.000.00</span>
+                        </div>
+                        <div className="mobileRightBarSpanStyle">
+                            <span className="mobileRightBarFirst">سیستم عامل:</span>
+                            <span className="mobileRightBarSecond">Windows</span>
+                        </div>
 
                    
 
@@ -77,9 +96,6 @@ const MobileModalRightBar = ({
                                 />
                             )}
 
-                        </div>
-                        <div className="mobileRightBarFirst2">
-
                             {haveAccess(logAccess) && (
                                 <button
                                 className="reactTableParentLogButton"
@@ -90,6 +106,11 @@ const MobileModalRightBar = ({
                                 </button>
                             )}
 
+                        </div>
+                        <div className="mobileRightBarFirst2">
+
+                            
+
                             {haveAccess(accessListAccess) && (
                                 <button
                                 className="reactTableParentAccessButton"
@@ -98,9 +119,6 @@ const MobileModalRightBar = ({
                                 <fa.FaUserLock />
                                 </button>
                             )}
-
-                        </div>
-                        <div className="mobileRightBarFirst3">
 
                             <button
                                 disabled={IsFavorite}
@@ -119,7 +137,9 @@ const MobileModalRightBar = ({
                             >
                                 <fa.FaQuestionCircle />
                             </button>
+
                         </div>
+                       
                     
                         
                         
