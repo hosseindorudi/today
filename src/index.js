@@ -10,7 +10,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import { BrowserRouter } from 'react-router-dom';
 import BackDrop from './Components/backDrop/BackDrop';
 import ErrorBoundary from './Components/errorBoundary/ErrorBoundary'
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+// import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
@@ -51,4 +51,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-serviceWorkerRegistration.register();
+// serviceWorkerRegistration.register();
