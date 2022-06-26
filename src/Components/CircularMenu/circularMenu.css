@@ -8,11 +8,12 @@
 
 
   .circular-menu {
-    height: 105px;
+    height: 90px;
     position: relative;
-    width: 105px;
-    top: 250px;
+    width: 90px;
+    /* top: 250px; */
   }
+
   .btnFormCircularMenu{
     border: none;
     background: none;
@@ -50,6 +51,10 @@
     flex-direction: row;
     font-size: 13px;
     gap: 5px;
+  }
+  .menu-item .buttonTextsAndBadge .badgeDiv{
+    display: flex;
+    align-items: center;
   }
   /* .menu-item ::before {
     content: "";
@@ -96,35 +101,36 @@
   .close-circular-menu div :nth-child(2){
     transform: translate(-50%, -50%) rotate(45deg);
   }
-  @media screen and (max-width :1200px) {
-  
+  @media screen and (max-width : 1200px ) {
     .circular-menu {
-      height: 85px;
-      width: 85px;
+      height: 80px;
+      width: 80px;
     }
-    .buttonTextsAndBadge{
-      font-size: 9px !important;
+    .menu-item .buttonTextsAndBadge{
+      font-size: 9px ;
     }
-  }
-  @media screen and (max-width: 767px) {
-    .circular-menu {
-      height: 81px;
-      width: 81px;
-    }
-    .buttonTextsAndBadge{
-      font-size: 9px !important;
-    }
-  }
-  @media screen and (max-width :600px) {
-    .circular-menu {
-      height: 70px;
-      width: 70px;
-    }
-    .buttonTextsAndBadge{
-      font-size: 7px !important;
-    }
-    
 }
+@media screen and (max-width :600px) {
+  .circular-menu {
+    height: 70px;
+    width: 70px;
+  }
+}
+@media screen and (max-width: 480px ) {
+  .circular-menu {
+    height: 60px;
+    width: 60px;
+  }
+  .menu-item .buttonTextsAndBadge{
+    font-size: 7px 
+  }
+  
+}
+
+
+  
+    
+
   
   .blink_me {
     animation: blinker 1s linear infinite;

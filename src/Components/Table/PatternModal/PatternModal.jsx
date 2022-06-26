@@ -1,5 +1,5 @@
 import './patternModal.css'
-import {   Modal } from "react-bootstrap";
+
 import PatternLock from '../../../Views/Forms/service/admission/patternLock/PatternLock';
 // import { useTranslation } from 'react-i18next'
 

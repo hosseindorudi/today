@@ -52,7 +52,7 @@ function CircularMenuItem({
             <div className="buttonTextsAndBadge" style={{
                 transform: `rotate(${-rotation}deg)`,display:'flex',flexDirection:'row'
             }}>
-            <span >{t(item.title)}</span> <Badge className={item.no!==0 &&"blink_me"} bg="danger">{item.no}</Badge>
+            <span >{t(item.title)}</span> <div className="badgeDiv"> <Badge className={item.no!==0 &&"blink_me"} bg="danger">{item.no}</Badge></div>
             </div>
         </Button>
         </Tooltip>

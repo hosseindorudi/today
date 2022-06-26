@@ -7,7 +7,7 @@ import i18next from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import HttpApi from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter} from 'react-router-dom';
 import BackDrop from './Components/backDrop/BackDrop';
 import ErrorBoundary from './Components/errorBoundary/ErrorBoundary'
 // import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
@@ -38,9 +38,9 @@ root.render(
   <ErrorBoundary>
   
   <Suspense fallback={ <BackDrop open={true}/>}>
-    <BrowserRouter>
+  <HashRouter>
     <App />
-  </BrowserRouter>
+  </HashRouter>
   </Suspense>
   </ErrorBoundary>
  
