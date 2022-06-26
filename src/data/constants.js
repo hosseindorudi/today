@@ -1,3 +1,4 @@
+const mainURL="https://api.ctelecom.ir"
 const browser=[
     {
         name:"chrome"
@@ -15,5 +16,6 @@ const radius=[
 ]
 module.exports={
     browser,
-    radius
+    radius,
+    mainURL
 }

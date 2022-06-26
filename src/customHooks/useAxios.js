@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { mainURL } from '../data/constants';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL
+axios.defaults.baseURL = mainURL
 
  const useAxios = () => {
     const [response, setResponse] = useState(undefined);

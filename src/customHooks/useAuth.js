@@ -5,8 +5,10 @@ import { OsContext } from "../contexts/OsInformationProvider";
 import { verify } from "../services/authService";
 import useGeoLocation from "./useGeoLocation";
 import { useNavigate } from 'react-router-dom';
-axios.defaults.baseURL =process.env.REACT_APP_API_URL;
+import {mainURL} from '../data/constants'
+axios.defaults.baseURL =mainURL
 const useAuth = () => {
+  
   const navigate=useNavigate()
   const { app,setApp } = useContext(AppContext);
   const { os } = useContext(OsContext);

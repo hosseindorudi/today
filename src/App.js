@@ -15,7 +15,6 @@ import { AuthProvider } from "./contexts/AuthProvider";
 import RequireAuth from "./Components/RequireAuth";
 import packageJson from '../package.json';
 import OsInformationProvider from "./contexts/OsInformationProvider";
-import CacheBuster from './Components/cachBuster'
 import BackDrop from "./Components/backDrop/BackDrop";
 function App() {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -47,12 +46,6 @@ function App() {
   };
 
   return (
-    <CacheBuster
-      currentVersion={packageJson.version}
-      isEnabled={isProduction}
-      isVerboseMode={true}
-      loadingComponent={ <BackDrop open={true}/>}
-    >
     <div className={"App " + assignFont()}>
       
        <OsInformationProvider>
@@ -74,7 +67,6 @@ function App() {
       </OsInformationProvider>
     
     </div>
-    </CacheBuster>
   );
 }
 

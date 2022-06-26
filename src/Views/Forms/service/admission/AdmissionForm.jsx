@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import SignaturePad from "./signaturePad/src/index";
 import QRCode from "react-qr-code";
 import AppContext from '../../../../contexts/AppContext';
-import Multiselect from 'multiselect-react-dropdown';
+
 import TextField from '@mui/material/TextField';
 import AdapterJalali from '@date-io/date-fns-jalali';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -432,7 +432,7 @@ const AdmissionForm = () => {
         
          
                   <div className='selectwaranty1' style={{direction:"ltr"}}>
-                      <Multiselect
+                      {/* <Multiselect
                       
                       emptyRecordMsg="آیتمی برای نمایش وجود ندارد"
                       id='multiSelected'
@@ -449,7 +449,7 @@ const AdmissionForm = () => {
                       placeholder="لوازم همراه"
                       hidePlaceholder ={true}
                       showArrow={false}
-                      />
+                      /> */}
                   </div>
          
         
