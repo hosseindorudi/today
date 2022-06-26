@@ -194,9 +194,10 @@ const TableList = ({
           <div
             className="div33"
             style={{
-              width: columnSideBar
+              width: (columnSideBar & widthOFScreen > 420)
                 ? widthOFScreen - (widthOFScreen * 0.2 + 370)
-                : widthOFScreen - (widthOFScreen * 0.2 + 120),
+                : widthOFScreen < 420 ? widthOFScreen :
+                widthOFScreen - (widthOFScreen * 0.2 + 120),
             }}
           >
             {productsColumns.length > 0 ? (

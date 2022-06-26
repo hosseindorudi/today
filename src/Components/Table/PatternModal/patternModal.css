@@ -61,4 +61,35 @@
     -moz-appearance: textfield;
   }
 
+  .patternModalMain {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 500;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+
+  }
+
+
+  .patternModalContained {
+    flex: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .patternModalButton {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 

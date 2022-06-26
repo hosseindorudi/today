@@ -22,8 +22,10 @@ import CustomerList from './list/CustomerList'
 
 // import { setDatePickerDate } from '../../../../validation/functions';
 import { customerCreate } from '../../../../services/customerService';
+import useWindowSize from '../../../../customHooks/useWindowSize';
 
 const CustomerForm = () => {
+    const widthOfScreen = useWindowSize().width
     const [type, setType] = useState("")
     const currentLang = useContext(AppContext);
     const [operatorDateExp, setOperatorDateExp] = useState(new Date());
@@ -272,14 +274,22 @@ const CustomerForm = () => {
                   </LocalizationProvider>
                       </div>
                   )}
-                     
+                    {
+                      widthOfScreen < 420 &&
+                      <input type="submit" value={t("operatorSubmitBtn")} className='deleteBtn'/>
+
+                    }
                                 
                 </div>
           </div>
             
-          
+            {
+              widthOfScreen > 420 &&
+              <input type="submit" value={t("operatorSubmitBtn")} className='deleteBtn'/>
 
-          <input type="submit" value={t("operatorSubmitBtn")} className='deleteBtn'></input>
+            }
+
+         
 
       </form>
   </div>

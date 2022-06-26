@@ -444,3 +444,27 @@
   .customerFormTextArea:focus::-ms-input-placeholder { /* Microsoft Edge */
     color: #006bb3;
   }
+
+  @media screen and (max-width: 420px) {
+
+    .customerGender {
+      flex: 0.5;
+      height: 50px !important;
+      margin: 0 5px;
+      width: 100%;
+      border: 1px solid lightgray;
+      border-radius: 8px;
+  }
+
+  .customerFourthDiv {
+    flex-direction: column;
+  }
+  .customerFivthDiv {
+    flex-direction: column;
+  }
+
+  .deleteBtn {
+    margin-bottom: 100px;
+  }
+
+  }
