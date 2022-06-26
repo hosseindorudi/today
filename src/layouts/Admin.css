@@ -1057,11 +1057,24 @@
   .imeiInput[type="number"] {
     font-size: 15px !important;
   }
+  .imeiInput1 {
+    height: 35px !important;
+  }
+  .imeiInput1[type="number"] {
+    font-size: 15px !important;
+  }
   .idCodeInput[type="number"] {
     font-size: 15px !important;
   }
 
   .idCodeInput {
+    height: 35px !important;
+  }
+  .idCodeInput1[type="number"] {
+    font-size: 15px !important;
+  }
+
+  .idCodeInput1 {
     height: 35px !important;
   }
   .idCodeMainDiv {

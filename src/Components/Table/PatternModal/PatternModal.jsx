@@ -1,10 +1,10 @@
 import './patternModal.css'
-import {  Button, Form, Modal } from "react-bootstrap";
+import {   Modal } from "react-bootstrap";
 import PatternLock from '../../../Views/Forms/service/admission/patternLock/PatternLock';
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 
 const PatternModal = (props) => {
-    const {t} = useTranslation();
+    // const {t} = useTranslation();
 
  
 

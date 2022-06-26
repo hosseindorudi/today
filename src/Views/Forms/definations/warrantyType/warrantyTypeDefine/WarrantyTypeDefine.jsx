@@ -59,7 +59,7 @@ const WarrantyTypeDefine = () => {
           : handleError(response.Message);
         setResponse(undefined);
       }
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response]);
   
     const onChange = (e) => {

@@ -7,7 +7,7 @@ import AppContext from "../../../../../../contexts/AppContext";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../../customHooks/useRequest";
 import { toast } from "react-toastify";
-import MapModal from "../../../../../../Components/GoogleMap/MapModal";
+// import MapModal from "../../../../../../Components/GoogleMap/MapModal";
 import { TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import AdapterJalali from "@date-io/date-fns-jalali";
@@ -15,7 +15,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { onlyNumberAndDot } from "../../../../../../validation/validation";
 import { browser, radius } from "../../../../../../data/constants";
 import useAxios from "../../../../../../customHooks/useAxios";
-import { customerGroupUpdate, groupUpdate } from "../../../../../../services/customerGroupService";
+import { customerGroupUpdate } from "../../../../../../services/customerGroupService";
 import { setDatePickerDate } from "../../../../../../validation/functions";
 
 const TableModal = (props) => {
@@ -124,6 +124,7 @@ const TableModal = (props) => {
   };
   const handleClickMap = (index) => {
     setModalShow(true);
+    console.log(modalShow)
   };
 
   const handleSubmit = (e) => {

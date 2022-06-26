@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import {  Button, Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
 
@@ -8,7 +8,6 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-import { TabContext } from "../../../../../contexts/TabContextProvider";
 import {defectUpdate} from '../../../../../services/defectService'
 import { defintionInputs } from "../../../../../validation/functions";
 
@@ -21,8 +20,7 @@ const TableModal = (props) => {
     periority: val.Priority,
     desc: val.Description,
   });
-  const [response, loading, fetchData, setResponse] = useAxios();
-  const tabContext = useContext(TabContext);
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
 
@@ -45,6 +43,7 @@ const TableModal = (props) => {
         ? handleResponse(response)
         : handleError(response.Message);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   const handleSubmit = (e) => {

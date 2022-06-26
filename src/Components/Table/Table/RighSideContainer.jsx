@@ -4,6 +4,7 @@ import useButtonAccess from "../../../customHooks/useButtonAccess";
 import ExportAllButton from "../ExportButton/ExportAllButton";
 import ImportCSV from "../ImportCSVButton/ImportCSV";
 import * as fa from "react-icons/fa";
+import useWindowSize from "../../../customHooks/useWindowSize";
 const RighSideContainer = ({
   setSearch,
   search,
@@ -32,8 +33,10 @@ const RighSideContainer = ({
 }) => {
   const [haveAccess] = useButtonAccess();
   const {t}=useTranslation()
+  const withOfScreen = useWindowSize().width;
+
   return (
-    <div className="groupContainerRight">
+    <div className="groupContainerRight" style ={{display : withOfScreen < 420 ? "none" : "flex"}}>
       <div className="reacttableParentMainRightUp">
         <span className="reacttableParentMainRightUpInformation">
           {t("table.information")}

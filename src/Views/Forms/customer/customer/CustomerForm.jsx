@@ -20,7 +20,7 @@ import { customerGroupReadTitle } from '../../../../services/customerGroupServic
 import { idCodeValidation, phoneNumberValidation } from '../../../../validation/validation';
 import CustomerList from './list/CustomerList'
 
-import { setDatePickerDate } from '../../../../validation/functions';
+// import { setDatePickerDate } from '../../../../validation/functions';
 import { customerCreate } from '../../../../services/customerService';
 
 const CustomerForm = () => {
@@ -86,7 +86,7 @@ const CustomerForm = () => {
           
          
         })
-        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       },[])
 
       const handleError = (message) => {
@@ -106,10 +106,12 @@ const CustomerForm = () => {
           case "READTITLE":
                 setGroupTitles(response.Title)
                 response.Title.length&&setGroupTitleId(response.Title[0].Id)
+                
             break;
           case "SUBMIT" :
             handleSeccess(t("customer.created"));
             handleClickMenu();
+            break;
           default:
             break;
         }
@@ -118,6 +120,8 @@ const CustomerForm = () => {
         if (response){
           response.Result?handleResponse(response,type):handleError(response.Message)          
         }
+        setResponse(undefined)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[response])
 
     const handleSubmitForm = (e) => {
@@ -137,7 +141,7 @@ const CustomerForm = () => {
             return
         }
         else {
-            { 
+             
               setType("SUBMIT")
               fetchData({
                 method: "POST",
@@ -174,7 +178,7 @@ const CustomerForm = () => {
                 signal:abortController.signal,
                 
                
-              })}
+              })
         }
     }
     

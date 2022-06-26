@@ -42,7 +42,6 @@ const Parts = () => {
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);
   const [showAccessListModal, setAccessListModal] = useState(false);
-  const [passwordModalOpen, setPasswordmodalOpen] = useState(false);
   const [requestType, setRequestType] = useState("");
   const [unSelected, setUnSelected] = useState([]);
   const [haveAccess] = useButtonAccess();

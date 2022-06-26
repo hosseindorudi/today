@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import * as cg from "react-icons/cg";
 import useAxios from '../../../customHooks/useAxios';
 import useRequest from '../../../customHooks/useRequest';
-import { groupExport } from '../../../services/groupService';
+// import { groupExport } from '../../../services/groupService';
 import { downloadCSVCode, setDatePickerDate } from '../../../validation/functions';
 import { toast } from "react-toastify";
 const ExportAllButton = (props) => {
@@ -50,6 +50,7 @@ const ExportAllButton = (props) => {
             response.length ? handleDownload(response) : noFileToast();
           }
           return () => abortController.abort();
+          // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [response])
   return (
     <button

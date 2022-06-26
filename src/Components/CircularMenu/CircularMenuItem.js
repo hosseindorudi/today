@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { Badge, Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { TabContext } from "../../contexts/TabContextProvider";
@@ -14,7 +14,6 @@ function CircularMenuItem({
 {
     const tabContext = useContext(TabContext);
     const [havAccess]=useButtonAccess()
-    const [show] = useState(true);
     const target = useRef(null);
     const { t } = useTranslation();
     const handleClick = (i) => {

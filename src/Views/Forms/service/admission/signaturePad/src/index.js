@@ -86,9 +86,9 @@ export default class SignaturePad extends React.Component {
     // and only part of the canvas is cleared then.
     var ratio =  Math.max(1, 1);
     canvas.width = canvas.offsetWidth * ratio;
-    canvas.width = canvas.width 
+    // canvas.width = canvas.width 
     canvas.height = canvas.offsetHeight * ratio;
-    canvas.height = canvas.height 
+    // canvas.height = canvas.height 
 
     ctx.scale(ratio, ratio);
     this._isEmpty = true;

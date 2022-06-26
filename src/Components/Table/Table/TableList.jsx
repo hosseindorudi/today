@@ -1,7 +1,6 @@
 import { Pagination, TextField } from "@mui/material";
 import React, { useContext } from "react";
 import useButtonAccess from "../../../customHooks/useButtonAccess";
-import useWindowSize from "../../../customHooks/useWindowSize";
 import { checkTableValues } from "../../../validation/functions";
 import DownArrow from "../Arrows/downArrow/DownArrow";
 import MainUpArrow from "../Arrows/MainUpArrow/MainUpArrow";
@@ -48,10 +47,14 @@ const TableList = ({
   numberOfRecordsPerPage,
   handleChangeSelect,
   handleClickSend,
-  addObject
+  addObject,
+  mobileModal,
+  setMobileModal,
+  widthOFScreen,
+  setMobileModalButtons,
+  setMobileModalColumns
 }) => {
   const [haveAccess] = useButtonAccess();
-  const withOfScreen = useWindowSize().width;
   const {t}=useTranslation()
   const tabContext = useContext(TabContext);
   const handleAdd = () => {
@@ -70,9 +73,28 @@ const TableList = ({
               <md.MdPostAdd />
             </button>
           )}
+         
+            {widthOFScreen < 420 && 
+              <>
+                <button className="plusBUTTON1" onClick={()=> setMobileModal(true)}>
+                  <fa.FaFilter />
+                </button>
+          
+              
+                <button className="plusBUTTON2" onClick={()=> setMobileModalButtons(true)}>
+                  <fa.FaPlus />
+                </button>
+                <button className="plusBUTTON3" onClick={()=> setMobileModalColumns(true)}>
+                  <fa.FaColumns />
+                </button>
+
+            </>
+
+}
+       
         </div>
 
-        <div className="reacttableParentMiddleMiddleSide">
+        <div className="reacttableParentMiddleMiddleSide" style={{display : widthOFScreen < 420 ? "none" : "block"}}>
           {/* <div className="bredCrumbTable">
           <div role="presentation" style={{ direction: "ltr" }}>
             <Breadcrumb>
@@ -173,8 +195,8 @@ const TableList = ({
             className="div33"
             style={{
               width: columnSideBar
-                ? withOfScreen - (withOfScreen * 0.2 + 370)
-                : withOfScreen - (withOfScreen * 0.2 + 120),
+                ? widthOFScreen - (widthOFScreen * 0.2 + 370)
+                : widthOFScreen - (widthOFScreen * 0.2 + 120),
             }}
           >
             {productsColumns.length > 0 ? (

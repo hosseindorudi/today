@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {  Button,  Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
 
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import AppContext from "../../../../../contexts/AppContext";
+// import AppContext from "../../../../../contexts/AppContext";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-import { TabContext } from "../../../../../contexts/TabContextProvider";
+// import { TabContext } from "../../../../../contexts/TabContextProvider";
 import { productGroupUpdate } from "../../../../../services/productGroup";
 import { defintionInputs } from "../../../../../validation/functions";
 
@@ -21,8 +21,8 @@ const TableModal = (props) => {
     periority: val.Priority,
     desc: val.Description,
   });
-  const [response, loading, fetchData, setResponse] = useAxios();
-  const tabContext = useContext(TabContext);
+  const [response, loading, fetchData] = useAxios();
+  // const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
 
@@ -46,6 +46,7 @@ const TableModal = (props) => {
         ? handleResponse(response)
         : handleError(response.Message);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   const handleSubmit = (e) => {

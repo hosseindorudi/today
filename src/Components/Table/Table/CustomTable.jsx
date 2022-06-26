@@ -14,12 +14,14 @@ import { handleError, setDatePickerDate } from "../../../validation/functions";
 import BackDrop from "../../backDrop/BackDrop";
 import AccessListModal from "../AccessListModal/AccessListModal";
 import LogModal from "../LogModal/LogModal";
+import MobileModalsColumn from "../MobileModalColumns/MobileModalsColumn";
+import MobileModalRightBar from "../mobileModalRightBar/MobileModalRightBar";
+import MobileModel from "../mobileModel/MobileModel";
 import PasswordModal from "../passwordModal/PasswordModal";
 import PermissionModal from "../PermissionModal/PermissionModal";
 import LeftSideContainer from "./LeftSideContainer";
 import RighSideContainer from "./RighSideContainer";
 import TableList from "./TableList";
-
 const CustomTable = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -499,6 +501,61 @@ const CustomTable = forwardRef((props, ref) => {
           setPermission={setPermission}
           />
         )}
+        {
+        (props.mobileModal & props.widthOFScreen < 420) ?(
+          <MobileModel 
+          setMobileModal = {props.setMobileModal}
+          searchBegin={searchBegin}
+          searchEnd={searchEnd}
+          setSearchEnd={setSearchEnd}
+          setSearchBegin={setSearchBegin}
+          search={search}
+          handleChangeTitle={handleChangeTitle}
+          flt_Title={flt_Title}
+          />
+        ) : null
+      }
+        {
+        (props.mobileModalColumns & props.widthOFScreen < 420) ?(
+          <MobileModalsColumn
+            setMobileModalColumns={props.setMobileModalColumns}
+            {...props}
+            columnSideBar={columnSideBar}
+            setColumnSideBar={setColumnSideBar}
+            checkAllC={checkAllC}
+            checkAllHandler={checkAllHandler}
+            productsColumns={productsColumns}
+            unSelected={unSelected}
+            CheckBoxChangeHandler={CheckBoxChangeHandler}
+          />
+        ) : null
+      }
+        {
+        (props.mobileModalButtons & props.widthOFScreen < 420) ?(
+          <MobileModalRightBar
+          {...props}
+          numberOfRecordsPerPage={numberOfRecordsPerPage}
+          currentPage={currentPage}
+          sort={sort}
+          flt_Title={flt_Title}
+          seartBegin={searchBegin}
+          seartEnd={searchEnd}
+          exportLink={props.exportLink}
+          setSearch={setSearch}
+          search={search}
+          searchBegin={searchBegin}
+          searchEnd={searchEnd}
+          setColumnSideBar={setColumnSideBar}
+          columnSideBar={columnSideBar}
+          importSuccess={importSuccess}
+          handleClickLog={handleClickLog}
+          handleClickAccessList={handleClickAccessList}
+          IsFavorite={IsFavorite}
+          handleClickFav={handleClickFav}
+          setMobileModalButtons= {props.setMobileModalButtons}
+          />
+        ): null
+      }
       <div className="reacttableParent">
         <RighSideContainer
           {...props}
@@ -545,6 +602,11 @@ const CustomTable = forwardRef((props, ref) => {
             handleClickSend={handleClickSend}
             handleClearFilter={handleClearFilter}
             handleClickGetPermission={handleClickGetPermission}
+            mobileModal = {props.mobileModal}
+            setMobileModal = {props.setMobileModal}
+            widthOFScreen={props.widthOFScreen}
+            setMobileModalButtons={props.setMobileModalButtons}
+            setMobileModalColumns={props.setMobileModalColumns}
           />
           <LeftSideContainer
             {...props}

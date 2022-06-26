@@ -1,9 +1,9 @@
 import './admissionModal.css'
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { Accordion, Button, Form, Modal } from "react-bootstrap";
-import AppContext from '../../../../../contexts/AppContext';
+import React, {   useEffect, useRef, useState } from "react";
+import {  Button, Form, Modal } from "react-bootstrap";
+// import AppContext from '../../../../../contexts/AppContext';
 import { useTranslation } from "react-i18next";
-import useRequest from '../../../../../customHooks/useRequest';
+// import useRequest from '../../../../../customHooks/useRequest';
 import { toast } from "react-toastify";
 import useAxios from '../../../../../customHooks/useAxios';
 import { admitionUpdate } from '../../../../../services/admitionService';
@@ -13,17 +13,15 @@ import SignaturePad from '../signaturePad/src';
 
 const AdmissionModal = (props) => {
     const val = props.rowValus;
-    const currentLang = useContext(AppContext);
-    const { app } = useContext(AppContext);
     const [type, setType] = useState("")
     const [response, loading, fetchData] = useAxios();
-    const title = useRef();
-    const phone = useRef();
-    const [titles,setTitles]=useState([])
-    const [titleId,setTitleId]=useState()
-    const request = useRequest();
+    // const title = useRef();
+    // const phone = useRef();
+    // const [titles,setTitles]=useState([])
+    // const [titleId,setTitleId]=useState()
+    // const request = useRequest();
     const { t } = useTranslation();
-    const [activation, setActivation] = useState(true);
+    // const [activation, setActivation] = useState(true);
     const abortController = new AbortController();
     
     const customerSig = useRef();
@@ -61,6 +59,7 @@ const AdmissionModal = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setType("UPDATE")
+        console.log(type)
     
         fetchData({
           method: "POST",
@@ -134,7 +133,7 @@ const AdmissionModal = (props) => {
                 type="email"
                 placeholder={t("Email")}
                 value={values.email}
-                onChange={(e) => setValues({...values, ['email']:e.target.value})}
+                onChange={(e) => setValues({...values, email:e.target.value})}
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -175,14 +174,14 @@ const AdmissionModal = (props) => {
                 <div className='customerDescDiv'>
               <Form.Label>توضیحات مشتری</Form.Label>
               <textarea className='customerDesc' cols={30} rows={10} value={values.customerDisc}
-              onChange={(e) => setValues({...values, ['customerDisc']: e.target.value})}/>
+              onChange={(e) => setValues({...values, customerDisc: e.target.value})}/>
               </div>
             </Form.Group>
             <Form.Group  className="mb-3" controlId="formBasicEmail">
                 <div className='customerDescDiv'>
               <Form.Label>توضیحات کارشناس</Form.Label>
               <textarea className='customerDesc' cols={30} rows={10} value={values.operatorDisc}
-              onChange={(e) => setValues({...values, ['operatorDisc']: e.target.value})}
+              onChange={(e) => setValues({...values, operatorDisc: e.target.value})}
               />
               </div>
             </Form.Group>
