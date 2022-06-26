@@ -184,7 +184,7 @@ const handleSeccess=(message)=>{
       response.Result?handleSeccess(response.message):handleError(response.message)
       response.Result && handleClickMenu() ;
     }
-
+       // eslint-disable-next-line react-hooks/exhaustive-deps 
   }, [response])
   return (
     <>

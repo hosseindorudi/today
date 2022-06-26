@@ -56,6 +56,7 @@ const PartsDefine = () => {
           break;
           case "SUBMIT":
           handleSuccess()
+          break;
         default:
           break;
       }
@@ -75,6 +76,7 @@ const PartsDefine = () => {
         setResponse(undefined);
       }
       return () => abortController.abort();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response]);
   
     useEffect(() => {

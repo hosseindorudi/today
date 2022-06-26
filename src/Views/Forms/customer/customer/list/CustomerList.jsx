@@ -22,6 +22,7 @@ import {
   customerSetUnselectedColumn,
 } from "../../../../../services/customerService";
 import CustomTable from "../../../../../Components/Table/Table/CustomTable";
+import useWindowSize from "../../../../../customHooks/useWindowSize";
 const CustomerList = () => {
   const childRef = useRef();
   const filteredColumns = [
@@ -35,6 +36,10 @@ const CustomerList = () => {
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
+  const [mobileModal, setMobileModal] = useState(false)
+  const [mobileModalButtons, setMobileModalButtons] = useState(false)
+  const [mobileModalColumns, setMobileModalColumns] = useState(false)
+  const widthOFScreen = useWindowSize().width
 
   const addObject = {
     Component: CustomerForm,
@@ -70,6 +75,7 @@ const CustomerList = () => {
           updated={updated}
         />
       )}
+      
       {/* {showGetPermissionModal &&(
           <PermissionModal  permissions={permissions}
           show={showGetPermissionModal}
@@ -106,6 +112,13 @@ const CustomerList = () => {
         changePasswordAccess={enums.Customer_Customer_ChangePassword_w}
         getOneRecord={customerGetOneRecord}
         setUpdate={setUpdate}
+        mobileModal = {mobileModal}
+        setMobileModal = {setMobileModal}
+        widthOFScreen ={widthOFScreen}
+        mobileModalButtons={mobileModalButtons}
+        setMobileModalButtons={setMobileModalButtons}
+        setMobileModalColumns={setMobileModalColumns}
+        mobileModalColumns={mobileModalColumns}
       />
     </>
   );

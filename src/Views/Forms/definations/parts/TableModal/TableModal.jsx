@@ -58,6 +58,7 @@ const TableModal = (props) => {
         : handleError(response.Message);
     }
     setResponse(undefined)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   useEffect(() => {

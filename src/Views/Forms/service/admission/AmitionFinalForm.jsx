@@ -1,6 +1,5 @@
 import { useRef, useState, useContext, useEffect } from "react";
 import "./admitionFinalForm.css";
-import PatternLock from "./patternLock/PatternLock";
 import SignaturePad from "./signaturePad/src";
 import { toast } from "react-toastify";
 import BackDrop from "../../../../Components/backDrop/BackDrop";
@@ -8,14 +7,13 @@ import { enums } from "../../../../data/Enums";
 import { TabContext } from "../../../../contexts/TabContextProvider";
 import useAxios from "../../../../customHooks/useAxios";
 import useRequest from "../../../../customHooks/useRequest";
-import AppContext from "../../../../contexts/AppContext";
 import { useTranslation } from "react-i18next";
 import { admitionCreate } from "../../../../services/admitionService";
 import { admissionAccessoryReadTitle } from "../../../../services/admissionAccessory";
-import { productGroupCreate } from "../../../../services/productGroup";
+// import { productGroupCreate } from "../../../../services/productGroup";
 import Admission from "./Admission";
 import { defectReadTitle } from "../../../../services/defectService";
-import Select, { StylesConfig } from "react-select";
+import Select from "react-select";
 import chroma from "chroma-js";
 import PatternModal from "../../../../Components/Table/PatternModal/PatternModal";
 import useWindowSize from "../../../../customHooks/useWindowSize";
@@ -29,17 +27,12 @@ const AmitionFinalForm = () => {
   const [passVal, setPassVal] = useState(false);
   const [agentDescVal, setAgentDescVal] = useState(false);
   const [patternArr, setPatternArr] = useState("");
-  const [isHavPass, setIsHavPass] = useState(false);
   const [password, setPassword] = useState("");
-  const [isHaveAccount, setishaveAccount] = useState(false);
   const [account, setAccount] = useState("");
   const [operatorDesc, setOperatorDesc] = useState("");
-  const [customerSignature, setCustomerSignature] = useState("");
-  const [operatorSignature, setOperatorSignature] = useState("");
+
   const [accessoryTitles, setAccessoriesTitles] = useState([]);
   const [deffectTitles, setDeffectTitles] = useState([]);
-  const [accessoryTitlesId, setAccessoriesTitlesId] = useState();
-  const [deffectTitlesId, setDeffectTitlesId] = useState();
   const [imeiInp, setIMEIInp] = useState("");
   const [selectesDeffect, setSelectedDeffect] = useState([]);
   const [selectesAccessory, setSelectedAccessory] = useState([]);
@@ -76,7 +69,8 @@ const AmitionFinalForm = () => {
 
   useEffect(() => {
     handleFunctions("Accessory");
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   const handleFunctions = (type) => {
     switch (type) {
@@ -110,18 +104,16 @@ const AmitionFinalForm = () => {
     }
   };
 
-  useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-    }
-  }, [response]);
+  const handleSeccess = (message) => {
+    toast.success(message, {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  };
+  
 
   const handleResponse = (response, type) => {
     switch (type) {
       case "Accessory":
-        console.log(response.Title);
 
         response.Title.map((m, i) =>
           setAccessoriesTitles((prev) => [
@@ -129,14 +121,12 @@ const AmitionFinalForm = () => {
             { value: m.Id, label: m.Title, color: `#${m.Color}` },
           ])
         );
-        response.Title.length && setAccessoriesTitlesId(response.Title[0].Id);
 
         setResponse(undefined);
         handleFunctions("Deffect");
 
         break;
       case "Deffect":
-        console.log(response.Title);
 
         response.Title.map((m, i) =>
           setDeffectTitles((prev) => [
@@ -144,7 +134,6 @@ const AmitionFinalForm = () => {
             { value: m.Id, label: m.Title, color: `#${m.Color}` },
           ])
         );
-        response.Title.length && setDeffectTitlesId(response.Title[0].Id);
 
         setResponse(undefined);
 
@@ -152,6 +141,8 @@ const AmitionFinalForm = () => {
       case "SUBMIT":
         handleSeccess(t("customer.created"));
         handleClickMenu();
+        break;
+
       default:
         break;
     }
@@ -163,11 +154,18 @@ const AmitionFinalForm = () => {
     });
   };
 
-  const handleSeccess = (message) => {
-    toast.success(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response, type)
+        : handleError(response.Message);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
+
+  
+
+
 
   const submitAdmitionForm = (e) => {
     e.preventDefault();
@@ -279,6 +277,7 @@ const AmitionFinalForm = () => {
 
   return (
     <>
+     {loading && <BackDrop open={true} />}
       {patternLock && (
         <PatternModal
           setPatternArr={setPatternArr}

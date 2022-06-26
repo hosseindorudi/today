@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import {  Button,  Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
 
@@ -8,11 +8,11 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-import { TabContext } from "../../../../../contexts/TabContextProvider";
-import { productUpdate } from "../../../../../services/productService";
-import { productGroupReadTitle } from "../../../../../services/productGroup";
+// import { TabContext } from "../../../../../contexts/TabContextProvider";
+// import { productUpdate } from "../../../../../services/productService";
+// import { productGroupReadTitle } from "../../../../../services/productGroup";
 import { defintionInputs } from "../../../../../validation/functions";
-import { statusDeviceStartUpdate } from "../../../../../services/statusDeviceStart";
+// import { statusDeviceStartUpdate } from "../../../../../services/statusDeviceStart";
 import { statusDeviceProgressUpdate } from "../../../../../services/statusDeviceProgress";
 
 const TableModal = (props) => {
@@ -57,6 +57,7 @@ const TableModal = (props) => {
         : handleError(response.Message);
     }
     setResponse(undefined)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   const handleSubmit = (e) => {

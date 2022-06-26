@@ -53,11 +53,33 @@
 {
     font-size:25px;
 }
+.imeiInput1 {
+    width: 100%;
+    height: 75px;
+    border: 1px solid red;
+    border-radius: 8px;
+}
 
-.imeiInput:hover {
+.imeiInput1::-webkit-outer-spin-button,
+.imeiInput1::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.imeiInput1[type=number] {
+  -moz-appearance: textfield;
+}
+
+.imeiInput1[type="number"]
+{
+    font-size:25px;
+}
+
+.imeiInput1:hover {
     border: 1px solid black;
 }
-.imeiInput:focus {
+.imeiInput1:focus {
     border: 1px solid #0072E5;
     outline: 1px solid #0072E5;
 
@@ -106,6 +128,41 @@
     border: 1px solid black;
 }
 .idCodeInput:focus {
+    border: 1px solid #0072E5;
+    outline: 1px solid #0072E5;
+
+}
+.idCodeInput1 {
+    width: 100%;
+    height: 75px;
+    border: 1px solid red;
+    border-radius: 8px;
+}
+
+.idCodeInput1[type="number"]
+{
+    font-size:25px;
+}
+
+.idCodeInput1::-webkit-outer-spin-button,
+.idCodeInput1::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.idCodeInput1[type=number] {
+  -moz-appearance: textfield;
+}
+
+.idCodeInput1:hover {
+    border: 1px solid black;
+}
+
+.idCodeInput1:hover {
+    border: 1px solid black;
+}
+.idCodeInput1:focus {
     border: 1px solid #0072E5;
     outline: 1px solid #0072E5;
 

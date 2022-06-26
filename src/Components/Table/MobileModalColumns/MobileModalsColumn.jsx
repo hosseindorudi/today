@@ -1,30 +1,22 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import useWindowSize from "../../../customHooks/useWindowSize";
+import { useTranslation } from 'react-i18next'
+import './mobileModalsColumn.css'
 
-const LeftSideContainer = ({
-  columnSideBar,
-  setColumnSideBar,
-  checkAllC,
-  checkAllHandler,
-  productsColumns,
-  filteredColumns,
-  unSelected,
-  CheckBoxChangeHandler,
+const MobileModalsColumn = ({
+    setMobileModalColumns,
+    columnSideBar,
+    setColumnSideBar,
+    checkAllC,
+    checkAllHandler,
+    productsColumns,
+    filteredColumns,
+    unSelected,
+    CheckBoxChangeHandler,
 }) => {
-  const {t}=useTranslation()
-  const withOfScreen = useWindowSize().width;
-
-  
+    const {t}=useTranslation()
   return (
-    <div className="hiddingSection"   style={{ width: columnSideBar ? 250 : 10, display: withOfScreen < 420 ? "none" : "flex" }}>
-      <div className="hiddenSectionBtn">
-        <div
-          className="reactTableParentMiddle1BTN"
-          onClick={() => setColumnSideBar(!columnSideBar)}
-        ></div>
-      </div>
-      <div className="hiddenSectionCheck">
+    <div className="mobileModalsColumnmain">
+        <div className="mainAllColumns">
+        <div className="hiddenSectionCheck1">
         <div className="mainUnderCloseBtn">
           <div className="checkBoxTableParentForAll">
             <div></div>
@@ -63,8 +55,13 @@ const LeftSideContainer = ({
             ))}
         </div>
       </div>
-    </div>
-  );
-};
 
-export default LeftSideContainer;
+        </div>
+        <div className="mobileModalsColumnButton">
+            <button className="btnMobileColumns" onClick={()=> setMobileModalColumns(false)}>بازگشت</button>
+        </div>
+    </div>
+  )
+}
+
+export default MobileModalsColumn

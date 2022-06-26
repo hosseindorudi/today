@@ -1,0 +1,79 @@
+.mobileModelBg {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 5px;
+    background-color: #fff;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 50;
+    transition: all 500ms ease;
+
+}
+
+.mobileModelFilters {
+    flex: 9;
+    overflow-y: auto !important;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.mobileModalFirst {
+    flex: 1;
+    height: fit-content;
+}
+.mobileModalSecond {
+    flex: 1;
+}
+.mobileModalThird {
+    flex: 1;
+}
+
+.mobileModelBVuttons {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobileButtonExit {
+    flex: 1;
+    border: 1px solid red;
+    color: red;
+    border-radius: 5px ;
+    font-size: 11px;
+    font-weight: bolder;
+    transition: all 500ms ease;
+    background-color: #fff;
+}
+
+.mobileButtonExit:hover {
+    color: #fff;
+    background-color: red;
+}
+.mobileButtonSend {
+    flex: 1;
+    border: 1px solid rgb(0, 255, 106);
+    color: rgb(0, 255, 106);
+    border-radius: 5px ;
+    font-size: 11px;
+    font-weight: bolder;
+    transition: all 500ms ease;
+    text-align: center;
+}
+
+.mobileButtonSend:hover {
+    color: #fff;
+    background-color: rgb(0, 255, 106);
+}
+
+@media screen and (max-width: 420px) {
+
+    .MuiFormControl-root {
+        width: 100% !important;
+    }
+
+}

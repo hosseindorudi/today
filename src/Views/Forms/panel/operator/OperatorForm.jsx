@@ -34,13 +34,13 @@ const Operator = () => {
     const [phone, setPhone] = useState("")
     const [selectGroup, setSelectGroup] =useState("")
     const [isActiv, setIsActive] = useState(true)
-    const [titleG, setTitleG] = useState("")
+    // const [titleG, setTitleG] = useState("")
     const [nameVal, setNameVal] = useState(true)
     const [passVal, setPassVal] = useState(true)
     const [passConfirmVal, setPassConfirmVal] = useState(true)
     const [phoneVal, setPhoneVal] = useState(true)
     const tabContext = useContext(TabContext);
-    const namepattern = /^[پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأءًٌٍَُِّ\s]{4,12}/
+    // const namepattern = /^[پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأءًٌٍَُِّ\s]{4,12}/
     const [type, setType] = useState("")
 
     const handleClickMenu = () => {
@@ -79,7 +79,7 @@ const Operator = () => {
         
        
       })
-      
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const handleError = (message) => {
@@ -100,10 +100,11 @@ const Operator = () => {
           response.Result?handleResponse(response,type):handleError(response.Message)  
           
         }
-        
+       // eslint-disable-next-line react-hooks/exhaustive-deps 
     },[response])
 
     const handleResponse=(response,type)=>{
+      console.log(groupTitleId)
       switch (type) {
         case "READTITLE":
               setGroupTitles(response.Title)
@@ -112,6 +113,7 @@ const Operator = () => {
         case "SUBMIT" :
           handleSeccess(t("customer.created"));
           handleClickMenu();
+          break;
         default:
           break;
       }
@@ -121,6 +123,7 @@ const Operator = () => {
         response.Result?handleResponse(response,type):handleError(response.Message)  
         setResponse(undefined)   
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   },[response])
 
     const handleSubmitForm = (e) => {

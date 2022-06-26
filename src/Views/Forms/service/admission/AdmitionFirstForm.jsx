@@ -8,8 +8,9 @@ import AmitionFinalForm from './AmitionFinalForm'
 import { TabContext } from '../../../../contexts/TabContextProvider'
 import useAxios from '../../../../customHooks/useAxios'
 import useRequest from '../../../../customHooks/useRequest'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 import { customerCreate } from '../../../../services/customerService'
+import BackDrop from '../../../../Components/backDrop/BackDrop'
 const AdmitionFirstForm = () => {
     const [type, setType] = useState("")
     const [phoneNumber, setphoneNumber] = useState("")
@@ -20,7 +21,7 @@ const AdmitionFirstForm = () => {
     const abortController = new AbortController();
     const [response, loading, fetchData, setResponse] = useAxios();
     const request = useRequest();
-    const {t} = useTranslation();
+    // const {t} = useTranslation();
 
     var randomVal = Math.floor(1000 + Math.random() * 9000);
 
@@ -99,6 +100,7 @@ const AdmitionFirstForm = () => {
         if (response){
         response.Result?handleResponse(response,type):handleError(response.Message)          
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[response])
 
 
@@ -141,23 +143,29 @@ const AdmitionFirstForm = () => {
     
     
   return (
+    <>
+          {loading && <BackDrop open={true} />}
+
+
     <div className="admitionFirstFormMainDiv">
         <h1 className="mainFormTitle">
             ورود به فرم پذیرش
         </h1>
         <div className="imeimainDiv">
             <lable className="imeiLabel">شماره تماس را وارد کنید</lable>
-            <input type="number" className="imeiInput" value={phoneNumber}  onChange={(e)=> setphoneNumber(e.target.value)}/>
+            <input type="number"  className={phoneValidate ? "imeiInput" : "imeiInput"} value={phoneNumber}   onChange={(e)=> setphoneNumber(e.target.value)}/>
         </div>
         <div className="idCodeMainDiv">
             <lable className="idCodeLabel">شماره ملی را وارد کنید</lable>
-            <input type="number" className="idCodeInput" value={idCode}  onChange={(e)=> setIdCode(e.target.value)}/>
+            <input type="number" className={idCodeValidate ? "idCodeInput" : "idCodeInput"} value={idCode}  onChange={(e)=> setIdCode(e.target.value)}/>
         </div>
         <div className="firstFormButtons">
           <button className='admitionFirstFormSubmit' onClick={handleSubmit}>ارسال</button>
           <button className="admitionFirstFormCreate" >ثبت نام</button>
         </div>
     </div>
+
+    </>
   )
 }
 

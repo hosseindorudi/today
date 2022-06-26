@@ -18,9 +18,8 @@ import { t } from "i18next";
 import {
   admitionRead,
   admitionReadPaging,
-  admitionReadTitle,
   admitionGetOneRecord,
-  admitionUpdate,
+  // admitionUpdate,
   admitionSetColumn,
   admitionDelete,
   admitionSampleFile,
@@ -98,7 +97,7 @@ const Admission = () => {
   const [productsColumns, setproductsColumns] = useState([]);
   const withOfScreen = useWindowSize().width;
   const abortController = new AbortController();
-  const [passwordModalOpen, setPasswordmodalOpen] = useState(false);
+  // const [passwordModalOpen, setPasswordmodalOpen] = useState(false);
 
   const handleAdd = () => {
     const item = {

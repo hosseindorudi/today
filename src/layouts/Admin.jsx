@@ -21,7 +21,8 @@ function Admin() {
     if(loaded){
       verifyToken()
     }  
-  }, [loaded,verifyToken]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaded]);
   
   const handleClickMenu = () => {
     setMenu(!menu);

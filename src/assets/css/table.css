@@ -79,6 +79,66 @@
     color: #fff;
     background-color: greenyellow;
 }
+.plusBUTTON1 {
+    background-color: #fff;
+    border: 1px solid rgb(47, 255, 151);
+    display: inline;
+    margin: 0 3px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    color: rgb(47, 255, 151);
+    transition: all 0.5s ease;
+}
+
+.plusBUTTON1:hover {
+    border: none;
+    color: #fff;
+    background-color: rgb(47, 255, 151);
+}
+.plusBUTTON2 {
+    background-color: #fff;
+    border: 1px solid rgb(179, 47, 255);
+    display: inline;
+    margin: 0 3px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    color: rgb(179, 47, 255);
+    transition: all 0.5s ease;
+}
+
+.plusBUTTON2:hover {
+    border: none;
+    color: #fff;
+    background-color: rgb(179, 47, 255);
+}
+.plusBUTTON3 {
+    background-color: #fff;
+    border: 1px solid rgb(47, 144, 255);
+    display: inline;
+    margin: 0 3px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    color: rgb(47, 144, 255);
+    transition: all 0.5s ease;
+}
+
+.plusBUTTON3:hover {
+    border: none;
+    color: #fff;
+    background-color: rgb(47, 144, 255);
+}
 
 .reacttableParentMiddleMiddleSide {
     display: flex;
@@ -790,3 +850,16 @@ ctTableParentAccessButton:hover{
 .searchTextChange {
   height: 54px;
 }
+
+
+
+@media screen and (max-width: 420px) { 
+
+    
+
+    .reacttableParentPlusButton {
+      flex: 1;
+    }
+
+
+ }

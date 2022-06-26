@@ -10,7 +10,7 @@ function CircularMenu({ pages }) {
     
         <div className="circular-menu">
           <div className="menu-button" >
-            <img src={logo} width='100%'/>
+            <img src={logo} width='100%' alt='this is '/>
         </div>
         {
           pages.map((item, index) => (

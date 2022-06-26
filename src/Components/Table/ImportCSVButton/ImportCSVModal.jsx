@@ -146,6 +146,7 @@ const ImportCSVModal = (props) => {
       handleResponse(response, requestType);
       setResponse(undefined)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const handleCheckFile = (event) => {
     setCheckFile(event.target.files[0]);

@@ -104,6 +104,7 @@ const TableModal = (props) => {
         setResponse(undefined)
     }
     return ()=>setResponse(undefined)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   const handleSubmitForm = (e) => {

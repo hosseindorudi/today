@@ -7,7 +7,7 @@ import AppContext from "../../../../../../contexts/AppContext";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../../customHooks/useRequest";
 import { toast } from "react-toastify";
-import MapModal from "../../../../../../Components/GoogleMap/MapModal";
+// import MapModal from "../../../../../../Components/GoogleMap/MapModal";
 import { TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import AdapterJalali from "@date-io/date-fns-jalali";
@@ -125,6 +125,7 @@ const TableModal = (props) => {
   };
   const handleClickMap = (index) => {
     setModalShow(true);
+    console.log(modalShow)
   };
 
   const handleSubmit = (e) => {
