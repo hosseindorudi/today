@@ -40,7 +40,7 @@ const QuestionForm = () => {
         tabContext.addRemoveTabs(
         {
             title: "routes.questionForm",
-            path: "/Survey/Question/Create",
+            path: "/Survey/QuestionPage/Create/",
             Component: QuestionForm,
             access: enums.Survey_QuestionPage_Create_w,
         },
@@ -49,7 +49,7 @@ const QuestionForm = () => {
         tabContext.addRemoveTabs(
         {
             title: "routes.questionList",
-            path: "/Survey/Question/Read",
+            path: "/Survey/QuestionPage/Read/",
             Component: QuestionList,
             access: enums.Survey_QuestionPage_Read_r,
         },
@@ -92,7 +92,7 @@ const QuestionForm = () => {
     const handleSubmit =(e) => {
 
         e.preventDefault()
-        if (title !=="" & description!==""){
+        
         fetchData({
             method: "POST",
             url: questionCreate,
@@ -109,9 +109,7 @@ const QuestionForm = () => {
               Request:request,
             },
           });
-        }else {
-            handleError("لطفا فیلد ها را وارد کنید")
-        }
+      
     }
 
 
@@ -125,6 +123,7 @@ const QuestionForm = () => {
                     <Form.Label>{t("operatorGroupFormTitle")}</Form.Label>
                     <Form.Control type="text" placeholder={t("questionTitlePlace")} value={title}
                     onChange={(e) => setTitle(e.target.value)}
+                    required
                     />
                     <Form.Text className="text-muted">
                     {t("questionTitleDesc")}
@@ -132,7 +131,7 @@ const QuestionForm = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>{t("operatorGroupFormDesc")}</Form.Label>
-                    <Form.Control as="textarea" rows={5} value={description} onChange={(e)=> setDescription(e.target.value)}/>
+                    <Form.Control required as="textarea" rows={5} value={description} onChange={(e)=> setDescription(e.target.value)}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>{t("questionType")}</Form.Label>
@@ -150,7 +149,7 @@ const QuestionForm = () => {
                 </Form.Group>
                 <Form.Group className="mb-3 questionColorPicker" controlId="exampleForm.ControlTextarea1">
                     
-                    <input value={color} onChange={(e) => setColor(e.target.value)} type="color" className='colorPickerInput' name="favcolor" />
+                    <input  value={color} onChange={(e) => setColor(e.target.value)} type="color" className='colorPickerInput' name="favcolor" />
                 </Form.Group>
                 
                 <Button variant="primary" type="submit" className='questionFormSubmit mt-5'>
