@@ -161,11 +161,11 @@ const PhoneDefectsForm = lazy(() =>
 const AddmitionFirstForm = lazy(() =>
   import("./Views/Forms/service/admission/AdmitionFirstForm")
 );
-const GroupQuestionForm = lazy(() =>
-  import("./Views/Forms/question/group-Q/qroup-Q-Form/GroupQuestionForm")
+const QuestionForm = lazy(() =>
+  import("./Views/Forms/Survey/questionPage/questionForm/QuestionForm")
 );
-const GroupQuestionList = lazy(() =>
-  import("./Views/Forms/question/group-Q/qroup-Q-List/GroupQuestionList")
+const QuestionList = lazy(() =>
+  import("./Views/Forms/Survey/questionPage/questionList/QuestionList")
 );
 export const Routes = [
   {
@@ -961,24 +961,24 @@ export const Routes = [
 
   {
     title: "routes.question",
-    access: enums.Module_Customer,
+    access: enums.Module_Survey,
     icon: <IoIcons.IoIosPaper />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
       {
         title: "routes.questionList",
-        path: "/Customer/Group/Read",
-        Component: GroupQuestionList,
+        path: "/Survey/Question/Create",
+        Component: QuestionList,
         button: {
-          Component: GroupQuestionForm,
-          path: "/customergroupform",
+          Component: QuestionForm,
+          path: "/Survey/Question/read",
           title: "routes.questionForm",
-          access: enums.Customer_Group_Create_w,
+          access: enums.Survey_QuestionPage_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
-        access: enums.Customer_Group_Read_r,
+        access: enums.Survey_QuestionPage_Read_r,
       },
      
     ],

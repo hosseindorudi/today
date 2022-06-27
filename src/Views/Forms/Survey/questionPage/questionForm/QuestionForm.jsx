@@ -1,9 +1,9 @@
 import { Button, Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import './groupQuestionForm.css'
-import { questionEnum } from '../../../../../data/QuestionEnum'
+import './questionForm.css'
+import { QuestionTypeEnum } from '../../../../../data/QuestionTypeEnum' 
 import { useState } from 'react'
-const GroupQuestionForm = () => {
+const QuestionForm = () => {
     const {t} = useTranslation()
     const [title,setTitle] = useState("")
     const [description, setDescription] = useState("")
@@ -38,9 +38,9 @@ const GroupQuestionForm = () => {
                     <Form.Label>{t("questionType")}</Form.Label>
                     <Form.Select onChange={(e)=> setQType(e.target.value)}>
                         {
-                        Object.keys(questionEnum).map((key, index) => {
+                        Object.keys(QuestionTypeEnum).map((key, index) => {
                             return(
-                                <option value={questionEnum[key]} key={index}>{t(key)}</option>
+                                <option value={QuestionTypeEnum[key]} key={index}>{t(key)}</option>
                             )
                         })
                         }
@@ -60,4 +60,4 @@ const GroupQuestionForm = () => {
   )
 }
 
-export default GroupQuestionForm
+export default QuestionForm
