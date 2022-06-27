@@ -390,5 +390,6 @@
 "exportCSV":"خروجی CSV",
 "questionTitlePlace":"عنوان پرسشنامه",
 "questionTitleDesc":"لطفا یک عنوان برای پرسشنامه خود وارد کنید",
-"questionType":"نوع سوال"
+"questionType":"نوع سوال",
+"QuestionnaireType_Title":"نوع پرسشنامه"
 }
