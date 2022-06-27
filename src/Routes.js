@@ -16,6 +16,8 @@ import StatusDeviceEnd from "./Views/Forms/definations/statusDeviceEnd/StatusDev
 import StatusDeviceEndDefine from "./Views/Forms/definations/statusDeviceEnd/statusDeviceEndDefine/StatusDeviceEndDefine";
 import AnswerList from "./Views/Forms/Survey/answerPage/answerList/AnswerList";
 import AnswerForm from "./Views/Forms/Survey/answerPage/answerForm/AnswerForm";
+import QuestionnaireType from "./Views/Forms/definations/questionnaireType/QuestionnaireType";
+import QuestionnaireTypeDefine from "./Views/Forms/definations/questionnaireType/questionnaireTypeDefine/QuestionnaireTypeDefine";
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")
 );
@@ -594,6 +596,20 @@ export const Routes = [
           path: "/partsForm",
           title: "routes.partsForm",
           access: enums.Definition_Part_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/QuestionnaireType/Read",
+        path: "/Definition/QuestionnaireType/Read",
+        access: enums.Definition_QuestionnaireType_Read_r,
+        Component: QuestionnaireType,
+        button: {
+          Component: QuestionnaireTypeDefine,
+          path: "/Definition/QuestionnaireType/Write",
+          title: "/Definition/QuestionnaireType/Write",
+          access: enums.Definition_QuestionnaireType_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",

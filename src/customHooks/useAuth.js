@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useContext } from "react";
 import AppContext from "../contexts/AppContext";
-import { OsContext } from "../contexts/OsInformationProvider";
 import { verify } from "../services/authService";
 import useGeoLocation from "./useGeoLocation";
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +10,6 @@ const useAuth = () => {
   
   const navigate=useNavigate()
   const { app,setApp } = useContext(AppContext);
-  const { os } = useContext(OsContext);
   const location = useGeoLocation();
   const verifyToken=async()=>{
     const handleLogOut=()=>{
@@ -27,9 +25,6 @@ const useAuth = () => {
       },
       data:{
         language: app.langCode,
-        os: os.os,
-        browser: os.browser,
-        ip: os.ip,
         token: accessToken ? accessToken : "",
         latitude: location.loaded ? location.coordinates.lat : 0,
         longitude: location.loaded ? location.coordinates.lng : 0,

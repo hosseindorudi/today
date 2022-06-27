@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../Components/Footer/footer";
 import Home from "../Components/navbar/home";
 import Language from "../Components/navbar/language";
@@ -8,21 +8,17 @@ import MainTabControl from "../Components/Tabs/TabControl/MainTabControl";
 import useWindowSize from "../customHooks/useWindowSize";
 import "./Admin.css";
 import LogOut from "../Components/navbar/logOut";
-import { OsContext } from "../contexts/OsInformationProvider";
 import useAuth from "../customHooks/useAuth";
 
 
 function Admin() {
   const [menu, setMenu] = useState(false);
   const windowSize=useWindowSize()
-  const { loaded } = useContext(OsContext);
   const [verifyToken]=useAuth()
   useEffect(() => {
-    if(loaded){
       verifyToken()
-    }  
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded]);
+  }, []);
   
   const handleClickMenu = () => {
     setMenu(!menu);

@@ -6,7 +6,6 @@ import {  usePapaParse, useCSVDownloader } from "react-papaparse";
 
 import { toast } from "react-toastify";
 import AppContext from "../../../contexts/AppContext";
-import { OsContext } from "../../../contexts/OsInformationProvider";
 import useAxios from "../../../customHooks/useAxios";
 import useGeoLocation from "../../../customHooks/useGeoLocation";
 import useRequest from "../../../customHooks/useRequest";
@@ -16,7 +15,6 @@ import ModalCheckResult from "./ModalCheckResult";
 
 const ImportCSVModal = (props) => {
   const { app } = useContext(AppContext);
-  const { os } = useContext(OsContext);
   const accessToken = localStorage.getItem("token");
   const location = useGeoLocation();
   const { readString } = usePapaParse();
@@ -51,9 +49,6 @@ const ImportCSVModal = (props) => {
     setRequestType("CHECK");
     var formData = new FormData();
     formData.append("Request.Language", app.langCode);
-    formData.append("Request.OS", os.os);
-    formData.append("Request.IP", os.ip);
-    formData.append("Request.Browser", os.browser);
     formData.append(
       "Request.Latitude",
       location.loaded ? location.coordinates.lat : 0
@@ -77,9 +72,6 @@ const ImportCSVModal = (props) => {
     setRequestType("IMPORT");
     var formData = new FormData();
     formData.append("Request.Language", app.langCode);
-    formData.append("Request.OS", os.os);
-    formData.append("Request.IP", os.ip);
-    formData.append("Request.Browser", os.browser);
     formData.append(
       "Request.Latitude",
       location.loaded ? location.coordinates.lat : 0
