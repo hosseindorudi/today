@@ -46,7 +46,7 @@ const QuestionList = () => {
 
   const addObject = {
     Component: QuestionForm,
-    path: "/Survey/Question/Create",
+    path: "/Survey/QuestionPage/Create/",
     title: "routes.questionForm",
     access: enums.Survey_QuestionPage_Create_w,
   };
