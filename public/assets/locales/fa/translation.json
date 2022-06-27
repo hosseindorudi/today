@@ -397,6 +397,6 @@
 "answerPage.chooseQuestion":"سوال را انتخاب کنید",
 "nationalId":"کد ملی",
 "answerForm.start":"شروع",
-"/Survey/QuestionPage/Read" : "لیست پرسشنامه"
-
+"/Survey/QuestionPage/Read" : "لیست پرسشنامه",
+"/Survey/AnswerPage/Read/":"پاسخ نامه"
 }

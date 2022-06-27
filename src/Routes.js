@@ -984,7 +984,7 @@ export const Routes = [
       },
       {
         title: "routes.answerList",
-        path: "/Survey/Answer/Read",
+        path: "/Survey/AnswerPage/Read/",
         Component: AnswerList,
         button: {
           Component: AnswerForm,

@@ -4,11 +4,14 @@ import { Form, Button } from "react-bootstrap";
 import "./answerForm.css";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import useRequest from "../../../../../customHooks/useRequest";
-import { handleError } from "../../../../../validation/functions";
+import { createSelectOptions, handleError } from "../../../../../validation/functions";
 import useAxios from "../../../../../customHooks/useAxios";
+import BackDrop from "../../../../../Components/backDrop/BackDrop";
+import { questionReadTitle } from "../../../../../services/questionService";
 const AnswerForm = () => {
   const { t } = useTranslation();
   const [questionTitles, setQuestionTitles] = useState([]);
+  const [selectedTitle, setSelectedTitle] = useState([])
   const request=useRequest()
   const [type, setType] = useState("")
   const [response, loading, fetchData, setResponse] = useAxios(); 
@@ -25,7 +28,7 @@ const AnswerForm = () => {
     setType("READTITLES")
     fetchData({
         method: "POST",
-        // url: customerCreate,
+        url: questionReadTitle,
         headers: {
           accept: "*/*",
         },
@@ -39,7 +42,8 @@ const AnswerForm = () => {
   const handleResponse=(response,type)=>{
     switch (type) {
         case "READTITLES":
-            console.log(response)
+            setQuestionTitles(createSelectOptions(response.Title))
+            setLoadingSelect(false)
             break;
     
         default:
@@ -50,13 +54,17 @@ const AnswerForm = () => {
     if (response){
         response.Result?handleResponse(response,type):handleError(response.Message)          
         }
+        setResponse(undefined)
         // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response])
-  const onChageQuestionSelect = () => {};
+  const onChageQuestionSelect = (value) => {
+    setSelectedTitle(value)
+  };
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
+    e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.preventDefault();
@@ -66,6 +74,9 @@ const AnswerForm = () => {
   };
   return (
     <div className="answerList">
+        {loading&&
+        <BackDrop open={true}/>    
+    }
       <Form
         className="answerListForm"
         noValidate
@@ -76,6 +87,7 @@ const AnswerForm = () => {
         <div className="answerList-select">
           <CustomReactMultiSelect
             options={questionTitles}
+            value={selectedTitle}
             placeholder={t("answerPage.chooseQuestion")}
             isMulti={false}
             onchangeHandler={onChageQuestionSelect}
