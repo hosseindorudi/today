@@ -4,7 +4,7 @@ import chroma from 'chroma-js';
 import Select from 'react-select';
 
 const colourStyles = {
-    control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+    control: (styles) => ({ ...styles, backgroundColor: 'white',outerWidth:"100%" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         const color = chroma(data.color);
         return {
@@ -56,7 +56,7 @@ const colourStyles = {
       }),
 }
 
-export const CustomReactMultiSelect= ({options,placeholder,value,onchangeHandler,isMulti}) => (
+export const CustomReactMultiSelect= ({options,placeholder,value,onchangeHandler,isMulti,isLoading}) => (
   <Select
     placeholder={placeholder}
     closeMenuOnSelect={!isMulti}
@@ -65,5 +65,6 @@ export const CustomReactMultiSelect= ({options,placeholder,value,onchangeHandler
     value={value}
     styles={colourStyles}
     onChange={onchangeHandler}
+    isLoading={isLoading}
   />
 );

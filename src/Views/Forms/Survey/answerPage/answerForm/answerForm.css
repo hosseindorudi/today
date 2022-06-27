@@ -1,0 +1,16 @@
+.answerList{
+    display: flex;
+    justify-content: center;
+}
+.answerList .mb-3{width: 50%;}
+.answerListForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    gap:10px;
+}
+.answerList-select{
+    width: 100%;
+}

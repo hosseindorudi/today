@@ -311,6 +311,8 @@
   "routes.question":"پرسشنامه",
   "routes.questionList":"لیست پرسشنامه",
   "routes.questionForm":"فرم پرسشنامه",
+  "routes.answerList":"پاسخ نامه",
+  "routes.answerForm":"فرم پاسخ نامه",
 "customer.group":"گروه مشتری",
 "routes.registered":"ثبت شده",
 "routes.sentCustomer":"ارسال مشتری",
@@ -390,5 +392,9 @@
 "exportCSV":"خروجی CSV",
 "questionTitlePlace":"عنوان پرسشنامه",
 "questionTitleDesc":"لطفا یک عنوان برای پرسشنامه خود وارد کنید",
-"questionType":"نوع سوال"
+"questionType":"نوع سوال",
+"answerPage.chooseQuestion":"سوال را انتخاب کنید",
+"nationalId":"کد ملی",
+"answerForm.start":"شروع"
+
 }
