@@ -11,13 +11,8 @@ import AppContext from '../../contexts/AppContext';
 import BackDrop from '../../Components/backDrop/BackDrop';
 import { useTranslation } from 'react-i18next';
 import { TabContext } from '../../contexts/TabContextProvider';
-import Admission from '../Forms/service/admission/Admission';
-import { enums } from '../../data/Enums';
-import CustomerList from '../Forms/customer/customer/list/CustomerList';
-import CustomerGroup from '../Forms/customer/group/List/CustomerGroup';
-import Group from '../Forms/agent/agentGroupForm/Group';
-import Operator from '../Forms/panel/operator/List/Operator';
 
+import {Routes} from '../../Routes'
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useGeoLocation();
@@ -39,83 +34,41 @@ const OperatorDashboard = () => {
 
 
   const handleChangeFavoritPage = (type) => {
-      switch (type) {
-        case "/AfterSales/Admission/Read":
+
+    Routes.map((route) => {
+      return route.subNav ? (
+        route.subNav.map((r) => {
+         return  r.path === type && 
           tabContext.addRemoveTabs(
             {
-              title: "routes.admission",
-              path: "/AfterSales/Admission/Read",
-              Component:Admission,
-              access: enums.AfterSales_New_Admission_Read_r,
+              title: r.title,
+              path: type,
+              Component:r.Component,
+              access:r.access,
             }
-            , "add");
-          break;
-        case "/Customer/Customer/Read":
-          tabContext.addRemoveTabs(
-            {
-              title: "routes.CustomerList",
-              path: "/Customer/Customer/Read",
-              Component:CustomerList,
-              access: enums.Customer_Customer_Read_r,
-            }
-            , "add");
-          break;
-        case "/Customer/Group/Read":
-          tabContext.addRemoveTabs(
-            {
-              title: "routes.group",
-              path: "/Customer/Group/Read",
-              Component:CustomerGroup,
-              access: enums.Customer_Group_Read_r,
-            }
-            , "add");
-          break;
-        case "/Operator/Group/Read":
-          tabContext.addRemoveTabs(
-            {
-              title: "routes.group",
-              path: "/Operator/Group/Read",
-              Component:Group,
-              access: enums.Operator_Group_Read_r,
-            }
-            , "add");
-          break;
-        case "/Operator/Operator/Read":
-          tabContext.addRemoveTabs(
-            {
-              title: "routes.operator",
-              path: "/Operator/Operator/Read",
-              Component:Operator,
-              access: enums.Operator_Operator_Read_r,
-            }
-            , "add");
-          break;
+            , "add")
+            
+        })
+      ) : route.path === type && 
+      tabContext.addRemoveTabs(
+        {
+          title: route.title,
+          path: type,
+          Component:route.Component,
+          access:route.access,
+        }
+        , "add") 
+    })
+
+
       
-        default:
-          break;
-      }
 
 
   }
 
   
 
-  // setTimeout(()=> {
-    // fetchData({
-    //   method: "POST",
-    //   url: homeDashboard,
-    //   headers: {
-    //     accept: "*/*",
-    //   },
-      
-     
-    //   Request: request,
-      
-    //   signal:abortController.signal,
-      
-     
-    // })
-  // },3000)
+
 
   useEffect(()=> {
     if(loaded) {
