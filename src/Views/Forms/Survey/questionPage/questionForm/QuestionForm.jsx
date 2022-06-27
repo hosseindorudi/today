@@ -82,9 +82,9 @@ const QuestionForm = () => {
       }, [response])
 
     useEffect(()=> {
-        Object.keys(QuestionTypeEnum).map((key, index) => {
+        Object.keys(QuestionTypeEnum).map((key) => {
 
-            setEnumQuestion((prev) => [...prev, {value: QuestionTypeEnum[key], label: t(key), color: colors[Math.floor(Math.random() * colors.length)]}])
+            return setEnumQuestion((prev) => [...prev, {value: QuestionTypeEnum[key], label: t(key), color: colors[Math.floor(Math.random() * colors.length)]}])
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [])
