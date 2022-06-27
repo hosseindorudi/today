@@ -393,8 +393,9 @@
 "questionTitlePlace":"عنوان پرسشنامه",
 "questionTitleDesc":"لطفا یک عنوان برای پرسشنامه خود وارد کنید",
 "questionType":"نوع سوال",
-"QuestionnaireType_Title":"نوع پرسشنامه"
+"QuestionnaireType_Title":"نوع پرسشنامه",
 "answerPage.chooseQuestion":"سوال را انتخاب کنید",
 "nationalId":"کد ملی",
-"answerForm.start":"شروع"
+"answerForm.start":"شروع",
+"/Survey/AnswerPage/Read/":"پاسخ نامه"
 }

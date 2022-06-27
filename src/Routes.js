@@ -970,7 +970,7 @@ export const Routes = [
     subNav: [
       {
         title: "routes.questionList",
-        path: "/Survey/Question/Read",
+        path: "/Survey/QuestionPage/Read/",
         Component: QuestionList,
         button: {
           Component: QuestionForm,
@@ -984,7 +984,7 @@ export const Routes = [
       },
       {
         title: "routes.answerList",
-        path: "/Survey/Answer/Read",
+        path: "/Survey/AnswerPage/Read/",
         Component: AnswerList,
         button: {
           Component: AnswerForm,
