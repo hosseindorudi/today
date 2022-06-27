@@ -5,6 +5,7 @@ import { verify } from "../services/authService";
 import useGeoLocation from "./useGeoLocation";
 import { useNavigate } from 'react-router-dom';
 import {mainURL} from '../data/constants'
+import { languages } from "../assets/languages/languages";
 axios.defaults.baseURL =mainURL
 const useAuth = () => {
   
@@ -17,6 +18,9 @@ const useAuth = () => {
       navigate("/", { replace: true });
     }
     const accessToken=localStorage.getItem("token")
+    const lang=localStorage.getItem("i18nextLng")
+    const langCode = languages.find((l) => l.code === lang);
+    
     const params={
       method: "POST",
       url: verify,
@@ -24,7 +28,7 @@ const useAuth = () => {
         accept: "*/*",
       },
       data:{
-        language: app.langCode,
+        language:langCode?langCode.no:app.langCode,
         token: accessToken ? accessToken : "",
         latitude: location.loaded ? location.coordinates.lat : 0,
         longitude: location.loaded ? location.coordinates.lng : 0,
