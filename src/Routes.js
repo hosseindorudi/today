@@ -970,11 +970,11 @@ export const Routes = [
     subNav: [
       {
         title: "routes.questionList",
-        path: "/Survey/Question/Create",
+        path: "/Survey/Question/Read",
         Component: QuestionList,
         button: {
           Component: QuestionForm,
-          path: "/Survey/Question/read",
+          path: "/Survey/Question/Create",
           title: "routes.questionForm",
           access: enums.Survey_QuestionPage_Create_w,
         },
