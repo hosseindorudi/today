@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
 }
-.answerList .mb-3{width: 50%;}
+.answerList .mb-3{width: 100%;}
 .answerListForm{
     display: flex;
     flex-direction: column;

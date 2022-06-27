@@ -1,20 +1,18 @@
 
-import './AdmissionForm.css'
-import logo from "../../../../../src/assets/imgs/logo22.png";
-import PatternLock from './patternLock/PatternLock';
 import { useEffect, useRef, useState, useContext } from 'react';
-import SignaturePad from "./signaturePad/src/index";
-import QRCode from "react-qr-code";
-import AppContext from '../../../../contexts/AppContext';
-
 import TextField from '@mui/material/TextField';
 import AdapterJalali from '@date-io/date-fns-jalali';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import QRCode from "react-qr-code";
+import logo from "../../../../../src/assets/imgs/logo22.png";
+import PatternLock from './patternLock/PatternLock';
+import SignaturePad from "./signaturePad/src/index";
+import AppContext from '../../../../contexts/AppContext';
 import { TabContext } from '../../../../contexts/TabContextProvider';
 import Admission from './Admission';
 import { IMEIvalidation, admissionNumberVal,phoneNumberValidation } from '../../../../validation/validation';
-
+import './AdmissionForm.css'
 
 
 var base64 = require('base-64');

@@ -1,16 +1,14 @@
-import './admitionFirstForm.css'
-
-import { phoneNumberValidation,idCodeValidation } from '../../../../validation/validation'
 import { useState, useContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
+import { phoneNumberValidation,idCodeValidation } from '../../../../validation/validation'
 import { enums } from '../../../../data/Enums'
 import AmitionFinalForm from './AmitionFinalForm'
 import { TabContext } from '../../../../contexts/TabContextProvider'
 import useAxios from '../../../../customHooks/useAxios'
 import useRequest from '../../../../customHooks/useRequest'
-// import { useTranslation } from 'react-i18next'
 import { customerCreate } from '../../../../services/customerService'
 import BackDrop from '../../../../Components/backDrop/BackDrop'
+import './admitionFirstForm.css'
 const AdmitionFirstForm = () => {
     const [type, setType] = useState("")
     const [phoneNumber, setphoneNumber] = useState("")

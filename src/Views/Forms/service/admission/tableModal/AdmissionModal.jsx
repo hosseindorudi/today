@@ -1,14 +1,12 @@
-import './admissionModal.css'
+
 import React, {   useEffect, useRef, useState } from "react";
 import {  Button, Form, Modal } from "react-bootstrap";
-// import AppContext from '../../../../../contexts/AppContext';
 import { useTranslation } from "react-i18next";
-// import useRequest from '../../../../../customHooks/useRequest';
 import { toast } from "react-toastify";
 import useAxios from '../../../../../customHooks/useAxios';
 import { admitionUpdate } from '../../../../../services/admitionService';
 import SignaturePad from '../signaturePad/src';
-
+import './admissionModal.css'
 
 
 const AdmissionModal = (props) => {

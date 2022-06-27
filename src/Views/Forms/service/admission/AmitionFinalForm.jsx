@@ -1,22 +1,22 @@
 import { useRef, useState, useContext, useEffect } from "react";
-import "./admitionFinalForm.css";
-import SignaturePad from "./signaturePad/src";
+import { useTranslation } from "react-i18next";
+import Select from "react-select";
+import chroma from "chroma-js";
 import { toast } from "react-toastify";
+import SignaturePad from "./signaturePad/src";
 import BackDrop from "../../../../Components/backDrop/BackDrop";
 import { enums } from "../../../../data/Enums";
 import { TabContext } from "../../../../contexts/TabContextProvider";
 import useAxios from "../../../../customHooks/useAxios";
 import useRequest from "../../../../customHooks/useRequest";
-import { useTranslation } from "react-i18next";
 import { admitionCreate } from "../../../../services/admitionService";
 import { admissionAccessoryReadTitle } from "../../../../services/admissionAccessory";
 // import { productGroupCreate } from "../../../../services/productGroup";
 import Admission from "./Admission";
 import { defectReadTitle } from "../../../../services/defectService";
-import Select from "react-select";
-import chroma from "chroma-js";
 import PatternModal from "../../../../Components/Table/PatternModal/PatternModal";
 import useWindowSize from "../../../../customHooks/useWindowSize";
+import "./admitionFinalForm.css";
 const AmitionFinalForm = () => {
   const [type, setType] = useState("");
   const [textRecieved, setTextRecieved] = useState("");

@@ -1,9 +1,7 @@
-import "../../../../../assets/css/table.css";
 import React, { useRef, useState } from "react";
-
+import { toast } from "react-toastify";
+import { t } from "i18next";
 import TableModal from "./TableModal/TableModal";
-
-
 import {
   readOpt,
   readpaging,
@@ -20,16 +18,10 @@ import {
   operatorExportId,
   operatorChangePassword,
 } from "../../../../../services/operatorService";
-
-import { toast } from "react-toastify";
-
-
-import { t } from "i18next";
-
 import { enums } from "../../../../../data/Enums";
 import OperatorForm from "../OperatorForm";
 import CustomTable from "../../../../../Components/Table/Table/CustomTable";
-
+import "../../../../../assets/css/table.css";
 const Operator = () => {
   const childRef = useRef();
   const filteredColumns = [
