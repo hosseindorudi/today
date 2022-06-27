@@ -307,6 +307,10 @@
   "customerTitle":"ثبت نام مشتری",
   "username":"نام کاریری",
   "password":"رمز عبور",
+
+  "routes.question":"پرسشنامه",
+  "routes.questionList":"لیست پرسشنامه",
+  "routes.questionForm":"فرم پرسشنامه",
 "customer.group":"گروه مشتری",
 "routes.registered":"ثبت شده",
 "routes.sentCustomer":"ارسال مشتری",
@@ -383,5 +387,8 @@
 "search.endDate":"تاریخ پایان",
 "search.error":"تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
 "search.errorChooseStart":"ابتدا تاریخ شروع را مشخص کنید!!!",
-"exportCSV":"خروجی CSV"
+"exportCSV":"خروجی CSV",
+"questionTitlePlace":"عنوان پرسشنامه",
+"questionTitleDesc":"لطفا یک عنوان برای پرسشنامه خود وارد کنید",
+"questionType":"نوع سوال"
 }

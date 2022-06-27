@@ -161,6 +161,12 @@ const PhoneDefectsForm = lazy(() =>
 const AddmitionFirstForm = lazy(() =>
   import("./Views/Forms/service/admission/AdmitionFirstForm")
 );
+const GroupQuestionForm = lazy(() =>
+  import("./Views/Forms/question/group-Q/qroup-Q-Form/GroupQuestionForm")
+);
+const GroupQuestionList = lazy(() =>
+  import("./Views/Forms/question/group-Q/qroup-Q-List/GroupQuestionList")
+);
 export const Routes = [
   {
     title: "routes.panel",
@@ -952,4 +958,29 @@ export const Routes = [
   //             }
 
   //           ]}
+
+  {
+    title: "routes.question",
+    access: enums.Module_Customer,
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+      {
+        title: "routes.questionList",
+        path: "/Customer/Group/Read",
+        Component: GroupQuestionList,
+        button: {
+          Component: GroupQuestionForm,
+          path: "/customergroupform",
+          title: "routes.questionForm",
+          access: enums.Customer_Group_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Customer_Group_Read_r,
+      },
+     
+    ],
+  },
 ];
