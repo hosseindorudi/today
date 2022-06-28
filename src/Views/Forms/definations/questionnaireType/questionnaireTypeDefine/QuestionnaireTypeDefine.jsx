@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import FormInputTest from "../../../../../Components/periodity/formInput/FormInputTest";
-import "./define.css"
+import FormInput from "../../../../../Components/periodity/formInput/FormInput";
+import { defintionInputs, handleError } from "../../../../../validation/functions";
+import "../../../../../assets/css/periorityForm.css"
+import {toast} from 'react-toastify'
+import { questionnaireTypeCreate } from "../../../../../services/questionnaireType";
+import QuestionnaireType from "../QuestionnaireType";
+import useAxios from "../../../../../customHooks/useAxios";
+import { TabContext } from "../../../../../contexts/TabContextProvider";
+import { enums } from "../../../../../data/Enums";
+import useRequest from "../../../../../customHooks/useRequest";
 const QuestionnaireTypeDefine = () => {
+  const [response, loading, fetchData, setResponse] = useAxios();
   const [validated, setValidated] = useState(false);
+  const request=useRequest()
+  const tabContext = useContext(TabContext);
+  const abortController = new AbortController();
   const [values, setValues] = useState({
     title: "",
     color: "#000000",
@@ -13,61 +25,89 @@ const QuestionnaireTypeDefine = () => {
     desc: ""
   });
   const {t}=useTranslation()
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-    }
+  const handleResponse = () => {
+    toast.success(t("item.created"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+    tabContext.addRemoveTabs(
+      {
+        Component: QuestionnaireTypeDefine,
+        path: "/Definition/QuestionnaireType/Write",
+        title: "/Definition/QuestionnaireType/Write",
+        access: enums.Definition_QuestionnaireType_Create_w,
+      },
+      "remove"
+    );
+    tabContext.addRemoveTabs(
+      {
+        title: "/Definition/QuestionnaireType/Read",
+        path: "/Definition/QuestionnaireType/Read",
+        access: enums.Definition_QuestionnaireType_Read_r,
+        Component: QuestionnaireType,
+      },
 
-    setValidated(true);
+      "add"
+    );
   };
 
-  const input=[
-    {
-      id: 1,
-      name: "title",
-      type: "text",
-      label: t("title"),
-      placeholder: t("title"),
-      errorMessage: t("title.errorMessage"),
-      pattern: "^[\u0600-\u06FF,A-Za-z0-9 ]{2,100}",
-      required: true,
-      value: values.title,
-    },
-    {
-      id: 2,
-      name: "color",
-      label: t("color"),
-      type: "color",
-      errorMessage: t("color.errorMessage"),
-      value:values.color
-    },
-    {
-      id: 3,
-      name: "periority",
-      type: "number",
-      label: t("periodity"),
-      placeholder: t("periodity"),
-      errorMessage: t("periodity.errorMessage"),
-      required: true,
-      value: values.periority,
-    },
-  ]
+
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response)
+        : handleError(response.Message);
+      setResponse(undefined);
+    }
+    return () => abortController.abort();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+     e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
+      fetchData({
+        method: "POST",
+        url: questionnaireTypeCreate,
+        headers: {
+          accept: "*/*",
+        },
+        data: {
+          Request: request,
+          Id: 0,
+          Priority: values.periority,
+          Title: values.title,
+          Description: values.desc,
+          Color: values.color.substring(1),
+          SourceType: 0,
+          Registrar: 0,
+          DateSet: "2022-06-19T16:43:29.709Z",
+        },
+        signal: abortController.signal,
+      });
+      
+     }
+    
+  
+  };
+
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   return (
     <div className="periorityFormDefine">
       <Form
-        className="PForm"
+        className="periorityForm"
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/QuestionnaireType/Write")}</b>
-        {input.map((input) => (
-              <FormInputTest
+              {defintionInputs(values).map((input) => (
+              <FormInput
                 key={input.id}
                 {...input}
                 onChange={onChangeHandler}
@@ -75,8 +115,9 @@ const QuestionnaireTypeDefine = () => {
             ))}
        
 
-        <Button type="submit">{t("answerForm.start")}</Button>
+        <Button disabled={loading} type="submit">{t("submit")}</Button>
       </Form>
+      
     </div>
   );
 };

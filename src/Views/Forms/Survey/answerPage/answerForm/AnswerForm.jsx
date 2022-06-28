@@ -67,7 +67,7 @@ const AnswerForm = () => {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
-      e.preventDefault();
+      // e.preventDefault();
       e.stopPropagation();
     }
     setValidated(true);

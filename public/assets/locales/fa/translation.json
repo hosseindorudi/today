@@ -318,7 +318,7 @@
 "routes.sentCustomer":"ارسال مشتری",
 "routes.sentcustomerform":"فرم ارسال مشتری",
 "title":"موضوع",
-"title.errorMessage":"موضوع نمیتواند کمتر از 4 و بیشتر از 12 کاراکر باشد",
+"title.errorMessage":"موضوع نمیتواند کمتر از 2 و بیشتر از 100 کاراکر باشد",
 "color":"رنگ",
 "color.errorMessage":"رنگ باید در فرمت هگز باشد",
 "periodity":"اولویت",

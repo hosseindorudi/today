@@ -5,12 +5,14 @@ import { TabContext } from '../../../../../contexts/TabContextProvider';
 import useAxios from '../../../../../customHooks/useAxios';
 import useRequest from '../../../../../customHooks/useRequest';
 import '../../../../../assets/css/periorityForm.css'
+import {Form,Button} from 'react-bootstrap'
 import { enums } from '../../../../../data/Enums';
 import { toast } from "react-toastify";
 import PhoneDefects from '../PhoneDefects';
 import { defectCreate } from '../../../../../services/defectService';
 import { defintionInputs } from '../../../../../validation/functions';
 const PhoneDefectDefine = () => {
+    const [validated, setValidated] = useState(false);
     const [response, loading, fetchData, setResponse] = useAxios();
     const tabContext = useContext(TabContext);
     const request = useRequest();
@@ -63,12 +65,18 @@ const PhoneDefectDefine = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response]);
   
-    const onChange = (e) => {
+    const onChangeHandler = (e) => {
       setValues({ ...values, [e.target.name]: e.target.value });
     };
   
     const handleSubmit = (e) => {
       e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
       fetchData({
         method: "POST",
         url: defectCreate,
@@ -88,29 +96,29 @@ const PhoneDefectDefine = () => {
         },
         signal: abortController.signal,
       });
+    }
     };
     return (
-        <div className="periorityFormMain">
-        <div className="periorityFormHeader">
-          <h1>{t("routes.phoneIssuesForm")}</h1>
-        </div>
-        <div className="periorityFormmainDiv">
-          <div className="periorityFormForm">
-            <form onSubmit={handleSubmit} className="periorityForms">
+      <div className="periorityFormDefine">
+      <Form
+        className="periorityForm"
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+      >
+        <b>{t("routes.phoneIssuesForm")}</b>
               {defintionInputs(values).map((input) => (
-                <FormInput
-                  key={input.id}
-                  {...input}
-                  value={values[input.name]}
-                  onChange={onChange}
-                />
-              ))}
-      
-              <button disabled={loading} className="periorityFormSubmit">{t("submit")}</button>
-            </form>
-          </div>
-        </div>
-      </div>
+              <FormInput
+                key={input.id}
+                {...input}
+                onChange={onChangeHandler}
+              />
+            ))}
+       
+    
+        <Button disabled={loading} type="submit">{t("submit")}</Button>
+      </Form>
+    </div>
     )
 }
 

@@ -10,7 +10,9 @@ import { toast } from "react-toastify";
 import { additionalServiceCreate } from '../../../../../services/additionalServiceService';
 import ExtraServices from '../ExtraServices';
 import { defintionInputs } from '../../../../../validation/functions';
+import { Form, Button } from "react-bootstrap";
 const ExtraServicesDefine = () => {
+  const [validated, setValidated] = useState(false);
     const [response, loading, fetchData, setResponse] = useAxios();
     const tabContext = useContext(TabContext);
     const request = useRequest();
@@ -62,12 +64,18 @@ const ExtraServicesDefine = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response]);
   
-    const onChange = (e) => {
+    const onChangeHandler = (e) => {
       setValues({ ...values, [e.target.name]: e.target.value });
     };
   
     const handleSubmit = (e) => {
       e.preventDefault();
+      const form = e.currentTarget;
+      if (!form.checkValidity()) {
+        e.stopPropagation();
+      }
+      setValidated(true);
+      if (form.checkValidity()) {
       fetchData({
         method: "POST",
         url: additionalServiceCreate,
@@ -87,29 +95,28 @@ const ExtraServicesDefine = () => {
         },
         signal: abortController.signal,
       });
+    }
     };
     return (
-    <div className="periorityFormMain">
-        <div className="periorityFormHeader"><h1>{t("ExtraServicesDefineHeader")}</h1></div>
-        <div className='periorityFormmainDiv'>
-            
-        <div className="periorityFormForm">
-            <form onSubmit={handleSubmit} className="periorityForms">
-              {defintionInputs(values).map((input) => (
-                <FormInput
-                  key={input.id}
-                  {...input}
-                  value={values[input.name]}
-                  onChange={onChange}
-                />
-              ))}
-      
-              <button disabled={loading} className="periorityFormSubmit">{t("submit")}</button>
-            </form>
-          </div>
-        </div>
-    
+      <div className="periorityFormDefine">
+      <Form
+        className="periorityForm"
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+      >
+        <b>{t("ExtraServicesDefineHeader")}</b>
+
+        {defintionInputs(values).map((input) => (
+          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+        ))}
+
+        <Button disabled={loading} type="submit">
+          {t("submit")}
+        </Button>
+      </Form>
     </div>
+   
     )
 }
 

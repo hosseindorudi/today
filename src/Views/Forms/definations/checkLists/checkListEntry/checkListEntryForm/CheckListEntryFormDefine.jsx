@@ -1,5 +1,6 @@
 import { t } from 'i18next';
 import React,{ useContext, useEffect, useState } from 'react'
+import {Form,Button} from 'react-bootstrap'
 import FormInput from '../../../../../../Components/periodity/formInput/FormInput';
 import { TabContext } from '../../../../../../contexts/TabContextProvider';
 import useAxios from '../../../../../../customHooks/useAxios';
@@ -13,6 +14,7 @@ import { inputQualityControlCreate } from '../../../../../../services/inputQuali
 import { defintionInputs } from '../../../../../../validation/functions';
 const CheckListEntryFormDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
+  const [validated, setValidated] = useState(false);
     const tabContext = useContext(TabContext);
     const request = useRequest();
     const abortController = new AbortController();
@@ -64,12 +66,18 @@ const CheckListEntryFormDefine = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response]);
   
-    const onChange = (e) => {
+    const onChangeHandler = (e) => {
       setValues({ ...values, [e.target.name]: e.target.value });
     };
   
     const handleSubmit = (e) => {
       e.preventDefault();
+      const form = e.currentTarget;
+      if (!form.checkValidity()) {
+        e.stopPropagation();
+      }
+      setValidated(true);
+      if (form.checkValidity()) {
       fetchData({
         method: "POST",
         url: inputQualityControlCreate,
@@ -89,29 +97,32 @@ const CheckListEntryFormDefine = () => {
         },
         signal: abortController.signal,
       });
+    }
     };
 return (
-  <div className="periorityFormMain">
-        <div className="periorityFormHeader">
-          <h1>{t("routes.entryCheckListForm")}</h1>
-        </div>
-        <div className="periorityFormmainDiv">
-          <div className="periorityFormForm">
-            <form onSubmit={handleSubmit} className="periorityForms">
-              {defintionInputs(values).map((input) => (
-                <FormInput
-                  key={input.id}
-                  {...input}
-                  value={values[input.name]}
-                  onChange={onChange}
-                />
-              ))}
-      
-              <button disabled={loading} className="periorityFormSubmit">{t("submit")}</button>
-            </form>
-          </div>
-        </div>
-      </div>
+
+  <div className="periorityFormDefine">
+  <Form
+    className="periorityForm"
+    noValidate
+    validated={validated}
+    onSubmit={handleSubmit}
+  >
+    <b>{t("routes.entryCheckListForm")}</b>
+          {defintionInputs(values).map((input) => (
+          <FormInput
+            key={input.id}
+            {...input}
+            onChange={onChangeHandler}
+          />
+        ))}
+   
+
+    <Button disabled={loading} type="submit">{t("submit")}</Button>
+  </Form>
+  
+</div>
+ 
 )
 }
 
