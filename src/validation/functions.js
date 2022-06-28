@@ -82,6 +82,7 @@ export const defintionInputs = (values) => {
       as: "textarea",
       rows: "3",
     },
+    
   ];
   return inputes;
 };
