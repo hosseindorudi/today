@@ -1,0 +1,1 @@
+export const addQuestionCreate="/Survey/Question/Create"

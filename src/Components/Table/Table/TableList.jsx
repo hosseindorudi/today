@@ -52,7 +52,9 @@ const TableList = ({
   setMobileModal,
   widthOFScreen,
   setMobileModalButtons,
-  setMobileModalColumns
+  setMobileModalColumns,
+  handleAddQuestion,
+  addAccess
 }) => {
   const [haveAccess] = useButtonAccess();
   const {t}=useTranslation()
@@ -255,6 +257,8 @@ const TableList = ({
                           rowValue={post}
                           handleClickEdit={handleClickEdit}
                           handlePassEdit={handlePassEdit}
+                          handleAddQuestion={handleAddQuestion}
+                          addAccess={addAccess}
                         
                         />
                       </td>

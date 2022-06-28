@@ -1,83 +1,42 @@
-import './tableModal.css'
+import React, { useEffect, useState } from 'react'
+import * as bs from "react-icons/bs";
+import * as fa from "react-icons/fa";
 import {Button, Form, Modal } from "react-bootstrap";
-import useAxios from '../../../../../../customHooks/useAxios';
 import useRequest from '../../../../../../customHooks/useRequest';
-import { CustomReactMultiSelect } from '../../../../../../Components/Select/customReactSelect';
-import { questionUpdate } from '../../../../../../services/questionService';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { questionnaireTypeReadTitle } from '../../../../../../services/questionnaireType';
-import { useTranslation } from 'react-i18next';
-import { createSelectOptions, handleError } from '../../../../../../validation/functions';
+import useAxios from '../../../../../../customHooks/useAxios';
 import BackDrop from '../../../../../../Components/backDrop/BackDrop';
-
-
-const TableModal = (props) => {
-
-    const [response, loading, fetchData, setResponse] = useAxios();
-    const request=useRequest();
-    const abortController = new AbortController();
-    const [enumQuestion, setEnumQuestion] = useState([])
+import { useTranslation } from 'react-i18next';
+import { QuestionTypeEnum } from '../../../../../../data/QuestionTypeEnum';
+import { CustomReactMultiSelect } from '../../../../../../Components/Select/customReactSelect';
+import { addQuestionCreate } from '../../../../../../services/createQuestion';
+import { handleError } from '../../../../../../validation/functions';
+const TableQuestionModal = (props) => {
     const [title,setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [id, setId] = useState("")
-    const [questionSelect, setQuestionSelect] = useState("")
+    const [response, loading, fetchData, setResponse] = useAxios();
+    const request=useRequest();
+    const [enumQuestion, setEnumQuestion] = useState([])
+    const abortController = new AbortController();
+    const colors = ['#470063', '#B30089', '#F62DAE', '#FD96A9', '#B846E6','#4560E6','#7784C4','#0BD9E4','#7E0BE3','#0BE34C','#A2E30B','#E3C60B','#E37B0B','#E3410B'];
     const {t} = useTranslation();
+    const [questionSelect, setQuestionSelect] = useState("")
+    const [color, setColor] = useState("#000000")
 
+
+
+        useEffect(()=> {
+        Object.keys(QuestionTypeEnum).map((key) => {
+
+            return setEnumQuestion((prev) => [...prev, {value: QuestionTypeEnum[key], label: t(key), color: colors[Math.floor(Math.random() * colors.length)]}])
+        })
+
+        console.log(props.rowValus)
+
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps 
+    }, [])
 
     useEffect(() => {
-        setTitle(props.rowValus.Title)
-        setDescription(props.rowValus.Description)
-        setId(props.rowValus.Id)
-        setQuestionSelect(props.rowValus.QuestionnaireType_Id)
-
-    },[])
-
-    const createParams = (service) => {
-        const params = {
-          method: "POST",
-          url: service,
-          headers: {
-            accept: "*/*",
-          },
-          data: request,
-        };
-        return params;
-      };
-  
-      const getDatas = () => {
-        const questionReadTitle = axios.request(
-          createParams(questionnaireTypeReadTitle)
-        );
-        axios
-        .all([
-          questionReadTitle,
-        ])
-        .then(
-          axios.spread((...allData) => {
-            allData[0].data?.Result
-              ? setEnumQuestion(createSelectOptions(allData[0].data.Title))
-              : handleError(allData[0].data.Message);}
-            
-          )
-        ).catch((error) => {
-          handleError(error.message);
-        });
-  
-      }
-
-      useEffect(() => {
-        let loaded = false;
-        if (!loaded) {
-          getDatas();
-        }
-        return () => {
-          loaded = true;
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []);
-
-      useEffect(() => {
     
         if (response) {
           
@@ -88,23 +47,30 @@ const TableModal = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [response]);
 
-      const handleSubmit =(e) => {
+
+
+
+
+
+    const handleSubmit =(e) => {
 
         e.preventDefault()
         
         fetchData({
             method: "POST",
-            url: questionUpdate,
+            url: addQuestionCreate,
             headers: {
               accept: "*/*",
             },
             signal:abortController.signal,
             data: {
               
-              Id:id,
-              QuestionnaireType_Id: Number(questionSelect),
+              Id:0,
+              QuestionPage_Id: props.rowValus.Id,
+              QuestionType_EId: Number(questionSelect),
               Title: title,
               Description: description,
+              Color: color.slice(1),
               Request:request,
             },
           });
@@ -113,8 +79,10 @@ const TableModal = (props) => {
 
 
 
-  return (
 
+
+
+  return (
     <>
     {loading && <BackDrop open={loading} />}
 
@@ -132,13 +100,10 @@ const TableModal = (props) => {
                 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>{t("operatorGroupFormTitle")}</Form.Label>
-                    <Form.Control type="text" placeholder={t("questionTitlePlace")} value={title}
+                    <Form.Control type="text" placeholder={t("QuestionCreateTitle")} value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
                     />
-                    <Form.Text className="text-muted">
-                    {t("questionTitleDesc")}
-                    </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>{t("operatorGroupFormDesc")}</Form.Label>
@@ -158,6 +123,11 @@ const TableModal = (props) => {
                   
                    
                 </Form.Group>
+
+                <Form.Group className="mb-3 questionColorPicker" controlId="exampleForm.ControlTextarea1">
+                    
+                    <input  value={color} onChange={(e) => setColor(e.target.value)} type="color" className='colorPickerInput' name="favcolor" />
+                </Form.Group>
             
                 
                 <Button variant="primary" type="submit" className='questionFormSubmit mt-5'>
@@ -172,4 +142,4 @@ const TableModal = (props) => {
   )
 }
 
-export default TableModal
+export default TableQuestionModal
