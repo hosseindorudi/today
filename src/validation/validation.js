@@ -13,7 +13,6 @@ const admissionNumberVal = "^[0-9]{15}$";
             idCode === '9999999999'          
     ){
         return false;
-
     }else {
         for(let i = 0 ; i < arrayIdCode.length -1 ; i++) {
             sum += parseInt(arrayIdCode[i]) * (10-i);
