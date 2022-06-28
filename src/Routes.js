@@ -30,6 +30,8 @@ import QualityDefine from "./Views/Forms/definations/quality/qualityDefine/Quali
 import Quality from "./Views/Forms/definations/quality/Quality";
 import ReplacementTypeDefine from "./Views/Forms/definations/replacementType/replacementTypeDefine/ReplacementTypeDefine";
 import ReplacementType from "./Views/Forms/definations/replacementType/ReplacementType";
+import PartGroup from "./Views/Forms/definations/partGroup/PartGroup";
+import PartGroupDefine from "./Views/Forms/definations/partGroup/partGroupDefine/PartGroupDefine";
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")
 );
@@ -557,15 +559,29 @@ export const Routes = [
         cName: "sub-nav",
       },
       {
-        title: "routes.parts",
-        path: "/parts",
+        title: "/Definition/Part/Read",
+        path: "/Definition/Part/Read",
         access: enums.Definition_Part_Read_r,
         Component: Parts,
         button: {
           Component: PartsDefine,
-          path: "/partsForm",
-          title: "routes.partsForm",
+          title: "/Definition/Part/Write",
+        path: "/Definition/Part/Write",
           access: enums.Definition_Part_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/PartGroup/Read",
+        path: "/Definition/PartGroup/Read",
+        access: enums.Definition_PartGroup_Read_r,
+        Component: PartGroup,
+        button: {
+          Component: PartGroupDefine,
+          path: "/Definition/PartGroup/Write",
+          title: "/Definition/PartGroup/Write",
+          access: enums.Definition_PartGroup_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",

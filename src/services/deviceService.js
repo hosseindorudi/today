@@ -1,0 +1,1 @@
+export const deviceReadTitle="/Definition/Device/ReadTitle"

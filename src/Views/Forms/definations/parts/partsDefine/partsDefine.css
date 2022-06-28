@@ -1,0 +1,9 @@
+.partsRow{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 5px;
+}
+.partsRow .form-switch{
+    text-align: center;
+}
