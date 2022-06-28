@@ -18,6 +18,18 @@ import AnswerList from "./Views/Forms/Survey/answerPage/answerList/AnswerList";
 import AnswerForm from "./Views/Forms/Survey/answerPage/answerForm/AnswerForm";
 import QuestionnaireType from "./Views/Forms/definations/questionnaireType/QuestionnaireType";
 import QuestionnaireTypeDefine from "./Views/Forms/definations/questionnaireType/questionnaireTypeDefine/QuestionnaireTypeDefine";
+import Model from "./Views/Forms/definations/model/Model";
+import ModelDefine from "./Views/Forms/definations/model/modelDefine/ModelDefine";
+import OrganizationRole from "./Views/Forms/definations/organizationRole/OrganizationRole";
+import OrganizationRoleDefine from "./Views/Forms/definations/organizationRole/organizationRoleDefine/OrganizationRoleDefine";
+import OutputQualityControl from "./Views/Forms/definations/outputQualityControl/OutputQualityControl";
+import OutputQualityControlDefine from "./Views/Forms/definations/outputQualityControl/outputQualityControlDefine/OutputQualityControlDefine";
+import ProvinceDefine from "./Views/Forms/definations/province/ProvinceDefine/ProvinceDefine";
+import Province from "./Views/Forms/definations/province/Province";
+import QualityDefine from "./Views/Forms/definations/quality/qualityDefine/QualityDefine";
+import Quality from "./Views/Forms/definations/quality/Quality";
+import ReplacementTypeDefine from "./Views/Forms/definations/replacementType/replacementTypeDefine/ReplacementTypeDefine";
+import ReplacementType from "./Views/Forms/definations/replacementType/ReplacementType";
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")
 );
@@ -27,16 +39,7 @@ const CustomerList = lazy(() =>
 const CustomerForm = lazy(() =>
   import("./Views/Forms/customer/customer/CustomerForm")
 );
-const CheckListEntryFormDefine = lazy(() =>
-  import(
-    "./Views/Forms/definations/checkLists/checkListEntry/checkListEntryForm/CheckListEntryFormDefine"
-  )
-);
-const CheckListExitFormDefine = lazy(() =>
-  import(
-    "./Views/Forms/definations/checkLists/checkListExit/checkListExitFormDefine/CheckListExitFormDefine"
-  )
-);
+
 const ExtraServicesDefine = lazy(() =>
   import(
     "./Views/Forms/definations/extraServices/extraServicesDefine/ExtraServicesDefine"
@@ -148,12 +151,7 @@ const SuccessLogin = lazy(() =>
 const Admission = lazy(() =>
   import("./Views/Forms/service/admission/Admission")
 );
-const CheckListEntry = lazy(() =>
-  import("./Views/Forms/definations/checkLists/checkListEntry/CheckListEntry")
-);
-const CheckListExit = lazy(() =>
-  import("./Views/Forms/definations/checkLists/checkListExit/CheckListExit")
-);
+
 const PhoneDefects = lazy(() =>
   import("./Views/Forms/definations/phoneDefects/PhoneDefects")
 );
@@ -545,34 +543,6 @@ export const Routes = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
       {
-        title: "routes.entryCheckList",
-        path: "/entryCheckList",
-        access: enums.Definition_InputQualityControl_Read_r,
-        Component: CheckListEntry,
-        button: {
-          Component: CheckListEntryFormDefine,
-          path: "/entryCheckListForm",
-          title: "routes.entryCheckListForm",
-          access: enums.Definition_InputQualityControl_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.exitCheckList",
-        path: "/exitCheckList",
-        access: enums.Definition_OutputQualityControl_Read_r,
-        Component: CheckListExit,
-        button: {
-          Component: CheckListExitFormDefine,
-          path: "/exitCheckListForm",
-          title: "routes.exitCheckListForm",
-          access: enums.Definition_OutputQualityControl_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
         title: "routes.phoneIssues",
         path: "/phoneIssues",
         access: enums.Definition_Defect_Read_r,
@@ -601,6 +571,20 @@ export const Routes = [
         cName: "sub-nav",
       },
       {
+        title: "/Definition/OutputQualityControl/Read",
+        path: "/Definition/OutputQualityControl/Read",
+        access: enums.Definition_OutputQualityControl_Read_r,
+        Component: OutputQualityControl,
+        button: {
+          Component: OutputQualityControlDefine,
+          path: "/Definition/OutputQualityControl/Write",
+          title: "/Definition/OutputQualityControl/Write",
+          access: enums.Definition_OutputQualityControl_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
         title: "/Definition/QuestionnaireType/Read",
         path: "/Definition/QuestionnaireType/Read",
         access: enums.Definition_QuestionnaireType_Read_r,
@@ -614,20 +598,62 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
-      //     {
-      //       title: 'routes.admissionCheckList',
-      //       path:'/admissionCheckList',
-      //       access:enums.admissionCheckList,
-      //      Component:AdmissionCheckList,
-      //       button:{
-      //        Component:AdmissionCheckDefine,
-      //         path:"/admissionCheckListForm",
-      //         title:"routes.admissionCheckListForm",
-      //         access:enums.admissionCheckListForm,
-      //       },
-      //       icon: <IoIcons.IoIosPaper/> ,
-      //       cName: 'sub-nav'
-      //     },
+      {
+        title: "/Definition/Model/Read",
+        path: "/Definition/Model/Read",
+        access: enums.Definition_Model_Read_r,
+        Component: Model,
+        button: {
+          Component: ModelDefine,
+          path: "/Definition/Model/Write",
+          title: "/Definition/Model/Write",
+          access: enums.Definition_Model_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/OrganizationalRole/Read",
+        path: "/Definition/OrganizationalRole/Read",
+        access: enums.Definition_OrganizationalRole_Read_r,
+        Component: OrganizationRole,
+        button: {
+          Component: OrganizationRoleDefine,
+          path: "/Definition/OrganizationalRole/Write",
+          title: "/Definition/OrganizationalRole/Write",
+          access: enums.Definition_OrganizationalRole_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/Quality/Read",
+        path: "/Definition/Quality/Read",
+        access: enums.Definition_Quality_Read_r,
+        Component: Quality,
+        button: {
+          Component: QualityDefine,
+          path: "/Definition/Quality/Write",
+          title: "/Definition/Quality/Write",
+          access: enums.Definition_Quality_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/ReplacementType/Read",
+        path: "/Definition/ReplacementType/Read",
+        access: enums.Definition_ReplacementType_Read_r,
+        Component: ReplacementType,
+        button: {
+          Component: ReplacementTypeDefine,
+          path: "/Definition/ReplacementType/Write",
+          title: "/Definition/ReplacementType/Write",
+          access: enums.Definition_ReplacementType_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
       {
         title: "StatusDeviceStart",
         path: "/StatusDeviceStart",
