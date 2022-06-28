@@ -9,6 +9,7 @@ import useRequest from '../../../../customHooks/useRequest'
 import { customerCreate } from '../../../../services/customerService'
 import BackDrop from '../../../../Components/backDrop/BackDrop'
 import './admitionFirstForm.css'
+import { t } from 'i18next'
 const AdmitionFirstForm = () => {
     const [type, setType] = useState("")
     const [phoneNumber, setphoneNumber] = useState("")
@@ -107,7 +108,7 @@ const AdmitionFirstForm = () => {
         
         case "CreateCustomer":
               console.log(response.Title)
-              handleSeccess("مشتری جدید ساخته شد")
+              handleSeccess(t("admissionFirstForm1"))
               setResponse(undefined)
               handleClickMenu();
               
@@ -131,7 +132,7 @@ const AdmitionFirstForm = () => {
         phoneNumber.match(phoneNumberValidation) ? setPhoneValidate(true) : setPhoneValidate(false);
         
 
-        (!phoneNumber.match(phoneNumberValidation) & !idCodeValidation(idCode) ) ? handleError("شماره تماس و شماره ملی نامعتبر است") :  handleFunctions("CreateCustomer") ;
+        (!phoneNumber.match(phoneNumberValidation) & !idCodeValidation(idCode) ) ? handleError("admissionFirstForm2") :  handleFunctions("CreateCustomer") ;
 
         
 
@@ -147,19 +148,19 @@ const AdmitionFirstForm = () => {
 
     <div className="admitionFirstFormMainDiv">
         <h1 className="mainFormTitle">
-            ورود به فرم پذیرش
+            {t("admissionFirstForm3")}
         </h1>
         <div className="imeimainDiv">
-            <lable className="imeiLabel">شماره تماس را وارد کنید</lable>
+            <lable className="imeiLabel">{t("admissionFirstForm4")}</lable>
             <input type="number"  className={phoneValidate ? "imeiInput" : "imeiInput"} value={phoneNumber}   onChange={(e)=> setphoneNumber(e.target.value)}/>
         </div>
         <div className="idCodeMainDiv">
-            <lable className="idCodeLabel">شماره ملی را وارد کنید</lable>
+            <lable className="idCodeLabel">{t("admissionFirstForm5")}</lable>
             <input type="number" className={idCodeValidate ? "idCodeInput" : "idCodeInput"} value={idCode}  onChange={(e)=> setIdCode(e.target.value)}/>
         </div>
         <div className="firstFormButtons">
-          <button className='admitionFirstFormSubmit' onClick={handleSubmit}>ارسال</button>
-          <button className="admitionFirstFormCreate" >ثبت نام</button>
+          <button className='admitionFirstFormSubmit' onClick={handleSubmit}>{t("operatorGroupFormSubmit")}</button>
+          <button className="admitionFirstFormCreate" >{t("btn.signUp")}</button>
         </div>
     </div>
 

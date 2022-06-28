@@ -129,28 +129,28 @@ const CustomerForm = () => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (!firstname) {
-      handleError("نام نمیتواند خالی باشد");
+      handleError(t("customer1"));
       return;
     } else if (!lastName) {
-      handleError("نام خانوادگی نمیتواند خالی باشد");
+      handleError(t("customer2"));
       return;
     } else if (!name) {
-      handleError("حساب کاربری نمیتواند خالی باشد");
+      handleError("customer3");
       return;
     } else if (!password) {
-      handleError("رمزعبور نمیتواند خالی باشد");
+      handleError(t("customer4"));
       return;
     } else if (!idCode) {
-      handleError("شماره ملی نمیتواند خالی باشد");
+      handleError(t("customer5"));
       return;
     } else if (!phoneNumber1) {
-      handleError("شماره همراه نمیتواند خالی باشد");
+      handleError(t("customer6"));
       return;
     } else if (!idCodeValidation(idCode)) {
-      handleError("شماره ملی وارد شده صحیح نمیباشد");
+      handleError(t("customer7"));
       return;
     } else if (!phoneNumber1.match(phoneNumberValidation)) {
-      handleError("شماره همراه وارد شده صحیح نمیباشد");
+      handleError(t("customer8"));
       return;
     } else {
       setType("SUBMIT");
@@ -212,14 +212,14 @@ const CustomerForm = () => {
                 <input
                   type="text"
                   className="customerFirstName"
-                  placeholder="نام"
+                  placeholder={t("Name")}
                   value={firstname}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
                 <input
                   type="text"
                   className="customerFirstName"
-                  placeholder="نام خانوادگی"
+                  placeholder={t("lastname")}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
@@ -228,14 +228,14 @@ const CustomerForm = () => {
                 <input
                   type="text"
                   className="customerFirstName"
-                  placeholder="حساب کاربری (حروف انگلیسی)"
+                  placeholder={t("customerUser")}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
                 <input
                   type="password"
                   id="customerpassWord"
-                  placeholder="رمز عبور"
+                  placeholder={t("password")}
                   value={password}
                   onChange={(e) => setpassword(e.target.value)}
                 />
@@ -244,7 +244,7 @@ const CustomerForm = () => {
                 <input
                   type="number"
                   className="customerFirstName"
-                  placeholder="شماره ملی"
+                  placeholder={t("idcode")}
                   value={idCode}
                   onChange={(e) => setIdCode(e.target.value)}
                 />
@@ -254,23 +254,23 @@ const CustomerForm = () => {
                   className="customerGender"
                   onChange={(e) => setGender(e.target.value)}
                 >
-                  <option disabled>جنسیت</option>
-                  <option value={true}>مرد</option>
-                  <option value={false}>زن</option>
+                  <option disabled>{t("gender")}</option>
+                  <option value={true}>{t("male")}</option>
+                  <option value={false}>{t("female")}</option>
                 </select>
               </div>
               <div className="customerFourthDiv">
                 <input
                   type="number"
                   className="customerFirstName"
-                  placeholder="شماره همراه"
+                  placeholder={t("phoneNumber")}
                   value={phoneNumber1}
                   onChange={(e) => setPhoneNumber1(e.target.value)}
                 />
                 <input
                   type="number"
                   className="customerFirstName"
-                  placeholder="شماره همراه دوم (اختیاری)"
+                  placeholder={t("phoneNumber2")}
                   value={phoneNumber2}
                   onChange={(e) => setPhoneNumber2(e.target.value)}
                 />
@@ -279,14 +279,14 @@ const CustomerForm = () => {
                 <input
                   type="number"
                   className="customerFirstName"
-                  placeholder="شماره ثابت (اختیاری)"
+                  placeholder={t("homeNumber")}
                   value={housephone}
                   onChange={(e) => setHousePhone(e.target.value)}
                 />
                 <input
                   type="text"
                   className="customerFirstName"
-                  placeholder="فکس (اختیاری)"
+                  placeholder={t("fax")}
                   value={fax}
                   onChange={(e) => setfax(e.target.value)}
                 />
@@ -295,7 +295,7 @@ const CustomerForm = () => {
                 <input
                   type="text"
                   className="customerFirstName"
-                  placeholder="ایمیل (اختیاری)"
+                  placeholder={t("customerEmail")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -305,7 +305,7 @@ const CustomerForm = () => {
                   className="customerGender"
                   onChange={(e) => setGroupTitleId(e.target.value)}
                 >
-                  <option disabled>گروه مشتری</option>
+                  <option disabled>{t("customerGroup")}</option>
                   {groupTitles.map((gt, i) => (
                     <option value={gt.Id} key={gt.Id}>
                       {gt.Value}
@@ -316,7 +316,7 @@ const CustomerForm = () => {
               <div className="customerSixhDiv">
                 <textarea
                   className="customerFormTextArea"
-                  placeholder="توضیحات (اختیاری)"
+                  placeholder={t("customerDesc")}
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
                 />

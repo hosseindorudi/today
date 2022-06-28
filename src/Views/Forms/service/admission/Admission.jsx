@@ -693,9 +693,9 @@ const Admission = () => {
                   <div className="bredCrumbTable">
                     <div role="presentation" style={{ direction: "ltr" }}>
                       <Breadcrumb>
-                        <Breadcrumb.Item href="#">خانه</Breadcrumb.Item>
-                        <Breadcrumb.Item active>فرم</Breadcrumb.Item>
-                        <Breadcrumb.Item active>جدول</Breadcrumb.Item>
+                        <Breadcrumb.Item href="#">{t("admissionHome")}</Breadcrumb.Item>
+                        <Breadcrumb.Item active>{t("admissionForm")}</Breadcrumb.Item>
+                        <Breadcrumb.Item active>{t("admission2")}</Breadcrumb.Item>
                       </Breadcrumb>
                     </div>
                   </div>
@@ -714,7 +714,7 @@ const Admission = () => {
                       <Form.Control
                         className="searchTextChange"
                         type="text"
-                        placeholder="جستجو"
+                        placeholder={t("admissionSearch")}
                         onChange={handleChangeTitle}
                         value={flt_Title}
                       />
@@ -734,7 +734,7 @@ const Admission = () => {
                             setSearchBegin(newValue);
                             if (seartEnd !== null && newValue > seartEnd) {
                               alert(
-                                "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد"
+                                t("admissionDateDesc")
                               );
                               setSearchBegin(null);
                             }
@@ -764,12 +764,12 @@ const Admission = () => {
                           onChange={(newValue) => {
                             setSearchEnd(newValue);
                             if (seartBegin === null) {
-                              alert("ابتدا تاریخ شروع را مشخص کنید!!!");
+                              alert(t("admissionDateDesc1"));
                               setSearchEnd(null);
                             }
                             if (seartBegin !== null && seartBegin > newValue) {
                               alert(
-                                "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد"
+                                t("admissionDateDesc")
                               );
                               setSearchEnd(null);
                             }

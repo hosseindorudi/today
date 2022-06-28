@@ -292,11 +292,11 @@ const AmitionFinalForm = () => {
 
       <div className="mainAdmitionDiv">
         <div className="recievedmainDiv">
-          <span className="recievedSpan">شماره قبض</span>
+          <span className="recievedSpan">{t("recievtionID")}</span>
           <div className="recievedDiv">
             <span></span>
             <span>555555555555555</span>
-            <button className="recievedNew">جدید</button>
+            <button className="recievedNew">{t("admissionNew")}</button>
           </div>
           <input
             type="text"
@@ -308,38 +308,38 @@ const AmitionFinalForm = () => {
         </div>
         <div className="admitionSecondDiv">
           <div className="customerList">
-            <span className="customerSpan">مشتری</span>
+            <span className="customerSpan">{t("routes.CustomerList")}</span>
             <div className="customerDiv">
               <div className="infoCustomerDiv">
                 <div className="firstNameDiv">
-                  <span className="firstNameSpanKey">نام:</span>
+                  <span className="firstNameSpanKey">{t("name")}:</span>
                   <span className="firstNameSpanValue">حسین</span>
                 </div>
                 <div className="firstNameDiv">
-                  <span className="firstNameSpanKey">نام خانوادگی:</span>
+                  <span className="firstNameSpanKey">{t("lastName")}:</span>
                   <span className="firstNameSpanValue">درودی</span>
                 </div>
                 <div className="firstNameDiv">
-                  <span className="firstNameSpanKey">کدملی:</span>
+                  <span className="firstNameSpanKey">{t("idcode")}:</span>
                   <span className="firstNameSpanValue">000000000</span>
                 </div>
                 <div className="firstNameDiv">
-                  <span className="firstNameSpanKey">شماره تلفن:</span>
+                  <span className="firstNameSpanKey">{t("admissionHomeNumber")}:</span>
                   <span className="firstNameSpanValue">0210000000</span>
                 </div>
                 <div className="firstNameDiv">
-                  <span className="firstNameSpanKey">شماره همراه:</span>
+                  <span className="firstNameSpanKey">{t("phoneNumber")}:</span>
                   <span className="firstNameSpanValue">09120000000</span>
                 </div>
                 <div className="firstNameDiv">
-                  <span className="firstNameSpanKey">آدرس:</span>
+                  <span className="firstNameSpanKey">{t("personInformationAddress")}:</span>
                   <span className="firstNameSpanValue">
                     یوسف آباد ابن سینا شایان 23 پلاک 9 ساختمان سی تلکام
                   </span>
                 </div>
               </div>
               <div className="buttonCustomerEditDiv">
-                <button className="editCustomer">ویرایش</button>
+                <button className="editCustomer">{t("admissionEdit")}</button>
               </div>
             </div>
           </div>
@@ -348,49 +348,49 @@ const AmitionFinalForm = () => {
             <div className="groupDiv">
               <div className="grouptDivRight">
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">گروه محصول:</span>
+                  <span className="groupDivSpanKey">{t("admissionproductGroup")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">محصول:</span>
+                  <span className="groupDivSpanKey">{t("routes.product")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">بخش:</span>
+                  <span className="groupDivSpanKey">{t("admissionpart")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">مدل:</span>
+                  <span className="groupDivSpanKey">{t("ModelName")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">سریال:</span>
+                  <span className="groupDivSpanKey">{t("tech.serial")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">کد:</span>
+                  <span className="groupDivSpanKey">{t("CodeNumber")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
               </div>
               <div className="grouptDivLeft">
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">حافظه:</span>
+                  <span className="groupDivSpanKey">{t("admissionRam")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">رنگ:</span>
+                  <span className="groupDivSpanKey">{t("deviceColor")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">شرکت وارد کننده:</span>
+                  <span className="groupDivSpanKey">{t("deviceCreator")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">تاریخ خرید:</span>
+                  <span className="groupDivSpanKey">{t("admissionBuyDate")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
                 <div className="grouptDivRightMainDiv">
-                  <span className="groupDivSpanKey">تاریخ شروع گارانتی:</span>
+                  <span className="groupDivSpanKey">{t("nameLastNameINFODateTimeLabel")}:</span>
                   <span className="groupDivSpanValue">09120000000</span>
                 </div>
               </div>
@@ -399,10 +399,10 @@ const AmitionFinalForm = () => {
         </div>
 
         <div className="admitionThirdDiv">
-          <span className="admitionSpan">پذیرش</span>
+          <span className="admitionSpan">{t("menu.admission")}</span>
           <div className="admitionItemsDiv">
             <div className="deviceExtraDiv">
-              <span className="extraDeviceSpan">ایرادات</span>
+              <span className="extraDeviceSpan">{t("admissionDeffect")}</span>
               <div className="extraDeviceDiv" style={{ direction: "ltr" }}>
                 <div className="multiSelectDiv">
                   <Select
@@ -412,13 +412,13 @@ const AmitionFinalForm = () => {
                     styles={colourStyles}
                     value={selectesDeffect}
                     onChange={(e) => setSelectedDeffect(e)}
-                    placeholder="ایرادات"
+                    placeholder={t("admissionDeffect")}
                   />
                 </div>
               </div>
             </div>
             <div className="deviceExtraDiv">
-              <span className="extraDeviceSpan1">لوازم جانبی</span>
+              <span className="extraDeviceSpan1">{t("routes.accessories")}</span>
               <div className="extraDeviceDiv1" style={{ direction: "ltr" }}>
                 <div className="multiSelectDiv">
                   {/* <Multiselect
@@ -440,14 +440,14 @@ const AmitionFinalForm = () => {
                     styles={colourStyles}
                     value={selectesAccessory}
                     onChange={(e) => setSelectedAccessory(e)}
-                    placeholder="لوازم جانبی"
+                    placeholder={t("routes.accessories")}
                   />
                 </div>
               </div>
             </div>
 
             <div className="acountPatternDiv">
-              <span className="acountpatternSpan">پترن (اختیاری)</span>
+              <span className="acountpatternSpan">{t("admissionpattern")}</span>
               <div className="paternAcountDiv">
                 <div className="patternAcountButtons">
                   <button
@@ -457,7 +457,7 @@ const AmitionFinalForm = () => {
                       console.log(patternLock);
                     }}
                   >
-                    رسم الگو
+                    {t("nameLastNameINFOBtnPattern")}
                   </button>
                   <div className="sectionDiv">
                     <select
@@ -477,7 +477,7 @@ const AmitionFinalForm = () => {
             </div>
 
             <div className="acountInformationDiv">
-              <span className="aountCustomerSpan">اطلاعات اکانت</span>
+              <span className="aountCustomerSpan">{t("admissionAcount")}</span>
               <div className="acountCustomerDiv">
                 <div
                   className={gmailVal ? "acountDmailDiv2" : "acountDmailDiv"}
@@ -487,7 +487,7 @@ const AmitionFinalForm = () => {
                       gmailVal ? "acountDivGmailSpan2" : "acountDivGmailSpan"
                     }
                   >
-                    ایمیل
+                    {t("Email")}
                   </span>
                   <input
                     type="email"
@@ -505,7 +505,7 @@ const AmitionFinalForm = () => {
                       passVal ? "acountDivGmailSpan2" : "acountDivGmailSpan"
                     }
                   >
-                    رمز عبور
+                    {t("password")}
                   </span>
                   <input
                     type="password"
@@ -522,7 +522,7 @@ const AmitionFinalForm = () => {
               <span
                 className={textDivVal ? "failedDescSpan2" : "failedDescSpan"}
               >
-                توضیحات
+               {t("admissionDescription")}
               </span>
               <div className={textDivVal ? "DescDivFinal2" : "DescDivFinal"}>
                 <textarea
@@ -538,7 +538,7 @@ const AmitionFinalForm = () => {
               </div>
             </div>
             <div className="agentSignatur">
-              <span className="agentSigSpan">امضا</span>
+              <span className="agentSigSpan">{t("admissionSignature1")}</span>
               <div className="signaturePadDiv">
                 <div className="sigMainDiv">
                   <SignaturePad
@@ -552,7 +552,7 @@ const AmitionFinalForm = () => {
           </div>
         </div>
         <div className="admitionForthDiv">
-          <span className="agentSpan">کارشناس</span>
+          <span className="agentSpan">{t("admissionAgent")}</span>
           <div className="agentItemsDiv">
             <div className="agentDescription">
               <div className="agentescriptionDiv">
@@ -563,7 +563,7 @@ const AmitionFinalForm = () => {
                       : "agentDescriptionSpan"
                   }
                 >
-                  توضیحات
+                  {t("admissionDescription")}
                 </span>
                 <div
                   className={
@@ -585,7 +585,7 @@ const AmitionFinalForm = () => {
               </div>
             </div>
             <div className="agentSigPadDiv">
-              <span className="agentSigSpan1">امضا</span>
+              <span className="agentSigSpan1">{t("admissionSignature1")}</span>
               <div className="signaturePadDiv1">
                 <div className="sigMainDiv">
                   <SignaturePad
@@ -603,7 +603,7 @@ const AmitionFinalForm = () => {
             className="admitionFinalFormSubmit"
             onClick={(e) => submitAdmitionForm(e)}
           >
-            ارسال
+            {t("operatorGroupFormSubmit")}
           </button>
         </div>
       </div>

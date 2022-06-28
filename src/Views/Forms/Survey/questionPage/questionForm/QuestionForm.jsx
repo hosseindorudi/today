@@ -11,12 +11,15 @@ import { questionCreate } from '../../../../../services/questionService'
 import { toast } from "react-toastify";
 import useAxios from '../../../../../customHooks/useAxios'
 import useRequest from '../../../../../customHooks/useRequest'
+import BackDrop from '../../../../../Components/backDrop/BackDrop'
+import { questionnaireTypeReadTitle } from '../../../../../services/questionnaireType'
+import { createSelectOptions } from '../../../../../validation/functions'
+import axios from "axios";
 
 const QuestionForm = () => {
     const {t} = useTranslation()
     const [title,setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [color, setColor] = useState("#000000")
     const [enumQuestion, setEnumQuestion] = useState([])
     const [questionSelect, setQuestionSelect] = useState("")
     const colors = ['#470063', '#B30089', '#F62DAE', '#FD96A9', 
@@ -32,6 +35,8 @@ const QuestionForm = () => {
     '#E3410B',
     ];
     const abortController = new AbortController();
+
+    
 
     const tabContext = useContext(TabContext);
     const [response, loading, fetchData, setResponse] = useAxios();
@@ -58,6 +63,50 @@ const QuestionForm = () => {
         );
     };
 
+    const createParams = (service) => {
+      const params = {
+        method: "POST",
+        url: service,
+        headers: {
+          accept: "*/*",
+        },
+        data: request,
+      };
+      return params;
+    };
+
+    const getDatas = () => {
+      const questionReadTitle = axios.request(
+        createParams(questionnaireTypeReadTitle)
+      );
+      axios
+      .all([
+        questionReadTitle,
+      ])
+      .then(
+        axios.spread((...allData) => {
+          allData[0].data?.Result
+            ? setEnumQuestion(createSelectOptions(allData[0].data.Title))
+            : handleError(allData[0].data.Message);}
+
+        )
+      ).catch((error) => {
+        handleError(error.message);
+      });
+
+    }
+
+    useEffect(() => {
+      let loaded = false;
+      if (!loaded) {
+        getDatas();
+      }
+      return () => {
+        loaded = true;
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const handleError=(message)=>{
   
         toast.error(message, {
@@ -81,13 +130,15 @@ const QuestionForm = () => {
            // eslint-disable-next-line react-hooks/exhaustive-deps 
       }, [response])
 
-    useEffect(()=> {
-        Object.keys(QuestionTypeEnum).map((key) => {
+    // useEffect(()=> {
+    //     // Object.keys(QuestionTypeEnum).map((key) => {
 
-            return setEnumQuestion((prev) => [...prev, {value: QuestionTypeEnum[key], label: t(key), color: colors[Math.floor(Math.random() * colors.length)]}])
-        })
-        // eslint-disable-next-line react-hooks/exhaustive-deps 
-    }, [])
+    //     //     return setEnumQuestion((prev) => [...prev, {value: QuestionTypeEnum[key], label: t(key), color: colors[Math.floor(Math.random() * colors.length)]}])
+    //     // })
+
+
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps 
+    // }, [])
 
     const handleSubmit =(e) => {
 
@@ -114,8 +165,12 @@ const QuestionForm = () => {
 
 
   return (
+
+    <>
+    {loading && <BackDrop open={loading} />}
+    
     <div className="questionFormMain">
-        <h1 className="questionFormHeader">پرسشنامه</h1>
+        <h1 className="questionFormHeader">{t("routes.question")}</h1>
         <div className="questionCreateForm">
             <Form onSubmit={handleSubmit}>
                 
@@ -147,10 +202,7 @@ const QuestionForm = () => {
                   
                    
                 </Form.Group>
-                <Form.Group className="mb-3 questionColorPicker" controlId="exampleForm.ControlTextarea1">
-                    
-                    <input  value={color} onChange={(e) => setColor(e.target.value)} type="color" className='colorPickerInput' name="favcolor" />
-                </Form.Group>
+            
                 
                 <Button variant="primary" type="submit" className='questionFormSubmit mt-5'>
                     {t("operatorGroupFormSubmit")}
@@ -158,6 +210,8 @@ const QuestionForm = () => {
             </Form>
         </div>
     </div>
+
+    </>
   )
 }
 
