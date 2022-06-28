@@ -140,7 +140,7 @@ const AdmissionModal = (props) => {
                 {!sigCustomerEdit ?
                 (    <div className="updateModalSig">
                         <img className='imageCustomer' src={props.rowValus.Customer_Signature} alt="" />
-                        <button className='editSignature' onClick={(e) => setSigCustomerEdit(true)}>ویرایش</button>
+                        <button className='editSignature' onClick={(e) => setSigCustomerEdit(true)}>{t("admissionEdit")}</button>
                     </div>)
                     :
                     (
@@ -151,12 +151,12 @@ const AdmissionModal = (props) => {
                 }
             </Form.Group>
             <Form.Group className="mb-3">
-                <Form.Label>امضا کارشناس</Form.Label>
+                <Form.Label>{t("admissionSignature")}</Form.Label>
                 
                 {!sigOperatorEdit ?
                 (    <div className="updateModalSig">
                         <img className='imageCustomer' src={props.rowValus.Operator_Signature} alt="" />
-                        <button className='editSignature' onClick={(e) => setSigOperatorEdit(true)}>ویرایش</button>
+                        <button className='editSignature' onClick={(e) => setSigOperatorEdit(true)}>{t("admissionEdit")}</button>
                     </div>)
                     :
                     (
@@ -170,14 +170,14 @@ const AdmissionModal = (props) => {
 
             <Form.Group  className="mb-3" controlId="formBasicEmail">
                 <div className='customerDescDiv'>
-              <Form.Label>توضیحات مشتری</Form.Label>
+              <Form.Label>{t("admissionDesc")}</Form.Label>
               <textarea className='customerDesc' cols={30} rows={10} value={values.customerDisc}
               onChange={(e) => setValues({...values, customerDisc: e.target.value})}/>
               </div>
             </Form.Group>
             <Form.Group  className="mb-3" controlId="formBasicEmail">
                 <div className='customerDescDiv'>
-              <Form.Label>توضیحات کارشناس</Form.Label>
+              <Form.Label>{t("admissionDesc1")}</Form.Label>
               <textarea className='customerDesc' cols={30} rows={10} value={values.operatorDisc}
               onChange={(e) => setValues({...values, operatorDisc: e.target.value})}
               />

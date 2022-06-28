@@ -2,6 +2,7 @@ import React from 'react'
 import './changeForm.css'
 import logo from '../../../../../assets/imgs/logo22.png'
 import { FaSearch, FaWindowClose } from "react-icons/fa";
+import { t } from 'i18next';
 const ChangeForm = () => {
   
 
@@ -20,44 +21,44 @@ const ChangeForm = () => {
       <div className="changeFormMid">
         <div className="changeFormMidRight">
           <div className="chnageFormRightitem">
-            <span className="chnageFormRightitemlabel">کدملی مشتری:</span>
+            <span className="chnageFormRightitemlabel">{t("changeIdCode")}:</span>
             <span className="chnageFormRightitemValue">0123456789</span>
           </div>
           <hr className='changeFormHr'/>
           <div className="chnageFormRightitem">
-            <span className="chnageFormRightitemlabel">نام مشتری:</span>
+            <span className="chnageFormRightitemlabel">{t("CustomerName")}:</span>
             <span className="chnageFormRightitemValue">حسین درودی</span>
           </div>
           <hr className='changeFormHr'/>
           <div className="chnageFormRightitem">
-            <span className="chnageFormRightitemlabel">تلفن مشتری:</span>
+            <span className="chnageFormRightitemlabel">{t("sentPhone")}:</span>
             <span className="chnageFormRightitemValue">09123456789</span>
           </div>
           <hr className='changeFormHr'/>
           <div className="chnageFormRightitem">
-            <span className="chnageFormRightitemlabel">نوع ارسال:</span>
+            <span className="chnageFormRightitemlabel">{t("changeSendType")}:</span>
             <span className="chnageFormRightitemValue">پست</span>
           </div>
         </div>
         <div className="chnageFormMidMid"></div>
         <div className="changeFormMidLeft">
           <div className="chnageFormRightitem">
-              <span className="chnageFormRightitemlabel">شماره قبض:</span>
+              <span className="chnageFormRightitemlabel">{t("recievtionID")}:</span>
               <span className="chnageFormRightitemValue">0123456789</span>
           </div>
           <hr className='changeFormHr'/>
           <div className="chnageFormRightitem">
-              <span className="chnageFormRightitemlabel">نوع تعویض:</span>
+              <span className="chnageFormRightitemlabel">{t("changeType")}:</span>
               <span className="chnageFormRightitemValue">قطعه</span>
           </div>
           <hr className='changeFormHr'/>
           <div className="chnageFormRightitem">
-              <span className="chnageFormRightitemlabel">وضعیت گارانتی:</span>
+              <span className="chnageFormRightitemlabel">{t("changeWarranty")}:</span>
               <span className="chnageFormRightitemValue">گارانتی</span>
           </div>
           <hr className='changeFormHr'/>
           <div className="chnageFormRightitem">
-              <span className="chnageFormRightitemlabel">مانده حساب:</span>
+              <span className="chnageFormRightitemlabel">{t("changeMoney")}:</span>
               <span className="chnageFormRightitemValue">6 ملیون تومان</span>
           </div>
         </div>
@@ -68,13 +69,13 @@ const ChangeForm = () => {
           <table className="changeFormTable">
             <thead className="changeFormThead">
               <tr className="changeFormTr">
-                <th className="changeFormTh">ردیف</th>
-                <th className="changeFormTh">تاریخ پذیرش</th>
-                <th className="changeFormTh">تاریخ تعویض</th>
-                <th className="changeFormTh">مارک</th>
-                <th className="changeFormTh">نوع</th>
-                <th className="changeFormTh">مدل</th>
-                <th className="changeFormTh">imei</th>
+                <th className="changeFormTh">{t("changeRow")}</th>
+                <th className="changeFormTh">{t("tech.admissionDate")}</th>
+                <th className="changeFormTh">{t("changeDeviceChange")}</th>
+                <th className="changeFormTh">{t("tech.brand")}</th>
+                <th className="changeFormTh">{t("tech.type")}</th>
+                <th className="changeFormTh">{t("tech.model")}</th>
+                <th className="changeFormTh">{t("tech.serial")}</th>
               </tr>
             </thead>
             <tbody className="changeFormTbody">
@@ -111,7 +112,7 @@ const ChangeForm = () => {
           </table>
         </div>
       </div>
-      <button className='changeFormSubmit' onClick={handleSubmit}>ارسال</button>
+      <button className='changeFormSubmit' onClick={handleSubmit}>{t("operatorGroupFormSubmit")}</button>
     </div>
   )
 }

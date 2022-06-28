@@ -24,6 +24,7 @@ import {
 import useWindowSize from '../../../../../customHooks/useWindowSize';
 import { useRef, useState } from 'react';
 import CustomTable from '../../../../../Components/Table/Table/CustomTable';
+import TableModal from './tableModal/TableModal';
 const QuestionList = () => {
 
   const childRef = useRef();
@@ -74,6 +75,15 @@ const QuestionList = () => {
 
 
     <>
+
+      {tableModalOpen && (
+        <TableModal
+          rowValus={rowValus}
+          onHide={() => setTableModalOpen(false)}
+          tableModalShow={tableModalOpen}
+          updated={updated}
+        />
+      )}
      
       <CustomTable
         ref={childRef}

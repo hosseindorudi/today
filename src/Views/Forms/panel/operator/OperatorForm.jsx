@@ -220,22 +220,22 @@ const Operator = () => {
             <div className="inputDiv">
                 <label htmlFor="OperatorFormInputName1">{t("operatorName")}</label>
                 <input type="text" className={ nameVal ? "OperatorFormInputTitle" : "OperatorFormInputTitleFail"}  id='OperatorFormInputName1' value={name} onChange={(e) => handleSetName(e)} onBlur={handleBlureName}/>
-                {!nameVal   &&      <p className="errorMsg">لطفا فیلد نام را پر کنید</p>}
+                {!nameVal   &&      <p className="errorMsg">{t("operatorMsg")}</p>}
             </div>
             <div className="inputDiv">
                 <label htmlFor="OperatorFormInputPass1">{t("operatorPass")}</label>
                 <input type="password" className={ passVal ? "OperatorFormInputTitle" : "OperatorFormInputTitleFail"} id='OperatorFormInputPass1' value={password} onChange={(e)=> setPassword(e.target.value)} onBlur={handleBlurePass}/>
-                {!passVal   &&      <p className="errorMsg">پسورد نمیتواند خالی باشد</p>}
+                {!passVal   &&      <p className="errorMsg">{t("operatorMsg")}</p>}
             </div>
             <div className="inputDiv">
                 <label htmlFor="OperatorFormInputPassConfirm">{t("operatorPass")}</label>
                 <input type="password" className={ passConfirmVal ? "OperatorFormInputTitle" : "OperatorFormInputTitleFail"} id='OperatorFormInputPassConfirm' value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} onBlur={handleBlurePassConfirm}/>
-                {!passConfirmVal   &&      <p className="errorMsg">پسورد ها با هم برابر نیستند</p>}
+                {!passConfirmVal   &&      <p className="errorMsg">{t("operatorMsg2")}</p>}
             </div>
             <div className="inputDiv">
                 <label htmlFor="OperatorFormInputPhone1">{t("operatorPhoneNum")}</label>
                 <input type="number" className={ phoneVal ? "OperatorFormInputTitle" : "OperatorFormInputTitleFail"} id='OperatorFormInputPhone1'  value={phone} onChange={(e)=> setPhone(e.target.value)} onBlur={handleBlurePhone}/>
-                {!phoneVal   &&      <p className="errorMsg">شماره تماس را درست وارد کنید</p>}
+                {!phoneVal   &&      <p className="errorMsg">{t("operatorMsg3")}</p>}
             </div>
             <div className="inputDiv">
                 <label id="OperatorFormInputExp1">{t("operatorDatePick")}</label>
