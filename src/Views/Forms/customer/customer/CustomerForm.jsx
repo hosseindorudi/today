@@ -135,7 +135,7 @@ const CustomerForm = () => {
       handleError(t("customer2"));
       return;
     } else if (!name) {
-      handleError("customer3");
+      handleError(t("customer3"));
       return;
     } else if (!password) {
       handleError(t("customer4"));
