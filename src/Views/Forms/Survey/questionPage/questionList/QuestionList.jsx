@@ -25,6 +25,7 @@ import useWindowSize from '../../../../../customHooks/useWindowSize';
 import { useRef, useState } from 'react';
 import CustomTable from '../../../../../Components/Table/Table/CustomTable';
 import TableModal from './tableModal/TableModal';
+import TableQuestionModal from './tableQuestionModal/TableQuestionModal';
 const QuestionList = () => {
 
   const childRef = useRef();
@@ -39,6 +40,7 @@ const QuestionList = () => {
     "Password",
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
+  const [tableModalQuestionopen, setTableModalQuestionOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
   const [mobileModal, setMobileModal] = useState(false)
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
@@ -56,6 +58,11 @@ const QuestionList = () => {
     setRowValues(record);
     setTableModalOpen(true);
   };
+  const setAddQuestion = (res) => {
+    const record = res.Record;
+    setRowValues(record);
+    setTableModalQuestionOpen(true);
+  };
   const updated = () => {
     setTableModalOpen(false);
     toast.success(t("updatedRecord"), {
@@ -63,6 +70,14 @@ const QuestionList = () => {
     });
     //call update function in child class
     childRef.current.updated();
+  };
+  const addQuestion = () => {
+    setTableModalQuestionOpen(false);
+    toast.success(t("updatedRecord"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+    //call update function in child class
+    childRef.current.addQuestion();
   };
 
   const handleClickHelp = () => {
@@ -81,6 +96,14 @@ const QuestionList = () => {
           rowValus={rowValus}
           onHide={() => setTableModalOpen(false)}
           tableModalShow={tableModalOpen}
+          updated={addQuestion}
+        />
+      )}
+      {tableModalQuestionopen && (
+        <TableQuestionModal
+          rowValus={rowValus}
+          onHide={() => setTableModalQuestionOpen(false)}
+          tableModalShow={tableModalQuestionopen}
           updated={updated}
         />
       )}
@@ -112,6 +135,8 @@ const QuestionList = () => {
         permissionsAccess={""}
         getOneRecord={questionGetOneRecord}
         setUpdate={setUpdate}
+        setAddQuestion={setAddQuestion}
+        addAccess = {enums.Survey_QuestionPage_Delete_w}
         mobileModal = {mobileModal}
         setMobileModal = {setMobileModal}
         widthOFScreen ={widthOFScreen}

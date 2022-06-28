@@ -1,7 +1,6 @@
 import { Button, Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import './questionForm.css'
-import { QuestionTypeEnum } from '../../../../../data/QuestionTypeEnum' 
 import { useEffect, useState, useContext } from 'react'
 import { CustomReactMultiSelect } from '../../../../../Components/Select/customReactSelect'
 import { enums } from '../../../../../data/Enums'
@@ -130,15 +129,7 @@ const QuestionForm = () => {
            // eslint-disable-next-line react-hooks/exhaustive-deps 
       }, [response])
 
-    // useEffect(()=> {
-    //     // Object.keys(QuestionTypeEnum).map((key) => {
 
-    //     //     return setEnumQuestion((prev) => [...prev, {value: QuestionTypeEnum[key], label: t(key), color: colors[Math.floor(Math.random() * colors.length)]}])
-    //     // })
-
-
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps 
-    // }, [])
 
     const handleSubmit =(e) => {
 

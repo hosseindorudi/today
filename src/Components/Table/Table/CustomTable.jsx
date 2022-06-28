@@ -158,6 +158,21 @@ const CustomTable = forwardRef((props, ref) => {
       signal: abortController.signal,
     });
   };
+  const handleAddQuestion = (id) => {
+    setRequestType("GETONERECORDAddQuestion");
+    fetchData({
+      method: "POST",
+      url: props.getOneRecord,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        Id: id,
+      },
+      signal: abortController.signal,
+    });
+  };
   const handlePassEdit = (id) => {
     setRequestType("GETONERECORDPASS");
     fetchData({
@@ -294,6 +309,9 @@ const CustomTable = forwardRef((props, ref) => {
           break;
         case "GETONERECORD":
           props.setUpdate(response);
+          break;
+        case "GETONERECORDAddQuestion":
+          props.setAddQuestion(response);
           break;
         case "READPAGING":
           setData(response);
@@ -607,6 +625,8 @@ const CustomTable = forwardRef((props, ref) => {
             widthOFScreen={props.widthOFScreen}
             setMobileModalButtons={props.setMobileModalButtons}
             setMobileModalColumns={props.setMobileModalColumns}
+            handleAddQuestion={handleAddQuestion}
+            addAccess= {props.addAccess}
           />
           <LeftSideContainer
             {...props}

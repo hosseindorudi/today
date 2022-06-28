@@ -20,7 +20,9 @@ const TableButtons = ({
   accessListType,
   handleClickGetPermission,
   changePasswordType,
-  handlePassEdit
+  handlePassEdit,
+  handleAddQuestion,
+  addAccess
  
 }) => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -99,6 +101,17 @@ const TableButtons = ({
           }}
         >
           <fa.FaTrash />
+        </button>
+      )}
+      {haveAccess(addAccess) && (
+        <button
+          title={t("Add-Question")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+            handleAddQuestion(rowValue.Id);
+          }}
+        >
+          <fa.FaPlusCircle />
         </button>
       )}
     </div>
