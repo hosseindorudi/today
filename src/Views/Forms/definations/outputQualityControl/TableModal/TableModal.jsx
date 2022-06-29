@@ -5,7 +5,6 @@ import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { questionnaireTypeUpdate } from "../../../../../services/questionnaireType";
 import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { modelReadTitle } from "../../../../../services/modelService";
@@ -55,7 +54,7 @@ const TableModal = (props) => {
     }
   }
   useEffect(() => {
-    setModel(modelOptions.filter(i=>i.value===props.rowValus.Model_Id))
+    setModel(modelOptions.find(i=>i.value===props.rowValus.Model_Id))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modelOptions])
     useEffect(() => {

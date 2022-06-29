@@ -101,6 +101,9 @@ export const checkTableValues = (type, value, post) => {
     case "DateSet":
       return convertUTC(value);
     case "IsActive":
+      case "Activated":
+        case "IsPerishable":
+          case "MainPart":
       return <Form.Check type="switch" disabled checked={value} />;
     case "Gender":
       return value ? t("male") : t("female");
@@ -115,8 +118,6 @@ export const checkTableValues = (type, value, post) => {
           value={`#${value}`} disabled
         />
       );
-      case "Activated":
-        return <Form.Check type="switch" disabled checked={value} />;
     default:
       return value;
   }

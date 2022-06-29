@@ -5,19 +5,15 @@ import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
+import {  defintionInputs, handleError } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-import { countryReadTitle } from "../../../../../services/countryService";
-import { provinceUpdate } from "../../../../../services/provinceService";
-import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
+import { partGroupUpdate } from "../../../../../services/partGroup";
+
 
 const TableModal = (props) => {
   const [validated, setValidated] = useState(false);
-  const [type,setType]=useState("")
   const { t } = useTranslation();
   const abortController = new AbortController();
-  const [countryOptions, setCountryOptions] = useState([]);
-  const [country, setCountry] = useState(undefined);
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
   const [values, setValues] = useState({
@@ -41,40 +37,10 @@ const TableModal = (props) => {
   const submitted=(response)=>{
     props.updated()
   }
-  const handleResponse = (response, type) => {
-    switch (type) {
-      case "READTITLE":
-        setCountryOptions(createSelectOptions(response.Title));
-        break;
-      case "SUBMIT":
-        submitted();
-        break;
-      default:
-        break;
-    }
-  };
-  useEffect(() => {
-    setCountry(countryOptions.find(i=>i.value===props.rowValus.Country_Id))
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [countryOptions])
-  useEffect(() => {
-    setType("READTITLE");
-    fetchData({
-      method: "POST",
-      url: countryReadTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
-      signal: abortController.signal,
-    });
-    return () => abortController.abort();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   useEffect(() => {
     if (response) {
       response.Result
-        ? handleResponse(response, type)
+        ? submitted(response)
         : handleError(response.Message);
       setResponse(undefined);
     }
@@ -89,17 +55,16 @@ const TableModal = (props) => {
     }
     setValidated(true);
     if (form.checkValidity()) {
-      setType("SUBMIT");
+      
       fetchData({
         method: "POST",
-        url: provinceUpdate,
+        url: partGroupUpdate,
         headers: {
           accept: "*/*",
         },
         data: {
           Request: request,
           Id: props.rowValus.Id,
-          Country_Id: country?.value,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -133,21 +98,11 @@ const TableModal = (props) => {
         onSubmit={handleSubmit}
       >
         <Modal.Body>
-      
-          <Form.Group className="mb-3" controlId={"model"}>
-            <Form.Label>{t("country")}</Form.Label>
-            <CustomReactMultiSelect
-              isMulti={false}
-              options={countryOptions}
-              value={country}
-              onchangeHandler={(e) => setCountry(e)}
-              placeholder={t("country")}
-            />
-          </Form.Group>
-     
+       
         {defintionInputs(values).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
+
         </Modal.Body>
         <Modal.Footer>
           <Button disabled={loading} type='submit' >

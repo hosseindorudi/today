@@ -158,9 +158,9 @@ const PartsDefine = () => {
           Quality_Id:quality?.value,
           Id: 0,
           Length:values.length,
-          Width:values.Width,
-          Height:values.Height,
-          Weight:values.Weight,
+          Width:values.width,
+          Height:values.height,
+          Weight:values.weight,
           BodyColor:values.BodyColor,
           IsPerishable:values.IsPerishable,
           MainPart:values.MainPart,
@@ -272,7 +272,7 @@ const PartsDefine = () => {
             <Form.Check
               name="IsPerishable"
               type="switch"
-              value={values.IsPerishable}
+              checked={values.IsPerishable}
               onChange={onChangeSwitch}
             />
           </Form.Group>
@@ -293,7 +293,7 @@ const PartsDefine = () => {
             <Form.Check
               name="MainPart"
               type="switch"
-              value={values.MainPart}
+              checked={values.MainPart}
               onChange={onChangeSwitch}
               
             />
