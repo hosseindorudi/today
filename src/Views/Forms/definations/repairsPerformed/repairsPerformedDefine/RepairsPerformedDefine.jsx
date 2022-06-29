@@ -8,21 +8,21 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
-import { countryReadTitle } from "../../../../../services/countryService";
-import { provinceCreate } from "../../../../../services/provinceService";
+import { modelReadTitle } from "../../../../../services/modelService";
+import { repairsPerformedCreate } from "../../../../../services/repairsPerformed";
 import {
   createSelectOptions,
   defintionInputs,
   handleError,
 } from "../../../../../validation/functions";
-import Province from "../Province";
-
-const ProvinceDefine = () => {
+import RepairsPerformed from "../RepairsPerformed";
+import './repairsDefine.css'
+const RepairsPerformedDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const [validated, setValidated] = useState(false);
   const [type, setType] = useState("");
-  const [countryOptions, setCountryOptions] = useState([]);
-  const [country, setCountry] = useState(undefined);
+  const [modelOptions, setModelOptions] = useState([]);
+  const [model, setModel] = useState(undefined);
   const request = useRequest();
   const tabContext = useContext(TabContext);
   const abortController = new AbortController();
@@ -31,6 +31,7 @@ const ProvinceDefine = () => {
     color: "#000000",
     periority: 1,
     desc: "",
+    fee:0
   });
   const { t } = useTranslation();
   const submitted = () => {
@@ -39,19 +40,19 @@ const ProvinceDefine = () => {
     });
     tabContext.addRemoveTabs(
       {
-        title: "/Definition/Province/Write",
-        path: "/Definition/Province/Write",
-        access: enums.Definition_Province_Create_w,
-        Component: ProvinceDefine,
+        Component:RepairsPerformedDefine,
+        path: "/Definition/RepairsPerformed/Write",
+        title: "/Definition/RepairsPerformed/Write",
+        access: enums.Definition_RepairsPerformed_Create_w,
       },
       "remove"
     );
     tabContext.addRemoveTabs(
       {
-        title: "/Definition/Province/Read",
-        path: "/Definition/Province/Read",
-        access: enums.Definition_Province_Read_r,
-        Component: Province,
+        title: "/Definition/RepairsPerformed/Read",
+        path: "/Definition/RepairsPerformed/Read",
+        access: enums.Definition_RepairsPerformed_Read_r,
+        Component: RepairsPerformed,
       },
       "add"
     );
@@ -59,7 +60,7 @@ const ProvinceDefine = () => {
   const handleResponse = (response, type) => {
     switch (type) {
       case "READTITLE":
-        setCountryOptions(createSelectOptions(response.Title));
+        setModelOptions(createSelectOptions(response.Title));
         break;
       case "SUBMIT":
         submitted();
@@ -72,7 +73,7 @@ const ProvinceDefine = () => {
     setType("READTITLE");
     fetchData({
       method: "POST",
-      url: countryReadTitle,
+      url: modelReadTitle,
       headers: {
         accept: "*/*",
       },
@@ -103,14 +104,15 @@ const ProvinceDefine = () => {
       setType("SUBMIT");
       fetchData({
         method: "POST",
-        url: provinceCreate,
+        url: repairsPerformedCreate,
         headers: {
           accept: "*/*",
         },
         data: {
           Request: request,
           Id: 0,
-          Country_Id: country?.value,
+          Model_Id: model?.value,
+          fee:values.fee,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -136,17 +138,21 @@ const ProvinceDefine = () => {
         validated={validated}
         onSubmit={handleSubmit}
       >
-        <b>{t("/Definition/Province/Write")}</b>
-        <div className="modelRow">
+        <b>{t("/Definition/RepairsPerformed/Write")}</b>
+        <div className="repairRow">
           <Form.Group className="mb-3" controlId={"model"}>
-            <Form.Label>{t("country")}</Form.Label>
+            <Form.Label>{t("model")}</Form.Label>
             <CustomReactMultiSelect
               isMulti={false}
-              options={countryOptions}
-              value={country}
-              onchangeHandler={(e) => setCountry(e)}
-              placeholder={t("country")}
+              options={modelOptions}
+              value={model}
+              onchangeHandler={(e) => setModel(e)}
+              placeholder={t("model")}
             />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId={"model"}>
+            <Form.Label>{t("fee")}</Form.Label>
+            <Form.Control name="fee" value={values.fee} type="number" onChange={onChangeHandler} />
           </Form.Group>
         </div>
         {defintionInputs(values).map((input) => (
@@ -160,4 +166,4 @@ const ProvinceDefine = () => {
   );
 };
 
-export default ProvinceDefine;
+export default RepairsPerformedDefine;

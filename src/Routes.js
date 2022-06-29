@@ -32,6 +32,13 @@ import ReplacementTypeDefine from "./Views/Forms/definations/replacementType/rep
 import ReplacementType from "./Views/Forms/definations/replacementType/ReplacementType";
 import PartGroup from "./Views/Forms/definations/partGroup/PartGroup";
 import PartGroupDefine from "./Views/Forms/definations/partGroup/partGroupDefine/PartGroupDefine";
+import RepairsPerformed from "./Views/Forms/definations/repairsPerformed/RepairsPerformed";
+import RepairsPerformedDefine from "./Views/Forms/definations/repairsPerformed/repairsPerformedDefine/RepairsPerformedDefine";
+import Section from "./Views/Forms/definations/section/Section";
+import SectionDefine from "./Views/Forms/definations/section/sectionDefine/SectionDefine";
+import { SendType } from "./Views/Forms/definations/sendType/SendType";
+
+import SendTypeDefine from "./Views/Forms/definations/sendType/sendTypeDefine/SendTypeDefine";
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")
 );
@@ -545,6 +552,20 @@ export const Routes = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
       {
+        title: "/Definition/Province/Read",
+        path: "/Definition/Province/Read",
+        access: enums.Definition_Province_Read_r,
+        Component: Province,
+        button: {
+          title: "/Definition/Province/Write",
+          path: "/Definition/Province/Write",
+          access: enums.Definition_Province_Create_w,
+          Component: ProvinceDefine,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
         title: "routes.phoneIssues",
         path: "/phoneIssues",
         access: enums.Definition_Defect_Read_r,
@@ -657,6 +678,20 @@ export const Routes = [
         cName: "sub-nav",
       },
       {
+        title: "/Definition/RepairsPerformed/Read",
+        path: "/Definition/RepairsPerformed/Read",
+        access: enums.Definition_RepairsPerformed_Read_r,
+        Component: RepairsPerformed,
+        button: {
+          Component:RepairsPerformedDefine,
+          path: "/Definition/RepairsPerformed/Write",
+          title: "/Definition/RepairsPerformed/Write",
+          access: enums.Definition_RepairsPerformed_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
         title: "/Definition/ReplacementType/Read",
         path: "/Definition/ReplacementType/Read",
         access: enums.Definition_ReplacementType_Read_r,
@@ -671,42 +706,70 @@ export const Routes = [
         cName: "sub-nav",
       },
       {
-        title: "StatusDeviceStart",
-        path: "/StatusDeviceStart",
+        title: "/Definition/Section/Read",
+        path: "/Definition/Section/Read",
+        access: enums.Definition_Section_Read_r,
+        Component: Section,
+        button: {
+          Component: SectionDefine,
+          path: "/Definition/Section/Write",
+          title: "/Definition/Section/Write",
+          access: enums.Definition_Section_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/SendType/Read",
+        path: "/Definition/SendType/Read",
+        access: enums.Definition_SendType_Read_r,
+        Component: SendType,
+        button: {
+          Component: SendTypeDefine,
+          path: "/Definition/SendType/Write",
+          title: "/Definition/SendType/Write",
+          access: enums.Definition_SendType_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/StatusDeviceStart/Read",
+        path: "/Definition/StatusDeviceStart/Read",
         access: enums.Definition_StatusDeviceStart_Read_r,
         Component: StatusDeviceStart,
         button: {
           Component: StatusDeviceStartDefine,
-          path: "/StatusDeviceStartDefine",
-          title: "StatusDeviceStartDefine",
+          path: "/Definition/StatusDeviceStart/Write",
+          title: "/Definition/StatusDeviceStart/Write",
           access: enums.Definition_StatusDeviceStart_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
       {
-        title: "StatusDeviceProgress",
-        path: "/statusdeviceprogress",
+        title: "/Definition/StatusDeviceProgress/Read",
+        path: "/Definition/StatusDeviceProgress/Read",
         access: enums.Definition_StatusDeviceProgress_Read_r,
         Component: StatusDeviceProgress,
         button: {
           Component: StatusDeviceProgressDefine,
-          path: "/statusdeviceprogressdefine",
-          title: "StatusDeviceProgressDefine",
+          title: "/Definition/StatusDeviceProgress/Write",
+          path: "/Definition/StatusDeviceProgress/Write",
           access: enums.Definition_StatusDeviceProgress_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
       {
-        title: "StatusDeviceEnd",
-        path: "/StatusDeviceEnd",
+        title: "/Definition/StatusDeviceEnd/Read",
+        path: "/Definition/StatusDeviceEnd/Read",
         access: enums.Definition_StatusDeviceEnd_Read_r,
         Component: StatusDeviceEnd,
         button: {
           Component: StatusDeviceEndDefine,
-          path: "/StatusDeviceEndDefine",
-          title: "StatusDeviceEndDefine",
+          title: "/Definition/StatusDeviceEnd/Write",
+          path: "/Definition/StatusDeviceEnd/Write",
           access: enums.Definition_StatusDeviceEnd_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
