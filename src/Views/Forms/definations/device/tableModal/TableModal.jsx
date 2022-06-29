@@ -6,15 +6,15 @@ import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
+import { companyReadTitle } from "../../../../../services/companyService";
 import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
+import { DeviceUpdate } from "../../../../../services/deviceService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
-import { modelReadTitle } from "../../../../../services/modelService";
-import { additionalServiceUpdate } from "../../../../../services/additionalServiceService";
 const TableModal = (props) => {
 const [validated, setValidated] = useState(false);
-const [modelOptions,setModelOptions]=useState([])
-const [model, setModel] = useState(undefined);
+  const [companyOptions,setCompanyOptions]=useState([])
+  const [company, setCompany] = useState(undefined);
   const { t } = useTranslation();
   const abortController = new AbortController();
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -50,17 +50,17 @@ const [model, setModel] = useState(undefined);
   };
 
   const getDatas=()=>{
-    const modelTitles = axios.request(
-      createParams(modelReadTitle)
+    const companyTitles = axios.request(
+      createParams(companyReadTitle)
     );
     axios
     .all([
-      modelTitles,
+      companyTitles,
     ])
     .then(
       axios.spread((...allData) => {
         allData[0].data?.Result
-          ? setModelOptions(createSelectOptions(allData[0].data.Title))
+          ? setCompanyOptions(createSelectOptions(allData[0].data.Title))
           : handleError(allData[0].data.Message);
           })
     )
@@ -70,14 +70,15 @@ const [model, setModel] = useState(undefined);
   }
   useEffect(() => {
       getDatas();
-      
+     
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    setModel(modelOptions.find((m) => m.value === props.rowValus.Model_Id))
+    console.log(companyOptions)
+    setCompany(companyOptions.find((m) => m.value === props.rowValus.Company_Id))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[modelOptions])
+  },[companyOptions])
   
   const handleResponse=(response)=>{
     props.updated()
@@ -102,18 +103,20 @@ const [model, setModel] = useState(undefined);
     if (form.checkValidity()) {
       fetchData({
         method: "POST",
-        url: additionalServiceUpdate,
+        url: DeviceUpdate,
         headers: {
           accept: "*/*",
         },
         data: {
           Request: request,
-          Model_Id:model?.value,
+          Company_Id:company?.value,
           Id: props.rowValus.Id,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
           Color: values.color.substring(1),
+          SourceType: 0,
+          Registrar: 0,
           DateSet: "2022-06-19T16:43:29.709Z",
         },
         signal: abortController.signal,
@@ -145,16 +148,16 @@ const [model, setModel] = useState(undefined);
         <Modal.Body>
 
         <div className="modelDefineRow">
-            <Form.Group className="mb-3" controlId={"model"}>
-                <Form.Label>{t("model")}</Form.Label>
-                    <CustomReactMultiSelect
-                    isMulti={false}
-                    options={modelOptions}
-                    value={model}
-                    onchangeHandler={(e) => setModel(e)}
-                    placeholder={t("model")}
-                    />
-           </Form.Group>
+        <Form.Group className="mb-3" controlId={"company"}>
+        <Form.Label>{t("company")}</Form.Label>
+          <CustomReactMultiSelect
+            isMulti={false}
+            options={companyOptions}
+            value={company}
+            onchangeHandler={(e) => setCompany(e)}
+            placeholder={t("company")}
+          />
+         </Form.Group>
 
         </div>
         {defintionInputs(values).map((input) => (

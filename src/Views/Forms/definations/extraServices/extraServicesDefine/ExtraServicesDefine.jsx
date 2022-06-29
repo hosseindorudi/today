@@ -9,11 +9,16 @@ import { enums } from '../../../../../data/Enums';
 import { toast } from "react-toastify";
 import { additionalServiceCreate } from '../../../../../services/additionalServiceService';
 import ExtraServices from '../ExtraServices';
-import { defintionInputs } from '../../../../../validation/functions';
+import { createSelectOptions, defintionInputs, handleError } from '../../../../../validation/functions';
 import { Form, Button } from "react-bootstrap";
+import { modelReadTitle } from '../../../../../services/modelService';
+import axios from 'axios'
+import { CustomReactMultiSelect } from '../../../../../Components/Select/customReactSelect';
 const ExtraServicesDefine = () => {
   const [validated, setValidated] = useState(false);
     const [response, loading, fetchData, setResponse] = useAxios();
+    const [modelOptions,setModelOptions]=useState([])
+    const [model, setModel] = useState(undefined);
     const tabContext = useContext(TabContext);
     const request = useRequest();
     const abortController = new AbortController();
@@ -47,11 +52,42 @@ const ExtraServicesDefine = () => {
         "add"
       );
     };
-    const handleError = (message) => {
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+    const createParams = (service) => {
+      const params = {
+        method: "POST",
+        url: service,
+        headers: {
+          accept: "*/*",
+        },
+        data: request,
+      };
+      return params;
     };
+   const getDatas=()=>{
+      const modelTitles = axios.request(
+        createParams(modelReadTitle)
+      );
+      axios
+      .all([
+        modelTitles,
+      ])
+      .then(
+        axios.spread((...allData) => {
+          allData[0].data?.Result
+            ? setModelOptions(createSelectOptions(allData[0].data.Title))
+            : handleError(allData[0].data.Message);
+            })
+      )
+      .catch((error) => {
+        handleError(error.message);
+      });
+    }
+    useEffect(() => {
+        getDatas();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    
   
     useEffect(() => {
       if (response) {
@@ -85,12 +121,11 @@ const ExtraServicesDefine = () => {
         data: {
           Request: request,
           Id: 0,
+          Model_Id:model?.value,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
           Color: values.color.substring(1),
-          SourceType: 0,
-          Registrar: 0,
           DateSet: "2022-06-19T16:43:29.709Z",
         },
         signal: abortController.signal,
@@ -106,7 +141,19 @@ const ExtraServicesDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("ExtraServicesDefineHeader")}</b>
-
+          <div className="modelDefineRow">
+          <Form.Group className="mb-3" controlId={"model"}>
+          <Form.Label>{t("model")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={modelOptions}
+              value={model}
+              onchangeHandler={(e) => setModel(e)}
+              placeholder={t("model")}
+            />
+           </Form.Group>
+  
+          </div>
         {defintionInputs(values).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}

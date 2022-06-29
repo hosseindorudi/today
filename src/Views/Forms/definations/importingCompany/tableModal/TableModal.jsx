@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {  Button, Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
 
@@ -8,7 +8,7 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-import {defectUpdate} from '../../../../../services/defectService'
+import { ImportingCompanyUpdate } from "../../../../../services/importingCompanyService";
 import { defintionInputs } from "../../../../../validation/functions";
 
 
@@ -20,10 +20,11 @@ const TableModal = (props) => {
     periority: val.Priority,
     desc: val.Description,
   });
-  const [response, loading, fetchData] = useAxios();
+  const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
 
+  
 
 
   const handleError = (message) => {
@@ -43,6 +44,7 @@ const TableModal = (props) => {
         ? handleResponse(response)
         : handleError(response.Message);
     }
+    setResponse(undefined)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -50,7 +52,7 @@ const TableModal = (props) => {
     e.preventDefault();
     fetchData({
       method: "POST",
-      url:defectUpdate ,
+      url: ImportingCompanyUpdate,
       headers: {
         accept: "*/*",
       },
@@ -61,8 +63,6 @@ const TableModal = (props) => {
         Title: values.title,
         Description: values.desc,
         Color: values.color.substring(1),
-        SourceType: 0,
-        Registrar: 0,
         DateSet: "2022-06-19T16:43:29.709Z",
       },
       signal: abortController.signal,

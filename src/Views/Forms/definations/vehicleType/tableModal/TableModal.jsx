@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {  Button, Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
 
@@ -8,7 +8,7 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-import {warrantyTypeUpdate} from '../../../../../services/warrantyType'
+import { VehicleTypeUpdate } from "../../../../../services/vehicleTypeService";
 import { defintionInputs } from "../../../../../validation/functions";
 
 
@@ -23,6 +23,9 @@ const TableModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
+
+  
+
 
   const handleError = (message) => {
     toast.error(message, {
@@ -40,16 +43,16 @@ const TableModal = (props) => {
       response.Result
         ? handleResponse(response)
         : handleError(response.Message);
-        setResponse(undefined)
     }
+    setResponse(undefined)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response,handleResponse]);
+  }, [response]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchData({
       method: "POST",
-      url:warrantyTypeUpdate ,
+      url: VehicleTypeUpdate,
       headers: {
         accept: "*/*",
       },
