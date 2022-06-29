@@ -588,20 +588,6 @@ export const Routes = [
         cName: "sub-nav",
       },
       {
-        title: "routes.phoneIssues",
-        path: "/phoneIssues",
-        access: enums.Definition_Defect_Read_r,
-        Component: PhoneDefects,
-        button: {
-          Component: PhoneDefectsForm,
-          path: "/phoneIssuesForm",
-          title: "routes.phoneIssuesForm",
-          access: enums.Definition_Defect_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
         title: "/Definition/Part/Read",
         path: "/Definition/Part/Read",
         access: enums.Definition_Part_Read_r,
