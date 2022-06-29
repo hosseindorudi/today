@@ -2,13 +2,12 @@ import React, {  useEffect, useState } from "react";
 import {  Button, Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
 
-
 import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-import {reasonForCancellationOfWarrantyUpdate} from '../../../../../services/warrantyCancellationService'
+import { reasonForCancellationOfWarrantyUpdate } from "../../../../../services/warrantyCancellationService";
 import { defintionInputs } from "../../../../../validation/functions";
 
 
@@ -23,8 +22,6 @@ const TableModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
-
- 
 
   const handleError = (message) => {
     toast.error(message, {
@@ -44,14 +41,14 @@ const TableModal = (props) => {
         : handleError(response.Message);
         setResponse(undefined)
     }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response,handleResponse]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchData({
       method: "POST",
-      url: reasonForCancellationOfWarrantyUpdate,
+      url:reasonForCancellationOfWarrantyUpdate ,
       headers: {
         accept: "*/*",
       },
@@ -62,8 +59,6 @@ const TableModal = (props) => {
         Title: values.title,
         Description: values.desc,
         Color: values.color.substring(1),
-        SourceType: 0,
-        Registrar: 0,
         DateSet: "2022-06-19T16:43:29.709Z",
       },
       signal: abortController.signal,

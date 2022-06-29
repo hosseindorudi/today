@@ -200,6 +200,14 @@ const VehicleTypeList = lazy(() =>
   import("./Views/Forms/definations/vehicleType/VehicleTypeList") );
 const VehicleTypeForm = lazy(() =>
   import("./Views/Forms/definations/vehicleType/vehicleTypeForm/VehicleTypeForm") );
+const CityList = lazy(() =>
+  import("./Views/Forms/definations/city/CityList") );
+const CityForm = lazy(() =>
+  import("./Views/Forms/definations/city/cityForm/CityForm") );
+const AreaList = lazy(() =>
+  import("./Views/Forms/definations/area/AreaList") );
+const AreaForm = lazy(() =>
+  import("./Views/Forms/definations/area/areaForm/AreaForm") );
 export const Routes = [
   {
     title: "routes.panel",
@@ -924,15 +932,15 @@ export const Routes = [
       //       cName: 'sub-nav'
       //     },
       {
-        title: "routes.warrantyCancelation",
-        path: "/warrantyCancelation",
-        access: enums.Definition_ReasonForCancellationOfWarranty_Read_r,
+        title: "/Definition/warrantyCancelation/Read",
+        path: "/Definition/warrantyCancelation/Read",
+        access: enums.Definition_CancellationOfWarranty_Read_r,
         Component: WarrantyCancelation,
         button: {
           Component: WarrantyCancelationForm,
-          path: "/warrantyCancelationForm",
-          title: "routes.warrantyCancelationForm",
-          access: enums.Definition_ReasonForCancellationOfWarranty_Create_w,
+          path: "/Definition/warrantyCancelation/Write",
+          title: "/Definition/warrantyCancelation/Write",
+          access: enums.Definition_CancellationOfWarranty_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
@@ -1073,6 +1081,34 @@ export const Routes = [
           path: "/Definition/VehicleType/Write",
           title: "/Definition/VehicleType/Write",
           access: enums.Definition_VehicleType_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/City/Read",
+        path: "/Definition/City/Read",
+        access: enums.Definition_City_Read_r,
+        Component: CityList,
+        button: {
+          Component: CityForm,
+          path: "/Definition/City/Write",
+          title: "/Definition/City/Write",
+          access: enums.Definition_City_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/Area/Read",
+        path: "/Definition/Area/Read",
+        access: enums.Definition_Area_Read_r,
+        Component: AreaList,
+        button: {
+          Component: AreaForm,
+          path: "/Definition/Area/Write",
+          title: "/Definition/Area/Write",
+          access: enums.Definition_Area_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
