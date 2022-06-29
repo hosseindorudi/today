@@ -1,16 +1,9 @@
-.updateCustomerModal .switchModalCustomer{
+.modelDefineRow{
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    width: 100%;
+    gap: 5px;
 }
-.updateCustomerModal .updateModalRow{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.updateCustomerModal .FormGroupUpdateModal{
-    width: 40%;
-}
-.updateModalRow .textAreaUpdate{
-    width: 90%;
-}
+.modelDefineRow .mb-3{width: 100%;}

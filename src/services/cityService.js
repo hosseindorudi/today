@@ -1,0 +1,1 @@
+export const cityReadTitle="/Definition/City/ReadTitle"

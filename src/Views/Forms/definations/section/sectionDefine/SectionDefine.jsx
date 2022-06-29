@@ -8,21 +8,20 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
-import { countryReadTitle } from "../../../../../services/countryService";
-import { provinceCreate } from "../../../../../services/provinceService";
+import { cityReadTitle } from "../../../../../services/cityService";
+import { sectionCreate } from "../../../../../services/sectionService";
 import {
   createSelectOptions,
   defintionInputs,
   handleError,
 } from "../../../../../validation/functions";
-import Province from "../Province";
-
-const ProvinceDefine = () => {
+import Section from "../Section";
+const SectionDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const [validated, setValidated] = useState(false);
   const [type, setType] = useState("");
-  const [countryOptions, setCountryOptions] = useState([]);
-  const [country, setCountry] = useState(undefined);
+  const [cityOptions, setCityOptions] = useState([]);
+  const [city, setCity] = useState(undefined);
   const request = useRequest();
   const tabContext = useContext(TabContext);
   const abortController = new AbortController();
@@ -30,7 +29,7 @@ const ProvinceDefine = () => {
     title: "",
     color: "#000000",
     periority: 1,
-    desc: "",
+    desc: ""
   });
   const { t } = useTranslation();
   const submitted = () => {
@@ -39,19 +38,19 @@ const ProvinceDefine = () => {
     });
     tabContext.addRemoveTabs(
       {
-        title: "/Definition/Province/Write",
-        path: "/Definition/Province/Write",
-        access: enums.Definition_Province_Create_w,
-        Component: ProvinceDefine,
+        Component: SectionDefine,
+        path: "/Definition/Section/Write",
+        title: "/Definition/Section/Write",
+        access: enums.Definition_Section_Create_w,
       },
       "remove"
     );
     tabContext.addRemoveTabs(
       {
-        title: "/Definition/Province/Read",
-        path: "/Definition/Province/Read",
-        access: enums.Definition_Province_Read_r,
-        Component: Province,
+        title: "/Definition/Section/Read",
+        path: "/Definition/Section/Read",
+        access: enums.Definition_Section_Read_r,
+        Component: Section,
       },
       "add"
     );
@@ -59,7 +58,7 @@ const ProvinceDefine = () => {
   const handleResponse = (response, type) => {
     switch (type) {
       case "READTITLE":
-        setCountryOptions(createSelectOptions(response.Title));
+        setCityOptions(createSelectOptions(response.Title));
         break;
       case "SUBMIT":
         submitted();
@@ -72,7 +71,7 @@ const ProvinceDefine = () => {
     setType("READTITLE");
     fetchData({
       method: "POST",
-      url: countryReadTitle,
+      url: cityReadTitle,
       headers: {
         accept: "*/*",
       },
@@ -103,14 +102,14 @@ const ProvinceDefine = () => {
       setType("SUBMIT");
       fetchData({
         method: "POST",
-        url: provinceCreate,
+        url: sectionCreate,
         headers: {
           accept: "*/*",
         },
         data: {
           Request: request,
           Id: 0,
-          Country_Id: country?.value,
+          City_Id: city?.value,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -136,19 +135,18 @@ const ProvinceDefine = () => {
         validated={validated}
         onSubmit={handleSubmit}
       >
-        <b>{t("/Definition/Province/Write")}</b>
-        <div className="modelRow">
-          <Form.Group className="mb-3" controlId={"model"}>
-            <Form.Label>{t("country")}</Form.Label>
+        <b>{t("/Definition/Section/Write")}</b>
+          <Form.Group className="mb-3" controlId={"city"}>
+            <Form.Label>{t("city")}</Form.Label>
             <CustomReactMultiSelect
               isMulti={false}
-              options={countryOptions}
-              value={country}
-              onchangeHandler={(e) => setCountry(e)}
-              placeholder={t("country")}
+              options={cityOptions}
+              value={city}
+              onchangeHandler={(e) => setCity(e)}
+              placeholder={t("city")}
             />
           </Form.Group>
-        </div>
+      
         {defintionInputs(values).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
@@ -160,4 +158,4 @@ const ProvinceDefine = () => {
   );
 };
 
-export default ProvinceDefine;
+export default SectionDefine;

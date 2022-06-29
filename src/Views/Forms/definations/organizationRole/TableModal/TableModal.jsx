@@ -5,41 +5,45 @@ import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { questionnaireTypeUpdate } from "../../../../../services/questionnaireType";
 import { defintionInputs, handleError } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
+import { organizationalRoleUpdate } from "../../../../../services/organizationRoleService";
 
 const TableModal = (props) => {
-  const [validated, setValidated] = useState(false);
-  const { t } = useTranslation();
-  const abortController = new AbortController();
   const [response, loading, fetchData, setResponse] = useAxios();
+  const [validated, setValidated] = useState(false);
   const request = useRequest();
+  const abortController = new AbortController();
   const [values, setValues] = useState({
     title: "",
     color: "#000000",
     periority: 1,
     desc: "",
+    group:"",
+    percentage: 0,
+   
   });
+  const { t } = useTranslation();
+  const handleResponse = (response) => {
+    props.updated();
+  };
   useEffect(() => {
-    const prop = props.rowValus;
+    const prop=props.rowValus
     setValues({
       ...values,
       title: prop.Title,
       color: `#${prop.Color}`,
       periority: prop.Priority,
       desc: prop.Description,
+      group: prop.Group,
+      percentage: prop.Percentage
     });
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  
-  const handleResponse=(response)=>{
-    props.updated()
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   useEffect(() => {
     if (response) {
       response.Result
-        ? handleResponse()
+        ? handleResponse(response)
         : handleError(response.Message);
       setResponse(undefined);
     }
@@ -50,19 +54,22 @@ const TableModal = (props) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.checkValidity()) {
-     e.stopPropagation();
+      e.stopPropagation();
     }
     setValidated(true);
     if (form.checkValidity()) {
+      
       fetchData({
         method: "POST",
-        url: questionnaireTypeUpdate,
+        url: organizationalRoleUpdate,
         headers: {
           accept: "*/*",
         },
         data: {
           Request: request,
           Id: props.rowValus.Id,
+          Group:values.group,
+          Percentage:values.percentage,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -73,14 +80,13 @@ const TableModal = (props) => {
         },
         signal: abortController.signal,
       });
-      
-     }
-    
-  
+    }
   };
+
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
   return (
     <Modal
       show={props.tableModalShow}
@@ -99,12 +105,30 @@ const TableModal = (props) => {
       >
         <Modal.Body>
         {defintionInputs(values).map((input) => (
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChangeHandler}
-              />
-            ))}
+          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+        ))}
+        <div className="OrganizationRow">
+          <Form.Group className="mb-3" controlId={"group"}>
+            <Form.Label>{t("organization.group")}</Form.Label>
+            <Form.Control
+              type="text"
+              name="group"
+              onChange={onChangeHandler}
+              value={values.group}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId={"Percent"}>
+            <Form.Label>{t("organization.percent")}</Form.Label>
+            <Form.Control
+              type="number"
+              min="0"
+              name="percentage"
+              value={values.percentage}
+              onChange={onChangeHandler}
+            />
+          </Form.Group>
+        </div>
 
 
         </Modal.Body>
