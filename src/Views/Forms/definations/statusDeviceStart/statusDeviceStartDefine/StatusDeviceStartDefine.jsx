@@ -31,16 +31,16 @@ const StatusDeviceStartDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: StatusDeviceStartDefine,
-        path: "/StatusDeviceStartDefine",
-        title: "StatusDeviceStartDefine",
-        access: enums.Definition_StatusDeviceStart_Create_w,
+          path: "/Definition/StatusDeviceStart/Write",
+          title: "/Definition/StatusDeviceStart/Write",
+          access: enums.Definition_StatusDeviceStart_Create_w,
       },
       "remove"
     );
     tabContext.addRemoveTabs(
       {
-        title: "StatusDeviceStart",
-        path: "/StatusDeviceStart",
+        title: "/Definition/StatusDeviceStart/Read",
+        path: "/Definition/StatusDeviceStart/Read",
         access: enums.Definition_StatusDeviceStart_Read_r,
         Component: StatusDeviceStart,
       },

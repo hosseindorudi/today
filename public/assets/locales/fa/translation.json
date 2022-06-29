@@ -499,6 +499,8 @@
 "/Definition/StatusDeviceEnd/Write":"فرم وضعیت پایانی",
 "city":"شهر",
 "fee":"هزینه",
+"Fee":"هزینه",
+"City_Title":"شهر",
 "Add-Question":"اضافه کردن سوال",
 "QuestionCreateTitle":"عنوان سوال",
 "device":"دستگاه",

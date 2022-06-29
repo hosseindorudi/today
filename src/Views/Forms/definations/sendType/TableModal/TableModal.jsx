@@ -5,13 +5,15 @@ import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { defintionInputs, handleError } from "../../../../../validation/functions";
+import {  defintionInputs, handleError } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-import { replacementTypeUpdate } from "../../../../../services/replacementTypeService";
+import { sendTypeUpdate } from "../../../../../services/sendType";
+
 
 const TableModal = (props) => {
   const [validated, setValidated] = useState(false);
   const { t } = useTranslation();
+  const [type, setType] = useState("");
   const abortController = new AbortController();
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
@@ -32,14 +34,22 @@ const TableModal = (props) => {
     });
      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
-  const handleResponse=(response)=>{
+  const submitted=()=>{
     props.updated()
   }
+  const handleResponse = (response, type) => {
+    switch (type) {
+      case "SUBMIT":
+        submitted();
+        break;
+      default:
+        break;
+    }
+  };
   useEffect(() => {
     if (response) {
       response.Result
-        ? handleResponse()
+        ? handleResponse(response, type)
         : handleError(response.Message);
       setResponse(undefined);
     }
@@ -50,13 +60,14 @@ const TableModal = (props) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.checkValidity()) {
-     e.stopPropagation();
+      e.stopPropagation();
     }
     setValidated(true);
     if (form.checkValidity()) {
+      setType("SUBMIT");
       fetchData({
         method: "POST",
-        url: replacementTypeUpdate,
+        url: sendTypeUpdate,
         headers: {
           accept: "*/*",
         },
@@ -73,11 +84,9 @@ const TableModal = (props) => {
         },
         signal: abortController.signal,
       });
-      
-     }
-    
-  
+    }
   };
+
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -98,13 +107,10 @@ const TableModal = (props) => {
         onSubmit={handleSubmit}
       >
         <Modal.Body>
+      
         {defintionInputs(values).map((input) => (
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChangeHandler}
-              />
-            ))}
+          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+        ))}
 
 
         </Modal.Body>

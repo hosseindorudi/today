@@ -36,8 +36,7 @@ import RepairsPerformed from "./Views/Forms/definations/repairsPerformed/Repairs
 import RepairsPerformedDefine from "./Views/Forms/definations/repairsPerformed/repairsPerformedDefine/RepairsPerformedDefine";
 import Section from "./Views/Forms/definations/section/Section";
 import SectionDefine from "./Views/Forms/definations/section/sectionDefine/SectionDefine";
-import { SendType } from "./Views/Forms/definations/sendType/SendType";
-
+import SendType  from "./Views/Forms/definations/sendType/SendType";
 import SendTypeDefine from "./Views/Forms/definations/sendType/sendTypeDefine/SendTypeDefine";
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")

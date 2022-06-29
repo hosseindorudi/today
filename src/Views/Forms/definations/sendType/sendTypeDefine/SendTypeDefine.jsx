@@ -13,7 +13,7 @@ import {
   defintionInputs,
   handleError,
 } from "../../../../../validation/functions";
-import { SendType } from "../SendType";
+import  SendType from "../SendType";
 const SendTypeDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const [validated, setValidated] = useState(false);
