@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
@@ -9,15 +10,15 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
-import { provinceReadTitle } from "../../../../../services/provinceService";
+import { sectionReadTitle } from "../../../../../services/sectionService";
 import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
-import { CityCreate } from "../../../../../services/cityService";
-import CityList from '../CityList'
-const CityForm = () => {
+import { areaCreate } from "../../../../../services/areaService";
+import AreaList from '../AreaList'
+const AreaForm = () => {
     const [response, loading, fetchData, setResponse] = useAxios();
     const [validated, setValidated] = useState(false);
-    const [provinceOptions,setProvinceOptions]=useState([])
-    const [province, setProvince] = useState(undefined);
+    const [sectionOptions,setSectionOptions]=useState([])
+    const [section, setSection] = useState(undefined);
     const request = useRequest();
     const tabContext = useContext(TabContext);
     const abortController = new AbortController();
@@ -38,19 +39,19 @@ const CityForm = () => {
       });
       tabContext.addRemoveTabs(
         {
-          Component: CityForm,
-            path: "/Definition/City/Write",
-            title: "/Definition/City/Write",
-            access: enums.Definition_City_Create_w,
+          Component: AreaForm,
+            path: "/Definition/Area/Write",
+            title: "/Definition/Area/Write",
+            access: enums.Definition_Area_Create_w,
         },
         "remove"
       );
       tabContext.addRemoveTabs(
         {
-          title: "/Definition/City/Read",
-          path: "/Definition/City/Read",
-          access: enums.Definition_City_Read_r,
-          Component: CityList,
+          title: "/Definition/Area/Read",
+          path: "/Definition/Area/Read",
+          access: enums.Definition_Area_Read_r,
+          Component: AreaList,
         },
         "add"
       );
@@ -67,17 +68,17 @@ const CityForm = () => {
       return params;
     };
    const getDatas=()=>{
-      const provinceTitles = axios.request(
-        createParams(provinceReadTitle)
+      const sectionTitles = axios.request(
+        createParams(sectionReadTitle)
       );
       axios
       .all([
-        provinceTitles,
+        sectionTitles,
       ])
       .then(
         axios.spread((...allData) => {
           allData[0].data?.Result
-            ? setProvinceOptions(createSelectOptions(allData[0].data.Title))
+            ? setSectionOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
             })
       )
@@ -110,14 +111,14 @@ const CityForm = () => {
         
         fetchData({
           method: "POST",
-          url: CityCreate,
+          url: areaCreate,
           headers: {
             accept: "*/*",
           },
           data: {
             Request: request,
             Id: 0,
-            Province_Id:province?.value,
+            Section_Id:section?.value,
             Priority: values.periority,
             Title: values.title,
             Description: values.desc,
@@ -141,16 +142,16 @@ const CityForm = () => {
           validated={validated}
           onSubmit={handleSubmit}
         >
-          <b>{t("/Definition/City/Write")}</b>
+          <b>{t("/Definition/Area/Write")}</b>
           <div className="modelDefineRow">
-          <Form.Group className="mb-3" controlId={"province"}>
-          <Form.Label>{t("province")}</Form.Label>
+          <Form.Group className="mb-3" controlId={"section"}>
+          <Form.Label>{t("section")}</Form.Label>
             <CustomReactMultiSelect
               isMulti={false}
-              options={provinceOptions}
-              value={province}
-              onchangeHandler={(e) => setProvince(e)}
-              placeholder={t("province")}
+              options={sectionOptions}
+              value={section}
+              onchangeHandler={(e) => setSection(e)}
+              placeholder={t("section")}
             />
            </Form.Group>
   
@@ -168,4 +169,4 @@ const CityForm = () => {
     )
 }
 
-export default CityForm
+export default AreaForm

@@ -3,27 +3,27 @@ import CustomTable from '../../../../Components/Table/Table/CustomTable'
 import TableModal from './tableModal/TableModal'
 import { t } from "i18next";
 import { 
-    CityRead,
-    CityReadPaging,
-    CityGetOneRecord,
-    CityDelete,
-    CityFavorite,
-    CityExportId,
-    CityExport,
-    CitySampleFile,
-    CityCheckFile,
-    CityImportFile,
-    CityLog,
-    CitySetUnselectedColumn,
-    CityAccessList,
-        } from '../../../../services/cityService';
+    areaRead,
+    areaReadPaging,
+    areaGetOneRecord,
+    areaDelete,
+    areaFavorite,
+    areaExportId,
+    areaExport,
+    areaSampleFile,
+    areaCheckFile,
+    areaImport,
+    areaLog,
+    areaSetColumn,
+    areaAccessList,
+        } from '../../../../services/areaService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
 import useWindowSize from '../../../../customHooks/useWindowSize';
-import CityForm from './cityForm/CityForm';
+import areaForm from './areaForm/AreaForm';
 
-const CityList = () => {
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType", "Province_Id"];
+const AreaList = () => {
+    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType", "Section_Id"];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});
@@ -37,10 +37,10 @@ const CityList = () => {
     const widthOFScreen = useWindowSize().width
   
     const addObject = {
-      Component: CityForm,
-      path: "/Definition/City/Write",
-      title: "/Definition/City/Write",
-      access: enums.Definition_City_Create_w
+      Component: areaForm,
+      path: "/Definition/Area/Write",
+      title: "/Definition/Area/Write",
+      access: enums.Definition_Area_Create_w
     };
     
     const setUpdate = (res) => {
@@ -75,32 +75,32 @@ const CityList = () => {
      
      <CustomTable
        ref={childRef}
-       ReadApi={CityRead}
-       deleteApi={CityDelete}
-       unSelectedAPI={CitySetUnselectedColumn}
-       sampleUrl={CitySampleFile}
-       fileCheckURL={CityCheckFile}
-       importURL={CityImportFile}
-       logApi={CityLog}
-       exportId={CityExportId}
+       ReadApi={areaRead}
+       deleteApi={areaDelete}
+       unSelectedAPI={areaSetColumn}
+       sampleUrl={areaSampleFile}
+       fileCheckURL={areaCheckFile}
+       importURL={areaImport}
+       logApi={areaLog}
+       exportId={areaExportId}
        changePasswordURL={""}
        addObject={addObject}
-       exportAccess={enums.Definition_City_Export_r}
-       exportLink={CityExport}
-       importAccess={enums.Definition_City_Import_w}
-       logAccess={enums.Definition_City_Log_r}
-       readPagingApi={CityReadPaging}
-       accessListAccess={enums.Definition_City_Read_r}
-       accessListApi={CityAccessList}
-       favouriteApi={CityFavorite}
+       exportAccess={enums.Definition_Area_Export_r}
+       exportLink={areaExport}
+       importAccess={enums.Definition_Area_Import_w}
+       logAccess={enums.Definition_Area_Log_r}
+       readPagingApi={areaReadPaging}
+       accessListAccess={enums.Definition_Area_Read_r}
+       accessListApi={areaAccessList}
+       favouriteApi={areaFavorite}
        handleClickHelp={handleClickHelp}
-       addFormAccess={enums.Definition_City_Create_w}
+       addFormAccess={enums.Definition_Area_Create_w}
        filteredColumns={filteredColumns}
-       deleteAccess={enums.Definition_City_Delete_w}
-       editAccess={enums.Definition_City_Update_w}
+       deleteAccess={enums.Definition_Area_Delete_w}
+       editAccess={enums.Definition_Area_Update_w}
        permissionsAccess={""}
        changePasswordAccess={""}
-       getOneRecord={CityGetOneRecord}
+       getOneRecord={areaGetOneRecord}
        setUpdate={setUpdate}
        mobileModal = {mobileModal}
        setMobileModal = {setMobileModal}
@@ -115,4 +115,4 @@ const CityList = () => {
   )
 }
 
-export default CityList
+export default AreaList

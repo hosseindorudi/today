@@ -546,8 +546,18 @@
 "/Definition/VehicleType/Write":"فرم نوع وسیله نقلیه",
 "/Definition/AdditionalService/Write":"فرم خدمات اضافی",
 "/Definition/AdditionalService/Read":"لیست خدمات اضافی",
+"/Definition/warrantyCancelation/Write":"فرم ابطال گارانتی",
+"/Definition/warrantyCancelation/Read":"لیست ابطال گارانتی",
+"/Definition/Area/Write":"فرم منطقه",
+"/Definition/Area/Read":"لیست منطقه",
+"/Definition/City/Write":"فرم شهرستان",
+"/Definition/City/Read":"لیست شهرستان",
 "company":"شرکت سازنده",
 "Company_Title":"شرکت سازنده",
 "ImportingCompanyHeader" : "شرکت وارد کننده",
-"Model_Title": "مدل"
+"Model_Title": "مدل",
+"Province_Title": "استان",
+"province": "استان",
+"section": "منطقه",
+"Section_Title": "منطقه"
 }

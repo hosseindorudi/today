@@ -8,7 +8,6 @@ import {
     companyReadPaging,
     companyGetOneRecord,
     companyDelete,
-    companyUpdate,
     companyFavorite,
     companyExportId,
     companyExport,
