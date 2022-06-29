@@ -154,14 +154,7 @@ const Admission = lazy(() =>
   import("./Views/Forms/service/admission/Admission")
 );
 
-const PhoneDefects = lazy(() =>
-  import("./Views/Forms/definations/phoneDefects/PhoneDefects")
-);
-const PhoneDefectsForm = lazy(() =>
-  import(
-    "./Views/Forms/definations/phoneDefects/phoneDefectDefine/PhoneDefectDefine"
-  )
-);
+
 const AddmitionFirstForm = lazy(() =>
   import("./Views/Forms/service/admission/AdmitionFirstForm")
 );
@@ -170,7 +163,36 @@ const QuestionForm = lazy(() =>
 );
 const QuestionList = lazy(() =>
   import("./Views/Forms/Survey/questionPage/questionList/QuestionList")
+
 );
+const ComponyList = lazy(() =>
+  import("./Views/Forms/definations/compony/ComponyList") );
+const ComponyForm = lazy(() =>
+  import("./Views/Forms/definations/compony/componyForm/ComponyForm") );
+const CountryList = lazy(() =>
+  import("./Views/Forms/definations/country/Countrylist") );
+const CountryForm = lazy(() =>
+  import("./Views/Forms/definations/country/countryForm/CountryForm") );
+const DefectList = lazy(() =>
+  import("./Views/Forms/definations/deffect/DeffectList") );
+const DefectForm = lazy(() =>
+  import("./Views/Forms/definations/deffect/deffectForm/DeffectForm") );
+const DeviceList = lazy(() =>
+  import("./Views/Forms/definations/device/DeviceList") );
+const DeviceForm = lazy(() =>
+  import("./Views/Forms/definations/device/deviceForm/DeviceForm") );
+const ImportingCompanyList = lazy(() =>
+  import("./Views/Forms/definations/importingCompany/ImportingCompanyList") );
+const ImportingCompanyForm = lazy(() =>
+  import("./Views/Forms/definations/importingCompany/importingCompanyForm/ImportingCompanyForm") );
+const InputQualityControlList = lazy(() =>
+  import("./Views/Forms/definations/inputQualityControl/InputQualityControlList") );
+const InputQualityControlForm = lazy(() =>
+  import("./Views/Forms/definations/inputQualityControl/inputQualityControlForm/InputQualityControlForm") );
+const VehicleTypeList = lazy(() =>
+  import("./Views/Forms/definations/vehicleType/VehicleTypeList") );
+const VehicleTypeForm = lazy(() =>
+  import("./Views/Forms/definations/vehicleType/vehicleTypeForm/VehicleTypeForm") );
 export const Routes = [
   {
     title: "routes.panel",
@@ -544,20 +566,7 @@ export const Routes = [
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
-      {
-        title: "routes.phoneIssues",
-        path: "/phoneIssues",
-        access: enums.Definition_Defect_Read_r,
-        Component: PhoneDefects,
-        button: {
-          Component: PhoneDefectsForm,
-          path: "/phoneIssuesForm",
-          title: "routes.phoneIssuesForm",
-          access: enums.Definition_Defect_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
+      
       {
         title: "/Definition/Part/Read",
         path: "/Definition/Part/Read",
@@ -895,15 +904,113 @@ export const Routes = [
       //       cName: 'sub-nav'
       //     },
       {
-        title: "routes.extraServices",
-        path: "/extraServices",
+        title: "/Definition/AdditionalService/Read",
+        path: "/Definition/AdditionalService/Read",
         access: enums.Definition_AdditionalService_Read_r,
         Component: ExtraServices,
         button: {
           Component: ExtraServicesDefine,
-          path: "/extraServicesForm",
-          title: "routes.extraServicesForm",
+          path: "/Definition/AdditionalService/Write",
+          title: "/Definition/AdditionalService/Write",
           access: enums.Definition_AdditionalService_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/Company/Read",
+        path: "/Definition/Company/Read",
+        access: enums.Definition_Company_Read_r,
+        Component: ComponyList,
+        button: {
+          Component: ComponyForm,
+          path: "/Definition/Company/Write",
+          title: "/Definition/Company/Write",
+          access: enums.Definition_Company_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/Country/Read",
+        path: "/Definition/Country/Read",
+        access: enums.Definition_Country_Read_r,
+        Component: CountryList,
+        button: {
+          Component: CountryForm,
+          path: "/Definition/Country/Write",
+          title: "/Definition/Country/Write",
+          access: enums.Definition_Country_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/Defect/Read",
+        path: "/Definition/Defect/Read",
+        access: enums.Definition_Defect_Read_r,
+        Component: DefectList,
+        button: {
+          Component: DefectForm,
+          path: "/Definition/Defect/Write",
+          title: "/Definition/Defect/Write",
+          access: enums.Definition_Defect_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/Device/Read",
+        path: "/Definition/Device/Read",
+        access: enums.Definition_Device_Read_r,
+        Component: DeviceList,
+        button: {
+          Component: DeviceForm,
+          path: "/Definition/Device/Write",
+          title: "/Definition/Device/Write",
+          access: enums.Definition_Device_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/ImportingCompany/Read",
+        path: "/Definition/ImportingCompany/Read",
+        access: enums.Definition_ImportingCompany_Read_r,
+        Component: ImportingCompanyList,
+        button: {
+          Component: ImportingCompanyForm,
+          path: "/Definition/ImportingCompany/Write",
+          title: "/Definition/ImportingCompany/Write",
+          access: enums.Definition_ImportingCompany_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/InputQualityControl/Read",
+        path: "/Definition/InputQualityControl/Read",
+        access: enums.Definition_InputQualityControl_Read_r,
+        Component: InputQualityControlList,
+        button: {
+          Component: InputQualityControlForm,
+          path: "/Definition/InputQualityControl/Write",
+          title: "/Definition/InputQualityControl/Write",
+          access: enums.Definition_InputQualityControl_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/VehicleType/Read",
+        path: "/Definition/VehicleType/Read",
+        access: enums.Definition_VehicleType_Read_r,
+        Component: VehicleTypeList,
+        button: {
+          Component: VehicleTypeForm,
+          path: "/Definition/VehicleType/Write",
+          title: "/Definition/VehicleType/Write",
+          access: enums.Definition_VehicleType_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",

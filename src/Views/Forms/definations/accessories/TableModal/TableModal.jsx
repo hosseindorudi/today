@@ -8,7 +8,6 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-// import { TabContext } from "../../../../../contexts/TabContextProvider";
 import {admissionAccessoryUpdate} from '../../../../../services/admissionAccessory'
 import { defintionInputs } from "../../../../../validation/functions";
 
@@ -22,7 +21,6 @@ const TableModal = (props) => {
     desc: val.Description,
   });
   const [response, loading, fetchData, setResponse] = useAxios();
-  // const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
 

@@ -851,6 +851,10 @@ ctTableParentAccessButton:hover{
   height: 54px;
 }
 
+.form-control {
+  width: 100%;
+}
+
 
 
 @media screen and (max-width: 420px) { 

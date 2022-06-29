@@ -1,17 +1,19 @@
-import { t } from 'i18next';
-import React,{ useContext, useEffect, useState } from 'react'
-import FormInput from '../../../../../Components/periodity/formInput/FormInput';
-import { TabContext } from '../../../../../contexts/TabContextProvider';
+import { Form, Button } from "react-bootstrap";
+import { useContext, useEffect, useState } from 'react';
 import useAxios from '../../../../../customHooks/useAxios';
+import { TabContext } from '../../../../../contexts/TabContextProvider';
 import useRequest from '../../../../../customHooks/useRequest';
-import '../../../../../assets/css/periorityForm.css'
-import {Form,Button} from 'react-bootstrap'
-import { enums } from '../../../../../data/Enums';
+import { defintionInputs, handleError } from '../../../../../validation/functions';
+import { useTranslation } from 'react-i18next';
 import { toast } from "react-toastify";
-import PhoneDefects from '../PhoneDefects';
-import { defectCreate } from '../../../../../services/defectService';
-import { defintionInputs } from '../../../../../validation/functions';
-const PhoneDefectDefine = () => {
+import { enums } from '../../../../../data/Enums';
+import FormInput from '../../../../../Components/periodity/formInput/FormInput';
+import { CountryCreate } from "../../../../../services/countryService";
+import Countrylist from "../Countrylist";
+
+const CountryForm = () => {
+
+    const {t} = useTranslation()
     const [validated, setValidated] = useState(false);
     const [response, loading, fetchData, setResponse] = useAxios();
     const tabContext = useContext(TabContext);
@@ -23,36 +25,31 @@ const PhoneDefectDefine = () => {
       periority: 1,
       desc: "",
     });
-  
     const handleResponse = () => {
       toast.success(t("item.created"), {
         position: toast.POSITION.TOP_CENTER,
       });
       tabContext.addRemoveTabs(
         {
-            Component:PhoneDefectDefine,
-            path:"/phoneIssuesForm",
-            title:"routes.phoneIssuesForm",
-            access:enums.Definition_Defect_Create_w,
+            Component:CountryForm,
+            path:"/Definition/Country/Write",
+            title:"/Definition/Country/Write",
+            access:enums.Definition_Company_Create_w,
         },
         "remove"
       );
       tabContext.addRemoveTabs(
         {
-            title: 'routes.phoneIssues',
-            path:'/phoneIssues',
-            access:enums.Definition_Defect_Read_r,
-           Component:PhoneDefects,
+            Component: Countrylist,
+            path: "/Definition/Country/Read",
+            title: "/Definition/Country/Read",
+            access: enums.Definition_Country_Read_r,
         },
   
         "add"
       );
     };
-    const handleError = (message) => {
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-    };
+
   
     useEffect(() => {
       if (response) {
@@ -71,15 +68,15 @@ const PhoneDefectDefine = () => {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-    const form = e.currentTarget;
-    if (!form.checkValidity()) {
-      e.stopPropagation();
-    }
-    setValidated(true);
-    if (form.checkValidity()) {
+      const form = e.currentTarget;
+      if (!form.checkValidity()) {
+        e.stopPropagation();
+      }
+      setValidated(true);
+      if (form.checkValidity()) {
       fetchData({
         method: "POST",
-        url: defectCreate,
+        url: CountryCreate,
         headers: {
           accept: "*/*",
         },
@@ -90,36 +87,34 @@ const PhoneDefectDefine = () => {
           Title: values.title,
           Description: values.desc,
           Color: values.color.substring(1),
-          SourceType: 0,
-          Registrar: 0,
+
           DateSet: "2022-06-19T16:43:29.709Z",
         },
         signal: abortController.signal,
       });
     }
     };
-    return (
-      <div className="periorityFormDefine">
-      <Form
+
+  return (
+    <div className="periorityFormDefine">
+        <Form
         className="periorityForm"
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
-      >
-        <b>{t("routes.phoneIssuesForm")}</b>
-              {defintionInputs(values).map((input) => (
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChangeHandler}
-              />
-            ))}
-       
-    
-        <Button disabled={loading} type="submit">{t("submit")}</Button>
-      </Form>
+        >
+        <b>{t("ExtraServicesDefineHeader")}</b>
+
+        {defintionInputs(values).map((input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+        ))}
+
+        <Button disabled={loading} type="submit">
+            {t("submit")}
+        </Button>
+        </Form>
     </div>
-    )
+  )
 }
 
-export default PhoneDefectDefine
+export default CountryForm

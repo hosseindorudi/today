@@ -16,7 +16,7 @@ import ExtraServicesDefine from "./extraServicesDefine/ExtraServicesDefine";
 import { additionalServiceAccessList, additionalServiceCheckFile, additionalServiceDelete, additionalServiceExport, additionalServiceExportId, additionalServiceFavorite, additionalServiceGetOneRecord, additionalServiceImportFile, additionalServiceLog, additionalServiceRead, additionalServiceReadPaging, additionalServiceSampleFile, additionalServiceSetUnselectedColumn } from "../../../../services/additionalServiceService";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 const ExtraServices = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType", "Model_Id"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
@@ -31,8 +31,8 @@ const ExtraServices = () => {
 
   const addObject = {
     Component: ExtraServicesDefine,
-    path: "/extraServicesForm",
-    title: "routes.extraServicesForm",
+    path: "/Definition/AdditionalService/Write",
+    title: "/Definition/AdditionalService/Write",
     access: enums.Definition_AdditionalService_Create_w
   };
   const setUpdate = (res) => {
@@ -52,6 +52,8 @@ const ExtraServices = () => {
   const handleClickHelp = () => {
     window.open("https://www.google.com");
   };
+
+  
 
 
   return (

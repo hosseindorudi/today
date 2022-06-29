@@ -8,9 +8,9 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
+import { InputQualityControlUpdate } from "../../../../../services/inputQualityControlService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { modelReadTitle } from "../../../../../services/modelService";
-import { additionalServiceUpdate } from "../../../../../services/additionalServiceService";
 const TableModal = (props) => {
 const [validated, setValidated] = useState(false);
 const [modelOptions,setModelOptions]=useState([])
@@ -102,12 +102,12 @@ const [model, setModel] = useState(undefined);
     if (form.checkValidity()) {
       fetchData({
         method: "POST",
-        url: additionalServiceUpdate,
+        url: InputQualityControlUpdate,
         headers: {
           accept: "*/*",
         },
         data: {
-          Request: request,
+            Request: request,
           Model_Id:model?.value,
           Id: props.rowValus.Id,
           Priority: values.periority,
