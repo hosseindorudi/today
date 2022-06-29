@@ -115,6 +115,8 @@ export const checkTableValues = (type, value, post) => {
           value={`#${value}`} disabled
         />
       );
+      case "Activated":
+        return <Form.Check type="switch" disabled checked={value} />;
     default:
       return value;
   }

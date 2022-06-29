@@ -8,7 +8,8 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
-import { modelCreate, modelReadTitle } from "../../../../../services/modelService";
+import {  modelReadTitle } from "../../../../../services/modelService";
+import { outputQualityControlCreate } from "../../../../../services/outPutQualityControlService";
 import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
 import OutputQualityControl from "../OutputQualityControl";
 import "./outputQualityControl.css";
@@ -98,7 +99,7 @@ const handleResponse=(response,type)=>{
       setType("SUBMIT")
       fetchData({
         method: "POST",
-        url: modelCreate,
+        url: outputQualityControlCreate,
         headers: {
           accept: "*/*",
         },
