@@ -14,4 +14,8 @@ export const questionExportId="/Survey/QuestionPage/ExportId"
 export const questionLog="/Survey/QuestionPage/log"
 export const questionSetToFavorite="/Survey/QuestionPage/SetToFavorite"
 export const questionAccessList="/Survey/QuestionPage/AccessList"
+export const createQuestion="/Survey/QuestionPage/CreateQuestion"
+export const updateQuestion="/Survey/QuestionPage/UpdateQuestion"
+export const deleteQuestion="/Survey/QuestionPage/DeleteQuestion"
 export const questionReadQuestion="/Survey/QuestionPage/ReadQuestion"
+

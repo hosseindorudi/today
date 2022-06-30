@@ -14,7 +14,7 @@ import BackDrop from '../../../../../../Components/backDrop/BackDrop';
 
 const TableModal = (props) => {
 
-    const [response, loading, fetchData, setResponse] = useAxios();
+    const [response, loading, fetchData] = useAxios();
     const request=useRequest();
     const abortController = new AbortController();
     const [enumQuestion, setEnumQuestion] = useState([])
@@ -29,7 +29,6 @@ const TableModal = (props) => {
         setTitle(props.rowValus.Title)
         setDescription(props.rowValus.Description)
         setId(props.rowValus.Id)
-        setQuestionSelect(props.rowValus.QuestionnaireType_Id)
 
     },[])
 
@@ -67,6 +66,12 @@ const TableModal = (props) => {
       }
 
       useEffect(() => {
+        console.log(enumQuestion)
+        setQuestionSelect(enumQuestion.find((m) => m.value === props.rowValus.QuestionnaireType_Id))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[enumQuestion])
+
+      useEffect(() => {
         let loaded = false;
         if (!loaded) {
           getDatas();
@@ -102,7 +107,7 @@ const TableModal = (props) => {
             data: {
               
               Id:id,
-              QuestionnaireType_Id: Number(questionSelect),
+              QuestionnaireType_Id: questionSelect?.value,
               Title: title,
               Description: description,
               Request:request,
@@ -151,7 +156,7 @@ const TableModal = (props) => {
                       isMulti={false}
                       options={enumQuestion}
                       value={questionSelect}
-                      onchangeHandler={(e) => setQuestionSelect(e.value)}
+                      onchangeHandler={(e) => setQuestionSelect(e)}
                       placeholder={t("questionType")}
                     />
 
