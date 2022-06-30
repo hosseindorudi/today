@@ -1,0 +1,83 @@
+.questionFooterDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border: 1px solid lightgray;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.questionDeleteDiv {
+    flex: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 1px;
+    color: red;
+    cursor: pointer;
+
+}
+.questionUpDiv {
+    flex: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 1px;
+    color: darkgray;
+    cursor: pointer;
+
+}
+.questionDownDiv {
+    flex: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 1px;
+    color: darkgray;
+    cursor: pointer;
+
+}
+.questionEditDiv {
+    flex: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 1px;
+    color: green;
+    cursor: pointer;
+
+}
+.questionMainDiv {
+    flex: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.questionListGroup {
+    width: 100%;
+}
+
+.questionTitle {
+    width: 100%;
+}
+
+.questionMain{
+    width: 100%;
+    margin-inline-start: 5px;
+    flex: 90%;
+}
+
+.questionButtons {
+    display: flex;
+    align-items: center;
+    flex: 10%;
+    
+}
+
+.questionModalFooter {
+    max-height: 300px;
+    overflow-y: auto;
+
+}

@@ -72,12 +72,9 @@ const QuestionList = () => {
     childRef.current.updated();
   };
   const addQuestion = () => {
-    setTableModalQuestionOpen(false);
     toast.success(t("updatedRecord"), {
       position: toast.POSITION.TOP_CENTER,
     });
-    //call update function in child class
-    childRef.current.addQuestion();
   };
 
   const handleClickHelp = () => {
@@ -96,7 +93,7 @@ const QuestionList = () => {
           rowValus={rowValus}
           onHide={() => setTableModalOpen(false)}
           tableModalShow={tableModalOpen}
-          updated={addQuestion}
+          updated={updated}
         />
       )}
       {tableModalQuestionopen && (
@@ -104,7 +101,7 @@ const QuestionList = () => {
           rowValus={rowValus}
           onHide={() => setTableModalQuestionOpen(false)}
           tableModalShow={tableModalQuestionopen}
-          updated={updated}
+          updated={addQuestion}
         />
       )}
      
