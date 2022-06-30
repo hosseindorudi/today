@@ -5,13 +5,18 @@ import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { defintionInputs, handleError } from "../../../../../validation/functions";
+import {  createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-import { replacementTypeUpdate } from "../../../../../services/replacementTypeService";
+import { repairsPerformedUpdate } from "../../../../../services/repairsPerformed";
+import { modelReadTitle } from "../../../../../services/modelService";
+import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 
 const TableModal = (props) => {
   const [validated, setValidated] = useState(false);
+  const [type,setType]=useState("")
   const { t } = useTranslation();
+  const [modelOptions, setModelOptions] = useState([]);
+  const [model, setModel] = useState(undefined);
   const abortController = new AbortController();
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
@@ -29,17 +34,47 @@ const TableModal = (props) => {
       color: `#${prop.Color}`,
       periority: prop.Priority,
       desc: prop.Description,
+      fee:prop.Fee
     });
      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
-  const handleResponse=(response)=>{
+  useEffect(() => {
+      setModel(modelOptions.find(i=>i.value===props.rowValus.Model_Id))
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modelOptions]);
+  const submitted=(response)=>{
     props.updated()
   }
+  const handleResponse = (response, type) => {
+    switch (type) {
+      case "READTITLE":
+        setModelOptions(createSelectOptions(response.Title));
+        break;
+      case "SUBMIT":
+        submitted();
+        break;
+      default:
+        break;
+    }
+  };
+  useEffect(() => {
+    setType("READTITLE");
+    fetchData({
+      method: "POST",
+      url: modelReadTitle,
+      headers: {
+        accept: "*/*",
+      },
+      data: request,
+      signal: abortController.signal,
+    });
+    return () => abortController.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     if (response) {
       response.Result
-        ? handleResponse()
+        ? handleResponse(response, type)
         : handleError(response.Message);
       setResponse(undefined);
     }
@@ -50,19 +85,22 @@ const TableModal = (props) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.checkValidity()) {
-     e.stopPropagation();
+      e.stopPropagation();
     }
     setValidated(true);
     if (form.checkValidity()) {
+      setType("SUBMIT");
       fetchData({
         method: "POST",
-        url: replacementTypeUpdate,
+        url: repairsPerformedUpdate,
         headers: {
           accept: "*/*",
         },
         data: {
           Request: request,
           Id: props.rowValus.Id,
+          Model_Id: model?.value,
+          fee:values.fee,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -73,11 +111,9 @@ const TableModal = (props) => {
         },
         signal: abortController.signal,
       });
-      
-     }
-    
-  
+    }
   };
+
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -98,15 +134,26 @@ const TableModal = (props) => {
         onSubmit={handleSubmit}
       >
         <Modal.Body>
+      
+        <div className="repairRow">
+          <Form.Group className="mb-3" controlId={"model"}>
+            <Form.Label>{t("model")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={modelOptions}
+              value={model}
+              onchangeHandler={(e) => setModel(e)}
+              placeholder={t("model")}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId={"model"}>
+            <Form.Label>{t("fee")}</Form.Label>
+            <Form.Control name="fee" value={values.fee} type="number" onChange={onChangeHandler} />
+          </Form.Group>
+        </div>
         {defintionInputs(values).map((input) => (
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChangeHandler}
-              />
-            ))}
-
-
+          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+        ))}
         </Modal.Body>
         <Modal.Footer>
           <Button disabled={loading} type='submit' >

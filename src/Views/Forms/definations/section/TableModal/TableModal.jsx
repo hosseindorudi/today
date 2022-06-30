@@ -5,14 +5,19 @@ import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { defintionInputs, handleError } from "../../../../../validation/functions";
+import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-import { replacementTypeUpdate } from "../../../../../services/replacementTypeService";
+import { sectionUpdate } from "../../../../../services/sectionService";
+import { cityReadTitle } from "../../../../../services/cityService";
+import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 
 const TableModal = (props) => {
   const [validated, setValidated] = useState(false);
   const { t } = useTranslation();
+  const [type, setType] = useState("");
   const abortController = new AbortController();
+  const [cityOptions, setCityOptions] = useState([]);
+  const [city, setCity] = useState(undefined);
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
   const [values, setValues] = useState({
@@ -32,14 +37,43 @@ const TableModal = (props) => {
     });
      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
-  const handleResponse=(response)=>{
+  const submitted=()=>{
     props.updated()
   }
   useEffect(() => {
+    setCity(cityOptions.find(i=>i.value===props.rowValus.City_Id))
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cityOptions]);
+  const handleResponse = (response, type) => {
+    switch (type) {
+      case "READTITLE":
+        setCityOptions(createSelectOptions(response.Title));
+        break;
+      case "SUBMIT":
+        submitted();
+        break;
+      default:
+        break;
+    }
+  };
+  useEffect(() => {
+    setType("READTITLE");
+    fetchData({
+      method: "POST",
+      url: cityReadTitle,
+      headers: {
+        accept: "*/*",
+      },
+      data: request,
+      signal: abortController.signal,
+    });
+    return () => abortController.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
     if (response) {
       response.Result
-        ? handleResponse()
+        ? handleResponse(response, type)
         : handleError(response.Message);
       setResponse(undefined);
     }
@@ -50,19 +84,21 @@ const TableModal = (props) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.checkValidity()) {
-     e.stopPropagation();
+      e.stopPropagation();
     }
     setValidated(true);
     if (form.checkValidity()) {
+      setType("SUBMIT");
       fetchData({
         method: "POST",
-        url: replacementTypeUpdate,
+        url: sectionUpdate,
         headers: {
           accept: "*/*",
         },
         data: {
           Request: request,
           Id: props.rowValus.Id,
+          City_Id: city?.value,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -73,10 +109,7 @@ const TableModal = (props) => {
         },
         signal: abortController.signal,
       });
-      
-     }
-    
-  
+    }
   };
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -98,13 +131,20 @@ const TableModal = (props) => {
         onSubmit={handleSubmit}
       >
         <Modal.Body>
+        <Form.Group className="mb-3" controlId={"city"}>
+            <Form.Label>{t("city")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={cityOptions}
+              value={city}
+              onchangeHandler={(e) => setCity(e)}
+              placeholder={t("city")}
+            />
+          </Form.Group>
+      
         {defintionInputs(values).map((input) => (
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChangeHandler}
-              />
-            ))}
+          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+        ))}
 
 
         </Modal.Body>

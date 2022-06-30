@@ -1,21 +1,16 @@
 import React, {  useEffect, useState } from "react";
 import {  Button,  Form, Modal } from "react-bootstrap";
 import "./tableModal.css";
-
-
 import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-// import { TabContext } from "../../../../../contexts/TabContextProvider";
-// import { productUpdate } from "../../../../../services/productService";
-// import { productGroupReadTitle } from "../../../../../services/productGroup";
 import { defintionInputs } from "../../../../../validation/functions";
-// import { statusDeviceStartUpdate } from "../../../../../services/statusDeviceStart";
 import { statusDeviceProgressUpdate } from "../../../../../services/statusDeviceProgress";
 
 const TableModal = (props) => {
+  const [validated, setValidated] = useState(false);
   const val=props.rowValus
   const [type,setType]=useState("")
   const [values, setValues] = useState({
@@ -62,7 +57,13 @@ const TableModal = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setType("SUBMIT")
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
+      setType("SUBMIT");
     fetchData({
       method: "POST",
       url: statusDeviceProgressUpdate,
@@ -82,7 +83,7 @@ const TableModal = (props) => {
       },
       signal: abortController.signal,
     });
-  
+    }
   };
   return (
     <Modal
@@ -91,12 +92,17 @@ const TableModal = (props) => {
     aria-labelledby="contained-modal-title-vcenter"
     centered
     onHide={props.onHide}
-    className='editModalPeriority'
+    className='updateCustomerModal'
   >
     <Modal.Header closeButton></Modal.Header>
-    <Form onSubmit={handleSubmit}>
+    <Form
+        className="periorityFormModal"
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+      >
     <Modal.Body>
-    <div className="periorityFormsEdit">
+ 
           {defintionInputs(values).map((input) => (
             <FormInput
               key={input.id}
@@ -105,7 +111,7 @@ const TableModal = (props) => {
               onChange={onChange}
             />
           ))}
-      </div>
+  
     </Modal.Body>
     <Modal.Footer>
       <Button disabled={loading} type='submit'> {t("submit")}</Button>
