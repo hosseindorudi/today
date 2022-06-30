@@ -569,5 +569,6 @@
 "/Definition/AdditionalService/Read":"لیست خدمات اضافی",
 "/Definition/warrantyCancelation/Write":"فرم ابطال گارانتی",
 "/Definition/warrantyCancelation/Read":"لیست ابطال گارانتی",
-"/Definition/Area/Write":"فرم منطقه"
+"/Definition/Area/Write":"فرم منطقه",
+"Answer.NoQuestion":"سوالی وجود ندارد"
 }

@@ -7,21 +7,25 @@ import useRequest from "../../../../../customHooks/useRequest";
 import { createSelectOptions, handleError } from "../../../../../validation/functions";
 import useAxios from "../../../../../customHooks/useAxios";
 import BackDrop from "../../../../../Components/backDrop/BackDrop";
-import { questionReadTitle } from "../../../../../services/questionService";
+import { questionReadQuestion, questionReadTitle } from "../../../../../services/questionService";
+import { toast } from "react-toastify";
+import AnswerModal from "./AnswerModal";
 const AnswerForm = () => {
   const { t } = useTranslation();
   const [questionTitles, setQuestionTitles] = useState([]);
-  const [selectedTitle, setSelectedTitle] = useState([])
+  const [selectedTitle, setSelectedTitle] = useState(undefined)
+  const [questions,setQuestions]=useState([])
+  const [modalOpen, setModalOpen] = useState(false)
   const request=useRequest()
   const [type, setType] = useState("")
   const [response, loading, fetchData, setResponse] = useAxios(); 
   const [loadingSelect,setLoadingSelect]=useState(false)
   const [validated, setValidated] = useState(false);
-  const [values, setValues] = useState({
-    nationalID: "",
-    phone: "",
-    mobile: "",
-  });
+  // const [values, setValues] = useState({
+  //   nationalID: "",
+  //   phone: "",
+  //   mobile: "",
+  // });
 
   useEffect(() => {
     setLoadingSelect(true)
@@ -45,7 +49,12 @@ const AnswerForm = () => {
             setQuestionTitles(createSelectOptions(response.Title))
             setLoadingSelect(false)
             break;
-    
+        case "READQUESTIONS":
+            setQuestions(response.Record)
+            response.Record.length?setModalOpen(true): toast.info(t("Answer.NoQuestion"), {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            break;
         default:
             break;
     }
@@ -60,9 +69,9 @@ const AnswerForm = () => {
   const onChageQuestionSelect = (value) => {
     setSelectedTitle(value)
   };
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setValues({ ...values, [e.target.name]: e.target.value });
+  // };
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -71,12 +80,28 @@ const AnswerForm = () => {
       e.stopPropagation();
     }
     setValidated(true);
+    setType("READQUESTIONS")
+    fetchData({
+        method: "POST",
+        url: questionReadQuestion,
+        headers: {
+          accept: "*/*",
+        },
+        data:{
+         Request: request,
+          Id:selectedTitle.value
+        } 
+    })
+
   };
   return (
     <div className="answerList">
         {loading&&
         <BackDrop open={true}/>    
     }
+    {modalOpen &&(
+      <AnswerModal open={modalOpen} onHide={()=>setModalOpen(false)} questions={questions}/>
+    )}
       <Form
         className="answerListForm"
         noValidate
@@ -94,7 +119,7 @@ const AnswerForm = () => {
             isLoading={loadingSelect}
           />
         </div>
-        <Form.Group className="mb-3" controlId="nationalId">
+        {/* <Form.Group className="mb-3" controlId="nationalId">
           <Form.Label>{t("nationalId")}</Form.Label>
           <Form.Control
             type="number"
@@ -126,8 +151,8 @@ const AnswerForm = () => {
             required
             onChange={handleChange}
           />
-        </Form.Group>
-        <Button type="submit">{t("answerForm.start")}</Button>
+        </Form.Group> */}
+        <Button disabled={selectedTitle?false:true} type="submit">{t("answerForm.start")}</Button>
       </Form>
     </div>
   );
