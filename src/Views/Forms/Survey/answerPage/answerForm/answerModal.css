@@ -15,9 +15,9 @@
     display: flex;
     justify-content: center;
 }
-.listGroupAnswer .answers :first-child{
+/* .listGroupAnswer .answers :first-child{
  width: 50%;
-}
+} */
 .modalAnswers .modal-body{
     max-height: 500px;
     overflow-y: auto;
