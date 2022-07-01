@@ -36,7 +36,7 @@ import RepairsPerformed from "./Views/Forms/definations/repairsPerformed/Repairs
 import RepairsPerformedDefine from "./Views/Forms/definations/repairsPerformed/repairsPerformedDefine/RepairsPerformedDefine";
 import Section from "./Views/Forms/definations/section/Section";
 import SectionDefine from "./Views/Forms/definations/section/sectionDefine/SectionDefine";
-import SendType  from "./Views/Forms/definations/sendType/SendType";
+import SendType from "./Views/Forms/definations/sendType/SendType";
 import SendTypeDefine from "./Views/Forms/definations/sendType/sendTypeDefine/SendTypeDefine";
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")
@@ -160,7 +160,6 @@ const Admission = lazy(() =>
   import("./Views/Forms/service/admission/Admission")
 );
 
-
 const AddmitionFirstForm = lazy(() =>
   import("./Views/Forms/service/admission/AdmitionFirstForm")
 );
@@ -169,44 +168,79 @@ const QuestionForm = lazy(() =>
 );
 const QuestionList = lazy(() =>
   import("./Views/Forms/Survey/questionPage/questionList/QuestionList")
-
 );
 const ComponyList = lazy(() =>
-  import("./Views/Forms/definations/compony/ComponyList") );
+  import("./Views/Forms/definations/compony/ComponyList")
+);
 const ComponyForm = lazy(() =>
-  import("./Views/Forms/definations/compony/componyForm/ComponyForm") );
+  import("./Views/Forms/definations/compony/componyForm/ComponyForm")
+);
 const CountryList = lazy(() =>
-  import("./Views/Forms/definations/country/Countrylist") );
+  import("./Views/Forms/definations/country/Countrylist")
+);
 const CountryForm = lazy(() =>
-  import("./Views/Forms/definations/country/countryForm/CountryForm") );
+  import("./Views/Forms/definations/country/countryForm/CountryForm")
+);
 const DefectList = lazy(() =>
-  import("./Views/Forms/definations/deffect/DeffectList") );
+  import("./Views/Forms/definations/deffect/DeffectList")
+);
 const DefectForm = lazy(() =>
-  import("./Views/Forms/definations/deffect/deffectForm/DeffectForm") );
+  import("./Views/Forms/definations/deffect/deffectForm/DeffectForm")
+);
 const DeviceList = lazy(() =>
-  import("./Views/Forms/definations/device/DeviceList") );
+  import("./Views/Forms/definations/device/DeviceList")
+);
 const DeviceForm = lazy(() =>
-  import("./Views/Forms/definations/device/deviceForm/DeviceForm") );
+  import("./Views/Forms/definations/device/deviceForm/DeviceForm")
+);
 const ImportingCompanyList = lazy(() =>
-  import("./Views/Forms/definations/importingCompany/ImportingCompanyList") );
+  import("./Views/Forms/definations/importingCompany/ImportingCompanyList")
+);
 const ImportingCompanyForm = lazy(() =>
-  import("./Views/Forms/definations/importingCompany/importingCompanyForm/ImportingCompanyForm") );
+  import(
+    "./Views/Forms/definations/importingCompany/importingCompanyForm/ImportingCompanyForm"
+  )
+);
 const InputQualityControlList = lazy(() =>
-  import("./Views/Forms/definations/inputQualityControl/InputQualityControlList") );
+  import(
+    "./Views/Forms/definations/inputQualityControl/InputQualityControlList"
+  )
+);
 const InputQualityControlForm = lazy(() =>
-  import("./Views/Forms/definations/inputQualityControl/inputQualityControlForm/InputQualityControlForm") );
+  import(
+    "./Views/Forms/definations/inputQualityControl/inputQualityControlForm/InputQualityControlForm"
+  )
+);
 const VehicleTypeList = lazy(() =>
-  import("./Views/Forms/definations/vehicleType/VehicleTypeList") );
+  import("./Views/Forms/definations/vehicleType/VehicleTypeList")
+);
 const VehicleTypeForm = lazy(() =>
-  import("./Views/Forms/definations/vehicleType/vehicleTypeForm/VehicleTypeForm") );
-const CityList = lazy(() =>
-  import("./Views/Forms/definations/city/CityList") );
+  import(
+    "./Views/Forms/definations/vehicleType/vehicleTypeForm/VehicleTypeForm"
+  )
+);
+const CityList = lazy(() => import("./Views/Forms/definations/city/CityList"));
 const CityForm = lazy(() =>
-  import("./Views/Forms/definations/city/cityForm/CityForm") );
-const AreaList = lazy(() =>
-  import("./Views/Forms/definations/area/AreaList") );
+  import("./Views/Forms/definations/city/cityForm/CityForm")
+);
+const AreaList = lazy(() => import("./Views/Forms/definations/area/AreaList"));
 const AreaForm = lazy(() =>
-  import("./Views/Forms/definations/area/areaForm/AreaForm") );
+  import("./Views/Forms/definations/area/areaForm/AreaForm")
+);
+const ColorList = lazy(() =>
+  import("./Views/Forms/definations/color/ColorList")
+);
+const ColorForm = lazy(() =>
+  import("./Views/Forms/definations/color/colorForm/ColorForm")
+);
+const AnswerPageFailedList = lazy(() =>
+  import("./Views/Forms/definations/answerPageFailed/AnswerPageFailed")
+);
+const AnswerPageFailedForm = lazy(() =>
+  import(
+    "./Views/Forms/definations/answerPageFailed/answerPageFailedForm/AnswerPageFailedForm"
+  )
+);
 export const Routes = [
   {
     title: "routes.panel",
@@ -602,7 +636,7 @@ export const Routes = [
         button: {
           Component: PartsDefine,
           title: "/Definition/Part/Write",
-        path: "/Definition/Part/Write",
+          path: "/Definition/Part/Write",
           access: enums.Definition_Part_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
@@ -698,7 +732,7 @@ export const Routes = [
         access: enums.Definition_RepairsPerformed_Read_r,
         Component: RepairsPerformed,
         button: {
-          Component:RepairsPerformedDefine,
+          Component: RepairsPerformedDefine,
           path: "/Definition/RepairsPerformed/Write",
           title: "/Definition/RepairsPerformed/Write",
           access: enums.Definition_RepairsPerformed_Create_w,
@@ -1112,6 +1146,34 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
+      {
+        title: "/Definition/Color/Read",
+        path: "/Definition/Color/Read",
+        access: enums.Definition_Color_Read_r,
+        Component: ColorList,
+        button: {
+          Component: ColorForm,
+          path: "/Definition/Color/Write",
+          title: "/Definition/Color/Write",
+          access: enums.Definition_Color_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/AnswerPageFailed/Read",
+        path: "/Definition/AnswerPageFailed/Read",
+        access: enums.Definition_AnswerPageFailed_Read_r,
+        Component: AnswerPageFailedList,
+        button: {
+          Component: AnswerPageFailedForm,
+          path: "/Definition/AnswerPageFailed/Write",
+          title: "/Definition/AnswerPageFailed/Write",
+          access: enums.Definition_AnswerPageFailed_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
     ],
   },
   // {
@@ -1258,7 +1320,6 @@ export const Routes = [
         cName: "sub-nav",
         access: enums.Survey_AnswerPage_Read_r,
       },
-     
     ],
   },
 ];
