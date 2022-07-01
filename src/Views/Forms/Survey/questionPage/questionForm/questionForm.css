@@ -1,38 +1,37 @@
 .questionFormMain {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    width: 100%;
-    height: 100vh;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
 }
 
 .questionFormHeader {
-    font-weight: bolder;
-
+  font-weight: bolder;
 }
 
 .questionCreateForm {
-    flex: 1;
-    height: 100%;
-    width: 50%;
+  flex: 1;
+  height: 100%;
+  width: 50%;
 }
 
 .questionFormSubmit {
-    align-content: center;
-    width: 100%;
+  align-content: center;
+  width: 100%;
 }
 
 .questionColorPicker {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .colorPickerInput {
-    width: 40%;
+  width: 40%;
 }
 
 .questionCreateForm > form {
-    height: 100%;
+  height: 100%;
 }
