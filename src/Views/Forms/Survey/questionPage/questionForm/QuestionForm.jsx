@@ -20,6 +20,7 @@ const QuestionForm = () => {
     const [title,setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [enumQuestion, setEnumQuestion] = useState([])
+    const [isActive, setIsActive] = useState(true);
     const [questionSelect, setQuestionSelect] = useState("")
     const colors = ['#470063', '#B30089', '#F62DAE', '#FD96A9', 
     '#B846E6',
@@ -148,6 +149,7 @@ const QuestionForm = () => {
               QuestionnaireType_Id: Number(questionSelect),
               Title: title,
               Description: description,
+              IsActive:isActive,
               Request:request,
             },
           });
@@ -164,7 +166,9 @@ const QuestionForm = () => {
         <h1 className="questionFormHeader">{t("routes.question")}</h1>
         <div className="questionCreateForm">
             <Form onSubmit={handleSubmit}>
-                
+                <Form.Group className="mb-3">
+                    <Form.Check type="switch" checked={isActive} onChange={(e)=>setIsActive(e.target.checked)}/>
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>{t("operatorGroupFormTitle")}</Form.Label>
                     <Form.Control type="text" placeholder={t("questionTitlePlace")} value={title}

@@ -570,5 +570,7 @@
 "/Definition/warrantyCancelation/Write":"فرم ابطال گارانتی",
 "/Definition/warrantyCancelation/Read":"لیست ابطال گارانتی",
 "/Definition/Area/Write":"فرم منطقه",
-"Answer.NoQuestion":"سوالی وجود ندارد"
+"Answer.NoQuestion":"سوالی وجود ندارد",
+"Questions":"سوالات",
+"answer.requiredFieldsEmptyWarning":"لطفا یکی از فیلد های موبایل،تلفن،شماره ملی را پر کنید"
 }

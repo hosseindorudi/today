@@ -19,6 +19,7 @@ const TableModal = (props) => {
     const abortController = new AbortController();
     const [enumQuestion, setEnumQuestion] = useState([])
     const [title,setTitle] = useState("")
+    const [isActive,setIsActive] = useState(false)
     const [description, setDescription] = useState("")
     const [id, setId] = useState("")
     const [questionSelect, setQuestionSelect] = useState("")
@@ -29,6 +30,7 @@ const TableModal = (props) => {
         setTitle(props.rowValus.Title)
         setDescription(props.rowValus.Description)
         setId(props.rowValus.Id)
+        setIsActive(props.rowValus.IsActive)
 
     },[])
 
@@ -109,6 +111,7 @@ const TableModal = (props) => {
               Id:id,
               QuestionnaireType_Id: questionSelect?.value,
               Title: title,
+              IsActive:isActive,
               Description: description,
               Request:request,
             },
@@ -134,7 +137,9 @@ const TableModal = (props) => {
       <Modal.Body>
         <div className="tableModal">
           <Form onSubmit={handleSubmit}>
-                
+          <Form.Group className="mb-3">
+                    <Form.Check type="switch" checked={isActive} onChange={(e)=>setIsActive(e.target.checked)}/>
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>{t("operatorGroupFormTitle")}</Form.Label>
                     <Form.Control type="text" placeholder={t("questionTitlePlace")} value={title}
