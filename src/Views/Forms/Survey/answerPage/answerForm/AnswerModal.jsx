@@ -1,26 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Form, ListGroup, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { QuestionTypeEnum } from "../../../../../data/QuestionTypeEnum";
-import DatePicker, { DateObject } from "react-multi-date-picker"
-import persian from "react-date-object/calendars/persian"
-import persian_fa from "react-date-object/locales/persian_fa"
+import DatePicker, { DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
 import "./answerModal.css";
-import { Rating, TextField } from "@mui/material";
+import { Rating } from "@mui/material";
 import { toast } from "react-toastify";
+import { answerPageCreate } from "../../../../../services/answerService";
+import { handleError } from "../../../../../validation/functions";
+import useAxios from "../../../../../customHooks/useAxios";
+import useRequest from "../../../../../customHooks/useRequest";
+import { TabContext } from "../../../../../contexts/TabContextProvider";
+import AnswerForm from "./AnswerForm";
+import { enums } from "../../../../../data/Enums";
+import AnswerList from "../answerList/AnswerList";
 const AnswerModal = (props) => {
-  const startTime=new Date()
+  const startTime = new Date();
   const { t } = useTranslation();
+  const tabContext = useContext(TabContext);
   const [validated, setValidated] = useState(false);
+  const request = useRequest();
+  const [type, setType] = useState("");
+  const [response, loading, fetchData, setResponse] = useAxios();
   const [values, setValues] = useState({
     Description: "",
     Phone: undefined,
-    Mobile:undefined,
+    Mobile: undefined,
     LastName: "",
     FirstName: "",
-    NationalCode:undefined
+    NationalCode: undefined,
   });
-  const [answer,setAnswer]=useState({})
+  const [answer, setAnswer] = useState({});
   const questions = props.questions;
   const textFields = [
     "FirstName",
@@ -63,50 +75,68 @@ const AnswerModal = (props) => {
   const checkbox = ["Multiple"];
   const rating = ["FiveStar"];
 
-  const handleChangeValue=(e)=>{
-    let value=e.target.value
-    let id=e.target.name
+  const handleChangeValue = (e) => {
+    let value = e.target.value;
+    let id = e.target.name;
     setAnswer({ ...answer, [id]: value });
-
-  }
-  const handlechangeRate=(value,id)=>{
+  };
+  const handlechangeRate = (value, id) => {
+    setAnswer({ ...answer, [id]: value.toString() });
+  };
+  const handleChangeTime = (value, id) => {
     setAnswer({ ...answer, [id]: value });
-  }
-  const handleChangeTime=(value,id)=>{
-    setAnswer({ ...answer, [id]: value });
-  }
-  const handleChangeDate=(date,id)=>{
-   let format ="MM/DD/YYYY" 
-    let object = { date, format }
-    let converted=new DateObject(object).format()
+  };
+  const handleChangeDate = (date, id) => {
+    let format = "MM/DD/YYYY";
+    let object = { date, format };
+    let converted = new DateObject(object).format();
     setAnswer({ ...answer, [id]: converted });
-  }
-  const handleChangeRadio=(value,id)=>{
+  };
+  const handleChangeRadio = (value, id) => {
     setAnswer({ ...answer, [id]: value });
-  }
+  };
   const checkAnswerOptions = (e) => {
     let key = "";
     Object.keys(QuestionTypeEnum).map((i) =>
       QuestionTypeEnum[i] === e ? (key = i) : ""
     );
     if (textFields.includes(key)) {
-      return <Form.Control type="text" placeholder={t(key)} name={e} onChange={handleChangeValue}/>;
+      return (
+        <Form.Control
+          type="text"
+          placeholder={t(key)}
+          name={e}
+          onChange={handleChangeValue}
+        />
+      );
     }
     if (numbers.includes(key)) {
-      return <Form.Control type="number" placeholder={t(key)} name={e} onChange={handleChangeValue}/>;
+      return (
+        <Form.Control
+          type="number"
+          placeholder={t(key)}
+          name={e}
+          onChange={handleChangeValue}
+        />
+      );
     }
     if (rating.includes(key)) {
       return (
         <Rating
           name="simple-controlled"
           onChange={(event, newValue) => {
-            handlechangeRate(newValue,e);
+            handlechangeRate(newValue, e);
           }}
         />
       );
     }
     if (time.includes(key)) {
-      return <Form.Control type="time"  onChange={(event)=> handleChangeTime(event.target.value,e)}/>;
+      return (
+        <Form.Control
+          type="time"
+          onChange={(event) => handleChangeTime(event.target.value, e)}
+        />
+      );
     }
     if (checkbox.includes(key)) {
       return (
@@ -137,7 +167,7 @@ const AnswerModal = (props) => {
             name="group1"
             type="radio"
             id={`inline-radio-1`}
-            onChange={()=>handleChangeRadio("Yes",e)}
+            onChange={() => handleChangeRadio("Yes", e)}
           />
           <Form.Check
             inline
@@ -145,33 +175,78 @@ const AnswerModal = (props) => {
             name="group1"
             type="radio"
             id={`inline-radio-2`}
-            onChange={()=>handleChangeRadio("No",e)}
+            onChange={() => handleChangeRadio("No", e)}
           />
         </div>
       );
     }
     if (date.includes(key)) {
-      return ( 
+      return (
         <DatePicker
-        onChange={(value)=>handleChangeDate(value,e)}
-        calendar={persian}
-        locale={persian_fa}
-        calendarPosition="bottom-right"
-      />
+          onChange={(value) => handleChangeDate(value, e)}
+          calendar={persian}
+          locale={persian_fa}
+          calendarPosition="bottom-right"
+        />
       );
     }
   };
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  const calcualteEndTime=()=>{
-   const endTime = new Date();
+  const calcualteEndTime = () => {
+    const endTime = new Date();
     var timeDiff = endTime - startTime; //in ms
     timeDiff /= 1000;
-    // get seconds 
+    // get seconds
     var seconds = Math.round(timeDiff);
-   return seconds
-  }
+    return seconds;
+  };
+  const makeQuestionAnswer = () => {
+    let answerObject = [];
+    Object.keys(answer).map((k) =>
+      answerObject.push({ Question_Id: k, Answer: answer[k], AnswerItem: [] })
+    );
+    return answerObject;
+  };
+  const handleSuccess = () => {
+    tabContext.addRemoveTabs(
+      {
+        Component: AnswerForm,
+        path: "/Survey/Answer/Create",
+        title: "routes.answerForm",
+        access: enums.Survey_AnswerPage_Create_w,
+      },
+      "remove"
+    );
+    tabContext.addRemoveTabs(
+      {
+        title: "routes.answerList",
+        path: "/Survey/AnswerPage/Read",
+        Component: AnswerList,
+      },
+      "add"
+    );
+  };
+
+  const handleResponse = (response, type) => {
+    switch (type) {
+      case "SUBMIT":
+        handleSuccess();
+        break;
+      default:
+        break;
+    }
+  };
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response, type)
+        : handleError(response.Message);
+    }
+    setResponse(undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -180,13 +255,35 @@ const AnswerModal = (props) => {
       e.stopPropagation();
     }
     setValidated(true);
-    if(!values.Mobile&&!values.Phone&&!values.NationalCode){
-      return  toast.info(t("answer.requiredFieldsEmptyWarning"), {
+    if (!values.Mobile && !values.Phone && !values.NationalCode) {
+      return toast.info(t("answer.requiredFieldsEmptyWarning"), {
         position: toast.POSITION.TOP_CENTER,
       });
     }
-   const TimeElapsed=calcualteEndTime();
-   console.log(answer)
+    const TimeElapsed = calcualteEndTime();
+    const answerObj = makeQuestionAnswer();
+    setType("SUBMIT");
+    fetchData({
+      method: "POST",
+      url: answerPageCreate,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Id: 0,
+        Request: request,
+        QuestionPage_Id: questions[0].QuestionPage_Id,
+        AnswerPageFailed_Id: 0,
+        NationalCode: values.NationalCode,
+        FirstName: values.FirstName,
+        LastName: values.LastName,
+        Mobile: values.Mobile,
+        Phone: values.Phone,
+        TimeElapsed: TimeElapsed,
+        Description: values.Description,
+        Answer: answerObj,
+      },
+    });
   };
   return (
     <Modal
@@ -301,7 +398,7 @@ const AnswerModal = (props) => {
           </ListGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button type="submit"> {t("submit")}</Button>
+          <Button disabled={loading} type="submit"> {t("submit")}</Button>
         </Modal.Footer>
       </Form>
     </Modal>
