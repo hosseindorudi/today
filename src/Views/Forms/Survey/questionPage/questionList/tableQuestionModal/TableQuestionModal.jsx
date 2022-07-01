@@ -208,6 +208,7 @@ const TableQuestionModal = (props) => {
               Id:0,
               QuestionPage_Id: props.rowValus.Id,
               QuestionType_EId: questionSelect?.value,
+              QuestionItem:[],
               Title: title,
               Description: description,
               Color: color.slice(1),
