@@ -81,6 +81,9 @@ const AnswerModal = (props) => {
     let converted=new DateObject(object).format()
     setAnswer({ ...answer, [id]: converted });
   }
+  const handleChangeRadio=(value,id)=>{
+    setAnswer({ ...answer, [id]: value });
+  }
   const checkAnswerOptions = (e) => {
     let key = "";
     Object.keys(QuestionTypeEnum).map((i) =>
@@ -134,6 +137,7 @@ const AnswerModal = (props) => {
             name="group1"
             type="radio"
             id={`inline-radio-1`}
+            onChange={()=>handleChangeRadio("Yes",e)}
           />
           <Form.Check
             inline
@@ -141,12 +145,13 @@ const AnswerModal = (props) => {
             name="group1"
             type="radio"
             id={`inline-radio-2`}
+            onChange={()=>handleChangeRadio("No",e)}
           />
         </div>
       );
     }
     if (date.includes(key)) {
-      return (
+      return ( 
         <DatePicker
         onChange={(value)=>handleChangeDate(value,e)}
         calendar={persian}
