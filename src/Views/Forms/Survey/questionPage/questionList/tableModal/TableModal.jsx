@@ -15,6 +15,7 @@ import {
 import BackDrop from "../../../../../../Components/backDrop/BackDrop";
 
 const TableModal = (props) => {
+
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
@@ -75,6 +76,7 @@ const TableModal = (props) => {
     let loaded = false;
     if (!loaded) {
       getDatas();
+
     }
     return () => {
       loaded = true;
@@ -185,6 +187,7 @@ const TableModal = (props) => {
               >
                 {t("operatorGroupFormSubmit")}
               </Button>
+
             </Form>
           </div>
         </Modal.Body>

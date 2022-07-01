@@ -16,6 +16,7 @@ import { createSelectOptions } from "../../../../../validation/functions";
 import axios from "axios";
 
 const QuestionForm = () => {
+
   const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -123,6 +124,7 @@ const QuestionForm = () => {
         ? handleSeccess(response.message)
         : handleError(response.message);
       response.Result && handleClickMenu();
+
     }
     setResponse(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -217,6 +219,7 @@ const QuestionForm = () => {
               {t("operatorGroupFormSubmit")}
             </Button>
           </Form>
+
         </div>
       </div>
     </>

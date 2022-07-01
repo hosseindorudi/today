@@ -306,7 +306,6 @@
   "customerTitle": "ثبت نام مشتری",
   "username": "نام کاریری",
   "password": "رمز عبور",
-
   "/Definition/Area/Read": "منطقه",
   "/Definition/City/Write": "فرم شهرستان",
   "/Definition/City/Read": "شهرستان",
@@ -574,5 +573,9 @@
   "/Definition/AnswerPageFailed/Write": "دلیل جواب ندادن به سوال",
   "/Definition/AnswerPageFailed/Read": "دلایل جواب ندادن به سوال",
   "/Definition/Area/Write": "فرم منطقه",
-  "Answer.NoQuestion": "سوالی وجود ندارد"
+  "Answer.NoQuestion": "سوالی وجود ندارد",
+  "answer.requiredFieldsEmptyWarning":"لطفا یکی از فیلد های موبایل،تلفن،شماره ملی را پر کنید",
+"NationalCode":"کد ملی",
+"TimeElapsed":"زمان",
+"QuestionPage_Title":"پرسشنامه"
 }

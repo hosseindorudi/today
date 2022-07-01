@@ -27,6 +27,7 @@
     "react-dom": "^18.1.0",
     "react-i18next": "^11.16.9",
     "react-icons": "^4.3.1",
+    "react-multi-date-picker": "^3.3.0",
     "react-papaparse": "^4.0.2",
     "react-platform-js": "^0.0.1",
     "react-qr-code": "^2.0.7",
@@ -36,6 +37,7 @@
     "react-spinners": "^0.12.0",
     "react-toastify": "^9.0.1",
     "source-map-loader": "^3.0.1",
+    "stream-browserify": "^3.0.0",
     "sweetalert2": "^11.4.17",
     "web-vitals": "^2.1.4"
   },

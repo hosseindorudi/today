@@ -22,3 +22,16 @@
     max-height: 500px;
     overflow-y: auto;
 }
+.modalAnswers .rowAnswer{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.modalAnswers .rowAnswer .mb-3{
+   width: 100%;
+}
+.modalAnswers .rowQuestionTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

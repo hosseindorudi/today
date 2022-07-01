@@ -21,11 +21,7 @@ const AnswerForm = () => {
   const [response, loading, fetchData, setResponse] = useAxios(); 
   const [loadingSelect,setLoadingSelect]=useState(false)
   const [validated, setValidated] = useState(false);
-  // const [values, setValues] = useState({
-  //   nationalID: "",
-  //   phone: "",
-  //   mobile: "",
-  // });
+
 
   useEffect(() => {
     setLoadingSelect(true)
@@ -69,9 +65,7 @@ const AnswerForm = () => {
   const onChageQuestionSelect = (value) => {
     setSelectedTitle(value)
   };
-  // const handleChange = (e) => {
-  //   setValues({ ...values, [e.target.name]: e.target.value });
-  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -119,39 +113,6 @@ const AnswerForm = () => {
             isLoading={loadingSelect}
           />
         </div>
-        {/* <Form.Group className="mb-3" controlId="nationalId">
-          <Form.Label>{t("nationalId")}</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder={t("nationalId")}
-            name="nationalID"
-            value={values.nationalID}
-            required
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="phone">
-          <Form.Label>{t("Phone")}</Form.Label>
-          <Form.Control
-            type="tel"
-            placeholder={t("Phone")}
-            name="phone"
-            value={values.phone}
-            required
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="mobile">
-          <Form.Label>{t("Mobile")}</Form.Label>
-          <Form.Control
-            type="tel"
-            placeholder={t("Mobile")}
-            name="mobile"
-            value={values.mobile}
-            required
-            onChange={handleChange}
-          />
-        </Form.Group> */}
         <Button disabled={selectedTitle?false:true} type="submit">{t("answerForm.start")}</Button>
       </Form>
     </div>

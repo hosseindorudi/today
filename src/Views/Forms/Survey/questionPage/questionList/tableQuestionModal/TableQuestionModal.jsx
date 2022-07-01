@@ -175,6 +175,7 @@ const TableQuestionModal = (props) => {
       response.Result
         ? handleResponse(response, requestType)
         : handleError(response.Message);
+
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
