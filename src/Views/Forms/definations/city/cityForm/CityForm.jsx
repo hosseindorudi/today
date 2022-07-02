@@ -155,7 +155,7 @@ const CityForm = () => {
            </Form.Group>
   
           </div>
-          {defintionInputs(values).map((input) => (
+          {defintionInputs(values,t("personInformationCity"),t("Model_errorMSG")).map((input) => (
             <FormInput key={input.id} {...input} onChange={onChangeHandler} />
           ))}
           

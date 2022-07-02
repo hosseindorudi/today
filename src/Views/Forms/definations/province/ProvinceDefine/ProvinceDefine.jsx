@@ -149,7 +149,7 @@ const ProvinceDefine = () => {
             />
           </Form.Group>
         </div>
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(values,t("personInformationState"),t("province_errorMSG")).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
         <Button disabled={loading} type="submit">

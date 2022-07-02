@@ -328,6 +328,10 @@
   "routes.sentcustomerform": "فرم ارسال مشتری",
   "title": "موضوع",
   "title.errorMessage": "موضوع نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
+  "Model_errorMSG": "مدل نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
+  "Company_errorMSG": "کمپانی نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
+  "City_errorMSG": "شهرستان نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
+  "province_errorMSG": "استان نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
   "color": "رنگ",
   "color.errorMessage": "رنگ باید در فرمت هگز باشد",
   "periodity": "اولویت",
@@ -506,7 +510,7 @@
   "/Definition/StatusDeviceProgress/Write": "فرم وضعیت فعلی",
   "/Definition/StatusDeviceEnd/Read": "وضعیت پایانی",
   "/Definition/StatusDeviceEnd/Write": "فرم وضعیت پایانی",
-  "city": "شهر",
+  "city": "شهرستان",
   "fee": "هزینه",
   "Fee": "هزینه",
   "City_Title": "شهر",
@@ -555,7 +559,7 @@
   "/Definition/Defect/Read": "لیست ایرادات گوشی",
   "/Definition/Defect/Write": "فرم ایرادات گوشی",
   "/Definition/Device/Write": "فرم گوشی",
-  "/Definition/Device/Read": "لیست گوشی",
+  "/Definition/Device/Read": "مدل گوشی",
   "/Definition/ImportingCompany/Read": "لیست شرکت واردکننده",
   "/Definition/ImportingCompany/Write": "فرم شرکت واردکننده",
   "/Definition/WarrantyType/Read": "لیست نوع گارانتی",
@@ -591,5 +595,6 @@
 "InternalCode":"کد داخلی",
 "ImportingCompany_Title":"شرکت وارد کننده",
 "nothing":"هیچکدام",
-"AnswerPageFailed_Title":"دلیل پاسخ ندادن"
+"AnswerPageFailed_Title":"دلیل پاسخ ندادن",
+"company_importing":"کمپانی"
 }

@@ -35,15 +35,15 @@ export const downloadCSVCode = (data, title) => {
   link.click();
 };
 
-export const defintionInputs = (values) => {
+export const defintionInputs = (values, typeTitle, errorMSG) => {
   const inputes = [
     {
       id: 1,
       name: "title",
       type: "text",
-      label: t("title"),
-      placeholder: t("title"),
-      errorMessage: t("title.errorMessage"),
+      label:typeTitle ? typeTitle: t("title"),
+      placeholder: typeTitle ? typeTitle: t("title"),
+      errorMessage:errorMSG? errorMSG : t("title.errorMessage"),
       pattern: "^[\u0600-\u06FF,A-Za-z0-9,+, ]{2,255}",
       required: true,
       value: values.title,
