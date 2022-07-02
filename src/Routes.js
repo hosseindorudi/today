@@ -1300,8 +1300,8 @@ export const Routes = [
         Component: RegistrationGood,
         button: {
           Component: RegistrationGoodDefine,
-          path: "/Business/RegistrationGood/Create",
-          title: "/Business/RegistrationGood/Create",
+          path: "/Business/RegistrationGood/Write",
+          title: "/Business/RegistrationGood/Write",
           access: enums.Business_RegistrationGood_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,

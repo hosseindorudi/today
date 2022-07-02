@@ -1,36 +1,26 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
+import "./tableModal.css";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
-import { TabContext } from "../../../../../contexts/TabContextProvider";
-import useAxios from "../../../../../customHooks/useAxios";
-import { companyReadTitle } from "../../../../../services/companyService";
-import { deviceReadTitle } from "../../../../../services/deviceService";
-import { ImportingCompanyReadTitle } from "../../../../../services/importingCompanyService";
-import { modelReadTitle } from "../../../../../services/modelService";
-import { registrationGoodCreate } from "../../../../../services/registrationGoodService";
-import {
-  createSelectOptions,
-  handleError,
-  setDatePickerDate,
-} from "../../../../../validation/functions";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_en from "react-date-object/locales/gregorian_en";
+import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
-import { enums } from "../../../../../data/Enums";
-import RegistrationGood from "../RegistrationGood";
-import "../../../../../assets/css/businessForm.css";
-const RegistrationGoodDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+import { registrationGoodUpdate } from "../../../../../services/registrationGoodService";
+import { companyReadTitle } from "../../../../../services/companyService";
+import { deviceReadTitle } from "../../../../../services/deviceService";
+import { modelReadTitle } from "../../../../../services/modelService";
+import { ImportingCompanyReadTitle } from "../../../../../services/importingCompanyService";
+import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
+import { createSelectOptions, handleError, setDatePickerDate } from "../../../../../validation/functions";
+import axios from "axios";
+
+const TableModal = (props) => {
+  const val = props.rowValus;
   const [validated, setValidated] = useState(false);
-  const request = useRequest();
-  const tabContext = useContext(TabContext);
-  const abortController = new AbortController();
   const [company, setCompany] = useState(undefined);
   const [companyOptions, setCompanyOptions] = useState([]);
   const [device, setDevice] = useState(undefined);
@@ -41,6 +31,10 @@ const RegistrationGoodDefine = () => {
   const [importingCompanyOptions, setImportingCompanyOptions] = useState([]);
   const [warrantyDate, setWarrantyDate] = useState(new Date());
   const [expirationDate, setExpirationdate] = useState(new Date());
+  const { t } = useTranslation();
+  const abortController = new AbortController();
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const request = useRequest();
   const [values, setValues] = useState({
     ModelNumber: "",
     SerialNumber: "",
@@ -53,30 +47,6 @@ const RegistrationGoodDefine = () => {
     InternalCode: 0,
   });
   const lang = localStorage.getItem("i18nextLng");
-  const { t } = useTranslation();
-  const handleResponse = () => {
-    toast.success(t("item.created"), {
-      position: toast.POSITION.TOP_CENTER,
-    });
-    tabContext.addRemoveTabs(
-      {
-        Component: RegistrationGoodDefine,
-        path: "/Business/RegistrationGood/Write",
-        title: "/Business/RegistrationGood/Write",
-        access: enums.Business_RegistrationGood_Create_w,
-      },
-      "remove"
-    );
-    tabContext.addRemoveTabs(
-      {
-        title: "/Business/RegistrationGood/Read",
-        path: "/Business/RegistrationGood/Read",
-        access: enums.Business_RegistrationGood_Read_r,
-        Component: RegistrationGood,
-      },
-      "add"
-    );
-  };
   const createParams = (service) => {
     const params = {
       method: "POST",
@@ -88,6 +58,24 @@ const RegistrationGoodDefine = () => {
     };
     return params;
   };
+  useEffect(() => {
+    setCompany(companyOptions.find((i) => i.value === val.Company_Id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [companyOptions]);
+  useEffect(() => {
+    setDevice(deviceOptions.find((i) => i.value === val.Device_Id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deviceOptions]);
+  useEffect(() => {
+    setModel(modelOptions.find((i) => i.value === val.Model_Id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modelOptions]);
+  useEffect(() => {
+    setImportingCompany(
+      importingCompanyOptions.find((i) => i.value === val.ImportingCompany_Id)
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [importingCompanyOptions]);
   const getDatas = () => {
     const companyTitles = axios.request(createParams(companyReadTitle));
     const deviceTitles = axios.request(createParams(deviceReadTitle));
@@ -109,7 +97,9 @@ const RegistrationGoodDefine = () => {
             ? setModelOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
           allData[3].data?.Result
-            ? setImportingCompanyOptions(createSelectOptions(allData[3].data.Title))
+            ? setImportingCompanyOptions(
+                createSelectOptions(allData[3].data.Title)
+              )
             : handleError(allData[3].data.Message);
         })
       )
@@ -119,12 +109,26 @@ const RegistrationGoodDefine = () => {
   };
   useEffect(() => {
     getDatas();
+    setValues({
+      ModelNumber: val.ModelNumber,
+      SerialNumber:val.SerialNumber,
+      CodeNumber: val.CodeNumber,
+      IMEI1:val.IMEI1,
+      IMEI2: val.IMEI2,
+      Cottage: val.Cottage,
+      CommodityID: val.CommodityID,
+      ActivationCode: val.ActivationCode,
+      InternalCode: val.InternalCode,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const handleResponse=()=>{
+    props.updated()
+  }
   useEffect(() => {
     if (response) {
       response.Result
-        ? handleResponse(response)
+        ? handleResponse()
         : handleError(response.Message);
       setResponse(undefined);
     }
@@ -141,13 +145,13 @@ const RegistrationGoodDefine = () => {
     if (form.checkValidity()) {
       fetchData({
         method: "POST",
-        url: registrationGoodCreate,
+        url: registrationGoodUpdate,
         headers: {
           accept: "*/*",
         },
         data: {
           Request: request,
-          Id: 0,
+          Id: val.Id,
           Company_Id: company?.value,
           Device_Id: device?.value,
           Model_Id: model?.value,
@@ -159,8 +163,16 @@ const RegistrationGoodDefine = () => {
           IMEI2: values.IMEI2,
           Cottage: values.Cottage,
           CommodityID: values.CommodityID,
-          WarrantyDate: setDatePickerDate(warrantyDate instanceof DateObject?warrantyDate.toDate():warrantyDate),
-          ExpirationDate: setDatePickerDate(expirationDate instanceof DateObject?expirationDate.toDate():expirationDate),
+          WarrantyDate: setDatePickerDate(
+            warrantyDate instanceof DateObject
+              ? warrantyDate.toDate()
+              : warrantyDate
+          ),
+          ExpirationDate: setDatePickerDate(
+            expirationDate instanceof DateObject
+              ? expirationDate.toDate()
+              : expirationDate
+          ),
           ActivationCode: values.ActivationCode,
           InternalCode: values.InternalCode,
         },
@@ -168,19 +180,25 @@ const RegistrationGoodDefine = () => {
       });
     }
   };
-
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   return (
-    <div className="businessFormDefine">
+    <Modal
+      show={props.tableModalShow}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      onHide={props.onHide}
+      className="updateCustomerModal"
+    >
+      <Modal.Header closeButton></Modal.Header>
       <Form
-        className="businessForm"
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
       >
-        <b className="titleBusinessForm">{t("/Business/RegistrationGood/Write")}</b>
+        <Modal.Body>
         <div className="Row">
           <Form.Group className="mb-3" controlId={"company"}>
             <Form.Label>{t("company")}</Form.Label>
@@ -334,12 +352,16 @@ const RegistrationGoodDefine = () => {
             />
           </Form.Group>
         </div>
-        <Button disabled={loading} type="submit">
-          {t("submit")}
-        </Button>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button disabled={loading} type="submit">
+            {" "}
+            {t("operatorGroupFormSubmit")}
+          </Button>
+        </Modal.Footer>
       </Form>
-    </div>
+    </Modal>
   );
 };
 
-export default RegistrationGoodDefine;
+export default TableModal;

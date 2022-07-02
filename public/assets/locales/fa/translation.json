@@ -582,5 +582,12 @@
 "QuestionPage_Title":"پرسشنامه",
 "cancelationOfForm":"لغو",
 "questionMultiple" : "چندتایی",
-"routes.business":"کسب و کار"
+"routes.business":"کسب و کار",
+"Cottage":"کوتاژ",
+"CommodityID":"شناسه کالا",
+"WarrantyDate":"تاریخ گارانتی",
+"ExpirationDate":"تاریخ انقضا",
+"ActivationCode":"کد فعالسازی",
+"InternalCode":"کد داخلی",
+"ImportingCompany_Title":"شرکت وارد کننده"
 }
