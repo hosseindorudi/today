@@ -22,22 +22,7 @@ const QuestionForm = () => {
   const [description, setDescription] = useState("");
   const [enumQuestion, setEnumQuestion] = useState([]);
   const [questionSelect, setQuestionSelect] = useState("");
-  const colors = [
-    "#470063",
-    "#B30089",
-    "#F62DAE",
-    "#FD96A9",
-    "#B846E6",
-    "#4560E6",
-    "#7784C4",
-    "#0BD9E4",
-    "#7E0BE3",
-    "#0BE34C",
-    "#A2E30B",
-    "#E3C60B",
-    "#E37B0B",
-    "#E3410B",
-  ];
+
   const [activation, setActivation] = useState(false);
   const abortController = new AbortController();
 
@@ -61,7 +46,6 @@ const QuestionForm = () => {
         Component: QuestionList,
         access: enums.Survey_QuestionPage_Read_r,
       },
-
       "add"
     );
   };

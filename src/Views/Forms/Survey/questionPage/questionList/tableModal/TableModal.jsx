@@ -32,6 +32,7 @@ const TableModal = (props) => {
     setDescription(props.rowValus.Description);
     setId(props.rowValus.Id);
     setActivation(props.rowValus.IsActive);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const createParams = (service) => {
