@@ -103,6 +103,7 @@ const TableModal = (props) => {
       signal: abortController.signal,
       data: {
         Id: id,
+        IsActive:activation,
         QuestionnaireType_Id: questionSelect?.value,
         Title: title,
         Description: description,
