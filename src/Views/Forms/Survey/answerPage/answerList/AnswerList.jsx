@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 // import TableModal from './tableModal/TableModal'
-import { t } from "i18next";
-import { toast } from "react-toastify";
+// import { t } from "i18next";
+// import { toast } from "react-toastify";
 
 import { answerPageAccessList, answerPageCheckFile, answerPageDelete, answerPageExport, answerPageExportId, answerPageFavorite, answerPageGetOneRecord, answerPageImport, answerPageLog, answerPageRead, answerPageReadPaging, answerPageSampleFile, answerPageSetColumn } from "../../../../../services/answerService";
 import AnswerForm from "../answerForm/AnswerForm";
@@ -10,10 +10,8 @@ import CustomTable from "../../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
 
 const AnswerList = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType","QuestionPage_Id","AnswerPageFailed_Title","AnswerPageFailed_Id","Answer"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType","QuestionPage_Id","AnswerPageFailed_Id","Answer"];
 
-  const [tableModalOpen, setTableModalOpen] = useState(false);
-  const [rowValus, setRowValues] = useState({});
 
   const childRef = useRef();
 
@@ -29,19 +27,19 @@ const AnswerList = () => {
     access: enums.Survey_AnswerPage_Create_w,
   };
 
-  const setUpdate = (res) => {
-    const record = res.Record;
-    setRowValues(record);
-    setTableModalOpen(true);
-  };
-  const updated = () => {
-    setTableModalOpen(false);
-    toast.success(t("updatedRecord"), {
-      position: toast.POSITION.TOP_CENTER,
-    });
-    //call update function in child class
-    childRef.current.updated();
-  };
+  // const setUpdate = (res) => {
+  //   const record = res.Record;
+  //   setRowValues(record);
+  //   setTableModalOpen(true);
+  // };
+  // const updated = () => {
+  //   setTableModalOpen(false);
+  //   toast.success(t("updatedRecord"), {
+  //     position: toast.POSITION.TOP_CENTER,
+  //   });
+  //   //call update function in child class
+  //   childRef.current.updated();
+  // };
 
   const handleClickHelp = () => {
     window.open("https://www.google.com");
@@ -86,7 +84,7 @@ const AnswerList = () => {
         permissionsAccess={""}
         changePasswordAccess={""}
         getOneRecord={answerPageGetOneRecord}
-        setUpdate={setUpdate}
+        // setUpdate={setUpdate}
         mobileModal={mobileModal}
         setMobileModal={setMobileModal}
         widthOFScreen={widthOFScreen}

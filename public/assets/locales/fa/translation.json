@@ -589,5 +589,7 @@
 "ExpirationDate":"تاریخ انقضا",
 "ActivationCode":"کد فعالسازی",
 "InternalCode":"کد داخلی",
-"ImportingCompany_Title":"شرکت وارد کننده"
+"ImportingCompany_Title":"شرکت وارد کننده",
+"nothing":"هیچکدام",
+"AnswerPageFailed_Title":"دلیل پاسخ ندادن"
 }
