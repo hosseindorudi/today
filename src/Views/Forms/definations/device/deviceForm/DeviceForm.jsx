@@ -156,7 +156,7 @@ const DeviceForm = () => {
          </Form.Group>
 
         </div>
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(values,t("model"),t("Model_errorMSG")).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
         

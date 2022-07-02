@@ -105,7 +105,7 @@ const ImportingCompanyForm = () => {
       >
         <b>{t("/Definition/ImportingCompany/Write")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(values,t("company_importing"),t("Model_errorMSG")).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 
