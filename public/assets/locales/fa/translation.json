@@ -573,9 +573,12 @@
   "/Definition/AnswerPageFailed/Write": "دلیل جواب ندادن به سوال",
   "/Definition/AnswerPageFailed/Read": "دلایل جواب ندادن به سوال",
   "/Definition/Area/Write": "فرم منطقه",
+  "/Business/RegistrationGood/Read":"کالا های ثبتی",
+  "/Business/RegistrationGood/Write":"فرم کالا های ثبتی",
   "Answer.NoQuestion": "سوالی وجود ندارد",
   "answer.requiredFieldsEmptyWarning":"لطفا یکی از فیلد های موبایل،تلفن،شماره ملی را پر کنید",
 "NationalCode":"کد ملی",
 "TimeElapsed":"زمان",
-"QuestionPage_Title":"پرسشنامه"
+"QuestionPage_Title":"پرسشنامه",
+"routes.business":"کسب و کار"
 }
