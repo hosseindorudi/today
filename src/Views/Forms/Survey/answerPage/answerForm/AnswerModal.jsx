@@ -359,7 +359,7 @@ const AnswerModal = (props) => {
             <Form.Group className="mb-3" controlId="description">
               <Form.Label>{t("Description")}</Form.Label>
               <Form.Control
-                type="number"
+                type="text"
                 placeholder={t("Description")}
                 name="Description"
                 value={values.Description}
