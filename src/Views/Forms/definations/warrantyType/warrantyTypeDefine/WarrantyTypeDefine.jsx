@@ -1,81 +1,81 @@
-import { t } from 'i18next';
-import React,{ useContext, useEffect, useState } from 'react'
-import FormInput from '../../../../../Components/periodity/formInput/FormInput';
-import { TabContext } from '../../../../../contexts/TabContextProvider';
-import useAxios from '../../../../../customHooks/useAxios';
-import useRequest from '../../../../../customHooks/useRequest';
+import { t } from "i18next";
+import React, { useContext, useEffect, useState } from "react";
+import FormInput from "../../../../../Components/periodity/formInput/FormInput";
+import { TabContext } from "../../../../../contexts/TabContextProvider";
+import useAxios from "../../../../../customHooks/useAxios";
+import useRequest from "../../../../../customHooks/useRequest";
 import { Form, Button } from "react-bootstrap";
-import '../../../../../assets/css/periorityForm.css'
-import { enums } from '../../../../../data/Enums';
+import "../../../../../assets/css/periorityForm.css";
+import { enums } from "../../../../../data/Enums";
 import { toast } from "react-toastify";
-import WarrantyType from '../WarrantyType';
-import { warrantyTypeCreate } from '../../../../../services/warrantyType';
-import { defintionInputs } from '../../../../../validation/functions';
+import WarrantyType from "../WarrantyType";
+import { warrantyTypeCreate } from "../../../../../services/warrantyType";
+import { defintionInputs } from "../../../../../validation/functions";
 const WarrantyTypeDefine = () => {
-    const [response, loading, fetchData, setResponse] = useAxios();
-    const tabContext = useContext(TabContext);
-    const [validated, setValidated] = useState(false);
-    const request = useRequest();
-    const abortController = new AbortController();
-    const [values, setValues] = useState({
-      title: "",
-      color: "#000000",
-      periority: 1,
-      desc: "",
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const tabContext = useContext(TabContext);
+  const [validated, setValidated] = useState(false);
+  const request = useRequest();
+  const abortController = new AbortController();
+  const [values, setValues] = useState({
+    title: "",
+    color: "#000000",
+    periority: 1,
+    desc: "",
+  });
+
+  const handleResponse = () => {
+    toast.success(t("item.created"), {
+      position: toast.POSITION.TOP_CENTER,
     });
-  
-    const handleResponse = () => {
-      toast.success(t("item.created"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      tabContext.addRemoveTabs(
-        {
-            Component:WarrantyTypeDefine,
-            path:"/Definition/WarrantyType/Write",
-            title:"/Definition/WarrantyType/Write",
-            access:enums.Definition_WarrantyType_Create_w,
-        },
-        "remove"
-      );
-      tabContext.addRemoveTabs(
-        {
-            title: '/Definition/WarrantyType/Read',
-            path:'/Definition/WarrantyType/Read',
-            access:enums.Definition_WarrantyType_Read_r,
-           Component:WarrantyType,
-        },
-  
-        "add"
-      );
-    };
-    const handleError = (message) => {
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-    };
-  
-    useEffect(() => {
-      if (response) {
-        response.Result
-          ? handleResponse(response)
-          : handleError(response.Message);
-        setResponse(undefined);
-      }
+    tabContext.addRemoveTabs(
+      {
+        Component: WarrantyTypeDefine,
+        path: "/Definition/WarrantyType/Write",
+        title: "/Definition/WarrantyType/Write",
+        access: enums.Definition_WarrantyType_Create_w,
+      },
+      "remove"
+    );
+    tabContext.addRemoveTabs(
+      {
+        title: "/Definition/WarrantyType/Read",
+        path: "/Definition/WarrantyType/Read",
+        access: enums.Definition_WarrantyType_Read_r,
+        Component: WarrantyType,
+      },
+
+      "add"
+    );
+  };
+  const handleError = (message) => {
+    toast.error(message, {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  };
+
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response)
+        : handleError(response.Message);
+      setResponse(undefined);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [response]);
-  
-    const onChangeHandler = (e) => {
-      setValues({ ...values, [e.target.name]: e.target.value });
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const form = e.currentTarget;
-      if (!form.checkValidity()) {
-        e.stopPropagation();
-      }
-      setValidated(true);
-      if (form.checkValidity()) {
+  }, [response]);
+
+  const onChangeHandler = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
       fetchData({
         method: "POST",
         url: warrantyTypeCreate,
@@ -94,9 +94,9 @@ const WarrantyTypeDefine = () => {
         signal: abortController.signal,
       });
     }
-    };
-    return (
-      <div className="periorityFormDefine">
+  };
+  return (
+    <div className="periorityFormDefine">
       <Form
         className="periorityForm"
         noValidate
@@ -105,7 +105,11 @@ const WarrantyTypeDefine = () => {
       >
         <b>{t("WarrantyTypeDefineHeader")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("routes.garanteeType"),
+          t("warrantyCancelation_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 
@@ -114,8 +118,7 @@ const WarrantyTypeDefine = () => {
         </Button>
       </Form>
     </div>
-   
-    )
-}
+  );
+};
 
-export default WarrantyTypeDefine
+export default WarrantyTypeDefine;

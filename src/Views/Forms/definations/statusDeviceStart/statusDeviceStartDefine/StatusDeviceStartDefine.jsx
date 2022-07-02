@@ -31,9 +31,9 @@ const StatusDeviceStartDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: StatusDeviceStartDefine,
-          path: "/Definition/StatusDeviceStart/Write",
-          title: "/Definition/StatusDeviceStart/Write",
-          access: enums.Definition_StatusDeviceStart_Create_w,
+        path: "/Definition/StatusDeviceStart/Write",
+        title: "/Definition/StatusDeviceStart/Write",
+        access: enums.Definition_StatusDeviceStart_Create_w,
       },
       "remove"
     );
@@ -108,7 +108,11 @@ const StatusDeviceStartDefine = () => {
       >
         <b>{t("tech.firstState")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("StatusDeviceStart"),
+          t("statusDeviceStart_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 

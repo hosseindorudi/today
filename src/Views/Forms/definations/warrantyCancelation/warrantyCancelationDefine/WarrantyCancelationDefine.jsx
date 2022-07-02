@@ -1,80 +1,80 @@
-import { t } from 'i18next';
-import React,{ useContext, useEffect, useState } from 'react'
-import FormInput from '../../../../../Components/periodity/formInput/FormInput';
-import { TabContext } from '../../../../../contexts/TabContextProvider';
-import useAxios from '../../../../../customHooks/useAxios';
-import useRequest from '../../../../../customHooks/useRequest';
-import '../../../../../assets/css/periorityForm.css'
-import { enums } from '../../../../../data/Enums';
+import { t } from "i18next";
+import React, { useContext, useEffect, useState } from "react";
+import FormInput from "../../../../../Components/periodity/formInput/FormInput";
+import { TabContext } from "../../../../../contexts/TabContextProvider";
+import useAxios from "../../../../../customHooks/useAxios";
+import useRequest from "../../../../../customHooks/useRequest";
+import "../../../../../assets/css/periorityForm.css";
+import { enums } from "../../../../../data/Enums";
 import { toast } from "react-toastify";
-import {reasonForCancellationOfWarrantyCreate} from '../../../../../services/warrantyCancellationService'
-import WarrantyCancelation from '../WarrantyCancelation';
-import { defintionInputs, handleError } from '../../../../../validation/functions';
+import { reasonForCancellationOfWarrantyCreate } from "../../../../../services/warrantyCancellationService";
+import WarrantyCancelation from "../WarrantyCancelation";
+import {
+  defintionInputs,
+  handleError,
+} from "../../../../../validation/functions";
 import { Form, Button } from "react-bootstrap";
 
 const WarrantyCancelationDefine = () => {
-    const [response, loading, fetchData, setResponse] = useAxios();
-    const tabContext = useContext(TabContext);
-    const [validated, setValidated] = useState(false);
-    const request = useRequest();
-    const abortController = new AbortController();
-    const [values, setValues] = useState({
-      title: "",
-      color: "#000000",
-      periority: 1,
-      desc: "",
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const tabContext = useContext(TabContext);
+  const [validated, setValidated] = useState(false);
+  const request = useRequest();
+  const abortController = new AbortController();
+  const [values, setValues] = useState({
+    title: "",
+    color: "#000000",
+    periority: 1,
+    desc: "",
+  });
+
+  const handleResponse = () => {
+    toast.success(t("item.created"), {
+      position: toast.POSITION.TOP_CENTER,
     });
-  
-   
-    const handleResponse = () => {
-      toast.success(t("item.created"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      tabContext.addRemoveTabs(
-        {
-            Component:WarrantyCancelationDefine,
-            path:"/Definition/warrantyCancelation/Write",
-            title:"/Definition/warrantyCancelation/Write",
-            access:enums.Definition_CancellationOfWarranty_Create_w,
-        },
-        "remove"
-      );
-      tabContext.addRemoveTabs(
-        {
-            title: '/Definition/warrantyCancelation/Read',
-            path:'/Definition/warrantyCancelation/Read',
-            access:enums.Definition_CancellationOfWarranty_Read_r,
-           Component:WarrantyCancelation,
-        },
-  
-        "add"
-      );
-    };
+    tabContext.addRemoveTabs(
+      {
+        Component: WarrantyCancelationDefine,
+        path: "/Definition/warrantyCancelation/Write",
+        title: "/Definition/warrantyCancelation/Write",
+        access: enums.Definition_CancellationOfWarranty_Create_w,
+      },
+      "remove"
+    );
+    tabContext.addRemoveTabs(
+      {
+        title: "/Definition/warrantyCancelation/Read",
+        path: "/Definition/warrantyCancelation/Read",
+        access: enums.Definition_CancellationOfWarranty_Read_r,
+        Component: WarrantyCancelation,
+      },
 
-  
-    useEffect(() => {
-      if (response) {
-        response.Result
-          ? handleResponse(response)
-          : handleError(response.Message);
-        setResponse(undefined);
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [response]);
-  
-    const onChangeHandler = (e) => {
-      setValues({ ...values, [e.target.name]: e.target.value });
-    };
-  
+      "add"
+    );
+  };
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const form = e.currentTarget;
-      if (!form.checkValidity()) {
-        e.stopPropagation();
-      }
-      setValidated(true);
-      if (form.checkValidity()) {
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response)
+        : handleError(response.Message);
+      setResponse(undefined);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
+
+  const onChangeHandler = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
       fetchData({
         method: "POST",
         url: reasonForCancellationOfWarrantyCreate,
@@ -93,10 +93,10 @@ const WarrantyCancelationDefine = () => {
         signal: abortController.signal,
       });
     }
-    };
+  };
 
-    return (
-      <div className="periorityFormDefine">
+  return (
+    <div className="periorityFormDefine">
       <Form
         className="periorityForm"
         noValidate
@@ -105,7 +105,11 @@ const WarrantyCancelationDefine = () => {
       >
         <b>{t("WarrantyCancelationDefineHeader")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("routes.warrantyCancelation"),
+          t("warrantyCancelation_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 
@@ -114,10 +118,7 @@ const WarrantyCancelationDefine = () => {
         </Button>
       </Form>
     </div>
+  );
+};
 
-    
-    
-    )
-}
-
-export default WarrantyCancelationDefine
+export default WarrantyCancelationDefine;

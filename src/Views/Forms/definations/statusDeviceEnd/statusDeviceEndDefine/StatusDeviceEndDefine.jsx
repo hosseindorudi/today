@@ -7,72 +7,73 @@ import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { Form, Button } from "react-bootstrap";
 import { enums } from "../../../../../data/Enums";
-import '../../../../../assets/css/periorityForm.css'
-import { defintionInputs, handleError } from "../../../../../validation/functions";
+import "../../../../../assets/css/periorityForm.css";
+import {
+  defintionInputs,
+  handleError,
+} from "../../../../../validation/functions";
 import StatusDeviceEnd from "../StatusDeviceEnd";
 import { statusDeviceEndCreate } from "../../../../../services/statusDeviceEndService";
 const StatusDeviceEndDefine = () => {
-    const [response, loading, fetchData, setResponse] = useAxios();
-    const tabContext = useContext(TabContext);
-    const [validated, setValidated] = useState(false);
-    const request = useRequest();
-    const abortController = new AbortController();
-    const [values, setValues] = useState({
-      title: "",
-      color: "#000000",
-      periority: 1,
-      desc: "",
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const tabContext = useContext(TabContext);
+  const [validated, setValidated] = useState(false);
+  const request = useRequest();
+  const abortController = new AbortController();
+  const [values, setValues] = useState({
+    title: "",
+    color: "#000000",
+    periority: 1,
+    desc: "",
+  });
+  const handleResponse = () => {
+    toast.success(t("item.created"), {
+      position: toast.POSITION.TOP_CENTER,
     });
-    const handleResponse = () => {
-      toast.success(t("item.created"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      tabContext.addRemoveTabs(
-        {
-            Component:StatusDeviceEndDefine,
-            path:"/StatusDeviceEndDefine",
-            title:"StatusDeviceEndDefine",
-            access:enums.Definition_StatusDeviceEnd_Create_w,
-        },
-        "remove"
-      );
-      tabContext.addRemoveTabs(
-        {
-            title: 'StatusDeviceEnd',
-            path:'/StatusDeviceEnd',
-            access:enums.Definition_StatusDeviceEnd_Read_r,
-            Component:StatusDeviceEnd,
-        },
-  
-        "add"
-      );
-    };
-  
-    useEffect(() => {
-      if (response) {
-        response.Result
-          ? handleResponse(response)
-          : handleError(response.Message);
-        setResponse(undefined);
-      }
-      return () => abortController.abort();
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [response]);
-  
- 
-    const onChangeHandler = (e) => {
-      setValues({ ...values, [e.target.name]: e.target.value });
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const form = e.currentTarget;
-      if (!form.checkValidity()) {
-        e.stopPropagation();
-      }
-      setValidated(true);
-      if (form.checkValidity()) {
-  
+    tabContext.addRemoveTabs(
+      {
+        Component: StatusDeviceEndDefine,
+        path: "/StatusDeviceEndDefine",
+        title: "StatusDeviceEndDefine",
+        access: enums.Definition_StatusDeviceEnd_Create_w,
+      },
+      "remove"
+    );
+    tabContext.addRemoveTabs(
+      {
+        title: "StatusDeviceEnd",
+        path: "/StatusDeviceEnd",
+        access: enums.Definition_StatusDeviceEnd_Read_r,
+        Component: StatusDeviceEnd,
+      },
+
+      "add"
+    );
+  };
+
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response)
+        : handleError(response.Message);
+      setResponse(undefined);
+    }
+    return () => abortController.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
+
+  const onChangeHandler = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
       fetchData({
         method: "POST",
         url: statusDeviceEndCreate,
@@ -93,9 +94,9 @@ const StatusDeviceEndDefine = () => {
         signal: abortController.signal,
       });
     }
-    };
-    return (
-      <div className="periorityFormDefine">
+  };
+  return (
+    <div className="periorityFormDefine">
       <Form
         className="periorityForm"
         noValidate
@@ -104,7 +105,11 @@ const StatusDeviceEndDefine = () => {
       >
         <b>{t("StatusDeviceEndDefine")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("statusDeviceEnd"),
+          t("StatusDeviceEndDefine_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 
@@ -113,8 +118,7 @@ const StatusDeviceEndDefine = () => {
         </Button>
       </Form>
     </div>
-    
-    )
-}
+  );
+};
 
-export default StatusDeviceEndDefine
+export default StatusDeviceEndDefine;

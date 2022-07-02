@@ -8,7 +8,10 @@ import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import { organizationalRoleCreate } from "../../../../../services/organizationRoleService";
-import { defintionInputs, handleError } from "../../../../../validation/functions";
+import {
+  defintionInputs,
+  handleError,
+} from "../../../../../validation/functions";
 import OrganizationRole from "../OrganizationRole";
 import "./organizationRoleDefine.css";
 const OrganizationRoleDefine = () => {
@@ -22,9 +25,8 @@ const OrganizationRoleDefine = () => {
     color: "#000000",
     periority: 1,
     desc: "",
-    group:"",
+    group: "",
     percentage: 0,
-   
   });
   const { t } = useTranslation();
   const handleResponse = () => {
@@ -34,9 +36,9 @@ const OrganizationRoleDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: OrganizationRoleDefine,
-          path: "/Definition/OrganizationalRole/Write",
-          title: "/Definition/OrganizationalRole/Write",
-          access: enums.Definition_OrganizationalRole_Create_w,
+        path: "/Definition/OrganizationalRole/Write",
+        title: "/Definition/OrganizationalRole/Write",
+        access: enums.Definition_OrganizationalRole_Create_w,
       },
       "remove"
     );
@@ -68,7 +70,6 @@ const OrganizationRoleDefine = () => {
     }
     setValidated(true);
     if (form.checkValidity()) {
-      
       fetchData({
         method: "POST",
         url: organizationalRoleCreate,
@@ -78,8 +79,8 @@ const OrganizationRoleDefine = () => {
         data: {
           Request: request,
           Id: 0,
-          Group:values.group,
-          Percentage:values.percentage,
+          Group: values.group,
+          Percentage: values.percentage,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -106,7 +107,11 @@ const OrganizationRoleDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/OrganizationalRole/Write")}</b>
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("/Definition/OrganizationalRole/Read"),
+          t("CompanyRole_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
         <div className="OrganizationRow">

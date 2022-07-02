@@ -105,7 +105,7 @@ const ColorForm = () => {
       >
         <b>{t("/Definition/Color/Write")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(values, t("color"), t("")).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 

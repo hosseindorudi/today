@@ -106,7 +106,11 @@ const DeffectForm = () => {
       >
         <b>{t("/Definition/Defect/Write")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("admissionDeffect"),
+          t("defect_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 

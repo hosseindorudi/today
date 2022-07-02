@@ -1,117 +1,115 @@
-import { t } from 'i18next';
-import React,{ useContext, useEffect, useState } from 'react'
-import FormInput from '../../../../../Components/periodity/formInput/FormInput';
-import { TabContext } from '../../../../../contexts/TabContextProvider';
-import useAxios from '../../../../../customHooks/useAxios';
-import useRequest from '../../../../../customHooks/useRequest';
-import '../../../../../assets/css/periorityForm.css'
-import { enums } from '../../../../../data/Enums';
+import { t } from "i18next";
+import React, { useContext, useEffect, useState } from "react";
+import FormInput from "../../../../../Components/periodity/formInput/FormInput";
+import { TabContext } from "../../../../../contexts/TabContextProvider";
+import useAxios from "../../../../../customHooks/useAxios";
+import useRequest from "../../../../../customHooks/useRequest";
+import "../../../../../assets/css/periorityForm.css";
+import { enums } from "../../../../../data/Enums";
 import { toast } from "react-toastify";
-import { additionalServiceCreate } from '../../../../../services/additionalServiceService';
-import ExtraServices from '../ExtraServices';
-import { createSelectOptions, defintionInputs, handleError } from '../../../../../validation/functions';
+import { additionalServiceCreate } from "../../../../../services/additionalServiceService";
+import ExtraServices from "../ExtraServices";
+import {
+  createSelectOptions,
+  defintionInputs,
+  handleError,
+} from "../../../../../validation/functions";
 import { Form, Button } from "react-bootstrap";
-import { modelReadTitle } from '../../../../../services/modelService';
-import axios from 'axios'
-import { CustomReactMultiSelect } from '../../../../../Components/Select/customReactSelect';
+import { modelReadTitle } from "../../../../../services/modelService";
+import axios from "axios";
+import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 const ExtraServicesDefine = () => {
   const [validated, setValidated] = useState(false);
-    const [response, loading, fetchData, setResponse] = useAxios();
-    const [modelOptions,setModelOptions]=useState([])
-    const [model, setModel] = useState(undefined);
-    const tabContext = useContext(TabContext);
-    const request = useRequest();
-    const abortController = new AbortController();
-    const [values, setValues] = useState({
-      title: "",
-      color: "#000000",
-      periority: 1,
-      desc: "",
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const [modelOptions, setModelOptions] = useState([]);
+  const [model, setModel] = useState(undefined);
+  const tabContext = useContext(TabContext);
+  const request = useRequest();
+  const abortController = new AbortController();
+  const [values, setValues] = useState({
+    title: "",
+    color: "#000000",
+    periority: 1,
+    desc: "",
+  });
+  const handleResponse = () => {
+    toast.success(t("item.created"), {
+      position: toast.POSITION.TOP_CENTER,
     });
-    const handleResponse = () => {
-      toast.success(t("item.created"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      tabContext.addRemoveTabs(
-        {
-            Component:ExtraServicesDefine,
-            path:"/extraServicesForm",
-            title:"routes.extraServicesForm",
-            access:enums.Definition_AdditionalService_Create_w,
-        },
-        "remove"
-      );
-      tabContext.addRemoveTabs(
-        {
-            title: 'routes.extraServices',
-            path:'/extraServices',
-            access:enums.Definition_AdditionalService_Read_r,
-           Component:ExtraServices,
-        },
-  
-        "add"
-      );
+    tabContext.addRemoveTabs(
+      {
+        Component: ExtraServicesDefine,
+        path: "/extraServicesForm",
+        title: "routes.extraServicesForm",
+        access: enums.Definition_AdditionalService_Create_w,
+      },
+      "remove"
+    );
+    tabContext.addRemoveTabs(
+      {
+        title: "routes.extraServices",
+        path: "/extraServices",
+        access: enums.Definition_AdditionalService_Read_r,
+        Component: ExtraServices,
+      },
+
+      "add"
+    );
+  };
+  const createParams = (service) => {
+    const params = {
+      method: "POST",
+      url: service,
+      headers: {
+        accept: "*/*",
+      },
+      data: request,
     };
-    const createParams = (service) => {
-      const params = {
-        method: "POST",
-        url: service,
-        headers: {
-          accept: "*/*",
-        },
-        data: request,
-      };
-      return params;
-    };
-   const getDatas=()=>{
-      const modelTitles = axios.request(
-        createParams(modelReadTitle)
-      );
-      axios
-      .all([
-        modelTitles,
-      ])
+    return params;
+  };
+  const getDatas = () => {
+    const modelTitles = axios.request(createParams(modelReadTitle));
+    axios
+      .all([modelTitles])
       .then(
         axios.spread((...allData) => {
           allData[0].data?.Result
             ? setModelOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-            })
+        })
       )
       .catch((error) => {
         handleError(error.message);
       });
-    }
-    useEffect(() => {
-        getDatas();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+  };
+  useEffect(() => {
+    getDatas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    
-  
-    useEffect(() => {
-      if (response) {
-        response.Result
-          ? handleResponse(response)
-          : handleError(response.Message);
-        setResponse(undefined);
-      }
-      return () => abortController.abort();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [response]);
-  
-    const onChangeHandler = (e) => {
-      setValues({ ...values, [e.target.name]: e.target.value });
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const form = e.currentTarget;
-      if (!form.checkValidity()) {
-        e.stopPropagation();
-      }
-      setValidated(true);
-      if (form.checkValidity()) {
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response)
+        : handleError(response.Message);
+      setResponse(undefined);
+    }
+    return () => abortController.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
+
+  const onChangeHandler = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
       fetchData({
         method: "POST",
         url: additionalServiceCreate,
@@ -121,7 +119,7 @@ const ExtraServicesDefine = () => {
         data: {
           Request: request,
           Id: 0,
-          Model_Id:model?.value,
+          Model_Id: model?.value,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -131,9 +129,9 @@ const ExtraServicesDefine = () => {
         signal: abortController.signal,
       });
     }
-    };
-    return (
-      <div className="periorityFormDefine">
+  };
+  return (
+    <div className="periorityFormDefine">
       <Form
         className="periorityForm"
         noValidate
@@ -141,9 +139,9 @@ const ExtraServicesDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("ExtraServicesDefineHeader")}</b>
-          <div className="modelDefineRow">
+        <div className="modelDefineRow">
           <Form.Group className="mb-3" controlId={"model"}>
-          <Form.Label>{t("model")}</Form.Label>
+            <Form.Label>{t("model")}</Form.Label>
             <CustomReactMultiSelect
               isMulti={false}
               options={modelOptions}
@@ -151,10 +149,13 @@ const ExtraServicesDefine = () => {
               onchangeHandler={(e) => setModel(e)}
               placeholder={t("model")}
             />
-           </Form.Group>
-  
-          </div>
-        {defintionInputs(values).map((input) => (
+          </Form.Group>
+        </div>
+        {defintionInputs(
+          values,
+          t("routes.extraServices"),
+          t("extraService_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 
@@ -163,8 +164,7 @@ const ExtraServicesDefine = () => {
         </Button>
       </Form>
     </div>
-   
-    )
-}
+  );
+};
 
-export default ExtraServicesDefine
+export default ExtraServicesDefine;

@@ -8,7 +8,7 @@ import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import { productGroupCreate } from "../../../../../services/productGroup";
 import ProductGroup from "../ProductGroup";
-import '../../../../../assets/css/periorityForm.css'
+import "../../../../../assets/css/periorityForm.css";
 import { defintionInputs } from "../../../../../validation/functions";
 const ProductGroupDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -97,7 +97,11 @@ const ProductGroupDefine = () => {
       <div className="periorityFormmainDiv">
         <div className="periorityFormForm">
           <form onSubmit={handleSubmit} className="periorityForms">
-            {defintionInputs(values).map((input) => (
+            {defintionInputs(
+              values,
+              t("routes.productGroup"),
+              t("productGroup_errorMSG")
+            ).map((input) => (
               <FormInput
                 key={input.id}
                 {...input}
@@ -106,7 +110,9 @@ const ProductGroupDefine = () => {
               />
             ))}
 
-            <button disabled={loading} className="periorityFormSubmit">{t("submit")}</button>
+            <button disabled={loading} className="periorityFormSubmit">
+              {t("submit")}
+            </button>
           </form>
         </div>
       </div>

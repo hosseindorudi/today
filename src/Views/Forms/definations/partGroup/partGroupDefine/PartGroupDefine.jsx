@@ -8,9 +8,11 @@ import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import { partGroupCreate } from "../../../../../services/partGroup";
-import {  defintionInputs, handleError } from "../../../../../validation/functions";
+import {
+  defintionInputs,
+  handleError,
+} from "../../../../../validation/functions";
 import PartGroup from "../PartGroup";
-
 
 const PartGroupDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -32,9 +34,9 @@ const PartGroupDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: PartGroupDefine,
-          path: "/Definition/PartGroup/Write",
-          title: "/Definition/PartGroup/Write",
-          access: enums.Definition_PartGroup_Create_w,
+        path: "/Definition/PartGroup/Write",
+        title: "/Definition/PartGroup/Write",
+        access: enums.Definition_PartGroup_Create_w,
       },
       "remove"
     );
@@ -66,7 +68,6 @@ const PartGroupDefine = () => {
     }
     setValidated(true);
     if (form.checkValidity()) {
-      
       fetchData({
         method: "POST",
         url: partGroupCreate,
@@ -101,11 +102,15 @@ const PartGroupDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/PartGroup/Write")}</b>
-      
-        {defintionInputs(values).map((input) => (
+
+        {defintionInputs(
+          values,
+          t("PartGroup_Title"),
+          t("partGroup_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
-       
+
         <Button disabled={loading} type="submit">
           {t("submit")}
         </Button>

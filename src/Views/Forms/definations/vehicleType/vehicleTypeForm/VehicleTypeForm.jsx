@@ -105,7 +105,11 @@ const VehicleTypeForm = () => {
       >
         <b>{t("/Definition/VehicleType/Write")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("vehicle_type"),
+          t("VehicleType_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 

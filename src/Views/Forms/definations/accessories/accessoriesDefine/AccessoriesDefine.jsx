@@ -6,7 +6,7 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
-import '../../../../../assets/css/periorityForm.css'
+import "../../../../../assets/css/periorityForm.css";
 import { Form, Button } from "react-bootstrap";
 import Accessories from "../Accessories";
 import { admissionAccessoryCreate } from "../../../../../services/admissionAccessory";
@@ -29,19 +29,19 @@ const AccessoriesDefine = () => {
     });
     tabContext.addRemoveTabs(
       {
-        Component:AccessoriesDefine,
-        path:"/accessoriesForm",
-        title:"routes.accessoriesForm",
-        access:enums.Definition_AdmissionAccessory_Create_w,
+        Component: AccessoriesDefine,
+        path: "/accessoriesForm",
+        title: "routes.accessoriesForm",
+        access: enums.Definition_AdmissionAccessory_Create_w,
       },
       "remove"
     );
     tabContext.addRemoveTabs(
       {
-        title: 'routes.accessories',
-        path:'/accessories',
-        access:enums.Definition_AdmissionAccessory_Read_r,
-       Component:Accessories,
+        title: "routes.accessories",
+        path: "/accessories",
+        access: enums.Definition_AdmissionAccessory_Read_r,
+        Component: Accessories,
       },
 
       "add"
@@ -76,29 +76,29 @@ const AccessoriesDefine = () => {
     }
     setValidated(true);
     if (form.checkValidity()) {
-    fetchData({
-      method: "POST",
-      url: admissionAccessoryCreate,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Request: request,
-        Id: 0,
-        Priority: values.periority,
-        Title: values.title,
-        Description: values.desc,
-        Color: values.color.substring(1),
-        SourceType: 0,
-        Registrar: 0,
-        DateSet: "2022-06-19T16:43:29.709Z",
-      },
-      signal: abortController.signal,
-    });
-  }
+      fetchData({
+        method: "POST",
+        url: admissionAccessoryCreate,
+        headers: {
+          accept: "*/*",
+        },
+        data: {
+          Request: request,
+          Id: 0,
+          Priority: values.periority,
+          Title: values.title,
+          Description: values.desc,
+          Color: values.color.substring(1),
+          SourceType: 0,
+          Registrar: 0,
+          DateSet: "2022-06-19T16:43:29.709Z",
+        },
+        signal: abortController.signal,
+      });
+    }
   };
-return (
-  <div className="periorityFormDefine">
+  return (
+    <div className="periorityFormDefine">
       <Form
         className="periorityForm"
         noValidate
@@ -107,7 +107,11 @@ return (
       >
         <b>{t("admissionAccessories")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("routes.accessories"),
+          t("accessories_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 
@@ -116,7 +120,7 @@ return (
         </Button>
       </Form>
     </div>
-)
-}
+  );
+};
 
-export default AccessoriesDefine
+export default AccessoriesDefine;

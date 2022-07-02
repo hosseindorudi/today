@@ -24,7 +24,7 @@ const ReplacementTypeDefine = () => {
     title: "",
     color: "#000000",
     periority: 1,
-    desc: ""
+    desc: "",
   });
   const { t } = useTranslation();
   const submitted = () => {
@@ -113,7 +113,11 @@ const ReplacementTypeDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/ReplacementType/Write")}</b>
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("/Definition/ReplacementType/Read"),
+          t("ReplacementType_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
         <Button disabled={loading} type="submit">

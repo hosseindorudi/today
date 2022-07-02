@@ -7,75 +7,75 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
-import '../../../../../assets/css/periorityForm.css'
+import "../../../../../assets/css/periorityForm.css";
 import { defintionInputs } from "../../../../../validation/functions";
 import { statusDeviceProgressCreate } from "../../../../../services/statusDeviceProgress";
 import StatusDeviceProgress from "../StatusDeviceProgress";
 const StatusDeviceProgressDefine = () => {
-    const [response, loading, fetchData, setResponse] = useAxios();
-    const tabContext = useContext(TabContext);
-    const [validated, setValidated] = useState(false);
-    const request = useRequest();
-    const abortController = new AbortController();
-    const [values, setValues] = useState({
-      title: "",
-      color: "#000000",
-      periority: 1,
-      desc: "",
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const tabContext = useContext(TabContext);
+  const [validated, setValidated] = useState(false);
+  const request = useRequest();
+  const abortController = new AbortController();
+  const [values, setValues] = useState({
+    title: "",
+    color: "#000000",
+    periority: 1,
+    desc: "",
+  });
+  const handleResponse = () => {
+    toast.success(t("item.created"), {
+      position: toast.POSITION.TOP_CENTER,
     });
-    const handleResponse = () => {
-      toast.success(t("item.created"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      tabContext.addRemoveTabs(
-        {
-            Component:StatusDeviceProgressDefine,
-            path:"/statusdeviceprogressdefine",
-            title:"StatusDeviceProgressDefine",
-            access:enums.Definition_StatusDeviceProgress_Create_w,
-        },
-        "remove"
-      );
-      tabContext.addRemoveTabs(
-        {
-            title: 'StatusDeviceProgress',
-            path:'/statusdeviceprogress',
-            access:enums.Definition_StatusDeviceProgress_Read_r,
-           Component:StatusDeviceProgress,
-        },
-  
-        "add"
-      );
-    };
-    const handleError = (message) => {
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-    };
-  
-    useEffect(() => {
-      if (response) {
-        response.Result
-          ? handleResponse(response)
-          : handleError(response.Message);
-        setResponse(undefined);
-      }
-      return () => abortController.abort();
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [response]);
-  
-    const onChangeHandler = (e) => {
-      setValues({ ...values, [e.target.name]: e.target.value });
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const form = e.currentTarget;
-      if (!form.checkValidity()) {
-        e.stopPropagation();
-      }
-      setValidated(true);
-      if (form.checkValidity()) {
+    tabContext.addRemoveTabs(
+      {
+        Component: StatusDeviceProgressDefine,
+        path: "/statusdeviceprogressdefine",
+        title: "StatusDeviceProgressDefine",
+        access: enums.Definition_StatusDeviceProgress_Create_w,
+      },
+      "remove"
+    );
+    tabContext.addRemoveTabs(
+      {
+        title: "StatusDeviceProgress",
+        path: "/statusdeviceprogress",
+        access: enums.Definition_StatusDeviceProgress_Read_r,
+        Component: StatusDeviceProgress,
+      },
+
+      "add"
+    );
+  };
+  const handleError = (message) => {
+    toast.error(message, {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  };
+
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response)
+        : handleError(response.Message);
+      setResponse(undefined);
+    }
+    return () => abortController.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
+
+  const onChangeHandler = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
       fetchData({
         method: "POST",
         url: statusDeviceProgressCreate,
@@ -96,9 +96,9 @@ const StatusDeviceProgressDefine = () => {
         signal: abortController.signal,
       });
     }
-    };
-    return (
-      <div className="periorityFormDefine">
+  };
+  return (
+    <div className="periorityFormDefine">
       <Form
         className="periorityForm"
         noValidate
@@ -107,7 +107,11 @@ const StatusDeviceProgressDefine = () => {
       >
         <b>{t("StatusDeviceProgressDefine")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("statusProgressDevice"),
+          t("statusDeviceProgress_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 
@@ -116,8 +120,7 @@ const StatusDeviceProgressDefine = () => {
         </Button>
       </Form>
     </div>
-     
-    )
-}
+  );
+};
 
-export default StatusDeviceProgressDefine
+export default StatusDeviceProgressDefine;

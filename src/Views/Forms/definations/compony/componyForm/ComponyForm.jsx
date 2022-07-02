@@ -104,9 +104,11 @@ const ComponyForm = () => {
       >
         <b>{t("/Definition/Company/Write")}</b>
 
-        {defintionInputs(values).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
+        {defintionInputs(values, t("company"), t("company_errorMSG")).map(
+          (input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          )
+        )}
 
         <Button disabled={loading} type="submit">
           {t("submit")}

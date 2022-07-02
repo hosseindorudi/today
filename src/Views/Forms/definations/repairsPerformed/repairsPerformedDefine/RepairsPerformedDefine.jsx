@@ -16,7 +16,7 @@ import {
   handleError,
 } from "../../../../../validation/functions";
 import RepairsPerformed from "../RepairsPerformed";
-import './repairsDefine.css'
+import "./repairsDefine.css";
 const RepairsPerformedDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const [validated, setValidated] = useState(false);
@@ -31,7 +31,7 @@ const RepairsPerformedDefine = () => {
     color: "#000000",
     periority: 1,
     desc: "",
-    fee:0
+    fee: 0,
   });
   const { t } = useTranslation();
   const submitted = () => {
@@ -40,7 +40,7 @@ const RepairsPerformedDefine = () => {
     });
     tabContext.addRemoveTabs(
       {
-        Component:RepairsPerformedDefine,
+        Component: RepairsPerformedDefine,
         path: "/Definition/RepairsPerformed/Write",
         title: "/Definition/RepairsPerformed/Write",
         access: enums.Definition_RepairsPerformed_Create_w,
@@ -112,7 +112,7 @@ const RepairsPerformedDefine = () => {
           Request: request,
           Id: 0,
           Model_Id: model?.value,
-          fee:values.fee,
+          fee: values.fee,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -152,10 +152,19 @@ const RepairsPerformedDefine = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId={"model"}>
             <Form.Label>{t("fee")}</Form.Label>
-            <Form.Control name="fee" value={values.fee} type="number" onChange={onChangeHandler} />
+            <Form.Control
+              name="fee"
+              value={values.fee}
+              type="number"
+              onChange={onChangeHandler}
+            />
           </Form.Group>
         </div>
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("/Definition/RepairsPerformed/Read"),
+          t("RepairsPerformed_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
         <Button disabled={loading} type="submit">

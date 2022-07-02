@@ -114,9 +114,11 @@ const QualityDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/Quality/Write")}</b>
-        {defintionInputs(values).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
+        {defintionInputs(values, t("Quality_Title"), t("quality_errorMSG")).map(
+          (input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          )
+        )}
         <Button disabled={loading} type="submit">
           {t("submit")}
         </Button>

@@ -12,13 +12,17 @@ import { enums } from "../../../../../data/Enums";
 import { countryReadTitle } from "../../../../../services/countryService";
 import { deviceReadTitle } from "../../../../../services/deviceService";
 import { modelCreate } from "../../../../../services/modelService";
-import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
+import {
+  createSelectOptions,
+  defintionInputs,
+  handleError,
+} from "../../../../../validation/functions";
 import Model from "../Model";
 import "./modelDefine.css";
 const ModelDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const [validated, setValidated] = useState(false);
-  const [deviceOptions,setDeviceOptions]=useState([])
+  const [deviceOptions, setDeviceOptions] = useState([]);
   const [device, setDevice] = useState(undefined);
   const [countryOptions, setCountryOptions] = useState([]);
   const [country, setCountry] = useState(undefined);
@@ -30,7 +34,7 @@ const ModelDefine = () => {
     color: "#000000",
     periority: 1,
     desc: "",
-    Activated:false,
+    Activated: false,
     RamMemory: 0,
     RomMemory: 0,
     BodyColor: "",
@@ -43,9 +47,9 @@ const ModelDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: ModelDefine,
-          path: "/Definition/Model/Write",
-          title: "/Definition/Model/Write",
-          access: enums.Definition_Model_Create_w,
+        path: "/Definition/Model/Write",
+        title: "/Definition/Model/Write",
+        access: enums.Definition_Model_Create_w,
       },
       "remove"
     );
@@ -70,36 +74,27 @@ const ModelDefine = () => {
     };
     return params;
   };
- const getDatas=()=>{
-    const deviceTitles = axios.request(
-      createParams(deviceReadTitle)
-    );
-    const countryTitles = axios.request(
-      createParams(countryReadTitle)
-    );
+  const getDatas = () => {
+    const deviceTitles = axios.request(createParams(deviceReadTitle));
+    const countryTitles = axios.request(createParams(countryReadTitle));
     axios
-    .all([
-      deviceTitles,
-      countryTitles,
-    ])
-    .then(
-      axios.spread((...allData) => {
-        allData[0].data?.Result
-          ? setDeviceOptions(createSelectOptions(allData[0].data.Title))
-          : handleError(allData[0].data.Message);
-        allData[1].data?.Result
-          ? setCountryOptions(
-              createSelectOptions(allData[1].data.Title)
-            )
-          : handleError(allData[1].data.Message);
-          })
-    )
-    .catch((error) => {
-      handleError(error.message);
-    });
-  }
+      .all([deviceTitles, countryTitles])
+      .then(
+        axios.spread((...allData) => {
+          allData[0].data?.Result
+            ? setDeviceOptions(createSelectOptions(allData[0].data.Title))
+            : handleError(allData[0].data.Message);
+          allData[1].data?.Result
+            ? setCountryOptions(createSelectOptions(allData[1].data.Title))
+            : handleError(allData[1].data.Message);
+        })
+      )
+      .catch((error) => {
+        handleError(error.message);
+      });
+  };
   useEffect(() => {
-      getDatas();
+    getDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
@@ -120,7 +115,6 @@ const ModelDefine = () => {
     }
     setValidated(true);
     if (form.checkValidity()) {
-      
       fetchData({
         method: "POST",
         url: modelCreate,
@@ -130,8 +124,8 @@ const ModelDefine = () => {
         data: {
           Request: request,
           Id: 0,
-          Device_Id:device?.value,
-          Country_Id:country?.value,
+          Device_Id: device?.value,
+          Country_Id: country?.value,
           RamMemory: values.RamMemory,
           RomMemory: values.RomMemory,
           BodyColor: values.BodyColor,
@@ -152,9 +146,9 @@ const ModelDefine = () => {
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  const handleChangeSwich=(e)=>{
+  const handleChangeSwich = (e) => {
     setValues({ ...values, Activated: e.target.checked });
-  }
+  };
   return (
     <div className="periorityFormDefine">
       <Form
@@ -165,31 +159,32 @@ const ModelDefine = () => {
       >
         <b>{t("/Definition/Model/Write")}</b>
         <div className="modelDefineRow">
-        <Form.Group className="mb-3" controlId={"device"}>
-        <Form.Label>{t("device")}</Form.Label>
-          <CustomReactMultiSelect
-            isMulti={false}
-            options={deviceOptions}
-            value={device}
-            onchangeHandler={(e) => setDevice(e)}
-            placeholder={t("device")}
-          />
-         </Form.Group>
-         <Form.Group className="mb-3" controlId={"country"}>
-        <Form.Label>{t("country")}</Form.Label>
-          <CustomReactMultiSelect
-            isMulti={false}
-            options={countryOptions}
-            value={country}
-            onchangeHandler={(e) => setCountry(e)}
-            placeholder={t("country")}
-          />
+          <Form.Group className="mb-3" controlId={"device"}>
+            <Form.Label>{t("device")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={deviceOptions}
+              value={device}
+              onchangeHandler={(e) => setDevice(e)}
+              placeholder={t("device")}
+            />
           </Form.Group>
-
+          <Form.Group className="mb-3" controlId={"country"}>
+            <Form.Label>{t("country")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={countryOptions}
+              value={country}
+              onchangeHandler={(e) => setCountry(e)}
+              placeholder={t("country")}
+            />
+          </Form.Group>
         </div>
-        {defintionInputs(values).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
+        {defintionInputs(values, t("model"), t("model_errorMSG")).map(
+          (input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          )
+        )}
         <div className="modelDefineRow">
           <Form.Group className="mb-3" controlId={"Rom"}>
             <Form.Label>{t("model.Rom")}</Form.Label>
@@ -224,14 +219,14 @@ const ModelDefine = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId={"model.activated"}>
             <Form.Label>{t("model.activated")}</Form.Label>
-          <Form.Check
-            type="switch"
-            id="custom-switch"
-            checked={values.Activated}
-            onChange={handleChangeSwich}
-            style={{textAlign:'center'}}
-          />
-        </Form.Group>
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              checked={values.Activated}
+              onChange={handleChangeSwich}
+              style={{ textAlign: "center" }}
+            />
+          </Form.Group>
         </div>
         <Button disabled={loading} type="submit">
           {t("submit")}
