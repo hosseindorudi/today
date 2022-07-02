@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import * as fa from "react-icons/fa";
-import { Button, Form, Modal, ListGroup, Container, Row, Col, Accordion } from "react-bootstrap";
+import { Button, Form, Modal, ListGroup, Container, Row, Col } from "react-bootstrap";
 import useRequest from "../../../../../../customHooks/useRequest";
 import useAxios from "../../../../../../customHooks/useAxios";
 import BackDrop from "../../../../../../Components/backDrop/BackDrop";
@@ -30,10 +30,6 @@ const TableQuestionModal = (props) => {
   const [periodity, setPeriodity] = useState(0)
   const [multiSelectActivation, setMultiSelectActivation] = useState(false)
   const [questionItem, setQuestionItem] = useState([]);
-  const [questionTitle, setQuestionTitle] = useState("")
-  const [questionDescription, setQuestionDescription] = useState("")
-  const [questionColor, setQuestionColor] = useState("#000000")
-  const [questionPeriority, setQuestionPeriority] = useState(0)
   const colors = [
     "#470063",
     "#B30089",
@@ -59,19 +55,20 @@ const TableQuestionModal = (props) => {
 
   const handleAddQuestionItem = (questionItem) => {
 
-    // setQuestionItem((prev) => [...prev, browser]);
+    setQuestionItem((prev) => [...prev, questionItem]);
   };
 
-  const handleChangeQuestionItem = (event, index) => {
+  const handleChangeQuestionItem = (event, index, type) => {
+
     let newArr = questionItem.map((item, i) => {
-      if (index === i) {
-        return event.target.value;
-      } else {
-        return item;
-      }
+      return item.Id === index ? {...item, [type] : type === "Priority" ? Number(event.target.value) :  event.target.value} : item
     });
+
     setQuestionItem(newArr);
+    console.log(questionItem)
   };
+
+  
 
   const handleClickRemoveQuestionItem = (index) => {
     let filter = questionItem.filter((item, i) => i !== index);
@@ -209,6 +206,7 @@ const TableQuestionModal = (props) => {
         ? handleResponse(response, requestType)
         : handleError(response.Message);
 
+        setResponse(undefined)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -216,6 +214,11 @@ const TableQuestionModal = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setRequestType("SUBMIT")
+    let newArr = questionItem.map((item, i) => {
+      return  {...item, Color : questionItem[i]['Color'].slice(1) }
+    });
+
+    setQuestionItem(newArr);
     fetchData({
       method: "POST",
       url: createQuestion,
@@ -227,7 +230,7 @@ const TableQuestionModal = (props) => {
         Id: 0,
         QuestionPage_Id: props.rowValus.Id,
         QuestionType_EId: questionSelect?.value,
-        QuestionItem: [] ,
+        QuestionItem: questionItem,
         Title: title,
         Priority:periodity,
         Description: description,
@@ -380,7 +383,15 @@ const TableQuestionModal = (props) => {
                           <bs.BsFillPlusCircleFill
                             size={25}
                             style={{ cursor: "pointer" }}
-                            onClick={handleAddQuestionItem}
+                            onClick={() => handleAddQuestionItem(
+                                      {
+                                        Id: questionItem.length,
+                                        Priority: 0,
+                                        Title: "",
+                                        Description: "",
+                                        Color: "#000000"
+                                      }
+                            )}
                           />
                           <b>{t("questionMultiple")}</b>
                         </div>
@@ -389,6 +400,7 @@ const TableQuestionModal = (props) => {
                             <fa.FaMinus
                               size={20}
                               style={{ cursor: "pointer" }}
+                              onClick ={() => handleClickRemoveQuestionItem(index)}
                             />
                             <Container>
                               <Row>
@@ -398,8 +410,9 @@ const TableQuestionModal = (props) => {
                                       <Form.Control
                                         type="text"
                                         placeholder={t("QuestionCreateTitle")}
-                                        value={questionTitle}
-                                        onChange={(e) => setQuestionTitle(e.target.value)}
+                                        value={questionItem[index]['Title']}
+                                        onChange={(e) =>{handleChangeQuestionItem(e,index,'Title')}}
+                                        
                                         required
                                       />
                                     </Form.Group>
@@ -413,8 +426,9 @@ const TableQuestionModal = (props) => {
                                       <Form.Control
                                         as="textarea"
                                         rows={1}
-                                        value={questionDescription}
-                                        onChange={(e) => setQuestionDescription(e.target.value)}
+                                        value={questionItem[index]['Description']}
+                                        onChange={(e) =>{handleChangeQuestionItem(e,index,'Description')}}
+                                        
                                       />
                                     </Form.Group>
                                   </Col>
@@ -429,8 +443,8 @@ const TableQuestionModal = (props) => {
                                     <Form.Control
                                       required
                                       type="number"
-                                      value={questionPeriority}
-                                      onChange={(e) => setQuestionPeriority(e.target.value)}
+                                      value={questionItem[index]['Priority']}
+                                      onChange={(e) =>{handleChangeQuestionItem(e,index,'Priority')}}
                                     />
                                   </Form.Group>
                                 </Col>
@@ -442,8 +456,8 @@ const TableQuestionModal = (props) => {
                                     <Form.Label>{t("operatorGroupFormDesc")}</Form.Label>
                                     <Form.Control
                                       type="color"
-                                      value={questionColor}
-                                      onChange={(e) => setQuestionColor(e.target.value)}
+                                      value={questionItem[index]['Color']}
+                                      onChange={(e) =>{handleChangeQuestionItem(e,index,'Color')}}
                                       name="favcolor"
                                       className="colorPickerInputQuestion"
                                     />
@@ -451,17 +465,6 @@ const TableQuestionModal = (props) => {
                                 </Col>
                               </Row>
                             </Container>
-
-                            {/* <Form.Select
-                              value={i}
-                              onChange={(event) => handleChangeQuestionItem(event, index)}
-                            >
-                              {browser.map((b, index) => (
-                                <option value={b.name} key={index}>
-                                  {b.name}
-                                </option>
-                              ))}
-                            </Form.Select> */}
                           </div>
                         ))}
                     

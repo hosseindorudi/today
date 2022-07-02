@@ -7,9 +7,7 @@ import { enums } from '../../../../../data/Enums';
 import {
    questionRead,
    questionReadPaging,
-   questionReadTitle,
    questionGetOneRecord,
-   questionUpdate,
    questionSetUnselectedColumn,
    questionDelete,
    questionSampleFile,
