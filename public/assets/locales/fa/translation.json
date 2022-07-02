@@ -580,5 +580,7 @@
 "NationalCode":"کد ملی",
 "TimeElapsed":"زمان",
 "QuestionPage_Title":"پرسشنامه",
+"cancelationOfForm":"لغو",
+"questionMultiple" : "چندتایی",
 "routes.business":"کسب و کار"
 }
