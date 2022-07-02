@@ -9,19 +9,23 @@ import "./answerModal.css";
 import { Rating } from "@mui/material";
 import { toast } from "react-toastify";
 import { answerPageCreate } from "../../../../../services/answerService";
-import { handleError } from "../../../../../validation/functions";
+import { createSelectOptions, handleError } from "../../../../../validation/functions";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { TabContext } from "../../../../../contexts/TabContextProvider";
 import AnswerForm from "./AnswerForm";
 import { enums } from "../../../../../data/Enums";
 import AnswerList from "../answerList/AnswerList";
+import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
+import { AnswerPageFailedReadTitle } from "../../../../../services/answerPageFailedService";
 const AnswerModal = (props) => {
   const startTime = new Date();
   const { t } = useTranslation();
   const tabContext = useContext(TabContext);
   const [validated, setValidated] = useState(false);
   const request = useRequest();
+  const [answerPageFailedOptions,setAnswerPageFailedOptions]=useState([])
+  const [answerPageFailed, setAnswerPageFailed] = useState(createSelectOptions([{Id:0,Value:t("nothing")}]))
   const [type, setType] = useState("");
   const [response, loading, fetchData, setResponse] = useAxios();
   const [values, setValues] = useState({
@@ -30,7 +34,7 @@ const AnswerModal = (props) => {
     Mobile: undefined,
     LastName: "",
     FirstName: "",
-    NationalCode: undefined,
+    NationalCode: undefined
   });
   const [answer, setAnswer] = useState({});
   const questions = props.questions;
@@ -228,16 +232,33 @@ const AnswerModal = (props) => {
       "add"
     );
   };
-
+  
   const handleResponse = (response, type) => {
     switch (type) {
       case "SUBMIT":
         handleSuccess();
         break;
+      case "READTITLEANSWERFAILED":
+          let titles=response.Title
+          titles.unshift({Id:0,Value:t("nothing")})
+          setAnswerPageFailedOptions(createSelectOptions(titles))
+          break;
       default:
         break;
     }
   };
+  useEffect(() => {
+    setType("READTITLEANSWERFAILED");
+    fetchData({
+      method: "POST",
+      url: AnswerPageFailedReadTitle,
+      headers: {
+        accept: "*/*",
+      },
+      data:request
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     if (response) {
       response.Result
@@ -273,7 +294,7 @@ const AnswerModal = (props) => {
         Id: 0,
         Request: request,
         QuestionPage_Id: questions[0].QuestionPage_Id,
-        AnswerPageFailed_Id: 0,
+        AnswerPageFailed_Id: answerPageFailed.value,
         NationalCode: values.NationalCode,
         FirstName: values.FirstName,
         LastName: values.LastName,
@@ -299,7 +320,7 @@ const AnswerModal = (props) => {
       <Modal.Header closeButton></Modal.Header>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Modal.Body>
-          <div className="rowAnswer">
+          <div className="Row">
             <Form.Group className="mb-3" controlId="firstName">
               <Form.Label>{t("FirstName")}</Form.Label>
               <Form.Control
@@ -323,7 +344,7 @@ const AnswerModal = (props) => {
               />
             </Form.Group>
           </div>
-          <div className="rowAnswer">
+          <div className="Row">
             <Form.Group className="mb-3" controlId="phone">
               <Form.Label>{t("Phone")}</Form.Label>
               <Form.Control
@@ -345,7 +366,7 @@ const AnswerModal = (props) => {
               />
             </Form.Group>
           </div>
-          <div className="rowAnswer">
+          <div className="Row">
             <Form.Group className="mb-3" controlId="nationalId">
               <Form.Label>{t("nationalId")}</Form.Label>
               <Form.Control
@@ -366,6 +387,18 @@ const AnswerModal = (props) => {
                 onChange={handleChange}
               />
             </Form.Group>
+          </div>
+          <div className="Row">
+          <Form.Group className="mb-3" controlId={"/Definition/AnswerPageFailed/Write"}>
+            <Form.Label>{t("/Definition/AnswerPageFailed/Write")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={answerPageFailedOptions}
+              value={answerPageFailed}
+              onchangeHandler={(e) => setAnswerPageFailed(e)}
+              placeholder={t("/Definition/AnswerPageFailed/Write")}
+            />
+          </Form.Group>
           </div>
           <div className="rowQuestionTitle">
             <b>{t("Questions")}</b>

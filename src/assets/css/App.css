@@ -30,3 +30,19 @@ button:disabled{
 }
 
 
+.Row{
+  display: flex;
+  gap: 5px;
+}
+.Row .mb-3{
+  width: 100%;
+}
+@media screen and (max-width:600px){
+  .Row{
+    flex-direction: column;
+  }
+}
+.custom-container{
+width: 100%;
+}
+.custom-container .rmdp-input{width: 100%;height: auto;}

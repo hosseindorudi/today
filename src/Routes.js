@@ -38,6 +38,8 @@ import Section from "./Views/Forms/definations/section/Section";
 import SectionDefine from "./Views/Forms/definations/section/sectionDefine/SectionDefine";
 import SendType from "./Views/Forms/definations/sendType/SendType";
 import SendTypeDefine from "./Views/Forms/definations/sendType/sendTypeDefine/SendTypeDefine";
+import RegistrationGoodDefine from "./Views/Forms/business/registrationGood/registrationGoodDefine/RegistrationGoodDefine";
+import RegistrationGood from "./Views/Forms/business/registrationGood/RegistrationGood";
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")
 );
@@ -1284,7 +1286,30 @@ export const Routes = [
   //             }
 
   //           ]}
-
+  {
+    title: "routes.business",
+    access: enums.Module_Business,
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+      {
+        title: "/Business/RegistrationGood/Read",
+        path: "/Business/RegistrationGood/Read",
+        access: enums.Business_RegistrationGood_Read_r,
+        Component: RegistrationGood,
+        button: {
+          Component: RegistrationGoodDefine,
+          path: "/Business/RegistrationGood/Write",
+          title: "/Business/RegistrationGood/Write",
+          access: enums.Business_RegistrationGood_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+       
+      }
+    ],
+  },
   {
     title: "routes.question",
     access: enums.Module_Survey,

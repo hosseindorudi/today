@@ -1,0 +1,25 @@
+.businessFormDefine{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.businessForm{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 5px;
+}
+.titleBusinessForm{
+    align-self: center;
+}
+.businessForm button{
+    width: 50%;
+    align-self: center;
+}
+@media screen and (max-width:1200px) {
+    .businessForm{
+       
+        width: 80%;
+    }
+}
