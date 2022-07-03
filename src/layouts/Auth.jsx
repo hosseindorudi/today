@@ -100,9 +100,6 @@ const Auth = () => {
         <Form onSubmit={handleSubmit}>
           <div className="langTopForm">
             <div></div>
-          {/* <div className="logoAuth">
-            <img src={logo} alt="loginlogo" />
-          </div> */}
           <Language />
           </div>
           <div className="formInner">
@@ -164,6 +161,9 @@ const Auth = () => {
           </div>
           </div>
         </Form>
+        <div className="footerForm">
+          <a href="https://ctelecom.ir/">پیشتازان فناوری سیب طلایی</a>
+        </div>
       </div>
     </div>
   );

@@ -31,14 +31,19 @@
     align-items: center;
 }
 .logoAuthImg{
-    width: 100px;
+    width: 25%;
 }
 .logoAuth >img{
     width: 50px;
     
 }
 .authLogoDiv{
-    margin-bottom: 10px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+.footerForm a{
+    color: rgb(66, 121, 172);
+    text-decoration: none;
 }
 .authSubmitDiv{
     display: flex;
