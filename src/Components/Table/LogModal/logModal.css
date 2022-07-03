@@ -9,9 +9,38 @@
   max-height: 500px;
   overflow-y: auto;
 }
+.modalLog > div {
+  max-width: fit-content;
+}
 
-table,
+
+
+.logModalTable,
 th,
 td {
   border: 1px solid lightgray;
 }
+
+.logModalTable > thead > tr > th {
+  text-align: center;
+  font-size: small;
+  width: 100px;
+}
+
+
+
+.logModalTable > body > tr > td {
+  align-items: center;
+  font-size: smaller;
+}
+
+.logoLinkVar {
+  text-decoration: none;
+}
+.logSecondModal {
+  height: 300px;
+  width: 100%;
+  text-align: start;
+}
+
+

@@ -35,7 +35,7 @@ const TableQuestionModal = (props) => {
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
   const [IdOfQuestion, setIdOfQuestion] = useState();
-  const [periodity, setPeriodity] = useState(0);
+  const [periodity, setPeriodity] = useState(1);
   const [multiSelectActivation, setMultiSelectActivation] = useState(false);
   const [questionItem, setQuestionItem] = useState([]);
   const colors = [
@@ -134,7 +134,7 @@ const TableQuestionModal = (props) => {
     setDescription("");
     setColor("#000000");
     setQuestionSelect({});
-    setPeriodity(0);
+    setPeriodity(1);
     setEditButtonActivate(false);
   };
   useEffect(() => {
@@ -245,6 +245,65 @@ const TableQuestionModal = (props) => {
     });
   };
 
+  const increasePeriority = (e,question) => {
+
+      if (question.Priority === 1000) {
+        handleError(t("periorityQuestionError1000"))
+        return;
+      } else {
+      e.preventDefault();
+      setRequestType("SUBMIT");
+      fetchData({
+        method: "POST",
+        url: updateQuestion,
+        headers: {
+          accept: "*/*",
+        },
+        signal: abortController.signal,
+        data: {
+          Id: question.Id,
+          QuestionPage_Id: question.QuestionPage_Id,
+          QuestionType_EId: question.QuestionType_EId,
+          QuestionItem: question.QuestionItem === null ? [] : question.QuestionItem ,  
+          Title: question.Title,
+          Priority: question.Priority ===1000 ? 1000 : question.Priority + 1 ,
+          Description: question.Description,
+          Color: question.Color,
+          Request: request,
+        },
+      });
+      }
+  }
+  const decreasePeriority = (e,question) => {
+
+      if (question.Priority === 1) {
+        handleError(t("periorityQuestionError1"));
+        return;
+      } else {
+      e.preventDefault();
+      setRequestType("SUBMIT");
+      fetchData({
+        method: "POST",
+        url: updateQuestion,
+        headers: {
+          accept: "*/*",
+        },
+        signal: abortController.signal,
+        data: {
+          Id: question.Id,
+          QuestionPage_Id: question.QuestionPage_Id,
+          QuestionType_EId: question.QuestionType_EId,
+          QuestionItem:question.QuestionItem === null ? [] : question.QuestionItem,
+          Title: question.Title,
+          Priority: question.Priority === 1 ? 1 : question.Priority - 1 ,
+          Description: question.Description,
+          Color: question.Color,
+          Request: request,
+        },
+      });
+    }
+  }
+
   const handleQuestionEdit = (question) => {
     console.log(question);
     setTitle(question.Title);
@@ -263,7 +322,7 @@ const TableQuestionModal = (props) => {
     setDescription("");
     setQuestionSelect({});
     setColor("#000000");
-    setPeriodity(0);
+    setPeriodity(1);
     setEditButtonActivate(false);
   };
 
@@ -538,7 +597,7 @@ const TableQuestionModal = (props) => {
             {questions.map((question) => (
               <ListGroup.Item
                 as="li"
-                className="d-flex justify-content-between align-items-center mb-1"
+                className="d-flex justify-content-between align-items-center mb-1 listGroupItemQuestion"
                 style={{
                   border: `1px solid #${question.Color}`,
                   borderRadius: 4,
@@ -562,12 +621,12 @@ const TableQuestionModal = (props) => {
                     <fa.FaTrash />
                   </div>
 
-                  <div className="questionDownDiv">
-                    <fa.FaLongArrowAltDown />
+                  <div className="questionDownDiv" >
+                    <fa.FaLongArrowAltDown  onClick={(e) => decreasePeriority(e,question)}/>
                   </div>
 
                   <div className="questionUpDiv">
-                    <fa.FaLongArrowAltUp />
+                    <fa.FaLongArrowAltUp  onClick={(e) => increasePeriority(e,question)}/>
                   </div>
                 </div>
               </ListGroup.Item>

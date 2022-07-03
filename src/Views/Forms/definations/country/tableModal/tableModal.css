@@ -11,6 +11,10 @@
     align-items: center;
 }
 
+.periorityFormsEdit > div {
+    width: 100%;
+}
+
 
 #color {
     width: 100%;
