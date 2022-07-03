@@ -1,23 +1,29 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import * as bs from "react-icons/bs";
-import {  useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/imgs/logo.png";
 import Language from "../Components/navbar/language";
 import { toast } from "react-toastify";
 import "./Auth.css";
 import useAxios from "../customHooks/useAxios";
 import AppContext from "../contexts/AppContext";
-import useRequest from '../customHooks/useRequest'
-import {login} from '../services/authService'
+import useRequest from "../customHooks/useRequest";
+import { login } from "../services/authService";
 const Auth = () => {
   const [response, loading, fetchData] = useAxios();
 
   const location = useLocation();
-  const request=useRequest()
+  const request = useRequest();
   const from = location.state?.from?.pathname || "/";
-  const { app,setApp } = useContext(AppContext);
+  const { app, setApp } = useContext(AppContext);
   const navigate = useNavigate();
   const username = useRef();
   const password = useRef();
@@ -45,7 +51,7 @@ const Auth = () => {
         accept: "*/*",
       },
       data: {
-        request:request,
+        request: request,
         username: username.current.value,
         password: password.current.value,
         isOperator: radioType === "operator" ? true : false,
@@ -53,47 +59,53 @@ const Auth = () => {
     });
   };
 
-  const setToken = useCallback((token,AccessList) => {
-    localStorage.setItem("token",token);
-    setApp((prev) => ({
-      ...prev,
-      AccessList
-    }));
-   return navigate(from, { replace: true });
-  }, [navigate,from,setApp]);
- 
-  const handleError=(message)=>{
-    username.current.value=''
-    password.current.value=''
+  const setToken = useCallback(
+    (token, AccessList) => {
+      localStorage.setItem("token", token);
+      setApp((prev) => ({
+        ...prev,
+        AccessList,
+      }));
+      return navigate(from, { replace: true });
+    },
+    [navigate, from, setApp]
+  );
+
+  const handleError = (message) => {
+    username.current.value = "";
+    password.current.value = "";
     toast.error(message, {
       position: toast.POSITION.BOTTOM_CENTER,
     });
-  }
+  };
   useEffect(() => {
-    if(response){
-      
-      response.Result?setToken(response.Message,response.AccessList):handleError(response.Message)
+    if (response) {
+      response.Result
+        ? setToken(response.Message, response.AccessList)
+        : handleError(response.Message);
     }
     // if(error){
     // handleError(error.response?.data?.title)
     // }
-  }, [response,setToken])
+  }, [response, setToken]);
   const handlePasswordVisible = () => {
     setpassVisible(!passVisible);
   };
   return (
     <div className="authparent">
-      <div className="authHeader">
-        <div></div>
-        <div className="logoAuth">
-          <img src={logo} alt="loginlogo" />
-        </div>
-        <div className="langAuth">
-          <Language />
-        </div>
-      </div>
       <div className="formParent">
+        <div className="authLogoDiv">
+        <img className="logoAuthImg" src={logo} alt="loginlogo" />
+        </div>
         <Form onSubmit={handleSubmit}>
+          <div className="langTopForm">
+            <div></div>
+          {/* <div className="logoAuth">
+            <img src={logo} alt="loginlogo" />
+          </div> */}
+          <Language />
+          </div>
+          <div className="formInner">
           <Form.Group className="mb-3" controlId="formBasicUsername">
             <Form.Label>{t("auth.username")}</Form.Label>
             <Form.Control
@@ -133,18 +145,23 @@ const Auth = () => {
           </div>
 
           <div className="authSubmitDiv">
-            <Button variant="primary" type="submit" disabled={loading?true:false}>
-              {loading&&
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-              />}
-              {!loading&&t("auth.signin") }
+            <Button
+              variant="primary"
+              type="submit"
+              disabled={loading ? true : false}
+            >
+              {loading && (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              )}
+              {!loading && t("auth.signin")}
             </Button>
-           
+          </div>
           </div>
         </Form>
       </div>

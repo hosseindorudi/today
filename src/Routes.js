@@ -465,17 +465,49 @@ export const Routes = [
   //     ]
   //   },
   {
+    title: "routes.business",
+    access: enums.Module_Business,
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+      {
+        title: "/Business/RegistrationGood/Read",
+        path: "/Business/RegistrationGood/Read",
+        access: enums.Business_RegistrationGood_Read_r,
+        Component: RegistrationGood,
+        button: {
+          Component: RegistrationGoodDefine,
+          path: "/Business/RegistrationGood/Write",
+          title: "/Business/RegistrationGood/Write",
+          access: enums.Business_RegistrationGood_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+    ],
+  },
+  {
     title: "routes.services",
     access: enums.Module_AfterSales,
     icon: <IoIcons.IoIosPaper />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
+      
       {
         title: "routes.workFlow",
         path: "/workFlow",
         access: enums.AfterSales_Dashboard_Index_Read_r,
         Component: WorkFlow,
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "routes.registered",
+        path: "/registered",
+        access: enums.AfterSales_New_Registered_Read_r,
+        Component: Registered,
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
@@ -551,14 +583,7 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
-      {
-        title: "routes.registered",
-        path: "/registered",
-        access: enums.AfterSales_New_Registered_Read_r,
-        Component: Registered,
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
+    
       {
         title: "routes.changing",
         path: "/changing",
@@ -606,6 +631,43 @@ export const Routes = [
         Component: Archive,
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
+      },
+    ],
+  },
+  {
+    title: "routes.question",
+    access: enums.Module_Survey,
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+      {
+        title: "routes.questionList",
+        path: "/Survey/QuestionPage/Read",
+        Component: QuestionList,
+        button: {
+          Component: QuestionForm,
+          path: "/Survey/QuestionPage/Create",
+          title: "routes.questionForm",
+          access: enums.Survey_QuestionPage_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Survey_QuestionPage_Read_r,
+      },
+      {
+        title: "routes.answerList",
+        path: "/Survey/AnswerPage/Read",
+        Component: AnswerList,
+        button: {
+          Component: AnswerForm,
+          path: "/Survey/Answer/Create",
+          title: "routes.answerForm",
+          access: enums.Survey_AnswerPage_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Survey_AnswerPage_Read_r,
       },
     ],
   },
@@ -1182,7 +1244,6 @@ export const Routes = [
       //       icon: <IoIcons.IoIosPaper/> ,
       //       cName: 'sub-nav'
       //     },
-
     ],
   },
   // {
@@ -1293,64 +1354,6 @@ export const Routes = [
   //             }
 
   //           ]}
-  {
-    title: "routes.business",
-    access: enums.Module_Business,
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-    subNav: [
-      {
-        title: "/Business/RegistrationGood/Read",
-        path: "/Business/RegistrationGood/Read",
-        access: enums.Business_RegistrationGood_Read_r,
-        Component: RegistrationGood,
-        button: {
-          Component: RegistrationGoodDefine,
-          path: "/Business/RegistrationGood/Write",
-          title: "/Business/RegistrationGood/Write",
-          access: enums.Business_RegistrationGood_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-    ],
-  },
-  {
-    title: "routes.question",
-    access: enums.Module_Survey,
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-    subNav: [
-      {
-        title: "routes.questionList",
-        path: "/Survey/QuestionPage/Read",
-        Component: QuestionList,
-        button: {
-          Component: QuestionForm,
-          path: "/Survey/QuestionPage/Create",
-          title: "routes.questionForm",
-          access: enums.Survey_QuestionPage_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-        access: enums.Survey_QuestionPage_Read_r,
-      },
-      {
-        title: "routes.answerList",
-        path: "/Survey/AnswerPage/Read",
-        Component: AnswerList,
-        button: {
-          Component: AnswerForm,
-          path: "/Survey/Answer/Create",
-          title: "routes.answerForm",
-          access: enums.Survey_AnswerPage_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-        access: enums.Survey_AnswerPage_Read_r,
-      },
-    ],
-  },
+
+  
 ];

@@ -187,7 +187,7 @@ const QuestionForm = () => {
             >
               <Form.Label>{t("operatorGroupFormDesc")}</Form.Label>
               <Form.Control
-                required
+                
                 as="textarea"
                 rows={5}
                 value={description}

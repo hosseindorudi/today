@@ -1,5 +1,5 @@
 .authparent{
-    background: url("../assets/imgs/login.png") no-repeat center center fixed; 
+    background: url("../assets/imgs/login.jpg") no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -7,7 +7,8 @@
     height: 100vh;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    /* flex-direction: column; */
  
 }
 .authHeader{
@@ -17,14 +18,27 @@
 }
 .formParent{
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100%;
+    width: 25%;
+    flex-direction: column;
 }
-
-.logoAuth >img{
+.headerLogoLang{
+    display: flex;
+    justify-content: space-between;
     width: 100%;
+    align-items: center;
+}
+.logoAuthImg{
+    width: 100px;
+}
+.logoAuth >img{
+    width: 50px;
     
+}
+.authLogoDiv{
+    margin-bottom: 10px;
 }
 .authSubmitDiv{
     display: flex;
@@ -56,16 +70,31 @@ position: absolute;
 box-shadow: 5px 5px 15px 5px #000000;
 border: 1px solid;
     padding: 30px;
-    width: 30%;
+    height: 45%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    background: whitesmoke;
+}
+.formInner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.langTopForm{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 @media screen and (max-width: 1200px) {
-    .formParent >form{
+    .formParent {
         width: 50%;
     }
   }
 
 @media screen and (max-width: 768px) {
-    .formParent >form{
+    .formParent {
     width: 90%;
 
   }
