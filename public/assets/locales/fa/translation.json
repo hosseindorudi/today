@@ -634,5 +634,10 @@
   "Page":"صفحه",
   "Operator_Id":"آی دی اپراتور",
   "periorityQuestionError1":"اولویت نمیتواند کمتر از 1 باشد",
-  "periorityQuestionError1000":"اولویت نمیتواند بیشتر از 1000 باشد"
+  "periorityQuestionError1000":"اولویت نمیتواند بیشتر از 1000 باشد",
+  "/Definition/Currency/Read":"واحد پول",
+  "/Definition/Currency/Write":"فرم واحد پول",
+  "currency_errorMSG": " واحد پول نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
+  "IsReference":"منتخب",
+  "Rate":"نرخ"
 }

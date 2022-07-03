@@ -40,6 +40,8 @@ import SendType from "./Views/Forms/definations/sendType/SendType";
 import SendTypeDefine from "./Views/Forms/definations/sendType/sendTypeDefine/SendTypeDefine";
 import RegistrationGoodDefine from "./Views/Forms/business/registrationGood/registrationGoodDefine/RegistrationGoodDefine";
 import RegistrationGood from "./Views/Forms/business/registrationGood/RegistrationGood";
+import CurrencyDefine from "./Views/Forms/definations/currency/currencyDefine/CurrencyDefine";
+import Currency from "./Views/Forms/definations/currency/Currency";
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")
 );
@@ -1125,6 +1127,20 @@ export const Routes = [
           path: "/Definition/AnswerPageFailed/Write",
           title: "/Definition/AnswerPageFailed/Write",
           access: enums.Definition_AnswerPageFailed_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Definition/Currency/Read",
+        path: "/Definition/Currency/Read",
+        access: enums.Definition_Currency_Read_r,
+        Component: Currency,
+        button: {
+          Component: CurrencyDefine,
+          path: "/Definition/Currency/Write",
+          title: "/Definition/Currency/Write",
+          access: enums.Definition_Currency_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",

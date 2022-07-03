@@ -1,0 +1,13 @@
+.currency{
+    display: flex;
+    justify-content: center;
+}
+.currency .mb-3{width: 100%;}
+.currencyform{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    gap:10px;
+}

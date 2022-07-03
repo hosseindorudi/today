@@ -11,10 +11,10 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { enums } from "../../../../../data/Enums";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-import AnswerPageFailed from "../AnswerPageFailed";
-import { AnswerPageFailedCreate } from "../../../../../services/answerPageFailedService";
-
-const AnswerPageFailedForm = () => {
+import { currencyCreate } from "../../../../../services/currencyService";
+import Currency from "../Currency";
+import './currencyDefine.css'
+const CurrencyDefine = () => {
   const { t } = useTranslation();
   const [validated, setValidated] = useState(false);
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -26,6 +26,8 @@ const AnswerPageFailedForm = () => {
     color: "#000000",
     periority: 1,
     desc: "",
+    IsReference: false,
+    Rate: 0,
   });
   const handleResponse = () => {
     toast.success(t("item.created"), {
@@ -33,19 +35,19 @@ const AnswerPageFailedForm = () => {
     });
     tabContext.addRemoveTabs(
       {
-        Component: AnswerPageFailedForm,
-        path: "/Definition/AnswerPageFailed/Write",
-        title: "/Definition/AnswerPageFailed/Write",
-        access: enums.Definition_AnswerPageFailed_Create_w,
+        Component: CurrencyDefine,
+        path: "/Definition/Currency/Write",
+        title: "/Definition/Currency/Write",
+        access: enums.Definition_Currency_Create_w,
       },
       "remove"
     );
     tabContext.addRemoveTabs(
       {
-        Component: AnswerPageFailed,
-        path: "/Definition/AnswerPageFailed/Read",
-        title: "/Definition/AnswerPageFailed/Read",
-        access: enums.Definition_AnswerPageFailed_Read_r,
+        title: "/Definition/Currency/Read",
+        path: "/Definition/Currency/Read",
+        access: enums.Definition_Currency_Read_r,
+        Component: Currency,
       },
 
       "add"
@@ -66,7 +68,9 @@ const AnswerPageFailedForm = () => {
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-
+  const handleSwich=(e)=>{
+    setValues({ ...values, [e.target.name]: e.target.checked });
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -77,7 +81,7 @@ const AnswerPageFailedForm = () => {
     if (form.checkValidity()) {
       fetchData({
         method: "POST",
-        url: AnswerPageFailedCreate,
+        url: currencyCreate,
         headers: {
           accept: "*/*",
         },
@@ -88,28 +92,37 @@ const AnswerPageFailedForm = () => {
           Title: values.title,
           Description: values.desc,
           Color: values.color.substring(1),
-
-          DateSet: "2022-06-19T16:43:29.709Z",
+          IsReference: values.IsReference,
+          Rate: values.Rate,
         },
         signal: abortController.signal,
       });
     }
   };
-
+  
   return (
-    <div className="periorityFormDefine">
+    <div className="currency">
       <Form
-        className="periorityForm"
+        className="currencyform"
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
       >
-        <b>{t("/Definition/AnswerPageFailed/Write")}</b>
-
+        <b>{t("/Definition/Currency/Write")}</b>
+        <div className="Row">
+          <Form.Group className="mb-3" controlId={"Rate"}>
+            <Form.Label>{t("Rate")}</Form.Label>
+            <Form.Control type="number" required name='Rate' value={values.Rate} placeholder={t("Rate")} onChange={onChangeHandler} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId={"IsReference"}>
+            <Form.Label>{t("IsReference")}</Form.Label>
+            <Form.Check type='switch' checked={values.IsReference} name='IsReference'  onChange={handleSwich} />
+          </Form.Group>
+        </div>
         {defintionInputs(
           values,
-          t("/Definition/AnswerPageFailed/Write"),
-          t("answerFailed_errorMSG")
+          t("/Definition/Currency/Read"),
+          t("currency_errorMSG")
         ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
@@ -122,4 +135,4 @@ const AnswerPageFailedForm = () => {
   );
 };
 
-export default AnswerPageFailedForm;
+export default CurrencyDefine;

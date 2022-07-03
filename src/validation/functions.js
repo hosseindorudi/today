@@ -50,15 +50,6 @@ export const defintionInputs = (values, typeTitle, errorMSG) => {
     },
     {
       id: 2,
-      name: "color",
-      label: t("color"),
-      type: "color",
-      errorMessage: t("color.errorMessage"),
-      required: true,
-      value: values.color,
-    },
-    {
-      id: 3,
       name: "periority",
       type: "number",
       label: t("periodity"),
@@ -68,6 +59,15 @@ export const defintionInputs = (values, typeTitle, errorMSG) => {
       value: values.periority,
       min: 1,
       max: 1000,
+    },
+    {
+      id: 3,
+      name: "color",
+      label: t("color"),
+      type: "color",
+      errorMessage: t("color.errorMessage"),
+      required: true,
+      value: values.color,
     },
     {
       id: 4,
@@ -104,6 +104,7 @@ export const checkTableValues = (type, value, post) => {
       case "Activated":
         case "IsPerishable":
           case "MainPart":
+            case "IsReference":
       return <Form.Check type="switch" disabled checked={value} />;
     case "Gender":
       return value ? t("male") : t("female");
