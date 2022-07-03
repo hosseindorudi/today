@@ -10,7 +10,7 @@ import { enums } from "../../../../../data/Enums";
 import { productGroupReadTitle } from "../../../../../services/productGroup";
 import { productCreate } from "../../../../../services/productService";
 import Product from "../Product";
-import '../../../../../assets/css/periorityForm.css'
+import "../../../../../assets/css/periorityForm.css";
 import { defintionInputs } from "../../../../../validation/functions";
 const ProductDefine = () => {
   const [type, setType] = useState("");
@@ -27,40 +27,41 @@ const ProductDefine = () => {
     groupId: 0,
   });
 
-  const handleSuccess=()=>{
-  toast.success(t("product.created"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      tabContext.addRemoveTabs(
-        {
-            Component:ProductDefine,
-            path:"/productForm",
-            title:"routes.productForm",
-            access:enums.Definition_Product_Create_w,
-        }
-        , "remove");
-      tabContext.addRemoveTabs(
-        {
-            title: 'routes.product',
-            path:'/product',
-            access:enums.Definition_Product_Read_r ,
-             Component:Product,
-        }
-        
-        , "add");
-  }
+  const handleSuccess = () => {
+    toast.success(t("product.created"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+    tabContext.addRemoveTabs(
+      {
+        Component: ProductDefine,
+        path: "/productForm",
+        title: "routes.productForm",
+        access: enums.Definition_Product_Create_w,
+      },
+      "remove"
+    );
+    tabContext.addRemoveTabs(
+      {
+        title: "routes.product",
+        path: "/product",
+        access: enums.Definition_Product_Read_r,
+        Component: Product,
+      },
+
+      "add"
+    );
+  };
   const handleResponse = (response, type) => {
     switch (type) {
       case "READTITLE":
         setProducts(response.Title);
         break;
-        case "SUBMIT":
-        handleSuccess()
+      case "SUBMIT":
+        handleSuccess();
         break;
       default:
         break;
     }
-    
   };
   const handleError = (message) => {
     toast.error(message, {
@@ -76,7 +77,7 @@ const ProductDefine = () => {
       setResponse(undefined);
     }
     return () => abortController.abort();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   useEffect(() => {
@@ -149,7 +150,11 @@ const ProductDefine = () => {
                 ))}
               </Form.Select>
             </div>
-            {defintionInputs(values).map((input) => (
+            {defintionInputs(
+              values,
+              t("routes.product"),
+              t("product_errorMSG")
+            ).map((input) => (
               <FormInput
                 key={input.id}
                 {...input}
@@ -158,7 +163,9 @@ const ProductDefine = () => {
               />
             ))}
 
-            <button disabled={loading} className="periorityFormSubmit">{t("submit")}</button>
+            <button disabled={loading} className="periorityFormSubmit">
+              {t("submit")}
+            </button>
           </form>
         </div>
       </div>

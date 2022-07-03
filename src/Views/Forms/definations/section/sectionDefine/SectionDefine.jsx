@@ -29,7 +29,7 @@ const SectionDefine = () => {
     title: "",
     color: "#000000",
     periority: 1,
-    desc: ""
+    desc: "",
   });
   const { t } = useTranslation();
   const submitted = () => {
@@ -136,20 +136,22 @@ const SectionDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/Section/Write")}</b>
-          <Form.Group className="mb-3" controlId={"city"}>
-            <Form.Label>{t("city")}</Form.Label>
-            <CustomReactMultiSelect
-              isMulti={false}
-              options={cityOptions}
-              value={city}
-              onchangeHandler={(e) => setCity(e)}
-              placeholder={t("city")}
-            />
-          </Form.Group>
-      
-        {defintionInputs(values).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
+        <Form.Group className="mb-3" controlId={"city"}>
+          <Form.Label>{t("city")}</Form.Label>
+          <CustomReactMultiSelect
+            isMulti={false}
+            options={cityOptions}
+            value={city}
+            onchangeHandler={(e) => setCity(e)}
+            placeholder={t("city")}
+          />
+        </Form.Group>
+
+        {defintionInputs(values, t("admissionpart"), t("section_errorMSG")).map(
+          (input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          )
+        )}
         <Button disabled={loading} type="submit">
           {t("submit")}
         </Button>

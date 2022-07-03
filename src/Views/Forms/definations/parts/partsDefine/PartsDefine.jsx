@@ -10,12 +10,15 @@ import { enums } from "../../../../../data/Enums";
 import { partCreate } from "../../../../../services/partService";
 import Parts from "../Parts";
 import "../../../../../assets/css/periorityForm.css";
-import { createSelectOptions, defintionInputs } from "../../../../../validation/functions";
+import {
+  createSelectOptions,
+  defintionInputs,
+} from "../../../../../validation/functions";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { partGroupReadTitle } from "../../../../../services/partGroup";
 import { qualityReadTitle } from "../../../../../services/qualityService";
 import axios from "axios";
-import './partsDefine.css'
+import "./partsDefine.css";
 const PartsDefine = () => {
   const [type, setType] = useState("");
   const [validated, setValidated] = useState(false);
@@ -32,14 +35,14 @@ const PartsDefine = () => {
     color: "#000000",
     periority: 1,
     desc: "",
-    length:0,
-    width:0,
-    height:0,
-    weight:0,
-    BodyColor:"",
-    IsPerishable:false,
-    MainPart:false,
-    TechnicalCode:""
+    length: 0,
+    width: 0,
+    height: 0,
+    weight: 0,
+    BodyColor: "",
+    IsPerishable: false,
+    MainPart: false,
+    TechnicalCode: "",
   });
   const handleSuccess = () => {
     toast.success(t("part.created"), {
@@ -48,9 +51,9 @@ const PartsDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: PartsDefine,
-          title: "/Definition/Part/Write",
+        title: "/Definition/Part/Write",
         path: "/Definition/Part/Write",
-          access: enums.Definition_Part_Create_w,
+        access: enums.Definition_Part_Create_w,
       },
       "remove"
     );
@@ -90,36 +93,27 @@ const PartsDefine = () => {
     };
     return params;
   };
- const getDatas=()=>{
-    const partGroupTitles = axios.request(
-      createParams(partGroupReadTitle)
-    );
-    const qualityTitles = axios.request(
-      createParams(qualityReadTitle)
-    );
+  const getDatas = () => {
+    const partGroupTitles = axios.request(createParams(partGroupReadTitle));
+    const qualityTitles = axios.request(createParams(qualityReadTitle));
     axios
-    .all([
-      partGroupTitles,
-      qualityTitles,
-    ])
-    .then(
-      axios.spread((...allData) => {
-        allData[0].data?.Result
-          ? setPartGroupOptions(createSelectOptions(allData[0].data.Title))
-          : handleError(allData[0].data.Message);
-        allData[1].data?.Result
-          ? setQualityOptions(
-              createSelectOptions(allData[1].data.Title)
-            )
-          : handleError(allData[1].data.Message);
-          })
-    )
-    .catch((error) => {
-      handleError(error.message);
-    });
-  }
+      .all([partGroupTitles, qualityTitles])
+      .then(
+        axios.spread((...allData) => {
+          allData[0].data?.Result
+            ? setPartGroupOptions(createSelectOptions(allData[0].data.Title))
+            : handleError(allData[0].data.Message);
+          allData[1].data?.Result
+            ? setQualityOptions(createSelectOptions(allData[1].data.Title))
+            : handleError(allData[1].data.Message);
+        })
+      )
+      .catch((error) => {
+        handleError(error.message);
+      });
+  };
   useEffect(() => {
-      getDatas();
+    getDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
@@ -154,17 +148,17 @@ const PartsDefine = () => {
         },
         data: {
           Request: request,
-          PartGroup_Id:partGroup?.value,
-          Quality_Id:quality?.value,
+          PartGroup_Id: partGroup?.value,
+          Quality_Id: quality?.value,
           Id: 0,
-          Length:values.length,
-          Width:values.width,
-          Height:values.height,
-          Weight:values.weight,
-          BodyColor:values.BodyColor,
-          IsPerishable:values.IsPerishable,
-          MainPart:values.MainPart,
-          TechnicalCode:values.TechnicalCode,
+          Length: values.length,
+          Width: values.width,
+          Height: values.height,
+          Weight: values.weight,
+          BodyColor: values.BodyColor,
+          IsPerishable: values.IsPerishable,
+          MainPart: values.MainPart,
+          TechnicalCode: values.TechnicalCode,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -177,9 +171,9 @@ const PartsDefine = () => {
       });
     }
   };
-  const onChangeSwitch=(e)=>{
+  const onChangeSwitch = (e) => {
     setValues({ ...values, [e.target.name]: e.target.checked });
-  }
+  };
   return (
     <div className="periorityFormDefine">
       <Form
@@ -189,29 +183,31 @@ const PartsDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("PartsDefineHeader")}</b>
-        {defintionInputs(values).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
-         <div className="partsRow">
-        <Form.Group className="mb-3" controlId={"groupid"}>
-        <Form.Label>{t("partGroup")}</Form.Label>
-          <CustomReactMultiSelect
-            isMulti={false}
-            options={partGroupOptions}
-            value={partGroup}
-            onchangeHandler={(e) => setPartGroup(e)}
-            placeholder={t("partGroup")}
-          />
-         </Form.Group>
-         <Form.Group className="mb-3" controlId={"quality"}>
-        <Form.Label>{t("quality")}</Form.Label>
-          <CustomReactMultiSelect
-            isMulti={false}
-            options={qualityOptions}
-            value={quality}
-            onchangeHandler={(e) => setQuality(e)}
-            placeholder={t("quality")}
-          />
+        {defintionInputs(values, t("Part_Title"), t("part_errorMSG")).map(
+          (input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          )
+        )}
+        <div className="partsRow">
+          <Form.Group className="mb-3" controlId={"groupid"}>
+            <Form.Label>{t("partGroup")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={partGroupOptions}
+              value={partGroup}
+              onchangeHandler={(e) => setPartGroup(e)}
+              placeholder={t("partGroup")}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId={"quality"}>
+            <Form.Label>{t("quality")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={qualityOptions}
+              value={quality}
+              onchangeHandler={(e) => setQuality(e)}
+              placeholder={t("quality")}
+            />
           </Form.Group>
         </div>
         <div className="partsRow">
@@ -295,7 +291,6 @@ const PartsDefine = () => {
               type="switch"
               checked={values.MainPart}
               onChange={onChangeSwitch}
-              
             />
           </Form.Group>
         </div>

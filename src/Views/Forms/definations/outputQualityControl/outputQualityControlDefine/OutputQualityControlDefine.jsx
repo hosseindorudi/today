@@ -8,16 +8,20 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
-import {  modelReadTitle } from "../../../../../services/modelService";
+import { modelReadTitle } from "../../../../../services/modelService";
 import { outputQualityControlCreate } from "../../../../../services/outPutQualityControlService";
-import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
+import {
+  createSelectOptions,
+  defintionInputs,
+  handleError,
+} from "../../../../../validation/functions";
 import OutputQualityControl from "../OutputQualityControl";
 import "./outputQualityControl.css";
 const OutputQualityControlDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const [validated, setValidated] = useState(false);
   const [type, setType] = useState("");
-  const [modelOptions,setModelOptions]=useState([])
+  const [modelOptions, setModelOptions] = useState([]);
   const [model, setModel] = useState(undefined);
   const request = useRequest();
   const tabContext = useContext(TabContext);
@@ -36,9 +40,9 @@ const OutputQualityControlDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: OutputQualityControlDefine,
-          path: "/Definition/OutputQualityControl/Write",
-          title: "/Definition/OutputQualityControl/Write",
-          access: enums.Definition_OutputQualityControl_Create_w,
+        path: "/Definition/OutputQualityControl/Write",
+        title: "/Definition/OutputQualityControl/Write",
+        access: enums.Definition_OutputQualityControl_Create_w,
       },
       "remove"
     );
@@ -52,27 +56,27 @@ const OutputQualityControlDefine = () => {
       "add"
     );
   };
-const handleResponse=(response,type)=>{
-  switch (type) {
-    case "READTITLE":
-      setModelOptions(createSelectOptions(response.Title))
-      break;
-    case "SUBMIT":
-      submitted()
-      break;
-    default:
-      break;
-  }
-}
+  const handleResponse = (response, type) => {
+    switch (type) {
+      case "READTITLE":
+        setModelOptions(createSelectOptions(response.Title));
+        break;
+      case "SUBMIT":
+        submitted();
+        break;
+      default:
+        break;
+    }
+  };
   useEffect(() => {
-    setType("READTITLE")
+    setType("READTITLE");
     fetchData({
       method: "POST",
       url: modelReadTitle,
       headers: {
         accept: "*/*",
       },
-      data:  request,
+      data: request,
       signal: abortController.signal,
     });
     return () => abortController.abort();
@@ -81,7 +85,7 @@ const handleResponse=(response,type)=>{
   useEffect(() => {
     if (response) {
       response.Result
-        ? handleResponse(response,type)
+        ? handleResponse(response, type)
         : handleError(response.Message);
       setResponse(undefined);
     }
@@ -96,7 +100,7 @@ const handleResponse=(response,type)=>{
     }
     setValidated(true);
     if (form.checkValidity()) {
-      setType("SUBMIT")
+      setType("SUBMIT");
       fetchData({
         method: "POST",
         url: outputQualityControlCreate,
@@ -106,7 +110,7 @@ const handleResponse=(response,type)=>{
         data: {
           Request: request,
           Id: 0,
-          Model_Id:model?.value,
+          Model_Id: model?.value,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -134,18 +138,22 @@ const handleResponse=(response,type)=>{
       >
         <b>{t("/Definition/OutputQualityControl/Write")}</b>
         <div className="modelRow">
-        <Form.Group className="mb-3" controlId={"model"}>
-        <Form.Label>{t("model")}</Form.Label>
-          <CustomReactMultiSelect
-            isMulti={false}
-            options={modelOptions}
-            value={model}
-            onchangeHandler={(e) => setModel(e)}
-            placeholder={t("model")}
-          />
-         </Form.Group>
+          <Form.Group className="mb-3" controlId={"model"}>
+            <Form.Label>{t("model")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={modelOptions}
+              value={model}
+              onchangeHandler={(e) => setModel(e)}
+              placeholder={t("model")}
+            />
+          </Form.Group>
         </div>
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("/Definition/OutputQualityControl/Read"),
+          t("qcOutPut_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
         <Button disabled={loading} type="submit">

@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -13,7 +12,7 @@ import {
   defintionInputs,
   handleError,
 } from "../../../../../validation/functions";
-import  SendType from "../SendType";
+import SendType from "../SendType";
 const SendTypeDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const [validated, setValidated] = useState(false);
@@ -25,7 +24,7 @@ const SendTypeDefine = () => {
     title: "",
     color: "#000000",
     periority: 1,
-    desc: ""
+    desc: "",
   });
   const { t } = useTranslation();
   const submitted = () => {
@@ -35,9 +34,9 @@ const SendTypeDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: SendTypeDefine,
-          path: "/Definition/SendType/Write",
-          title: "/Definition/SendType/Write",
-          access: enums.Definition_SendType_Create_w,
+        path: "/Definition/SendType/Write",
+        title: "/Definition/SendType/Write",
+        access: enums.Definition_SendType_Create_w,
       },
       "remove"
     );
@@ -114,9 +113,12 @@ const SendTypeDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/SendType/Write")}</b>
-       
-      
-        {defintionInputs(values).map((input) => (
+
+        {defintionInputs(
+          values,
+          t("changeSendType"),
+          t("sendType_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
         <Button disabled={loading} type="submit">

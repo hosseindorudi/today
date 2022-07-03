@@ -106,9 +106,11 @@ const CountryForm = () => {
       >
         <b>{t("/Definition/Country/Write")}</b>
 
-        {defintionInputs(values).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
+        {defintionInputs(values, t("country"), t("country_errorMSG")).map(
+          (input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          )
+        )}
 
         <Button disabled={loading} type="submit">
           {t("submit")}

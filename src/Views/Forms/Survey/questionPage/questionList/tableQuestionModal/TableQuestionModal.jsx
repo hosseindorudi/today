@@ -1,6 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import * as fa from "react-icons/fa";
-import { Button, Form, Modal, ListGroup, Container, Row, Col } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  Modal,
+  ListGroup,
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
 import useRequest from "../../../../../../customHooks/useRequest";
 import useAxios from "../../../../../../customHooks/useAxios";
 import BackDrop from "../../../../../../Components/backDrop/BackDrop";
@@ -25,10 +33,10 @@ const TableQuestionModal = (props) => {
   const request = useRequest();
   const [enumQuestion, setEnumQuestion] = useState([]);
   const abortController = new AbortController();
-  const [editButtonActivate, setEditButtonActivate] = useState(false)
-  const [IdOfQuestion, setIdOfQuestion] = useState()
-  const [periodity, setPeriodity] = useState(0)
-  const [multiSelectActivation, setMultiSelectActivation] = useState(false)
+  const [editButtonActivate, setEditButtonActivate] = useState(false);
+  const [IdOfQuestion, setIdOfQuestion] = useState();
+  const [periodity, setPeriodity] = useState(0);
+  const [multiSelectActivation, setMultiSelectActivation] = useState(false);
   const [questionItem, setQuestionItem] = useState([]);
   const colors = [
     "#470063",
@@ -52,29 +60,31 @@ const TableQuestionModal = (props) => {
   const [questions, setQuestions] = useState([]);
   const [requestType, setRequestType] = useState("");
 
-
   const handleAddQuestionItem = (questionItem) => {
-
     setQuestionItem((prev) => [...prev, questionItem]);
   };
 
   const handleChangeQuestionItem = (event, index, type) => {
-
     let newArr = questionItem.map((item, i) => {
-      return item.Id === index ? {...item, [type] : type === "Priority" ? Number(event.target.value) :  event.target.value} : item
+      return item.Id === index
+        ? {
+            ...item,
+            [type]:
+              type === "Priority"
+                ? Number(event.target.value)
+                : event.target.value,
+          }
+        : item;
     });
 
     setQuestionItem(newArr);
-    console.log(questionItem)
+    console.log(questionItem);
   };
-
-  
 
   const handleClickRemoveQuestionItem = (index) => {
     let filter = questionItem.filter((item, i) => i !== index);
     setQuestionItem(filter);
   };
-
 
   useEffect(() => {
     Object.keys(QuestionTypeEnum).map((key) => {
@@ -120,13 +130,12 @@ const TableQuestionModal = (props) => {
       .catch((error) => {
         handleError(error.message);
       });
-      setTitle("")
-      setDescription("")
-      setColor("#000000")
-      setQuestionSelect({})
-      setPeriodity(0)
-      setEditButtonActivate(false)
-
+    setTitle("");
+    setDescription("");
+    setColor("#000000");
+    setQuestionSelect({});
+    setPeriodity(0);
+    setEditButtonActivate(false);
   };
   useEffect(() => {
     getDatas();
@@ -141,10 +150,9 @@ const TableQuestionModal = (props) => {
           handleDeleted();
           break;
         case "SUBMIT":
-
           getDatas();
           break;
-        
+
         default:
           break;
       }
@@ -168,8 +176,6 @@ const TableQuestionModal = (props) => {
       signal: abortController.signal,
     });
   };
-
-
 
   const handleDeleted = () => {
     Swal.fire(
@@ -198,24 +204,23 @@ const TableQuestionModal = (props) => {
     });
   };
 
-
-
   useEffect(() => {
     if (response) {
       response.Result
         ? handleResponse(response, requestType)
         : handleError(response.Message);
 
-        setResponse(undefined)
+      setResponse(undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setRequestType("SUBMIT")
+    setRequestType("SUBMIT");
+    setMultiSelectActivation(false);
     let newArr = questionItem.map((item, i) => {
-      return  {...item, Color : questionItem[i]['Color'].slice(1) }
+      return { ...item, Color: questionItem[i]["Color"].slice(1) };
     });
 
     setQuestionItem(newArr);
@@ -232,7 +237,7 @@ const TableQuestionModal = (props) => {
         QuestionType_EId: questionSelect?.value,
         QuestionItem: questionItem,
         Title: title,
-        Priority:periodity,
+        Priority: periodity,
         Description: description,
         Color: color.slice(1),
         Request: request,
@@ -240,30 +245,31 @@ const TableQuestionModal = (props) => {
     });
   };
 
-
   const handleQuestionEdit = (question) => {
-      console.log(question)
-      setTitle(question.Title)
-      setDescription(question.Description)
-      setQuestionSelect(enumQuestion.find(eq => eq.value === question.QuestionType_EId))
-      setIdOfQuestion(question.Id)
-      setColor(`#${question.Color}`)
-      setPeriodity(question.Priority)
-      setEditButtonActivate(true)
-  }
+    console.log(question);
+    setTitle(question.Title);
+    setDescription(question.Description);
+    setQuestionSelect(
+      enumQuestion.find((eq) => eq.value === question.QuestionType_EId)
+    );
+    setIdOfQuestion(question.Id);
+    setColor(`#${question.Color}`);
+    setPeriodity(question.Priority);
+    setEditButtonActivate(true);
+  };
 
   const cancletationOFEdit = () => {
-      setTitle("")
-      setDescription("")
-      setQuestionSelect({})
-      setColor("#000000")
-      setPeriodity(0)
-      setEditButtonActivate(false)
-  }
+    setTitle("");
+    setDescription("");
+    setQuestionSelect({});
+    setColor("#000000");
+    setPeriodity(0);
+    setEditButtonActivate(false);
+  };
 
-  const SubmitOfEdit =(e) => {
+  const SubmitOfEdit = (e) => {
     e.preventDefault();
-    setRequestType("SUBMIT")
+    setRequestType("SUBMIT");
     fetchData({
       method: "POST",
       url: updateQuestion,
@@ -275,15 +281,15 @@ const TableQuestionModal = (props) => {
         Id: IdOfQuestion,
         QuestionPage_Id: props.rowValus.Id,
         QuestionType_EId: questionSelect?.value,
-        QuestionItem: [] ,
+        QuestionItem: [],
         Title: title,
-        Priority:periodity,
+        Priority: periodity,
         Description: description,
         Color: color.slice(1),
         Request: request,
       },
     });
-  }
+  };
 
   return (
     <>
@@ -312,7 +318,12 @@ const TableQuestionModal = (props) => {
                   isMulti={false}
                   options={enumQuestion}
                   value={questionSelect}
-                  onchangeHandler={(e) => {setQuestionSelect(e); e.label === "Multiple" ? setMultiSelectActivation(true) : setMultiSelectActivation(false)}}
+                  onchangeHandler={(e) => {
+                    setQuestionSelect(e);
+                    e.label === "Multiple"
+                      ? setMultiSelectActivation(true)
+                      : setMultiSelectActivation(false);
+                  }}
                   placeholder={t("questionType")}
                 />
               </Form.Group>
@@ -340,11 +351,9 @@ const TableQuestionModal = (props) => {
                 />
               </Form.Group>
 
-              
-                 <Container>
-                  <Row>
-                    <Col>
-
+              <Container>
+                <Row>
+                  <Col>
                     <Form.Group
                       className="mb-1"
                       controlId="exampleForm.periodity"
@@ -357,13 +366,12 @@ const TableQuestionModal = (props) => {
                         onChange={(e) => setPeriodity(e.target.value)}
                       />
                     </Form.Group>
-                    
-                    </Col>
-                    <Col>
+                  </Col>
+                  <Col>
                     <Form.Group
-                        className="mb-1 questionColorPicker colomnDirections"
-                        controlId="exampleForm.ControlTextarea1"
-                      >
+                      className="mb-1 questionColorPicker colomnDirections"
+                      controlId="exampleForm.ControlTextarea1"
+                    >
                       <Form.Label>{t("operatorGroupFormDesc")}</Form.Label>
                       <Form.Control
                         type="color"
@@ -372,118 +380,133 @@ const TableQuestionModal = (props) => {
                         name="favcolor"
                         className="colorPickerInputQuestion"
                       />
-                       </Form.Group>
-                    </Col>
-                  </Row>
-                </Container>
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </Container>
 
-                <div className="accordionOperatorGroup" style={{display : multiSelectActivation ? "block": "none"}}>
-                  
-                        <div className="addBtn">
-                          <bs.BsFillPlusCircleFill
-                            size={25}
-                            style={{ cursor: "pointer" }}
-                            onClick={() => handleAddQuestionItem(
-                                      {
-                                        Id: questionItem.length,
-                                        Priority: 0,
-                                        Title: "",
-                                        Description: "",
-                                        Color: "#000000"
-                                      }
-                            )}
-                          />
-                          <b>{t("questionMultiple")}</b>
-                        </div>
-                        {questionItem.map((i, index) => (
-                          <div className="browserSelects" key={index}>
-                            <fa.FaMinus
-                              size={20}
-                              style={{ cursor: "pointer" }}
-                              onClick ={() => handleClickRemoveQuestionItem(index)}
-                            />
-                            <Container>
-                              <Row>
-                                  <Col>
-                                    <Form.Group className="mb-0.5" controlId="formBasicEmail">
-                                      <Form.Label>{t("operatorGroupFormTitle")}</Form.Label>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder={t("QuestionCreateTitle")}
-                                        value={questionItem[index]['Title']}
-                                        onChange={(e) =>{handleChangeQuestionItem(e,index,'Title')}}
-                                        
-                                        required
-                                      />
-                                    </Form.Group>
-                                  </Col>
-                                  <Col>
-                                    <Form.Group
-                                      className="mb-0.5"
-                                      controlId="exampleForm.ControlTextarea1"
-                                    >
-                                      <Form.Label>{t("operatorGroupFormDesc")}</Form.Label>
-                                      <Form.Control
-                                        as="textarea"
-                                        rows={1}
-                                        value={questionItem[index]['Description']}
-                                        onChange={(e) =>{handleChangeQuestionItem(e,index,'Description')}}
-                                        
-                                      />
-                                    </Form.Group>
-                                  </Col>
-                              </Row>
-                              <Row>
-                                <Col>
-                                  <Form.Group
-                                    className="mb-0.5"
-                                    controlId="exampleForm.periodity"
-                                  >
-                                    <Form.Label>{t("periodity")}</Form.Label>
-                                    <Form.Control
-                                      required
-                                      type="number"
-                                      value={questionItem[index]['Priority']}
-                                      onChange={(e) =>{handleChangeQuestionItem(e,index,'Priority')}}
-                                    />
-                                  </Form.Group>
-                                </Col>
-                                <Col>
-                                  <Form.Group
-                                      className="mb-0.5 questionColorPicker colomnDirections"
-                                      controlId="exampleForm.ControlTextarea1"
-                                    >
-                                    <Form.Label>{t("operatorGroupFormDesc")}</Form.Label>
-                                    <Form.Control
-                                      type="color"
-                                      value={questionItem[index]['Color']}
-                                      onChange={(e) =>{handleChangeQuestionItem(e,index,'Color')}}
-                                      name="favcolor"
-                                      className="colorPickerInputQuestion"
-                                    />
-                                  </Form.Group>
-                                </Col>
-                              </Row>
-                            </Container>
-                          </div>
-                        ))}
-                    
-                        
-                      
-                </div>
-               
-             
-
-              { !editButtonActivate ? (<Button
-                variant="primary"
-                type="submit"
-                className="questionFormSubmit mt-2"
+              <div
+                className="accordionOperatorGroup"
+                style={{ display: multiSelectActivation ? "block" : "none" }}
               >
-                {t("operatorGroupFormSubmit")}
-              </Button>)
-              :
-              (
+                <div className="addBtn">
+                  <bs.BsFillPlusCircleFill
+                    size={25}
+                    style={{ cursor: "pointer" }}
+                    onClick={() =>
+                      handleAddQuestionItem({
+                        Id: questionItem.length,
+                        Priority: 0,
+                        Title: "",
+                        Description: "",
+                        Color: "#000000",
+                      })
+                    }
+                  />
+                  <b>{t("questionMultiple")}</b>
+                </div>
+                {questionItem.map((i, index) => (
+                  <div className="browserSelects" key={index}>
+                    <fa.FaMinus
+                      size={20}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleClickRemoveQuestionItem(index)}
+                    />
+                    <Container>
+                      <Row>
+                        <Col>
+                          <Form.Group
+                            className="mb-0.5"
+                            controlId="formBasicEmail"
+                          >
+                            <Form.Label>
+                              {t("operatorGroupFormTitle")}
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder={t("QuestionCreateTitle")}
+                              value={questionItem[index]["Title"]}
+                              onChange={(e) => {
+                                handleChangeQuestionItem(e, index, "Title");
+                              }}
+                              required
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col>
+                          <Form.Group
+                            className="mb-0.5"
+                            controlId="exampleForm.ControlTextarea1"
+                          >
+                            <Form.Label>
+                              {t("operatorGroupFormDesc")}
+                            </Form.Label>
+                            <Form.Control
+                              as="textarea"
+                              rows={1}
+                              value={questionItem[index]["Description"]}
+                              onChange={(e) => {
+                                handleChangeQuestionItem(
+                                  e,
+                                  index,
+                                  "Description"
+                                );
+                              }}
+                            />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Form.Group
+                            className="mb-0.5"
+                            controlId="exampleForm.periodity"
+                          >
+                            <Form.Label>{t("periodity")}</Form.Label>
+                            <Form.Control
+                              required
+                              type="number"
+                              value={questionItem[index]["Priority"]}
+                              onChange={(e) => {
+                                handleChangeQuestionItem(e, index, "Priority");
+                              }}
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col>
+                          <Form.Group
+                            className="mb-0.5 questionColorPicker colomnDirections"
+                            controlId="exampleForm.ControlTextarea1"
+                          >
+                            <Form.Label>
+                              {t("operatorGroupFormDesc")}
+                            </Form.Label>
+                            <Form.Control
+                              type="color"
+                              value={questionItem[index]["Color"]}
+                              onChange={(e) => {
+                                handleChangeQuestionItem(e, index, "Color");
+                              }}
+                              name="favcolor"
+                              className="colorPickerInputQuestion"
+                            />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                    </Container>
+                  </div>
+                ))}
+              </div>
 
+              {!editButtonActivate ? (
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="questionFormSubmit mt-2"
+                >
+                  {t("operatorGroupFormSubmit")}
+                </Button>
+              ) : (
                 <Container>
                   <Row>
                     <Col>
@@ -496,21 +519,17 @@ const TableQuestionModal = (props) => {
                       </Button>
                     </Col>
                     <Col>
-
-                    <Button
+                      <Button
                         variant="success"
                         onClick={SubmitOfEdit}
                         className="questionFormSubmit mt-2"
                       >
                         {t("operatorGroupFormSubmit")}
                       </Button>
-
                     </Col>
                   </Row>
                 </Container>
-
-              )
-            }
+              )}
             </Form>
           </div>
         </Modal.Body>
@@ -530,8 +549,10 @@ const TableQuestionModal = (props) => {
                   {question.Description}
                 </div>
                 <div className="ms-2 questionButtons">
-                  <div className="questionEditDiv"
-                  onClick={() => handleQuestionEdit(question)}>
+                  <div
+                    className="questionEditDiv"
+                    onClick={() => handleQuestionEdit(question)}
+                  >
                     <fa.FaRegEdit />
                   </div>
                   <div

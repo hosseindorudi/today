@@ -106,7 +106,11 @@ const AnswerPageFailedForm = () => {
       >
         <b>{t("/Definition/AnswerPageFailed/Write")}</b>
 
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(
+          values,
+          t("/Definition/AnswerPageFailed/Write"),
+          t("answerFailed_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 
