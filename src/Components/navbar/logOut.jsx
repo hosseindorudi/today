@@ -46,14 +46,14 @@ const LogOut = () => {
         style={{ display: open ? "flex" : "none" }}
       >
         <div>
-          <fa.FaUserAlt/>
+          <fa.FaUserAlt style={{color: "black"}}/>
           <button className="dropDownLink" >
             {t("profile")}
           </button>
         </div>
 
         <div onClick={handleLogOut}>
-          <fa.FaSignOutAlt/>
+          <fa.FaSignOutAlt style={{color: "black"}}/>
           <button className="dropDownLink" >
             {t("btn.exit")}
           </button>
