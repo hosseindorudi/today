@@ -66,7 +66,8 @@ const TableQuestionModal = (props) => {
 
   const handleChangeQuestionItem = (event, index, type) => {
     let newArr = questionItem.map((item, i) => {
-      return item.Id === index
+      console.log(item.Id, index, i)
+      return item.Id === index + 1
         ? {
             ...item,
             [type]:
@@ -78,7 +79,6 @@ const TableQuestionModal = (props) => {
     });
 
     setQuestionItem(newArr);
-    console.log(questionItem);
   };
 
   const handleClickRemoveQuestionItem = (index) => {
@@ -224,6 +224,8 @@ const TableQuestionModal = (props) => {
     });
 
     setQuestionItem(newArr);
+    console.log(questionItem);
+
     fetchData({
       method: "POST",
       url: createQuestion,
@@ -306,6 +308,7 @@ const TableQuestionModal = (props) => {
 
   const handleQuestionEdit = (question) => {
     console.log(question);
+    question.QuestionItem !== [] ? setMultiSelectActivation(true) : setMultiSelectActivation(false);
     setTitle(question.Title);
     setDescription(question.Description);
     setQuestionSelect(
@@ -315,6 +318,11 @@ const TableQuestionModal = (props) => {
     setColor(`#${question.Color}`);
     setPeriodity(question.Priority);
     setEditButtonActivate(true);
+    let array = question.QuestionItem;
+    array.map((arr) => (
+      arr['Color'] = `#${arr['Color']}`
+    ))
+    setQuestionItem(question.QuestionItem)
   };
 
   const cancletationOFEdit = () => {
@@ -324,11 +332,20 @@ const TableQuestionModal = (props) => {
     setColor("#000000");
     setPeriodity(1);
     setEditButtonActivate(false);
+    setMultiSelectActivation(false)
+    setQuestionItem([])
   };
 
   const SubmitOfEdit = (e) => {
     e.preventDefault();
     setRequestType("SUBMIT");
+    let newArr = questionItem.map((item, i) => {
+      return { ...item, Color: questionItem[i]["Color"].slice(1) };
+    });
+    setQuestionItem(newArr);
+    console.log(newArr)
+    
+
     fetchData({
       method: "POST",
       url: updateQuestion,
@@ -340,7 +357,7 @@ const TableQuestionModal = (props) => {
         Id: IdOfQuestion,
         QuestionPage_Id: props.rowValus.Id,
         QuestionType_EId: questionSelect?.value,
-        QuestionItem: [],
+        QuestionItem: newArr,
         Title: title,
         Priority: periodity,
         Description: description,
@@ -348,6 +365,16 @@ const TableQuestionModal = (props) => {
         Request: request,
       },
     });
+
+    setTitle("");
+    setDescription("");
+    setQuestionSelect({});
+    setColor("#000000");
+    setPeriodity(1);
+    setEditButtonActivate(false);
+    setMultiSelectActivation(false)
+    setQuestionItem([])
+    
   };
 
   return (
@@ -455,7 +482,7 @@ const TableQuestionModal = (props) => {
                     onClick={() =>
                       handleAddQuestionItem({
                         Id: questionItem.length,
-                        Priority: 0,
+                        Priority: 1,
                         Title: "",
                         Description: "",
                         Color: "#000000",
@@ -542,7 +569,7 @@ const TableQuestionModal = (props) => {
                             </Form.Label>
                             <Form.Control
                               type="color"
-                              value={questionItem[index]["Color"]}
+                              value={ questionItem[index]["Color"]} // multiSelectActivation ?  `#${questionItem[index]["Color"]}` :
                               onChange={(e) => {
                                 handleChangeQuestionItem(e, index, "Color");
                               }}
