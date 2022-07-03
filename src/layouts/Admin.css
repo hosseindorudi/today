@@ -8,8 +8,8 @@
 
 .header {
   height: 50px;
-  color: orange;
-  background-color: rgb(11, 34, 241);
+  color: white;
+  background-color: blue;
   display: flex;
   align-items: center;
   justify-content: space-between;

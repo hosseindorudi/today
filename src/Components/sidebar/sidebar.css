@@ -9,7 +9,7 @@
 }
 
 #sidebarNav{
-    background: rgb(11, 34, 241);
+    background: blue;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -78,7 +78,7 @@ left: unset;
   background:#6e6d6d;
 }
 .DropdownLinkBtn {
-  background:gray;
+  background:blue;
   height: 60px;
   border: none;
   width: 80%;
@@ -94,7 +94,7 @@ left: unset;
   
 }
 .DropdownLink {
-  background:gray;
+  background:blue;
   height: 60px;
   border: none;
   width: 100%;
