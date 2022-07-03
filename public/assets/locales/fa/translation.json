@@ -273,7 +273,7 @@
   "errorOnImport": "خطا در بارگزاری",
   "import": "وارد کردن",
   "exportGroup": "خروجی گروه",
-  "logview": "مشاهده",
+  "logview": "جزئیات",
   "save": "ذخیره",
   "all": "همه",
   "none": "هیچکدام",
@@ -626,5 +626,13 @@
   "warrantyType_errorMSG": "  نوع گارانتی دستگاه نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
   "vehicle_type": "وسیله نقلیه",
   "statusDeviceEnd": "وضعیت پایانی دستگاه",
-  "statusProgressDevice": "وضعیت فعلی دستگاه"
+  "statusProgressDevice": "وضعیت فعلی دستگاه",
+  "Browser":"مرورگر",
+  "IP":"آی پی",
+  "OS":"سیستم عامل",
+  "Action":"فعالیت",
+  "Page":"صفحه",
+  "Operator_Id":"آی دی اپراتور",
+  "periorityQuestionError1":"اولویت نمیتواند کمتر از 1 باشد",
+  "periorityQuestionError1000":"اولویت نمیتواند بیشتر از 1000 باشد"
 }
