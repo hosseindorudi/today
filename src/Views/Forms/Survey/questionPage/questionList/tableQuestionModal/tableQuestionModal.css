@@ -57,16 +57,23 @@
 
 .questionListGroup {
     width: 100%;
+    transition: all 500ms ease;
+}
+
+.listGroupItemQuestion {
+    transition: all 500ms ease;
 }
 
 .questionTitle {
     width: 100%;
+    transition: all 500ms ease;
 }
 
 .questionMain{
     width: 100%;
     margin-inline-start: 5px;
     flex: 90%;
+    transition: all 500ms ease;
 }
 
 .questionButtons {
