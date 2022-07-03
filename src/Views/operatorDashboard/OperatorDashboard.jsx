@@ -122,23 +122,23 @@ const OperatorDashboard = () => {
               <span>{os.ip}</span>
               <span>:IP</span>
           </div>
-          <hr />
+
           <div className="dashInformationDiv">
           {/* {Platform.OSVersion} */}
               <span>{os.os}</span>
               <span>:OS</span>
           </div>
-          <hr />
+
           <div className="dashInformationDiv">
               <span>{os.browser}</span>
               <span>:Browser</span>
           </div>
-          <hr />
+
           <div className="dashInformationDiv">
               <span>{location.loaded?<>{`${location.coordinates.lat},${location.coordinates.lng}`}</> :"not supported"}</span>
               <span>:GeoLocation</span>
           </div>
-          <hr />
+
           <div className="dashInformationDiv">
               <span>{dashboardInfoData.OperatorName}</span>
               <span>:Operator</span>
@@ -166,85 +166,7 @@ const OperatorDashboard = () => {
           
         </div>
       </div>
-      <div className="opratorDashActivity">
-      <h3>لیست کارها</h3>
-      <table className='opratorDashActivityTable'>
-        <thead className='opratorDashActivityTableThead'>
-          <tr>
-            <th className='opratorDashActivityTableTheadTrTh'>#</th>
-            <th className='opratorDashActivityTableTheadTrTh'>page</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Action</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Description</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Os</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Ip</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Browser</th>
-            <th className='opratorDashActivityTableTheadTrTh'>DateTime</th>
-          </tr>
-        </thead>
-        <tbody className='opratorDashActivityTableTbody'>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
+
       <div className="opratorDashNoteBefore">
           
           <div className="opratorDashNote">
@@ -342,6 +264,87 @@ const OperatorDashboard = () => {
           <button className='opratorDashNotePlusBTN' onClick={() => setIsOpen(true)}><i className="fa fa-plus" aria-hidden="true"></i></button>
       </div>
       {isOpen && <Modal setIsOpen={setIsOpen} />}
+
+      <div className="opratorDashActivity">
+      <h3>لیست کارها</h3>
+      <table className='opratorDashActivityTable'>
+        <thead className='opratorDashActivityTableThead'>
+          <tr>
+            <th className='opratorDashActivityTableTheadTrTh'>#</th>
+            <th className='opratorDashActivityTableTheadTrTh'>page</th>
+            <th className='opratorDashActivityTableTheadTrTh'>Action</th>
+            <th className='opratorDashActivityTableTheadTrTh'>Description</th>
+            <th className='opratorDashActivityTableTheadTrTh'>Os</th>
+            <th className='opratorDashActivityTableTheadTrTh'>Ip</th>
+            <th className='opratorDashActivityTableTheadTrTh'>Browser</th>
+            <th className='opratorDashActivityTableTheadTrTh'>DateTime</th>
+          </tr>
+        </thead>
+        <tbody className='opratorDashActivityTableTbody'>
+          <tr>
+            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
+          </tr>
+          <tr>
+            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
+          </tr>
+          <tr>
+            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
+          </tr>
+          <tr>
+            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
+          </tr>
+          <tr>
+            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
+          </tr>
+          <tr>
+            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
+            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      
       <div className="opratorDashAlert">
       <h3>لیست پیام ها</h3>
       <table className='opratorDashActivityTable'>

@@ -13,7 +13,7 @@
     justify-content: center;
     width: 100%;
     margin: 10px auto;
-    height: 350px;
+    height: 200px;
 }
 
 
@@ -33,6 +33,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    border-bottom: 0.5px solid lightgray  ;
 }
 
 .dashInformationDiv > span:first-child {

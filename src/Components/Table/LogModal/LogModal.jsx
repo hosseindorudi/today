@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
 import "./logModal.css";
 import { t } from "i18next";
-import AppContext from "../../../contexts/AppContext";
 import { convertUTC } from "../../../validation/functions";
 const LogModal = (props) => {
   const logs = props.logs;
@@ -12,7 +11,6 @@ const LogModal = (props) => {
     setDescription(data)
     setShowDescription(true)
   }
-  const {app} = useContext(AppContext)
   return (
     <>
     {showDescription &&(
