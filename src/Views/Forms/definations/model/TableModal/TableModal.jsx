@@ -16,6 +16,7 @@ import { deviceReadTitle } from "../../../../../services/deviceService";
 import { countryReadTitle } from "../../../../../services/countryService";
 import { modelUpdate } from "../../../../../services/modelService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
+import { ColorReadTitle } from "../../../../../services/colorService";
 
 const TableModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -23,6 +24,8 @@ const TableModal = (props) => {
   const { t } = useTranslation();
   const [deviceOptions, setDeviceOptions] = useState([]);
   const [device, setDevice] = useState(undefined);
+  const [colorOptions, setColorOptions] = useState([]);
+  const [color, setColor] = useState(undefined);
   const [countryOptions, setCountryOptions] = useState([]);
   const [country, setCountry] = useState(undefined);
   const request = useRequest();
@@ -35,7 +38,6 @@ const TableModal = (props) => {
     Activated: false,
     RamMemory: 0,
     RomMemory: 0,
-    BodyColor: "",
   });
   const handleResponse = (response) => {
     props.updated();
@@ -59,11 +61,16 @@ useEffect(() => {
   setCountry(countryOptions.find((i)=>i.value===props.rowValus.Country_Id))
   // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [countryOptions])
+useEffect(() => {
+  setColor(colorOptions.find((i)=>i.value===props.rowValus.Color_Id))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [colorOptions])
   const getDatas = () => {
     const deviceTitles = axios.request(createParams(deviceReadTitle));
     const countryTitles = axios.request(createParams(countryReadTitle));
+    const colorTitles=axios.request(createParams(ColorReadTitle));
     axios
-      .all([deviceTitles, countryTitles])
+      .all([deviceTitles, countryTitles,colorTitles])
       .then(
         axios.spread((...allData) => {
           allData[0].data?.Result
@@ -72,6 +79,9 @@ useEffect(() => {
           allData[1].data?.Result
             ? setCountryOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
+            allData[2].data?.Result
+            ? setColorOptions(createSelectOptions(allData[2].data.Title))
+            : handleError(allData[2].data.Message);
         })
       )
       .catch((error) => {
@@ -90,7 +100,6 @@ useEffect(() => {
       Activated: prop.Activated,
       RamMemory: prop.RamMemory,
       RomMemory: prop.RomMemory,
-      BodyColor: prop.BodyColor,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -121,9 +130,9 @@ useEffect(() => {
           Id: props.rowValus.Id,
           Device_Id: device?.value,
           Country_Id: country?.value,
+          Color_Id: color?.value,
           RamMemory: values.RamMemory,
           RomMemory: values.RomMemory,
-          BodyColor: values.BodyColor,
           Activated: values.Activated,
           Priority: values.periority,
           Title: values.title,
@@ -210,12 +219,13 @@ useEffect(() => {
           <div className="modelDefineRow">
             <Form.Group className="mb-3" controlId={"BodyColor"}>
               <Form.Label>{t("model.BodyColor")}</Form.Label>
-              <Form.Control
-                type="text"
-                name="BodyColor"
-                value={values.BodyColor}
-                onChange={onChangeHandler}
-              />
+              <CustomReactMultiSelect
+              isMulti={false}
+              options={colorOptions}
+              value={color}
+              onchangeHandler={(e) => setColor(e)}
+              placeholder={t("model.BodyColor")}
+            />
             </Form.Group>
             <Form.Group className="mb-3" controlId={"model.activated"}>
               <Form.Label>{t("model.activated")}</Form.Label>

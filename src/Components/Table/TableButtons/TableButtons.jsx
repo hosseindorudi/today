@@ -22,7 +22,9 @@ const TableButtons = ({
   changePasswordType,
   handlePassEdit,
   handleAddQuestion,
-  addAccess
+  addAccess,
+  handleCreateRate,
+  rateAccess
  
 }) => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -112,6 +114,17 @@ const TableButtons = ({
           }}
         >
           <fa.FaPlusCircle />
+        </button>
+      )}
+       {haveAccess(rateAccess) && (
+        <button
+          title={t("createRate")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+          handleCreateRate(rowValue.Id);
+          }}
+        >
+          <fa.FaDollarSign />
         </button>
       )}
     </div>

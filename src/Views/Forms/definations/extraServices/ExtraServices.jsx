@@ -13,14 +13,15 @@ import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 
 import ExtraServicesDefine from "./extraServicesDefine/ExtraServicesDefine";
-import { additionalServiceAccessList, additionalServiceCheckFile, additionalServiceDelete, additionalServiceExport, additionalServiceExportId, additionalServiceFavorite, additionalServiceGetOneRecord, additionalServiceImportFile, additionalServiceLog, additionalServiceRead, additionalServiceReadPaging, additionalServiceSampleFile, additionalServiceSetUnselectedColumn } from "../../../../services/additionalServiceService";
+import { additionalServiceAccessList, additionalServiceCheckFile, additionalServiceCreateRate, additionalServiceDelete, additionalServiceDeleteRate, additionalServiceExport, additionalServiceExportId, additionalServiceFavorite, additionalServiceGetOneRecord, additionalServiceImportFile, additionalServiceLog, additionalServiceRead, additionalServiceReadPaging, additionalServiceReadRate, additionalServiceSampleFile, additionalServiceSetUnselectedColumn, additionalServiceUpdateRate } from "../../../../services/additionalServiceService";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
+import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
 const ExtraServices = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType", "Model_Id"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
-
+  const [rateModalOpen,setRateModalOpen]=useState(false)
 
   const childRef = useRef();
 
@@ -53,7 +54,10 @@ const ExtraServices = () => {
     window.open("https://www.google.com");
   };
 
-  
+  const handleCreateRate=(id)=>{
+    setRowValues(id);
+  setRateModalOpen(true)
+  }
 
 
   return (
@@ -64,6 +68,12 @@ const ExtraServices = () => {
           onHide={() => setTableModalOpen(false)}
           tableModalShow={tableModalOpen}
           updated={updated}
+        />
+      )}
+      {rateModalOpen &&(
+        <AddCurrencyModal show={rateModalOpen} id={rowValus} onHide={()=>setRateModalOpen(false)}
+          update={additionalServiceUpdateRate} create={additionalServiceCreateRate} delete={additionalServiceDeleteRate}
+          read={additionalServiceReadRate} typeTitle={"AdditionalService_Id"}
         />
       )}
       
@@ -103,6 +113,8 @@ const ExtraServices = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        rateAccess={enums.Definition_AdditionalService_Read_r}
+        handleCreateRate={handleCreateRate}
       />
    
     </>

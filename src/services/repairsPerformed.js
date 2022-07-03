@@ -14,3 +14,8 @@ export const repairsPerformedExportId="/Definition/RepairsPerformed/ExportId"
 export const repairsPerformedLog="/Definition/RepairsPerformed/log"
 export const repairsPerformedSetToFavorite="/Definition/RepairsPerformed/SetToFavorite"
 export const repairsPerformedAccessList="/Definition/RepairsPerformed/AccessList"
+export const repairsPerformedCreateRate="/Definition/RepairsPerformed/CreateRate"
+export const repairsPerformedUpdateRate="/Definition/RepairsPerformed/UpdateRate"
+export const repairsPerformedReadRate="/Definition/RepairsPerformed/ReadRate"
+export const repairsPerformedDeleteRate="/Definition/RepairsPerformed/DeleteRate"
+

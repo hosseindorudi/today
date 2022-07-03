@@ -558,8 +558,8 @@
   "/Definition/Country/Read": " کشور",
   "/Definition/Defect/Read": " ایرادات گوشی",
   "/Definition/Defect/Write": "فرم ایرادات گوشی",
-  "/Definition/Device/Write": "فرم گوشی",
-  "/Definition/Device/Read": "مدل گوشی",
+  "/Definition/Device/Write": "فرم دستگاه ",
+  "/Definition/Device/Read": "دستگاه",
   "/Definition/ImportingCompany/Read": " شرکت واردکننده",
   "/Definition/ImportingCompany/Write": "فرم شرکت واردکننده",
   "/Definition/WarrantyType/Read": " نوع گارانتی",
@@ -639,5 +639,8 @@
   "/Definition/Currency/Write":"فرم واحد پول",
   "currency_errorMSG": " واحد پول نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
   "IsReference":"منتخب",
-  "Rate":"نرخ"
+  "Rate":"نرخ",
+  "Color_Title":"رنگ",
+  "createRate":"ایجاد نرخ",
+  "Currency_Title":"واحد پول"
 }

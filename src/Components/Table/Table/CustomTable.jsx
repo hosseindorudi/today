@@ -627,6 +627,8 @@ const CustomTable = forwardRef((props, ref) => {
             setMobileModalColumns={props.setMobileModalColumns}
             handleAddQuestion={handleAddQuestion}
             addAccess= {props.addAccess}
+            handleCreateRate={props.handleCreateRate}
+            rateAccess={props.rateAccess?props.rateAccess:""}
           />
           <LeftSideContainer
             {...props}

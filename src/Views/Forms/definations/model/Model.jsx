@@ -18,6 +18,7 @@ const Model = () => {
     "SourceType",
     "Device_Id",
     "Country_Id",
+    "Color_Id"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

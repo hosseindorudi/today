@@ -8,7 +8,26 @@ import useWindowSize from "../../../../customHooks/useWindowSize";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 
 import RepairsPerformedDefine from "./repairsPerformedDefine/RepairsPerformedDefine";
-import { repairsPerformedAccessList, repairsPerformedCheckFile, repairsPerformedDelete, repairsPerformedExport, repairsPerformedExportId, repairsPerformedGetOneRecord, repairsPerformedImport, repairsPerformedLog, repairsPerformedRead, repairsPerformedReadPaging, repairsPerformedSampleFile, repairsPerformedSetToFavorite, repairsPerformedSetUnselectedColumn } from "../../../../services/repairsPerformed";
+import {
+  repairsPerformedAccessList,
+  repairsPerformedCheckFile,
+  repairsPerformedCreateRate,
+  repairsPerformedDelete,
+  repairsPerformedDeleteRate,
+  repairsPerformedExport,
+  repairsPerformedExportId,
+  repairsPerformedGetOneRecord,
+  repairsPerformedImport,
+  repairsPerformedLog,
+  repairsPerformedRead,
+  repairsPerformedReadPaging,
+  repairsPerformedReadRate,
+  repairsPerformedSampleFile,
+  repairsPerformedSetToFavorite,
+  repairsPerformedSetUnselectedColumn,
+  repairsPerformedUpdateRate,
+} from "../../../../services/repairsPerformed";
+import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
 
 const RepairsPerformed = () => {
   const childRef = useRef();
@@ -26,9 +45,9 @@ const RepairsPerformed = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
-
+  const [rateModalOpen, setRateModalOpen] = useState(false);
   const addObject = {
-    Component:RepairsPerformedDefine,
+    Component: RepairsPerformedDefine,
     path: "/Definition/RepairsPerformed/Write",
     title: "/Definition/RepairsPerformed/Write",
     access: enums.Definition_RepairsPerformed_Create_w,
@@ -50,7 +69,10 @@ const RepairsPerformed = () => {
   const handleClickHelp = () => {
     window.open("https://www.google.com");
   };
-
+  const handleCreateRate = (id) => {
+    setRowValues(id);
+    setRateModalOpen(true);
+  };
   return (
     <>
       {tableModalOpen && (
@@ -61,7 +83,18 @@ const RepairsPerformed = () => {
           updated={updated}
         />
       )}
-
+      {rateModalOpen && (
+        <AddCurrencyModal
+          show={rateModalOpen}
+          id={rowValus}
+          onHide={() => setRateModalOpen(false)}
+          update={repairsPerformedUpdateRate}
+          create={repairsPerformedCreateRate}
+          delete={repairsPerformedDeleteRate}
+          read={repairsPerformedReadRate}
+          typeTitle={"RepairsPerformed_Id"}
+        />
+      )}
       <CustomTable
         ref={childRef}
         ReadApi={repairsPerformedRead}
@@ -98,6 +131,8 @@ const RepairsPerformed = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        rateAccess={enums.Definition_RepairsPerformed_Read_r}
+        handleCreateRate={handleCreateRate}
       />
     </>
   );

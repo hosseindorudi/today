@@ -9,6 +9,7 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
+import { ColorReadTitle } from "../../../../../services/colorService";
 import { countryReadTitle } from "../../../../../services/countryService";
 import { deviceReadTitle } from "../../../../../services/deviceService";
 import { modelCreate } from "../../../../../services/modelService";
@@ -24,6 +25,8 @@ const ModelDefine = () => {
   const [validated, setValidated] = useState(false);
   const [deviceOptions, setDeviceOptions] = useState([]);
   const [device, setDevice] = useState(undefined);
+  const [colorOptions, setColorOptions] = useState([]);
+  const [color, setColor] = useState(undefined);
   const [countryOptions, setCountryOptions] = useState([]);
   const [country, setCountry] = useState(undefined);
   const request = useRequest();
@@ -36,8 +39,7 @@ const ModelDefine = () => {
     desc: "",
     Activated: false,
     RamMemory: 0,
-    RomMemory: 0,
-    BodyColor: "",
+    RomMemory: 0
   });
   const { t } = useTranslation();
   const handleResponse = () => {
@@ -77,8 +79,9 @@ const ModelDefine = () => {
   const getDatas = () => {
     const deviceTitles = axios.request(createParams(deviceReadTitle));
     const countryTitles = axios.request(createParams(countryReadTitle));
+    const colorTitles=axios.request(createParams(ColorReadTitle));
     axios
-      .all([deviceTitles, countryTitles])
+      .all([deviceTitles, countryTitles,colorTitles])
       .then(
         axios.spread((...allData) => {
           allData[0].data?.Result
@@ -87,6 +90,9 @@ const ModelDefine = () => {
           allData[1].data?.Result
             ? setCountryOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
+            allData[2].data?.Result
+            ? setColorOptions(createSelectOptions(allData[2].data.Title))
+            : handleError(allData[2].data.Message);
         })
       )
       .catch((error) => {
@@ -126,6 +132,7 @@ const ModelDefine = () => {
           Id: 0,
           Device_Id: device?.value,
           Country_Id: country?.value,
+          Color_Id: color?.value,
           RamMemory: values.RamMemory,
           RomMemory: values.RomMemory,
           BodyColor: values.BodyColor,
@@ -210,11 +217,12 @@ const ModelDefine = () => {
         <div className="modelDefineRow">
           <Form.Group className="mb-3" controlId={"BodyColor"}>
             <Form.Label>{t("model.BodyColor")}</Form.Label>
-            <Form.Control
-              type="text"
-              name="BodyColor"
-              value={values.BodyColor}
-              onChange={onChangeHandler}
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={colorOptions}
+              value={color}
+              onchangeHandler={(e) => setColor(e)}
+              placeholder={t("model.BodyColor")}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId={"model.activated"}>
