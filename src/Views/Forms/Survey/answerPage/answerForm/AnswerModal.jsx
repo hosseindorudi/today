@@ -78,6 +78,7 @@ const AnswerModal = (props) => {
   const radio = ["YesOrNo"];
   const checkbox = ["Multiple"];
   const rating = ["FiveStar"];
+  const [itemsOf, setItemsOf] = useState([])
 
   const handleChangeValue = (e) => {
     let value = e.target.value;
@@ -97,6 +98,9 @@ const AnswerModal = (props) => {
   const handleChangeRadio = (value, id) => {
     setAnswer({ ...answer, [id]: value });
   };
+  const handleCheckBox=(checked,itemId,questionId)=>{
+     checked ? setItemsOf(prev => [...prev, {[questionId]:itemId}]) : setItemsOf(itemsOf.filter((item, i) => item[questionId] !==  itemId))
+  }
   const checkAnswerOptions = (e,QuestionItem,questionId) => {
     let key = "";
     Object.keys(QuestionTypeEnum).map((i) =>
@@ -148,10 +152,9 @@ const AnswerModal = (props) => {
             key={i}
             inline
             label={q.Title}
-            name={q.Id}
+            name={questionId}
             type="checkbox"
-            id={`inline-checkbox-${i}`}
-            // onChange={(e)=>handleCheckBox(e.target.checked,)}
+            onChange={(e)=>handleCheckBox(e.target.checked,q.Id,questionId)}
           />
           ))}
         </div>
@@ -206,6 +209,21 @@ const AnswerModal = (props) => {
     Object.keys(answer).map((k) =>
       answerObject.push({ Question_Id: k, Answer: answer[k], AnswerItem: [] })
     );
+    let g = false;
+    for (let i =0 ; i < itemsOf.length; i++) {
+      g = false
+      for (let j = 0; j< answerObject.length; j++){
+        if(answerObject[j].Question_Id === Object.keys(itemsOf[i])[0]){
+          answerObject[j].AnswerItem.push({Id:0, QuestionItem_Id:itemsOf[i][Object.keys(itemsOf[i])], Answer:""})
+          g = true;
+          break;
+          
+        }
+        
+      }
+      !g &&  answerObject.push({ Question_Id: Object.keys(itemsOf[i])[0], Answer: "", AnswerItem: [{Id:0, QuestionItem_Id:itemsOf[i][Object.keys(itemsOf[i])], Answer:""}] });
+
+    }
     return answerObject;
   };
   const handleSuccess = () => {
@@ -279,7 +297,7 @@ const AnswerModal = (props) => {
     const TimeElapsed = calcualteEndTime();
     const answerObj = makeQuestionAnswer();
     setType("SUBMIT");
-    // console.log(answer)
+    console.log(answer)
     fetchData({
       method: "POST",
       url: answerPageCreate,
@@ -428,7 +446,6 @@ const AnswerModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button disabled={loading} type="submit"> {t("submit")}</Button>
-          {/* <button onClick={()=>console.log(answer)}>test</button> */}
         </Modal.Footer>
       </Form>
     </Modal>
