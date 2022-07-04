@@ -644,9 +644,9 @@
   "Currency_Title":"واحد پول",
   "FathersName":"نام پدر",
   "IdCardNumber" :"شماره کارت شناسایی",
-  "IdCardSerialNumber" : "idcardserialNumber" ,
+  "IdCardSerialNumber" : "شماره سریال شناسنامه" ,
   "DateOfBirth" :"تاریخ تولد",
-  "DateOfIssuanceIdCard ": "تاریخ بیمه" ,
+  "DateOfIssuanceOf": "تاریخ بیمه" ,
   "PlaceOfIssuanceIdCard" :"مکان بیمه",
   "WebSite" :"سایت اینترنتی",
   "PostalCode" :"کد پستی",
@@ -655,7 +655,7 @@
   "Section" :"بخش",
   "Area" :"حوزه",
   "MainStreet" : "خیابان اصلی",
-  "ByStreet" : "Bystreet" ,
+  "ByStreet" : "خیابان فرعی" ,
   "Alley" : "کوچه",
   "Plaque" : "پلاک" ,
   "Floor" : "کف",
@@ -673,5 +673,8 @@
   "YesOrNo ": "آره یا نه",
   "Multiple ": "چندگانه" ,
   "FiveStar" : "پنج ستاره",
-  "edit":"ویرایش"
+  "edit":"ویرایش",
+  "Yes":"بله",
+  "No":"خیر",
+  "Questions":"سوالات"
 }

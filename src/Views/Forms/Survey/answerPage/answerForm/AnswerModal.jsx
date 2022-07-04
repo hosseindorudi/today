@@ -25,7 +25,7 @@ const AnswerModal = (props) => {
   const [validated, setValidated] = useState(false);
   const request = useRequest();
   const [answerPageFailedOptions,setAnswerPageFailedOptions]=useState([])
-  const [answerPageFailed, setAnswerPageFailed] = useState(createSelectOptions([{Id:0,Value:t("nothing")}]))
+  const [answerPageFailed, setAnswerPageFailed] = useState( {value:0,label:t("nothing"),color:"#0000FF"})
   const [type, setType] = useState("");
   const [response, loading, fetchData, setResponse] = useAxios();
   const [values, setValues] = useState({
@@ -99,7 +99,7 @@ const AnswerModal = (props) => {
   const handleChangeRadio = (value, id) => {
     setAnswer({ ...answer, [id]: value });
   };
-  const checkAnswerOptions = (e) => {
+  const checkAnswerOptions = (e,QuestionItem) => {
     let key = "";
     Object.keys(QuestionTypeEnum).map((i) =>
       QuestionTypeEnum[i] === e ? (key = i) : ""
@@ -145,20 +145,16 @@ const AnswerModal = (props) => {
     if (checkbox.includes(key)) {
       return (
         <div key={`inline-checkbox`} className="mb-3">
+          {QuestionItem.map((q,i)=>(
           <Form.Check
+            key={i}
             inline
-            label="Yes"
-            name="group1"
+            label={q.Title}
+            name={q.Id}
             type="checkbox"
-            id={`inline-checkbox-1`}
+            id={`inline-checkbox-${i}`}
           />
-          <Form.Check
-            inline
-            label="No"
-            name="group1"
-            type="checkbox"
-            id={`inline-checkbox-2`}
-          />
+          ))}
         </div>
       );
     }
@@ -167,7 +163,7 @@ const AnswerModal = (props) => {
         <div key={`inline-radio`} className="mb-3">
           <Form.Check
             inline
-            label="Yes"
+            label={t("Yes")}
             name="group1"
             type="radio"
             id={`inline-radio-1`}
@@ -175,7 +171,7 @@ const AnswerModal = (props) => {
           />
           <Form.Check
             inline
-            label="No"
+            label={t("No")}
             name="group1"
             type="radio"
             id={`inline-radio-2`}
@@ -284,6 +280,7 @@ const AnswerModal = (props) => {
     const TimeElapsed = calcualteEndTime();
     const answerObj = makeQuestionAnswer();
     setType("SUBMIT");
+    console.log(answerPageFailed)
     fetchData({
       method: "POST",
       url: answerPageCreate,
@@ -423,7 +420,7 @@ const AnswerModal = (props) => {
                   <div className="fw-bold">{q.Title}</div>
                   {q.Description}
                   <div className="answers">
-                    {checkAnswerOptions(q.QuestionType_EId)}
+                    {checkAnswerOptions(q.QuestionType_EId,q.QuestionItem)}
                   </div>
                 </div>
               </ListGroup.Item>
