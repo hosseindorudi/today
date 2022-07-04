@@ -67,7 +67,7 @@ const TableQuestionModal = (props) => {
   const handleChangeQuestionItem = (event, index, type) => {
     let newArr = questionItem.map((item, i) => {
       console.log(item.Id, index, i)
-      return item.Id === index + 1
+      return i === index 
         ? {
             ...item,
             [type]:
@@ -224,7 +224,7 @@ const TableQuestionModal = (props) => {
     });
 
     setQuestionItem(newArr);
-    console.log(questionItem);
+    console.log(newArr);
 
     fetchData({
       method: "POST",
@@ -237,7 +237,7 @@ const TableQuestionModal = (props) => {
         Id: 0,
         QuestionPage_Id: props.rowValus.Id,
         QuestionType_EId: questionSelect?.value,
-        QuestionItem: questionItem,
+        QuestionItem: newArr,
         Title: title,
         Priority: periodity,
         Description: description,
@@ -308,7 +308,7 @@ const TableQuestionModal = (props) => {
 
   const handleQuestionEdit = (question) => {
     console.log(question);
-    question.QuestionItem !== [] ? setMultiSelectActivation(true) : setMultiSelectActivation(false);
+    (question.QuestionItem !== [] & question.QuestionItem !== null) ? setMultiSelectActivation(true) : setMultiSelectActivation(false);
     setTitle(question.Title);
     setDescription(question.Description);
     setQuestionSelect(
@@ -323,6 +323,7 @@ const TableQuestionModal = (props) => {
       arr['Color'] = `#${arr['Color']}`
     ))
     setQuestionItem(question.QuestionItem)
+    console.log(questionItem)
   };
 
   const cancletationOFEdit = () => {
@@ -340,6 +341,7 @@ const TableQuestionModal = (props) => {
     e.preventDefault();
     setRequestType("SUBMIT");
     let newArr = questionItem.map((item, i) => {
+      console.log(i)
       return { ...item, Color: questionItem[i]["Color"].slice(1) };
     });
     setQuestionItem(newArr);
