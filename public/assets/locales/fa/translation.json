@@ -672,5 +672,6 @@
   "Geolocation" : "جغرافیایی" ,
   "YesOrNo ": "آره یا نه",
   "Multiple ": "چندگانه" ,
-  "FiveStar" : "پنج ستاره"
+  "FiveStar" : "پنج ستاره",
+  "edit":"ویرایش"
 }

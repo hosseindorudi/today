@@ -35,6 +35,7 @@ const AddCurrencyModal = (props) => {
   const [rates, setRates] = useState([]);
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
+  const [rateId, setRateId] = useState("")
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
 
@@ -194,34 +195,16 @@ const setEmpty=()=>{
   };
 
   const handleQuestionEdit = (rate) => {
-    console.log(rate)
-    // console.log(question);
-    // question.QuestionItem !== []
-    //   ? setMultiSelectActivation(true)
-    //   : setMultiSelectActivation(false);
-    // setTitle(question.Title);
-    // setDescription(question.Description);
-    // setQuestionSelect(
-    //   enumQuestion.find((eq) => eq.value === question.QuestionType_EId)
-    // );
-    // setIdOfQuestion(question.Id);
-    // setColor(`#${question.Color}`);
-    // setPeriodity(question.Priority);
-    // setEditButtonActivate(true);
-    // let array = question.QuestionItem;
-    // array.map((arr) => (arr["Color"] = `#${arr["Color"]}`));
-    // setQuestionItem(question.QuestionItem);
+    setEditButtonActivate(true)
+    setFee(rate.Fee)
+    setCountry(countryOptions.find(c=>c.value===rate.Country_Id))
+    setCurrency(currencyOptions.find(c=>c.value===rate.Currency_Id))
+    setRateId(rate.Id)
   };
 
   const cancletationOFEdit = () => {
-    // setTitle("");
-    // setDescription("");
-    // setQuestionSelect({});
-    // setColor("#000000");
-    // setPeriodity(1);
-    // setEditButtonActivate(false);
-    // setMultiSelectActivation(false);
-    // setQuestionItem([]);
+    setEditButtonActivate(false)
+    setEmpty()
   };
 
   const SubmitOfEdit = (e) => {
@@ -236,10 +219,11 @@ const setEmpty=()=>{
       },
       signal: abortController.signal,
       data: {
-        AdditionalService_Id: 0,
-        Country_Id: 0,
-        Currency_Id: 0,
-        Fee: 0,
+        Id:rateId,
+        [props.typeTitle]: props.id,
+        Country_Id: country?.value,
+        Currency_Id: currency?.value,
+        Fee: Number(fee),
         Request: request,
       },
     });
@@ -317,8 +301,9 @@ const setEmpty=()=>{
                       variant="success"
                       onClick={SubmitOfEdit}
                       className="questionFormSubmit mt-2"
+                      disabled={loading}
                     >
-                      {t("operatorGroupFormSubmit")}
+                      {t("edit")}
                     </Button>
                   </Col>
                 </Row>

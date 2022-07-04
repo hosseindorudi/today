@@ -164,7 +164,7 @@ const Auth = () => {
         </Form>
         </div>
         <div className="footerForm">
-          <a href="https://ctelecom.ir/" target={"_blank"}>پیشتازان فناوری سیب طلایی</a>
+          <a href="https://ctelecom.ir/" target={"_blank"} rel="noreferrer">پیشتازان فناوری سیب طلایی</a>
         </div>
       </div>
     </div>
