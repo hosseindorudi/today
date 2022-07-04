@@ -60,8 +60,9 @@ const TableQuestionModal = (props) => {
   const [questions, setQuestions] = useState([]);
   const [requestType, setRequestType] = useState("");
 
-  const handleAddQuestionItem = (questionItem) => {
-    setQuestionItem((prev) => [...prev, questionItem]);
+  const handleAddQuestionItem = (questionItem1) => {
+    setQuestionItem((prev) => [...prev, questionItem1]);
+    console.log(questionItem)
   };
 
   const handleChangeQuestionItem = (event, index, type) => {
@@ -83,6 +84,7 @@ const TableQuestionModal = (props) => {
 
   const handleClickRemoveQuestionItem = (index) => {
     let filter = questionItem.filter((item, i) => i !== index);
+
     setQuestionItem(filter);
   };
 
@@ -306,6 +308,7 @@ const TableQuestionModal = (props) => {
 
   const handleQuestionEdit = (question) => {
     console.log(question);
+
     (question.QuestionItem !== [] & question.QuestionItem !== null) ? setMultiSelectActivation(true) : setMultiSelectActivation(false);
     setTitle(question.Title);
     setDescription(question.Description);
@@ -343,6 +346,7 @@ const TableQuestionModal = (props) => {
       return { ...item, Color: questionItem[i]["Color"].slice(1) };
     });
     setQuestionItem(newArr);
+    console.log(questionItem)
     console.log(newArr)
     
 
@@ -481,7 +485,7 @@ const TableQuestionModal = (props) => {
                     style={{ cursor: "pointer" }}
                     onClick={() =>
                       handleAddQuestionItem({
-                        Id: questionItem.length,
+                        Id: questionItem[questionItem.length -1].Id +1,
                         Priority: 1,
                         Title: "",
                         Description: "",
