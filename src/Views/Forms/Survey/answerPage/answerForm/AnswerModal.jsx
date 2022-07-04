@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Button, Form, ListGroup, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { QuestionTypeEnum } from "../../../../../data/QuestionTypeEnum";
-import DatePicker, { DateObject } from "react-multi-date-picker";
+import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import "./answerModal.css";
@@ -91,10 +91,8 @@ const AnswerModal = (props) => {
     setAnswer({ ...answer, [id]: value });
   };
   const handleChangeDate = (date, id) => {
-    let format = "MM/DD/YYYY";
-    let object = { date, format };
-    let converted = new DateObject(object).format();
-    setAnswer({ ...answer, [id]: converted });
+    const dateObj=date.toDate()
+    setAnswer({ ...answer, [id]: dateObj.toLocaleDateString() });
   };
   const handleChangeRadio = (value, id) => {
     setAnswer({ ...answer, [id]: value });
@@ -430,6 +428,7 @@ const AnswerModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button disabled={loading} type="submit"> {t("submit")}</Button>
+          {/* <button onClick={()=>console.log(answer)}>test</button> */}
         </Modal.Footer>
       </Form>
     </Modal>

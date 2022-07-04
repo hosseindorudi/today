@@ -224,8 +224,6 @@ const TableQuestionModal = (props) => {
     });
 
     setQuestionItem(newArr);
-    console.log(newArr);
-
     fetchData({
       method: "POST",
       url: createQuestion,
