@@ -408,7 +408,7 @@ const TableQuestionModal = (props) => {
                   value={questionSelect}
                   onchangeHandler={(e) => {
                     setQuestionSelect(e);
-                    e.label === "Multiple"
+                    e.value === QuestionTypeEnum.Multiple
                       ? setMultiSelectActivation(true)
                       : setMultiSelectActivation(false);
                   }}

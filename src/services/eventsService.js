@@ -1,0 +1,8 @@
+export const EventRead="/Operator/Event/Read"
+export const EventReadPaging="/Operator/Event/ReadPaging"
+export const EventFavorite="/Operator/Event/SetToFavorite"
+export const EventExportId="/Operator/Event/ExportId"
+export const EventExport="/Operator/Event/Export"
+export const EventLog="/Operator/Event/Log"
+export const EventSetUnselectedColumn="/Operator/Event/SetUnselectedColumn"
+export const EventAccessList="/Operator/Event/AccessList"

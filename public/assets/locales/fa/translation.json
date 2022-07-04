@@ -642,5 +642,6 @@
   "Rate":"نرخ",
   "Color_Title":"رنگ",
   "createRate":"ایجاد نرخ",
-  "Currency_Title":"واحد پول"
+  "Currency_Title":"واحد پول",
+  "/Operator/Event/Read": "رخدادها"
 }
