@@ -348,17 +348,17 @@ const setEmpty=()=>{
                 </div>
                 <div >
                   <div className="fw-bold currencyTitle">{t("Fee")}</div>
-                {rate.Fee}
+                {rate.Fee.toLocaleString()}
                 </div>
                 <div className="d-flex btns ">
                   <div
-                    className="questionEditDiv"
+                    className="actionBtns"
                     onClick={() => handleQuestionEdit(rate)}
                   >
                     <fa.FaRegEdit color="green"/>
                   </div>
                   <div
-                    className="questionDeleteDiv"
+                    className="actionBtns"
                     onClick={() => deleteCalled(rate.Id)}
                   >
                     <fa.FaTrash color="red"/>

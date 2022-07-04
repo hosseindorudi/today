@@ -5,3 +5,6 @@
 .listGroupCurrencyModal .btns{
 gap: 5px;
 }
+.listGroupCurrencyModal .actionBtns{
+    cursor: pointer;
+}
