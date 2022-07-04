@@ -70,7 +70,7 @@ position: absolute;
 .authPasswordGroup > label{
     align-self: flex-start;
 }
-.formParent >form{
+.formParent .MiddleForm{
     -webkit-box-shadow: 5px 5px 15px 5px #000000; 
 box-shadow: 5px 5px 15px 5px #000000;
     border: 1px solid;
@@ -81,6 +81,9 @@ box-shadow: 5px 5px 15px 5px #000000;
     justify-content: space-evenly;
     flex-direction: column;
     background: whitesmoke;
+}
+.formParent >form{
+display: flex;
 }
 .formInner{
     display: flex;

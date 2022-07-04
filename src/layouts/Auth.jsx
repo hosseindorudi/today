@@ -97,11 +97,12 @@ const Auth = () => {
         <div className="authLogoDiv">
         <img className="logoAuthImg" src={logo} alt="loginlogo" />
         </div>
-        <Form onSubmit={handleSubmit}>
-          <div className="langTopForm">
+        <div className="MiddleForm">
+        <div className="langTopForm">
             <div></div>
           <Language />
           </div>
+        <Form onSubmit={handleSubmit}>
           <div className="formInner">
           <Form.Group className="mb-3" controlId="formBasicUsername">
             <Form.Label>{t("auth.username")}</Form.Label>
@@ -161,6 +162,7 @@ const Auth = () => {
           </div>
           </div>
         </Form>
+        </div>
         <div className="footerForm">
           <a href="https://ctelecom.ir/">پیشتازان فناوری سیب طلایی</a>
         </div>
