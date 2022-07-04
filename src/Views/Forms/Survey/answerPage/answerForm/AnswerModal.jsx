@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Button, Form, ListGroup, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { QuestionTypeEnum } from "../../../../../data/QuestionTypeEnum";
-import DatePicker, { DateObject } from "react-multi-date-picker";
+import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import "./answerModal.css";
@@ -25,7 +25,7 @@ const AnswerModal = (props) => {
   const [validated, setValidated] = useState(false);
   const request = useRequest();
   const [answerPageFailedOptions,setAnswerPageFailedOptions]=useState([])
-  const [answerPageFailed, setAnswerPageFailed] = useState(createSelectOptions([{Id:0,Value:t("nothing")}]))
+  const [answerPageFailed, setAnswerPageFailed] = useState( {value:0,label:t("nothing"),color:"#0000FF"})
   const [type, setType] = useState("");
   const [response, loading, fetchData, setResponse] = useAxios();
   const [values, setValues] = useState({
@@ -91,15 +91,13 @@ const AnswerModal = (props) => {
     setAnswer({ ...answer, [id]: value });
   };
   const handleChangeDate = (date, id) => {
-    let format = "MM/DD/YYYY";
-    let object = { date, format };
-    let converted = new DateObject(object).format();
-    setAnswer({ ...answer, [id]: converted });
+    const dateObj=date.toDate()
+    setAnswer({ ...answer, [id]: dateObj.toLocaleDateString() });
   };
   const handleChangeRadio = (value, id) => {
     setAnswer({ ...answer, [id]: value });
   };
-  const checkAnswerOptions = (e) => {
+  const checkAnswerOptions = (e,QuestionItem,questionId) => {
     let key = "";
     Object.keys(QuestionTypeEnum).map((i) =>
       QuestionTypeEnum[i] === e ? (key = i) : ""
@@ -109,7 +107,7 @@ const AnswerModal = (props) => {
         <Form.Control
           type="text"
           placeholder={t(key)}
-          name={e}
+          name={questionId}
           onChange={handleChangeValue}
         />
       );
@@ -119,7 +117,7 @@ const AnswerModal = (props) => {
         <Form.Control
           type="number"
           placeholder={t(key)}
-          name={e}
+          name={questionId}
           onChange={handleChangeValue}
         />
       );
@@ -129,7 +127,7 @@ const AnswerModal = (props) => {
         <Rating
           name="simple-controlled"
           onChange={(event, newValue) => {
-            handlechangeRate(newValue, e);
+            handlechangeRate(newValue, questionId);
           }}
         />
       );
@@ -138,48 +136,45 @@ const AnswerModal = (props) => {
       return (
         <Form.Control
           type="time"
-          onChange={(event) => handleChangeTime(event.target.value, e)}
+          onChange={(event) => handleChangeTime(event.target.value, questionId)}
         />
       );
     }
     if (checkbox.includes(key)) {
       return (
         <div key={`inline-checkbox`} className="mb-3">
+          {QuestionItem.map((q,i)=>(
           <Form.Check
+            key={i}
             inline
-            label="Yes"
-            name="group1"
+            label={q.Title}
+            name={q.Id}
             type="checkbox"
-            id={`inline-checkbox-1`}
+            id={`inline-checkbox-${i}`}
+            // onChange={(e)=>handleCheckBox(e.target.checked,)}
           />
-          <Form.Check
-            inline
-            label="No"
-            name="group1"
-            type="checkbox"
-            id={`inline-checkbox-2`}
-          />
+          ))}
         </div>
       );
     }
     if (radio.includes(key)) {
       return (
-        <div key={`inline-radio`} className="mb-3">
+        <div className="mb-3">
           <Form.Check
-            inline
-            label="Yes"
-            name="group1"
+            
+            label={t("Yes")}
+            name={questionId}
             type="radio"
-            id={`inline-radio-1`}
-            onChange={() => handleChangeRadio("Yes", e)}
+            id={`inline-radio-${questionId}`}
+            onChange={() => handleChangeRadio("Yes",questionId)}
           />
           <Form.Check
-            inline
-            label="No"
-            name="group1"
+            
+            label={t("No")}
+            name={questionId}
             type="radio"
-            id={`inline-radio-2`}
-            onChange={() => handleChangeRadio("No", e)}
+            id={`inline-radio-${questionId}-1`}
+            onChange={() => handleChangeRadio("No", questionId)}
           />
         </div>
       );
@@ -187,7 +182,7 @@ const AnswerModal = (props) => {
     if (date.includes(key)) {
       return (
         <DatePicker
-          onChange={(value) => handleChangeDate(value, e)}
+          onChange={(value) => handleChangeDate(value, questionId)}
           calendar={persian}
           locale={persian_fa}
           calendarPosition="bottom-right"
@@ -284,6 +279,7 @@ const AnswerModal = (props) => {
     const TimeElapsed = calcualteEndTime();
     const answerObj = makeQuestionAnswer();
     setType("SUBMIT");
+    // console.log(answer)
     fetchData({
       method: "POST",
       url: answerPageCreate,
@@ -423,7 +419,7 @@ const AnswerModal = (props) => {
                   <div className="fw-bold">{q.Title}</div>
                   {q.Description}
                   <div className="answers">
-                    {checkAnswerOptions(q.QuestionType_EId)}
+                    {checkAnswerOptions(q.QuestionType_EId,q.QuestionItem,q.Id)}
                   </div>
                 </div>
               </ListGroup.Item>
@@ -432,6 +428,7 @@ const AnswerModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button disabled={loading} type="submit"> {t("submit")}</Button>
+          {/* <button onClick={()=>console.log(answer)}>test</button> */}
         </Modal.Footer>
       </Form>
     </Modal>
