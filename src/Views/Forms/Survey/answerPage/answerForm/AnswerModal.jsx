@@ -59,7 +59,6 @@ const AnswerModal = (props) => {
     "Address",
     "Job",
     "String",
-    "Gender",
     "AcquaintedWithCompany",
   ];
   const numbers = [
@@ -75,7 +74,7 @@ const AnswerModal = (props) => {
   ];
   const date = ["DateOfBirth", "DateOfIssuanceIdCard", "Date", "DateTime"];
   const time = ["Time"];
-  const radio = ["YesOrNo"];
+  const radio = ["YesOrNo","Gender",];
   const checkbox = ["Multiple"];
   const rating = ["FiveStar"];
   const [itemsOf, setItemsOf] = useState([])
@@ -163,6 +162,27 @@ const AnswerModal = (props) => {
     if (radio.includes(key)) {
       return (
         <div className="mb-3">
+          {key==="Gender"?
+          <>
+           <Form.Check
+            
+            label={t("Male")}
+            name={questionId}
+            type="radio"
+            id={`inline-radio-${questionId}`}
+            onChange={() => handleChangeRadio("Male",questionId)}
+          />
+          <Form.Check
+            
+            label={t("Female")}
+            name={questionId}
+            type="radio"
+            id={`inline-radio-${questionId}-1`}
+            onChange={() => handleChangeRadio("Female", questionId)}
+          />
+          </>
+          :
+          <>
           <Form.Check
             
             label={t("Yes")}
@@ -179,6 +199,7 @@ const AnswerModal = (props) => {
             id={`inline-radio-${questionId}-1`}
             onChange={() => handleChangeRadio("No", questionId)}
           />
+          </>}
         </div>
       );
     }
