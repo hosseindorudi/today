@@ -42,6 +42,8 @@ import RegistrationGoodDefine from "./Views/Forms/business/registrationGood/regi
 import RegistrationGood from "./Views/Forms/business/registrationGood/RegistrationGood";
 import CurrencyDefine from "./Views/Forms/definations/currency/currencyDefine/CurrencyDefine";
 import Currency from "./Views/Forms/definations/currency/Currency";
+import AllowedIpForm from "./Views/Forms/panel/virtualIpForm/AllowedIpForm";
+import AllowedIp from "./Views/Forms/panel/virtualIpForm/AllowedIp";
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")
 );
@@ -146,12 +148,7 @@ const Operator = lazy(() =>
 const OperatorForm = lazy(() =>
   import("./Views/Forms/panel/operator/OperatorForm")
 );
-const ValidIps = lazy(() =>
-  import("./Views/Forms/panel/virtualIpForm/ValidIps")
-);
-const VirtualIpForm = lazy(() =>
-  import("./Views/Forms/panel/virtualIpForm/VirtualIpForm")
-);
+
 const Attacks = lazy(() => import("./Views/Forms/panel/attacks/Attacks"));
 const Incident = lazy(() => import("./Views/Forms/panel/incident/Incident"));
 const FailedLogin = lazy(() =>
@@ -291,14 +288,14 @@ export const Routes = [
         cName: "sub-nav",
       },
       {
-        title: "routes.validIps",
-        path: "/operatorvalidIp",
+        title: "/Operator/AllowedIp/Read",
+        path: "/Operator/AllowedIp/Read",
         access: enums.Operator_AllowedIp_Read_r,
-        Component: ValidIps,
+        Component: AllowedIp,
         button: {
-          Component: VirtualIpForm,
-          path: "/operatorcreatevalidip",
-          title: "routes.validIpsForm",
+          Component: AllowedIpForm,
+          path: "/Operator/AllowedIp/write",
+          title: "/Operator/AllowedIp/write",
           access: enums.Operator_AllowedIp_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,

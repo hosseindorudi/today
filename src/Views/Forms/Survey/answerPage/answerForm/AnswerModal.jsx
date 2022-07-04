@@ -170,7 +170,7 @@ const AnswerModal = (props) => {
             name={questionId}
             type="radio"
             id={`inline-radio-${questionId}`}
-            onChange={() => handleChangeRadio("Male",questionId)}
+            onChange={() => handleChangeRadio(t("Male"),questionId)}
           />
           <Form.Check
             
@@ -178,7 +178,7 @@ const AnswerModal = (props) => {
             name={questionId}
             type="radio"
             id={`inline-radio-${questionId}-1`}
-            onChange={() => handleChangeRadio("Female", questionId)}
+            onChange={() => handleChangeRadio(t("Female"), questionId)}
           />
           </>
           :
@@ -189,7 +189,7 @@ const AnswerModal = (props) => {
             name={questionId}
             type="radio"
             id={`inline-radio-${questionId}`}
-            onChange={() => handleChangeRadio("Yes",questionId)}
+            onChange={() => handleChangeRadio(t("Yes"),questionId)}
           />
           <Form.Check
             
@@ -197,7 +197,7 @@ const AnswerModal = (props) => {
             name={questionId}
             type="radio"
             id={`inline-radio-${questionId}-1`}
-            onChange={() => handleChangeRadio("No", questionId)}
+            onChange={() => handleChangeRadio(t("No"), questionId)}
           />
           </>}
         </div>

@@ -629,6 +629,8 @@ const CustomTable = forwardRef((props, ref) => {
             addAccess= {props.addAccess}
             handleCreateRate={props.handleCreateRate}
             rateAccess={props.rateAccess?props.rateAccess:""}
+            handleReadAnswers={props.handleReadAnswers}
+            readAnswersAccess={props.readAnswersAccess?props.readAnswersAccess:""}
           />
           <LeftSideContainer
             {...props}

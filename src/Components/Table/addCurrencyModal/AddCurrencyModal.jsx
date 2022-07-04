@@ -13,8 +13,6 @@ import useRequest from "../../../customHooks/useRequest";
 import useAxios from "../../../customHooks/useAxios";
 import { useTranslation } from "react-i18next";
 import { CustomReactMultiSelect } from "../../../Components/Select/customReactSelect";
-
-import * as bs from "react-icons/bs";
 import {
   createSelectOptions,
   handleError,
@@ -110,6 +108,7 @@ const setEmpty=()=>{
           break;
         case "READRATE":
           setRates(response.Record);
+          break;
         default:
           break;
       }

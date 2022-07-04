@@ -24,7 +24,9 @@ const TableButtons = ({
   handleAddQuestion,
   addAccess,
   handleCreateRate,
-  rateAccess
+  rateAccess,
+  handleReadAnswers,
+  readAnswersAccess
  
 }) => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -125,6 +127,17 @@ const TableButtons = ({
           }}
         >
           <fa.FaDollarSign />
+        </button>
+      )}
+       {haveAccess(readAnswersAccess) && (
+        <button
+          title={t("readAnswer")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+          handleReadAnswers(rowValue.Id);
+          }}
+        >
+          <fa.FaBookReader />
         </button>
       )}
     </div>

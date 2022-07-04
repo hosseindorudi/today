@@ -1,25 +1,32 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import TableModal from './tableModal/TableModal'
 // import { t } from "i18next";
 // import { toast } from "react-toastify";
 
-import { answerPageAccessList, answerPageCheckFile, answerPageDelete, answerPageExport, answerPageExportId, answerPageFavorite, answerPageGetOneRecord, answerPageImport, answerPageLog, answerPageRead, answerPageReadPaging, answerPageSampleFile, answerPageSetColumn } from "../../../../../services/answerService";
+import { answerPageAccessList, answerPageCheckFile, answerPageDelete, answerPageExport, answerPageExportId, answerPageFavorite, answerPageGetOneRecord, answerPageImport, answerPageLog, answerPageRead, answerPageReadAnswer, answerPageReadPaging, answerPageSampleFile, answerPageSetColumn } from "../../../../../services/answerService";
 import AnswerForm from "../answerForm/AnswerForm";
 import { enums } from "../../../../../data/Enums";
 import CustomTable from "../../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
+import AnswerModal from "../../../../../Components/Table/answerModal/AnswerModal";
+import useAxios from "../../../../../customHooks/useAxios";
+import { handleError } from "../../../../../validation/functions";
+import useRequest from "../../../../../customHooks/useRequest";
+import BackDrop from "../../../../../Components/backDrop/BackDrop";
 
 const AnswerList = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType","QuestionPage_Id","AnswerPageFailed_Id","Answer"];
 
 
   const childRef = useRef();
-
+  const [rowValues, setRowValues] = useState([]);
+  const [answerModalOpen, setAnswerModalOpen] = useState(false);
   const [mobileModal, setMobileModal] = useState(false);
+  const request=useRequest()
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
-
+  const [response,loading, fetchData, setResponse] = useAxios();
   const addObject = {
     Component: AnswerForm,
     path: "/Survey/Answer/Create",
@@ -27,35 +34,44 @@ const AnswerList = () => {
     access: enums.Survey_AnswerPage_Create_w,
   };
 
-  // const setUpdate = (res) => {
-  //   const record = res.Record;
-  //   setRowValues(record);
-  //   setTableModalOpen(true);
-  // };
-  // const updated = () => {
-  //   setTableModalOpen(false);
-  //   toast.success(t("updatedRecord"), {
-  //     position: toast.POSITION.TOP_CENTER,
-  //   });
-  //   //call update function in child class
-  //   childRef.current.updated();
-  // };
 
   const handleClickHelp = () => {
     window.open("https://www.google.com");
   };
-
+  const handleResponse=(response)=>{
+    setRowValues(response.Record)
+    setAnswerModalOpen(true)
+  }
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response)
+        : handleError(response.Message);
+      setResponse(undefined);
+    }
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
+  const handleReadAnswers=(id)=>{
+    fetchData({
+      method: "POST",
+      url: answerPageReadAnswer,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        id: id
+      }
+    });
+  }
   return (
     <>
-      {/* {tableModalOpen && (
-        <TableModal
-          rowValus={rowValus}
-          onHide={() => setTableModalOpen(false)}
-          tableModalShow={tableModalOpen}
-          updated={updated}
-        />
-      )} */}
-
+    {loading && <BackDrop open={true} />}
+{answerModalOpen &&(
+  <AnswerModal   onHide={() => setAnswerModalOpen(false)}
+  logs={rowValues}
+  show={answerModalOpen}/>
+)}
       <CustomTable
         ref={childRef}
         ReadApi={answerPageRead}
@@ -92,6 +108,8 @@ const AnswerList = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        readAnswersAccess={enums.Survey_AnswerPage_Read_r}
+        handleReadAnswers={handleReadAnswers}
       />
     </>
   );

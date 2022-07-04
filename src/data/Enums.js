@@ -1,5 +1,7 @@
 const enums = {
- 
+  //Custom
+
+
   Module_Operator : 100,
   Module_Agent : 200,
   Module_Customer : 300,
@@ -123,6 +125,8 @@ const enums = {
 
 
 
+
+
   //Operator - 100
   ////////////////////////////////////////////////////////////
 
@@ -148,11 +152,8 @@ const enums = {
 
   //tbl_Opr_BruteForce
   Operator_BruteForce : 103100,
-  Operator_BruteForce_Create_w : 103101,
   Operator_BruteForce_Read_r : 103102,
-  Operator_BruteForce_Update_w : 103103,
   Operator_BruteForce_Delete_w : 103104,
-  Operator_BruteForce_Import_w : 103105,
   Operator_BruteForce_Export_r : 103106,
   Operator_BruteForce_Log_r : 103107,
 
@@ -244,11 +245,8 @@ const enums = {
 
   //tbl_Agn_BruteForce
   Agent_BruteForce : 205100,
-  Agent_BruteForce_Create_w : 205101,
   Agent_BruteForce_Read_r : 205102,
-  Agent_BruteForce_Update_w : 205103,
   Agent_BruteForce_Delete_w : 205104,
-  Agent_BruteForce_Import_w : 205105,
   Agent_BruteForce_Export_r : 205106,
   Agent_BruteForce_Log_r : 205107,
 
@@ -318,11 +316,8 @@ const enums = {
 
   //tbl_Cst_BruteForce
   Customer_BruteForce : 305100,
-  Customer_BruteForce_Create_w : 305101,
   Customer_BruteForce_Read_r : 305102,
-  Customer_BruteForce_Update_w : 305103,
   Customer_BruteForce_Delete_w : 305104,
-  Customer_BruteForce_Import_w : 305105,
   Customer_BruteForce_Export_r : 305106,
   Customer_BruteForce_Log_r : 305107,
 
