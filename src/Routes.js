@@ -313,8 +313,8 @@ export const Routes = [
         cName: "sub-nav",
       },
       {
-        title: "routes.actions",
-        path: "/optevents",
+        title: "/Operator/Event/Read",
+        path: "/Operator/Event/Read",
         access: enums.Operator_Event_Read_r,
         Component: Incident,
         icon: <IoIcons.IoIosPaper />,

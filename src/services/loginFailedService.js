@@ -1,0 +1,8 @@
+export const FailedHistoryRead="/Operator/FailedHistory/Read"
+export const FailedHistoryReadPaging="/Operator/FailedHistory/ReadPaging"
+export const FailedHistoryFavorite="/Operator/FailedHistory/SetToFavorite"
+export const FailedHistoryExportId="/Operator/FailedHistory/ExportId"
+export const FailedHistoryExport="/Operator/FailedHistory/Export"
+export const FailedHistoryLog="/Operator/FailedHistory/Log"
+export const FailedHistorySetUnselectedColumn="/Operator/FailedHistory/SetUnselectedColumn"
+export const FailedHistoryAccessList="/Operator/FailedHistory/AccessList"
