@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./customerGroupForm.css";
 import { useTranslation } from "react-i18next";
-import { Accordion, Button, Form } from "react-bootstrap";
+import { Accordion, Form } from "react-bootstrap";
 import * as bs from "react-icons/bs";
 import * as fa from "react-icons/fa";
 import { onlyNumberAndDot } from "../../../../validation/validation";
 import { browser, radius } from "../../../../data/constants";
-import MapModal from "../../../../Components/GoogleMap/MapModal";
+
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -28,7 +28,6 @@ const CustomerGroupForm = () => {
   const title=useRef()
   const description=useRef()
   const [ips, setIps] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
   const [fromDate, setFromDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [maxSession, setMaxSession] = useState(1);
@@ -135,9 +134,7 @@ const CustomerGroupForm = () => {
     let filter = locations.filter((item, i) => i !== index);
     setLocations(filter);
   };
-  const handleClickMap = (index) => {
-    setModalShow(true);
-  };
+ 
   
 const handleSubmit=(e)=>{
   e.preventDefault()
@@ -326,7 +323,7 @@ const handleSeccess=(message)=>{
 
                       <Form.Control type="text" disabled value={l.lng} />
                       <Form.Control type="text" disabled value={l.lat} />
-                      <Button onClick={() => handleClickMap(index)}>map</Button>
+                     
                     </div>
                   ))}
                   <hr />
@@ -422,9 +419,7 @@ const handleSeccess=(message)=>{
           </div>
         </form>
       </div>
-      {modalShow && (
-        <MapModal show={modalShow} onHide={() => setModalShow(false)} />
-      )}
+      
     </div>
     </>
   );

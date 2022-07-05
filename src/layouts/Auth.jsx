@@ -23,7 +23,7 @@ const Auth = () => {
   const location = useLocation();
   const request = useRequest();
   const from = location.state?.from?.pathname || "/";
-  const { app, setApp } = useContext(AppContext);
+  const { app } = useContext(AppContext);
   const navigate = useNavigate();
   const username = useRef();
   const password = useRef();
@@ -60,15 +60,11 @@ const Auth = () => {
   };
 
   const setToken = useCallback(
-    (token, AccessList) => {
+    (token) => {
       localStorage.setItem("token", token);
-      setApp((prev) => ({
-        ...prev,
-        AccessList,
-      }));
       return navigate(from, { replace: true });
     },
-    [navigate, from, setApp]
+    [navigate, from]
   );
 
   const handleError = (message) => {
@@ -81,7 +77,7 @@ const Auth = () => {
   useEffect(() => {
     if (response) {
       response.Result
-        ? setToken(response.Message, response.AccessList)
+        ? setToken(response.Message)
         : handleError(response.Message);
     }
     // if(error){

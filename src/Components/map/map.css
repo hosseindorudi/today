@@ -1,0 +1,18 @@
+.map{
+    /* text-align: center;
+    width: 100%;
+    height: auto!important; */
+}
+.map .mapboxgl-map {
+    /* width: 100%!important;
+    height: 200px!important; */
+}
+.mapboxgl-control-container{
+    display: none;
+}
+.mapboxgl-marker {
+    /* position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform; */
+}

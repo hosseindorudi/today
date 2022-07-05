@@ -18,6 +18,7 @@ import { enums } from "../../../../../data/Enums";
 import AnswerList from "../answerList/AnswerList";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { AnswerPageFailedReadTitle } from "../../../../../services/answerPageFailedService";
+// import MapModal from "../../../../../Components/map/MapModal";
 const AnswerModal = (props) => {
   const startTime = new Date();
   const { t } = useTranslation();
@@ -77,6 +78,7 @@ const AnswerModal = (props) => {
   const radio = ["YesOrNo","Gender",];
   const checkbox = ["Multiple"];
   const rating = ["FiveStar"];
+  // const map=["Geolocation"]
   const [itemsOf, setItemsOf] = useState([])
 
   const handleChangeValue = (e) => {
@@ -213,7 +215,13 @@ const AnswerModal = (props) => {
         />
       );
     }
+    // if(map.includes(key)){
+    //   return(
+    //     <MapModal />
+    //   )
+    // }
   };
+  
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
