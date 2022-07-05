@@ -15,6 +15,7 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import AdapterJalali from "@date-io/date-fns-jalali";
 import { TabContext } from "../../../contexts/TabContextProvider";
 import DescModal from "../descriptionModal/DescModal";
+import { enums } from "../../../data/Enums";
 const TableList = ({
   search,
   handleRefresh,
@@ -287,10 +288,11 @@ const TableList = ({
                               !unSelected.includes(p)
                           )
                           .map((key, index) => {
-                            console.log(key)
-                            if(key === "Description"){
+                            
+                            if(key === "Description" & exportAccess === enums.Operator_Event_Export_r){
+                              console.log(post[key])
                                       return <td
-                                                    onClick={()=> {post[key].length > 30 && setDescriptionShow(true); post[key].length > 30 && setDesc(post[key])}}
+                                                    onClick={()=> {post[key].length > 0  && setDescriptionShow(true); post[key].length > 0  && setDesc(post[key])}}
                                                     key={key + index}
                                                     className= {post[key].length > 30 ? "TableMainTd tableDescriptionShow" : "TableMainTd" }
                                                     style={{
@@ -304,7 +306,7 @@ const TableList = ({
                                                         
                                                     }}
                                                   >
-                                                    {checkTableValues(key, post[key], post)}
+                                                    {checkTableValues(key, post[key], post, exportAccess)}
                                               </td>
                             }else {
                               return (
