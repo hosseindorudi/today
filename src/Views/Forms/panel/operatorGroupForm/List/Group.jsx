@@ -1,9 +1,5 @@
-import '../../../../../assets/css/table.css'
-import React, {
-
-  useRef,
-  useState,
-} from "react";
+import "../../../../../assets/css/table.css";
+import React, { useRef, useState } from "react";
 import TableModal from "./TableModal/TableModal";
 import {
   groupAccessList,
@@ -26,16 +22,27 @@ import { toast } from "react-toastify";
 import { t } from "i18next";
 import OperatorGroupForm from "../OperatorGroupForm";
 import { enums } from "../../../../../data/Enums";
-import CustomTable from '../../../../../Components/Table/Table/CustomTable';
+import CustomTable from "../../../../../Components/Table/Table/CustomTable";
+import useWindowSize from "../../../../../customHooks/useWindowSize";
+import BrowserPolicyModal from "../../../../../Components/Table/browserPolicyModal/BrowserPolicyModal";
 const Group = () => {
-  const childRef = useRef();
-  const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType"];
+
   const [tableModalOpen, setTableModalOpen] = useState(false);
-  const [rowValus, setRowValues] = useState({});
+  const [rowValues, setRowValues] = useState({});
+  const [modalBrowserPolicy, setModalBrowserPolicy] = useState(false);
+
+  const childRef = useRef();
+
+  const [mobileModal, setMobileModal] = useState(false);
+  const [mobileModalButtons, setMobileModalButtons] = useState(false);
+  const [mobileModalColumns, setMobileModalColumns] = useState(false);
+  const widthOFScreen = useWindowSize().width;
+
   const addObject = {
     Component: OperatorGroupForm,
-    path: "/operatorgroupcreate",
-    title: "routes.groupForm",
+    path: "/Operator/Group/Create",
+    title: "/Operator/Group/Create",
     access: enums.Operator_Group_Create_w,
   };
   const setUpdate = (res) => {
@@ -56,27 +63,32 @@ const Group = () => {
     window.open("https://www.google.com");
   };
 
-
-
- 
- 
+  const handlePolicyBrowser = (id) => {
+    setRowValues(id);
+    setModalBrowserPolicy(true);
+  };
 
   return (
     <>
-        {tableModalOpen && (
-          <TableModal
-            rowValus={rowValus}
-            onHide={() => setTableModalOpen(false)}
-            tableModalShow={tableModalOpen}
-            updated={updated}
-          />
-        )}
-       
-       <CustomTable
+      {tableModalOpen && (
+        <TableModal
+          rowValues={rowValues}
+          onHide={() => setTableModalOpen(false)}
+          tableModalShow={tableModalOpen}
+          updated={updated}
+        />
+      )}
+      {modalBrowserPolicy && (
+        <BrowserPolicyModal
+          rowValues={rowValues}
+          onHide={() => setModalBrowserPolicy(false)}
+          show={modalBrowserPolicy}
+        />
+      )}
+
+      <CustomTable
         ref={childRef}
         ReadApi={groupRead}
-        getPermissionURL={groupGetPermission}
-        setPermissionURL={groupSetPermission}
         deleteApi={groupDelete}
         unSelectedAPI={groupSetUnselectedColumn}
         sampleUrl={groupSampleFile}
@@ -100,11 +112,22 @@ const Group = () => {
         deleteAccess={enums.Operator_Group_Delete_w}
         editAccess={enums.Operator_Group_Update_w}
         permissionsAccess={enums.Operator_Group_Permission_w}
+        getPermissionURL={groupGetPermission}
+        setPermissionURL={groupSetPermission}
         changePasswordAccess={""}
         getOneRecord={groupGetOneRecord}
         setUpdate={setUpdate}
+        mobileModal={mobileModal}
+        setMobileModal={setMobileModal}
+        widthOFScreen={widthOFScreen}
+        mobileModalButtons={mobileModalButtons}
+        setMobileModalButtons={setMobileModalButtons}
+        setMobileModalColumns={setMobileModalColumns}
+        mobileModalColumns={mobileModalColumns}
+        handlePolicyBrowser={handlePolicyBrowser}
+        policyBrowserAccess={enums.Operator_Group_Create_w}
       />
-      </>
+    </>
   );
 };
 

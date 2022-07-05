@@ -60,7 +60,9 @@ const TableList = ({
   handleCreateRate,
   rateAccess,
   handleReadAnswers,
-  readAnswersAccess
+  readAnswersAccess,
+  handlePolicyBrowser,
+  policyBrowserAccess
 }) => {
   const [haveAccess] = useButtonAccess();
   const {t}=useTranslation()
@@ -223,7 +225,6 @@ const TableList = ({
                   <thead className="MainTableThead">
                     <tr className="MainTableTr">
                       <th className="MainTableTh"> </th>
-
                       {productsColumns
                         .filter(
                           (p, i) =>

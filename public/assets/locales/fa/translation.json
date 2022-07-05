@@ -694,5 +694,10 @@
   "IP_To":"تا آی پی",
   "btn.chnagePassword":"تغییر رمز عبور",
   "Latitude":"عرض جغرافیایی",
-  "Longitude":"طول جغرافیایی"
+  "Longitude":"طول جغرافیایی",
+  "/Operator/Group/Create":"فرم گروه اپراتور",
+  "LimitedFrom":"محدودیت از",
+  "IsLimited":"محدودسازی",
+  "policyBrowser":"محدودیت مرورگر",
+  "selectBrowser":"مرورگر را انتخاب کنید"
 }
