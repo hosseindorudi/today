@@ -691,5 +691,6 @@
   "/Operator/AllowedIp/Read":"آیپی های مجاز",
   "/Operator/AllowedIp/write":"فرم آیپی های مجاز",
   "IP_From":"از آی پی",
-  "IP_To":"تا آی پی"
+  "IP_To":"تا آی پی",
+  "btn.chnagePassword":"تغییر رمز عبور"
 }

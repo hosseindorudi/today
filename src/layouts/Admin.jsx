@@ -4,17 +4,20 @@ import Home from "../Components/navbar/home";
 import Language from "../Components/navbar/language";
 import NavMenu from "../Components/navbar/navMenu";
 import Sidebar from "../Components/sidebar/sidebar";
+import * as fa from "react-icons/fa";
 import MainTabControl from "../Components/Tabs/TabControl/MainTabControl";
 import useWindowSize from "../customHooks/useWindowSize";
 import "./Admin.css";
 import LogOut from "../Components/navbar/logOut";
 import useAuth from "../customHooks/useAuth";
+import { useNavigate } from 'react-router-dom';
 
 
 function Admin() {
   const [menu, setMenu] = useState(false);
   const windowSize=useWindowSize()
   const [verifyToken]=useAuth()
+  const navigate=useNavigate()
   useEffect(() => {
       verifyToken()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -23,6 +26,13 @@ function Admin() {
   const handleClickMenu = () => {
     setMenu(!menu);
   };
+
+  const handleLogOut=()=>{
+    localStorage.removeItem("token");
+    navigate("/", { replace: true });
+    window.location.reload();
+    
+  }
   
   return (
     <div className="mainparent">
@@ -42,13 +52,8 @@ function Admin() {
         <div className="headerMid"></div>
         <div className="headerRight">
           <Language  />
-          <div className="thirdIcon">
-            <div>
-              <i className="fa fa-bell" aria-hidden="true"></i>
-            </div>
-          </div>
-         
           <Home />
+          <fa.FaPowerOff className="adminPowerOff" onClick={handleLogOut}/>
           {windowSize.width<960 && 
           <NavMenu click={handleClickMenu} open={menu} />
             }
