@@ -386,7 +386,7 @@ const CustomTable = forwardRef((props, ref) => {
       },
       data: {
         Request: request,
-        id: id,
+        Id: id,
       },
       signal: abortController.signal,
     });

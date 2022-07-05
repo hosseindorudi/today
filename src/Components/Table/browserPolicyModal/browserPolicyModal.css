@@ -1,0 +1,10 @@
+.listGroupBrowser{
+    width: 100%;
+        gap:5px
+}
+.listGroupBrowser .btns{
+gap: 5px;
+}
+.listGroupBrowser .actionBtns{
+    cursor: pointer;
+}

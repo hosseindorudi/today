@@ -59,7 +59,9 @@ const TableList = ({
   handleCreateRate,
   rateAccess,
   handleReadAnswers,
-  readAnswersAccess
+  readAnswersAccess,
+  handlePolicyBrowser,
+  policyBrowserAccess
 }) => {
   const [haveAccess] = useButtonAccess();
   const {t}=useTranslation()
@@ -268,6 +270,8 @@ const TableList = ({
                           rateAccess={rateAccess}
                           readAnswersAccess={readAnswersAccess}
                           handleReadAnswers={handleReadAnswers}
+                          handlePolicyBrowser={handlePolicyBrowser}
+                          policyBrowserAccess={policyBrowserAccess}
                         />
                       </td>
                       {Object.keys(post)
