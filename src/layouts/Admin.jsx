@@ -38,11 +38,7 @@ function Admin() {
     <div className="mainparent">
       <div className="header">
         <div className="hederLeft">
-          <div className="profileImg">
-            <div>
-              <i className="fa fa-user" aria-hidden="true"></i>
-            </div>
-          </div>
+          
           <span className="profileName">
             <div> admin</div>
           </span>
