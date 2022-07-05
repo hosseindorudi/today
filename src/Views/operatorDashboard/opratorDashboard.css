@@ -201,8 +201,8 @@ tr:nth-child(even) {
 
   .opratorDashNoteContainer {
     background-color: transparent;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     perspective: 1000px;
     box-shadow: 4px 8px 14px -9px rgba(176,168,168,0.91);
     -webkit-box-shadow: 4px 8px 14px -9px rgba(176,168,168,0.91);
@@ -215,8 +215,8 @@ tr:nth-child(even) {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;

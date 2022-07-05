@@ -174,7 +174,7 @@ const OperatorDashboard = () => {
               <div className="opratorDashNoteContainerInner">
                 <div className="opratorDashNoteContainerInnerFront">
 
-                  <h1 className="opratorDashNoteTitle">یادداشت 1</h1>
+                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
                   
                 </div>
                 <div className="opratorDashNoteContainerInnerBack">
@@ -189,7 +189,7 @@ const OperatorDashboard = () => {
               <div className="opratorDashNoteContainerInner">
                 <div className="opratorDashNoteContainerInnerFront">
 
-                  <h1 className="opratorDashNoteTitle">یادداشت 1</h1>
+                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
                   
                 </div>
                 <div className="opratorDashNoteContainerInnerBack">
@@ -204,7 +204,7 @@ const OperatorDashboard = () => {
               <div className="opratorDashNoteContainerInner">
                 <div className="opratorDashNoteContainerInnerFront">
 
-                  <h1 className="opratorDashNoteTitle">یادداشت 1</h1>
+                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
                   
                 </div>
                 <div className="opratorDashNoteContainerInnerBack">
@@ -219,7 +219,7 @@ const OperatorDashboard = () => {
               <div className="opratorDashNoteContainerInner">
                 <div className="opratorDashNoteContainerInnerFront">
 
-                  <h1 className="opratorDashNoteTitle">یادداشت 1</h1>
+                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
                   
                 </div>
                 <div className="opratorDashNoteContainerInnerBack">
@@ -234,7 +234,7 @@ const OperatorDashboard = () => {
               <div className="opratorDashNoteContainerInner">
                 <div className="opratorDashNoteContainerInnerFront">
 
-                  <h1 className="opratorDashNoteTitle">یادداشت 1</h1>
+                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
                   
                 </div>
                 <div className="opratorDashNoteContainerInnerBack">
@@ -249,7 +249,7 @@ const OperatorDashboard = () => {
               <div className="opratorDashNoteContainerInner">
                 <div className="opratorDashNoteContainerInnerFront">
 
-                  <h1 className="opratorDashNoteTitle">یادداشت 1</h1>
+                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
                   
                 </div>
                 <div className="opratorDashNoteContainerInnerBack">
