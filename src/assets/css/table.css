@@ -330,6 +330,15 @@
     overflow: scroll;
     
   }
+
+  .tableDescriptionShow {
+    cursor: pointer;
+ 
+  }
+
+  .tableDescriptionShow:hover {
+    color: mediumblue;
+  }
   
 table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
   
