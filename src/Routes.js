@@ -266,8 +266,8 @@ export const Routes = [
 
         button: {
           Component: OperatorGroupForm,
-          path: "/operatorgroupcreate",
-          title: "routes.groupForm",
+          path: "/Operator/Group/Create",
+          title: "/Operator/Group/Create",
           access: enums.Operator_Group_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
@@ -493,7 +493,6 @@ export const Routes = [
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
-      
       {
         title: "routes.workFlow",
         path: "/workFlow",
@@ -582,7 +581,7 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
-    
+
       {
         title: "routes.changing",
         path: "/changing",
@@ -1367,6 +1366,4 @@ export const Routes = [
   //             }
 
   //           ]}
-
-  
 ];

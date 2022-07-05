@@ -26,7 +26,9 @@ const TableButtons = ({
   handleCreateRate,
   rateAccess,
   handleReadAnswers,
-  readAnswersAccess
+  readAnswersAccess,
+  handlePolicyBrowser,
+  policyBrowserAccess
  
 }) => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -138,6 +140,17 @@ const TableButtons = ({
           }}
         >
           <fa.FaBookReader />
+        </button>
+      )}
+      {haveAccess(policyBrowserAccess) && (
+        <button
+          title={t("policyBrowser")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+          handlePolicyBrowser(rowValue.Id);
+          }}
+        >
+          <fa.FaFirefoxBrowser />
         </button>
       )}
     </div>
