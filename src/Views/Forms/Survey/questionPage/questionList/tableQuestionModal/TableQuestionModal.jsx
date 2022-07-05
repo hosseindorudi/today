@@ -627,6 +627,7 @@ const TableQuestionModal = (props) => {
         <Modal.Footer className="questionModalFooter">
           <ListGroup as="ol" numbered className="questionListGroup">
             {questions.map((question) => (
+              
               <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between align-items-center mb-1 listGroupItemQuestion"
@@ -638,6 +639,12 @@ const TableQuestionModal = (props) => {
                 <div className="ms-2 questionMain">
                   <div className="fw-bold questionTitle">{question.Title}</div>
                   {question.Description}
+                  
+                  
+                </div>
+                <div className="questionMain">
+                  <b>{t("periodity")}:</b>
+                  <span style={{marginInlineStart:5}}>{question.Priority}</span>
                 </div>
                 <div className="ms-2 questionButtons">
                   <div
