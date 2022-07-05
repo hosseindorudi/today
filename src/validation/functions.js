@@ -1,6 +1,7 @@
 import { t } from "i18next";
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { enums } from "../data/Enums";
 
 export const convertUTC = (utc) => {
   const lang = localStorage.getItem("i18nextLng");
@@ -96,7 +97,7 @@ export const createSelectOptions = (titles) => {
   return options;
 };
 
-export const checkTableValues = (type, value, post) => {
+export const checkTableValues = (type, value, post, exportAccess) => {
   switch (type) {
     case "DateSet":
       return convertUTC(value);
@@ -120,9 +121,13 @@ export const checkTableValues = (type, value, post) => {
         />
       );
     case "Description":
-      if(value.length > 30){
-          return `${value.substr(0,29)}...`
+      if(value.length > 0 & exportAccess === enums.Operator_Event_Export_r ){
+          return <p>{t("logview")}</p>; 
+      } else {
+        return value
       }
+
+      
     default:
       return value;
   }

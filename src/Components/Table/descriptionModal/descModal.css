@@ -14,7 +14,8 @@
 .updateModalRow .textAreaUpdate{
     width: 90%;
 }
+.logSecondModalDesc {
+    direction: ltr;
+}
 
-/* .mb-3 {
-    width: 100%;
-} */
+
