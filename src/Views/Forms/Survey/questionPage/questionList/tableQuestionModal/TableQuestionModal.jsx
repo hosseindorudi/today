@@ -307,7 +307,7 @@ const TableQuestionModal = (props) => {
   }
 
   const handleQuestionEdit = (question) => {
-    console.log(question);
+    console.log(question.Color);
 
     (question.QuestionItem !== [] & question.QuestionItem !== null) ? setMultiSelectActivation(true) : setMultiSelectActivation(false);
     setTitle(question.Title);
@@ -320,10 +320,11 @@ const TableQuestionModal = (props) => {
     setPeriodity(question.Priority);
     setEditButtonActivate(true);
     let array = question.QuestionItem;
+    console.log(array)
     array.map((arr) => (
       arr['Color'] = `#${arr['Color']}`
     ))
-    setQuestionItem(question.QuestionItem)
+    setQuestionItem(array)
     console.log(questionItem)
   };
 
@@ -342,7 +343,7 @@ const TableQuestionModal = (props) => {
     e.preventDefault();
     setRequestType("SUBMIT");
     let newArr = questionItem.map((item, i) => {
-      console.log(i)
+      console.log(questionItem[i]["Color"].slice(1))
       return { ...item, Color: questionItem[i]["Color"].slice(1) };
     });
     setQuestionItem(newArr);
@@ -410,7 +411,7 @@ const TableQuestionModal = (props) => {
                   value={questionSelect}
                   onchangeHandler={(e) => {
                     setQuestionSelect(e);
-                    e.label === "Multiple"
+                    e.value === QuestionTypeEnum.Multiple
                       ? setMultiSelectActivation(true)
                       : setMultiSelectActivation(false);
                   }}
@@ -485,7 +486,7 @@ const TableQuestionModal = (props) => {
                     style={{ cursor: "pointer" }}
                     onClick={() =>
                       handleAddQuestionItem({
-                        Id: questionItem[questionItem.length -1].Id +1,
+                        Id: 0,
                         Priority: 1,
                         Title: "",
                         Description: "",

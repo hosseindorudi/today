@@ -1,21 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import * as fa from 'react-icons/fa'
 import { t } from "i18next";
-import { useNavigate } from 'react-router-dom';
+
 const LogOut = () => {
 
     const [open, setopen] = useState(false)
     const ref=useRef()
-    const navigate=useNavigate()
+
     const click=()=>{
         setopen(!open)
     }
-    const handleLogOut=()=>{
-        localStorage.removeItem("token");
-        navigate("/", { replace: true });
-        window.location.reload();
-        
-      }
     const clickOutSideLogOut=(event)=>{
         if (
             ref.current &&
@@ -40,7 +34,8 @@ const LogOut = () => {
   >
     <div className="logOutReletive">
       <>
-    <fa.FaSignOutAlt/></>
+    <fa.FaArrowAltCircleDown/></>  
+    {/* FaSignOutAlt */}
       <div
         className="dropdown-content"
         style={{ display: open ? "flex" : "none" }}
@@ -52,10 +47,10 @@ const LogOut = () => {
           </button>
         </div>
 
-        <div onClick={handleLogOut}>
-          <fa.FaSignOutAlt style={{color: "black"}}/>
+        <div>
+          <fa.FaUserLock style={{color: "black"}}/>
           <button className="dropDownLink" >
-            {t("btn.exit")}
+            {t("btn.chnagePassword")}
           </button>
         </div>
       </div>

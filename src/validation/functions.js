@@ -119,6 +119,10 @@ export const checkTableValues = (type, value, post) => {
           value={`#${value}`} disabled
         />
       );
+    case "Description":
+      if(value.length > 30){
+          return `${value.substr(0,29)}...`
+      }
     default:
       return value;
   }

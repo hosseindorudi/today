@@ -41,6 +41,7 @@ td {
   height: 300px;
   width: 100%;
   text-align: start;
+  overflow-y: auto;
 }
 
 
