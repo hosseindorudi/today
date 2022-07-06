@@ -4,57 +4,48 @@ import { mapApiKey } from "../../data/constants";
 import "./map.css";
 
 const Map = Mapir.setToken({
-  //factory parameters
-  hash: true,
-  logoPosition: "top-left",
-  maxZoom: [16],
-  transformRequest: (url) => {
+  transformRequest: url => {
     return {
       url: url,
       headers: {
         "x-api-key": mapApiKey, //Mapir api key
-        "Mapir-SDK": "reactjs",
-      },
+        "Mapir-SDK": "reactjs"
+      }
     };
-  },
+  }
 });
 const MapComponent = (props) => {
-  const [lat, setLat] = useState(51.42047)
-  const [lng, setLng] = useState(35.729054)
-  const reverseFunction=(map, e)=>{
-  var url = `https://map.ir/reverse/no?lat=${lat}&lon=${lng}`
-  fetch(url,
-      {
-          headers: {
-              'Content-Type': 'application/json',
-              'x-api-key': mapApiKey
-          }
-      })
+  const [markerArray, setMarkerArray] = useState([]);
+  const [coord, setCoord] = useState([35.7315788,51.407904]);
+  function reverseFunction(map, e) {
+    var url = `https://map.ir/reverse/no?lat=${e.lngLat.lat}&lon=${
+      e.lngLat.lng
+    }`;
+    fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": mapApiKey
+      }
+    })
       .then(response => response.json())
-      .then(data => {
-        setLat(e.lngLat.lat)
-        setLng(e.lngLat.lng)
-      })
-    }
+      .then(data => console.log(data));
+    const array = [];
+    array.push(
+      <Mapir.Marker
+        coordinates={[e.lngLat.lng, e.lngLat.lat]}
+        anchor="bottom"
+      />
+    );
+    setMarkerArray(array);
+  }
   return (
     <div className="map">
       <Mapir
-        center={[lat, lng]}
-        Map={Map}
-        onClick={reverseFunction}
-        userLocation
-        // minZoom={[13]}
-        // scrollZoom={true}
-        // zoom={[12]}
-        // interactive={true}
-        // attributionControl={false}
+       center={coord} Map={Map} onClick={reverseFunction}
+       userLocation
       >
         <Mapir.ZoomControl position={"top-left"} />
-        <Mapir.Marker
-          coordinates={[lat, lng]}
-          anchor="bottom"
-         
-        ></Mapir.Marker>
+        {markerArray}
       </Mapir>
     </div>
   );

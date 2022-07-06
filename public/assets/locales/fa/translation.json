@@ -700,5 +700,8 @@
   "IsLimited":"محدودسازی",
   "policyBrowser":"محدودیت مرورگر",
   "selectBrowser":"مرورگر را انتخاب کنید",
-  "map":"نقشه"
+  "map":"نقشه",
+  "whereUSearching":"دنبال کجا میگردید...",
+  "go":"برو",
+  "noResultFound":"نتیجه ای یافت نشد"
 }

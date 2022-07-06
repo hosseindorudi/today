@@ -9,7 +9,10 @@ import "./answerModal.css";
 import { Rating } from "@mui/material";
 import { toast } from "react-toastify";
 import { answerPageCreate } from "../../../../../services/answerService";
-import { createSelectOptions, handleError } from "../../../../../validation/functions";
+import {
+  createSelectOptions,
+  handleError,
+} from "../../../../../validation/functions";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { TabContext } from "../../../../../contexts/TabContextProvider";
@@ -18,15 +21,18 @@ import { enums } from "../../../../../data/Enums";
 import AnswerList from "../answerList/AnswerList";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { AnswerPageFailedReadTitle } from "../../../../../services/answerPageFailedService";
-// import MapModal from "../../../../../Components/map/MapModal";
+import MapModal from "../../../../../Components/map/MapModal";
 const AnswerModal = (props) => {
   const startTime = new Date();
   const { t } = useTranslation();
   const tabContext = useContext(TabContext);
-  const [validated, setValidated] = useState(false);
   const request = useRequest();
-  const [answerPageFailedOptions,setAnswerPageFailedOptions]=useState([])
-  const [answerPageFailed, setAnswerPageFailed] = useState( {value:0,label:t("nothing"),color:"#0000FF"})
+  const [answerPageFailedOptions, setAnswerPageFailedOptions] = useState([]);
+  const [answerPageFailed, setAnswerPageFailed] = useState({
+    value: 0,
+    label: t("nothing"),
+    color: "#0000FF",
+  });
   const [type, setType] = useState("");
   const [response, loading, fetchData, setResponse] = useAxios();
   const [values, setValues] = useState({
@@ -35,7 +41,7 @@ const AnswerModal = (props) => {
     Mobile: undefined,
     LastName: "",
     FirstName: "",
-    NationalCode: undefined
+    NationalCode: undefined,
   });
   const [answer, setAnswer] = useState({});
   const questions = props.questions;
@@ -75,11 +81,11 @@ const AnswerModal = (props) => {
   ];
   const date = ["DateOfBirth", "DateOfIssuanceIdCard", "Date", "DateTime"];
   const time = ["Time"];
-  const radio = ["YesOrNo","Gender",];
+  const radio = ["YesOrNo", "Gender"];
   const checkbox = ["Multiple"];
   const rating = ["FiveStar"];
-  // const map=["Geolocation"]
-  const [itemsOf, setItemsOf] = useState([])
+  const map = ["Geolocation"];
+  const [itemsOf, setItemsOf] = useState({});
 
   const handleChangeValue = (e) => {
     let value = e.target.value;
@@ -93,16 +99,22 @@ const AnswerModal = (props) => {
     setAnswer({ ...answer, [id]: value });
   };
   const handleChangeDate = (date, id) => {
-    const dateObj=date.toDate()
+    const dateObj = date.toDate();
     setAnswer({ ...answer, [id]: dateObj.toLocaleDateString() });
   };
   const handleChangeRadio = (value, id) => {
     setAnswer({ ...answer, [id]: value });
   };
-  const handleCheckBox=(checked,itemId,questionId)=>{
-     checked ? setItemsOf(prev => [...prev, {[questionId]:itemId}]) : setItemsOf(itemsOf.filter((item, i) => item[questionId] !==  itemId))
-  }
-  const checkAnswerOptions = (e,QuestionItem,questionId) => {
+  const handleCheckBox = ( itemId, questionId,desc) => {
+
+    
+    // setItemsOf((prev) => [...prev, { [questionId]: itemId }]);
+    setItemsOf((prev) => ({ ...prev,[questionId]: [itemId,desc] }))
+
+
+    //  checked ? setItemsOf(prev => [...prev, {[questionId]:itemId}]) : setItemsOf(itemsOf.filter((item, i) => item[questionId] !==  itemId))
+  };
+  const checkAnswerOptions = (e, QuestionItem, questionId) => {
     let key = "";
     Object.keys(QuestionTypeEnum).map((i) =>
       QuestionTypeEnum[i] === e ? (key = i) : ""
@@ -147,61 +159,74 @@ const AnswerModal = (props) => {
     }
     if (checkbox.includes(key)) {
       return (
-        <div key={`inline-checkbox`} className="mb-3">
-          {QuestionItem.map((q,i)=>(
-          <Form.Check
-            key={i}
-            inline
-            label={q.Title}
-            name={questionId}
-            type="checkbox"
-            onChange={(e)=>handleCheckBox(e.target.checked,q.Id,questionId)}
-          />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {QuestionItem.map((q, i) => (
+            <>
+            <Form.Check
+              label={q.Title}
+              name={questionId}
+              type="radio"
+              id={`inline-radio-${questionId}`}
+              onChange={() => handleCheckBox(q.Id, questionId,"")}
+            />
+             {i == QuestionItem.length -1 && <Form.Control type="text" placeholder={t("description")}  onChange={(e)=> handleCheckBox(q.Id, questionId,e.target.value)} />}
+              </>
           ))}
+         
         </div>
+        // <div key={`inline-r`} className="mb-3">
+        //   {QuestionItem.map((q,i)=>(
+        //   <Form.Check
+        //     key={i}
+        //     inline
+        //     label={q.Title}
+        //     name={questionId}
+        //     type="checkbox"
+        //     onChange={(e)=>handleCheckBox(e.target.checked,q.Id,questionId)}
+        //   />
+        //   ))}
+        // </div>
       );
     }
     if (radio.includes(key)) {
       return (
         <div className="mb-3">
-          {key==="Gender"?
-          <>
-           <Form.Check
-            
-            label={t("Male")}
-            name={questionId}
-            type="radio"
-            id={`inline-radio-${questionId}`}
-            onChange={() => handleChangeRadio(t("Male"),questionId)}
-          />
-          <Form.Check
-            
-            label={t("Female")}
-            name={questionId}
-            type="radio"
-            id={`inline-radio-${questionId}-1`}
-            onChange={() => handleChangeRadio(t("Female"), questionId)}
-          />
-          </>
-          :
-          <>
-          <Form.Check
-            
-            label={t("Yes")}
-            name={questionId}
-            type="radio"
-            id={`inline-radio-${questionId}`}
-            onChange={() => handleChangeRadio(t("Yes"),questionId)}
-          />
-          <Form.Check
-            
-            label={t("No")}
-            name={questionId}
-            type="radio"
-            id={`inline-radio-${questionId}-1`}
-            onChange={() => handleChangeRadio(t("No"), questionId)}
-          />
-          </>}
+          {key === "Gender" ? (
+            <>
+              <Form.Check
+                label={t("Male")}
+                name={questionId}
+                type="radio"
+                id={`inline-radio-${questionId}`}
+                onChange={() => handleChangeRadio(t("Male"), questionId)}
+              />
+              <Form.Check
+                label={t("Female")}
+                name={questionId}
+                type="radio"
+                id={`inline-radio-${questionId}-1`}
+                onChange={() => handleChangeRadio(t("Female"), questionId)}
+              />
+            </>
+          ) : (
+            <>
+              <Form.Check
+                label={t("Yes")}
+                name={questionId}
+                type="radio"
+                id={`inline-radio-${questionId}`}
+                onChange={() => handleChangeRadio(t("Yes"), questionId)}
+              />
+              <Form.Check
+                label={t("No")}
+                name={questionId}
+                type="radio"
+                id={`inline-radio-${questionId}-1`}
+                onChange={() => handleChangeRadio(t("No"), questionId)}
+              />
+              <Form.Control type="text" placeholder={t("description")} />
+            </>
+          )}
         </div>
       );
     }
@@ -215,13 +240,14 @@ const AnswerModal = (props) => {
         />
       );
     }
-    // if(map.includes(key)){
-    //   return(
-    //     <MapModal />
-    //   )
-    // }
+    if (map.includes(key)) {
+      return <MapModal qId={questionId} submited={submitMap} />;
+    }
   };
-  
+  const submitMap = (id, coordinates) => {
+    const coString = coordinates[0] + "," + coordinates[1];
+    setAnswer({ ...answer, [id]: coString });
+  };
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -238,21 +264,43 @@ const AnswerModal = (props) => {
     Object.keys(answer).map((k) =>
       answerObject.push({ Question_Id: k, Answer: answer[k], AnswerItem: [] })
     );
-    let g = false;
-    for (let i =0 ; i < itemsOf.length; i++) {
-      g = false
-      for (let j = 0; j< answerObject.length; j++){
-        if(answerObject[j].Question_Id === Object.keys(itemsOf[i])[0]){
-          answerObject[j].AnswerItem.push({Id:0, QuestionItem_Id:itemsOf[i][Object.keys(itemsOf[i])], Answer:""})
-          g = true;
-          break;
-          
-        }
-        
-      }
-      !g &&  answerObject.push({ Question_Id: Object.keys(itemsOf[i])[0], Answer: "", AnswerItem: [{Id:0, QuestionItem_Id:itemsOf[i][Object.keys(itemsOf[i])], Answer:""}] });
+    Object.keys(itemsOf).map(k => 
+      answerObject.push({ Question_Id: Number(k), Answer: "", Description: itemsOf[k][1] , AnswerItem: [{
+        Id: 0,
+        QuestionItem_Id: itemsOf[k][0],
+        Answer: "",
+      }]})
+      )
+    
+    // let g = false;
+    // for (let i = 0; i < itemsOf.length; i++) {
+    //   g = false;
+    //   for (let j = 0; j < answerObject.length; j++) {
+    //     if (answerObject[j].Question_Id === Object.keys(itemsOf[i])[0]) {
+    //       answerObject[j].AnswerItem.push({
+    //         Id: 0,
+    //         QuestionItem_Id: itemsOf[i][Object.keys(itemsOf[i])],
+    //         Answer: "",
+    //       });
+    //       g = true;
+    //       break;
+    //     }
+    //   }
+    //   !g &&
+    //     answerObject.push({
+    //       Question_Id: Object.keys(itemsOf[i])[0],
+    //       Answer: "",
+    //       AnswerItem: [
+    //         {
+    //           Id: 0,
+    //           QuestionItem_Id: itemsOf[i][Object.keys(itemsOf[i])],
+    //           Answer: "",
+    //         },
+    //       ],
+    //     });
+    // }
 
-    }
+    console.log(answerObject)
     return answerObject;
   };
   const handleSuccess = () => {
@@ -274,17 +322,17 @@ const AnswerModal = (props) => {
       "add"
     );
   };
-  
+
   const handleResponse = (response, type) => {
     switch (type) {
       case "SUBMIT":
         handleSuccess();
         break;
       case "READTITLEANSWERFAILED":
-          let titles=response.Title
-          titles.unshift({Id:0,Value:t("nothing")})
-          setAnswerPageFailedOptions(createSelectOptions(titles))
-          break;
+        let titles = response.Title;
+        titles.unshift({ Id: 0, Value: t("nothing") });
+        setAnswerPageFailedOptions(createSelectOptions(titles));
+        break;
       default:
         break;
     }
@@ -297,8 +345,8 @@ const AnswerModal = (props) => {
       headers: {
         accept: "*/*",
       },
-      data:request
-    })
+      data: request,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
@@ -312,12 +360,6 @@ const AnswerModal = (props) => {
   }, [response]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      // e.preventDefault();
-      e.stopPropagation();
-    }
-    setValidated(true);
     if (!values.Mobile && !values.Phone && !values.NationalCode) {
       return toast.info(t("answer.requiredFieldsEmptyWarning"), {
         position: toast.POSITION.TOP_CENTER,
@@ -325,29 +367,29 @@ const AnswerModal = (props) => {
     }
     const TimeElapsed = calcualteEndTime();
     const answerObj = makeQuestionAnswer();
-    setType("SUBMIT");
-    console.log(answer)
-    fetchData({
-      method: "POST",
-      url: answerPageCreate,
-      headers: {
-        accept: "*/*",
-      },
-      data: {
-        Id: 0,
-        Request: request,
-        QuestionPage_Id: questions[0].QuestionPage_Id,
-        AnswerPageFailed_Id: answerPageFailed.value,
-        NationalCode: values.NationalCode,
-        FirstName: values.FirstName,
-        LastName: values.LastName,
-        Mobile: values.Mobile,
-        Phone: values.Phone,
-        TimeElapsed: TimeElapsed,
-        Description: values.Description,
-        Answer: answerObj,
-      },
-    });
+    console.log(answerObj)
+    // setType("SUBMIT");
+    // fetchData({
+    //   method: "POST",
+    //   url: answerPageCreate,
+    //   headers: {
+    //     accept: "*/*",
+    //   },
+    //   data: {
+    //     Id: 0,
+    //     Request: request,
+    //     QuestionPage_Id: questions[0].QuestionPage_Id,
+    //     AnswerPageFailed_Id: answerPageFailed.value,
+    //     NationalCode: values.NationalCode,
+    //     FirstName: values.FirstName,
+    //     LastName: values.LastName,
+    //     Mobile: values.Mobile,
+    //     Phone: values.Phone,
+    //     TimeElapsed: TimeElapsed,
+    //     Description: values.Description,
+    //     Answer: answerObj,
+    //   },
+    // });
   };
   return (
     <Modal
@@ -361,7 +403,7 @@ const AnswerModal = (props) => {
       className="modalAnswers"
     >
       <Modal.Header closeButton></Modal.Header>
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Modal.Body>
           <div className="Row">
             <Form.Group className="mb-3" controlId="firstName">
@@ -432,16 +474,19 @@ const AnswerModal = (props) => {
             </Form.Group>
           </div>
           <div className="Row">
-          <Form.Group className="mb-3" controlId={"/Definition/AnswerPageFailed/Write"}>
-            <Form.Label>{t("/Definition/AnswerPageFailed/Write")}</Form.Label>
-            <CustomReactMultiSelect
-              isMulti={false}
-              options={answerPageFailedOptions}
-              value={answerPageFailed}
-              onchangeHandler={(e) => setAnswerPageFailed(e)}
-              placeholder={t("/Definition/AnswerPageFailed/Write")}
-            />
-          </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId={"/Definition/AnswerPageFailed/Write"}
+            >
+              <Form.Label>{t("/Definition/AnswerPageFailed/Write")}</Form.Label>
+              <CustomReactMultiSelect
+                isMulti={false}
+                options={answerPageFailedOptions}
+                value={answerPageFailed}
+                onchangeHandler={(e) => setAnswerPageFailed(e)}
+                placeholder={t("/Definition/AnswerPageFailed/Write")}
+              />
+            </Form.Group>
           </div>
           <div className="rowQuestionTitle">
             <b>{t("Questions")}</b>
@@ -466,7 +511,11 @@ const AnswerModal = (props) => {
                   <div className="fw-bold">{q.Title}</div>
                   {q.Description}
                   <div className="answers">
-                    {checkAnswerOptions(q.QuestionType_EId,q.QuestionItem,q.Id)}
+                    {checkAnswerOptions(
+                      q.QuestionType_EId,
+                      q.QuestionItem,
+                      q.Id
+                    )}
                   </div>
                 </div>
               </ListGroup.Item>
@@ -474,7 +523,10 @@ const AnswerModal = (props) => {
           </ListGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={loading} type="submit"> {t("submit")}</Button>
+          <Button disabled={loading} type="submit">
+            {" "}
+            {t("submit")}
+          </Button>
         </Modal.Footer>
       </Form>
     </Modal>

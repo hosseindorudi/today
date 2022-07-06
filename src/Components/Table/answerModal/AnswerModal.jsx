@@ -3,6 +3,7 @@ import {  Modal, Table } from "react-bootstrap";
 
 const AnswerModal = (props) => {
   const logs = props.logs;
+  console.log(logs)
   return (
     <>
       <Modal
@@ -25,6 +26,7 @@ const AnswerModal = (props) => {
             <tbody>
               <tr>
                 {logs.map((log, index) => (
+                  
                   <td key={index}>{log.Answer}</td>
                 ))}
               </tr>

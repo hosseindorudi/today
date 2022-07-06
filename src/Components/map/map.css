@@ -1,18 +1,99 @@
 .map{
-    /* text-align: center;
+    text-align: center;
     width: 100%;
-    height: auto!important; */
+    height: auto!important;
 }
 .map .mapboxgl-map {
-    /* width: 100%!important;
-    height: 200px!important; */
+    width: 100% !important;
+    height: 300px!important;
 }
-.mapboxgl-control-container{
-    display: none;
+
+.mapSearchInput {
+    /* text-align: right;
+    direction: rtl; */
+    border: 0;
+    margin: 10px;
+  }
+  .mapSearchInput:focus,
+  .mapSearchInput:focus {
+    outline: none;
+  }
+  
+  .containerSearch {
+    color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(255, 255, 255, 0);
+    direction: rtl;
+    text-align: right;
+    font-size: 10px;
+    font-size: 10px;
+  }
+  
+  .search-box {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1000;
+    min-width: 250px;
+    max-width: 300px;
+  }
+  
+ .search-box__item {
+    background-color: white;
+    margin-top: 3px;
+    border-top: none;
+    border: 1px solid #a8a7a7;
+    border-radius: 5px;
+  }
+  
+  .search-results {
+    overflow: auto;
+    max-height: 30vh;
+    
+  }
+  
+ .search-result-item {
+    border-bottom: 1px solid #ccc;
+    padding: 2px;
+    cursor: pointer;
+    font-size: 10px;
 }
-.mapboxgl-marker {
-    /* position: absolute;
-    top: 0;
-    left: 0;
-    will-change: transform; */
-}
+  .search-result-item img {
+    width: 15px;
+    margin-left: 5px;
+  }
+  .search-result-item-title {
+    font-weight: bolder;
+  }
+  .search-result-item-address {
+    font-size: 0.7rem;
+  }
+  
+ .clear-seach {
+    cursor: pointer;
+    position: absolute;
+    left: 40px;
+    padding: 10px;
+  }
+  
+ .btn-seach {
+    background-color: #ff0871;
+    height: 37px;
+    width: 25px;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    left: 0px;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-right: 1px solid #a8a7a7;
+  }
+  
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  
