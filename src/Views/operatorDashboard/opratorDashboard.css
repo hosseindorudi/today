@@ -253,15 +253,36 @@ tr:nth-child(even) {
     justify-content: flex-start;
     align-items: center;
   }
+  .dashboardDirectionSet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .dashboardDirectionSet > div:first-child {
+    align-items: flex-start;
+  }
 
   .opratorDashNoteContainerInnerBackClose {
     border: none;
     margin-top: 3px;
     margin-bottom: 3px;
-    flex: 1;
+
     cursor: pointer;
     background-color: transparent;
     color: red;
+    font-size: large;
+    
+  }
+  .opratorDashNoteContainerInnerBackClose1 {
+    border: none;
+    margin-top: 3px;
+    margin-bottom: 3px;
+
+    cursor: pointer;
+    background-color: transparent;
+    color: mediumspringgreen;
     font-size: large;
     
   }

@@ -11,6 +11,7 @@ import AppContext from '../../contexts/AppContext';
 import BackDrop from '../../Components/backDrop/BackDrop';
 import { useTranslation } from 'react-i18next';
 import { TabContext } from '../../contexts/TabContextProvider';
+import * as fa from 'react-icons/fa'
 
 import {Routes} from '../../Routes'
 const OperatorDashboard = () => {
@@ -178,7 +179,10 @@ const OperatorDashboard = () => {
                   
                 </div>
                 <div className="opratorDashNoteContainerInnerBack">
-                  <button className='opratorDashNoteContainerInnerBackClose'><i className="fa fa-times" aria-hidden="true"></i></button>
+                  <div className="dashboardDirectionSet">
+                    <button className='opratorDashNoteContainerInnerBackClose'><i className="fa fa-times" aria-hidden="true"></i> </button>
+                    <button className='opratorDashNoteContainerInnerBackClose1'><fa.FaBell /></button>
+                  </div>
                   <p className="opratorDashNoteDescription">تاخیر خود را در سیستم ثبت کنید</p>
                 </div>
             </div>
@@ -208,7 +212,7 @@ const OperatorDashboard = () => {
                   
                 </div>
                 <div className="opratorDashNoteContainerInnerBack">
-                  <button className='opratorDashNoteContainerInnerBackClose'><i className="fa fa-times" aria-hidden="true"></i></button>
+                  <button className='opratorDashNoteContainerInnerBackClose'><i className="fa fa-times" aria-hidden="true"></i> </button>
                   <p className="opratorDashNoteDescription">تاخیر خود را در سیستم ثبت کنید</p>
                 </div>
             </div>
