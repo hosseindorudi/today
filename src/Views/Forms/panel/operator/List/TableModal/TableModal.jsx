@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, {  useContext, useEffect, useState } from "react";
 import {  Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import AppContext from "../../../../../../contexts/AppContext";
@@ -32,9 +32,9 @@ const TableModal = (props) => {
     Language_EId:rowValues.Language_EId,
     InternalPhone: rowValues.InternalPhone,
     Mobile: rowValues.Mobile,
-    IsLimited:rowValues.IsLimited,
-    LimitTo: rowValues.LimitTo,
-    LimitFrom:rowValues.LimitFrom,
+    IsLimited: rowValues.IsLimited,
+    LimitTo:new Date(rowValues.LimitTo),
+    LimitFrom:new Date(rowValues.LimitFrom),
 
   });
   const handleSeccess=()=>{
@@ -54,7 +54,10 @@ const TableModal = (props) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  useEffect(() => {
+    setOperatorGroup(operatorGroupOptions.find(f=>f.value===rowValues.Group_Id))
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [operatorGroupOptions])
   useEffect(() => {
     if (response) {
       response.Result
@@ -180,17 +183,7 @@ const TableModal = (props) => {
                 onChange={onChangeHandler}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId={"password"}>
-              <Form.Label>{t("password")}</Form.Label>
-              <Form.Control
-                required
-                type="password"
-                value={values.Password}
-                placeholder={t("password")}
-                name="Password"
-                onChange={onChangeHandler}
-              />
-            </Form.Group>
+            
           </div>
           <div className="Row">
           <Form.Group className="mb-3" controlId={"InternalPhone"}>
