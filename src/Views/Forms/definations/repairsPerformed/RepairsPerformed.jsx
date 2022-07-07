@@ -1,140 +1,147 @@
-import "../../../../assets/css/table.css";
-import React, { useRef, useState } from "react";
-import TableModal from "./TableModal/TableModal";
-import { enums } from "../../../../data/Enums";
-import { t } from "i18next";
+import "./repairsPerformed.css";
+import useAxios from '../../../../customHooks/useAxios';
+import useRequest from '../../../../customHooks/useRequest'
+import { Button, Form } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { 
+  handleError,
+  createSelectOptions,
+  defintionInputs, 
+} from "../../../../validation/functions";
+import FormInput from "../../../../Components/periodity/formInput/FormInput";
+import { modelReadTitle } from "../../../../services/modelService";
+import { repairsPerformedReadTitle } from "../../../../services/repairsPerformed";
+import axios from 'axios'
+import { useTranslation } from "react-i18next";
+import { CustomReactMultiSelect } from "../../../../Components/Select/customReactSelect";
 import { toast } from "react-toastify";
-import useWindowSize from "../../../../customHooks/useWindowSize";
-import CustomTable from "../../../../Components/Table/Table/CustomTable";
-
-import RepairsPerformedDefine from "./repairsPerformedDefine/RepairsPerformedDefine";
-import {
-  repairsPerformedAccessList,
-  repairsPerformedCheckFile,
-  repairsPerformedCreateRate,
-  repairsPerformedDelete,
-  repairsPerformedDeleteRate,
-  repairsPerformedExport,
-  repairsPerformedExportId,
-  repairsPerformedGetOneRecord,
-  repairsPerformedImport,
-  repairsPerformedLog,
-  repairsPerformedRead,
-  repairsPerformedReadPaging,
-  repairsPerformedReadRate,
-  repairsPerformedSampleFile,
-  repairsPerformedSetToFavorite,
-  repairsPerformedSetUnselectedColumn,
-  repairsPerformedUpdateRate,
-} from "../../../../services/repairsPerformed";
-import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
-
 const RepairsPerformed = () => {
-  const childRef = useRef();
-  const filteredColumns = [
-    "IsLimited",
-    "Id",
-    "Registrar",
-    "Language_EId",
-    "SourceType",
-    "Model_Id",
-  ];
-  const [tableModalOpen, setTableModalOpen] = useState(false);
-  const [rowValus, setRowValues] = useState({});
-  const [mobileModal, setMobileModal] = useState(false);
-  const [mobileModalButtons, setMobileModalButtons] = useState(false);
-  const [mobileModalColumns, setMobileModalColumns] = useState(false);
-  const widthOFScreen = useWindowSize().width;
-  const [rateModalOpen, setRateModalOpen] = useState(false);
-  const addObject = {
-    Component: RepairsPerformedDefine,
-    path: "/Definition/RepairsPerformed/Write",
-    title: "/Definition/RepairsPerformed/Write",
-    access: enums.Definition_RepairsPerformed_Create_w,
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const [validated, setValidated] = useState(false);
+  const [type, setType] = useState("");
+  const [modelOptions, setModelOptions] = useState([]);
+  const [model, setModel] = useState(undefined);
+  const [perfomedGroupOptions, setPerformedGroupOptions] = useState([]);
+  const [performedGroup, setPerformedGroup] = useState(undefined);
+  const request = useRequest();
+  const abortController = new AbortController();
+  const [values, setValues] = useState({
+    title: "",
+    color: "#000000",
+    periority: 1,
+    desc: "",
+    fee: 0,
+  });
+  const onChangeHandler = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
-  const setUpdate = (res) => {
-    const record = res.Record;
-    setRowValues(record);
-    setTableModalOpen(true);
-  };
-  const updated = () => {
-    setTableModalOpen(false);
-    toast.success(t("updatedRecord"), {
+  const { t } = useTranslation();
+  const handleResponse = () => {
+    toast.success(t("item.created"), {
       position: toast.POSITION.TOP_CENTER,
     });
-    //call update function in child class
-    childRef.current.updated();
+  }
+  const createParams = (service) => {
+    const params = {
+      method: "POST",
+      url: service,
+      headers: {
+        accept: "*/*",
+      },
+      data: request,
+    };
+    return params;
   };
+  const getDatas = () => {
+    const modelTitles = axios.request(createParams(modelReadTitle));
+    const perfomedGroupTitles = axios.request(createParams(repairsPerformedReadTitle));
+    axios
+      .all([modelTitles, perfomedGroupTitles])
+      .then(
+        axios.spread((...allData) => {
+          allData[0].data?.Result
+            ? setModelOptions(createSelectOptions(allData[0].data.Title))
+            : handleError(allData[0].data.Message);
+          allData[1].data?.Result
+            ? setPerformedGroupOptions(createSelectOptions(allData[1].data.Title))
+            : handleError(allData[1].data.Message);
+        })
+      )
+      .catch((error) => {
+        handleError(error.message);
+      });
+  };
+  useEffect(() => {
+    getDatas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response)
+        : handleError(response.Message);
+      setResponse(undefined);
+    }
+    return () => abortController.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
 
-  const handleClickHelp = () => {
-    window.open("https://www.google.com");
-  };
-  const handleCreateRate = (id) => {
-    setRowValues(id);
-    setRateModalOpen(true);
-  };
+  const handleSubmit = (e) => {
+
+  }
   return (
+
     <>
-      {tableModalOpen && (
-        <TableModal
-          rowValus={rowValus}
-          onHide={() => setTableModalOpen(false)}
-          tableModalShow={tableModalOpen}
-          updated={updated}
-        />
-      )}
-      {rateModalOpen && (
-        <AddCurrencyModal
-          show={rateModalOpen}
-          id={rowValus}
-          onHide={() => setRateModalOpen(false)}
-          update={repairsPerformedUpdateRate}
-          create={repairsPerformedCreateRate}
-          delete={repairsPerformedDeleteRate}
-          read={repairsPerformedReadRate}
-          typeTitle={"RepairsPerformed_Id"}
-        />
-      )}
-      <CustomTable
-        ref={childRef}
-        ReadApi={repairsPerformedRead}
-        deleteApi={repairsPerformedDelete}
-        unSelectedAPI={repairsPerformedSetUnselectedColumn}
-        sampleUrl={repairsPerformedSampleFile}
-        fileCheckURL={repairsPerformedCheckFile}
-        importURL={repairsPerformedImport}
-        logApi={repairsPerformedLog}
-        exportId={repairsPerformedExportId}
-        changePasswordURL={""}
-        addObject={addObject}
-        exportAccess={enums.Definition_RepairsPerformed_Export_r}
-        exportLink={repairsPerformedExport}
-        importAccess={enums.Definition_RepairsPerformed_Import_w}
-        logAccess={enums.Definition_RepairsPerformed_Log_r}
-        readPagingApi={repairsPerformedReadPaging}
-        accessListAccess={enums.Operator_AccessList_Read_r}
-        accessListApi={repairsPerformedAccessList}
-        favouriteApi={repairsPerformedSetToFavorite}
-        handleClickHelp={handleClickHelp}
-        addFormAccess={enums.Definition_RepairsPerformed_Create_w}
-        filteredColumns={filteredColumns}
-        deleteAccess={enums.Definition_RepairsPerformed_Delete_w}
-        editAccess={enums.Definition_RepairsPerformed_Update_w}
-        permissionsAccess={""}
-        changePasswordAccess={""}
-        getOneRecord={repairsPerformedGetOneRecord}
-        setUpdate={setUpdate}
-        mobileModal={mobileModal}
-        setMobileModal={setMobileModal}
-        widthOFScreen={widthOFScreen}
-        mobileModalButtons={mobileModalButtons}
-        setMobileModalButtons={setMobileModalButtons}
-        setMobileModalColumns={setMobileModalColumns}
-        mobileModalColumns={mobileModalColumns}
-        rateAccess={enums.Definition_RepairsPerformed_Read_r}
-        handleCreateRate={handleCreateRate}
-      />
+
+      <div className="repairedPerformedMain">
+        <div className="repairedPerformedRight">asdasd</div>
+        <div className="repairedPerformedLeft">
+            <div className="periorityFormDefine">
+              <Form
+                className="periorityForm"
+                noValidate
+                validated={validated}
+                onSubmit={handleSubmit}
+              >
+                <b>{t("/Definition/RepairsPerformed/Write")}</b>
+                <div className="repairRow">
+                  <Form.Group className="mb-3" controlId={"model"}>
+                    <Form.Label>{t("model")}</Form.Label>
+                    <CustomReactMultiSelect
+                      isMulti={false}
+                      options={modelOptions}
+                      value={model}
+                      onchangeHandler={(e) => setModel(e)}
+                      placeholder={t("model")}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId={"model"}>
+                    <Form.Label>{t("fee")}</Form.Label>
+                    <Form.Control
+                      name="fee"
+                      value={values.fee}
+                      type="number"
+                      onChange={onChangeHandler}
+                    />
+                  </Form.Group>
+                </div>
+                {defintionInputs(
+                  values,
+                  t("/Definition/RepairsPerformed/Read"),
+                  t("RepairsPerformed_errorMSG")
+                ).map((input) => (
+                  <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+                ))}
+                <Button disabled={loading} type="submit">
+                  {t("submit")}
+                </Button>
+              </Form>
+            </div>
+        </div>
+      </div>
+    
     </>
+
   );
 };
 

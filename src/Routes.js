@@ -33,7 +33,6 @@ import ReplacementType from "./Views/Forms/definations/replacementType/Replaceme
 import PartGroup from "./Views/Forms/definations/partGroup/PartGroup";
 import PartGroupDefine from "./Views/Forms/definations/partGroup/partGroupDefine/PartGroupDefine";
 import RepairsPerformed from "./Views/Forms/definations/repairsPerformed/RepairsPerformed";
-import RepairsPerformedDefine from "./Views/Forms/definations/repairsPerformed/repairsPerformedDefine/RepairsPerformedDefine";
 import Section from "./Views/Forms/definations/section/Section";
 import SectionDefine from "./Views/Forms/definations/section/sectionDefine/SectionDefine";
 import SendType from "./Views/Forms/definations/sendType/SendType";
@@ -891,12 +890,6 @@ export const Routes = [
         path: "/Definition/RepairsPerformed/Read",
         access: enums.Definition_RepairsPerformed_Read_r,
         Component: RepairsPerformed,
-        button: {
-          Component: RepairsPerformedDefine,
-          path: "/Definition/RepairsPerformed/Write",
-          title: "/Definition/RepairsPerformed/Write",
-          access: enums.Definition_RepairsPerformed_Create_w,
-        },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
