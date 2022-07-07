@@ -1,0 +1,8 @@
+export const onlineOperatorRead="/Operator/OnlineOperator/Read"
+export const onlineOperatorReadPaging="/Operator/OnlineOperator/ReadPaging"
+export const onlineOperatorDelete="/Operator/OnlineOperator/Delete"
+export const onlineOperatorExportId="/Operator/OnlineOperator/ExportId"
+export const onlineOperatorExport="/Operator/OnlineOperator/Export"
+export const onlineOperatorLog="/Operator/OnlineOperator/Log"
+export const onlineOperatorSetUnselectedColumn="/Operator/OnlineOperator/SetUnselectedColumn"
+export const onlineOperatorAccessList="/Operator/OnlineOperator/AccessList"

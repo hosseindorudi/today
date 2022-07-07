@@ -11,10 +11,16 @@ import "./Admin.css";
 import LogOut from "../Components/navbar/logOut";
 import useAuth from "../customHooks/useAuth";
 import { useNavigate } from 'react-router-dom';
+import useRequest from "../customHooks/useRequest";
+import { logOut } from "../services/authService";
+import useAxios from "../customHooks/useAxios";
+import BackDrop from "../Components/backDrop/BackDrop";
 
 
 function Admin() {
   const [menu, setMenu] = useState(false);
+  const [response, loading,fetchData] = useAxios();
+  const request=useRequest()
   const windowSize=useWindowSize()
   const [verifyToken]=useAuth()
   const navigate=useNavigate()
@@ -28,14 +34,28 @@ function Admin() {
   };
 
   const handleLogOut=()=>{
+    
+    fetchData({
+      method: "POST",
+      url: logOut,
+      headers: {
+        accept: "*/*",
+      },
+      data: request,
+    });
+   
     localStorage.removeItem("token");
     navigate("/", { replace: true });
     window.location.reload();
+    if(response){
+      return
+    }
     
   }
   
   return (
     <div className="mainparent">
+      {loading && <BackDrop open={true} />}
       <div className="header">
         <div className="hederLeft">
           
