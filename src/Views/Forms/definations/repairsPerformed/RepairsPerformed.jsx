@@ -87,7 +87,7 @@ const RepairsPerformed = () => {
   }, [response]);
 
   const handleSubmit = (e) => {
-
+      e.preventDefault()
   }
   return (
 
@@ -96,7 +96,7 @@ const RepairsPerformed = () => {
       <div className="repairedPerformedMain">
         <div className="repairedPerformedRight">asdasd</div>
         <div className="repairedPerformedLeft">
-            <div className="periorityFormDefine">
+            
               <Form
                 className="periorityForm"
                 noValidate
@@ -104,8 +104,18 @@ const RepairsPerformed = () => {
                 onSubmit={handleSubmit}
               >
                 <b>{t("/Definition/RepairsPerformed/Write")}</b>
-                <div className="repairRow">
-                  <Form.Group className="mb-3" controlId={"model"}>
+                <div className="repairRowPerformed">
+                  <Form.Group className="mb-0.5 repairsPerformedItem" controlId={"model"}>
+                    <Form.Label>{t("Group")}</Form.Label>
+                    <CustomReactMultiSelect
+                      isMulti={false}
+                      options={perfomedGroupOptions}
+                      value={performedGroup}
+                      onchangeHandler={(e) => setPerformedGroup(e)}
+                      placeholder={t("Group")}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-.5 repairsPerformedItem" controlId={"model"}>
                     <Form.Label>{t("model")}</Form.Label>
                     <CustomReactMultiSelect
                       isMulti={false}
@@ -115,28 +125,20 @@ const RepairsPerformed = () => {
                       placeholder={t("model")}
                     />
                   </Form.Group>
-                  <Form.Group className="mb-3" controlId={"model"}>
-                    <Form.Label>{t("fee")}</Form.Label>
-                    <Form.Control
-                      name="fee"
-                      value={values.fee}
-                      type="number"
-                      onChange={onChangeHandler}
-                    />
-                  </Form.Group>
+                 
                 </div>
                 {defintionInputs(
                   values,
                   t("/Definition/RepairsPerformed/Read"),
                   t("RepairsPerformed_errorMSG")
                 ).map((input) => (
-                  <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+                  <FormInput performedGroup={performedGroup}  isRepair={true} key={input.id} {...input} onChange={onChangeHandler} />
                 ))}
-                <Button disabled={loading} type="submit">
+                <Button  disabled={loading} type="submit">
                   {t("submit")}
                 </Button>
               </Form>
-            </div>
+ 
         </div>
       </div>
     
