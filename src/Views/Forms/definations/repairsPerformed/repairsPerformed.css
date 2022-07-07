@@ -1,0 +1,31 @@
+.repairedPerformedMain {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 164px);
+}
+
+
+.repairedPerformedRight {
+    flex: 1;
+    background-color: red;
+    height: 100%;
+}
+.repairedPerformedLeft {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.repairRowPerformed {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+.repairsPerformedItem {
+    width: 100%;
+}
