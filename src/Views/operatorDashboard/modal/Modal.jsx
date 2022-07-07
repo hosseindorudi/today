@@ -1,72 +1,104 @@
-import React,{ useState } from 'react'
-import './modal.css'
-const Modal = ({setIsOpen}) => {
+import React, { useState, useEffect } from "react";
+import "./modal.css";
+import { createNoteDashboard } from "../../../services/dashboardServices";
+import useAxios from "../../../customHooks/useAxios";
+import useRequest from "../../../customHooks/useRequest";
+import { handleError } from "../../../validation/functions";
+import * as fa from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
-  const [values,setValues] = useState({
-    title:"",
-    desc:""
-  })
+const Modal = ({ setIsOpen }) => {
+  const [values, setValues] = useState({
+    title: "",
+    desc: "",
+  });
+  const [alarm, setAlarm] = useState(false);
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const request = useRequest();
+  const abortController = new AbortController();
+  const { t } = useTranslation();
 
+  const handleResponse = () => {
+    toast.success(t("item.created"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response)
+        : handleError(response.Message);
+      setResponse(undefined);
+      response.Result && setIsOpen(false);
+    }
+    return () => abortController.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
   const onSubmit = (e) => {
     e.preventDefault();
-  }
+    console.log(values);
+    fetchData({
+      method: "POST",
+      url: createNoteDashboard,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Request: request,
+        Id: 0,
+        Title: values.title,
+        Body: values.desc,
+        IsAlarm: alarm,
+      },
+      signal: abortController.signal,
+    });
+  };
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-    console.log(values);
-  }
-
+  };
 
   return (
     <>
-      {/* <div className="darkBG" onClick={() => setIsOpen(false)} />
-        <div className="centered">
-          <div className="modal">
-            <div className="modalHeader">
-              <h5 className="heading">یادداشت</h5>
-            </div>
-            <button className="closeBtn" onClick={() => setIsOpen(false)}>
+      <div className="tableModalParentModal">
+        <div className="tableModalContainerModal">
+          <div className="tableModalHeaderModal">
+            <h1 className="tableModalHeadingModal">یادداشت</h1>
+          </div>
+          <button className="closeBtnModal" onClick={() => setIsOpen(false)}>
             <i className="fa fa-times" aria-hidden="true"></i>
-            </button>
-            <div className="modalContent">
-              <input type="text" id="modalTitle" placeholder='موضوع' />
-            </div>
-            <div className="modalContentDesc">
-              <textarea type="text" id="modalDesc" placeholder=' یادداشت' />
-            </div>
-            <div className="modalActions">
-              <div className="actionsContainer">
-                <button className="deleteBtn" onClick={() => setIsOpen(false)}>
-                  افزودن
-                </button>
+          </button>
+          <button className="bellBtnModal" onClick={() => setAlarm(!alarm)}>
+            {!alarm ? <fa.FaRegBell /> : <fa.FaBell />}
+          </button>
+          <div className="tableModalContentModal">
+            <form onSubmit={onSubmit} className="tableModalFormModal">
+              <div className="tableModalFormDivModal">
+                <input
+                  type="text"
+                  id="modalTitleModal"
+                  placeholder="موضوع"
+                  onChange={onChange}
+                  name="title"
+                />
+                <textarea
+                  type="text"
+                  id="modalDescModal"
+                  placeholder=" یادداشت"
+                  onChange={onChange}
+                  name="desc"
+                />
               </div>
-            </div>
-          </div>
-      </div> */}
-
-      <div className="tableModalParentModal" >
-              <div className="tableModalContainerModal">
-                  <div className="tableModalHeaderModal">
-                    <h1 className="tableModalHeadingModal">یادداشت</h1>
-                  </div>
-                  <button className="closeBtnModal" onClick={()=>setIsOpen(false)}>
-                    <i className="fa fa-times" aria-hidden="true"></i>
-                  </button>
-                  <div className="tableModalContentModal">
-                    <form onSubmit={onSubmit} className='tableModalFormModal'>
-                      <div className='tableModalFormDivModal'>
-                      <input type="text" id="modalTitleModal" placeholder='موضوع' onChange={onChange}/>
-                      <textarea type="text" id="modalDescModal" placeholder=' یادداشت' onChange={onChange} />
-                      </div>
-                      <div className="submitBTNDivModal">
-                        <button className='tableModalSumitBtnModal'>ارسال</button>
-                      </div>
-                    </form>
-                  </div>
+              <div className="submitBTNDivModal">
+                <button className="tableModalSumitBtnModal">ارسال</button>
               </div>
+            </form>
           </div>
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;
