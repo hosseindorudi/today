@@ -30,7 +30,6 @@ const RepairsPerformed = () => {
     color: "#000000",
     periority: 1,
     desc: "",
-    fee: 0,
   });
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -132,7 +131,7 @@ const RepairsPerformed = () => {
                   t("/Definition/RepairsPerformed/Read"),
                   t("RepairsPerformed_errorMSG")
                 ).map((input) => (
-                  <FormInput performedGroup={performedGroup}  isRepair={true} key={input.id} {...input} onChange={onChangeHandler} />
+                  <FormInput performedGroup={model}  isRepair={true} key={input.id} {...input} onChange={onChangeHandler} />
                 ))}
                 <Button  disabled={loading} type="submit">
                   {t("submit")}
