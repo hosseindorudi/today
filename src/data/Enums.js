@@ -11,7 +11,7 @@ const enums = {
   //Module_Warehouse : 700,
   //Module_Treasury : 800,
   Module_Business : 900,
-  //Module_SupplyChain : 1000,
+  Module_SupplyChain : 1000,
   //Module_Store : 1100,
   Module_Distribution : 1200,
   Module_AfterSales : 1300,
@@ -110,11 +110,11 @@ const enums = {
   AfterSales_New_PostToAgent_Log_r : 1300227,
   AfterSales_New_PostToAgent_Post_w : 1300228,
 
-  AfterSales_New_PostToCustomer : 1300210,
+  AfterSales_New_PostToCustomer : 1300230,
   AfterSales_New_PostToCustomer_Read_r : 1300232,
   AfterSales_New_PostToCustomer_Export_r : 1300236,
-  AfterSales_New_PostToCustomer_Log_r : 1300217,
-  AfterSales_New_PostToCustomer_Post_w : 1300218,
+  AfterSales_New_PostToCustomer_Log_r : 1300237,
+  AfterSales_New_PostToCustomer_Post_w : 1300238,
 
   AfterSales_New_Archive : 1300240,
   AfterSales_New_Archive_Read_r : 1300242,
@@ -162,7 +162,6 @@ const enums = {
   Operator_Event : 104100,
   Operator_Event_Read_r : 104102,
   Operator_Event_Export_r : 104106,
-  Operator_Event_Log_r : 104107,
 
 
   //tbl_Opr_FailedHistory
@@ -191,21 +190,21 @@ const enums = {
 
 
   //tbl_Opr_OnlineOperator
-  Operator_OnlineOperator : 109100,
-  Operator_OnlineOperator_Read_r : 109102,
-  Operator_OnlineOperator_Export_r : 109106,
-  Operator_OnlineOperator_Log_r : 109107,
+  Operator_OnlineOperator : 110100,
+  Operator_OnlineOperator_Read_r : 110102,
+  Operator_OnlineOperator_Export_r : 110106,
+  Operator_OnlineOperator_Log_r : 110107,
 
 
   //tbl_Opr_Operator
-  Operator_Operator : 110100,
-  Operator_Operator_Create_w : 110101,
-  Operator_Operator_Read_r : 110102,
-  Operator_Operator_Update_w : 110103,
-  Operator_Operator_Delete_w : 110104,
-  Operator_Operator_Import_w : 110105,
-  Operator_Operator_Export_r : 110106,
-  Operator_Operator_Log_r : 110107,
+  Operator_Operator : 111100,
+  Operator_Operator_Create_w : 111101,
+  Operator_Operator_Read_r : 111102,
+  Operator_Operator_Update_w : 111103,
+  Operator_Operator_Delete_w : 111104,
+  Operator_Operator_Import_w : 111105,
+  Operator_Operator_Export_r : 111106,
+  Operator_Operator_Log_r : 111107,
 
 
 
@@ -255,7 +254,6 @@ const enums = {
   Agent_Event : 206100,
   Agent_Event_Read_r : 206102,
   Agent_Event_Export_r : 206106,
-  Agent_Event_Log_r : 206107,
 
 
   //tbl_Agn_FailedHistory
@@ -284,10 +282,10 @@ const enums = {
 
 
   //tbl_Agn_OnlineAgent
-  Agent_OnlineAgent : 211100,
-  Agent_OnlineAgent_Read_r : 211102,
-  Agent_OnlineAgent_Export_r : 211106,
-  Agent_OnlineAgent_Log_r : 211107,
+  Agent_OnlineAgent : 212100,
+  Agent_OnlineAgent_Read_r : 212102,
+  Agent_OnlineAgent_Export_r : 212106,
+  Agent_OnlineAgent_Log_r : 212107,
 
 
 
@@ -348,7 +346,6 @@ const enums = {
   Customer_Event : 308100,
   Customer_Event_Read_r : 308102,
   Customer_Event_Export_r : 308106,
-  Customer_Event_Log_r : 308107,
 
 
   //tbl_Cst_FailedHistory
@@ -377,10 +374,10 @@ const enums = {
 
 
   //tbl_Cst_OnlineCustomer
-  Customer_OnlineCustomer : 313100,
-  Customer_OnlineCustomer_Read_r : 313102,
-  Customer_OnlineCustomer_Export_r : 313106,
-  Customer_OnlineCustomer_Log_r : 313107,
+  Customer_OnlineCustomer : 314100,
+  Customer_OnlineCustomer_Read_r : 314102,
+  Customer_OnlineCustomer_Export_r : 314106,
+  Customer_OnlineCustomer_Log_r : 314107,
 
 
 
@@ -436,301 +433,312 @@ const enums = {
   Definition_Area_Log_r : 405107,
 
 
+  //tbl_Dfn_CancellationOfAdmission
+  Definition_CancellationOfAdmission : 406100,
+  Definition_CancellationOfAdmission_Create_w : 406101,
+  Definition_CancellationOfAdmission_Read_r : 406102,
+  Definition_CancellationOfAdmission_Update_w : 406103,
+  Definition_CancellationOfAdmission_Delete_w : 406104,
+  Definition_CancellationOfAdmission_Import_w : 406105,
+  Definition_CancellationOfAdmission_Export_r : 406106,
+  Definition_CancellationOfAdmission_Log_r : 406107,
+
+
   //tbl_Dfn_CancellationOfWarranty
-  Definition_CancellationOfWarranty : 406100,
-  Definition_CancellationOfWarranty_Create_w : 406101,
-  Definition_CancellationOfWarranty_Read_r : 406102,
-  Definition_CancellationOfWarranty_Update_w : 406103,
-  Definition_CancellationOfWarranty_Delete_w : 406104,
-  Definition_CancellationOfWarranty_Import_w : 406105,
-  Definition_CancellationOfWarranty_Export_r : 406106,
-  Definition_CancellationOfWarranty_Log_r : 406107,
+  Definition_CancellationOfWarranty : 407100,
+  Definition_CancellationOfWarranty_Create_w : 407101,
+  Definition_CancellationOfWarranty_Read_r : 407102,
+  Definition_CancellationOfWarranty_Update_w : 407103,
+  Definition_CancellationOfWarranty_Delete_w : 407104,
+  Definition_CancellationOfWarranty_Import_w : 407105,
+  Definition_CancellationOfWarranty_Export_r : 407106,
+  Definition_CancellationOfWarranty_Log_r : 407107,
 
 
   //tbl_Dfn_City
-  Definition_City : 407100,
-  Definition_City_Create_w : 407101,
-  Definition_City_Read_r : 407102,
-  Definition_City_Update_w : 407103,
-  Definition_City_Delete_w : 407104,
-  Definition_City_Import_w : 407105,
-  Definition_City_Export_r : 407106,
-  Definition_City_Log_r : 407107,
+  Definition_City : 408100,
+  Definition_City_Create_w : 408101,
+  Definition_City_Read_r : 408102,
+  Definition_City_Update_w : 408103,
+  Definition_City_Delete_w : 408104,
+  Definition_City_Import_w : 408105,
+  Definition_City_Export_r : 408106,
+  Definition_City_Log_r : 408107,
 
 
   //tbl_Dfn_Color
-  Definition_Color : 408100,
-  Definition_Color_Create_w : 408101,
-  Definition_Color_Read_r : 408102,
-  Definition_Color_Update_w : 408103,
-  Definition_Color_Delete_w : 408104,
-  Definition_Color_Import_w : 408105,
-  Definition_Color_Export_r : 408106,
-  Definition_Color_Log_r : 408107,
+  Definition_Color : 409100,
+  Definition_Color_Create_w : 409101,
+  Definition_Color_Read_r : 409102,
+  Definition_Color_Update_w : 409103,
+  Definition_Color_Delete_w : 409104,
+  Definition_Color_Import_w : 409105,
+  Definition_Color_Export_r : 409106,
+  Definition_Color_Log_r : 409107,
 
 
   //tbl_Dfn_Company
-  Definition_Company : 409100,
-  Definition_Company_Create_w : 409101,
-  Definition_Company_Read_r : 409102,
-  Definition_Company_Update_w : 409103,
-  Definition_Company_Delete_w : 409104,
-  Definition_Company_Import_w : 409105,
-  Definition_Company_Export_r : 409106,
-  Definition_Company_Log_r : 409107,
+  Definition_Company : 410100,
+  Definition_Company_Create_w : 410101,
+  Definition_Company_Read_r : 410102,
+  Definition_Company_Update_w : 410103,
+  Definition_Company_Delete_w : 410104,
+  Definition_Company_Import_w : 410105,
+  Definition_Company_Export_r : 410106,
+  Definition_Company_Log_r : 410107,
 
 
   //tbl_Dfn_Country
-  Definition_Country : 410100,
-  Definition_Country_Create_w : 410101,
-  Definition_Country_Read_r : 410102,
-  Definition_Country_Update_w : 410103,
-  Definition_Country_Delete_w : 410104,
-  Definition_Country_Import_w : 410105,
-  Definition_Country_Export_r : 410106,
-  Definition_Country_Log_r : 410107,
+  Definition_Country : 411100,
+  Definition_Country_Create_w : 411101,
+  Definition_Country_Read_r : 411102,
+  Definition_Country_Update_w : 411103,
+  Definition_Country_Delete_w : 411104,
+  Definition_Country_Import_w : 411105,
+  Definition_Country_Export_r : 411106,
+  Definition_Country_Log_r : 411107,
 
 
   //tbl_Dfn_Currency
-  Definition_Currency : 411100,
-  Definition_Currency_Create_w : 411101,
-  Definition_Currency_Read_r : 411102,
-  Definition_Currency_Update_w : 411103,
-  Definition_Currency_Delete_w : 411104,
-  Definition_Currency_Import_w : 411105,
-  Definition_Currency_Export_r : 411106,
-  Definition_Currency_Log_r : 411107,
+  Definition_Currency : 412100,
+  Definition_Currency_Create_w : 412101,
+  Definition_Currency_Read_r : 412102,
+  Definition_Currency_Update_w : 412103,
+  Definition_Currency_Delete_w : 412104,
+  Definition_Currency_Import_w : 412105,
+  Definition_Currency_Export_r : 412106,
+  Definition_Currency_Log_r : 412107,
 
 
   //tbl_Dfn_Defect
-  Definition_Defect : 412100,
-  Definition_Defect_Create_w : 412101,
-  Definition_Defect_Read_r : 412102,
-  Definition_Defect_Update_w : 412103,
-  Definition_Defect_Delete_w : 412104,
-  Definition_Defect_Import_w : 412105,
-  Definition_Defect_Export_r : 412106,
-  Definition_Defect_Log_r : 412107,
+  Definition_Defect : 413100,
+  Definition_Defect_Create_w : 413101,
+  Definition_Defect_Read_r : 413102,
+  Definition_Defect_Update_w : 413103,
+  Definition_Defect_Delete_w : 413104,
+  Definition_Defect_Import_w : 413105,
+  Definition_Defect_Export_r : 413106,
+  Definition_Defect_Log_r : 413107,
 
 
   //tbl_Dfn_Device
-  Definition_Device : 413100,
-  Definition_Device_Create_w : 413101,
-  Definition_Device_Read_r : 413102,
-  Definition_Device_Update_w : 413103,
-  Definition_Device_Delete_w : 413104,
-  Definition_Device_Import_w : 413105,
-  Definition_Device_Export_r : 413106,
-  Definition_Device_Log_r : 413107,
+  Definition_Device : 414100,
+  Definition_Device_Create_w : 414101,
+  Definition_Device_Read_r : 414102,
+  Definition_Device_Update_w : 414103,
+  Definition_Device_Delete_w : 414104,
+  Definition_Device_Import_w : 414105,
+  Definition_Device_Export_r : 414106,
+  Definition_Device_Log_r : 414107,
 
 
   //tbl_Dfn_ImportingCompany
-  Definition_ImportingCompany : 414100,
-  Definition_ImportingCompany_Create_w : 414101,
-  Definition_ImportingCompany_Read_r : 414102,
-  Definition_ImportingCompany_Update_w : 414103,
-  Definition_ImportingCompany_Delete_w : 414104,
-  Definition_ImportingCompany_Import_w : 414105,
-  Definition_ImportingCompany_Export_r : 414106,
-  Definition_ImportingCompany_Log_r : 414107,
+  Definition_ImportingCompany : 415100,
+  Definition_ImportingCompany_Create_w : 415101,
+  Definition_ImportingCompany_Read_r : 415102,
+  Definition_ImportingCompany_Update_w : 415103,
+  Definition_ImportingCompany_Delete_w : 415104,
+  Definition_ImportingCompany_Import_w : 415105,
+  Definition_ImportingCompany_Export_r : 415106,
+  Definition_ImportingCompany_Log_r : 415107,
 
 
   //tbl_Dfn_InputQualityControl
-  Definition_InputQualityControl : 415100,
-  Definition_InputQualityControl_Create_w : 415101,
-  Definition_InputQualityControl_Read_r : 415102,
-  Definition_InputQualityControl_Update_w : 415103,
-  Definition_InputQualityControl_Delete_w : 415104,
-  Definition_InputQualityControl_Import_w : 415105,
-  Definition_InputQualityControl_Export_r : 415106,
-  Definition_InputQualityControl_Log_r : 415107,
+  Definition_InputQualityControl : 416100,
+  Definition_InputQualityControl_Create_w : 416101,
+  Definition_InputQualityControl_Read_r : 416102,
+  Definition_InputQualityControl_Update_w : 416103,
+  Definition_InputQualityControl_Delete_w : 416104,
+  Definition_InputQualityControl_Import_w : 416105,
+  Definition_InputQualityControl_Export_r : 416106,
+  Definition_InputQualityControl_Log_r : 416107,
 
 
   //tbl_Dfn_Model
-  Definition_Model : 417100,
-  Definition_Model_Create_w : 417101,
-  Definition_Model_Read_r : 417102,
-  Definition_Model_Update_w : 417103,
-  Definition_Model_Delete_w : 417104,
-  Definition_Model_Import_w : 417105,
-  Definition_Model_Export_r : 417106,
-  Definition_Model_Log_r : 417107,
+  Definition_Model : 418100,
+  Definition_Model_Create_w : 418101,
+  Definition_Model_Read_r : 418102,
+  Definition_Model_Update_w : 418103,
+  Definition_Model_Delete_w : 418104,
+  Definition_Model_Import_w : 418105,
+  Definition_Model_Export_r : 418106,
+  Definition_Model_Log_r : 418107,
 
 
   //tbl_Dfn_OrganizationalRole
-  Definition_OrganizationalRole : 418100,
-  Definition_OrganizationalRole_Create_w : 418101,
-  Definition_OrganizationalRole_Read_r : 418102,
-  Definition_OrganizationalRole_Update_w : 418103,
-  Definition_OrganizationalRole_Delete_w : 418104,
-  Definition_OrganizationalRole_Import_w : 418105,
-  Definition_OrganizationalRole_Export_r : 418106,
-  Definition_OrganizationalRole_Log_r : 418107,
+  Definition_OrganizationalRole : 419100,
+  Definition_OrganizationalRole_Create_w : 419101,
+  Definition_OrganizationalRole_Read_r : 419102,
+  Definition_OrganizationalRole_Update_w : 419103,
+  Definition_OrganizationalRole_Delete_w : 419104,
+  Definition_OrganizationalRole_Import_w : 419105,
+  Definition_OrganizationalRole_Export_r : 419106,
+  Definition_OrganizationalRole_Log_r : 419107,
 
 
   //tbl_Dfn_OutputQualityControl
-  Definition_OutputQualityControl : 419100,
-  Definition_OutputQualityControl_Create_w : 419101,
-  Definition_OutputQualityControl_Read_r : 419102,
-  Definition_OutputQualityControl_Update_w : 419103,
-  Definition_OutputQualityControl_Delete_w : 419104,
-  Definition_OutputQualityControl_Import_w : 419105,
-  Definition_OutputQualityControl_Export_r : 419106,
-  Definition_OutputQualityControl_Log_r : 419107,
+  Definition_OutputQualityControl : 420100,
+  Definition_OutputQualityControl_Create_w : 420101,
+  Definition_OutputQualityControl_Read_r : 420102,
+  Definition_OutputQualityControl_Update_w : 420103,
+  Definition_OutputQualityControl_Delete_w : 420104,
+  Definition_OutputQualityControl_Import_w : 420105,
+  Definition_OutputQualityControl_Export_r : 420106,
+  Definition_OutputQualityControl_Log_r : 420107,
 
 
   //tbl_Dfn_Part
-  Definition_Part : 420100,
-  Definition_Part_Create_w : 420101,
-  Definition_Part_Read_r : 420102,
-  Definition_Part_Update_w : 420103,
-  Definition_Part_Delete_w : 420104,
-  Definition_Part_Import_w : 420105,
-  Definition_Part_Export_r : 420106,
-  Definition_Part_Log_r : 420107,
+  Definition_Part : 421100,
+  Definition_Part_Create_w : 421101,
+  Definition_Part_Read_r : 421102,
+  Definition_Part_Update_w : 421103,
+  Definition_Part_Delete_w : 421104,
+  Definition_Part_Import_w : 421105,
+  Definition_Part_Export_r : 421106,
+  Definition_Part_Log_r : 421107,
 
 
   //tbl_Dfn_PartGroup
-  Definition_PartGroup : 421100,
-  Definition_PartGroup_Create_w : 421101,
-  Definition_PartGroup_Read_r : 421102,
-  Definition_PartGroup_Update_w : 421103,
-  Definition_PartGroup_Delete_w : 421104,
-  Definition_PartGroup_Import_w : 421105,
-  Definition_PartGroup_Export_r : 421106,
-  Definition_PartGroup_Log_r : 421107,
+  Definition_PartGroup : 422100,
+  Definition_PartGroup_Create_w : 422101,
+  Definition_PartGroup_Read_r : 422102,
+  Definition_PartGroup_Update_w : 422103,
+  Definition_PartGroup_Delete_w : 422104,
+  Definition_PartGroup_Import_w : 422105,
+  Definition_PartGroup_Export_r : 422106,
+  Definition_PartGroup_Log_r : 422107,
 
 
   //tbl_Dfn_Province
-  Definition_Province : 422100,
-  Definition_Province_Create_w : 422101,
-  Definition_Province_Read_r : 422102,
-  Definition_Province_Update_w : 422103,
-  Definition_Province_Delete_w : 422104,
-  Definition_Province_Import_w : 422105,
-  Definition_Province_Export_r : 422106,
-  Definition_Province_Log_r : 422107,
+  Definition_Province : 423100,
+  Definition_Province_Create_w : 423101,
+  Definition_Province_Read_r : 423102,
+  Definition_Province_Update_w : 423103,
+  Definition_Province_Delete_w : 423104,
+  Definition_Province_Import_w : 423105,
+  Definition_Province_Export_r : 423106,
+  Definition_Province_Log_r : 423107,
 
 
   //tbl_Dfn_Quality
-  Definition_Quality : 423100,
-  Definition_Quality_Create_w : 423101,
-  Definition_Quality_Read_r : 423102,
-  Definition_Quality_Update_w : 423103,
-  Definition_Quality_Delete_w : 423104,
-  Definition_Quality_Import_w : 423105,
-  Definition_Quality_Export_r : 423106,
-  Definition_Quality_Log_r : 423107,
+  Definition_Quality : 424100,
+  Definition_Quality_Create_w : 424101,
+  Definition_Quality_Read_r : 424102,
+  Definition_Quality_Update_w : 424103,
+  Definition_Quality_Delete_w : 424104,
+  Definition_Quality_Import_w : 424105,
+  Definition_Quality_Export_r : 424106,
+  Definition_Quality_Log_r : 424107,
 
 
   //tbl_Dfn_QuestionnaireType
-  Definition_QuestionnaireType : 424100,
-  Definition_QuestionnaireType_Create_w : 424101,
-  Definition_QuestionnaireType_Read_r : 424102,
-  Definition_QuestionnaireType_Update_w : 424103,
-  Definition_QuestionnaireType_Delete_w : 424104,
-  Definition_QuestionnaireType_Import_w : 424105,
-  Definition_QuestionnaireType_Export_r : 424106,
-  Definition_QuestionnaireType_Log_r : 424107,
+  Definition_QuestionnaireType : 425100,
+  Definition_QuestionnaireType_Create_w : 425101,
+  Definition_QuestionnaireType_Read_r : 425102,
+  Definition_QuestionnaireType_Update_w : 425103,
+  Definition_QuestionnaireType_Delete_w : 425104,
+  Definition_QuestionnaireType_Import_w : 425105,
+  Definition_QuestionnaireType_Export_r : 425106,
+  Definition_QuestionnaireType_Log_r : 425107,
 
 
   //tbl_Dfn_RepairsPerformed
-  Definition_RepairsPerformed : 425100,
-  Definition_RepairsPerformed_Create_w : 425101,
-  Definition_RepairsPerformed_Read_r : 425102,
-  Definition_RepairsPerformed_Update_w : 425103,
-  Definition_RepairsPerformed_Delete_w : 425104,
-  Definition_RepairsPerformed_Import_w : 425105,
-  Definition_RepairsPerformed_Export_r : 425106,
-  Definition_RepairsPerformed_Log_r : 425107,
+  Definition_RepairsPerformed : 426100,
+  Definition_RepairsPerformed_Create_w : 426101,
+  Definition_RepairsPerformed_Read_r : 426102,
+  Definition_RepairsPerformed_Update_w : 426103,
+  Definition_RepairsPerformed_Delete_w : 426104,
+  Definition_RepairsPerformed_Import_w : 426105,
+  Definition_RepairsPerformed_Export_r : 426106,
+  Definition_RepairsPerformed_Log_r : 426107,
 
 
   //tbl_Dfn_ReplacementType
-  Definition_ReplacementType : 427100,
-  Definition_ReplacementType_Create_w : 427101,
-  Definition_ReplacementType_Read_r : 427102,
-  Definition_ReplacementType_Update_w : 427103,
-  Definition_ReplacementType_Delete_w : 427104,
-  Definition_ReplacementType_Import_w : 427105,
-  Definition_ReplacementType_Export_r : 427106,
-  Definition_ReplacementType_Log_r : 427107,
+  Definition_ReplacementType : 428100,
+  Definition_ReplacementType_Create_w : 428101,
+  Definition_ReplacementType_Read_r : 428102,
+  Definition_ReplacementType_Update_w : 428103,
+  Definition_ReplacementType_Delete_w : 428104,
+  Definition_ReplacementType_Import_w : 428105,
+  Definition_ReplacementType_Export_r : 428106,
+  Definition_ReplacementType_Log_r : 428107,
 
 
   //tbl_Dfn_Section
-  Definition_Section : 428100,
-  Definition_Section_Create_w : 428101,
-  Definition_Section_Read_r : 428102,
-  Definition_Section_Update_w : 428103,
-  Definition_Section_Delete_w : 428104,
-  Definition_Section_Import_w : 428105,
-  Definition_Section_Export_r : 428106,
-  Definition_Section_Log_r : 428107,
+  Definition_Section : 429100,
+  Definition_Section_Create_w : 429101,
+  Definition_Section_Read_r : 429102,
+  Definition_Section_Update_w : 429103,
+  Definition_Section_Delete_w : 429104,
+  Definition_Section_Import_w : 429105,
+  Definition_Section_Export_r : 429106,
+  Definition_Section_Log_r : 429107,
 
 
   //tbl_Dfn_SendType
-  Definition_SendType : 429100,
-  Definition_SendType_Create_w : 429101,
-  Definition_SendType_Read_r : 429102,
-  Definition_SendType_Update_w : 429103,
-  Definition_SendType_Delete_w : 429104,
-  Definition_SendType_Import_w : 429105,
-  Definition_SendType_Export_r : 429106,
-  Definition_SendType_Log_r : 429107,
+  Definition_SendType : 430100,
+  Definition_SendType_Create_w : 430101,
+  Definition_SendType_Read_r : 430102,
+  Definition_SendType_Update_w : 430103,
+  Definition_SendType_Delete_w : 430104,
+  Definition_SendType_Import_w : 430105,
+  Definition_SendType_Export_r : 430106,
+  Definition_SendType_Log_r : 430107,
 
 
   //tbl_Dfn_StatusDeviceEnd
-  Definition_StatusDeviceEnd : 430100,
-  Definition_StatusDeviceEnd_Create_w : 430101,
-  Definition_StatusDeviceEnd_Read_r : 430102,
-  Definition_StatusDeviceEnd_Update_w : 430103,
-  Definition_StatusDeviceEnd_Delete_w : 430104,
-  Definition_StatusDeviceEnd_Import_w : 430105,
-  Definition_StatusDeviceEnd_Export_r : 430106,
-  Definition_StatusDeviceEnd_Log_r : 430107,
+  Definition_StatusDeviceEnd : 431100,
+  Definition_StatusDeviceEnd_Create_w : 431101,
+  Definition_StatusDeviceEnd_Read_r : 431102,
+  Definition_StatusDeviceEnd_Update_w : 431103,
+  Definition_StatusDeviceEnd_Delete_w : 431104,
+  Definition_StatusDeviceEnd_Import_w : 431105,
+  Definition_StatusDeviceEnd_Export_r : 431106,
+  Definition_StatusDeviceEnd_Log_r : 431107,
 
 
   //tbl_Dfn_StatusDeviceProgress
-  Definition_StatusDeviceProgress : 431100,
-  Definition_StatusDeviceProgress_Create_w : 431101,
-  Definition_StatusDeviceProgress_Read_r : 431102,
-  Definition_StatusDeviceProgress_Update_w : 431103,
-  Definition_StatusDeviceProgress_Delete_w : 431104,
-  Definition_StatusDeviceProgress_Import_w : 431105,
-  Definition_StatusDeviceProgress_Export_r : 431106,
-  Definition_StatusDeviceProgress_Log_r : 431107,
+  Definition_StatusDeviceProgress : 432100,
+  Definition_StatusDeviceProgress_Create_w : 432101,
+  Definition_StatusDeviceProgress_Read_r : 432102,
+  Definition_StatusDeviceProgress_Update_w : 432103,
+  Definition_StatusDeviceProgress_Delete_w : 432104,
+  Definition_StatusDeviceProgress_Import_w : 432105,
+  Definition_StatusDeviceProgress_Export_r : 432106,
+  Definition_StatusDeviceProgress_Log_r : 432107,
 
 
   //tbl_Dfn_StatusDeviceStart
-  Definition_StatusDeviceStart : 432100,
-  Definition_StatusDeviceStart_Create_w : 432101,
-  Definition_StatusDeviceStart_Read_r : 432102,
-  Definition_StatusDeviceStart_Update_w : 432103,
-  Definition_StatusDeviceStart_Delete_w : 432104,
-  Definition_StatusDeviceStart_Import_w : 432105,
-  Definition_StatusDeviceStart_Export_r : 432106,
-  Definition_StatusDeviceStart_Log_r : 432107,
+  Definition_StatusDeviceStart : 433100,
+  Definition_StatusDeviceStart_Create_w : 433101,
+  Definition_StatusDeviceStart_Read_r : 433102,
+  Definition_StatusDeviceStart_Update_w : 433103,
+  Definition_StatusDeviceStart_Delete_w : 433104,
+  Definition_StatusDeviceStart_Import_w : 433105,
+  Definition_StatusDeviceStart_Export_r : 433106,
+  Definition_StatusDeviceStart_Log_r : 433107,
 
 
   //tbl_Dfn_VehicleType
-  Definition_VehicleType : 433100,
-  Definition_VehicleType_Create_w : 433101,
-  Definition_VehicleType_Read_r : 433102,
-  Definition_VehicleType_Update_w : 433103,
-  Definition_VehicleType_Delete_w : 433104,
-  Definition_VehicleType_Import_w : 433105,
-  Definition_VehicleType_Export_r : 433106,
-  Definition_VehicleType_Log_r : 433107,
+  Definition_VehicleType : 434100,
+  Definition_VehicleType_Create_w : 434101,
+  Definition_VehicleType_Read_r : 434102,
+  Definition_VehicleType_Update_w : 434103,
+  Definition_VehicleType_Delete_w : 434104,
+  Definition_VehicleType_Import_w : 434105,
+  Definition_VehicleType_Export_r : 434106,
+  Definition_VehicleType_Log_r : 434107,
 
 
   //tbl_Dfn_WarrantyType
-  Definition_WarrantyType : 434100,
-  Definition_WarrantyType_Create_w : 434101,
-  Definition_WarrantyType_Read_r : 434102,
-  Definition_WarrantyType_Update_w : 434103,
-  Definition_WarrantyType_Delete_w : 434104,
-  Definition_WarrantyType_Import_w : 434105,
-  Definition_WarrantyType_Export_r : 434106,
-  Definition_WarrantyType_Log_r : 434107,
+  Definition_WarrantyType : 435100,
+  Definition_WarrantyType_Create_w : 435101,
+  Definition_WarrantyType_Read_r : 435102,
+  Definition_WarrantyType_Update_w : 435103,
+  Definition_WarrantyType_Delete_w : 435104,
+  Definition_WarrantyType_Import_w : 435105,
+  Definition_WarrantyType_Export_r : 435106,
+  Definition_WarrantyType_Log_r : 435107,
 
 
 
@@ -762,6 +770,15 @@ const enums = {
   Business_Synchronization_Import_w : 902105,
   Business_Synchronization_Export_r : 902106,
   Business_Synchronization_Log_r : 902107,
+
+
+
+  //SupplyChain - 1000
+  ////////////////////////////////////////////////////////////
+
+  //Dashboard
+  SupplyChain_Dashboard_Index : 1000100,
+  SupplyChain_Dashboard_Index_Read_r : 1000101,
 
 
 
@@ -801,6 +818,14 @@ const enums = {
   AfterSales_Dashboard_Index_Read_r : 1300101,
 
 
+  //tbl_Afs_InitialAdmission
+  AfterSales_InitialAdmission : 1306100,
+  AfterSales_InitialAdmission_Read_r : 1306102,
+  AfterSales_InitialAdmission_Delete_w : 1306104,
+  AfterSales_InitialAdmission_Export_r : 1306106,
+  AfterSales_InitialAdmission_Log_r : 1306107,
+
+
 
   //Survey - 1600
   ////////////////////////////////////////////////////////////
@@ -830,15 +855,6 @@ const enums = {
   Survey_QuestionPage_Log_r : 1606107,
 
 
-  //tbl_Srv_QuestionPageOperator
-  Survey_QuestionPageOperator : 1607100,
-  Survey_QuestionPageOperator_Create_w : 1607101,
-  Survey_QuestionPageOperator_Read_r : 1607102,
-  Survey_QuestionPageOperator_Update_w : 1607103,
-  Survey_QuestionPageOperator_Delete_w : 1607104,
-  Survey_QuestionPageOperator_Import_w : 1607105,
-  Survey_QuestionPageOperator_Export_r : 1607106,
-  Survey_QuestionPageOperator_Log_r : 1607107,
 
 };
 module.exports = {

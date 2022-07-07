@@ -1,42 +1,27 @@
+import "../../../../../assets/css/table.css";
 import React, { useRef, useState } from "react";
+import TableModal from "./TableModal/TableModal";
 import { toast } from "react-toastify";
 import { t } from "i18next";
-import TableModal from "./TableModal/TableModal";
-import {
-  readOpt,
-  readpaging,
-  getoneRecord,
-  setUnselectedColumn,
-  deleteRecordOpt,
-  exportFile,
-  logTable,
-  setToFavorit,
-  accessList,
-  sampleFileOperator,
-  checkFileOperator,
-  importFileOperator,
-  operatorExportId,
-  operatorChangePassword,
-} from "../../../../../services/operatorService";
 import { enums } from "../../../../../data/Enums";
-import OperatorForm from "../OperatorForm";
 import CustomTable from "../../../../../Components/Table/Table/CustomTable";
-import "../../../../../assets/css/table.css";
+import useWindowSize from "../../../../../customHooks/useWindowSize";
+import { checkFileOperator, deleteRecordOpt, exportFile, getoneRecord, importFileOperator, logTable, operatorChangePassword, operatorExportId, readOpt, readpaging, sampleFileOperator, setToFavorit, setUnselectedColumn } from "../../../../../services/operatorService";
+import OperatorForm from "../OperatorForm";
 const Operator = () => {
-  const childRef = useRef();
-  const filteredColumns = [
-    "Language_EId",
-    "Id",
-    "Group_Id",
-    "Password",
-    "Registrar",
-  ];
+  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType","Group_Id","Language_EId"];
   const [tableModalOpen, setTableModalOpen] = useState(false);
-  const [rowValus, setRowValues] = useState({});
+  const [rowValues, setRowValues] = useState({});
+  const childRef = useRef();
+  const [mobileModal, setMobileModal] = useState(false);
+  const [mobileModalButtons, setMobileModalButtons] = useState(false);
+  const [mobileModalColumns, setMobileModalColumns] = useState(false);
+  const widthOFScreen = useWindowSize().width;
+
   const addObject = {
     Component: OperatorForm,
-    path: "/operatorcreate",
-    title: "routes.operatorForm",
+    path: "/Operator/Operator/Create",
+    title: "/Operator/Operator/Create",
     access: enums.Operator_Operator_Create_w,
   };
   const setUpdate = (res) => {
@@ -57,21 +42,22 @@ const Operator = () => {
     window.open("https://www.google.com");
   };
 
+
   return (
     <>
       {tableModalOpen && (
         <TableModal
-          rowValus={rowValus}
+          rowValues={rowValues}
           onHide={() => setTableModalOpen(false)}
           tableModalShow={tableModalOpen}
           updated={updated}
         />
       )}
+    
+
       <CustomTable
         ref={childRef}
         ReadApi={readOpt}
-        getPermissionURL={""}
-        setPermissionURL={""}
         deleteApi={deleteRecordOpt}
         unSelectedAPI={setUnselectedColumn}
         sampleUrl={sampleFileOperator}
@@ -87,7 +73,7 @@ const Operator = () => {
         logAccess={enums.Operator_Operator_Log_r}
         readPagingApi={readpaging}
         accessListAccess={enums.Operator_AccessList_Read_r}
-        accessListApi={accessList}
+        accessListApi={''}
         favouriteApi={setToFavorit}
         handleClickHelp={handleClickHelp}
         addFormAccess={enums.Operator_Operator_Create_w}
@@ -95,9 +81,19 @@ const Operator = () => {
         deleteAccess={enums.Operator_Operator_Delete_w}
         editAccess={enums.Operator_Operator_Update_w}
         permissionsAccess={""}
+        getPermissionURL={""}
+        setPermissionURL={""}
         changePasswordAccess={enums.Operator_Operator_ChangePassword_w}
         getOneRecord={getoneRecord}
         setUpdate={setUpdate}
+        mobileModal={mobileModal}
+        setMobileModal={setMobileModal}
+        widthOFScreen={widthOFScreen}
+        mobileModalButtons={mobileModalButtons}
+        setMobileModalButtons={setMobileModalButtons}
+        setMobileModalColumns={setMobileModalColumns}
+        mobileModalColumns={mobileModalColumns}
+        policyBrowserAccess={""}
       />
     </>
   );

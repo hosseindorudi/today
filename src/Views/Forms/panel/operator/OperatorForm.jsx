@@ -1,282 +1,286 @@
-import React, {useState, useContext, useEffect} from 'react'
-import TextField from '@mui/material/TextField';
-import AdapterJalali from '@date-io/date-fns-jalali';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { Form } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import { setDatePickerDate } from '../../../../validation/functions';
-import AppContext from '../../../../contexts/AppContext';
-import useAxios from '../../../../customHooks/useAxios';
-import useRequest from '../../../../customHooks/useRequest';
-import { groupTitle, createOpt } from '../../../../services/operatorService';
-import BackDrop from '../../../../Components/backDrop/BackDrop';
-import { enums } from '../../../../data/Enums'
-import { TabContext } from '../../../../contexts/TabContextProvider';
-import OperatorForm from './List/Operator'
-import { phoneNumberValidation } from '../../../../validation/validation';
-import './operator.css'
-const Operator = () => {
-    const currentLang = useContext(AppContext);
-    const [operatorDateExp, setOperatorDateExp] = useState(new Date());
-    const {t} = useTranslation();
-    const abortController = new AbortController();
-    const [response, loading, fetchData, setResponse] = useAxios();
-    const request = useRequest()
-    const [groupTitles, setGroupTitles] = useState([])
-    const [groupTitleId, setGroupTitleId] = useState()
-    const [name, setName] = useState("")
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("")
-    const [phone, setPhone] = useState("")
-    const [selectGroup, setSelectGroup] =useState("")
-    const [isActiv, setIsActive] = useState(true)
-    // const [titleG, setTitleG] = useState("")
-    const [nameVal, setNameVal] = useState(true)
-    const [passVal, setPassVal] = useState(true)
-    const [passConfirmVal, setPassConfirmVal] = useState(true)
-    const [phoneVal, setPhoneVal] = useState(true)
-    const tabContext = useContext(TabContext);
-    // const namepattern = /^[پچجحخهعغفقثصضشسیبلاتنمکگوئدذرزطظژؤإأءًٌٍَُِّ\s]{4,12}/
-    const [type, setType] = useState("")
+import React, { useState, useContext, useEffect } from "react";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import gregorian from "react-date-object/calendars/gregorian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import gregorian_en from "react-date-object/locales/gregorian_en";
+import { Button, Form } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+import { createOpt, groupTitle } from "../../../../services/operatorService";
+import {
+  createSelectOptions,
+  handleError,
+  setDatePickerDate,
+} from "../../../../validation/functions";
+import { languages } from "../../../../assets/languages/languages";
+import AppContext from "../../../../contexts/AppContext";
+import useAxios from "../../../../customHooks/useAxios";
+import { TabContext } from "../../../../contexts/TabContextProvider";
+import useRequest from "../../../../customHooks/useRequest";
+import { enums } from "../../../../data/Enums";
+import Operator from "./List/Operator";
+import BackDrop from "../../../../Components/backDrop/BackDrop";
+import { CustomReactMultiSelect } from "../../../../Components/Select/customReactSelect";
 
-    const handleClickMenu = () => {
-      tabContext.addRemoveTabs(
-        {
-          title: "routes.groupForm",
-          path: "/operatorgroupcreate",
-          Component:Operator,
-          access: enums.Operator_Operator_Create_w,
-        }
-        , "remove");
-      tabContext.addRemoveTabs(
-        
-        {
-          title: "routes.operator",
-          path: "/operator",
-          Component: OperatorForm,
-          access: enums.Operator_Operator_Read_r,
-        }
-        
-        , "add");
-    };
+const OperatorForm = () => {
+  const { app } = useContext(AppContext);
+  const [validated, setValidated] = useState(false);
+  const [type, setType] = useState("")
+  const { t } = useTranslation();
+  const [operatorGroup, setOperatorGroup] = useState(undefined)
+  const [operatorGroupOptions, setOperatorGroupOptions] = useState([])
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const request = useRequest();
+  const tabContext = useContext(TabContext);
+  const abortController = new AbortController();
+  const [values, setValues] = useState({
+    IsActive: true,
+    OperatorName: "",
+    Language_EId:1,
+    Password: "",
+    InternalPhone: "",
+    Mobile: "",
+    IsLimited:true,
+    LimitTo: new Date(),
+    LimitFrom:new Date(),
 
+  });
+  const handleSubmited = () => {
+    tabContext.addRemoveTabs(
+      {
+        Component: OperatorForm,
+        path: "/Operator/Operator/Create",
+        title: "/Operator/Operator/Create",
+        access: enums.Operator_Operator_Read_r,
+      },
+      "remove"
+    );
+    tabContext.addRemoveTabs(
+      {
+        title: "/Operator/Operator/Read",
+        path: "/Operator/Operator/Read",
+        access: enums.Operator_Operator_Read_r,
+        Component: Operator,
+      },
+
+      "add"
+    );
+  };
+
+  useEffect(() => {
+    setType("READTITLE");
+    fetchData({
+      method: "POST",
+      url: groupTitle,
+      headers: {
+        accept: "*/*",
+      },
+      data: request,
+      signal: abortController.signal,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response, type)
+        : handleError(response.Message);
+    }
+    setResponse(undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
+
+  const handleResponse = (response, type) => {
+    switch (type) {
+      case "READTITLE":
+        setOperatorGroupOptions(createSelectOptions(response.Title));
+        break;
+      case "SUBMIT":
+        handleSubmited();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
+    }
+    setType("SUBMIT")
+    fetchData({
+      method: "POST",
+      url: createOpt,
+      headers: {
+        accept: "*/*",
+      },
+      signal: abortController.signal,
+      data: {
+        IsActive: values.IsActive,
+        Group_Id:operatorGroup?.value,
+        Language_EId:values.Language_EId,
+        OperatorName:values.OperatorName,
+        Password:values.Password,
+        InternalPhone:values.InternalPhone,
+        Mobile:values.Mobile,
+         IsLimited: values.IsLimited,
+        LimitFrom: setDatePickerDate(values.LimitFrom),
+        LimitTo: setDatePickerDate(values.LimitTo),
+        request: request,
+      },
+    });
     
-    
-    useEffect(()=> {
-      setType("READTITLE")
-      fetchData({
-        method: "POST",
-        url: groupTitle,
-        headers: {
-          accept: "*/*",
-        },
-        data: request,
-        signal:abortController.signal,
-        
-       
-      })
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-
-    const handleError = (message) => {
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-    };
-
-    const handleSeccess=(message)=>{
-  
-      toast.success(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-    }
-
-    useEffect(()=> {
-        if (response){
-          response.Result?handleResponse(response,type):handleError(response.Message)  
-          
-        }
-       // eslint-disable-next-line react-hooks/exhaustive-deps 
-    },[response])
-
-    const handleResponse=(response,type)=>{
-      console.log(groupTitleId)
-      switch (type) {
-        case "READTITLE":
-              setGroupTitles(response.Title)
-              response.Title.length&&setGroupTitleId(response.Title[0].Id)
-          break;
-        case "SUBMIT" :
-          handleSeccess(t("customer.created"));
-          handleClickMenu();
-          break;
-        default:
-          break;
-      }
-    }
-    useEffect(()=> {
-      if (response){
-        response.Result?handleResponse(response,type):handleError(response.Message)  
-        setResponse(undefined)   
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[response])
-
-    const handleSubmitForm = (e) => {
-      e.preventDefault();
-      if (nameVal && passConfirmVal && passVal && phoneVal)
-     { 
-      setType("SUBMIT")
-      fetchData({
-        method: "POST",
-        url: createOpt,
-        headers: {
-          accept: "*/*",
-        },
-        data: {
-          
-          Id:0,
-          Group_Id: Number(selectGroup),
-          Language_EId:0,
-          IsActive:isActiv,
-          OperatorName:name,
-          Password:password,
-          Mobile:phone,
-          ExpireDate:setDatePickerDate(operatorDateExp),
-          Registrar:0,
-          DateSet : "2022-06-16T05:34:40.867Z",
-          Group_Title: "",
-          Request: request,
-
-        },
-        signal:abortController.signal,
-        
-       
-      })}
-
-    }
-
-
-    const handleSetName =(e) => {
-        setName(e.target.value)
-        
-        
-    }
-
-    const handleBlureName =() => {
-      !name && setNameVal(false)
-      name && setNameVal(true)
-
-    }
-    
-    const handleBlurePass =() => {
-      !password && setPassVal(false)
-      password && setPassVal(true)
-    }
-    const handleBlurePassConfirm =() => {
-      setPassConfirmVal(password === confirmPassword)
-    }
-    const handleBlurePhone =() => {
-     
-      // phone && setPhoneVal(true)
-      phone && phone.match(phoneNumberValidation) ? setPhoneVal(true) :setPhoneVal(false);
-
-    }
-
-
+  };
+  const onChangeHandler = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+  const handleChangeSwitch = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.checked });
+  };
+  const setDate = (date,name) => {
+    setValues({ ...values, [name]: date.toDate() });
+  };
   return (
-    <>{loading && <BackDrop  open={true}/>}
-    <div className='OperatorForm'>
-    <h1 className='OperatorFormTitle'>{t("operatorTitle")}</h1>
-    <div className="OperatorFormMainDiv">
-      
-      <form action='' className='OperatorFormform' onSubmit={handleSubmitForm}>
-      <div class="switch">
-            <Form.Check
-              type="switch"
-              id="custom-switch"
-              label={t("OperatorGroup.switch")}
-              value={isActiv}
-              checked={isActiv}
-              onChange={(e)=> setIsActive(!isActiv)}
-            />
+    <>
+      {loading && <BackDrop open={true} />}
+      <div className="periorityFormDefine">
+        <Form
+          className="periorityForm"
+          noValidate
+          validated={validated}
+          onSubmit={handleSubmit}
+        >
+          <b>{t("/Operator/Operator/Create")}</b>
+          <div className="Row ">
+            <Form.Group className="mb-3" controlId={"Activated"}>
+              <Form.Label>{t("Activated")}</Form.Label>
+            <Form.Check  style={{ textAlign: "center" }}
+                type="switch"
+                checked={values.IsActive}
+                name="IsActive"
+                onChange={handleChangeSwitch} />
+              </Form.Group>
           </div>
-            <div className="inputDiv">
-              <label htmlFor="OperatorFormInputTitle1">{t("operatorSelector")}</label>
-                <select className="OperatorFormInputTitle" id='OperatorFormInputTitle1'  value={selectGroup}
-                  onChange={(e)=> {setSelectGroup(e.target.value)} }
-                >
-                <option disabled></option>
-                {groupTitles.map((group, i) => (
-                  <option key={i} value={String(group.Id)}>{group.Value}</option>
+          <div className="Row ">
+            <Form.Group className="mb-3" controlId={"group"}>
+              <Form.Label>{t("/Operator/Group/Read")}</Form.Label>
+              <CustomReactMultiSelect
+              isMulti={false}
+              options={operatorGroupOptions}
+              value={operatorGroup}
+              onchangeHandler={(e) => setOperatorGroup(e)}
+              placeholder={t("/Operator/Group/Read")}
+            />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"lang"}>
+              <Form.Label>{t("/Operator/Group/Read")}</Form.Label>
+              <Form.Select value={values.Language_EId} onChange={onChangeHandler}>
+                <option disabled>{t("SelectLanguage")}</option>
+                {languages.map((l,i)=>(
+                  <option value={l.no}>{l.name}</option>
                 ))}
+              </Form.Select>
+            </Form.Group>
 
-            </select>
-            </div>
-            <div className="inputDiv">
-                <label htmlFor="OperatorFormInputName1">{t("operatorName")}</label>
-                <input type="text" className={ nameVal ? "OperatorFormInputTitle" : "OperatorFormInputTitleFail"}  id='OperatorFormInputName1' value={name} onChange={(e) => handleSetName(e)} onBlur={handleBlureName}/>
-                {!nameVal   &&      <p className="errorMsg">{t("operatorMsg")}</p>}
-            </div>
-            <div className="inputDiv">
-                <label htmlFor="OperatorFormInputPass1">{t("operatorPass")}</label>
-                <input type="password" className={ passVal ? "OperatorFormInputTitle" : "OperatorFormInputTitleFail"} id='OperatorFormInputPass1' value={password} onChange={(e)=> setPassword(e.target.value)} onBlur={handleBlurePass}/>
-                {!passVal   &&      <p className="errorMsg">{t("operatorMsg")}</p>}
-            </div>
-            <div className="inputDiv">
-                <label htmlFor="OperatorFormInputPassConfirm">{t("operatorPass")}</label>
-                <input type="password" className={ passConfirmVal ? "OperatorFormInputTitle" : "OperatorFormInputTitleFail"} id='OperatorFormInputPassConfirm' value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} onBlur={handleBlurePassConfirm}/>
-                {!passConfirmVal   &&      <p className="errorMsg">{t("operatorMsg2")}</p>}
-            </div>
-            <div className="inputDiv">
-                <label htmlFor="OperatorFormInputPhone1">{t("operatorPhoneNum")}</label>
-                <input type="number" className={ phoneVal ? "OperatorFormInputTitle" : "OperatorFormInputTitleFail"} id='OperatorFormInputPhone1'  value={phone} onChange={(e)=> setPhone(e.target.value)} onBlur={handleBlurePhone}/>
-                {!phoneVal   &&      <p className="errorMsg">{t("operatorMsg3")}</p>}
-            </div>
-            <div className="inputDiv">
-                <label id="OperatorFormInputExp1">{t("operatorDatePick")}</label>
-                {currentLang.app.lang === 'fa' ?(
-                  <div style={{direction: "ltr"}}>
-                    <LocalizationProvider dateAdapter={AdapterJalali}>
-                        <DatePicker
-                        label="-"
-                        mask="____/__/__"
-                        value={operatorDateExp}
-                        onChange={(newValue) => {setOperatorDateExp(newValue)}}
-                        renderInput={(params) => <TextField {...params} />}
-                        />
-                    </LocalizationProvider>  
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"name"}>
+              <Form.Label>{t("OperatorName")}</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                value={values.OperatorName}
+                placeholder={t("OperatorName")}
+                name="OperatorName"
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"password"}>
+              <Form.Label>{t("password")}</Form.Label>
+              <Form.Control
+                required
+                type="password"
+                value={values.Password}
+                placeholder={t("password")}
+                name="Password"
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row">
+          <Form.Group className="mb-3" controlId={"InternalPhone"}>
+              <Form.Label>{t("InternalPhone")}</Form.Label>
+              <Form.Control
+                type="number"
+                value={values.InternalPhone}
+                placeholder={t("InternalPhone")}
+                name="InternalPhone"
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"mobile"}>
+              <Form.Label>{t("Mobile")}</Form.Label>
+              <Form.Control
+                type="number"
+                value={values.Mobile}
+                placeholder={t("Mobile")}
+                name="Mobile"
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"LimitFrom"}>
+              <Form.Label>{t("LimitFrom")}</Form.Label>
+              <DatePicker
+                containerClassName="custom-container"
+                onChange={(e)=>setDate(e,"LimitFrom")}
+                name='LimitFrom'
+                calendar={app.lang === "fa" ? persian : gregorian}
+                locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                calendarPosition="bottom-right"
+                value={values.LimitFrom}
+                disabled={!values.IsLimited}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"IsLimited"}>
+              <Form.Label>{t("IsLimited")}</Form.Label>
+              <Form.Check
+                style={{ textAlign: "center" }}
+                type="switch"
+                checked={values.IsLimited}
+                name="IsLimited"
+                onChange={handleChangeSwitch}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"LimitTo"}>
+              <Form.Label>{t("LimitTo")}</Form.Label>
+              <DatePicker
+                containerClassName="custom-container"
+                onChange={(e)=>setDate(e,"LimitTo")}
+                name='LimitTo'
+                calendar={app.lang === "fa" ? persian : gregorian}
+                locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                calendarPosition="bottom-right"
+                value={values.LimitTo}
+                disabled={!values.IsLimited}
+              />
+            </Form.Group>
+          </div>
+         
+          <Button disabled={loading} type="submit">
+            {t("submit")}
+          </Button>
+        </Form>
+      </div>
+    </>
+  );
+};
 
-                    </div>
-                ) : 
-                (<div style={{direction: "ltr"}}>
-                
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DesktopDatePicker
-                          
-                          inputFormat="MM/dd/yyyy"
-                          value={operatorDateExp}
-                          onChange={(newValue) => {setOperatorDateExp(newValue); console.log(newValue)}}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                  </LocalizationProvider>
-                      </div>
-                  )}
-                           
-              </div>
-          
-
-          <input type="submit" value={t("operatorSubmitBtn")} className='deleteBtn'></input>
-
-      </form>
-  </div>
-</div>
-</>
-  )
-}
-
-export default Operator
+export default OperatorForm;

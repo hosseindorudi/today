@@ -703,5 +703,8 @@
   "map":"نقشه",
   "whereUSearching":"دنبال کجا میگردید...",
   "go":"برو",
-  "noResultFound":"نتیجه ای یافت نشد"
+  "noResultFound":"نتیجه ای یافت نشد",
+  "SelectLanguage":"زبان را انتخاب کنید",
+  "InternalPhone":"تلفن",
+  "/Operator/Operator/Create":"فرم اپراتور"
 }

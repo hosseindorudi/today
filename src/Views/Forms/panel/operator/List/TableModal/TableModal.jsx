@@ -1,41 +1,48 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import {  Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { TextField } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import AdapterJalali from "@date-io/date-fns-jalali";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import AppContext from "../../../../../../contexts/AppContext";
-import useRequest from "../../../../../../customHooks/useRequest";
 import useAxios from "../../../../../../customHooks/useAxios";
 import { groupTitle, updateRecord } from "../../../../../../services/operatorService";
-import { setDatePickerDate } from "../../../../../../validation/functions";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import gregorian from "react-date-object/calendars/gregorian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import gregorian_en from "react-date-object/locales/gregorian_en";
 import "./tableModal.css";
+import useRequest from "../../../../../../customHooks/useRequest";
+import { createSelectOptions, handleError, setDatePickerDate } from "../../../../../../validation/functions";
+import { CustomReactMultiSelect } from "../../../../../../Components/Select/customReactSelect";
+import { languages } from "../../../../../../assets/languages/languages";
 
 const TableModal = (props) => {
-  
-  const currentLang = useContext(AppContext);
+  let rowValues=props.rowValues
+  const { app } = useContext(AppContext);
+  const [validated, setValidated] = useState(false);
   const [type, setType] = useState("")
-  const [response, loading, fetchData] = useAxios();
-  const title = useRef();
-  const phone = useRef();
-  const [titles,setTitles]=useState([])
-  const [titleId,setTitleId]=useState()
-  const request = useRequest();
   const { t } = useTranslation();
-  const [activation, setActivation] = useState(true);
+  const [operatorGroup, setOperatorGroup] = useState(undefined)
+  const [operatorGroupOptions, setOperatorGroupOptions] = useState([])
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const request = useRequest();
   const abortController = new AbortController();
+  const [values, setValues] = useState({
+    IsActive: rowValues.IsActive,
+    OperatorName:rowValues.OperatorName,
+    Language_EId:rowValues.Language_EId,
+    InternalPhone: rowValues.InternalPhone,
+    Mobile: rowValues.Mobile,
+    IsLimited:rowValues.IsLimited,
+    LimitTo: rowValues.LimitTo,
+    LimitFrom:rowValues.LimitFrom,
 
-  const [operatorDateExp, setOperatorDateExp] = useState();
-  const [operatorDate, setOperatorDate] = useState();
+  });
+  const handleSeccess=()=>{
+    props.updated()
+  }
 
-
-
-
-  const getOperatorGroups=()=>{
-    setType("GETTITLES")
+  useEffect(() => {
+    setType("READTITLE");
     fetchData({
       method: "POST",
       url: groupTitle,
@@ -43,27 +50,44 @@ const TableModal = (props) => {
         accept: "*/*",
       },
       data: request,
-      signal:abortController.signal,
-      
-     
-    })
-  }
-  useEffect(() => {
-    getOperatorGroups()
-    const values = props.rowValus;
-    title.current.value = values.OperatorName;
-    phone.current.value = values.Mobile;
-    setActivation(values.IsActive);
-    setOperatorDateExp(values.ExpireDate ? new Date(values.ExpireDate) : null);
-    setOperatorDate(values.DateSet ? new Date(values.DateSet) : null);
-
+      signal: abortController.signal,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response, type)
+        : handleError(response.Message);
+    }
+    setResponse(undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
+
+  const handleResponse = (response, type) => {
+    switch (type) {
+      case "READTITLE":
+        setOperatorGroupOptions(createSelectOptions(response.Title));
+        break;
+      case "SUBMIT":
+        handleSeccess();
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setType("UPDATE")
-
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
+    }
+    setType("SUBMIT")
     fetchData({
       method: "POST",
       url: updateRecord,
@@ -72,60 +96,31 @@ const TableModal = (props) => {
       },
       signal: abortController.signal,
       data: {
-        Id: props.rowValus.Id,
-        IsActive: activation,
-        OperatorName: title.current.value,
-        Group_Title: "",
-        ExpireDate: operatorDateExp
-          ? setDatePickerDate(operatorDateExp)
-          : "2000-01-01",
-        Registrar: 0,
-        Language_EId: 0,
-        Group_Id: titleId,
-        Password: "1",
-        Mobile: phone.current.value,
-        DateSet: operatorDate ? setDatePickerDate(operatorDate) : "2000-01-01",
-        Request: request,
-        SourceType:0
+        Id:props.rowValues.Id,
+        IsActive: values.IsActive,
+        Group_Id:operatorGroup?.value,
+        Language_EId:values.Language_EId,
+        OperatorName:values.OperatorName,
+        Password:"",
+        InternalPhone:values.InternalPhone,
+        Mobile:values.Mobile,
+         IsLimited: values.IsLimited,
+        LimitFrom: setDatePickerDate(values.LimitFrom),
+        LimitTo: setDatePickerDate(values.LimitTo),
+        request: request,
       },
     });
+    
   };
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
+  const onChangeHandler = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
-  const handleSetTitle=(response)=>{
-    setTitles(response.Title)
-    setTitleId(props.rowValus.Group_Id)
-   
-  }
-  const handleResponse = useCallback(
-    (response, type) => {
-      switch (type) {
-        case "GETTITLES":
-          handleSetTitle(response);
-          break;
-        case "UPDATE":
-          props.updated()
-          break;
-        default:
-          break;
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
-  useEffect(() => {
-    if (response) {
-      response.Result ? handleResponse(response,type) : handleError(response.Message);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response]);
-  const handleChangeGroupTitle=(e)=>{
-    setTitleId(e.target.value)
-  }
+  const handleChangeSwitch = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.checked });
+  };
+  const setDate = (date,name) => {
+    setValues({ ...values, [name]: date.toDate() });
+  };
   return (
     <Modal
       show={props.tableModalShow}
@@ -134,133 +129,138 @@ const TableModal = (props) => {
       centered
       onHide={props.onHide}
     >
-      <Modal.Header closeButton></Modal.Header>
+      <Modal.Header closeButton></Modal.Header>  <Form
+         
+          noValidate
+          validated={validated}
+          onSubmit={handleSubmit}
+        >
       <Modal.Body>
-        <div className="tableModal">
-          <form onSubmit={handleSubmit}>
-            <div class="switch">
-              <Form.Check
+      <div className="Row ">
+            <Form.Group className="mb-3" controlId={"Activated"}>
+              <Form.Label>{t("Activated")}</Form.Label>
+            <Form.Check  style={{ textAlign: "center" }}
                 type="switch"
-                id="custom-switch"
-                label={t("OperatorGroup.switch")}
-                onChange={() => setActivation((prev) => !prev)}
-                checked={activation}
-              />
-            </div>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>{t("OperatorName")}</Form.Label>
-              <Form.Control
-                ref={title}
-                type="text"
-                placeholder={t("OperatorName")}
-              />
+                checked={values.IsActive}
+                name="IsActive"
+                onChange={handleChangeSwitch} />
+              </Form.Group>
+          </div>
+          <div className="Row ">
+            <Form.Group className="mb-3" controlId={"group"}>
+              <Form.Label>{t("/Operator/Group/Read")}</Form.Label>
+              <CustomReactMultiSelect
+              isMulti={false}
+              options={operatorGroupOptions}
+              value={operatorGroup}
+              onchangeHandler={(e) => setOperatorGroup(e)}
+              placeholder={t("/Operator/Group/Read")}
+            />
             </Form.Group>
-
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>{t("Group_Title")}</Form.Label>
-              <Form.Select value={titleId} onChange={handleChangeGroupTitle}>
-                {titles.map((t,i)=>(
-                  <option value={t.Id} key={i}>{t.Value}</option>
+            <Form.Group className="mb-3" controlId={"lang"}>
+              <Form.Label>{t("/Operator/Group/Read")}</Form.Label>
+              <Form.Select value={values.Language_EId} onChange={onChangeHandler}>
+                <option disabled>{t("SelectLanguage")}</option>
+                {languages.map((l,i)=>(
+                  <option value={l.no}>{l.name}</option>
                 ))}
               </Form.Select>
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>{t("Mobile")}</Form.Label>
+
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"name"}>
+              <Form.Label>{t("OperatorName")}</Form.Label>
               <Form.Control
-                ref={phone}
-                type="number"
-                placeholder={t("Mobile")}
-                className="phoneNumberClass"
+                required
+                type="text"
+                value={values.OperatorName}
+                placeholder={t("OperatorName")}
+                name="OperatorName"
+                onChange={onChangeHandler}
               />
             </Form.Group>
-
-            <Form.Group className="mb-3">
-              <div className="inputDiv">
-                <label id="OperatorFormInputExp1">
-                  {t("operatorDatePick")}
-                </label>
-                {currentLang.app.lang === "fa" ? (
-                  <div style={{ direction: "ltr" }}>
-                    <LocalizationProvider dateAdapter={AdapterJalali}>
-                      <DatePicker
-                        label="-"
-                        mask="____/__/__"
-                        value={operatorDateExp}
-                        onChange={(newValue) => {
-                          setOperatorDateExp(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                ) : (
-                  <div style={{ direction: "ltr" }}>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DesktopDatePicker
-                        inputFormat="MM/dd/yyyy"
-                        value={operatorDateExp}
-                        onChange={(newValue) => {
-                          setOperatorDateExp(newValue);
-                          console.log(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                )}
-              </div>
+            <Form.Group className="mb-3" controlId={"password"}>
+              <Form.Label>{t("password")}</Form.Label>
+              <Form.Control
+                required
+                type="password"
+                value={values.Password}
+                placeholder={t("password")}
+                name="Password"
+                onChange={onChangeHandler}
+              />
             </Form.Group>
-            <Form.Group className="mb-3">
-              <div className="inputDiv">
-                <label id="OperatorFormInputExp1">{t("setoperatorDate")}</label>
-                {currentLang.app.lang === "fa" ? (
-                  <div style={{ direction: "ltr" }}>
-                    <LocalizationProvider dateAdapter={AdapterJalali}>
-                      <DatePicker
-                        label="-"
-                        mask="____/__/__"
-                        value={operatorDate}
-                        onChange={(newValue) => {
-                          setOperatorDate(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                ) : (
-                  <div style={{ direction: "ltr" }}>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DesktopDatePicker
-                        inputFormat="MM/dd/yyyy"
-                        value={operatorDate}
-                        onChange={(newValue) => {
-                          setOperatorDate(newValue);
-                          console.log(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                )}
-              </div>
+          </div>
+          <div className="Row">
+          <Form.Group className="mb-3" controlId={"InternalPhone"}>
+              <Form.Label>{t("InternalPhone")}</Form.Label>
+              <Form.Control
+                type="number"
+                value={values.InternalPhone}
+                placeholder={t("InternalPhone")}
+                name="InternalPhone"
+                onChange={onChangeHandler}
+              />
             </Form.Group>
-
+            <Form.Group className="mb-3" controlId={"mobile"}>
+              <Form.Label>{t("Mobile")}</Form.Label>
+              <Form.Control
+                type="number"
+                value={values.Mobile}
+                placeholder={t("Mobile")}
+                name="Mobile"
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"LimitFrom"}>
+              <Form.Label>{t("LimitFrom")}</Form.Label>
+              <DatePicker
+                containerClassName="custom-container"
+                onChange={(e)=>setDate(e,"LimitFrom")}
+                name='LimitFrom'
+                calendar={app.lang === "fa" ? persian : gregorian}
+                locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                calendarPosition="bottom-right"
+                value={values.LimitFrom}
+                disabled={!values.IsLimited}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"IsLimited"}>
+              <Form.Label>{t("IsLimited")}</Form.Label>
+              <Form.Check
+                style={{ textAlign: "center" }}
+                type="switch"
+                checked={values.IsLimited}
+                name="IsLimited"
+                onChange={handleChangeSwitch}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"LimitTo"}>
+              <Form.Label>{t("LimitTo")}</Form.Label>
+              <DatePicker
+                containerClassName="custom-container"
+                onChange={(e)=>setDate(e,"LimitTo")}
+                name='LimitTo'
+                calendar={app.lang === "fa" ? persian : gregorian}
+                locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                calendarPosition="bottom-right"
+                value={values.LimitTo}
+                disabled={!values.IsLimited}
+              />
+            </Form.Group>
+          </div>
+          </Modal.Body>
             <Modal.Footer>
               <Button type="submit" disabled={loading}>
                 {" "}
                 {t("operatorGroupFormSubmit")}
               </Button>
             </Modal.Footer>
-          </form>
-        </div>
-      </Modal.Body>
+            </Form>
+     
     </Modal>
   );
 };
