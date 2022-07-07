@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import "./tableButtons.css";
 import * as fa from "react-icons/fa";
+import * as gr from 'react-icons/gr'
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
 import { toast } from "react-toastify";
@@ -28,8 +29,9 @@ const TableButtons = ({
   handleReadAnswers,
   readAnswersAccess,
   handlePolicyBrowser,
-  policyBrowserAccess
- 
+  policyBrowserAccess,
+  operatorRoleAccess,
+  handleOperatorRole
 }) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const { app } = useContext(AppContext);
@@ -151,6 +153,17 @@ const TableButtons = ({
           }}
         >
           <fa.FaFirefoxBrowser />
+        </button>
+      )}
+       {haveAccess(operatorRoleAccess) && (
+        <button
+          title={t("OperatorRole")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+         handleOperatorRole(rowValue.Id);
+          }}
+        >
+          <gr.GrUserSettings />
         </button>
       )}
     </div>

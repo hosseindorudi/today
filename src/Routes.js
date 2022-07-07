@@ -43,6 +43,7 @@ import CurrencyDefine from "./Views/Forms/definations/currency/currencyDefine/Cu
 import Currency from "./Views/Forms/definations/currency/Currency";
 import AllowedIpForm from "./Views/Forms/panel/virtualIpForm/AllowedIpForm";
 import AllowedIp from "./Views/Forms/panel/virtualIpForm/AllowedIp";
+import OnlineOperator from "./Views/Forms/panel/onlineOperator/OnlineOperator";
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")
 );
@@ -134,7 +135,7 @@ const PartsDefine = lazy(() =>
   import("./Views/Forms/definations/parts/partsDefine/PartsDefine")
 );
 const Parts = lazy(() => import("./Views/Forms/definations/parts/Parts"));
-const Online = lazy(() => import("./Views/Forms/panel/online/online"));
+
 const Group = lazy(() =>
   import("./Views/Forms/panel/operatorGroupForm/List/Group")
 );
@@ -250,9 +251,9 @@ export const Routes = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
       {
-        title: "routes.online",
-        path: "/operatoronline",
-        Component: Online,
+        title: "/Operator/OnlineOperator/Read",
+        path: "/Operator/OnlineOperator/Read",
+        Component: OnlineOperator,
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
         access: enums.Operator_OnlineOperator_Read_r,

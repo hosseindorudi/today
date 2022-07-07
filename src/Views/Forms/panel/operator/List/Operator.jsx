@@ -9,7 +9,7 @@ import useWindowSize from "../../../../../customHooks/useWindowSize";
 import { checkFileOperator, deleteRecordOpt, exportFile, getoneRecord, importFileOperator, logTable, operatorChangePassword, operatorExportId, readOpt, readpaging, sampleFileOperator, setToFavorit, setUnselectedColumn } from "../../../../../services/operatorService";
 import OperatorForm from "../OperatorForm";
 const Operator = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType","Group_Id","Language_EId"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType","Group_Id"];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValues, setRowValues] = useState({});
   const childRef = useRef();
@@ -42,7 +42,10 @@ const Operator = () => {
     window.open("https://www.google.com");
   };
 
-
+  const handleOperatorRole=(id)=>{
+      setRowValues(id)
+      
+  }
   return (
     <>
       {tableModalOpen && (
@@ -94,6 +97,8 @@ const Operator = () => {
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
         policyBrowserAccess={""}
+        handleOperatorRole={handleOperatorRole}
+        operatorRoleAccess={enums.Operator_Operator_Create_w}
       />
     </>
   );

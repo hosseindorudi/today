@@ -1,6 +1,7 @@
 import { t } from "i18next";
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { languages } from "../assets/languages/languages";
 import { enums } from "../data/Enums";
 
 export const convertUTC = (utc) => {
@@ -126,8 +127,10 @@ export const checkTableValues = (type, value, post, exportAccess) => {
       } else {
         return value
       }
-
-      
+    case "Language_EId" :
+      return languages.find(l=>l.no===value).name
+    case "MySession":
+      return value?t("Yes"):t("No")
     default:
       return value;
   }

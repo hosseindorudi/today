@@ -62,28 +62,32 @@ const TableList = ({
   handleReadAnswers,
   readAnswersAccess,
   handlePolicyBrowser,
-  policyBrowserAccess
+  policyBrowserAccess,
+  operatorRoleAccess,
+  handleOperatorRole,
 }) => {
   const [haveAccess] = useButtonAccess();
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const tabContext = useContext(TabContext);
-  const [descriptionShow, setDescriptionShow] = useState(false)
-  const [desc, setDesc] = useState("")
+  const [descriptionShow, setDescriptionShow] = useState(false);
+  const [desc, setDesc] = useState("");
   const handleAdd = () => {
-    
     tabContext.addRemoveTabs(addObject, "add");
   };
   return (
     <>
       {descriptionShow && (
-        <DescModal 
-          onHide={()=>setDescriptionShow(false)}
+        <DescModal
+          onHide={() => setDescriptionShow(false)}
           show={descriptionShow}
-          value = {desc}
+          value={desc}
         />
       )}
       <div className="tableSection">
-        <div className="searchSection" style={{ height: search ? "15%" : "10%" }}>
+        <div
+          className="searchSection"
+          style={{ height: search ? "15%" : "10%" }}
+        >
           <div className="reacttableParentPlusButton">
             <button className="groupListRefresh" onClick={handleRefresh}>
               <fi.FiRefreshCcw />
@@ -93,28 +97,36 @@ const TableList = ({
                 <md.MdPostAdd />
               </button>
             )}
-          
-              {widthOFScreen < 420 && 
-                <>
-                  <button className="plusBUTTON1" onClick={()=> setMobileModal(true)}>
-                    <fa.FaFilter />
-                  </button>
-            
-                
-                  <button className="plusBUTTON2" onClick={()=> setMobileModalButtons(true)}>
-                    <fa.FaPlus />
-                  </button>
-                  <button className="plusBUTTON3" onClick={()=> setMobileModalColumns(true)}>
-                    <fa.FaColumns />
-                  </button>
 
+            {widthOFScreen < 420 && (
+              <>
+                <button
+                  className="plusBUTTON1"
+                  onClick={() => setMobileModal(true)}
+                >
+                  <fa.FaFilter />
+                </button>
+
+                <button
+                  className="plusBUTTON2"
+                  onClick={() => setMobileModalButtons(true)}
+                >
+                  <fa.FaPlus />
+                </button>
+                <button
+                  className="plusBUTTON3"
+                  onClick={() => setMobileModalColumns(true)}
+                >
+                  <fa.FaColumns />
+                </button>
               </>
-
-  }
-        
+            )}
           </div>
 
-          <div className="reacttableParentMiddleMiddleSide" style={{display : widthOFScreen < 420 ? "none" : "block"}}>
+          <div
+            className="reacttableParentMiddleMiddleSide"
+            style={{ display: widthOFScreen < 420 ? "none" : "block" }}
+          >
             {/* <div className="bredCrumbTable">
             <div role="presentation" style={{ direction: "ltr" }}>
               <Breadcrumb>
@@ -124,7 +136,10 @@ const TableList = ({
               </Breadcrumb>
             </div>
           </div> */}
-            <div className="searchField" style={{ height: search ? "100%" : 0 }}>
+            <div
+              className="searchField"
+              style={{ height: search ? "100%" : 0 }}
+            >
               <div style={{ display: search ? "block" : "none" }}>
                 <fa.FaTimes
                   color="red"
@@ -214,10 +229,12 @@ const TableList = ({
             <div
               className="div33"
               style={{
-                width: (columnSideBar & widthOFScreen > 420)
-                  ? widthOFScreen - (widthOFScreen * 0.2 + 370)
-                  : widthOFScreen < 420 ? widthOFScreen :
-                  widthOFScreen - (widthOFScreen * 0.2 + 120),
+                width:
+                  columnSideBar & (widthOFScreen > 420)
+                    ? widthOFScreen - (widthOFScreen * 0.2 + 370)
+                    : widthOFScreen < 420
+                    ? widthOFScreen
+                    : widthOFScreen - (widthOFScreen * 0.2 + 120),
               }}
             >
               {productsColumns.length > 0 ? (
@@ -280,6 +297,10 @@ const TableList = ({
                             rateAccess={rateAccess}
                             readAnswersAccess={readAnswersAccess}
                             handleReadAnswers={handleReadAnswers}
+                            operatorRoleAccess={operatorRoleAccess}
+                            handleOperatorRole={handleOperatorRole}
+                            handlePolicyBrowser={handlePolicyBrowser}
+                            policyBrowserAccess={policyBrowserAccess}
                           />
                         </td>
                         {Object.keys(post)
@@ -289,27 +310,43 @@ const TableList = ({
                               !unSelected.includes(p)
                           )
                           .map((key, index) => {
-                            
-                            if(key === "Description" & exportAccess === enums.Operator_Event_Export_r){
-                              console.log(post[key])
-                                      return <td
-                                                    onClick={()=> {post[key].length > 0  && setDescriptionShow(true); post[key].length > 0  && setDesc(post[key])}}
-                                                    key={key + index}
-                                                    className= {post[key].length > 30 ? "TableMainTd tableDescriptionShow" : "TableMainTd" }
-                                                    style={{
-                                                      display: !productsColumns[
-                                                        productsColumns.findIndex(
-                                                          (p) => p["accessor"] === key
-                                                        )
-                                                      ].show
-                                                        ? "none"
-                                                        : null,
-                                                        
-                                                    }}
-                                                  >
-                                                    {checkTableValues(key, post[key], post, exportAccess)}
-                                              </td>
-                            }else {
+                            if (
+                              (key === "Description") &
+                              (exportAccess === enums.Operator_Event_Export_r)
+                            ) {
+                              console.log(post[key]);
+                              return (
+                                <td
+                                  onClick={() => {
+                                    post[key].length > 0 &&
+                                      setDescriptionShow(true);
+                                    post[key].length > 0 && setDesc(post[key]);
+                                  }}
+                                  key={key + index}
+                                  className={
+                                    post[key].length > 30
+                                      ? "TableMainTd tableDescriptionShow"
+                                      : "TableMainTd"
+                                  }
+                                  style={{
+                                    display: !productsColumns[
+                                      productsColumns.findIndex(
+                                        (p) => p["accessor"] === key
+                                      )
+                                    ].show
+                                      ? "none"
+                                      : null,
+                                  }}
+                                >
+                                  {checkTableValues(
+                                    key,
+                                    post[key],
+                                    post,
+                                    exportAccess
+                                  )}
+                                </td>
+                              );
+                            } else {
                               return (
                                 <td
                                   key={key + index}
@@ -328,7 +365,6 @@ const TableList = ({
                                 </td>
                               );
                             }
-                            
                           })}
                       </tr>
                     ))}

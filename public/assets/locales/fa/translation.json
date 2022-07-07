@@ -706,5 +706,9 @@
   "noResultFound":"نتیجه ای یافت نشد",
   "SelectLanguage":"زبان را انتخاب کنید",
   "InternalPhone":"تلفن",
-  "/Operator/Operator/Create":"فرم اپراتور"
+  "/Operator/Operator/Create":"فرم اپراتور",
+  "/Operator/OnlineOperator/Read":"اپراتور آنلاین",
+  "Language_EId":"زبان",
+  "MySession":"شخص",
+  "OperatorRole":"دسترسی های اپراتور"
 }
