@@ -110,11 +110,8 @@ const AnswerModal = (props) => {
     let d = []
     let aa =""
     answerDesc.map((answer, i) => {
-    
-
       d = answer.split(" ")
-      console.log(questionId)
-      if(Number(d[0]) === questionId){
+      if(Number(d[0]) === Number(questionId)){
         console.log(d)
         aa = d[1]
         console.log("asdasd")
