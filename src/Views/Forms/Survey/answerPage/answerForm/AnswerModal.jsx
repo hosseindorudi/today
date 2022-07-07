@@ -43,6 +43,7 @@ const AnswerModal = (props) => {
     FirstName: "",
     NationalCode: undefined,
   });
+  const [answerDesc, setAnswerDesc] = useState([])
   const [answer, setAnswer] = useState({});
   const questions = props.questions;
   const textFields = [
@@ -106,14 +107,48 @@ const AnswerModal = (props) => {
     setAnswer({ ...answer, [id]: value });
   };
   const handleCheckBox = ( itemId, questionId,desc) => {
-
-    
+    let d = []
+    let aa =""
+    answerDesc.map((answer, i) => {
+      d = answer.split(" ")
+      if(Number(d[0]) === Number(questionId)){
+        console.log(d)
+        aa = d[1]
+        console.log("asdasd")
+      }
+      // Number(d[0]) === Number(questionId) ? aa = d[1] :
+    })
+    desc == "aa" ?   
+    setItemsOf((prev) => ({ ...prev,[questionId]: [itemId,aa] }))
+    : setItemsOf((prev) => ({ ...prev,[questionId]: [itemId,desc] }));
     // setItemsOf((prev) => [...prev, { [questionId]: itemId }]);
-    setItemsOf((prev) => ({ ...prev,[questionId]: [itemId,desc] }))
+    
+    // setAnswerDesc((prev) => ({...prev, [questionId]:[desc]}))
 
 
     //  checked ? setItemsOf(prev => [...prev, {[questionId]:itemId}]) : setItemsOf(itemsOf.filter((item, i) => item[questionId] !==  itemId))
   };
+  const handleBlurDesc = (e,id) => {
+    // 
+    let d = []
+    let final = answerDesc
+    final.length===0 ? final.push(`${id} ${e.target.value}`) :
+    final.map((desc, i) => {
+      d = desc.split(" ")
+      if( Number(d[0]) === Number(id)){
+       d[1] = e.target.value
+       d.join(" ")
+       final[i] = d
+       console.log("asdasd222222")
+      }
+      
+      // Number(d[0]) === Number(id) ? d[1] = e.target.value :null;
+      // Number(d[0]) === Number(id) ? d.join(" ") : null;
+      // Number(d[0]) === Number(id) ? final[i] = d : null ;
+  })
+  console.log(final)
+  setAnswerDesc(final)
+  }
   const checkAnswerOptions = (e, QuestionItem, questionId) => {
     let key = "";
     Object.keys(QuestionTypeEnum).map((i) =>
@@ -167,9 +202,9 @@ const AnswerModal = (props) => {
               name={questionId}
               type="radio"
               id={`inline-radio-${questionId}`}
-              onChange={() => handleCheckBox(q.Id, questionId,"")}
+              onChange={() => handleCheckBox(q.Id, questionId,"aa")}
             />
-             {i == QuestionItem.length -1 && <Form.Control type="text" placeholder={t("description")}  onChange={(e)=> handleCheckBox(q.Id, questionId,e.target.value)} />}
+             {i == QuestionItem.length -1 && <Form.Control type="text" onBlur={(e)=>handleBlurDesc(e,questionId)} placeholder={t("description")}  onChange={(e)=> handleCheckBox(q.Id, questionId,e.target.value)} />}
               </>
           ))}
          
@@ -262,13 +297,14 @@ const AnswerModal = (props) => {
   const makeQuestionAnswer = () => {
     let answerObject = [];
     Object.keys(answer).map((k) =>
-      answerObject.push({ Question_Id: k, Answer: answer[k], AnswerItem: [] })
+      answerObject.push({ Question_Id: k, Answer: answer[k], AnswerItem: [],Description:"" })
     );
     Object.keys(itemsOf).map(k => 
-      answerObject.push({ Question_Id: Number(k), Answer: "", Description: itemsOf[k][1] , AnswerItem: [{
+      answerObject.push({ Question_Id: Number(k), Answer: "a", Description: itemsOf[k][1] , AnswerItem: [{
         Id: 0,
         QuestionItem_Id: itemsOf[k][0],
-        Answer: "",
+        Answer: "a",
+        Description:""
       }]})
       )
     
