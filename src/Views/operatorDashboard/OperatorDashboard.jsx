@@ -1,30 +1,39 @@
-import React, { useContext, useEffect } from 'react'
-import './opratorDashboard.css'
-import {useState} from 'react'
-import Modal from './modal/Modal'
+import React, { useCallback, useContext, useEffect } from "react";
+import "./opratorDashboard.css";
+import { useState } from "react";
+import Modal from "./modal/Modal";
 import useGeoLocation from "../../customHooks/useGeoLocation";
-import { OsContext } from '../../contexts/OsInformationProvider'
-import { toast } from 'react-toastify';
-import { homeDashboard } from '../../services/dashboardServices';
-import useAxios from '../../customHooks/useAxios';
-import AppContext from '../../contexts/AppContext';
-import BackDrop from '../../Components/backDrop/BackDrop';
-import { useTranslation } from 'react-i18next';
-import { TabContext } from '../../contexts/TabContextProvider';
-import * as fa from 'react-icons/fa'
+import { OsContext } from "../../contexts/OsInformationProvider";
+import { toast } from "react-toastify";
+import {
+  homeDashboard,
+  deleteNoteDashboard,
+} from "../../services/dashboardServices";
+import useAxios from "../../customHooks/useAxios";
+import AppContext from "../../contexts/AppContext";
+import BackDrop from "../../Components/backDrop/BackDrop";
+import { useTranslation } from "react-i18next";
+import { TabContext } from "../../contexts/TabContextProvider";
+import * as fa from "react-icons/fa";
 
-import {Routes} from '../../Routes'
+import { Routes } from "../../Routes";
+import Swal from "sweetalert2";
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useGeoLocation();
-  const {os,loaded} = useContext(OsContext)
+  const { os, loaded } = useContext(OsContext);
   const abortController = new AbortController();
-  const [response, loading, fetchData] = useAxios();
-  const [dashboardInfoData, setDashboardInfoData] = useState({})
+  const [response, loading, fetchData, setResponse] = useAxios();
+  const [dashboardInfoData, setDashboardInfoData] = useState({});
   const accessToken = localStorage.getItem("token");
-  const [extraInfo, setExtraInfo] = useState([])
+  const [extraInfo, setExtraInfo] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [faileds, setFaileds] = useState([]);
+  const [logins, setLogins] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [requestType, setRequestType] = useState("");
   const { app } = useContext(AppContext);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const tabContext = useContext(TabContext);
   const handleError = (message) => {
     toast.error(message, {
@@ -32,586 +41,388 @@ const OperatorDashboard = () => {
     });
   };
 
-
-
   const handleChangeFavoritPage = (type) => {
-
     Routes.map((route) => {
-      return route.subNav ? (
-        route.subNav.map((r) => {
-         return  r.path === type && 
-          tabContext.addRemoveTabs(
-            {
-              title: r.title,
-              path: type,
-              Component:r.Component,
-              access:r.access,
-            }
-            , "add")
-            
-        })
-      ) : route.path === type && 
-      tabContext.addRemoveTabs(
-        {
-          title: route.title,
-          path: type,
-          Component:route.Component,
-          access:route.access,
-        }
-        , "add") 
-    })
+      return route.subNav
+        ? route.subNav.map((r) => {
+            return (
+              r.path === type &&
+              tabContext.addRemoveTabs(
+                {
+                  title: r.title,
+                  path: type,
+                  Component: r.Component,
+                  access: r.access,
+                },
+                "add"
+              )
+            );
+          })
+        : route.path === type &&
+            tabContext.addRemoveTabs(
+              {
+                title: route.title,
+                path: type,
+                Component: route.Component,
+                access: route.access,
+              },
+              "add"
+            );
+    });
+  };
 
+  const getDashboardData = () => {
+    setRequestType("READ");
+    fetchData({
+      method: "POST",
+      url: homeDashboard,
+      headers: {
+        accept: "*/*",
+      },
 
-      
+      data: {
+        Language: app.langCode,
+        Token: accessToken ? accessToken : "",
+        Latitude: location.loaded ? location.coordinates.lat : 0,
+        Longitude: location.loaded ? location.coordinates.lng : 0,
+      },
 
+      signal: abortController.signal,
+    });
+  };
 
-  }
+  const setData = (response) => {
+    setDashboardInfoData(response);
+    setExtraInfo(response.Favorite);
+    setNotes(response.Note);
+    setFaileds(response.Failed);
+    setLogins(response.Login);
+    setEvents(response.Event);
+  };
 
-  
+  // useEffect(() => {
+  //   if (loaded) {
 
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [loaded]);
 
+  const deleteOneRecord = (id) => {
+    Swal.fire({
+      title: t("table.deleteTitle"),
+      text: t("table.noReturn"),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: t("sweetAlert.yes"),
+      cancelButtonText: t("sweetAlert.cancel"),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setRequestType("DELETE");
+        fetchData({
+          method: "POST",
+          url: deleteNoteDashboard,
+          headers: {
+            accept: "*/*",
+          },
 
-  useEffect(()=> {
-    if(loaded) {
-      fetchData({
-        method: "POST",
-        url: homeDashboard,
-        headers: {
-          accept: "*/*",
-        },
-        
-       
-        data: {
-          Language: app.langCode,
-          Os: os.os,
-          Browser: os.browser,
-          Ip: os.ip,
-          Token: accessToken ? accessToken : "",
-          Latitude: location.loaded ? location.coordinates.lat : 0,
-          Longitude: location.loaded ? location.coordinates.lng : 0,
+          data: {
+            Language: app.langCode,
+            Id: id,
+            Token: accessToken ? accessToken : "",
+            Latitude: location.loaded ? location.coordinates.lat : 0,
+            Longitude: location.loaded ? location.coordinates.lng : 0,
+          },
 
-        },
-        
-        signal:abortController.signal,
-        
-       
-      })
-    }
+          signal: abortController.signal,
+        });
+      }
+    });
+  };
+
+  const handleDeleted = () => {
+    Swal.fire(
+      t("sweetAlert.deleted"),
+      t("sweetAlert.recordDeleted"),
+      "success"
+    );
+
+    getDashboardData();
+  };
+
+  const handleResponse = useCallback(
+    (response, type) => {
+      switch (type) {
+        case "DELETE":
+          handleDeleted();
+          break;
+        case "READ":
+          setData(response);
+          break;
+        // case "GETONERECORD":
+        //   setUpdate(response);
+        //   break;
+        // case "UPDATE":
+        //   setAddQuestion(response);
+        //   break;
+
+        default:
+          break;
+      }
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded])
-
-  useEffect(()=> {
-    setExtraInfo(dashboardInfoData.Favorite)
-  }, [dashboardInfoData])
-  
-
-  useEffect(()=> {
-    if (response){
-    response.Result?setDashboardInfoData(response):handleError(response.Message)          
+    []
+  );
+  useEffect(() => {
+    if (loaded) {
+      setRequestType("READ");
+      getDashboardData();
     }
-},[response])
 
+    return () => abortController.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaded]);
+
+  useEffect(() => {
+    if (response) {
+      response.Result
+        ? handleResponse(response, requestType)
+        : handleError(response.Message);
+    }
+    setResponse(undefined);
+  }, [response, requestType]);
 
   return (
-
     <>
-    {loading && <BackDrop open = {loading}/>}
-    <div className="mainOperatorDash">
-      <div className="firstOperatorColumn">
-        <div className="operatorDashboardInformation">
-          <div className="dashInformationDiv">
-              <span>{os.ip}</span>
+      {loading && <BackDrop open={loading} />}
+      <div className="mainOperatorDash">
+        <div className="firstOperatorColumn">
+          <div className="operatorDashboardInformation">
+            <div className="dashInformationDiv">
+              <span>{dashboardInfoData.IP}</span>
               <span>:IP</span>
-          </div>
+            </div>
 
-          <div className="dashInformationDiv">
-          {/* {Platform.OSVersion} */}
-              <span>{os.os}</span>
+            <div className="dashInformationDiv">
+              {/* {Platform.OSVersion} */}
+              <span>{dashboardInfoData.OS}</span>
               <span>:OS</span>
-          </div>
+            </div>
 
-          <div className="dashInformationDiv">
-              <span>{os.browser}</span>
+            <div className="dashInformationDiv">
+              <span>{dashboardInfoData.Browser}</span>
               <span>:Browser</span>
-          </div>
+            </div>
 
-          <div className="dashInformationDiv">
-              <span>{location.loaded?<>{`${location.coordinates.lat},${location.coordinates.lng}`}</> :"not supported"}</span>
+            <div className="dashInformationDiv">
+              <span>
+                {location.loaded ? (
+                  <>{`${location.coordinates.lat},${location.coordinates.lng}`}</>
+                ) : (
+                  "not supported"
+                )}
+              </span>
               <span>:GeoLocation</span>
-          </div>
+            </div>
 
-          <div className="dashInformationDiv">
-              <span>{dashboardInfoData.OperatorName}</span>
+            <div className="dashInformationDiv">
+              <span>{dashboardInfoData.Operator}</span>
               <span>:Operator</span>
+            </div>
+          </div>
+          <div className="operatorDashboardFavarot">
+            {extraInfo &&
+              extraInfo.map((dashboard, i) => (
+                <>
+                  <div className="favarotContainer" key={i}>
+                    <div className="favarotClose">
+                      <button className="destroyFavarot">
+                        <i className="fa fa-times" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div
+                      className="favarotIcon"
+                      onClick={() => handleChangeFavoritPage(dashboard.Link)}
+                    >
+                      <i className={dashboard.Icon} aria-hidden="true"></i>
+                    </div>
+                    <div className="TitleAndDestroy">
+                      <span>{t(`${dashboard.Link}`)}</span>
+                    </div>
+                  </div>
+                </>
+              ))}
           </div>
         </div>
-        <div className="operatorDashboardFavarot">
-           {
-            extraInfo && (extraInfo.map((dashboard, i) => (
-              <>
-                <div className="favarotContainer" key={i}>
-              
-                <div className="favarotClose"><button className="destroyFavarot"><i className="fa fa-times" aria-hidden="true"></i></button></div>
-                <div className="favarotIcon" onClick={() => handleChangeFavoritPage(dashboard.Link)}><i  className={dashboard.Icon} aria-hidden="true"></i></div>
-                <div className="TitleAndDestroy">
-                  <span>{t(`${dashboard.Link}`)}</span>
+
+        <div className="opratorDashNoteBefore">
+          {notes.length > 0 &&
+            notes.map((note) => (
+              <div className="opratorDashNote">
+                <div className="opratorDashNoteContainer">
+                  <div className="opratorDashNoteContainerInner">
+                    <div className="opratorDashNoteContainerInnerFront">
+                      <h5 className="opratorDashNoteTitle">{note.Title}</h5>
+                    </div>
+                    <div className="opratorDashNoteContainerInnerBack">
+                      <div className="dashboardDirectionSet">
+                        <button
+                          className="opratorDashNoteContainerInnerBackClose"
+                          onClick={() => deleteOneRecord(note.Id)}
+                        >
+                          <i className="fa fa-times" aria-hidden="true"></i>{" "}
+                        </button>
+                        <button className="opratorDashNoteContainerInnerBackClose1">
+                          {note.IsAlarm ? <fa.FaBell /> : <fa.FaRegBell />}
+                        </button>
+                      </div>
+                      <p className="opratorDashNoteDescription">{note.Body}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              </>
-            ))) 
-          } 
+            ))}
 
-       
-          
-          
-          
+          <button
+            className="opratorDashNotePlusBTN"
+            onClick={() => setIsOpen(true)}
+          >
+            <i className="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+        {isOpen && (
+          <Modal setIsOpen={setIsOpen} getDashboardData={getDashboardData} />
+        )}
+
+        <div className="opratorDashAlert">
+          <h3>لیست رخدادها</h3>
+          {events.length > 0 && (
+            <table className="opratorDashActivityTable">
+              <thead className="opratorDashActivityTableThead">
+                <tr>
+                  {Object.keys(events[0]).map((failed, i) => {
+                    if ((failed !== "Id") & (failed !== "SourceType")) {
+                      return (
+                        <th
+                          key={i}
+                          className="opratorDashActivityTableTheadTrTh"
+                        >
+                          {failed}
+                        </th>
+                      );
+                    }
+                  })}
+                </tr>
+              </thead>
+              <tbody className="opratorDashActivityTableTbody">
+                {events.length > 0 &&
+                  events.map((failed) => (
+                    <tr>
+                      {Object.keys(failed).map((f, i) => {
+                        if ((f !== "Id") & (f !== "SourceType")) {
+                          return (
+                            <td
+                              key={i}
+                              className="opratorDashActivityTableTbodyTrTd"
+                            >
+                              {failed[f]}
+                            </td>
+                          );
+                        }
+                      })}
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+        <div className="opratorDashListOfLogin">
+          <h3>لیست ورود های مجاز</h3>
+          {logins.length > 0 && (
+            <table className="opratorDashActivityTable">
+              <thead className="opratorDashActivityTableThead">
+                <tr>
+                  {Object.keys(logins[0]).map((failed, i) => {
+                    if ((failed !== "Id") & (failed !== "SourceType")) {
+                      return (
+                        <th
+                          key={i}
+                          className="opratorDashActivityTableTheadTrTh"
+                        >
+                          {failed}
+                        </th>
+                      );
+                    }
+                  })}
+                </tr>
+              </thead>
+              <tbody className="opratorDashActivityTableTbody">
+                {logins.length > 0 &&
+                  logins.map((failed) => (
+                    <tr>
+                      {Object.keys(failed).map((f, i) => {
+                        if ((f !== "Id") & (f !== "SourceType")) {
+                          return (
+                            <td
+                              key={i}
+                              className="opratorDashActivityTableTbodyTrTd"
+                            >
+                              {failed[f]}
+                            </td>
+                          );
+                        }
+                      })}
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+        <div className="opratorDashListOfFailed">
+          <h3>لیست ورود های غیر مجاز</h3>
+          {faileds.length > 0 && (
+            <table className="opratorDashActivityTable">
+              <thead className="opratorDashActivityTableThead">
+                <tr>
+                  {Object.keys(faileds[0]).map((failed, i) => {
+                    if ((failed !== "Id") & (failed !== "SourceType")) {
+                      return (
+                        <th
+                          key={i}
+                          className="opratorDashActivityTableTheadTrTh"
+                        >
+                          {failed}
+                        </th>
+                      );
+                    }
+                  })}
+                </tr>
+              </thead>
+              <tbody className="opratorDashActivityTableTbody">
+                {faileds.length > 0 &&
+                  faileds.map((failed) => (
+                    <tr>
+                      {Object.keys(failed).map((f, i) => {
+                        if ((f !== "Id") & (f !== "SourceType")) {
+                          return (
+                            <td
+                              key={i}
+                              className="opratorDashActivityTableTbodyTrTd"
+                            >
+                              {failed[f]}
+                            </td>
+                          );
+                        }
+                      })}
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
-
-      <div className="opratorDashNoteBefore">
-          
-          <div className="opratorDashNote">
-            <div className="opratorDashNoteContainer">
-              <div className="opratorDashNoteContainerInner">
-                <div className="opratorDashNoteContainerInnerFront">
-
-                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
-                  
-                </div>
-                <div className="opratorDashNoteContainerInnerBack">
-                  <div className="dashboardDirectionSet">
-                    <button className='opratorDashNoteContainerInnerBackClose'><i className="fa fa-times" aria-hidden="true"></i> </button>
-                    <button className='opratorDashNoteContainerInnerBackClose1'><fa.FaBell /></button>
-                  </div>
-                  <p className="opratorDashNoteDescription">تاخیر خود را در سیستم ثبت کنید</p>
-                </div>
-            </div>
-          </div>
-          </div>
-          <div className="opratorDashNote">
-            <div className="opratorDashNoteContainer">
-              <div className="opratorDashNoteContainerInner">
-                <div className="opratorDashNoteContainerInnerFront">
-
-                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
-                  
-                </div>
-                <div className="opratorDashNoteContainerInnerBack">
-                  <button className='opratorDashNoteContainerInnerBackClose'><i className="fa fa-times" aria-hidden="true"></i></button>
-                  <p className="opratorDashNoteDescription">تاخیر خود را در سیستم ثبت کنید</p>
-                </div>
-            </div>
-          </div>
-          </div>
-          <div className="opratorDashNote">
-            <div className="opratorDashNoteContainer">
-              <div className="opratorDashNoteContainerInner">
-                <div className="opratorDashNoteContainerInnerFront">
-
-                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
-                  
-                </div>
-                <div className="opratorDashNoteContainerInnerBack">
-                  <button className='opratorDashNoteContainerInnerBackClose'><i className="fa fa-times" aria-hidden="true"></i> </button>
-                  <p className="opratorDashNoteDescription">تاخیر خود را در سیستم ثبت کنید</p>
-                </div>
-            </div>
-          </div>
-          </div>
-          <div className="opratorDashNote">
-            <div className="opratorDashNoteContainer">
-              <div className="opratorDashNoteContainerInner">
-                <div className="opratorDashNoteContainerInnerFront">
-
-                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
-                  
-                </div>
-                <div className="opratorDashNoteContainerInnerBack">
-                  <button className='opratorDashNoteContainerInnerBackClose'><i className="fa fa-times" aria-hidden="true"></i></button>
-                  <p className="opratorDashNoteDescription">تاخیر خود را در سیستم ثبت کنید</p>
-                </div>
-            </div>
-          </div>
-          </div>
-          <div className="opratorDashNote">
-            <div className="opratorDashNoteContainer">
-              <div className="opratorDashNoteContainerInner">
-                <div className="opratorDashNoteContainerInnerFront">
-
-                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
-                  
-                </div>
-                <div className="opratorDashNoteContainerInnerBack">
-                  <button className='opratorDashNoteContainerInnerBackClose'><i className="fa fa-times" aria-hidden="true"></i></button>
-                  <p className="opratorDashNoteDescription">تاخیر خود را در سیستم ثبت کنید</p>
-                </div>
-            </div>
-          </div>
-          </div>
-          <div className="opratorDashNote">
-            <div className="opratorDashNoteContainer">
-              <div className="opratorDashNoteContainerInner">
-                <div className="opratorDashNoteContainerInnerFront">
-
-                  <h3 className="opratorDashNoteTitle">یادداشت 1</h3>
-                  
-                </div>
-                <div className="opratorDashNoteContainerInnerBack">
-                  <button className='opratorDashNoteContainerInnerBackClose'><i className="fa fa-times" aria-hidden="true"></i></button>
-                  <p className="opratorDashNoteDescription">تاخیر خود را در سیستم ثبت کنید</p>
-                </div>
-            </div>
-          </div>
-          </div>
-          
-          
-          <button className='opratorDashNotePlusBTN' onClick={() => setIsOpen(true)}><i className="fa fa-plus" aria-hidden="true"></i></button>
-      </div>
-      {isOpen && <Modal setIsOpen={setIsOpen} />}
-
-      <div className="opratorDashActivity">
-      <h3>لیست کارها</h3>
-      <table className='opratorDashActivityTable'>
-        <thead className='opratorDashActivityTableThead'>
-          <tr>
-            <th className='opratorDashActivityTableTheadTrTh'>#</th>
-            <th className='opratorDashActivityTableTheadTrTh'>page</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Action</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Description</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Os</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Ip</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Browser</th>
-            <th className='opratorDashActivityTableTheadTrTh'>DateTime</th>
-          </tr>
-        </thead>
-        <tbody className='opratorDashActivityTableTbody'>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>asdasd</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>1401/2/2</td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-      
-      <div className="opratorDashAlert">
-      <h3>لیست پیام ها</h3>
-      <table className='opratorDashActivityTable'>
-        <thead className='opratorDashActivityTableThead'>
-          <tr>
-            <th className='opratorDashActivityTableTheadTrTh'>#</th>
-            <th className='opratorDashActivityTableTheadTrTh'>part</th>
-            <th className='opratorDashActivityTableTheadTrTh'>Description</th>
-            
-          </tr>
-        </thead>
-        <tbody className='opratorDashActivityTableTbody'>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          <tr>
-            <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>5</td>
-            <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="opratorDashListOfLogin">
-      <h3>لیست ورود های مجاز</h3>
-        <table className='opratorDashActivityTable'>
-          <thead className='opratorDashActivityTableThead'>
-            <tr>
-              <th className='opratorDashActivityTableTheadTrTh'>#</th>
-              <th className='opratorDashActivityTableTheadTrTh'>Ip</th>
-              <th className='opratorDashActivityTableTheadTrTh'>Os</th>
-              <th className='opratorDashActivityTableTheadTrTh'>Browser</th>
-              <th className='opratorDashActivityTableTheadTrTh'>Date</th>
-              <th className='opratorDashActivityTableTheadTrTh'>Description</th>
-              
-            </tr>
-          </thead>
-          <tbody className='opratorDashActivityTableTbody'>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-              </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-              </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-              </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-              </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-              </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-              </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-              </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-              </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-              </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="opratorDashListOfFailed">
-        <h3>لیست ورود های غیر مجاز</h3>
-        <table className='opratorDashActivityTable'>
-          <thead className='opratorDashActivityTableThead'>
-            <tr>
-              <th className='opratorDashActivityTableTheadTrTh'>#</th>
-              <th className='opratorDashActivityTableTheadTrTh'>Ip</th>
-              <th className='opratorDashActivityTableTheadTrTh'>Os</th>
-              <th className='opratorDashActivityTableTheadTrTh'>Browser</th>
-              <th className='opratorDashActivityTableTheadTrTh'>Date</th>
-              <th className='opratorDashActivityTableTheadTrTh'>Description</th>
-            </tr>
-          </thead>
-          <tbody className='opratorDashActivityTableTbody'>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-            <tr>
-              <td className='opratorDashActivityTableTbodyTrTd'>1</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>46.209.24.138</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Windows</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>Chrome</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>1401/2/25</td>
-              <td className='opratorDashActivityTableTbodyTrTd'>this is a description adjkl aldk bnakd bakdb ahkdb ajhdb jabd jahbd jabd ahbd ajldh bajdb ajd bjadb </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
     </>
-  )
-}
+  );
+};
 
-export default OperatorDashboard
+export default OperatorDashboard;

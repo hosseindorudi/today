@@ -8,7 +8,7 @@ import * as fa from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
-const Modal = ({ setIsOpen }) => {
+const Modal = ({ setIsOpen, getDashboardData }) => {
   const [values, setValues] = useState({
     title: "",
     desc: "",
@@ -37,7 +37,6 @@ const Modal = ({ setIsOpen }) => {
   }, [response]);
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
     fetchData({
       method: "POST",
       url: createNoteDashboard,
@@ -53,6 +52,7 @@ const Modal = ({ setIsOpen }) => {
       },
       signal: abortController.signal,
     });
+    getDashboardData();
   };
 
   const onChange = (e) => {
