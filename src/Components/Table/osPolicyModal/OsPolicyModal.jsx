@@ -12,40 +12,29 @@ import {
 import useRequest from "../../../customHooks/useRequest";
 import useAxios from "../../../customHooks/useAxios";
 import { useTranslation } from "react-i18next";
-import { CustomReactMultiSelect } from "../../../Components/Select/customReactSelect";
-import {
-  createSelectOptions,
-  handleError,
-  checkTableValues
-} from "../../../validation/functions";
-import './operatorRoleModal.css'
-import axios from "axios";
+import { handleError } from "../../../validation/functions";
+
 import Swal from "sweetalert2";
-import { organizationalRoleReadTitle } from "../../../services/organizationRoleService";
-import { groupReadTitle } from "../../../services/groupService";
-import { operatorCreateOperatorRole, operatorDeleteOperatorRole, operatorReadOperatorRole, operatorUpdateOperatorRole } from "../../../services/operatorService";
-const OperatorRoleModel = (props) => {
+import {
+  groupCreatePolicyOs,
+  groupDeletePolicyOs,
+  groupReadPolicyOs,
+  groupUpdatePolicyOs,
+} from "../../../services/groupService";
+import { osEnums } from "../../../data/osEnums";
+const OsPolicyModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
-  const [organizationalRoleOptions, setOrganizationalRoleOptions] = useState(
-    []
-  );
-  const [organizationalRole, setOrganizationalRole] = useState(undefined);
-  const [group, setGroup] = useState(undefined);
-  const [groupOptions, setGroupOptions] = useState([]);
-  const [description, setDescription] = useState("");
-  const [isPrimary, setIsPrimary] = useState(false);
+  const [os, setOs] = useState(null);
+  const [osDatas, setOsDatas] = useState([]);
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
-  const [operatorRoles, setOperatorRoles] = useState([]);
-    const [roleId, setRoleId] = useState("");
+  const [osId, setOsId] = useState("");
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
 
   const setEmpty = () => {
-    setGroup(null);
-    setOrganizationalRole(null);
-    setDescription("");
+    setOs("");
   };
 
   const createParams = (service) => {
@@ -59,31 +48,11 @@ const OperatorRoleModel = (props) => {
     };
     return params;
   };
-
-  const getDatas = () => {
-    const organizationalRoleTitle = axios.request(createParams(organizationalRoleReadTitle));
-    const groupTitle = axios.request(createParams(groupReadTitle));
-    axios
-      .all([organizationalRoleTitle, groupTitle])
-      .then(
-        axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setOrganizationalRoleOptions(createSelectOptions(allData[0].data.Title))
-            : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setGroupOptions(createSelectOptions(allData[1].data.Title))
-            : handleError(allData[1].data.Message);
-        })
-      )
-      .catch((error) => {
-        handleError(error.message);
-      });
-  };
   const readDatas = () => {
-    setRequestType("Read");
+    setRequestType("READRATE");
     fetchData({
       method: "POST",
-      url: operatorReadOperatorRole,
+      url: groupReadPolicyOs,
       headers: {
         accept: "*/*",
       },
@@ -95,7 +64,6 @@ const OperatorRoleModel = (props) => {
     });
   };
   useEffect(() => {
-    getDatas();
     readDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -112,8 +80,8 @@ const OperatorRoleModel = (props) => {
           setEmpty();
           setEditButtonActivate(false)
           break;
-        case "Read":
-          setOperatorRoles(response.Record);
+        case "READRATE":
+          setOsDatas(response.Record);
           break;
         default:
           break;
@@ -127,7 +95,7 @@ const OperatorRoleModel = (props) => {
     setRequestType("DELETE");
     fetchData({
       method: "POST",
-      url: operatorDeleteOperatorRole,
+      url: groupDeletePolicyOs,
       headers: {
         accept: "*/*",
       },
@@ -183,30 +151,24 @@ const OperatorRoleModel = (props) => {
 
     fetchData({
       method: "POST",
-      url: operatorCreateOperatorRole,
+      url: groupCreatePolicyOs,
       headers: {
         accept: "*/*",
       },
       signal: abortController.signal,
       data: {
         Id: 0,
-        Operator_Id: props.id,
-        Group_Id: group?.value,
-        OrganizationalRole_Id: organizationalRole?.value,
-        IsPrimary: isPrimary,
-        Description:description,
+        Group_Id: props.id,
+        Os_EId: os,
         Request: request,
       },
     });
   };
 
-  const handleQuestionEdit = (role) => {
+  const handleQuestionEdit = (o) => {
     setEditButtonActivate(true);
-    setDescription(role.Description);
-    setIsPrimary(role.IsPrimary)
-    setGroup(groupOptions.find((c) => c.value === role.Group_Id));
-    setOrganizationalRole(organizationalRoleOptions.find((c) => c.value === role.OrganizationalRole_Id));
-    setRoleId(role.Id);
+    setOs(o.Os_EId);
+    setOsId(o.Id);
   };
 
   const cancletationOFEdit = () => {
@@ -220,25 +182,20 @@ const OperatorRoleModel = (props) => {
 
     fetchData({
       method: "POST",
-      url: operatorUpdateOperatorRole,
+      url: groupUpdatePolicyOs,
       headers: {
         accept: "*/*",
       },
       signal: abortController.signal,
       data: {
-        Id: roleId,
-        Operator_Id: props.id,
-        Group_Id: group?.value,
-        OrganizationalRole_Id: organizationalRole?.value,
-        IsPrimary: isPrimary,
-        Description:description,
+        Id: osId,
+        Group_Id: props.id,
+        Os_EId: os,
         Request: request,
       },
     });
   };
-  const handleChangeSwitch=(e)=>{
-    setIsPrimary(e.target.checked)
-  }
+
   return (
     <>
       <Modal
@@ -253,38 +210,17 @@ const OperatorRoleModel = (props) => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <div className="Row" style={{textAlign:"center"}}>
-          <Form.Group className="mb-3" controlId="IsPrimary">
-                <Form.Label>{t("IsPrimary")}</Form.Label>
-                <Form.Check type="switch" name='IsPrimary' checked={isPrimary} onChange={handleChangeSwitch}/>
-              </Form.Group>
-              </div>
             <div className="Row">
-              <Form.Group className="mb-3" controlId="group">
-                <Form.Label>{t("/Operator/Group/Read")}</Form.Label>
-                <CustomReactMultiSelect
-                  isMulti={false}
-                  options={groupOptions}
-                  value={group}
-                  onchangeHandler={(e) => setGroup(e)}
-                  placeholder={t("/Operator/Group/Read")}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="organizationRole">
-                <Form.Label>{t("/Definition/OrganizationalRole/Read")}</Form.Label>
-                <CustomReactMultiSelect
-                  isMulti={false}
-                  options={organizationalRoleOptions}
-                  value={organizationalRole}
-                  onchangeHandler={(e) => setOrganizationalRole(e)}
-                  placeholder={t("/Definition/OrganizationalRole/Read")}
-                />
-              </Form.Group>
-            </div>
-            <div className="Row">
-            <Form.Group className="mb-3" controlId="Description">
-                <Form.Label>{t("Description")}</Form.Label>
-                <Form.Control as="textarea" rows={2} value={description} onChange={(e)=>setDescription(e.target.value)} placeholder={t("Description")}/>
+              <Form.Group className="mb-3" controlId="OS">
+                <Form.Label>{t("OS")}</Form.Label>
+                <Form.Select value={os} onChange={(e) => setOs(e.target.value)}>
+                  <option selected disabled>{t("OS")}</option>
+                  {Object.keys(osEnums).map((o, i) => (
+                    <option key={i} value={osEnums[o]}>
+                      {o}
+                    </option>
+                  ))}
+                </Form.Select>
               </Form.Group>
             </div>
             {!editButtonActivate ? (
@@ -292,7 +228,7 @@ const OperatorRoleModel = (props) => {
                 variant="primary"
                 type="submit"
                 className="questionFormSubmit mt-2"
-                disabled={loading}
+                disabled={loading ||!os}
               >
                 {t("operatorGroupFormSubmit")}
               </Button>
@@ -313,7 +249,7 @@ const OperatorRoleModel = (props) => {
                       variant="success"
                       onClick={SubmitOfEdit}
                       className="questionFormSubmit mt-2"
-                      disabled={loading}
+                      disabled={loading||!os}
                     >
                       {t("edit")}
                     </Button>
@@ -325,7 +261,7 @@ const OperatorRoleModel = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <ListGroup as="ol" numbered className="listGroupCurrencyModal">
-            {operatorRoles.map((role) => (
+            {osDatas.map((o,i) => (
               <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between "
@@ -334,31 +270,23 @@ const OperatorRoleModel = (props) => {
                   borderRadius: 4,
                   alignItems: "center",
                 }}
+                key={i}
               >
                 <div>
-                  <div className="fw-bold countryTitle">{t("/Operator/Group/Read")}</div>
-                  {role.Group_Title}
+                  <div className="fw-bold countryTitle">{t("OS")}</div>
+                  {Object.keys(osEnums).find(key => osEnums[key] === o.Os_EId)}
                 </div>
-                <div>
-                  <div className="fw-bold currencyTitle">
-                    {t("/Definition/OrganizationalRole/Read")}
-                  </div>
-                  {role.OrganizationalRole_Title}
-                </div>
-                <div>
-                  <div className="fw-bold currencyTitle">{t("IsPrimary")}</div>
-                  {checkTableValues("MySession",role.IsPrimary)}
-                </div>
+
                 <div className="d-flex btns ">
                   <div
                     className="actionBtns"
-                    onClick={() => handleQuestionEdit(role)}
+                    onClick={() => handleQuestionEdit(o)}
                   >
                     <fa.FaRegEdit color="green" />
                   </div>
                   <div
                     className="actionBtns"
-                    onClick={() => deleteCalled(role.Id)}
+                    onClick={() => deleteCalled(o.Id)}
                   >
                     <fa.FaTrash color="red" />
                   </div>
@@ -372,4 +300,4 @@ const OperatorRoleModel = (props) => {
   );
 };
 
-export default OperatorRoleModel;
+export default OsPolicyModal;

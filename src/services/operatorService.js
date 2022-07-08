@@ -15,4 +15,8 @@ export const logTable = 'Operator/Operator/Log'
 export const setToFavorit = 'Operator/Operator/SetToFavorite'
 export const accessList = 'Operator/Operator/AccessList'
 export const operatorChangePassword = 'Operator/Operator/ChangePassword'
+export const operatorCreateOperatorRole = 'Operator/Operator/CreateOperatorRole'
 
+export const operatorReadOperatorRole = 'Operator/Operator/ReadOperatorRole'
+export const operatorUpdateOperatorRole = 'Operator/Operator/UpdateOperatorRole'
+export const operatorDeleteOperatorRole = 'Operator/Operator/DeleteOperatorRole'

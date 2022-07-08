@@ -31,7 +31,13 @@ const TableButtons = ({
   handlePolicyBrowser,
   policyBrowserAccess,
   operatorRoleAccess,
-  handleOperatorRole
+  handleOperatorRole,
+  policyOsAccess,
+  handlePolicyOs,
+  policyLocationAccess,
+  handlePolicyLocation,
+  policyIpAccess,
+  handlePolicyIP
 }) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const { app } = useContext(AppContext);
@@ -153,6 +159,39 @@ const TableButtons = ({
           }}
         >
           <fa.FaFirefoxBrowser />
+        </button>
+      )}
+      {haveAccess(policyIpAccess) && (
+        <button
+          title={t("policyIpAccess")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+          handlePolicyIP(rowValue.Id);
+          }}
+        >
+          <fa.FaInternetExplorer />
+        </button>
+      )}
+       {haveAccess(policyLocationAccess) && (
+        <button
+          title={t("policyIpAccess")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+          handlePolicyLocation(rowValue.Id);
+          }}
+        >
+          <gr.GrMapLocation />
+        </button>
+      )}
+      {haveAccess(policyOsAccess) && (
+        <button
+          title={t("policyIpAccess")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+          handlePolicyOs(rowValue.Id);
+          }}
+        >
+          <fa.FaWindows />
         </button>
       )}
        {haveAccess(operatorRoleAccess) && (

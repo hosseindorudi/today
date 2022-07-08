@@ -710,5 +710,7 @@
   "/Operator/OnlineOperator/Read":"اپراتور آنلاین",
   "Language_EId":"زبان",
   "MySession":"شخص",
-  "OperatorRole":"دسترسی های اپراتور"
+  "OperatorRole":"دسترسی های اپراتور",
+  "IsPrimary":"اولیه",
+  "policyIpAccess":"محدودیت آی پی"
 }

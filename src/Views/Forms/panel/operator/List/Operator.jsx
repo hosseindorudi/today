@@ -8,6 +8,7 @@ import CustomTable from "../../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
 import { checkFileOperator, deleteRecordOpt, exportFile, getoneRecord, importFileOperator, logTable, operatorChangePassword, operatorExportId, readOpt, readpaging, sampleFileOperator, setToFavorit, setUnselectedColumn } from "../../../../../services/operatorService";
 import OperatorForm from "../OperatorForm";
+import OperatorRoleModel from "../../../../../Components/Table/operatorRoleModal/OperatorRoleModal";
 const Operator = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType","Group_Id"];
   const [tableModalOpen, setTableModalOpen] = useState(false);
@@ -17,6 +18,7 @@ const Operator = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
+  const [operatorRoleOpen, setOperatorRoleOpen] = useState(false);
 
   const addObject = {
     Component: OperatorForm,
@@ -44,7 +46,7 @@ const Operator = () => {
 
   const handleOperatorRole=(id)=>{
       setRowValues(id)
-      
+      setOperatorRoleOpen(true)
   }
   return (
     <>
@@ -56,7 +58,10 @@ const Operator = () => {
           updated={updated}
         />
       )}
-    
+      {operatorRoleOpen &&(
+        <OperatorRoleModel show={operatorRoleOpen} onHide={() => setOperatorRoleOpen(false)} id={rowValues}/>
+
+      )}
 
       <CustomTable
         ref={childRef}

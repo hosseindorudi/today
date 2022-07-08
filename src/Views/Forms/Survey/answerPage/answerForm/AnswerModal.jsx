@@ -276,7 +276,7 @@ const AnswerModal = (props) => {
       );
     }
     if (map.includes(key)) {
-      return <MapModal qId={questionId} submited={submitMap} />;
+      return <MapModal qId={questionId} submited={submitMap} coordinats={[51.42, 35.72]} />;
     }
   };
   const submitMap = (id, coordinates) => {

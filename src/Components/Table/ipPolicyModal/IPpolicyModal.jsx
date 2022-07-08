@@ -12,78 +12,33 @@ import {
 import useRequest from "../../../customHooks/useRequest";
 import useAxios from "../../../customHooks/useAxios";
 import { useTranslation } from "react-i18next";
-import { CustomReactMultiSelect } from "../../../Components/Select/customReactSelect";
 import {
-  createSelectOptions,
-  handleError,
-  checkTableValues
+  handleError
 } from "../../../validation/functions";
-import './operatorRoleModal.css'
-import axios from "axios";
+import './IPpolicyModal.css'
 import Swal from "sweetalert2";
-import { organizationalRoleReadTitle } from "../../../services/organizationRoleService";
-import { groupReadTitle } from "../../../services/groupService";
-import { operatorCreateOperatorRole, operatorDeleteOperatorRole, operatorReadOperatorRole, operatorUpdateOperatorRole } from "../../../services/operatorService";
-const OperatorRoleModel = (props) => {
+import { groupCreatePolicyIP, groupDeletePolicyIP, groupReadPolicyIP, groupUpdatePolicyIP } from "../../../services/groupService";
+const IPpolicyModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
-  const [organizationalRoleOptions, setOrganizationalRoleOptions] = useState(
-    []
-  );
-  const [organizationalRole, setOrganizationalRole] = useState(undefined);
-  const [group, setGroup] = useState(undefined);
-  const [groupOptions, setGroupOptions] = useState([]);
-  const [description, setDescription] = useState("");
-  const [isPrimary, setIsPrimary] = useState(false);
+  const [IP_From, setIP_From] = useState("");
+  const [IP_To, setIP_To] = useState("");
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
-  const [operatorRoles, setOperatorRoles] = useState([]);
-    const [roleId, setRoleId] = useState("");
+  const [IPs, setIps] = useState([]);
+const [ipId, setIpId] = useState("");
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
 
   const setEmpty = () => {
-    setGroup(null);
-    setOrganizationalRole(null);
-    setDescription("");
-  };
-
-  const createParams = (service) => {
-    const params = {
-      method: "POST",
-      url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
-    };
-    return params;
-  };
-
-  const getDatas = () => {
-    const organizationalRoleTitle = axios.request(createParams(organizationalRoleReadTitle));
-    const groupTitle = axios.request(createParams(groupReadTitle));
-    axios
-      .all([organizationalRoleTitle, groupTitle])
-      .then(
-        axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setOrganizationalRoleOptions(createSelectOptions(allData[0].data.Title))
-            : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setGroupOptions(createSelectOptions(allData[1].data.Title))
-            : handleError(allData[1].data.Message);
-        })
-      )
-      .catch((error) => {
-        handleError(error.message);
-      });
+    setIP_From("");
+    setIP_To("");
   };
   const readDatas = () => {
     setRequestType("Read");
     fetchData({
       method: "POST",
-      url: operatorReadOperatorRole,
+      url: groupReadPolicyIP,
       headers: {
         accept: "*/*",
       },
@@ -95,7 +50,6 @@ const OperatorRoleModel = (props) => {
     });
   };
   useEffect(() => {
-    getDatas();
     readDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -113,7 +67,7 @@ const OperatorRoleModel = (props) => {
           setEditButtonActivate(false)
           break;
         case "Read":
-          setOperatorRoles(response.Record);
+          setIps(response.Record);
           break;
         default:
           break;
@@ -127,7 +81,7 @@ const OperatorRoleModel = (props) => {
     setRequestType("DELETE");
     fetchData({
       method: "POST",
-      url: operatorDeleteOperatorRole,
+      url: groupDeletePolicyIP,
       headers: {
         accept: "*/*",
       },
@@ -183,30 +137,26 @@ const OperatorRoleModel = (props) => {
 
     fetchData({
       method: "POST",
-      url: operatorCreateOperatorRole,
+      url: groupCreatePolicyIP,
       headers: {
         accept: "*/*",
       },
       signal: abortController.signal,
       data: {
         Id: 0,
-        Operator_Id: props.id,
-        Group_Id: group?.value,
-        OrganizationalRole_Id: organizationalRole?.value,
-        IsPrimary: isPrimary,
-        Description:description,
+        Group_Id: props.id,
+        IP_From: IP_From,
+        IP_To: IP_To,
         Request: request,
       },
     });
   };
 
-  const handleQuestionEdit = (role) => {
+  const handleQuestionEdit = (ip) => {
     setEditButtonActivate(true);
-    setDescription(role.Description);
-    setIsPrimary(role.IsPrimary)
-    setGroup(groupOptions.find((c) => c.value === role.Group_Id));
-    setOrganizationalRole(organizationalRoleOptions.find((c) => c.value === role.OrganizationalRole_Id));
-    setRoleId(role.Id);
+    setIP_From(ip.IP_From);
+    setIP_To(ip.IP_To)
+    setIpId(ip.Id);
   };
 
   const cancletationOFEdit = () => {
@@ -220,25 +170,21 @@ const OperatorRoleModel = (props) => {
 
     fetchData({
       method: "POST",
-      url: operatorUpdateOperatorRole,
+      url: groupUpdatePolicyIP,
       headers: {
         accept: "*/*",
       },
       signal: abortController.signal,
       data: {
-        Id: roleId,
-        Operator_Id: props.id,
-        Group_Id: group?.value,
-        OrganizationalRole_Id: organizationalRole?.value,
-        IsPrimary: isPrimary,
-        Description:description,
+        Id: ipId,
+        Group_Id: props.id,
+        IP_From: IP_From,
+        IP_To: IP_To,
         Request: request,
       },
     });
   };
-  const handleChangeSwitch=(e)=>{
-    setIsPrimary(e.target.checked)
-  }
+
   return (
     <>
       <Modal
@@ -253,38 +199,16 @@ const OperatorRoleModel = (props) => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <div className="Row" style={{textAlign:"center"}}>
-          <Form.Group className="mb-3" controlId="IsPrimary">
-                <Form.Label>{t("IsPrimary")}</Form.Label>
-                <Form.Check type="switch" name='IsPrimary' checked={isPrimary} onChange={handleChangeSwitch}/>
-              </Form.Group>
-              </div>
             <div className="Row">
-              <Form.Group className="mb-3" controlId="group">
-                <Form.Label>{t("/Operator/Group/Read")}</Form.Label>
-                <CustomReactMultiSelect
-                  isMulti={false}
-                  options={groupOptions}
-                  value={group}
-                  onchangeHandler={(e) => setGroup(e)}
-                  placeholder={t("/Operator/Group/Read")}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="organizationRole">
-                <Form.Label>{t("/Definition/OrganizationalRole/Read")}</Form.Label>
-                <CustomReactMultiSelect
-                  isMulti={false}
-                  options={organizationalRoleOptions}
-                  value={organizationalRole}
-                  onchangeHandler={(e) => setOrganizationalRole(e)}
-                  placeholder={t("/Definition/OrganizationalRole/Read")}
-                />
+              <Form.Group className="mb-3" controlId="IP_From">
+                <Form.Label>{t("IP_From")}</Form.Label>
+                <Form.Control maxLength={15}  value={IP_From} onChange={(e)=>setIP_From(e.target.value)} placeholder={t("IP_From")}/>
               </Form.Group>
             </div>
             <div className="Row">
-            <Form.Group className="mb-3" controlId="Description">
-                <Form.Label>{t("Description")}</Form.Label>
-                <Form.Control as="textarea" rows={2} value={description} onChange={(e)=>setDescription(e.target.value)} placeholder={t("Description")}/>
+            <Form.Group className="mb-3" controlId="IP_To">
+                <Form.Label>{t("IP_To")}</Form.Label>
+                <Form.Control maxLength={15}  value={IP_To} onChange={(e)=>setIP_To(e.target.value)} placeholder={t("IP_To")}/>
               </Form.Group>
             </div>
             {!editButtonActivate ? (
@@ -325,7 +249,7 @@ const OperatorRoleModel = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <ListGroup as="ol" numbered className="listGroupCurrencyModal">
-            {operatorRoles.map((role) => (
+            {IPs.map((ip) => (
               <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between "
@@ -336,29 +260,25 @@ const OperatorRoleModel = (props) => {
                 }}
               >
                 <div>
-                  <div className="fw-bold countryTitle">{t("/Operator/Group/Read")}</div>
-                  {role.Group_Title}
+                  <div className="fw-bold countryTitle">{t("IP_From")}</div>
+                  {ip.IP_From}
                 </div>
                 <div>
                   <div className="fw-bold currencyTitle">
-                    {t("/Definition/OrganizationalRole/Read")}
+                    {t("IP_To")}
                   </div>
-                  {role.OrganizationalRole_Title}
-                </div>
-                <div>
-                  <div className="fw-bold currencyTitle">{t("IsPrimary")}</div>
-                  {checkTableValues("MySession",role.IsPrimary)}
+                  {ip.IP_To}
                 </div>
                 <div className="d-flex btns ">
                   <div
                     className="actionBtns"
-                    onClick={() => handleQuestionEdit(role)}
+                    onClick={() => handleQuestionEdit(ip)}
                   >
                     <fa.FaRegEdit color="green" />
                   </div>
                   <div
                     className="actionBtns"
-                    onClick={() => deleteCalled(role.Id)}
+                    onClick={() => deleteCalled(ip.Id)}
                   >
                     <fa.FaTrash color="red" />
                   </div>
@@ -372,4 +292,4 @@ const OperatorRoleModel = (props) => {
   );
 };
 
-export default OperatorRoleModel;
+export default IPpolicyModal;

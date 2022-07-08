@@ -25,13 +25,16 @@ import { enums } from "../../../../../data/Enums";
 import CustomTable from "../../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
 import BrowserPolicyModal from "../../../../../Components/Table/browserPolicyModal/BrowserPolicyModal";
+import IPpolicyModal from "../../../../../Components/Table/ipPolicyModal/IPpolicyModal";
+import OsPolicyModal from "../../../../../Components/Table/osPolicyModal/OsPolicyModal";
 const Group = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValues, setRowValues] = useState({});
   const [modalBrowserPolicy, setModalBrowserPolicy] = useState(false);
-
+  const [modalIpPolicy, setModalIpPolicy] = useState(false);
+  const [osModal, setOsModal] = useState(false);
   const childRef = useRef();
 
   const [mobileModal, setMobileModal] = useState(false);
@@ -67,7 +70,14 @@ const Group = () => {
     setRowValues(id);
     setModalBrowserPolicy(true);
   };
-
+  const handlePolicyIP=(id)=>{
+    setRowValues(id)
+   setModalIpPolicy(true)
+  }
+  const handlePolicyOs=(id)=>{
+    setRowValues(id)
+    setOsModal(true)
+  }
   return (
     <>
       {tableModalOpen && (
@@ -85,7 +95,20 @@ const Group = () => {
           show={modalBrowserPolicy}
         />
       )}
-
+    {modalIpPolicy && (
+        <IPpolicyModal
+          id={rowValues}
+          onHide={() => setModalIpPolicy(false)}
+          show={modalIpPolicy}
+        />
+      )}
+       {osModal && (
+        <OsPolicyModal
+          id={rowValues}
+          onHide={() => setOsModal(false)}
+          show={osModal}
+        />
+      )}
       <CustomTable
         ref={childRef}
         ReadApi={groupRead}
@@ -126,6 +149,10 @@ const Group = () => {
         mobileModalColumns={mobileModalColumns}
         handlePolicyBrowser={handlePolicyBrowser}
         policyBrowserAccess={enums.Operator_Group_Create_w}
+        handlePolicyIP={handlePolicyIP}
+        policyIpAccess={enums.Operator_Group_Create_w}
+        handlePolicyOs={handlePolicyOs}
+        policyOsAccess={enums.Operator_Group_Create_w}
       />
     </>
   );

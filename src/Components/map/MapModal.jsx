@@ -17,9 +17,9 @@ const Map = Mapir.setToken({
     };
   },
 });
-const MapModal = ({qId,submited}) => {
+const MapModal = ({qId,submited,coordinats}) => {
   const [show, setShow] = useState(false);
-  const [coord, setCoord] = useState([51.42, 35.72]);
+  const [coord, setCoord] = useState(coordinats);
   const [text, setText] = useState("");
   const [results, setResults] = useState([]);
   const [disabled, setDisabled] = useState(true);
