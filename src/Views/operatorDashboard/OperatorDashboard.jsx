@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import {
   homeDashboard,
   deleteNoteDashboard,
+  updateDashboard,
+  deleteFavorite,
 } from "../../services/dashboardServices";
 import useAxios from "../../customHooks/useAxios";
 import AppContext from "../../contexts/AppContext";
@@ -127,11 +129,48 @@ const OperatorDashboard = () => {
           },
 
           data: {
-            Language: app.langCode,
+            Request: {
+              Language: app.langCode,
+              Token: accessToken ? accessToken : "",
+              Latitude: location.loaded ? location.coordinates.lat : 0,
+              Longitude: location.loaded ? location.coordinates.lng : 0,
+            },
             Id: id,
-            Token: accessToken ? accessToken : "",
-            Latitude: location.loaded ? location.coordinates.lat : 0,
-            Longitude: location.loaded ? location.coordinates.lng : 0,
+          },
+
+          signal: abortController.signal,
+        });
+      }
+    });
+  };
+  const deleteFavoriteItem = (id) => {
+    Swal.fire({
+      title: t("table.deleteTitle"),
+      text: t("table.noReturn"),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: t("sweetAlert.yes"),
+      cancelButtonText: t("sweetAlert.cancel"),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setRequestType("DELETEFAVORITE");
+        fetchData({
+          method: "POST",
+          url: deleteFavorite,
+          headers: {
+            accept: "*/*",
+          },
+
+          data: {
+            Request: {
+              Language: app.langCode,
+              Token: accessToken ? accessToken : "",
+              Latitude: location.loaded ? location.coordinates.lat : 0,
+              Longitude: location.loaded ? location.coordinates.lng : 0,
+            },
+            Id: id,
           },
 
           signal: abortController.signal,
@@ -149,6 +188,45 @@ const OperatorDashboard = () => {
 
     getDashboardData();
   };
+  const handleDeletedFavorite = () => {
+    Swal.fire(
+      t("sweetAlert.deleted"),
+      t("sweetAlert.recordDeleted"),
+      "success"
+    );
+
+    getDashboardData();
+  };
+
+  const handleUpdate = () => {
+    getDashboardData();
+  };
+
+  const updateOneRecord = (note, bol) => {
+    setRequestType("UPDATE");
+    fetchData({
+      method: "POST",
+      url: updateDashboard,
+      headers: {
+        accept: "*/*",
+      },
+
+      data: {
+        Id: note.Id,
+        Title: note.Title,
+        Body: note.Body,
+        IsAlarm: bol,
+        Request: {
+          Language: app.langCode,
+          Token: accessToken ? accessToken : "",
+          Latitude: location.loaded ? location.coordinates.lat : 0,
+          Longitude: location.loaded ? location.coordinates.lng : 0,
+        },
+      },
+
+      signal: abortController.signal,
+    });
+  };
 
   const handleResponse = useCallback(
     (response, type) => {
@@ -159,12 +237,12 @@ const OperatorDashboard = () => {
         case "READ":
           setData(response);
           break;
-        // case "GETONERECORD":
-        //   setUpdate(response);
-        //   break;
-        // case "UPDATE":
-        //   setAddQuestion(response);
-        //   break;
+        case "DELETEFAVORITE":
+          handleDeletedFavorite();
+          break;
+        case "UPDATE":
+          handleUpdate();
+          break;
 
         default:
           break;
@@ -175,7 +253,6 @@ const OperatorDashboard = () => {
   );
   useEffect(() => {
     if (loaded) {
-      setRequestType("READ");
       getDashboardData();
     }
 
@@ -190,6 +267,7 @@ const OperatorDashboard = () => {
         : handleError(response.Message);
     }
     setResponse(undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, requestType]);
 
   return (
@@ -236,7 +314,10 @@ const OperatorDashboard = () => {
                 <>
                   <div className="favarotContainer" key={i}>
                     <div className="favarotClose">
-                      <button className="destroyFavarot">
+                      <button
+                        className="destroyFavarot"
+                        onClick={() => deleteFavoriteItem(dashboard.Id)}
+                      >
                         <i className="fa fa-times" aria-hidden="true"></i>
                       </button>
                     </div>
@@ -272,7 +353,12 @@ const OperatorDashboard = () => {
                         >
                           <i className="fa fa-times" aria-hidden="true"></i>{" "}
                         </button>
-                        <button className="opratorDashNoteContainerInnerBackClose1">
+                        <button
+                          className="opratorDashNoteContainerInnerBackClose1"
+                          onClick={() => {
+                            updateOneRecord(note, !note.IsAlarm);
+                          }}
+                        >
                           {note.IsAlarm ? <fa.FaBell /> : <fa.FaRegBell />}
                         </button>
                       </div>
