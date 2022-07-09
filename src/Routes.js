@@ -1,49 +1,132 @@
-import React, { lazy } from "react";
-import * as IoIcons from "react-icons/io";
-import * as RiIcons from "react-icons/ri";
-import { enums } from "./data/Enums";
 
-import CustomerGroup from "./Views/Forms/customer/group/List/CustomerGroup";
-import AccessoriesDefine from "./Views/Forms/definations/accessories/accessoriesDefine/AccessoriesDefine";
-import StatusDeviceStartDefine from "./Views/Forms/definations/statusDeviceStart/statusDeviceStartDefine/StatusDeviceStartDefine";
-import StatusDeviceStart from "./Views/Forms/definations/statusDeviceStart/StatusDeviceStart";
-import Registered from "./Views/Forms/service/registered/Registered";
-import SentCustomer from "./Views/Forms/service/sentCustomer/SentCustomer";
-import SentCustomerForm from "./Views/Forms/service/sentCustomer/SentCustomerForm";
-import StatusDeviceProgress from "./Views/Forms/definations/statusDeviceProgress/StatusDeviceProgress";
-import StatusDeviceProgressDefine from "./Views/Forms/definations/statusDeviceProgress/statusDeviceProgressDefine/StatusDeviceProgressDefine";
-import StatusDeviceEnd from "./Views/Forms/definations/statusDeviceEnd/StatusDeviceEnd";
-import StatusDeviceEndDefine from "./Views/Forms/definations/statusDeviceEnd/statusDeviceEndDefine/StatusDeviceEndDefine";
-import AnswerList from "./Views/Forms/Survey/answerPage/answerList/AnswerList";
-import AnswerForm from "./Views/Forms/Survey/answerPage/answerForm/AnswerForm";
-import QuestionnaireType from "./Views/Forms/definations/questionnaireType/QuestionnaireType";
-import QuestionnaireTypeDefine from "./Views/Forms/definations/questionnaireType/questionnaireTypeDefine/QuestionnaireTypeDefine";
-import Model from "./Views/Forms/definations/model/Model";
-import ModelDefine from "./Views/Forms/definations/model/modelDefine/ModelDefine";
-import OrganizationRole from "./Views/Forms/definations/organizationRole/OrganizationRole";
-import OrganizationRoleDefine from "./Views/Forms/definations/organizationRole/organizationRoleDefine/OrganizationRoleDefine";
-import OutputQualityControl from "./Views/Forms/definations/outputQualityControl/OutputQualityControl";
-import OutputQualityControlDefine from "./Views/Forms/definations/outputQualityControl/outputQualityControlDefine/OutputQualityControlDefine";
-import ProvinceDefine from "./Views/Forms/definations/province/ProvinceDefine/ProvinceDefine";
-import Province from "./Views/Forms/definations/province/Province";
-import QualityDefine from "./Views/Forms/definations/quality/qualityDefine/QualityDefine";
-import Quality from "./Views/Forms/definations/quality/Quality";
-import ReplacementTypeDefine from "./Views/Forms/definations/replacementType/replacementTypeDefine/ReplacementTypeDefine";
-import ReplacementType from "./Views/Forms/definations/replacementType/ReplacementType";
-import PartGroup from "./Views/Forms/definations/partGroup/PartGroup";
-import PartGroupDefine from "./Views/Forms/definations/partGroup/partGroupDefine/PartGroupDefine";
-import RepairsPerformed from "./Views/Forms/definations/repairsPerformed/RepairsPerformed";
-import Section from "./Views/Forms/definations/section/Section";
-import SectionDefine from "./Views/Forms/definations/section/sectionDefine/SectionDefine";
-import SendType from "./Views/Forms/definations/sendType/SendType";
-import SendTypeDefine from "./Views/Forms/definations/sendType/sendTypeDefine/SendTypeDefine";
-import RegistrationGoodDefine from "./Views/Forms/business/registrationGood/registrationGoodDefine/RegistrationGoodDefine";
-import RegistrationGood from "./Views/Forms/business/registrationGood/RegistrationGood";
-import CurrencyDefine from "./Views/Forms/definations/currency/currencyDefine/CurrencyDefine";
-import Currency from "./Views/Forms/definations/currency/Currency";
-import AllowedIpForm from "./Views/Forms/panel/virtualIpForm/AllowedIpForm";
-import AllowedIp from "./Views/Forms/panel/virtualIpForm/AllowedIp";
-import OnlineOperator from "./Views/Forms/panel/onlineOperator/OnlineOperator";
+import * as IoIcons from "react-icons/io"
+import * as RiIcons from "react-icons/ri"
+import { enums } from "./data/Enums";
+import React, { lazy } from 'react'
+const CustomerGroup = lazy(() =>
+  import("./Views/Forms/customer/group/List/CustomerGroup")
+);
+const AccessoriesDefine = lazy(() =>
+  import("./Views/Forms/definations/accessories/accessoriesDefine/AccessoriesDefine")
+);
+const StatusDeviceStartDefine = lazy(() =>
+  import("./Views/Forms/definations/statusDeviceStart/statusDeviceStartDefine/StatusDeviceStartDefine")
+);
+const StatusDeviceStart = lazy(() =>
+  import("./Views/Forms/definations/statusDeviceStart/StatusDeviceStart")
+);
+const Registered = lazy(() =>
+  import("./Views/Forms/service/registered/Registered")
+);
+const SentCustomer = lazy(() =>
+  import("./Views/Forms/service/sentCustomer/SentCustomer")
+);
+const SentCustomerForm = lazy(() =>
+  import("./Views/Forms/service/sentCustomer/SentCustomerForm")
+);
+const StatusDeviceProgress = lazy(() =>
+  import("./Views/Forms/definations/statusDeviceProgress/StatusDeviceProgress")
+);
+const StatusDeviceProgressDefine = lazy(() =>
+  import("./Views/Forms/definations/statusDeviceProgress/statusDeviceProgressDefine/StatusDeviceProgressDefine")
+);
+const StatusDeviceEnd = lazy(() =>
+  import("./Views/Forms/definations/statusDeviceEnd/StatusDeviceEnd")
+);
+const StatusDeviceEndDefine = lazy(() =>
+  import("./Views/Forms/definations/statusDeviceEnd/statusDeviceEndDefine/StatusDeviceEndDefine")
+);
+const AnswerList = lazy(() =>
+  import("./Views/Forms/Survey/answerPage/answerList/AnswerList")
+);
+const AnswerForm = lazy(() =>
+  import("./Views/Forms/Survey/answerPage/answerForm/AnswerForm")
+);
+const QuestionnaireType = lazy(() =>
+  import("./Views/Forms/definations/questionnaireType/QuestionnaireType")
+);
+const QuestionnaireTypeDefine = lazy(() =>
+  import("./Views/Forms/definations/questionnaireType/questionnaireTypeDefine/QuestionnaireTypeDefine")
+);
+const Model = lazy(() =>
+  import("./Views/Forms/definations/model/Model")
+);
+const ModelDefine = lazy(() =>
+  import("./Views/Forms/definations/model/modelDefine/ModelDefine")
+);
+const OrganizationRole = lazy(() =>
+  import("./Views/Forms/definations/organizationRole/OrganizationRole")
+);
+const OrganizationRoleDefine = lazy(() =>
+  import("./Views/Forms/definations/organizationRole/organizationRoleDefine/OrganizationRoleDefine")
+);
+const OutputQualityControl = lazy(() =>
+  import("./Views/Forms/definations/outputQualityControl/OutputQualityControl")
+);
+const OutputQualityControlDefine = lazy(() =>
+  import("./Views/Forms/definations/outputQualityControl/outputQualityControlDefine/OutputQualityControlDefine")
+);
+const ProvinceDefine = lazy(() =>
+  import("./Views/Forms/definations/province/ProvinceDefine/ProvinceDefine")
+);
+const Province = lazy(() =>
+  import("./Views/Forms/definations/province/Province")
+);
+const QualityDefine = lazy(() =>
+  import("./Views/Forms/definations/quality/qualityDefine/QualityDefine")
+);
+const Quality = lazy(() =>
+  import("./Views/Forms/definations/quality/Quality")
+);
+const ReplacementTypeDefine = lazy(() =>
+  import("./Views/Forms/definations/replacementType/replacementTypeDefine/ReplacementTypeDefine")
+);
+const ReplacementType = lazy(() =>
+  import("./Views/Forms/definations/replacementType/ReplacementType")
+);
+const PartGroup = lazy(() =>
+  import("./Views/Forms/definations/partGroup/PartGroup")
+);
+const PartGroupDefine = lazy(() =>
+  import("./Views/Forms/definations/partGroup/partGroupDefine/PartGroupDefine")
+);
+const RepairsPerformed = lazy(() =>
+  import("./Views/Forms/definations/repairsPerformed/RepairsPerformed")
+);
+const Section = lazy(() =>
+  import("./Views/Forms/definations/section/Section")
+);
+const SectionDefine = lazy(() =>
+  import("./Views/Forms/definations/section/sectionDefine/SectionDefine")
+);
+const SendType = lazy(() =>
+  import("./Views/Forms/definations/sendType/SendType")
+);
+const SendTypeDefine = lazy(() =>
+  import("./Views/Forms/definations/sendType/sendTypeDefine/SendTypeDefine")
+);
+const RegistrationGoodDefine = lazy(() =>
+  import("./Views/Forms/business/registrationGood/registrationGoodDefine/RegistrationGoodDefine")
+);
+const RegistrationGood = lazy(() =>
+  import("./Views/Forms/business/registrationGood/RegistrationGood")
+);
+const CurrencyDefine = lazy(() =>
+  import("./Views/Forms/definations/currency/currencyDefine/CurrencyDefine")
+);
+const Currency = lazy(() =>
+  import("./Views/Forms/definations/currency/Currency")
+);
+const AllowedIpForm = lazy(() =>
+  import("./Views/Forms/panel/virtualIpForm/AllowedIpForm")
+);
+const AllowedIp = lazy(() =>
+  import("./Views/Forms/panel/virtualIpForm/AllowedIp")
+);
+
+const OnlineOperator = lazy(() =>
+  import("./Views/Forms/panel/onlineOperator/OnlineOperator")
+);
 const CustomerGroupForm = lazy(() =>
   import("./Views/Forms/customer/group/CustomerGroupForm")
 );
