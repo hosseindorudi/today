@@ -11,12 +11,29 @@ const ExportAllButton = (props) => {
     const request=useRequest()
     const abortController = new AbortController();
     const handleExport = () => {
-        const paging = {
-          NumberOfRecordsPerPage: props.numberOfRecordsPerPage,
-          CurrentPage: props.currentPage,
-          IsAscending: props.sort.IsAscending,
-          SortBy: props.sort.SortBy,
-        };
+
+      
+      if (props.repaireExp) {
+      fetchData({
+        method: "POST",
+        url: props.exportLink,
+        headers: {
+          accept: "*/*",
+        },
+        data:{
+          Request: request,
+        },
+        signal: abortController.signal,
+      })
+
+
+    }else {
+      const paging = {
+        NumberOfRecordsPerPage: props.numberOfRecordsPerPage,
+        CurrentPage: props.currentPage,
+        IsAscending: props.sort.IsAscending,
+        SortBy: props.sort.SortBy,
+      };
         fetchData({
           method: "POST",
           url: props.exportLink,
@@ -34,8 +51,9 @@ const ExportAllButton = (props) => {
           },
           signal: abortController.signal,
         });
-    
+      }
       };
+
       const noFileToast = () => {
         toast.info(t("noDataFound.table"), {
           position: toast.POSITION.TOP_CENTER,

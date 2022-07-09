@@ -21,6 +21,38 @@
   border: 1px solid lightgray;
   align-self: center;
   margin-top: 5px;
+  border-radius: 4px;
+}
+
+.treeViewRow {
+  display: flex;
+  width: 100%;
+}
+
+.rowViewBtn {
+  border: none;
+  background-color: transparent;
+  color: red;
+  height: fit-content;
+
+}
+.rowViewBtnEdit {
+  border: none;
+  background-color: transparent;
+  color: green;
+  height: fit-content;
+
+}
+.rowViewBtnFee {
+  border: none;
+  background-color: transparent;
+  color: gold;
+  height: fit-content;
+
+}
+
+.repairPerformDown > button {
+  margin: 2px 5px;
 }
 
 .repairedPerformedRight {
@@ -45,4 +77,11 @@
 
 .repairsPerformedItem {
   width: 100%;
+}
+
+.repairedFormDownDiv {
+  display: flex;
+  align-items: center;
+justify-content: space-between;
+width: 80%;
 }

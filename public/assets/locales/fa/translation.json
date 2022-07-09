@@ -713,6 +713,8 @@
   "OperatorRole":"دسترسی های اپراتور",
   "IsPrimary":"اولیه",
   "policyIpAccess":"محدودیت آی پی",
+  "repairedEdit":"بروزرسانی",
+  "repairedCancel":"بازگشت",
   "chooseLocation":"انتخاب موقعیت",
   "policyLocationAccess":"محدودیت موقعیت",
   "policyOsAccess":"محدودیت سیستم عامل",
