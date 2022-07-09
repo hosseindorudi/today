@@ -174,7 +174,7 @@ const TableButtons = ({
       )}
        {haveAccess(policyLocationAccess) && (
         <button
-          title={t("policyIpAccess")}
+          title={t("policyLocationAccess")}
           className="Pending widgetLgButton"
           onClick={() => {
           handlePolicyLocation(rowValue.Id);
@@ -185,7 +185,7 @@ const TableButtons = ({
       )}
       {haveAccess(policyOsAccess) && (
         <button
-          title={t("policyIpAccess")}
+          title={t("policyOsAccess")}
           className="Pending widgetLgButton"
           onClick={() => {
           handlePolicyOs(rowValue.Id);

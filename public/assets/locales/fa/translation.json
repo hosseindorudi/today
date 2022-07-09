@@ -230,7 +230,7 @@
   "ip.from": "از",
   "operatorGroup.browser": "مرورگر",
   "operatorGroup.locations": "موقعیت",
-  "radious": "شعاع",
+  "Radius": "شعاع",
   "fromTime": "از ساعت",
   "startDate": "تاریخ شروع",
   "endDate": "تاریخ پایان",
@@ -712,5 +712,9 @@
   "MySession":"شخص",
   "OperatorRole":"دسترسی های اپراتور",
   "IsPrimary":"اولیه",
-  "policyIpAccess":"محدودیت آی پی"
+  "policyIpAccess":"محدودیت آی پی",
+  "chooseLocation":"انتخاب موقعیت",
+  "policyLocationAccess":"محدودیت موقعیت",
+  "policyOsAccess":"محدودیت سیستم عامل",
+  "Location":"موقعیت"
 }

@@ -12,33 +12,38 @@ import {
 import useRequest from "../../../customHooks/useRequest";
 import useAxios from "../../../customHooks/useAxios";
 import { useTranslation } from "react-i18next";
-import {
-  handleError
-} from "../../../validation/functions";
-import './IPpolicyModal.css'
+import { handleError } from "../../../validation/functions";
+import "./locationPolicyModal.css";
 import Swal from "sweetalert2";
-import { groupCreatePolicyIP, groupDeletePolicyIP, groupReadPolicyIP, groupUpdatePolicyIP } from "../../../services/groupService";
+import {
+  groupCreatePolicyLocation,
+  groupDeletePolicyLocation,
+  groupReadPolicyLocation,
+  groupUpdatePolicyLocation,
+} from "../../../services/groupService";
+import { defaultCoordinates } from "../../../data/constants";
+import MapModal from "../../map/MapModal";
 const LocationPolicyModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
+  const [coordinates, setCoordinates] = useState(defaultCoordinates);
+  const [radius, setRadius] = useState(0);
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
   const [locations, setLocations] = useState([]);
-const [locationId, setLocationId] = useState("");
+  const [locationId, setLocationId] = useState("");
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
 
   const setEmpty = () => {
-    setIP_From("");
-    setIP_To("");
+    setCoordinates(defaultCoordinates);
+    setRadius(0);
   };
   const readDatas = () => {
     setRequestType("Read");
     fetchData({
       method: "POST",
-      url: groupReadPolicyIP,
+      url: groupReadPolicyLocation,
       headers: {
         accept: "*/*",
       },
@@ -64,10 +69,10 @@ const [locationId, setLocationId] = useState("");
         case "SUBMIT":
           readDatas();
           setEmpty();
-          setEditButtonActivate(false)
+          setEditButtonActivate(false);
           break;
         case "Read":
-          setIps(response.Record);
+          setLocations(response.Record);
           break;
         default:
           break;
@@ -81,7 +86,7 @@ const [locationId, setLocationId] = useState("");
     setRequestType("DELETE");
     fetchData({
       method: "POST",
-      url: groupDeletePolicyIP,
+      url: groupDeletePolicyLocation,
       headers: {
         accept: "*/*",
       },
@@ -137,7 +142,7 @@ const [locationId, setLocationId] = useState("");
 
     fetchData({
       method: "POST",
-      url: groupCreatePolicyIP,
+      url: groupCreatePolicyLocation,
       headers: {
         accept: "*/*",
       },
@@ -145,18 +150,19 @@ const [locationId, setLocationId] = useState("");
       data: {
         Id: 0,
         Group_Id: props.id,
-        IP_From: IP_From,
-        IP_To: IP_To,
+        Latitude: coordinates[0],
+        Longitude: coordinates[1],
+        Radius: radius,
         Request: request,
       },
     });
   };
 
-  const handleQuestionEdit = (ip) => {
+  const handleQuestionEdit = (location) => {
     setEditButtonActivate(true);
-    setIP_From(ip.IP_From);
-    setIP_To(ip.IP_To)
-    setIpId(ip.Id);
+    setCoordinates([location.Latitude, location.Longitude]);
+    setRadius(location.Radius);
+    setLocationId(location.Id)
   };
 
   const cancletationOFEdit = () => {
@@ -170,21 +176,31 @@ const [locationId, setLocationId] = useState("");
 
     fetchData({
       method: "POST",
-      url: groupUpdatePolicyIP,
+      url: groupUpdatePolicyLocation,
       headers: {
         accept: "*/*",
       },
       signal: abortController.signal,
       data: {
-        Id: ipId,
+        Id: locationId,
         Group_Id: props.id,
-        IP_From: IP_From,
-        IP_To: IP_To,
+        Latitude: coordinates[0],
+        Longitude: coordinates[1],
+        Radius: radius,
         Request: request,
       },
     });
   };
-
+  const submitMap = (q, coord) => {
+    setCoordinates(coord);
+  };
+  const createRadiusOptions = () => {
+    let options=[]
+    for (let index = 0; index <= 10000; index+=500) {
+      options.push(<option key={index} value={index}>{index}</option>);
+    }
+    return options
+  };
   return (
     <>
       <Modal
@@ -200,15 +216,23 @@ const [locationId, setLocationId] = useState("");
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <div className="Row">
-              <Form.Group className="mb-3" controlId="IP_From">
-                <Form.Label>{t("IP_From")}</Form.Label>
-                <Form.Control maxLength={15}  value={IP_From} onChange={(e)=>setIP_From(e.target.value)} placeholder={t("IP_From")}/>
+              <Form.Group className="mb-3 d-flex flex-column" controlId="chooseLocation">
+                <Form.Label>{t("chooseLocation")}</Form.Label>
+                <MapModal
+                  qId={""}
+                  submited={submitMap}
+                  coordinats={coordinates}
+                  saveDisabled={false}
+                />
               </Form.Group>
-            </div>
-            <div className="Row">
-            <Form.Group className="mb-3" controlId="IP_To">
-                <Form.Label>{t("IP_To")}</Form.Label>
-                <Form.Control maxLength={15}  value={IP_To} onChange={(e)=>setIP_To(e.target.value)} placeholder={t("IP_To")}/>
+              <Form.Group className="mb-3" controlId="radius">
+                <Form.Label>{t("Radius")}</Form.Label>
+                <Form.Select
+                  value={radius}
+                  onChange={(e) => setRadius(e.target.value)}
+                >
+                  {createRadiusOptions()}
+                </Form.Select>
               </Form.Group>
             </div>
             {!editButtonActivate ? (
@@ -249,7 +273,7 @@ const [locationId, setLocationId] = useState("");
         </Modal.Body>
         <Modal.Footer>
           <ListGroup as="ol" numbered className="listGroupCurrencyModal">
-            {IPs.map((ip) => (
+            {locations.map((lo) => (
               <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between "
@@ -260,25 +284,27 @@ const [locationId, setLocationId] = useState("");
                 }}
               >
                 <div>
-                  <div className="fw-bold countryTitle">{t("IP_From")}</div>
-                  {ip.IP_From}
+                  <div className="fw-bold countryTitle">{t("Location")}</div>
+                  <MapModal
+                  qId={""}
+                  coordinats={[lo.Latitude,lo.Longitude]}
+                  saveDisabled={true}
+                />
                 </div>
                 <div>
-                  <div className="fw-bold currencyTitle">
-                    {t("IP_To")}
-                  </div>
-                  {ip.IP_To}
+                  <div className="fw-bold currencyTitle">{t("Radius")}</div>
+                  {lo.Radius}
                 </div>
                 <div className="d-flex btns ">
                   <div
                     className="actionBtns"
-                    onClick={() => handleQuestionEdit(ip)}
+                    onClick={() => handleQuestionEdit(lo)}
                   >
                     <fa.FaRegEdit color="green" />
                   </div>
                   <div
                     className="actionBtns"
-                    onClick={() => deleteCalled(ip.Id)}
+                    onClick={() => deleteCalled(lo.Id)}
                   >
                     <fa.FaTrash color="red" />
                   </div>

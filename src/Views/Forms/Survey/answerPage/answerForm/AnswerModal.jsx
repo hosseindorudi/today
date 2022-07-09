@@ -22,6 +22,7 @@ import AnswerList from "../answerList/AnswerList";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { AnswerPageFailedReadTitle } from "../../../../../services/answerPageFailedService";
 import MapModal from "../../../../../Components/map/MapModal";
+import { defaultCoordinates } from "../../../../../data/constants";
 const AnswerModal = (props) => {
   const startTime = new Date();
   const { t } = useTranslation();
@@ -276,7 +277,7 @@ const AnswerModal = (props) => {
       );
     }
     if (map.includes(key)) {
-      return <MapModal qId={questionId} submited={submitMap} coordinats={[51.42, 35.72]} />;
+      return <MapModal qId={questionId} submited={submitMap} coordinats={defaultCoordinates} saveDisabled={false} />;
     }
   };
   const submitMap = (id, coordinates) => {

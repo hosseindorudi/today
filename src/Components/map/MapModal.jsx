@@ -17,7 +17,7 @@ const Map = Mapir.setToken({
     };
   },
 });
-const MapModal = ({qId,submited,coordinats}) => {
+const MapModal = ({qId,submited,coordinats,saveDisabled}) => {
   const [show, setShow] = useState(false);
   const [coord, setCoord] = useState(coordinats);
   const [text, setText] = useState("");
@@ -149,7 +149,7 @@ const MapModal = ({qId,submited,coordinats}) => {
             </FormGroup>
           </Modal.Body>
           <Modal.Footer>
-            <Button disabled={disabled} onClick={handleSubmit}>
+            <Button disabled={disabled||saveDisabled} onClick={handleSubmit}>
               {t("submit")}
             </Button>
           </Modal.Footer>
