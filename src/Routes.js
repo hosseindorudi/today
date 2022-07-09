@@ -1134,22 +1134,7 @@ export const Routes = [
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
-      },
-      {
-        title: "/Definition/Currency/Read",
-        path: "/Definition/Currency/Read",
-        access: enums.Definition_Currency_Read_r,
-        Component: Currency,
-        button: {
-          Component: CurrencyDefine,
-          path: "/Definition/Currency/Write",
-          title: "/Definition/Currency/Write",
-          access: enums.Definition_Currency_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-
+      }
       //     {
       //       title: 'routes.receivedCustomerMsgType',
       //       path:'/receivedCustomerMsgType',
