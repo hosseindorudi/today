@@ -34,6 +34,7 @@ const OperatorDashboard = () => {
   const [logins, setLogins] = useState([]);
   const [events, setEvents] = useState([]);
   const [requestType, setRequestType] = useState("");
+  const [isNote, setIsNote] = useState(false);
   const { app } = useContext(AppContext);
   const { t } = useTranslation();
   const tabContext = useContext(TabContext);
@@ -96,10 +97,36 @@ const OperatorDashboard = () => {
     setDashboardInfoData(response);
     setExtraInfo(response.Favorite);
     setNotes(response.Note);
+    setIsNote(true);
     setFaileds(response.Failed);
     setLogins(response.Login);
     setEvents(response.Event);
   };
+
+  const noteSwal = (notes, id) => {
+    if (notes[id].IsAlarm & (notes[id] !== undefined)) {
+      Swal.fire({
+        title: notes[id].Title,
+        text: notes[id].Body,
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "تایید",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          noteSwal(notes, id + 1);
+        }
+      });
+    } else if (id < notes.length) {
+      noteSwal(notes, id + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (isNote) {
+      noteSwal(notes, 0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNote]);
 
   const handleResponse = useCallback(
     (response, type) => {
@@ -124,8 +151,6 @@ const OperatorDashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
-
-
 
   // useEffect(() => {
   //   if (loaded) {
@@ -253,7 +278,6 @@ const OperatorDashboard = () => {
     });
   };
 
-  
   useEffect(() => {
     if (loaded) {
       getDashboardData();
