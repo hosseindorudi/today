@@ -4,7 +4,7 @@ import useRequest from "../../../../customHooks/useRequest";
 import { Button, Form } from "react-bootstrap";
 import { useEffect, useState, useCallback, useContext } from "react";
 import Swal from "sweetalert2";
-
+import '../../../../assets/css/table.css'
 import {
   handleError,
   createSelectOptions,
@@ -38,8 +38,6 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { CustomReactMultiSelect } from "../../../../Components/Select/customReactSelect";
 import { toast } from "react-toastify";
-import { data } from "autoprefixer";
-import da from "date-fns/esm/locale/da/index.js";
 import useButtonAccess from "../../../../customHooks/useButtonAccess";
 import { enums } from "../../../../data/Enums";
 import BackDrop from "../../../../Components/backDrop/BackDrop";
