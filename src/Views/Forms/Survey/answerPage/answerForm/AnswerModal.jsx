@@ -44,8 +44,7 @@ const AnswerModal = (props) => {
     FirstName: "",
     NationalCode: undefined,
   });
-  const [answerDesc, setAnswerDesc] = useState([])
-  const [answer, setAnswer] = useState({});
+  const [answer, setAnswer] = useState([]);
   const questions = props.questions;
   const textFields = [
     "FirstName",
@@ -84,84 +83,81 @@ const AnswerModal = (props) => {
   const date = ["DateOfBirth", "DateOfIssuanceIdCard", "Date", "DateTime"];
   const time = ["Time"];
   const radio = ["YesOrNo", "Gender"];
-  const checkbox = ["Multiple"];
+  const multiple = ["Multiple"];
   const rating = ["FiveStar"];
   const map = ["Geolocation"];
-  const [itemsOf, setItemsOf] = useState({});
 
-  const handleChangeValue = (e) => {
-    let value = e.target.value;
-    let id = e.target.name;
-    setAnswer({ ...answer, [id]: value });
+  const handleChangeValue = (value,id) => {
+    const temp = [...answer];
+    let index = temp.findIndex((i) => i.Question_Id === Number(id));
+    if (index !== -1) {
+      temp[index] = {
+        ...temp[index],
+        Answer: value.toString(),
+      };
+    }
+    setAnswer(temp);
   };
-  const handlechangeRate = (value, id) => {
-    setAnswer({ ...answer, [id]: value.toString() });
-  };
-  const handleChangeTime = (value, id) => {
-    setAnswer({ ...answer, [id]: value });
-  };
+  const handleChangeDescription=(value,id)=>{
+    const temp = [...answer];
+    let index = temp.findIndex((i) => i.Question_Id === Number(id));
+    if (index !== -1) {
+      temp[index] = {
+        ...temp[index],
+        Description: value.toString(),
+      };
+    }
+    setAnswer(temp);
+  }
   const handleChangeDate = (date, id) => {
     const dateObj = date.toDate();
-    setAnswer({ ...answer, [id]: dateObj.toLocaleDateString() });
+    handleChangeValue(dateObj.toLocaleDateString(),id)
   };
-  const handleChangeRadio = (value, id) => {
-    setAnswer({ ...answer, [id]: value });
-  };
-  const handleCheckBox = ( itemId, questionId,desc) => {
-    let d = []
-    let aa =""
-    answerDesc.map((answer, i) => {
-      d = answer.split(" ")
-      if(Number(d[0]) === Number(questionId)){
-        console.log(d)
-        aa = d[1]
-        console.log("asdasd")
+  const handleCheckBox=(questionId,itemId,title)=>{
+    let item=[ {
+        Id: 0,
+        QuestionItem_Id: itemId,
+        Answer: title,
+        Description: ""
+      }]
+      const temp = [...answer];
+      let index = temp.findIndex((i) => i.Question_Id === Number(questionId));
+      if (index !== -1) {
+        temp[index] = {
+          ...temp[index],
+          AnswerItem:item
+        };
       }
-      // Number(d[0]) === Number(questionId) ? aa = d[1] :
-    })
-    desc == "aa" ?   
-    setItemsOf((prev) => ({ ...prev,[questionId]: [itemId,aa] }))
-    : setItemsOf((prev) => ({ ...prev,[questionId]: [itemId,desc] }));
-    // setItemsOf((prev) => [...prev, { [questionId]: itemId }]);
-    
-    // setAnswerDesc((prev) => ({...prev, [questionId]:[desc]}))
-
-
-    //  checked ? setItemsOf(prev => [...prev, {[questionId]:itemId}]) : setItemsOf(itemsOf.filter((item, i) => item[questionId] !==  itemId))
-  };
-  const handleBlurDesc = (e,id) => {
-    // 
-    let d = []
-    let final = answerDesc
-    final.length===0 ? final.push(`${id} ${e.target.value}`) :
-    final.map((desc, i) => {
-      d = desc.split(" ")
-      if( Number(d[0]) === Number(id)){
-       d[1] = e.target.value
-       d.join(" ")
-       final[i] = d
-       console.log("asdasd222222")
-      }
-      
-      // Number(d[0]) === Number(id) ? d[1] = e.target.value :null;
-      // Number(d[0]) === Number(id) ? d.join(" ") : null;
-      // Number(d[0]) === Number(id) ? final[i] = d : null ;
-  })
-  console.log(final)
-  setAnswerDesc(final)
+      setAnswer(temp);
   }
-  const checkAnswerOptions = (e, QuestionItem, questionId) => {
+useEffect(() => {
+  questions.map(q=>{
+    const newElement= {
+        Question_Id: q.Id,
+        Answer: "",
+        Description: "",
+        AnswerItem: []
+      }
+   return setAnswer(oldArray => [...oldArray, newElement]);
+  })
+  return () => {
+    setAnswer([])
+}
+}, [questions])
+
+  const checkAnswerOptions = (question) => {
     let key = "";
     Object.keys(QuestionTypeEnum).map((i) =>
-      QuestionTypeEnum[i] === e ? (key = i) : ""
+      QuestionTypeEnum[i] === question.QuestionType_EId ? (key = i) : ""
     );
     if (textFields.includes(key)) {
       return (
         <Form.Control
           type="text"
           placeholder={t(key)}
-          name={questionId}
-          onChange={handleChangeValue}
+          name={question.Id}
+          onChange={(e)=>handleChangeValue(e.target.value,question.Id)}
+        
         />
       );
     }
@@ -170,58 +166,47 @@ const AnswerModal = (props) => {
         <Form.Control
           type="number"
           placeholder={t(key)}
-          name={questionId}
-          onChange={handleChangeValue}
+          name={question.Id}
+          onChange={(e)=>handleChangeValue(e.target.value,question.Id)}
         />
       );
     }
     if (rating.includes(key)) {
       return (
+        <div style={{ display: "flex", flexDirection: "column" }}>
         <Rating
           name="simple-controlled"
           onChange={(event, newValue) => {
-            handlechangeRate(newValue, questionId);
+            handleChangeValue(newValue, question.Id);
           }}
         />
+        <Form.Control type="text"  placeholder={t("description")}  onChange={(e)=> handleChangeDescription(e.target.value,question.Id)} />
+        </div>
       );
     }
     if (time.includes(key)) {
       return (
         <Form.Control
           type="time"
-          onChange={(event) => handleChangeTime(event.target.value, questionId)}
+          onChange={(event) => handleChangeValue(event.target.value, question.Id)}
         />
       );
     }
-    if (checkbox.includes(key)) {
+    if (multiple.includes(key)) {
       return (
         <div style={{ display: "flex", flexDirection: "column" }}>
-          {QuestionItem.map((q, i) => (
-            <>
+          {question.QuestionItem.map((item, i) => (
             <Form.Check
-              label={q.Title}
-              name={questionId}
+              label={item.Title}
+              key={i}
               type="radio"
-              id={`inline-radio-${questionId}`}
-              onChange={() => handleCheckBox(q.Id, questionId,"aa")}
+              name={question.Id}
+              id={`inline-radio-${item.Id}`}
+              onChange={() => handleCheckBox(question.Id,item.Id,item.Title)}
             />
-             {i == QuestionItem.length -1 && <Form.Control type="text" onBlur={(e)=>handleBlurDesc(e,questionId)} placeholder={t("description")}  onChange={(e)=> handleCheckBox(q.Id, questionId,e.target.value)} />}
-              </>
           ))}
-         
+         <Form.Control type="text"  placeholder={t("description")}  onChange={(e)=> handleChangeDescription(e.target.value,question.Id)} />
         </div>
-        // <div key={`inline-r`} className="mb-3">
-        //   {QuestionItem.map((q,i)=>(
-        //   <Form.Check
-        //     key={i}
-        //     inline
-        //     label={q.Title}
-        //     name={questionId}
-        //     type="checkbox"
-        //     onChange={(e)=>handleCheckBox(e.target.checked,q.Id,questionId)}
-        //   />
-        //   ))}
-        // </div>
       );
     }
     if (radio.includes(key)) {
@@ -231,36 +216,36 @@ const AnswerModal = (props) => {
             <>
               <Form.Check
                 label={t("Male")}
-                name={questionId}
+                name={question.Id}
                 type="radio"
-                id={`inline-radio-${questionId}`}
-                onChange={() => handleChangeRadio(t("Male"), questionId)}
+                id={`inline-radio-${question.Id}`}
+                onChange={() => handleChangeValue(t("Male"), question.Id)}
               />
               <Form.Check
                 label={t("Female")}
-                name={questionId}
+                name={question.Id}
                 type="radio"
-                id={`inline-radio-${questionId}-1`}
-                onChange={() => handleChangeRadio(t("Female"), questionId)}
+                id={`inline-radio-${question.Id}-1`}
+                onChange={() => handleChangeValue(t("Female"), question.Id)}
               />
             </>
           ) : (
             <>
               <Form.Check
                 label={t("Yes")}
-                name={questionId}
+                name={question.Id}
                 type="radio"
-                id={`inline-radio-${questionId}`}
-                onChange={() => handleChangeRadio(t("Yes"), questionId)}
+                id={`inline-radio-${question.Id}`}
+                onChange={() => handleChangeValue(t("Yes"), question.Id)}
               />
               <Form.Check
                 label={t("No")}
-                name={questionId}
+                name={question.Id}
                 type="radio"
-                id={`inline-radio-${questionId}-1`}
-                onChange={() => handleChangeRadio(t("No"), questionId)}
+                id={`inline-radio-${question.Id}-1`}
+                onChange={() => handleChangeValue(t("No"), question.Id)}
               />
-              <Form.Control type="text" placeholder={t("description")} />
+              <Form.Control type="text" placeholder={t("description")} onChange={(e)=>handleChangeDescription(e.target.value,question.Id)}/>
             </>
           )}
         </div>
@@ -269,7 +254,7 @@ const AnswerModal = (props) => {
     if (date.includes(key)) {
       return (
         <DatePicker
-          onChange={(value) => handleChangeDate(value, questionId)}
+          onChange={(value) => handleChangeDate(value, question.Id)}
           calendar={persian}
           locale={persian_fa}
           calendarPosition="bottom-right"
@@ -277,12 +262,12 @@ const AnswerModal = (props) => {
       );
     }
     if (map.includes(key)) {
-      return <MapModal qId={questionId} submited={submitMap} coordinats={defaultCoordinates} saveDisabled={false} />;
+      return <MapModal qId={question.Id} submited={submitMap} coordinats={defaultCoordinates} saveDisabled={false} />;
     }
   };
   const submitMap = (id, coordinates) => {
     const coString = coordinates[0] + "," + coordinates[1];
-    setAnswer({ ...answer, [id]: coString });
+    handleChangeValue(coString,id)
   };
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -294,51 +279,6 @@ const AnswerModal = (props) => {
     // get seconds
     var seconds = Math.round(timeDiff);
     return seconds;
-  };
-  const makeQuestionAnswer = () => {
-    let answerObject = [];
-    Object.keys(answer).map((k) =>
-      answerObject.push({ Question_Id: k, Answer: answer[k], AnswerItem: [],Description:"" })
-    );
-    Object.keys(itemsOf).map(k => 
-      answerObject.push({ Question_Id: Number(k), Answer: "a", Description: itemsOf[k][1] , AnswerItem: [{
-        Id: 0,
-        QuestionItem_Id: itemsOf[k][0],
-        Answer: "a",
-        Description:""
-      }]})
-      )
-    
-    // let g = false;
-    // for (let i = 0; i < itemsOf.length; i++) {
-    //   g = false;
-    //   for (let j = 0; j < answerObject.length; j++) {
-    //     if (answerObject[j].Question_Id === Object.keys(itemsOf[i])[0]) {
-    //       answerObject[j].AnswerItem.push({
-    //         Id: 0,
-    //         QuestionItem_Id: itemsOf[i][Object.keys(itemsOf[i])],
-    //         Answer: "",
-    //       });
-    //       g = true;
-    //       break;
-    //     }
-    //   }
-    //   !g &&
-    //     answerObject.push({
-    //       Question_Id: Object.keys(itemsOf[i])[0],
-    //       Answer: "",
-    //       AnswerItem: [
-    //         {
-    //           Id: 0,
-    //           QuestionItem_Id: itemsOf[i][Object.keys(itemsOf[i])],
-    //           Answer: "",
-    //         },
-    //       ],
-    //     });
-    // }
-
-    console.log(answerObject)
-    return answerObject;
   };
   const handleSuccess = () => {
     tabContext.addRemoveTabs(
@@ -403,30 +343,29 @@ const AnswerModal = (props) => {
       });
     }
     const TimeElapsed = calcualteEndTime();
-    const answerObj = makeQuestionAnswer();
-    console.log(answerObj)
-    // setType("SUBMIT");
-    // fetchData({
-    //   method: "POST",
-    //   url: answerPageCreate,
-    //   headers: {
-    //     accept: "*/*",
-    //   },
-    //   data: {
-    //     Id: 0,
-    //     Request: request,
-    //     QuestionPage_Id: questions[0].QuestionPage_Id,
-    //     AnswerPageFailed_Id: answerPageFailed.value,
-    //     NationalCode: values.NationalCode,
-    //     FirstName: values.FirstName,
-    //     LastName: values.LastName,
-    //     Mobile: values.Mobile,
-    //     Phone: values.Phone,
-    //     TimeElapsed: TimeElapsed,
-    //     Description: values.Description,
-    //     Answer: answerObj,
-    //   },
-    // });
+   
+    setType("SUBMIT");
+    fetchData({
+      method: "POST",
+      url: answerPageCreate,
+      headers: {
+        accept: "*/*",
+      },
+      data: {
+        Id: 0,
+        Request: request,
+        QuestionPage_Id: questions[0].QuestionPage_Id,
+        AnswerPageFailed_Id: answerPageFailed.value,
+        NationalCode: values.NationalCode,
+        FirstName: values.FirstName,
+        LastName: values.LastName,
+        Mobile: values.Mobile,
+        Phone: values.Phone,
+        TimeElapsed: TimeElapsed,
+        Description: values.Description,
+        Answer: answer,
+      },
+    });
   };
   return (
     <Modal
@@ -450,7 +389,7 @@ const AnswerModal = (props) => {
                 placeholder={t("FirstName")}
                 name="FirstName"
                 value={values.FirstName}
-                required
+                
                 onChange={handleChange}
               />
             </Form.Group>
@@ -461,7 +400,7 @@ const AnswerModal = (props) => {
                 placeholder={t("LastName")}
                 name="LastName"
                 value={values.LastName}
-                required
+                
                 onChange={handleChange}
               />
             </Form.Group>
@@ -470,7 +409,7 @@ const AnswerModal = (props) => {
             <Form.Group className="mb-3" controlId="phone">
               <Form.Label>{t("Phone")}</Form.Label>
               <Form.Control
-                type="tel"
+                type="number"
                 placeholder={t("Phone")}
                 name="Phone"
                 value={values.Phone}
@@ -480,7 +419,7 @@ const AnswerModal = (props) => {
             <Form.Group className="mb-3" controlId="mobile">
               <Form.Label>{t("Mobile")}</Form.Label>
               <Form.Control
-                type="tel"
+                type="number"
                 placeholder={t("Mobile")}
                 name="Mobile"
                 value={values.Mobile}
@@ -548,11 +487,7 @@ const AnswerModal = (props) => {
                   <div className="fw-bold">{q.Title}</div>
                   {q.Description}
                   <div className="answers">
-                    {checkAnswerOptions(
-                      q.QuestionType_EId,
-                      q.QuestionItem,
-                      q.Id
-                    )}
+                    {checkAnswerOptions(q)}
                   </div>
                 </div>
               </ListGroup.Item>
