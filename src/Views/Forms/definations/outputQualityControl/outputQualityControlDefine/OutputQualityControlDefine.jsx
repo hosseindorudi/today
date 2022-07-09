@@ -137,7 +137,7 @@ const OutputQualityControlDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/OutputQualityControl/Write")}</b>
-        <div className="modelRow">
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"model"}>
             <Form.Label>{t("model")}</Form.Label>
             <CustomReactMultiSelect

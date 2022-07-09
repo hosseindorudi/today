@@ -230,7 +230,7 @@
   "ip.from": "از",
   "operatorGroup.browser": "مرورگر",
   "operatorGroup.locations": "موقعیت",
-  "radious": "شعاع",
+  "Radius": "شعاع",
   "fromTime": "از ساعت",
   "startDate": "تاریخ شروع",
   "endDate": "تاریخ پایان",
@@ -714,5 +714,11 @@
   "IsPrimary":"اولیه",
   "policyIpAccess":"محدودیت آی پی",
   "repairedEdit":"بروزرسانی",
-  "repairedCancel":"بازگشت"
+  "repairedCancel":"بازگشت",
+  "chooseLocation":"انتخاب موقعیت",
+  "policyLocationAccess":"محدودیت موقعیت",
+  "policyOsAccess":"محدودیت سیستم عامل",
+  "Location":"موقعیت",
+  "/Definition/CancellationOfAdmission/Read":"علت عدم پذیرش",
+  "/Definition/CancellationOfAdmission/Write":"فرم علت عدم پذیرش"
 }

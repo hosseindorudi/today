@@ -5,6 +5,7 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
+import '../../../assets/css/table.css'
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";

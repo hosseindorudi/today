@@ -1,0 +1,10 @@
+.listGroupCurrencyModal{
+    width: 100%;
+        gap:5px
+}
+.listGroupCurrencyModal .btns{
+gap: 5px;
+}
+.listGroupCurrencyModal .actionBtns{
+    cursor: pointer;
+}

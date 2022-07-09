@@ -27,6 +27,7 @@ import useWindowSize from "../../../../../customHooks/useWindowSize";
 import BrowserPolicyModal from "../../../../../Components/Table/browserPolicyModal/BrowserPolicyModal";
 import IPpolicyModal from "../../../../../Components/Table/ipPolicyModal/IPpolicyModal";
 import OsPolicyModal from "../../../../../Components/Table/osPolicyModal/OsPolicyModal";
+import LocationPolicyModal from "../../../../../Components/Table/locationPolicyModal/LocationPolicyModal";
 const Group = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType"];
 
@@ -35,6 +36,7 @@ const Group = () => {
   const [modalBrowserPolicy, setModalBrowserPolicy] = useState(false);
   const [modalIpPolicy, setModalIpPolicy] = useState(false);
   const [osModal, setOsModal] = useState(false);
+  const [locationModal, setLocationModal] = useState(false)
   const childRef = useRef();
 
   const [mobileModal, setMobileModal] = useState(false);
@@ -78,6 +80,10 @@ const Group = () => {
     setRowValues(id)
     setOsModal(true)
   }
+  const handlePolicyLocation=(id)=>{
+    setRowValues(id)
+    setLocationModal(true)
+  }
   return (
     <>
       {tableModalOpen && (
@@ -108,6 +114,10 @@ const Group = () => {
           onHide={() => setOsModal(false)}
           show={osModal}
         />
+      )}
+      {locationModal &&(
+        <LocationPolicyModal show={locationModal}    id={rowValues}
+        onHide={() => setLocationModal(false)}/>
       )}
       <CustomTable
         ref={childRef}
@@ -153,6 +163,8 @@ const Group = () => {
         policyIpAccess={enums.Operator_Group_Create_w}
         handlePolicyOs={handlePolicyOs}
         policyOsAccess={enums.Operator_Group_Create_w}
+        handlePolicyLocation={handlePolicyLocation}
+        policyLocationAccess={enums.Operator_Group_Create_w}
       />
     </>
   );
