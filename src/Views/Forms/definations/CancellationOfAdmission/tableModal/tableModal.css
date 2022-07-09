@@ -1,0 +1,20 @@
+.updateCustomerModal .switchModalCustomer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.updateCustomerModal .updateModalRow{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.updateCustomerModal .FormGroupUpdateModal{
+    width: 40%;
+}
+.updateModalRow .textAreaUpdate{
+    width: 90%;
+}
+
+/* .mb-3 {
+    width: 100%;
+} */
