@@ -33,6 +33,7 @@ const TableModal = (props) => {
 
   useEffect(() => {
     setmodel(modelOptions.find(f=>f.value===val.Model_Id))
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modelOptions])
   const handleResponse = (response, type) => {
     switch (type) {
