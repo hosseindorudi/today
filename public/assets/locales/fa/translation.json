@@ -716,5 +716,7 @@
   "chooseLocation":"انتخاب موقعیت",
   "policyLocationAccess":"محدودیت موقعیت",
   "policyOsAccess":"محدودیت سیستم عامل",
-  "Location":"موقعیت"
+  "Location":"موقعیت",
+  "/Definition/CancellationOfAdmission/Read":"علت عدم پذیرش",
+  "/Definition/CancellationOfAdmission/Write":"فرم علت عدم پذیرش"
 }

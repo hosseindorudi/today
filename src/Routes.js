@@ -325,6 +325,16 @@ const AnswerPageFailedForm = lazy(() =>
     "./Views/Forms/definations/answerPageFailed/answerPageFailedForm/AnswerPageFailedForm"
   )
 );
+const CancellationOfAdmission = lazy(() =>
+  import(
+    "./Views/Forms/definations/CancellationOfAdmission/CancellationOfAdmission"
+  )
+);
+const CancellationOfAdmissionDefine = lazy(() =>
+  import(
+    "./Views/Forms/definations/CancellationOfAdmission/cancellationOfAdmission/CancellationOfAdmissionDefine"
+  )
+);
 export const Routes = [
   {
     title: "routes.panel",
@@ -1217,7 +1227,22 @@ export const Routes = [
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
-      }
+      },
+      {
+        title: "/Definition/CancellationOfAdmission/Read",
+        path: "/Definition/CancellationOfAdmission/Read",
+        access: enums.Definition_CancellationOfAdmission_Read_r,
+        Component: CancellationOfAdmission,
+        button: {
+          Component: CancellationOfAdmissionDefine,
+          path: "/Definition/CancellationOfAdmission/Write",
+          title: "/Definition/CancellationOfAdmission/Write",
+          access: enums.Definition_CancellationOfAdmission_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+
       //     {
       //       title: 'routes.receivedCustomerMsgType',
       //       path:'/receivedCustomerMsgType',
