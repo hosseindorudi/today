@@ -28,6 +28,11 @@ import {
   repairsPerformedExport,
   repairsPerformedSetToFavorite,
   repairsPerformedDelete,
+  repairsPerformedUpdate,
+  repairsPerformedDeleteRate,
+  repairsPerformedReadRate,
+  repairsPerformedCreateRate,
+  repairsPerformedUpdateRate,
 } from "../../../../services/repairsPerformed";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
@@ -43,6 +48,7 @@ import ImportCSV from "../../../../Components/Table/ImportCSVButton/ImportCSV";
 import ExportAllButton from "../../../../Components/Table/ExportButton/ExportAllButton";
 import AppContext from "../../../../contexts/AppContext";
 import useGeoLocation from "../../../../customHooks/useGeoLocation";
+import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
 const RepairsPerformed = () => {
   const { app } = useContext(AppContext);
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -51,7 +57,7 @@ const RepairsPerformed = () => {
   const [modelOptions, setModelOptions] = useState([]);
   const [model, setModel] = useState(undefined);
   const [perfomedGroupOptions, setPerformedGroupOptions] = useState([]);
-  const [performedGroup, setPerformedGroup] = useState(undefined);
+  const [performedGroup, setPerformedGroup] = useState({});
   const [perfomedData, setPerformedData] = useState([]);
   const request = useRequest();
   const abortController = new AbortController();
@@ -61,6 +67,10 @@ const RepairsPerformed = () => {
   const [IsFavorite, setIsFavorite] = useState(false);
   const accessToken = localStorage.getItem("token");
   const location = useGeoLocation();
+  const [editData, setEditData] = useState({})
+  const [isEdit, setIsEdit] = useState(false)
+  const [feeRecord, setFeeRecord] = useState({})
+  const [isFee, setIsFee] = useState(false)
   const [values, setValues] = useState({
     title: "",
     color: "#000000",
@@ -110,7 +120,7 @@ const RepairsPerformed = () => {
             : handleError(allData[2].data.Message);
           setIsFavorite(allData[2].data.IsFavorite)
           setModel(undefined);
-          setPerformedGroup(undefined);
+          setPerformedGroup({});
           setValues({
             title: "",
             color: "#000000",
@@ -223,7 +233,7 @@ const RepairsPerformed = () => {
       data: {
         Request: request,
         Id: 0,
-        Parent_Id: performedGroup !== undefined ? performedGroup.value : 0,
+        Parent_Id: performedGroup !== {} ? performedGroup.value : 0,
         Model_Id: model?.value,
         Title: values.title,
         Priority: values.periority,
@@ -236,7 +246,7 @@ const RepairsPerformed = () => {
       signal: abortController.signal,
     });
 
-    handleResponseFunc(response, "CREATE");
+    handleResponseFunc(response, "READ");
   };
 
   const importSuccess = (message) => {
@@ -279,9 +289,11 @@ const RepairsPerformed = () => {
     };
 
     const EditeOneRecord =(data) => {
+      setEditData(data)
+      setIsEdit(true)
       console.log(data)
      setModel(modelOptions.filter(f => f.label === data.Model_Title))
-     data.Parent_Id === 0 ? setPerformedGroup(undefined) :
+     data.Parent_Id === 0 ? setPerformedGroup({}) :
      setPerformedGroup(perfomedGroupOptions.filter(f => f.label === data.Parent_Title))
 
       setValues({
@@ -328,6 +340,55 @@ const RepairsPerformed = () => {
       });
     };
 
+    const handleCancelation =() => {
+      setIsEdit(false)
+      setModel(undefined);
+          setPerformedGroup({});
+          setValues({
+            title: "",
+            color: "#000000",
+            periority: 1,
+            desc: "",
+          });
+
+    }
+
+    const handleEditSubmit =() => {
+      console.log(performedGroup)
+      setType("READ")
+      fetchData({
+        method: "POST",
+        url: repairsPerformedUpdate,
+        headers: {
+          accept: "*/*",
+        },
+        data: {
+          Request: request,
+          Id: editData.Id,
+          Parent_Id: performedGroup !== {} ? performedGroup.value : 0,
+          Model_Id: model[0]?.value,
+          Title: values.title,
+          Priority: values.periority,
+          Description: values.desc,
+          Color: values.color.substring(1),
+          SourceType: 0,
+          Registrar: 0,
+          DateSet: "2022-06-19T16:43:29.709Z",
+        },
+        signal: abortController.signal,
+      });
+      setIsEdit(false)
+      setModel(undefined);
+          setPerformedGroup({});
+          setValues({
+            title: "",
+            color: "#000000",
+            periority: 1,
+            desc: "",
+          });
+  
+    }
+
   const handleTreeView = (data) => {
     
     
@@ -342,7 +403,10 @@ const RepairsPerformed = () => {
               </TreeItem>
               <button className="rowViewBtn" onClick={() => deleteOneRecord(data.Id)}><fa.FaTrash/></button>
               <button className="rowViewBtnEdit" onClick={() => EditeOneRecord(data)}><fa.FaRegEdit/></button>
-              {data.Parent_Id === 0 && <button className="rowViewBtnFee"><fa.FaDollarSign/></button>}
+              {data.Parent_Id === 0 && <button className="rowViewBtnFee" onClick={()=> {
+                setFeeRecord(data);
+                setIsFee(true)
+              }}><fa.FaDollarSign/></button>}
       </div>)
   
   }
@@ -355,6 +419,17 @@ const RepairsPerformed = () => {
           onHide={() => setShowLogModal(false)}
           logs={log}
           show={showLogModal}
+        />
+      )}
+      {isFee && (
+        <AddCurrencyModal
+          onHide={() => setIsFee(false)}
+          delete={repairsPerformedDeleteRate}
+          id={feeRecord.Id}
+          read={repairsPerformedReadRate}
+          create={repairsPerformedCreateRate}
+          update={repairsPerformedUpdateRate}
+          show={isFee}
         />
       )}
       <div className="repairedPerformedMain">
@@ -428,9 +503,20 @@ const RepairsPerformed = () => {
                   onChange={onChangeHandler}
                 />
               ))}
-              <Button disabled={loading} type="submit">
+              {!isEdit ? <>
+                <Button disabled={loading} type="submit">
                 {t("submit")}
               </Button>
+              </> :
+                <div className="repairedFormDownDiv">
+                  <Button disabled={loading} onClick={handleEditSubmit} variant="warning">
+                    {t("repairedEdit")}
+                  </Button>
+                  <Button disabled={loading} variant="danger" onClick={handleCancelation}>
+                    {t("repairedCancel")}
+                  </Button>
+                </div>
+              }
             </Form>
           </div>
         </div>

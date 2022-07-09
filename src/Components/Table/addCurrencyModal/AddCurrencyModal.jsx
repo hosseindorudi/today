@@ -184,7 +184,7 @@ const setEmpty=()=>{
       signal: abortController.signal,
       data: {
         Id:0,
-        [props.typeTitle]: props.id,
+        RepairsPerformed_Id: props.id,
         Country_Id: country?.value,
         Currency_Id: currency?.value,
         Fee: Number(fee),

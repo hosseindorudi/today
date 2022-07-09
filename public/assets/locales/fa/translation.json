@@ -712,5 +712,7 @@
   "MySession":"شخص",
   "OperatorRole":"دسترسی های اپراتور",
   "IsPrimary":"اولیه",
-  "policyIpAccess":"محدودیت آی پی"
+  "policyIpAccess":"محدودیت آی پی",
+  "repairedEdit":"بروزرسانی",
+  "repairedCancel":"بازگشت"
 }
