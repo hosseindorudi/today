@@ -92,7 +92,6 @@ const OperatorDashboard = () => {
       signal: abortController.signal,
     });
   };
-
   const setData = (response) => {
     setDashboardInfoData(response);
     setExtraInfo(response.Favorite);
@@ -101,6 +100,32 @@ const OperatorDashboard = () => {
     setLogins(response.Login);
     setEvents(response.Event);
   };
+
+  const handleResponse = useCallback(
+    (response, type) => {
+      switch (type) {
+        case "DELETE":
+          handleDeleted();
+          break;
+        case "READ":
+          setData(response);
+          break;
+        case "DELETEFAVORITE":
+          handleDeletedFavorite();
+          break;
+        case "UPDATE":
+          handleUpdate();
+          break;
+
+        default:
+          break;
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+
 
   // useEffect(() => {
   //   if (loaded) {
@@ -228,29 +253,7 @@ const OperatorDashboard = () => {
     });
   };
 
-  const handleResponse = useCallback(
-    (response, type) => {
-      switch (type) {
-        case "DELETE":
-          handleDeleted();
-          break;
-        case "READ":
-          setData(response);
-          break;
-        case "DELETEFAVORITE":
-          handleDeletedFavorite();
-          break;
-        case "UPDATE":
-          handleUpdate();
-          break;
-
-        default:
-          break;
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+  
   useEffect(() => {
     if (loaded) {
       getDashboardData();
