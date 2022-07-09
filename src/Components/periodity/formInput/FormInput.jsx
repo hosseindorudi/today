@@ -6,6 +6,7 @@ const FormInput = (props) => {
   const { label, errorMessage, onChange, id, ...inputProps } = props;
 
   return (
+    <div className="Row">
       <Form.Group className="mb-3" style={{width:props.isRepair ? "100%" : null}} controlId={inputProps.name}>
         <Form.Label>{label}</Form.Label>
         <Form.Control disabled={props.performedGroup === undefined & props.isRepair} {...inputProps} onChange={onChange} />
@@ -13,6 +14,7 @@ const FormInput = (props) => {
           {errorMessage}
         </Form.Control.Feedback>
       </Form.Group>
+      </div>
 
   );
 };

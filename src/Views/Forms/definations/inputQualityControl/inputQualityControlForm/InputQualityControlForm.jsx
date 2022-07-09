@@ -143,7 +143,7 @@ const InputQualityControlForm = () => {
           onSubmit={handleSubmit}
         >
           <b>{t("/Definition/InputQualityControl/Write")}</b>
-          <div className="modelDefineRow">
+          <div className="Row">
           <Form.Group className="mb-3" controlId={"model"}>
           <Form.Label>{t("model")}</Form.Label>
             <CustomReactMultiSelect

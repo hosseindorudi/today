@@ -22,7 +22,7 @@ import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
 import useWindowSize from '../../../../customHooks/useWindowSize';
 const DeffectList = () => {
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType","Model_Id"];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});
