@@ -26,11 +26,16 @@ const Modal = ({ setIsOpen, getDashboardData }) => {
   };
   useEffect(() => {
     if (response) {
-      response.Result
-        ? handleResponse(response)
-        : handleError(response.Message);
-      setResponse(undefined);
-      response.Result && setIsOpen(false);
+        if(response.Result){
+          handleResponse(response)
+          setResponse(undefined);
+          getDashboardData();
+          setIsOpen(false);
+        }else {
+          handleError(response.Message);
+        }
+
+      
     }
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,7 +57,7 @@ const Modal = ({ setIsOpen, getDashboardData }) => {
       },
       signal: abortController.signal,
     });
-    getDashboardData();
+    
   };
 
   const onChange = (e) => {

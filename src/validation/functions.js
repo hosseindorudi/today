@@ -98,6 +98,27 @@ export const createSelectOptions = (titles) => {
   return options;
 };
 
+export const createSelectRepairedOptions = (titles) => {
+  const options = [{
+    value: 0,
+    label: "گروه اصلی",
+    color: "#234567"
+  }]
+
+  for (let i =0 ; i<titles.length; i++){
+    options.push(
+      {
+        value: titles[i].Id,
+        label: titles[i].Value,
+        color: titles[i].Color ? `#${titles[i].Color}` : "#0000FF",
+      }
+    )
+  }
+  
+  console.log(options)
+  return options;
+};
+
 export const checkTableValues = (type, value, post, exportAccess) => {
   switch (type) {
     case "DateSet":
@@ -141,5 +162,12 @@ export const handleError = (message) => {
     position: toast.POSITION.BOTTOM_CENTER,
   });
 };
+
+
+export const dateOfLogTable = (date) => {
+  let a = date.split('T');
+  a[0] = convertUTC(a[0])
+  return a.join("\n")
+}
 
 
