@@ -720,5 +720,8 @@
   "policyOsAccess":"محدودیت سیستم عامل",
   "Location":"موقعیت",
   "/Definition/CancellationOfAdmission/Read":"علت عدم پذیرش",
-  "/Definition/CancellationOfAdmission/Write":"فرم علت عدم پذیرش"
+  "/Definition/CancellationOfAdmission/Write":"فرم علت عدم پذیرش",
+  "/Customer/AllowedIp/Read":"آیپی های مجاز",
+  "/Customer/AllowedIp/write":"فرم آی پی مجاز",
+  "/Customer/BruteForce/Read":"حملات"
 }

@@ -142,4 +142,12 @@ export const handleError = (message) => {
   });
 };
 
-
+export const checkQuestionEId=(EID,value)=>{
+  switch (EID) {
+    case 7:
+       return  convertUTC(value)
+  
+    default:
+      return value
+  }
+}

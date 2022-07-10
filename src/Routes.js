@@ -3,6 +3,15 @@ import * as IoIcons from "react-icons/io"
 import * as RiIcons from "react-icons/ri"
 import { enums } from "./data/Enums";
 import React, { lazy } from 'react'
+const BruteForceCustomer = lazy(() =>
+  import("./Views/Forms/customer/bruteForceCustomer/BruteForceCustomer")
+);
+const AllowedCustomerIp = lazy(() =>
+  import("./Views/Forms/customer/allowedIpCustomer/AllowedCustomerIp")
+);
+const AllowedIpCustomerForm = lazy(() =>
+  import("./Views/Forms/customer/allowedIpCustomer/AllowedIpCustomerForm")
+);
 const CustomerGroup = lazy(() =>
   import("./Views/Forms/customer/group/List/CustomerGroup")
 );
@@ -462,6 +471,28 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
         access: enums.Customer_Customer_Read_r,
+      },
+      {
+        title: "/Customer/AllowedIp/Read",
+        path: "/Customer/AllowedIp/Read",
+        access: enums.Customer_AllowedIp_Read_r,
+        Component: AllowedCustomerIp,
+        button: {
+          Component: AllowedIpCustomerForm,
+          path: "/Customer/AllowedIp/write",
+          title: "/Customer/AllowedIp/write",
+          access: enums.Customer_AllowedIp_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "/Customer/BruteForce/Read",
+        path: "/Customer/BruteForce/Read",
+        access: enums.Customer_BruteForce_Read_r,
+        Component: BruteForceCustomer,
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
       },
     ],
   },
