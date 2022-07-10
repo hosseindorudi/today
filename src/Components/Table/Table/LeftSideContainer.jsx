@@ -25,7 +25,7 @@ const LeftSideContainer = ({
         ></div>
       </div>
       <div className="hiddenSectionCheck">
-        <div className="mainUnderCloseBtn">
+        
           <div className="checkBoxTableParentForAll">
             <div></div>
             <input
@@ -61,7 +61,7 @@ const LeftSideContainer = ({
                 />
               </div>
             ))}
-        </div>
+      
       </div>
     </div>
   );

@@ -32,7 +32,8 @@ const CustomerForm = () => {
   const widthOfScreen = useWindowSize().width;
   const [type, setType] = useState("");
   const currentLang = useContext(AppContext);
-  const [operatorDateExp, setOperatorDateExp] = useState(new Date());
+  const [dateOfBirth, setDateOfBirth] = useState(null);
+  const [dateOfSerial, setDateOfSerial] = useState(null);
   const { t } = useTranslation();
   const abortController = new AbortController();
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -50,10 +51,21 @@ const CustomerForm = () => {
   const [phoneNumber1, setPhoneNumber1] = useState("");
   const [phoneNumber2, setPhoneNumber2] = useState("");
   const [housephone, setHousePhone] = useState("");
+  const [housephone2, setHousePhone2] = useState("");
   const [fax, setfax] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
-
+  const [fatherName, setFatherName] = useState("")
+  const [idCardNumber, setIdCardNumber] = useState("")
+  const [idCardSerialNumber, setIdCardSerialNumber] = useState("")
+  const [serialLocation, setSerialLocation] = useState("")
+  const [webSite, setWebSite] = useState("")
+  const [job, setjob] = useState("")
+  const [acquaintedWithCompany, setAcquaintedWithCompany] = useState("")
+  const [fromDate, setFromDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [activeDate, setActiveDate] = useState(false)
+  const {app} = useContext(AppContext)
   const handleClickMenu = () => {
     tabContext.addRemoveTabs(
       {
@@ -167,21 +179,31 @@ const CustomerForm = () => {
           IsActive: isActive,
           CustomerName: name,
           Password: password,
-          IdCardNumber: idCode,
+          NationalCode: idCode,
           FirstName: firstname,
           LastName: lastName,
+          FathersName: fatherName,
+          IdCardNumber: idCardNumber,
+          IdCardSerialNumber: idCardSerialNumber,
           Gender: gender,
+          DateOfBirth: dateOfBirth,
+          DateOfIssuanceIdCard: dateOfSerial,
+          PlaceOfIssuanceIdCard: serialLocation,
           Mobile1: phoneNumber1,
           Mobile2: phoneNumber2,
-          Phone: housephone,
+          Phone1: housephone,
+          Phone2: housephone2,
           Fax: fax,
           Email: email,
+          Job: job,
+          AcquaintedWithCompany: acquaintedWithCompany,
+          IsLimited: activeDate,
+          LimitFrom: fromDate,
+          LimitTo: endDate,
           Description: description,
-          SourceType: 0,
+
           ExpireDate: "2022-06-16T05:34:40.867Z",
-          Registrar: 0,
           DateSet: "2022-06-16T05:34:40.867Z",
-          Group_Title: "",
           Request: request,
         },
         signal: abortController.signal,
@@ -208,132 +230,69 @@ const CustomerForm = () => {
               />
             </div>
             <div className="mainCustomerDiv">
-              <div className="customerFirstDiv">
-                <input
-                  type="text"
-                  className="customerFirstName"
-                  placeholder={t("Name")}
-                  value={firstname}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="customerFirstName"
-                  placeholder={t("lastname")}
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
               <div className="customerSecondDiv">
-                <input
-                  type="text"
-                  className="customerFirstName"
-                  placeholder={t("customerUser")}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <input
-                  type="password"
-                  id="customerpassWord"
-                  placeholder={t("password")}
-                  value={password}
-                  onChange={(e) => setpassword(e.target.value)}
-                />
+
+                <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="text" placeholder={t("customerUser")}  value={name}
+                    onChange={(e) => setName(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="password" placeholder={t("password")}  value={password}
+                    onChange={(e) => setpassword(e.target.value)} />
+                </Form.Group>
+                
               </div>
+              <div className="customerFirstDiv">
+              <Form.Group className="mb-3 customerFirstName" >
+                <Form.Control type="text" placeholder={t("Name")}  value={firstname}
+                  onChange={(e) => setFirstName(e.target.value)} />
+              </Form.Group>
+              <Form.Group className="mb-3 customerFirstName" >
+                <Form.Control type="text" placeholder={t("lastname")}  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)} />
+              </Form.Group>
+                
+              </div>
+              <div className="customerFirstDiv">
+              <Form.Group className="mb-3 customerFirstName" >
+                <Form.Control type="text" placeholder={t("FathersName")}  value={fatherName}
+                  onChange={(e) => setFatherName(e.target.value)} />
+              </Form.Group>
+              <Form.Group className="mb-3 customerFirstName" >
+                <Form.Control type="number" placeholder={t("IdCardNumber")}  value={idCardNumber}
+                  onChange={(e) => setIdCardNumber(e.target.value)} />
+              </Form.Group>
+                
+              </div>
+              
               <div className="customerThirdDiv">
-                <input
-                  type="number"
-                  className="customerFirstName"
-                  placeholder={t("idcode")}
-                  value={idCode}
-                  onChange={(e) => setIdCode(e.target.value)}
-                />
-                <select
-                  name=""
-                  id=""
-                  className="customerGender"
-                  onChange={(e) => setGender(e.target.value)}
-                >
-                  <option disabled>{t("gender")}</option>
-                  <option value={true}>{t("male")}</option>
-                  <option value={false}>{t("female")}</option>
-                </select>
+                <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="text" placeholder={t("idcode")}  value={idCode}
+                     onChange={(e) => setIdCode(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" >
+                  <Form.Select aria-label="Default select example" onChange={(e) => setGender(e.target.value)}>
+                    <option disabled>{t("gender")}</option>
+                    <option value={true}>{t("male")}</option>
+                    <option value={false}>{t("female")}</option>
+                  </Form.Select>
+                </Form.Group>
               </div>
-              <div className="customerFourthDiv">
-                <input
-                  type="number"
-                  className="customerFirstName"
-                  placeholder={t("phoneNumber")}
-                  value={phoneNumber1}
-                  onChange={(e) => setPhoneNumber1(e.target.value)}
-                />
-                <input
-                  type="number"
-                  className="customerFirstName"
-                  placeholder={t("phoneNumber2")}
-                  value={phoneNumber2}
-                  onChange={(e) => setPhoneNumber2(e.target.value)}
-                />
-              </div>
-              <div className="customerFivthDiv">
-                <input
-                  type="number"
-                  className="customerFirstName"
-                  placeholder={t("homeNumber")}
-                  value={housephone}
-                  onChange={(e) => setHousePhone(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="customerFirstName"
-                  placeholder={t("fax")}
-                  value={fax}
-                  onChange={(e) => setfax(e.target.value)}
-                />
-              </div>
-              <div className="customerFivthDiv">
-                <input
-                  type="text"
-                  className="customerFirstName"
-                  placeholder={t("customerEmail")}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <select
-                  name=""
-                  id=""
-                  className="customerGender"
-                  onChange={(e) => setGroupTitleId(e.target.value)}
-                >
-                  <option disabled>{t("customerGroup")}</option>
-                  {groupTitles.map((gt, i) => (
-                    <option value={gt.Id} key={gt.Id}>
-                      {gt.Value}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="customerSixhDiv">
-                <textarea
-                  className="customerFormTextArea"
-                  placeholder={t("customerDesc")}
-                  onChange={(e) => setDescription(e.target.value)}
-                  value={description}
-                />
-              </div>
-              <div className="customerSevenshDiv">
-                <label id="OperatorFormInputExp1">
-                  {t("operatorDatePick")}
-                </label>
+              <div className="customerFirstDiv">
+                <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="text" placeholder={t("IdCardSerialNumber")}  value={idCardSerialNumber}
+                    onChange={(e) => setIdCardSerialNumber(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" >
                 {currentLang.app.lang === "fa" ? (
                   <div style={{ direction: "ltr" }}>
                     <LocalizationProvider dateAdapter={AdapterJalali}>
                       <DatePicker
-                        label="-"
+                        label={t("DateOfBirth")}
                         mask="____/__/__"
-                        value={operatorDateExp}
+                        value={dateOfBirth}
                         onChange={(newValue) => {
-                          setOperatorDateExp(newValue);
+                          setDateOfBirth(newValue);
                         }}
                         renderInput={(params) => <TextField {...params} />}
                       />
@@ -344,33 +303,210 @@ const CustomerForm = () => {
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <DesktopDatePicker
                         inputFormat="MM/dd/yyyy"
-                        value={operatorDateExp}
+                        value={dateOfBirth}
                         onChange={(newValue) => {
-                          setOperatorDateExp(newValue);
-                          console.log(newValue);
+                          setDateOfBirth(newValue);
                         }}
                         renderInput={(params) => <TextField {...params} />}
                       />
                     </LocalizationProvider>
                   </div>
                 )}
-                {widthOfScreen < 420 && (
-                  <input
-                    type="submit"
-                    value={t("operatorSubmitBtn")}
-                    className="deleteBtn"
-                  />
-                )}
+                </Form.Group>
               </div>
-            </div>
+              <div className="customerFirstDiv">
+                <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="text" placeholder={t("serialLocation")}  value={serialLocation}
+                    onChange={(e) => setSerialLocation(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" >
+                {currentLang.app.lang === "fa" ? (
+                  <div style={{ direction: "ltr" }}>
+                    <LocalizationProvider dateAdapter={AdapterJalali}>
+                      <DatePicker
+                        label={t("serialDate")}
+                        mask="____/__/__"
+                        value={dateOfSerial}
+                        onChange={(newValue) => {
+                          setDateOfSerial(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                ) : (
+                  <div style={{ direction: "ltr" }}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DesktopDatePicker
+                        inputFormat="MM/dd/yyyy"
+                        value={dateOfSerial}
+                        onChange={(newValue) => {
+                          setDateOfSerial(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                )}
+                </Form.Group>
+              </div>
+              <div className="customerFourthDiv">
+              <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="number" placeholder={t("phoneNumber")}  value={phoneNumber1}
+                     onChange={(e) => setPhoneNumber1(e.target.value)} />
+                </Form.Group>
+              <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="number" placeholder={t("phoneNumber2")}  value={phoneNumber2}
+                     onChange={(e) => setPhoneNumber2(e.target.value)} />
+                </Form.Group>
+                
+              </div>
+              <div className="customerFivthDiv">
+                <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="number" placeholder={t("homeNumber")}  value={housephone}
+                     onChange={(e) => setHousePhone(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="number" placeholder={t("homeNumber2")}  value={housephone2}
+                     onChange={(e) => setHousePhone2(e.target.value)} />
+                </Form.Group>
+                
+                
+                
+                
+              </div>
+              <div className="customerFivthDiv">
+                <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="email" placeholder={t("customerEmail")}  value={email}
+                    onChange={(e) => setEmail(e.target.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3 customerFirstName" >
+                  <Form.Control type="text" placeholder={t("fax")}  value={fax}
+                    onChange={(e) => setfax(e.target.value)} />
+                </Form.Group>
+                
+              </div>
+              <div className="customerFivthDiv">
+              <Form.Group className="mb-3 customerFirstName" controlId="exampleForm.ControlTextarea1">
+                <Form.Control as="textarea" rows={2} placeholder={t("job")}  value={job} onChange={(e) => setjob(e.target.value)}/>
+              </Form.Group>
+                <Form.Group className="mb-3 customerFirstName" style={{flex:0.75}}>
+                  <Form.Control type="text" placeholder={t("website")}  value={webSite}
+                    onChange={(e) => setWebSite(e.target.value)} />
+                </Form.Group>
+                
+              </div>
+              <div className="customerFivthDiv">
+              <Form.Group className="mb-3 customerFirstName" controlId="exampleForm.ControlTextarea1">
+                <Form.Control as="textarea" rows={2} placeholder={t("AcquaintedWithCompany")}  value={acquaintedWithCompany} onChange={(e) => setAcquaintedWithCompany(e.target.value)}/>
+              </Form.Group>
+                
+              </div>
 
-            {widthOfScreen > 420 && (
-              <input
-                type="submit"
-                value={t("operatorSubmitBtn")}
-                className="deleteBtn"
-              />
-            )}
+
+
+              <div className="customerSixhDiv">
+
+              <Form.Group className="mb-3 customerFirstName" controlId="exampleForm.ControlTextarea1">
+                <Form.Control as="textarea" rows={2} placeholder={t("customerDesc")}  value={description} onChange={(e) => setDescription(e.target.value)}/>
+              </Form.Group>
+
+                <Form.Group className="mb-3" >
+                  <Form.Select aria-label="Default select example" onChange={(e) => setGroupTitleId(e.target.value)}>
+                  <option disabled>{t("customerGroup")}</option>
+                    {groupTitles.map((gt, i) => (
+                      <option value={gt.Id} key={gt.Id}>
+                        {gt.Value}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+                
+              </div>
+              <div className="customerSixhDiv">
+
+              <div className="datePickerGroup" >
+                   
+                    <LocalizationProvider dateAdapter={app.lang==="fa"?AdapterJalali:AdapterDateFns}>
+                    <div>
+                      <DatePicker
+                        disabled={!activeDate}
+                        mask="____/__/__"
+                        label={t("startDate")}
+                        value={fromDate}
+                        onChange={(newValue) => {
+                          setFromDate(newValue);
+                          if (endDate !== null && newValue > endDate) {
+                            toast.error("تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد", {
+                              position: toast.POSITION.BOTTOM_CENTER,
+                            });
+                            
+                            setEndDate(null);
+                          }
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                          
+                            {...params}
+                            inputProps={{
+                              ...params.inputProps,
+                            }}
+                          />
+                        )}
+                      />
+                    
+                    </div>
+                    <div class="switchDate">
+                        <Form.Check
+                          type="switch"
+                          id="custom-switch"
+                          onChange={()=> setActiveDate(prev => !prev)}
+                          checked ={activeDate}
+                        />
+                      </div>
+                    <div>
+                      <DatePicker
+                      disabled={!activeDate}
+                        mask="____/__/__"
+                        label={t("endDate")}
+                        value={endDate}
+                        onChange={(newValue) => {
+                          setEndDate(newValue);
+                          if (fromDate !== null && newValue < fromDate) {
+                            toast.error("تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد", {
+                              position: toast.POSITION.BOTTOM_CENTER,
+                            });
+                            
+                            setEndDate(null);
+                          }
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            inputProps={{
+                              ...params.inputProps,
+                            }}
+                          />
+                        )}
+                      />
+                      </div>
+                    </LocalizationProvider>
+                  </div>
+                
+              </div>
+              <div className="customerSevenshDiv">
+              {widthOfScreen > 420 && (
+                <input
+                  type="submit"
+                  value={t("operatorSubmitBtn")}
+                  className="deleteBtn"
+                />
+              )}
+            </div>
+            
+            </div>
+            
+            
           </form>
         </div>
       </div>

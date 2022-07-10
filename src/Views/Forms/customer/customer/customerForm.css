@@ -177,6 +177,7 @@
   color: #fff;
   background: #006bb3;
   transition: all 0.25s ease;
+  align-self: center;
 }
 
 .deleteBtn:hover {
@@ -243,6 +244,13 @@
   align-items: center;
   justify-content: space-between;
 }
+.datePickerGroup{
+  direction: ltr;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
 .customerFivthDiv {
   flex: 1;
   width: 100%;
@@ -268,51 +276,10 @@
 
 .customerFirstName {
   flex: 1;
-  height: 50px;
   margin: 0 5px;
-  border: 1px solid lightgray;
-  border-radius: 8px;
 }
 
-.customerFirstName:hover {
-  border: 1px solid black;
-}
-.customerFirstName:focus {
-  border: 1px solid #006bb3;
-  outline: 1px solid #006bb3;
-}
 
-.customerFirstName:hover::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: black;
-  opacity: 1; /* Firefox */
-}
-
-.customerFirstName:hover:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: black;
-}
-
-.customerFirstName:hover::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: black;
-}
-
-.customerFirstName:focus::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #006bb3;
-  opacity: 1; /* Firefox */
-}
-
-.customerFirstName:focus:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: #006bb3;
-}
-
-.customerFirstName:focus::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: #006bb3;
-}
 
 #customerpassWord {
   height: 50px;
