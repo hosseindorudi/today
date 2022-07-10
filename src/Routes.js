@@ -445,18 +445,18 @@ export const Routes = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
       {
-        title: "routes.group",
+        title: "/Customer/Group/Read",
         path: "/Customer/Group/Read",
+        access: enums.Customer_Group_Read_r,
         Component: CustomerGroup,
         button: {
           Component: CustomerGroupForm,
-          path: "/customergroupform",
-          title: "routes.groupForm",
+          path: "/Customer/Group/Create",
+          title: "/Customer/Group/Create",
           access: enums.Customer_Group_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
-        access: enums.Customer_Group_Read_r,
       },
       {
         title: "routes.CustomerList",

@@ -1,4 +1,3 @@
-import '../../../../../assets/css/table.css'
 import React, {
   useRef,
   useState,
@@ -24,16 +23,32 @@ import { t } from "i18next";
 import CustomerGroupForm from "../CustomerGroupForm";
 import { enums } from "../../../../../data/Enums";
 import CustomTable from '../../../../../Components/Table/Table/CustomTable';
+import useWindowSize from "../../../../../customHooks/useWindowSize";
+import BrowserPolicyModal from "../../../../../Components/Table/browserPolicyModal/BrowserPolicyModal";
+import IPpolicyModal from "../../../../../Components/Table/ipPolicyModal/IPpolicyModal";
+import OsPolicyModal from "../../../../../Components/Table/osPolicyModal/OsPolicyModal";
+import LocationPolicyModal from "../../../../../Components/Table/locationPolicyModal/LocationPolicyModal";
 const CustomerGroup = () => {
-  const childRef = useRef();
-  const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType"];
+
   const [tableModalOpen, setTableModalOpen] = useState(false);
-  const [rowValus, setRowValues] = useState({});
+  const [rowValues, setRowValues] = useState({});
+  const [modalBrowserPolicy, setModalBrowserPolicy] = useState(false);
+  const [modalIpPolicy, setModalIpPolicy] = useState(false);
+  const [osModal, setOsModal] = useState(false);
+  const [locationModal, setLocationModal] = useState(false)
+  const childRef = useRef();
+
+  const [mobileModal, setMobileModal] = useState(false);
+  const [mobileModalButtons, setMobileModalButtons] = useState(false);
+  const [mobileModalColumns, setMobileModalColumns] = useState(false);
+  const widthOFScreen = useWindowSize().width;
+
   const addObject = {
     Component: CustomerGroupForm,
-      path:'/customergroupform',
-      title:"routes.groupForm",
-      access:enums.Customer_Group_Create_w,
+          path: "/Customer/Group/Create",
+          title: "/Customer/Group/Create",
+          access: enums.Customer_Group_Create_w,
   };
   const setUpdate = (res) => {
     const record = res.Record;
@@ -52,16 +67,56 @@ const CustomerGroup = () => {
   const handleClickHelp = () => {
     window.open("https://www.google.com");
   };
-
+  const handlePolicyBrowser = (id) => {
+    setRowValues(id);
+    setModalBrowserPolicy(true);
+  };
+  const handlePolicyIP=(id)=>{
+    setRowValues(id)
+   setModalIpPolicy(true)
+  }
+  const handlePolicyOs=(id)=>{
+    setRowValues(id)
+    setOsModal(true)
+  }
+  const handlePolicyLocation=(id)=>{
+    setRowValues(id)
+    setLocationModal(true)
+  }
   return (
     <>
       {tableModalOpen && (
         <TableModal
-          rowValus={rowValus}
+          rowValues={rowValues}
           onHide={() => setTableModalOpen(false)}
           tableModalShow={tableModalOpen}
           updated={updated}
         />
+      )}
+       {modalBrowserPolicy && (
+        <BrowserPolicyModal
+          rowValues={rowValues}
+          onHide={() => setModalBrowserPolicy(false)}
+          show={modalBrowserPolicy}
+        />
+      )}
+    {modalIpPolicy && (
+        <IPpolicyModal
+          id={rowValues}
+          onHide={() => setModalIpPolicy(false)}
+          show={modalIpPolicy}
+        />
+      )}
+       {osModal && (
+        <OsPolicyModal
+          id={rowValues}
+          onHide={() => setOsModal(false)}
+          show={osModal}
+        />
+      )}
+      {locationModal &&(
+        <LocationPolicyModal show={locationModal}    id={rowValues}
+        onHide={() => setLocationModal(false)}/>
       )}
       <CustomTable
         ref={childRef}
@@ -92,6 +147,21 @@ const CustomerGroup = () => {
         changePasswordAccess={""}
         getOneRecord={customerGroupGetOneRecord}
         setUpdate={setUpdate}
+        mobileModal={mobileModal}
+        setMobileModal={setMobileModal}
+        widthOFScreen={widthOFScreen}
+        mobileModalButtons={mobileModalButtons}
+        setMobileModalButtons={setMobileModalButtons}
+        setMobileModalColumns={setMobileModalColumns}
+        mobileModalColumns={mobileModalColumns}
+        handlePolicyBrowser={handlePolicyBrowser}
+        policyBrowserAccess={enums.Customer_Group_Create_w}
+        handlePolicyIP={handlePolicyIP}
+        policyIpAccess={enums.Customer_Group_Create_w}
+        handlePolicyOs={handlePolicyOs}
+        policyOsAccess={enums.Customer_Group_Create_w}
+        handlePolicyLocation={handlePolicyLocation}
+        policyLocationAccess={enums.Customer_Group_Create_w}
       />
     </>
   );

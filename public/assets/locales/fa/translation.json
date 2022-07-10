@@ -723,5 +723,6 @@
   "/Definition/CancellationOfAdmission/Write":"فرم علت عدم پذیرش",
   "/Customer/AllowedIp/Read":"آیپی های مجاز",
   "/Customer/AllowedIp/write":"فرم آی پی مجاز",
-  "/Customer/BruteForce/Read":"حملات"
+  "/Customer/BruteForce/Read":"حملات",
+  "/Customer/Group/Create":"فرم گروه مشتری"
 }
