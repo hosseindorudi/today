@@ -52,8 +52,7 @@ const SuccessLogin = () => {
         exportAccess={enums.Operator_LoginHistory_Export_r}
         exportLink={LoginHistoryExport}
         importAccess={""}
-        logAccess={""}
-        // enums.Operator_LoginHistory_Log_r
+        logAccess={enums.Operator_LoginHistory_Log_r}
         readPagingApi={LoginHistoryReadPaging}
         accessListAccess={enums.Operator_LoginHistory_Read_r}
         accessListApi={LoginHistoryAccessList}

@@ -435,7 +435,7 @@ const OperatorDashboard = () => {
                           key={i}
                           className="opratorDashActivityTableTheadTrTh"
                         >
-                          {failed}
+                          {t(failed)}
                         </th>
                       );
                     }
@@ -477,7 +477,7 @@ const OperatorDashboard = () => {
                           key={i}
                           className="opratorDashActivityTableTheadTrTh"
                         >
-                          {failed}
+                          {t(failed)}
                         </th>
                       );
                     }
@@ -519,7 +519,7 @@ const OperatorDashboard = () => {
                           key={i}
                           className="opratorDashActivityTableTheadTrTh"
                         >
-                          {failed}
+                          {t(failed)}
                         </th>
                       );
                     }

@@ -335,6 +335,21 @@ const CancellationOfAdmissionDefine = lazy(() =>
     "./Views/Forms/definations/CancellationOfAdmission/cancellationOfAdmission/CancellationOfAdmissionDefine"
   )
 );
+const CustomerEvents = lazy(() =>
+  import(
+    "./Views/Forms/customer/events/Events"
+  )
+);
+const CustomerLoginFailed = lazy(() =>
+  import(
+    "./Views/Forms/customer/loginFailed/LoginFailed"
+  )
+);
+const CustomerLoginSeccess = lazy(() =>
+  import(
+    "./Views/Forms/customer/loginSeccess/LoginSeccess"
+  )
+);
 export const Routes = [
   {
     title: "routes.panel",
@@ -462,6 +477,30 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
         access: enums.Customer_Customer_Read_r,
+      },
+      {
+        title: "/Customer/Event/Read",
+        path: "/Customer/Event/Read",
+        Component: CustomerEvents,
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Customer_Event_Read_r,
+      },
+      {
+        title: "/Customer/FailedHistory/Read",
+        path: "/Customer/FailedHistory/Read",
+        Component: CustomerLoginFailed,
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Customer_FailedHistory_Read_r,
+      },
+      {
+        title: "/Customer/LoginHistory/Read",
+        path: "/Customer/LoginHistory/Read",
+        Component: CustomerLoginSeccess,
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Customer_LoginHistory_Read_r,
       },
     ],
   },

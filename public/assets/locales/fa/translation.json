@@ -720,5 +720,9 @@
   "policyOsAccess":"محدودیت سیستم عامل",
   "Location":"موقعیت",
   "/Definition/CancellationOfAdmission/Read":"علت عدم پذیرش",
-  "/Definition/CancellationOfAdmission/Write":"فرم علت عدم پذیرش"
+  "/Definition/CancellationOfAdmission/Write":"فرم علت عدم پذیرش",
+  "/Customer/Event/Read":"رخداد",
+  "/Customer/FailedHistory/Read":"ورود ناموفق",
+  "/Customer/LoginHistory/Read":"ورود موفق",
+  "ReasonFailed":"دلیل عدم ورود"
 }
