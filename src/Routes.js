@@ -350,6 +350,11 @@ const CustomerLoginSeccess = lazy(() =>
     "./Views/Forms/customer/loginSeccess/LoginSeccess"
   )
 );
+const OnlineCustomer = lazy(() =>
+  import(
+    "./Views/Forms/customer/online/Online"
+  )
+);
 export const Routes = [
   {
     title: "routes.panel",
@@ -501,6 +506,14 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
         access: enums.Customer_LoginHistory_Read_r,
+      },
+      {
+        title: "/Customer/OnlineCustomer/Read",
+        path: "/Customer/OnlineCustomer/Read",
+        Component: OnlineCustomer,
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Customer_OnlineCustomer_Read_r,
       },
     ],
   },

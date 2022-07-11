@@ -1,0 +1,9 @@
+export const onlineCustomerRead="/Customer/OnlineCustomer/Read"
+export const onlineCustomerReadPaging="/Customer/OnlineCustomer/ReadPaging"
+export const onlineCustomerDelete="/Customer/OnlineCustomer/Delete"
+export const onlineCustomerExportId="/Customer/OnlineCustomer/ExportId"
+export const onlineCustomerExport="/Customer/OnlineCustomer/Export"
+export const onlineCustomerLog="/Customer/OnlineCustomer/Log"
+export const onlineCustomerSetUnselectedColumn="/Customer/OnlineCustomer/SetUnselectedColumn"
+export const onlineCustomerAccessList="/Customer/OnlineCustomer/AccessList"
+export const onlineCustomerFavorite = "/Customer/OnlineCustomer/SetToFavorite";
