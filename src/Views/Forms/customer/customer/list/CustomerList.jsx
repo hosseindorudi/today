@@ -23,6 +23,7 @@ import {
 } from "../../../../../services/customerService";
 import CustomTable from "../../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
+import CustomerAddressModal from "../../../../../Components/Table/customerAddressModal/CustomerAddressModal";
 const CustomerList = () => {
   const childRef = useRef();
   const filteredColumns = [
@@ -35,10 +36,11 @@ const CustomerList = () => {
     "Password",
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
-  const [rowValus, setRowValues] = useState({});
+  const [rowValues, setRowValues] = useState({});
   const [mobileModal, setMobileModal] = useState(false)
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
+  const [isAddress, setIsAddress] = useState(false)
   const widthOFScreen = useWindowSize().width
 
   const addObject = {
@@ -60,6 +62,10 @@ const CustomerList = () => {
     //call update function in child class
     childRef.current.updated();
   };
+  const handleAddress = (id) => {
+    setRowValues(id);
+    setIsAddress(true);
+  };
 
   const handleClickHelp = () => {
     window.open("https://www.google.com");
@@ -69,20 +75,21 @@ const CustomerList = () => {
     <>
       {tableModalOpen && (
         <TableModal
-          rowValus={rowValus}
+          rowValus={rowValues}
           onHide={() => setTableModalOpen(false)}
           tableModalShow={tableModalOpen}
           updated={updated}
         />
       )}
-      
-      {/* {showGetPermissionModal &&(
-          <PermissionModal  permissions={permissions}
-          show={showGetPermissionModal}
-          onHide={() => setShowGetPermissionModal(false)}
-          setPermission={setPermission}
-          />
-        )} */}
+
+    {isAddress && (
+        <CustomerAddressModal
+          rowValues={rowValues}
+          onHide={() => setIsAddress(false)}
+          show={isAddress}
+        />
+      )}
+
       <CustomTable
         ref={childRef}
         ReadApi={customerRead}
@@ -119,6 +126,8 @@ const CustomerList = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        handleAddress={handleAddress}
+        addressAccess = {enums.Customer_Customer_Create_w}
       />
     </>
   );

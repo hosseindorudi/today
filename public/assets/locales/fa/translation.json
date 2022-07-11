@@ -737,5 +737,6 @@
   "/Customer/OnlineCustomer/Read":"آنلاین",
   "Website":"وب سایت",
   "Phone1":"شماره ثابت اول",
-  "Phone2":"شماره ثابت دوم"
+  "Phone2":"شماره ثابت دوم",
+  "addAddress":"آدرس مشتری"
 }
