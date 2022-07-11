@@ -437,6 +437,7 @@ table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
   font-size: larger;
   border-radius: 10px;
   margin-bottom: 20px;
+
   padding: 0 40px;
   border: 1px solid lightgray;
 }
@@ -804,9 +805,9 @@ ctTableParentAccessButton:hover{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   height: 100%;
   width: 240px;
+  overflow-y: auto;
 }
 
 .tableSection {

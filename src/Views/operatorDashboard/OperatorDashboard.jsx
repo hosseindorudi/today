@@ -20,10 +20,12 @@ import * as fa from "react-icons/fa";
 
 import { Routes } from "../../Routes";
 import Swal from "sweetalert2";
+import { dateOfLogTable } from "../../validation/functions";
+import DescModal from "../../Components/Table/descriptionModal/DescModal";
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useGeoLocation();
-  const { os, loaded } = useContext(OsContext);
+  const { loaded } = useContext(OsContext);
   const abortController = new AbortController();
   const [response, loading, fetchData, setResponse] = useAxios();
   const [dashboardInfoData, setDashboardInfoData] = useState({});
@@ -36,6 +38,8 @@ const OperatorDashboard = () => {
   const [requestType, setRequestType] = useState("");
   const [isNote, setIsNote] = useState(false);
   const { app } = useContext(AppContext);
+  const [descriptionShow, setDescriptionShow] = useState(false);
+  const [desc, setDesc] = useState("");
   const { t } = useTranslation();
   const tabContext = useContext(TabContext);
   const handleError = (message) => {
@@ -104,7 +108,7 @@ const OperatorDashboard = () => {
   };
 
   const noteSwal = (notes, id) => {
-    if (notes[id].IsAlarm & (notes[id] !== undefined)) {
+    if (notes[id]?.IsAlarm & (notes[id] !== undefined)) {
       Swal.fire({
         title: notes[id].Title,
         text: notes[id].Body,
@@ -149,7 +153,7 @@ const OperatorDashboard = () => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [response, requestType]
   );
 
   // useEffect(() => {
@@ -236,7 +240,7 @@ const OperatorDashboard = () => {
       "success"
     );
 
-    getDashboardData();
+      getDashboardData();
   };
   const handleDeletedFavorite = () => {
     Swal.fire(
@@ -300,6 +304,17 @@ const OperatorDashboard = () => {
   return (
     <>
       {loading && <BackDrop open={loading} />}
+
+      {descriptionShow && (
+        <DescModal
+          onHide={() => setDescriptionShow(false)}
+          show={descriptionShow}
+          value={desc}
+        />
+      )}
+      {isOpen && (
+          <Modal setIsOpen={setIsOpen} getDashboardData={getDashboardData} />
+        )}
       <div className="mainOperatorDash">
         <div className="firstOperatorColumn">
           <div className="operatorDashboardInformation">
@@ -403,9 +418,9 @@ const OperatorDashboard = () => {
             <i className="fa fa-plus" aria-hidden="true"></i>
           </button>
         </div>
-        {isOpen && (
-          <Modal setIsOpen={setIsOpen} getDashboardData={getDashboardData} />
-        )}
+        
+
+
 
         <div className="opratorDashAlert">
           <h3>لیست رخدادها</h3>
@@ -414,13 +429,13 @@ const OperatorDashboard = () => {
               <thead className="opratorDashActivityTableThead">
                 <tr>
                   {Object.keys(events[0]).map((failed, i) => {
-                    if ((failed !== "Id") & (failed !== "SourceType")) {
+                    if ((failed !== "Id") & (failed !== "SourceType") & (failed !== "CodePage_EId") & (failed !== "Operator_Id")& (failed !== "OperatorName")) {
                       return (
                         <th
                           key={i}
                           className="opratorDashActivityTableTheadTrTh"
                         >
-                          {failed}
+                          {t(failed)}
                         </th>
                       );
                     }
@@ -432,13 +447,13 @@ const OperatorDashboard = () => {
                   events.map((failed) => (
                     <tr>
                       {Object.keys(failed).map((f, i) => {
-                        if ((f !== "Id") & (f !== "SourceType")) {
+                        if ((f !== "Id") & (f !== "SourceType") & (f !== "CodePage_EId") & (f !== "Operator_Id") & (f !== "OperatorName")) {
                           return (
                             <td
                               key={i}
                               className="opratorDashActivityTableTbodyTrTd"
                             >
-                              {failed[f]}
+                              {f=== "DateSet" ?  dateOfLogTable(failed[f]) : (f=== "Description" & failed[f].length > 0 ) ?  <span onClick={()=>{setDescriptionShow(true); setDesc(failed[f])}}>{t("logview")}</span>  : failed[f]}
                             </td>
                           );
                         }
@@ -456,13 +471,13 @@ const OperatorDashboard = () => {
               <thead className="opratorDashActivityTableThead">
                 <tr>
                   {Object.keys(logins[0]).map((failed, i) => {
-                    if ((failed !== "Id") & (failed !== "SourceType")) {
+                    if ((failed !== "Id") & (failed !== "SourceType")& (failed !== "Operator_Id")& (failed !== "OperatorName")) {
                       return (
                         <th
                           key={i}
                           className="opratorDashActivityTableTheadTrTh"
                         >
-                          {failed}
+                          {t(failed)}
                         </th>
                       );
                     }
@@ -474,13 +489,13 @@ const OperatorDashboard = () => {
                   logins.map((failed) => (
                     <tr>
                       {Object.keys(failed).map((f, i) => {
-                        if ((f !== "Id") & (f !== "SourceType")) {
+                        if ((f !== "Id") & (f !== "SourceType")& (f !== "Operator_Id")& (f !== "OperatorName")) {
                           return (
                             <td
                               key={i}
                               className="opratorDashActivityTableTbodyTrTd"
                             >
-                              {failed[f]}
+                              {f=== "DateSet" ?  dateOfLogTable(failed[f]) :  failed[f]}
                             </td>
                           );
                         }
@@ -498,13 +513,13 @@ const OperatorDashboard = () => {
               <thead className="opratorDashActivityTableThead">
                 <tr>
                   {Object.keys(faileds[0]).map((failed, i) => {
-                    if ((failed !== "Id") & (failed !== "SourceType")) {
+                    if ((failed !== "Id") & (failed !== "SourceType")& (failed !== "OperatorName")) {
                       return (
                         <th
                           key={i}
                           className="opratorDashActivityTableTheadTrTh"
                         >
-                          {failed}
+                          {t(failed)}
                         </th>
                       );
                     }
@@ -516,13 +531,13 @@ const OperatorDashboard = () => {
                   faileds.map((failed) => (
                     <tr>
                       {Object.keys(failed).map((f, i) => {
-                        if ((f !== "Id") & (f !== "SourceType")) {
+                        if ((f !== "Id") & (f !== "SourceType")& (f !== "OperatorName")) {
                           return (
                             <td
                               key={i}
                               className="opratorDashActivityTableTbodyTrTd"
                             >
-                              {failed[f]}
+                              {f=== "DateSet" ?  dateOfLogTable(failed[f]) :  failed[f]}
                             </td>
                           );
                         }

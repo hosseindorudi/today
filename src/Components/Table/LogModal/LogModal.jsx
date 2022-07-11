@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
 import "./logModal.css";
 import { t } from "i18next";
-import { convertUTC } from "../../../validation/functions";
+import { convertUTC,dateOfLogTable } from "../../../validation/functions";
 const LogModal = (props) => {
   const logs = props.logs;
     const [showDescription, setShowDescription] = useState(false);
@@ -11,6 +11,8 @@ const LogModal = (props) => {
     setDescription(data)
     setShowDescription(true)
   }
+
+  
   return (
     <>
     {showDescription &&(
@@ -70,7 +72,7 @@ const LogModal = (props) => {
                 {Object.keys(log).map((key, index) => (
                   <>
                   
-                  <td key={key+index}>{key==="Description"&&log[key].length>0?(<Button variant="link" className="logoLinkVar" onClick={()=>handleClickMore(log[key])} >{t("logview")}</Button>): key === "DateSet" ?  convertUTC(log[key])   : log[key]}</td>
+                  <td key={key+index}>{key==="Description"&&log[key].length>0?(<Button variant="link" className="logoLinkVar" onClick={()=>handleClickMore(log[key])} >{t("logview")}</Button>): key === "DateSet" ?  dateOfLogTable(log[key])   : log[key]}</td>
                   </>
                 ))}
               </tr>

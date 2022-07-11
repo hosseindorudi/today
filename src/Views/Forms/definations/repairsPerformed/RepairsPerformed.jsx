@@ -9,6 +9,7 @@ import {
   handleError,
   createSelectOptions,
   defintionInputs,
+  createSelectRepairedOptions,
 } from "../../../../validation/functions";
 import * as fa from 'react-icons/fa'
 import TreeView from '@mui/lab/TreeView';
@@ -79,11 +80,7 @@ const RepairsPerformed = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   const { t } = useTranslation();
-  const handleResponse = () => {
-    toast.success(t("item.created"), {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  };
+
   const createParams = (service) => {
     const params = {
       method: "POST",
@@ -110,7 +107,7 @@ const RepairsPerformed = () => {
             : handleError(allData[0].data.Message);
           allData[1].data?.Result
             ? setPerformedGroupOptions(
-                createSelectOptions(allData[1].data.Title)
+              createSelectRepairedOptions(allData[1].data.Title)
               )
             : handleError(allData[1].data.Message);
           allData[2].data?.Result
