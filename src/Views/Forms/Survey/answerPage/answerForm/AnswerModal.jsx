@@ -12,6 +12,7 @@ import { answerPageCreate } from "../../../../../services/answerService";
 import {
   createSelectOptions,
   handleError,
+  setDatePickerDate,
 } from "../../../../../validation/functions";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
@@ -111,7 +112,7 @@ const AnswerModal = (props) => {
   }
   const handleChangeDate = (date, id) => {
     const dateObj = date.toDate();
-    handleChangeValue(dateObj.toLocaleDateString(),id)
+    handleChangeValue(setDatePickerDate(dateObj),id)
   };
   const handleCheckBox=(questionId,itemId,title)=>{
     let item=[ {
@@ -343,7 +344,8 @@ useEffect(() => {
       });
     }
     const TimeElapsed = calcualteEndTime();
-   
+    const filteredAnwer=answer.filter(f=>f.Answer.length>0||f.AnswerItem.length>0)
+    
     setType("SUBMIT");
     fetchData({
       method: "POST",
@@ -363,7 +365,7 @@ useEffect(() => {
         Phone: values.Phone,
         TimeElapsed: TimeElapsed,
         Description: values.Description,
-        Answer: answer,
+        Answer: filteredAnwer,
       },
     });
   };

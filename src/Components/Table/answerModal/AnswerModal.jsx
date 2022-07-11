@@ -1,9 +1,10 @@
+import { t } from "i18next";
 import React from "react";
 import {  Modal, Table } from "react-bootstrap";
+import { checkQuestionEId } from "../../../validation/functions";
 
 const AnswerModal = (props) => {
   const logs = props.logs;
-  console.log(logs)
   return (
     <>
       <Modal
@@ -27,7 +28,7 @@ const AnswerModal = (props) => {
               <tr>
                 {logs.map((log, index) => (
                   
-                  <td key={index}>{log.Answer}</td>
+                  <td key={index}>{log.AnswerItem?log.AnswerItem.map(i=>i.Answer+" "):checkQuestionEId(log.QuestionType_EId,log.Answer)}{log.Description.length>0&&<p style={{textDecoration:'underline'}} title={log.Description}>{t("Description")}</p>}</td>
                 ))}
               </tr>
             </tbody>

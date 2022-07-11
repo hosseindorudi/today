@@ -163,11 +163,18 @@ export const handleError = (message) => {
   });
 };
 
-
 export const dateOfLogTable = (date) => {
   let a = date.split('T');
   a[0] = convertUTC(a[0])
   return a.join("\n")
 }
 
-
+export const checkQuestionEId=(EID,value)=>{
+  switch (EID) {
+    case 7:
+       return  convertUTC(value)
+  
+    default:
+      return value
+  }
+}
