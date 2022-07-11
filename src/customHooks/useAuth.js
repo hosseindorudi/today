@@ -4,9 +4,8 @@ import AppContext from "../contexts/AppContext";
 import { verify } from "../services/authService";
 import useGeoLocation from "./useGeoLocation";
 import { useNavigate } from 'react-router-dom';
-import {mainURL} from '../data/constants'
 import { languages } from "../assets/languages/languages";
-axios.defaults.baseURL =mainURL
+axios.defaults.baseURL =process.env.REACT_APP_API_URL
 const useAuth = () => {
   
   const navigate=useNavigate()
