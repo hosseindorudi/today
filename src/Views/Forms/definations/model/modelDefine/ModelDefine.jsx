@@ -165,7 +165,7 @@ const ModelDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/Model/Write")}</b>
-        <div className="modelDefineRow">
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"device"}>
             <Form.Label>{t("device")}</Form.Label>
             <CustomReactMultiSelect
@@ -192,7 +192,7 @@ const ModelDefine = () => {
             <FormInput key={input.id} {...input} onChange={onChangeHandler} />
           )
         )}
-        <div className="modelDefineRow">
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"Rom"}>
             <Form.Label>{t("model.Rom")}</Form.Label>
             <Form.Control
@@ -214,7 +214,7 @@ const ModelDefine = () => {
             />
           </Form.Group>
         </div>
-        <div className="modelDefineRow">
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"BodyColor"}>
             <Form.Label>{t("model.BodyColor")}</Form.Label>
             <CustomReactMultiSelect

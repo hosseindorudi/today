@@ -37,7 +37,9 @@ const TableButtons = ({
   policyLocationAccess,
   handlePolicyLocation,
   policyIpAccess,
-  handlePolicyIP
+  handlePolicyIP,
+  handleAddress,
+  addressAccess
 }) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const { app } = useContext(AppContext);
@@ -203,6 +205,17 @@ const TableButtons = ({
           }}
         >
           <gr.GrUserSettings />
+        </button>
+      )}
+       {haveAccess(addressAccess) && (
+        <button
+          title={t("addAddress")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+         handleAddress(rowValue.Id);
+          }}
+        >
+          <fa.FaMap />
         </button>
       )}
     </div>

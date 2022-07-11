@@ -70,7 +70,9 @@ const TableList = ({
   handlePolicyLocation,
   policyLocationAccess,
   handlePolicyOs,
-  policyOsAccess
+  policyOsAccess,
+  handleAddress,
+  addressAccess
 }) => {
   const [haveAccess] = useButtonAccess();
   const { t } = useTranslation();
@@ -313,6 +315,8 @@ const TableList = ({
                             handlePolicyIP={handlePolicyIP}
                             handlePolicyLocation={handlePolicyLocation}
                             handlePolicyOs={handlePolicyOs}
+                            addressAccess={addressAccess}
+                            handleAddress={handleAddress}
                           />
                         </td>
                         {Object.keys(post)
