@@ -56,7 +56,7 @@ const Sidebar = () => {
     <>
  
         <nav id="sidebarNav" className={app.sidebarOpen?"sideBar-active":""} >
-          <button onClick={()=>console.log(foundMenues)}>s</button>
+         
           <div  className='sidebarWrapper'>
             <div className='logo'>
               <img src={logo} alt='ctelecomlogo'/>
