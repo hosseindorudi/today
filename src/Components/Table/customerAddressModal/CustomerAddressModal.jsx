@@ -47,7 +47,6 @@ const CustomerAddressModal = (props) => {
   const [sectionOptions, setSectionOptions] = useState([]);
   const [area, setArea] = useState(undefined);
   const [areaOptions, setAreaOptions] = useState([]);
-  const [title, setTitle] = useState("");
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
   const [rowID, setRowId] = useState("");
