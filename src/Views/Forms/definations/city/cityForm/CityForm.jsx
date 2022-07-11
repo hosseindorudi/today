@@ -142,7 +142,7 @@ const CityForm = () => {
           onSubmit={handleSubmit}
         >
           <b>{t("/Definition/City/Write")}</b>
-          <div className="modelDefineRow">
+          <div className="Row">
           <Form.Group className="mb-3" controlId={"province"}>
           <Form.Label>{t("province")}</Form.Label>
             <CustomReactMultiSelect

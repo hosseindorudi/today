@@ -137,7 +137,7 @@ const ProvinceDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/Province/Write")}</b>
-        <div className="modelRow">
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"model"}>
             <Form.Label>{t("country")}</Form.Label>
             <CustomReactMultiSelect

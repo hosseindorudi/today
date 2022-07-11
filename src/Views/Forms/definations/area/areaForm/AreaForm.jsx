@@ -141,7 +141,7 @@ const AreaForm = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/Area/Write")}</b>
-        <div className="modelDefineRow">
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"section"}>
             <Form.Label>{t("section")}</Form.Label>
             <CustomReactMultiSelect
