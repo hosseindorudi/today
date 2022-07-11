@@ -19,15 +19,13 @@ import useAxios from "../../../../../../customHooks/useAxios";
 import {
   customerGroupReadTitle
 } from "../../../../../../services/customerGroupService";
-import { handleError, setDatePickerDate } from "../../../../../../validation/functions";
+import { handleError } from "../../../../../../validation/functions";
 import { customerUpdate } from "../../../../../../services/customerService";
 import { toast } from "react-toastify";
 
 const TableModal = (props) => {
   const values = props.rowValus;
-  const currentLang = useContext(AppContext);
   const [type, setType] = useState("");
-  const [operatorDateExp, setOperatorDateExp] = useState(new Date());
   const { t } = useTranslation();
   const abortController = new AbortController();
   const [response, loading, fetchData, setResponse] = useAxios();

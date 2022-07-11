@@ -37,17 +37,6 @@ const OsPolicyModal = (props) => {
     setOs("");
   };
 
-  const createParams = (service) => {
-    const params = {
-      method: "POST",
-      url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
-    };
-    return params;
-  };
   const readDatas = () => {
     setRequestType("READRATE");
     fetchData({

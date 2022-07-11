@@ -31,7 +31,6 @@ import "./customerForm.css";
 const CustomerForm = () => {
   const widthOfScreen = useWindowSize().width;
   const [type, setType] = useState("");
-  const currentLang = useContext(AppContext);
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [dateOfSerial, setDateOfSerial] = useState(null);
   const { t } = useTranslation();
