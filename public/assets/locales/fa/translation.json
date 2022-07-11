@@ -733,5 +733,9 @@
   "/Customer/AllowedIp/Read":"آیپی های مجاز",
   "/Customer/AllowedIp/write":"فرم آی پی مجاز",
   "/Customer/BruteForce/Read":"حملات",
-  "/Customer/Group/Create":"فرم گروه مشتری"
+  "/Customer/Group/Create":"فرم گروه مشتری",
+  "/Customer/OnlineCustomer/Read":"آنلاین",
+  "Website":"وب سایت",
+  "Phone1":"شماره ثابت اول",
+  "Phone2":"شماره ثابت دوم"
 }

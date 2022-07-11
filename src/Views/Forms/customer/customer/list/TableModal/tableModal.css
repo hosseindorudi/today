@@ -14,3 +14,23 @@
 .updateModalRow .textAreaUpdate{
     width: 90%;
 }
+
+.customerModalTableMainDiv {
+    overflow-y: auto;
+    max-height: 600px;
+}
+
+.updateModalRowJob {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.FormGroupUpdateModal1 {
+    width: 90%;
+}
+
+.jobTextErea {
+    width: 100%;
+}
