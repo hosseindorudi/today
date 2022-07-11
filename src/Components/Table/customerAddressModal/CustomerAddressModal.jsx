@@ -11,8 +11,8 @@ import {
   customerReadAddress,
   customerUpdateAddress,
 } from "../../../services/customerService";
-import * as fa from 'react-icons/fa'
-import './customerAddressModal.css'
+import * as fa from "react-icons/fa";
+import "./customerAddressModal.css";
 import { provinceReadTitle } from "../../../services/provinceService";
 import { sectionReadTitle } from "../../../services/sectionService";
 import {
@@ -47,7 +47,7 @@ const CustomerAddressModal = (props) => {
   const [sectionOptions, setSectionOptions] = useState([]);
   const [area, setArea] = useState(undefined);
   const [areaOptions, setAreaOptions] = useState([]);
-
+  const [title, setTitle] = useState("");
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
   const [rowID, setRowId] = useState("");
@@ -66,6 +66,7 @@ const CustomerAddressModal = (props) => {
     Unit: 0,
     Address: "",
     Description: "",
+    Title: "",
   });
 
   const setEmpty = () => {
@@ -80,6 +81,7 @@ const CustomerAddressModal = (props) => {
       Unit: 0,
       Address: "",
       Description: "",
+      Title: "",
     });
     setCountry(undefined);
     setProvince(undefined);
@@ -267,13 +269,14 @@ const CustomerAddressModal = (props) => {
         Latitude: coordinates[0],
         Longitude: coordinates[1],
         Description: values.Description,
+        Title: values.Title,
         Request: request,
       },
     });
   };
 
   const handleQuestionEdit = (record) => {
-    console.log(record)
+    console.log(record);
     setEditButtonActivate(true);
     setValues({
       IsPrimary: record.IsPrimary,
@@ -286,12 +289,13 @@ const CustomerAddressModal = (props) => {
       Unit: record.Unit,
       Address: record.Address,
       Description: record.Description,
+      Title: record.Title,
     });
-    setCountry(countryOptions.find(f => f.value === record.Country_Id) );
-    setProvince(provinceOptions.find(f => f.value === record.Province_Id));
-    setCity(cityOptions.find(f => f.value === record.City_Id));
-    setSection(sectionOptions.find(f => f.value === record.Section_Id));
-    setArea(areaOptions.find(f => f.value === record.Area_Id));
+    setCountry(countryOptions.find((f) => f.value === record.Country_Id));
+    setProvince(provinceOptions.find((f) => f.value === record.Province_Id));
+    setCity(cityOptions.find((f) => f.value === record.City_Id));
+    setSection(sectionOptions.find((f) => f.value === record.Section_Id));
+    setArea(areaOptions.find((f) => f.value === record.Area_Id));
     setCoordinates([record.Latitude, record.Longitude]);
     setRowId(record.Id);
   };
@@ -332,6 +336,7 @@ const CustomerAddressModal = (props) => {
         Latitude: coordinates[0],
         Longitude: coordinates[1],
         Description: values.Description,
+        Title: values.Title,
         Request: request,
       },
     });
@@ -427,83 +432,101 @@ const CustomerAddressModal = (props) => {
                   placeholder={t("Area")}
                 />
               </Form.Group>
+              <Form.Group className="mb-3" controlId={"Title"}>
+                <Form.Label>{t("Title")}</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="Title"
+                  value={values.Title}
+                  onChange={onChangeHandler}
+                />
+              </Form.Group>
             </div>
             <div className="Row">
               <Form.Group className="mb-3" controlId={"PostalCode"}>
                 <Form.Label>{t("PostalCode")}</Form.Label>
                 <Form.Control
-                    type="text"
-                    name="PostalCode"
-                    value={values.PostalCode}
-                    onChange={onChangeHandler}
-                    />
+                  type="text"
+                  name="PostalCode"
+                  value={values.PostalCode}
+                  onChange={onChangeHandler}
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId={"MainStreet"}>
                 <Form.Label>{t("MainStreet")}</Form.Label>
                 <Form.Control
-                    type="text"
-                    name="MainStreet"
-                    value={values.MainStreet}
-                    onChange={onChangeHandler}
-                    />
+                  type="text"
+                  name="MainStreet"
+                  value={values.MainStreet}
+                  onChange={onChangeHandler}
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId={"ByStreet"}>
                 <Form.Label>{t("ByStreet")}</Form.Label>
                 <Form.Control
-                    type="text"
-                    name="ByStreet"
-                    value={values.ByStreet}
-                    onChange={onChangeHandler}
-                    />
+                  type="text"
+                  name="ByStreet"
+                  value={values.ByStreet}
+                  onChange={onChangeHandler}
+                />
               </Form.Group>
             </div>
             <div className="Row">
               <Form.Group className="mb-3" controlId={"Alley"}>
                 <Form.Label>{t("Alley")}</Form.Label>
                 <Form.Control
-                    type="text"
-                    name="Alley"
-                    value={values.Alley}
-                    onChange={onChangeHandler}
-                    />
+                  type="text"
+                  name="Alley"
+                  value={values.Alley}
+                  onChange={onChangeHandler}
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId={"Plaque"}>
                 <Form.Label>{t("Plaque")}</Form.Label>
                 <Form.Control
-                    type="number"
-                    name="Plaque"
-                    min={0}
-                    value={values.Plaque}
-                    onChange={onChangeHandler}
-                    />
+                  type="number"
+                  name="Plaque"
+                  min={0}
+                  value={values.Plaque}
+                  onChange={onChangeHandler}
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId={"Floor"}>
                 <Form.Label>{t("Floor")}</Form.Label>
                 <Form.Control
-                    type="number"
-                    name="Floor"
-                    value={values.Floor}
-                    onChange={onChangeHandler}
-                    />
+                  type="number"
+                  name="Floor"
+                  value={values.Floor}
+                  onChange={onChangeHandler}
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId={"Unit"}>
                 <Form.Label>{t("Unit")}</Form.Label>
                 <Form.Control
-                    type="number"
-                    name="Unit"
-                    value={values.Unit}
-                    onChange={onChangeHandler}
-                    />
+                  type="number"
+                  name="Unit"
+                  value={values.Unit}
+                  onChange={onChangeHandler}
+                />
               </Form.Group>
             </div>
             <div className="Row">
               <Form.Group className="mb-3" controlId={"Address"}>
                 <Form.Label>{t("Address")}</Form.Label>
-                <Form.Control as="textarea" rows={2}  value={values.Address} onChange={onChangeHandler} name="Address"/>
+                <Form.Control
+                  as="textarea"
+                  rows={2}
+                  value={values.Address}
+                  onChange={onChangeHandler}
+                  name="Address"
+                />
               </Form.Group>
             </div>
             <div className="Row">
-            <Form.Group className="mb-3 d-flex flex-column" controlId="chooseLocation">
+              <Form.Group
+                className="mb-3 d-flex flex-column"
+                controlId="chooseLocation"
+              >
                 <Form.Label>{t("chooseLocation")}</Form.Label>
                 <MapModal
                   qId={""}
@@ -516,7 +539,13 @@ const CustomerAddressModal = (props) => {
             <div className="Row">
               <Form.Group className="mb-3" controlId={"Description"}>
                 <Form.Label>{t("Description")}</Form.Label>
-                <Form.Control as="textarea" rows={2}  value={values.AddrDescriptioness} onChange={onChangeHandler} name="Description"/>
+                <Form.Control
+                  as="textarea"
+                  rows={2}
+                  value={values.AddrDescriptioness}
+                  onChange={onChangeHandler}
+                  name="Description"
+                />
               </Form.Group>
             </div>
 
@@ -559,9 +588,7 @@ const CustomerAddressModal = (props) => {
                 }}
               >
                 <div>
-                  <div className="fw-bold countryTitle">
-                    {t("Address")}
-                  </div>
+                  <div className="fw-bold countryTitle">{t("Address")}</div>
                   {a.Address}
                 </div>
                 <div className="d-flex btns ">
