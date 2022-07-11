@@ -1,6 +1,6 @@
 import React, {  useEffect, useState } from "react";
 import {  Button,  Form, Modal } from "react-bootstrap";
-import "./tableModal.css";
+
 import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";

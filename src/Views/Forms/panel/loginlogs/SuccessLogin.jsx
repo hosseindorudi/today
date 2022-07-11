@@ -1,4 +1,4 @@
-import "../../../../assets/css/table.css";
+ 
 import React, { useRef, useState } from "react";
 
 import { enums } from "../../../../data/Enums";

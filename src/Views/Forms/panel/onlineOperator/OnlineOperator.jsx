@@ -1,5 +1,5 @@
 
-import "../../../../assets/css/table.css";
+ 
 import React, { useRef, useState } from "react";
 import { enums } from "../../../../data/Enums";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";

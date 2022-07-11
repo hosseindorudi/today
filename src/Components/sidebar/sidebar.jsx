@@ -35,6 +35,12 @@ const Sidebar = () => {
               title: prop.title,
               path: prop.path,
               Component:prop.Component,
+              button:prop.button&&{
+                Component: prop.button.Component,
+                path: prop.button.path,
+                title: prop.button.title,
+                access: prop.button.access,
+              },
               icon: prop.icon,
               access: prop.access
             }
@@ -50,6 +56,7 @@ const Sidebar = () => {
     <>
  
         <nav id="sidebarNav" className={app.sidebarOpen?"sideBar-active":""} >
+          <button onClick={()=>console.log(foundMenues)}>s</button>
           <div  className='sidebarWrapper'>
             <div className='logo'>
               <img src={logo} alt='ctelecomlogo'/>

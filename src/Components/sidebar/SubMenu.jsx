@@ -39,22 +39,40 @@ const SubMenu = ({ item, search }) => {
         )
           
         : AccessList?.includes(item.access) && (
+          <div className="sidebarWithBtn">
+          <button
+            className="DropdownLinkBtn"
+            onClick={() => handleClickMenu(item)}
+          >
+            {item.icon}
+            <span className="SidebarLabel">{t(item.title)}</span>
+          </button>
+          
+          {item.button&& AccessList?.includes(item.button.access) && (
             <button
-              className="SidebarLink"
-              onClick={() => handleClickMenu(item)}
+              className="btnIconSidebar"
+              onClick={() => handleClickMenu(item.button)}
             >
-              <div>
-                {item.icon}
-                <span className="SidebarLabel">{t(item.title)}</span>
-              </div>
-              <div>
-                {item.subNav && subnav
-                  ? item.iconOpened
-                  : item.subNav
-                  ? item.iconClosed
-                  : null}
-              </div>
+              <cg.CgAddR size={20} />
             </button>
+          )}
+        </div>
+            // <button
+            //   className="SidebarLink"
+            //   onClick={() => handleClickMenu(item)}
+            // >
+            //   <div>
+            //     {item.icon}
+            //     <span className="SidebarLabel">{t(item.title)}</span>
+            //   </div>
+            //   <div>
+            //     {item.subNav && subnav
+            //       ? item.iconOpened
+            //       : item.subNav
+            //       ? item.iconClosed
+            //       : null}
+            //   </div>
+            // </button>
           )}
       {!search &&
         subnav &&
