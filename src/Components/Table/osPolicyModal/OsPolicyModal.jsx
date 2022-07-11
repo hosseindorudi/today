@@ -15,12 +15,6 @@ import { useTranslation } from "react-i18next";
 import { handleError } from "../../../validation/functions";
 
 import Swal from "sweetalert2";
-import {
-  groupCreatePolicyOs,
-  groupDeletePolicyOs,
-  groupReadPolicyOs,
-  groupUpdatePolicyOs,
-} from "../../../services/groupService";
 import { osEnums } from "../../../data/osEnums";
 const OsPolicyModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -41,7 +35,7 @@ const OsPolicyModal = (props) => {
     setRequestType("READRATE");
     fetchData({
       method: "POST",
-      url: groupReadPolicyOs,
+      url: props.read,
       headers: {
         accept: "*/*",
       },
@@ -84,7 +78,7 @@ const OsPolicyModal = (props) => {
     setRequestType("DELETE");
     fetchData({
       method: "POST",
-      url: groupDeletePolicyOs,
+      url: props.delete,
       headers: {
         accept: "*/*",
       },
@@ -140,7 +134,7 @@ const OsPolicyModal = (props) => {
 
     fetchData({
       method: "POST",
-      url: groupCreatePolicyOs,
+      url: props.create,
       headers: {
         accept: "*/*",
       },
@@ -171,7 +165,7 @@ const OsPolicyModal = (props) => {
 
     fetchData({
       method: "POST",
-      url: groupUpdatePolicyOs,
+      url: props.update,
       headers: {
         accept: "*/*",
       },

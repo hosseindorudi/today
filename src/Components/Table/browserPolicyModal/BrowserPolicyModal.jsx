@@ -17,7 +17,6 @@ import {
 } from "../../../validation/functions";
 import Swal from "sweetalert2";
 import "./browserPolicyModal.css";
-import { groupCreatePolicyBrowser, groupDeletePolicyBrowser, groupReadPolicyBrowser, groupUpdatePolicyBrowser } from "../../../services/groupService";
 import { browserEnum } from "../../../data/browserEnum";
 const BrowserPolicyModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -41,7 +40,7 @@ const setEmpty=()=>{
     setRequestType("READPOLICY");
     fetchData({
       method: "POST",
-      url: groupReadPolicyBrowser,
+      url:props.read,
       headers: {
         accept: "*/*",
       },
@@ -83,7 +82,7 @@ const setEmpty=()=>{
     setRequestType("DELETE");
     fetchData({
       method: "POST",
-      url: groupDeletePolicyBrowser,
+      url: props.delete,
       headers: {
         accept: "*/*",
       },
@@ -139,7 +138,7 @@ const setEmpty=()=>{
 
     fetchData({
       method: "POST",
-      url: groupCreatePolicyBrowser,
+      url:props.create,
       headers: {
         accept: "*/*",
       },
@@ -170,7 +169,7 @@ const setEmpty=()=>{
     setEditButtonActivate(false)
     fetchData({
       method: "POST",
-      url: groupUpdatePolicyBrowser,
+      url:props.update,
       headers: {
         accept: "*/*",
       },

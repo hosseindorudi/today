@@ -17,7 +17,7 @@ import {
 } from "../../../validation/functions";
 import './IPpolicyModal.css'
 import Swal from "sweetalert2";
-import { groupCreatePolicyIP, groupDeletePolicyIP, groupReadPolicyIP, groupUpdatePolicyIP } from "../../../services/groupService";
+
 const IPpolicyModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
@@ -38,7 +38,7 @@ const [ipId, setIpId] = useState("");
     setRequestType("Read");
     fetchData({
       method: "POST",
-      url: groupReadPolicyIP,
+      url: props.read,
       headers: {
         accept: "*/*",
       },
@@ -81,7 +81,7 @@ const [ipId, setIpId] = useState("");
     setRequestType("DELETE");
     fetchData({
       method: "POST",
-      url: groupDeletePolicyIP,
+      url: props.delete,
       headers: {
         accept: "*/*",
       },
@@ -137,7 +137,7 @@ const [ipId, setIpId] = useState("");
 
     fetchData({
       method: "POST",
-      url: groupCreatePolicyIP,
+      url: props.create,
       headers: {
         accept: "*/*",
       },
@@ -170,7 +170,7 @@ const [ipId, setIpId] = useState("");
 
     fetchData({
       method: "POST",
-      url: groupUpdatePolicyIP,
+      url: props.update,
       headers: {
         accept: "*/*",
       },

@@ -4,7 +4,13 @@ import TableModal from "./TableModal/TableModal";
 import {
   groupAccessList,
   groupCheckFile,
+  groupCreatePolicyIP,
+  groupCreatePolicyLocation,
+  groupCreatePolicyOs,
   groupDelete,
+  groupDeletePolicyIP,
+  groupDeletePolicyLocation,
+  groupDeletePolicyOs,
   groupExport,
   groupExportId,
   groupFavorite,
@@ -14,9 +20,15 @@ import {
   groupLog,
   groupRead,
   groupReadPaging,
+  groupReadPolicyIP,
+  groupReadPolicyLocation,
+  groupReadPolicyOs,
   groupSampleFile,
   groupSetPermission,
   groupSetUnselectedColumn,
+  groupUpdatePolicyIP,
+  groupUpdatePolicyLocation,
+  groupUpdatePolicyOs,
 } from "../../../../../services/groupService";
 import { toast } from "react-toastify";
 import { t } from "i18next";
@@ -27,6 +39,7 @@ import useWindowSize from "../../../../../customHooks/useWindowSize";
 import BrowserPolicyModal from "../../../../../Components/Table/browserPolicyModal/BrowserPolicyModal";
 import IPpolicyModal from "../../../../../Components/Table/ipPolicyModal/IPpolicyModal";
 import OsPolicyModal from "../../../../../Components/Table/osPolicyModal/OsPolicyModal";
+import { groupCreatePolicyBrowser, groupDeletePolicyBrowser, groupReadPolicyBrowser, groupUpdatePolicyBrowser } from "../../../../../services/groupService";
 import LocationPolicyModal from "../../../../../Components/Table/locationPolicyModal/LocationPolicyModal";
 const Group = () => {
   const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType"];
@@ -99,6 +112,10 @@ const Group = () => {
           rowValues={rowValues}
           onHide={() => setModalBrowserPolicy(false)}
           show={modalBrowserPolicy}
+          create={groupCreatePolicyBrowser}
+          update={groupUpdatePolicyBrowser}
+          read={groupReadPolicyBrowser}
+          delete={groupDeletePolicyBrowser}
         />
       )}
     {modalIpPolicy && (
@@ -106,6 +123,10 @@ const Group = () => {
           id={rowValues}
           onHide={() => setModalIpPolicy(false)}
           show={modalIpPolicy}
+          create={groupCreatePolicyIP}
+          update={groupUpdatePolicyIP}
+          read={groupReadPolicyIP}
+          delete={groupDeletePolicyIP}
         />
       )}
        {osModal && (
@@ -113,11 +134,20 @@ const Group = () => {
           id={rowValues}
           onHide={() => setOsModal(false)}
           show={osModal}
+          create={groupCreatePolicyOs}
+          update={groupUpdatePolicyOs}
+          read={groupReadPolicyOs}
+          delete={groupDeletePolicyOs}
         />
       )}
       {locationModal &&(
         <LocationPolicyModal show={locationModal}    id={rowValues}
-        onHide={() => setLocationModal(false)}/>
+        onHide={() => setLocationModal(false)}
+        create={groupCreatePolicyLocation}
+        update={groupUpdatePolicyLocation}
+        read={groupReadPolicyLocation}
+        delete={groupDeletePolicyLocation}
+        />
       )}
       <CustomTable
         ref={childRef}

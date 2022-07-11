@@ -4,6 +4,14 @@ import React, {
 } from "react";
 import TableModal from "./TableModal/TableModal";
 import {
+  customerCreatePolicyBrowser,
+  customerCreatePolicyIP,
+  customerCreatePolicyLocation,
+  customerCreatePolicyOs,
+  customerDeletePolicyBrowser,
+  customerDeletePolicyIP,
+  customerDeletePolicyLocation,
+  customerDeletePolicyOs,
   customerGroupAccessList,
   customerGroupCheckFile,
   customerGroupDelete,
@@ -17,6 +25,14 @@ import {
   customerGroupReadPaging,
   customerGroupSample,
   customerGroupSetUnselectedColumn,
+  customerReadPolicyBrowser,
+  customerReadPolicyIP,
+  customerReadPolicyLocation,
+  customerReadPolicyOs,
+  customerUpdatePolicyBrowser,
+  customerUpdatePolicyIP,
+  customerUpdatePolicyLocation,
+  customerUpdatePolicyOs,
 } from "../../../../../services/customerGroupService";
 import { toast } from "react-toastify";
 import { t } from "i18next";
@@ -98,6 +114,10 @@ const CustomerGroup = () => {
           rowValues={rowValues}
           onHide={() => setModalBrowserPolicy(false)}
           show={modalBrowserPolicy}
+          create={customerCreatePolicyBrowser}
+          update={customerUpdatePolicyBrowser}
+          read={customerReadPolicyBrowser}
+          delete={customerDeletePolicyBrowser}
         />
       )}
     {modalIpPolicy && (
@@ -105,6 +125,10 @@ const CustomerGroup = () => {
           id={rowValues}
           onHide={() => setModalIpPolicy(false)}
           show={modalIpPolicy}
+          create={customerCreatePolicyIP}
+          update={customerUpdatePolicyIP}
+          read={customerReadPolicyIP}
+          delete={customerDeletePolicyIP}
         />
       )}
        {osModal && (
@@ -112,11 +136,21 @@ const CustomerGroup = () => {
           id={rowValues}
           onHide={() => setOsModal(false)}
           show={osModal}
+          create={customerCreatePolicyOs}
+          update={customerUpdatePolicyOs}
+          read={customerReadPolicyOs}
+          delete={customerDeletePolicyOs}
         />
       )}
       {locationModal &&(
         <LocationPolicyModal show={locationModal}    id={rowValues}
-        onHide={() => setLocationModal(false)}/>
+        onHide={() => setLocationModal(false)}
+        create={customerCreatePolicyLocation}
+        update={customerUpdatePolicyLocation}
+        read={customerReadPolicyLocation}
+        delete={customerDeletePolicyLocation}
+        
+        />
       )}
       <CustomTable
         ref={childRef}

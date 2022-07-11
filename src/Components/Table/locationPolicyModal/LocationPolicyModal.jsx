@@ -15,12 +15,6 @@ import { useTranslation } from "react-i18next";
 import { handleError } from "../../../validation/functions";
 import "./locationPolicyModal.css";
 import Swal from "sweetalert2";
-import {
-  groupCreatePolicyLocation,
-  groupDeletePolicyLocation,
-  groupReadPolicyLocation,
-  groupUpdatePolicyLocation,
-} from "../../../services/groupService";
 import { defaultCoordinates } from "../../../data/constants";
 import MapModal from "../../map/MapModal";
 const LocationPolicyModal = (props) => {
@@ -43,7 +37,7 @@ const LocationPolicyModal = (props) => {
     setRequestType("Read");
     fetchData({
       method: "POST",
-      url: groupReadPolicyLocation,
+      url: props.read,
       headers: {
         accept: "*/*",
       },
@@ -86,7 +80,7 @@ const LocationPolicyModal = (props) => {
     setRequestType("DELETE");
     fetchData({
       method: "POST",
-      url: groupDeletePolicyLocation,
+      url: props.delete,
       headers: {
         accept: "*/*",
       },
@@ -142,7 +136,7 @@ const LocationPolicyModal = (props) => {
 
     fetchData({
       method: "POST",
-      url: groupCreatePolicyLocation,
+      url: props.create,
       headers: {
         accept: "*/*",
       },
@@ -176,7 +170,7 @@ const LocationPolicyModal = (props) => {
 
     fetchData({
       method: "POST",
-      url: groupUpdatePolicyLocation,
+      url: props.update,
       headers: {
         accept: "*/*",
       },
