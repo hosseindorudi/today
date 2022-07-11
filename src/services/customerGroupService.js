@@ -6,6 +6,7 @@ export const customerGroupSetUnselectedColumn="/Customer/Group/SetUnselectedColu
 export const customerGroupDelete="/Customer/Group/Delete"
 export const customerGroupGetOneRecord="/Customer/Group/GetOneRecord"
 export const customerGroupFavorite="/Customer/Group/SetToFavorite"
+export const customerGroupExportId="/Customer/Group/ExportId"
 export const customerGroupLog="/Customer/Group/Log"
 export const customerGroupAccessList="/Customer/Group/AccessList"
 export const customerGroupExport="/Customer/Group/Export"

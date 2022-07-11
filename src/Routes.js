@@ -523,7 +523,7 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
         access: enums.Customer_OnlineCustomer_Read_r,
-      }
+      },
       {
         title: "/Customer/AllowedIp/Read",
         path: "/Customer/AllowedIp/Read",
