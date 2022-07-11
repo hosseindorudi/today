@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import AdapterJalali from "@date-io/date-fns-jalali";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import gregorian from "react-date-object/calendars/gregorian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import gregorian_en from "react-date-object/locales/gregorian_en";
+
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -186,8 +186,8 @@ const CustomerForm = () => {
           IdCardNumber: idCardNumber,
           IdCardSerialNumber: idCardSerialNumber,
           Gender: gender,
-          DateOfBirth: dateOfBirth,
-          DateOfIssuanceIdCard: dateOfSerial,
+          DateOfBirth:  new Date(dateOfBirth),
+          DateOfIssuanceIdCard:  new Date(dateOfSerial),
           PlaceOfIssuanceIdCard: serialLocation,
           Mobile1: phoneNumber1,
           Mobile2: phoneNumber2,
@@ -198,10 +198,10 @@ const CustomerForm = () => {
           Job: job,
           AcquaintedWithCompany: acquaintedWithCompany,
           IsLimited: activeDate,
-          LimitFrom: fromDate,
-          LimitTo: endDate,
+          LimitFrom:  new Date(fromDate),
+          LimitTo:  new Date(endDate),
           Description: description,
-
+          Website:webSite,
           ExpireDate: "2022-06-16T05:34:40.867Z",
           DateSet: "2022-06-16T05:34:40.867Z",
           Request: request,
@@ -283,72 +283,42 @@ const CustomerForm = () => {
                   <Form.Control type="text" placeholder={t("IdCardSerialNumber")}  value={idCardSerialNumber}
                     onChange={(e) => setIdCardSerialNumber(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" >
-                {currentLang.app.lang === "fa" ? (
-                  <div style={{ direction: "ltr" }}>
-                    <LocalizationProvider dateAdapter={AdapterJalali}>
-                      <DatePicker
-                        label={t("DateOfBirth")}
-                        mask="____/__/__"
-                        value={dateOfBirth}
-                        onChange={(newValue) => {
-                          setDateOfBirth(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                ) : (
-                  <div style={{ direction: "ltr" }}>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DesktopDatePicker
-                        inputFormat="MM/dd/yyyy"
-                        value={dateOfBirth}
-                        onChange={(newValue) => {
-                          setDateOfBirth(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                )}
-                </Form.Group>
+                <Form.Group className="mb-3" controlId={"DateOfBirth"}>
+                    <DatePicker
+                      containerClassName="custom-container"
+                      onChange={(newValue) => {
+                        setDateOfBirth(newValue);
+                      }}
+                      name='LimitTo'
+                      placeholder={t("DateOfBirth")}
+                      calendar={app.lang === "fa" ? persian : gregorian}
+                      locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                      calendarPosition="bottom-right"
+                      value={dateOfBirth}
+                    />
+                  </Form.Group>
+                
               </div>
               <div className="customerFirstDiv">
                 <Form.Group className="mb-3 customerFirstName" >
                   <Form.Control type="text" placeholder={t("serialLocation")}  value={serialLocation}
                     onChange={(e) => setSerialLocation(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" >
-                {currentLang.app.lang === "fa" ? (
-                  <div style={{ direction: "ltr" }}>
-                    <LocalizationProvider dateAdapter={AdapterJalali}>
-                      <DatePicker
-                        label={t("serialDate")}
-                        mask="____/__/__"
-                        value={dateOfSerial}
-                        onChange={(newValue) => {
-                          setDateOfSerial(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                ) : (
-                  <div style={{ direction: "ltr" }}>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                      <DesktopDatePicker
-                        inputFormat="MM/dd/yyyy"
-                        value={dateOfSerial}
-                        onChange={(newValue) => {
-                          setDateOfSerial(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                )}
+                <Form.Group className="mb-3" controlId={"serialDate"}>
+                  <DatePicker
+                    containerClassName="custom-container"
+                    placeholder={t("serialDate")}
+                    onChange={(newValue) => {
+                      setDateOfSerial(newValue);
+                    }}
+                    name='LimitTo'
+                    calendar={app.lang === "fa" ? persian : gregorian}
+                    locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                    calendarPosition="bottom-right"
+                    value={dateOfSerial}
+                  />
                 </Form.Group>
+                
               </div>
               <div className="customerFourthDiv">
               <Form.Group className="mb-3 customerFirstName" >
@@ -426,34 +396,32 @@ const CustomerForm = () => {
               <div className="customerSixhDiv">
 
               <div className="datePickerGroup" >
-                   
-                    <LocalizationProvider dateAdapter={app.lang==="fa"?AdapterJalali:AdapterDateFns}>
+                
+                  
+                  
                     <div>
-                      <DatePicker
-                        disabled={!activeDate}
-                        mask="____/__/__"
-                        label={t("startDate")}
-                        value={fromDate}
-                        onChange={(newValue) => {
-                          setFromDate(newValue);
-                          if (endDate !== null && newValue > endDate) {
-                            toast.error("تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد", {
-                              position: toast.POSITION.BOTTOM_CENTER,
-                            });
-                            
-                            setEndDate(null);
-                          }
-                        }}
-                        renderInput={(params) => (
-                          <TextField
+                    <Form.Group className="mb-3" controlId={"startDate"}>
+                    <DatePicker
+                      containerClassName="custom-container"
+                      placeholder={t("startDate")}
+                      onChange={(newValue) => {
+                        setFromDate(newValue);
+                        if (endDate !== null && newValue > endDate) {
+                          toast.error("تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد", {
+                            position: toast.POSITION.BOTTOM_CENTER,
+                          });
                           
-                            {...params}
-                            inputProps={{
-                              ...params.inputProps,
-                            }}
-                          />
-                        )}
-                      />
+                          setEndDate(null);
+                        }
+                      }}
+                      name='LimitTo'
+                      calendar={app.lang === "fa" ? persian : gregorian}
+                      locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                      calendarPosition="bottom-right"
+                      value={fromDate}
+                      disabled={!activeDate}
+                    />
+                  </Form.Group>
                     
                     </div>
                     <div class="switchDate">
@@ -465,32 +433,31 @@ const CustomerForm = () => {
                         />
                       </div>
                     <div>
-                      <DatePicker
-                      disabled={!activeDate}
-                        mask="____/__/__"
-                        label={t("endDate")}
-                        value={endDate}
-                        onChange={(newValue) => {
-                          setEndDate(newValue);
-                          if (fromDate !== null && newValue < fromDate) {
-                            toast.error("تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد", {
-                              position: toast.POSITION.BOTTOM_CENTER,
-                            });
-                            
-                            setEndDate(null);
-                          }
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            inputProps={{
-                              ...params.inputProps,
-                            }}
-                          />
-                        )}
-                      />
+                    <Form.Group className="mb-3" controlId={"endDate"}>
+                        <DatePicker
+                          containerClassName="custom-container"
+                          placeholder={t("endDate")}
+                          onChange={(newValue) => {
+                            setEndDate(newValue);
+                            if (fromDate !== null && newValue < fromDate) {
+                              toast.error("تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد", {
+                                position: toast.POSITION.BOTTOM_CENTER,
+                              });
+                              
+                              setEndDate(null);
+                            }
+                          }}
+                          name='LimitTo'
+                          calendar={app.lang === "fa" ? persian : gregorian}
+                          locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                          calendarPosition="bottom-right"
+                          value={endDate}
+                          disabled={!activeDate}
+                        />
+                      </Form.Group>
+                     
                       </div>
-                    </LocalizationProvider>
+                 
                   </div>
                 
               </div>

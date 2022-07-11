@@ -135,6 +135,10 @@ export const checkTableValues = (type, value, post, exportAccess) => {
       return post.IsLimited ? convertUTC(value) : "-";
     case "LimitTo":
       return post.IsLimited ? convertUTC(value) : "-";
+    case "DateOfIssuanceIdCard":
+      return post.IsLimited ? convertUTC(value) : "-";
+    case "DateOfBirth":
+      return post.IsLimited ? convertUTC(value) : "-";
     case "Color":
       return (
         <Form.Control

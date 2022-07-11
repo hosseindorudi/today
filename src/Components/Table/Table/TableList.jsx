@@ -326,7 +326,6 @@ const TableList = ({
                               (key === "Description") &
                               (exportAccess === enums.Operator_Event_Export_r)
                             ) {
-                              console.log(post[key]);
                               return (
                                 <td
                                   onClick={() => {
