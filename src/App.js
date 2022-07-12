@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { languages } from "./assets/languages/languages";
 import "./assets/css/App.css";
 import "./assets/css/periorityForm.css"
+import "./assets/css/admission.css"
 import Admin from "./layouts/Admin";
 import { Route, Routes, useLocation } from "react-router-dom";
 import AppContext from "./contexts/AppContext";

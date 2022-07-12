@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import useAxios from '../../../../../customHooks/useAxios';
 import { admitionUpdate } from '../../../../../services/admitionService';
 import SignaturePad from '../signaturePad/src';
-import './admissionModal.css'
+
 
 
 const AdmissionModal = (props) => {

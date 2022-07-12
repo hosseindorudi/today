@@ -1,8 +1,6 @@
 import React from "react";
 import Bezier from "./bezier";
 import Point from "./point"
-import './canvasCss.css'
-
 
 export default class SignaturePad extends React.Component {
 

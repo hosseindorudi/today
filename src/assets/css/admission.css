@@ -1,0 +1,3187 @@
+.reacttableParent {
+    display: flex;
+  
+    height: calc(100vh - 160px);
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .reacttableParentRight {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 500ms ease;
+  }
+  
+  .reactTableParentMiddle1 {
+    width: 8px;
+  
+    border-radius: 5px;
+  
+    height: 100px;
+  }
+  .reactTableParentMiddle1BTN {
+    width: 10px;
+    height: 100%;
+    background-color: darkgray;
+    border: 1px solid gray;
+    cursor: pointer;
+    transform: perspective(10px) rotatey(8deg);
+    margin-top: 100px;
+  }
+  
+  .reacttableParentUp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    transition: all 500ms ease;
+  }
+  
+  .groupListRefresh {
+    width: 60px;
+    height: 60px;
+    font-size: 40px;
+    border: none;
+    background-color: transparent;
+    color: #00afb9;
+  }
+  
+  .reacttableParentPlusButton {
+    display: inline;
+    transition: all 500ms ease;
+    align-items: center;
+    display: flex;
+    flex: 0.2;
+    justify-content: space-around;
+  }
+  
+  .plusBUTTON {
+    background-color: #fff;
+    border: 1px solid greenyellow;
+    display: inline;
+  
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 35px;
+    color: greenyellow;
+    transition: all 0.5s ease;
+  }
+  
+  .plusBUTTON:hover {
+    border: none;
+    color: #fff;
+    background-color: greenyellow;
+  }
+  
+  .reacttableParentMiddleMiddleSide {
+    display: flex;
+    flex: 0.9;
+    transition: all 500ms ease;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-inline-end: 20px;
+  
+    border-radius: 5px;
+    padding: 2px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+  }
+  
+  .searchDater {
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 8px;
+    transition: all 500ms ease;
+  }
+  
+  .searchField {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: all 500ms ease;
+    height: 0;
+  }
+  .bredCrumbTable {
+    height: fit-content;
+    transition: all 500ms ease;
+  }
+  
+  .searchField > div {
+    margin: 0 5px;
+    transition: all 500ms ease;
+  }
+  
+  .reacttableParentMain {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 360px);
+    transition: all 500ms ease;
+  }
+  
+  .reacttableParentMainRight {
+    height: 100%;
+    width: 150px;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .reacttableParentMainRightUp {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2px;
+    width: 100%;
+  }
+  .reacttableParentMainRightUpInformation {
+    margin-top: 5px;
+  }
+  
+  .reacttableParentMainRightUpInformationDiv {
+    border: 1px solid gray;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .reacttableParentMainRightDown {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2px;
+    width: 100%;
+  }
+  
+  .reacttableParentMainRightDownToolBox {
+    margin-top: 5px;
+  }
+  
+  .reacttableParentMainRightDownToolBoxDiv {
+    border: 1px solid gray;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .reacttableParentMainRightDownToolBoxDivColumnBtn {
+    display: flex;
+    margin-top: 5px;
+  
+    padding: 5px;
+    width: 100%;
+  }
+  .reacttableParentMainRightDownToolBoxDivColumnBtnSearch {
+    display: flex;
+    margin-top: 5px;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+  }
+  
+  .columnBtnTableToggle {
+    width: 100%;
+    border: 1px solid #00afb9;
+    cursor: pointer;
+    padding: 4px 5px;
+    border-radius: 5px;
+    margin: 0 8px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #2fd8e0;
+    font-size: 13px;
+    transition: all 500ms ease;
+  }
+  
+  .hold {
+    width: 100%;
+    cursor: pointer;
+    padding: 4px 5px;
+    border-radius: 5px;
+    margin: 0 8px;
+    cursor: pointer;
+    border: 1px solid #00afb9;
+    font-size: 13px;
+    transition: all 500ms ease;
+    background-color: #2fd8e0;
+    color: #fff;
+  }
+  
+  .reacttableParentMainLeft {
+    height: 100%;
+    width: 100%;
+    display: flex;
+  }
+  
+  .reacttableParentMainLeftRight {
+    height: 100%;
+    flex: 7;
+    width: 100px;
+    margin: 0 8px;
+  }
+  .reacttableParentMiddleMiddleMid {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+  }
+  .noDataTable {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .MainTableCss {
+    width: 100%;
+    transition: all 500ms ease;
+    border-spacing: 20px;
+  }
+  
+  .MainTableCss {
+    /* table-layout: fixed; */
+  
+    border-collapse: collapse;
+    overflow: scroll;
+  }
+  
+  table > tbody > tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  thead {
+    height: 30px;
+  }
+  
+  .MainTableTh,
+  .TableMainTd {
+    max-width: 300px;
+    padding: 8px 8px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+  }
+  
+  .MainTableThead {
+    position: sticky;
+    inset-block-start: 0;
+    background-color: #ddd;
+    z-index: 10;
+  }
+  
+  .reacttableParentMainLeftLeft {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    width: 0;
+    /* display: none; */
+    transition: all 500ms ease;
+  }
+  
+  .closebtn {
+    cursor: pointer;
+    font-size: 2rem;
+    top: 0;
+    margin: 0 auto;
+    border: none;
+    background-color: transparent;
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 5px;
+  }
+  
+  .closebtn:focus {
+    outline: none;
+  }
+  
+  .mainUnderCloseBtn {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .checkBoxTableParent {
+    display: flex;
+    width: 90%;
+    height: 40px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: larger;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 0 40px;
+    border: 1px solid lightgray;
+  }
+  
+  .tableParrentInputCheck {
+    width: 17px;
+    height: 17px;
+  }
+  
+  .checkBoxTableParent > label {
+    font-size: 13px;
+  }
+  .checkBoxTableParentForAll {
+    display: flex;
+    width: 90%;
+    height: 40px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: larger;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 0 40px;
+    border: 1px solid lightgray;
+  }
+  
+  .checkBoxTableParentForAll > input {
+    width: 17px;
+    height: 17px;
+  }
+  
+  .checkBoxTableParentForAll > label {
+    font-size: 13px;
+  }
+  
+  .reacttableParentDown {
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .emptyDiv {
+    flex: 1;
+  }
+  
+  .downPaginationMain {
+    flex: 1;
+    height: 100%;
+    transition: all 500ms ease;
+  }
+  
+  .page {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    border-radius: 0.6rem;
+    background: #ffffff;
+    box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
+    transition: all 500ms ease;
+  }
+  .page nav {
+    direction: ltr;
+  }
+  .downPaginationBTN {
+    border: none;
+    background-color: transparent;
+    font-size: 1.4rem;
+    color: #2a7ade;
+    cursor: pointer;
+  }
+  
+  .page__numbers,
+  .page__btn,
+  .page__dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.4rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .page__dots {
+    width: 2.6rem;
+    height: 2.6rem;
+    color: var(--greyLight);
+    cursor: initial;
+  }
+  
+  .page__numbers {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.4rem;
+  }
+  
+  .page__numbers:hover {
+    border: 1px solid #2a7ade;
+    color: #2a7ade;
+  }
+  
+  .page__numbers.active {
+    color: #ffffff;
+    background: #2a7ade;
+    font-weight: 600;
+    border: 1px solid #2a7ade;
+  }
+  
+  .page__btn {
+    color: #23adade1;
+    cursor: pointer;
+  }
+  
+  .material-icons:focus {
+    outline: none;
+  }
+  
+  .page__btn.active {
+    color: #2d4848;
+  }
+  
+  .page__btn:hover {
+    color: #23adad;
+  }
+  
+  .downpaginationButtins {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all 500ms ease;
+  }
+  
+  .pageNumber {
+    width: 100px;
+    margin: 0 4px;
+    border: 1px solid lightgray;
+    font-size: 14px;
+    padding: 0 3px;
+  }
+  
+  .pageNumber:hover {
+    border: 1px solid rgb(226, 107, 107);
+  }
+  
+  .pageNumber:focus {
+    outline: none;
+    border: 1px solid rgb(226, 107, 107);
+  }
+  
+  .sendForm {
+    width: 100px;
+    margin: 0 5px;
+    margin-inline-end: 20px;
+    background-color: #fff;
+    color: #2a7ade;
+    border: 1px solid #2a7ade;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 500ms ease;
+  }
+  
+  .sendForm:hover {
+    background-color: #2a7ade;
+    color: #fff;
+  }
+  
+  .paginationSelector {
+    width: 70px;
+    height: fit-content;
+    border: 1px solid lightgray;
+    outline: none;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 500ms ease;
+  }
+  
+  .paginationSelector:hover {
+    border: 1px solid #00afb9;
+    outline: none;
+  }
+  
+  .paginationSelector:focus {
+    border: 1px solid #00afb9;
+    outline: none;
+  }
+  
+  .reacttableParentLeft {
+    height: calc(100vh - 360px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin: auto 0;
+    width: 0;
+    /* display: none; */
+    transition: all 500ms ease;
+  }
+  
+  .sortingArrowsBTN {
+    outline: none;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .sortingArrowsBTN:focus {
+    outline: none;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .reactTableParentExportButton {
+    margin: 5px auto;
+    background-color: white;
+    color: rgb(165, 255, 47);
+    width: 50px;
+    height: 40px;
+    font-size: 25px;
+    border: 1px solid rgb(165, 255, 47);
+    border-radius: 5px;
+    transition: all 400ms ease;
+  }
+  
+  .reactTableParentExportButton:hover {
+    background-color: rgb(165, 255, 47);
+    color: white;
+  }
+  .reactTableParentImportButton {
+    margin: 5px auto;
+    background-color: white;
+    color: rgb(32, 253, 224);
+    width: 50px;
+    height: 40px;
+    font-size: 25px;
+    border: 1px solid rgb(32, 253, 224);
+    border-radius: 5px;
+    transition: all 400ms ease;
+  }
+  
+  .reactTableParentImportButton:hover {
+    background-color: rgb(32, 253, 224);
+    color: white;
+  }
+  .reactTableParentLogButton {
+    margin: 5px auto;
+    background-color: white;
+    color: rgb(47, 206, 255);
+    width: 50px;
+    height: 40px;
+    font-size: 25px;
+    border: 1px solid rgb(47, 206, 255);
+    border-radius: 5px;
+    transition: all 400ms ease;
+  }
+  
+  .reactTableParentLogButton:hover {
+    background-color: rgb(47, 206, 255);
+    color: white;
+  }
+  .reactTableParentAccessButton {
+    margin: 5px auto;
+    background-color: white;
+    color: rgb(47, 102, 255);
+    width: 50px;
+    height: 40px;
+    font-size: 25px;
+    border: 1px solid rgb(47, 102, 255);
+    border-radius: 5px;
+    transition: all 400ms ease;
+  }
+  ctTableParentAccessButton:hover {
+    background-color: rgb(47, 102, 255);
+    color: white;
+  }
+  .reactTableParentFavoritButton {
+    margin: 5px auto;
+    background-color: white;
+    color: rgb(137, 47, 255);
+    width: 50px;
+    height: 40px;
+    font-size: 25px;
+    border: 1px solid rgb(137, 47, 255);
+    border-radius: 5px;
+    transition: all 400ms ease;
+  }
+  .favactive {
+    background-color: rgb(137, 47, 255);
+    color: white;
+  }
+  .reactTableParentFavoritButton:hover {
+    background-color: rgb(137, 47, 255);
+    color: white;
+  }
+  .reactTableParentHelpButton {
+    margin: 5px auto;
+    background-color: white;
+    color: rgb(255, 172, 47);
+    width: 50px;
+    height: 40px;
+    font-size: 25px;
+    border: 1px solid rgb(255, 172, 47);
+    border-radius: 5px;
+    transition: all 400ms ease;
+  }
+  
+  .reactTableParentHelpButton:hover {
+    background-color: rgb(255, 172, 47);
+    color: white;
+  }
+  
+  .groupContainerRight {
+    width: 100px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 2px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .rightInformations {
+    flex: 1;
+    border: 1px solid lightgray;
+    width: 100%;
+    margin: 2px 0;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .rightButtons {
+    flex: 1;
+    border: 1px solid lightgray;
+    width: 100%;
+    margin: 2px 0;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .groupContainerLeft {
+    height: 100%;
+    width: calc(100% - 100px);
+    display: flex;
+  }
+  
+  .hiddingSection {
+    width: 250px;
+    height: 100%;
+    align-items: center;
+    transition: all 500ms ease;
+    display: flex;
+    flex-direction: row;
+  }
+  .hiddenSectionBtn {
+    width: 10px;
+    height: 100px;
+    align-self: flex-start;
+  }
+  
+  .hiddenSectionCheck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 240px;
+    overflow-y: scroll;
+  }
+  
+  .tableSection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .searchSection {
+    flex: 10%;
+    display: flex;
+    transition: all 500ms ease;
+  }
+  
+  .tableAndPaging {
+    height: 90%;
+    transition: all 500ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  
+  .selfTabel {
+    transition: all 500ms ease;
+    width: 100%;
+    flex: 90%;
+    overflow-x: auto;
+  }
+  .selfPaging {
+    transition: all 500ms ease;
+    width: 100%;
+    flex: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .div33 {
+    height: 100%;
+    width: 1592.67px;
+    transition: all 500ms ease;
+  }
+  
+  .searchTextChange {
+    height: 54px;
+  }
+  .mainProductForm {
+    display: flex;
+    flex-direction: row;
+    /* width: 100%;
+    height: 100%; */
+    width: 100%;
+    height: 100%;
+    
+}
+
+.rightForm {
+    flex : 0.3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+   
+}
+
+.timeanddate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;  
+}
+
+
+
+.timeanddate > h4 {
+    margin: 0 10px;
+}
+.timeanddate > h3 {
+    margin: 0 10px;
+}
+.DateAdnTime1{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    width: 70%;
+    border: 1px solid lightgray;
+}
+
+.DateAdnTime {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.DateTimeLabel {
+    margin-bottom: 3px;
+    margin-right: 4px;
+}
+
+#DateTime {
+    margin-top: 5px;
+    border:none;
+    border-radius: 5px;
+}
+
+#DateTime:focus {
+    border: none;
+    outline: none;
+}
+
+
+
+
+
+.recivedIdClass {
+    margin: 3px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.recivedIdClass:hover {
+    border: 1px solid black;
+}
+
+.recivedIdClass:focus {
+	outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+.recivedIdClassFailed {
+    margin: 3px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid red;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.recivedIdClassFailed:hover {
+    border: 1px solid red;
+}
+
+.recivedIdClassFailed:focus {
+	outline: 1px solid red;
+    border: 1px solid red;
+}
+
+.recivedIdClassFailed:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .recivedIdClassFailed:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .recivedIdClassFailed:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: red;
+  }
+
+
+
+.recivedIdClass:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #0072E5;
+    opacity: 1; /* Firefox */
+  }
+  
+  .recivedIdClass:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: #0072E5;
+  }
+  
+  .recivedIdClass:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: #0072E5;
+  }
+
+
+.recivedIdClassASeccess {
+    margin: 3px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid green;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.recivedIdClassASeccess:hover {
+    border: 1px solid green;
+}
+
+.recivedIdClassASeccess:focus {
+	outline: 1px solid green;
+    border: 1px solid green;
+}
+
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.personInformation {
+    margin: 5px 0;
+    border: 1px solid lightgray;
+    width: 70%;
+    border-radius: 3px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.personInformation:hover {
+    border: 1px solid black;
+}
+
+.personInformation:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+.personInformation:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #0072E5;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformation:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: #0072E5;
+  }
+  
+  .personInformation:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: #0072E5;
+  }
+
+.personInformationSeccess {
+    margin: 5px 0;
+    border: 1px solid green;
+    width: 70%;
+    border-radius: 3px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.personInformationSeccess:hover {
+    border: 1px solid green;
+}
+
+.personInformationSeccess:focus {
+    outline: 1px solid green;
+    border: 1px solid green;
+}
+.personInformationSeccess::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: green;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformationSeccess:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: green;
+  }
+  
+  .personInformationSeccess::-ms-input-placeholder { /* Microsoft Edge */
+    color: green;
+  }
+
+.personInformationFailed {
+    margin: 5px 0;
+    border: 1px solid red;
+    width: 70%;
+    border-radius: 3px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.personInformationFailed:hover {
+    border: 1px solid red;
+}
+
+.personInformationFailed:focus {
+    outline: 1px solid red;
+    border: 1px solid red;
+}
+
+.personInformationFailed::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformationFailed:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .personInformationFailed::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+  }
+
+
+.personInformationText {
+    margin: 5px 0;
+    border: 1px solid lightgray;
+    width: 70%;
+    border-radius: 3px; 
+    height: 100px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+    overflow: hidden;
+}
+
+.personInformationText:hover {
+    border: 1px solid black;
+}
+
+.personInformationText:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+.personInformationTextFailed {
+    margin: 5px 0;
+    border: 1px solid red;
+    width: 70%;
+    border-radius: 3px; 
+    height: 100px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+    overflow: hidden;
+}
+
+.personInformationTextFailed:hover {
+    border: 1px solid red;
+}
+
+.personInformationTextFailed:focus {
+	outline: 1px solid red;
+    border: 1px solid red;
+}
+
+.personInformationTextFailed::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformationTextFailed:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .personInformationTextFailed::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: red;
+  }
+
+
+
+.personInformationText:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #0072E5;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformationText:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: #0072E5;
+  }
+  
+  .personInformationText:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: #0072E5;
+  }
+
+  .personInformationTextSeccess {
+    margin: 5px 0;
+    border: 1px solid green;
+    width: 70%;
+    border-radius: 3px; 
+    height: 100px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+    overflow: hidden;
+}
+  .personInformationTextSeccess:hover {
+    border: 1px solid green;
+}
+
+.personInformationTextSeccess:focus {
+    outline: 1px solid green;
+    border: 1px solid green;
+}
+.personInformationTextSeccess::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: green;
+    opacity: 1; /* Firefox */
+  }
+  
+  .personInformationTextSeccess:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: green;
+  }
+  
+  .personInformationTextSeccess::-ms-input-placeholder { /* Microsoft Edge */
+    color: green;
+  }
+
+
+
+.deviceFaildAndPicture {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    width: 70%;
+    border-radius: 5px;
+}
+
+
+
+.deviceFaildAndPicture:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+.deviceFailedDescription {
+    height: 100px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    resize: none;
+    overflow: hidden;
+    border-radius: 3px;
+}
+.deviceFailedDescription:hover {
+    border: 1px solid black;
+}
+
+.deviceFailedDescription:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+
+.deviceFailedDescriptionFailed {
+    height: 100px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid red;
+    resize: none;
+    overflow: hidden;
+    border-radius: 3px
+}
+
+.deviceFailedDescriptionFailed:hover {
+    border: 1px solid red;
+}
+
+.deviceFailedDescriptionFailed:focus {
+	outline: 1px solid red;
+    border: 1px solid red;
+}
+
+.deviceFailedDescriptionFailed::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceFailedDescriptionFailed:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .deviceFailedDescriptionFailed::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: red;
+  }
+
+
+
+.deviceFailedDescription:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #0072E5;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceFailedDescription:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+    color: #0072E5;
+  }
+  
+  .deviceFailedDescription:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+    color: #0072E5;
+  }
+
+  .deviceFailedDescriptionSeccess {
+    height: 100px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid green;
+    resize: none;
+    overflow: hidden;
+    border-radius: 3px
+}
+  .deviceFailedDescriptionSeccess:hover {
+    border: 1px solid green;
+}
+
+.deviceFailedDescriptionSeccess:focus {
+    outline: 1px solid green;
+    border: 1px solid green;
+}
+.deviceFailedDescriptionSeccess::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: green;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceFailedDescriptionSeccess:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: green;
+  }
+  
+  .deviceFailedDescriptionSeccess::-ms-input-placeholder { /* Microsoft Edge */
+    color: green;
+  }
+
+
+
+.failedBTNParent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 25px;
+    margin-top: 3px;
+    border: none;
+}
+
+.failedBTNParent >input {
+    display: none;
+}
+
+.failedBTN {
+    background-color: transparent;
+    color:rgb(255, 68, 68);
+    cursor: pointer;
+    border: none;
+    margin: 0 5px;
+    font-size: 16px;
+
+}
+
+.failedBTN:focus {
+    outline: none;
+}
+
+.failedBTNParent > span {
+    font-size: 10px; 
+}
+
+
+
+
+
+.pattern {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid lightgray;
+    margin-top: 5px;
+    border-radius: 5px;
+
+    
+}
+
+.pattern:hover {
+    border: 1px solid black;
+
+}
+
+
+.patternDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btnPattern {
+    background-color: #fff;
+    border: 1px solid lightgray;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 8px;
+    border-radius: 8px;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin: 1px 5px;
+    font-size: 14px;
+    
+}
+
+.btnPattern:hover {
+    background-color: rgb(211, 211, 211);
+    color: #000;
+}
+.patternspan {
+    flex: 2;
+    font-size: 12px;
+    text-align: center;
+    
+}
+
+.sectionDiv {
+    flex: 1;
+    margin: 1px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.selectionLock {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+
+/* .selectionLock:hover {
+    background-color: rgb(0, 132, 255);
+    color: #fff;
+} */
+
+.selectionLock:focus {
+    outline: none;
+}
+
+
+
+.patternLock {
+    margin-top: 5px;
+}
+
+
+
+.selectSendType {
+    margin-top: 10px;
+    border: 1px solid lightgray;
+    padding: 10px;
+    border-radius: 3px;
+    width: 70%;
+    outline: none;
+    
+}
+
+.selectSendType:hover {
+    border: 1px solid black;
+}
+
+
+
+.selectSendType:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+    
+}
+
+
+
+
+
+
+
+
+
+.middleForm {
+    flex: 0.4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+
+
+.selectwaranty {
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+    padding: 10px;
+    border-radius: 5px;
+    width: 70%;
+    border: 1px solid lightgray;
+}
+.selectwaranty:hover {
+    border: 1px solid black;
+}
+
+.selectwaranty:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+.selectwaranty1 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+
+    padding: 10px;
+    border-radius: 5px;
+    width: 73%;
+
+}
+
+
+
+
+
+
+
+
+
+
+.deviceSerial {
+    margin: 4px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.deviceSerial:hover {
+    border: 1px solid black;
+}
+
+.deviceSerial:focus {
+    outline: 1px solid #0072E5;
+    border: 1px solid #0072E5;
+}
+
+
+.deviceSerial:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #0072E5;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceSerial:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #0072E5;
+  }
+  
+  .deviceSerial:focus::-ms-input-placeholder { /* Microsoft Edge */
+    color: #0072E5;
+  }
+
+.deviceSerialFailed {
+    margin: 4px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid red;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.deviceSerialFailed:hover {
+    border: 1px solid red;
+}
+
+.deviceSerialFailed:focus {
+    outline: 1px solid red;
+    border: 1px solid red;
+}
+
+
+.deviceSerialFailed::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceSerialFailed:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  .deviceSerialFailed::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+  }
+
+.deviceSerialSeccess {
+    margin: 4px auto;
+    margin-top: 15px;
+    height: 40px;
+    border: 1px solid green;
+    border-radius: 3px;
+    width: 70%;  
+    padding: 10px;
+    font-size: 14px; 
+}
+
+.deviceSerialSeccess:hover {
+    border: 1px solid green;
+}
+
+.deviceSerialSeccess:focus {
+    outline: 1px solid green;
+    border: 1px solid green;
+}
+
+.deviceSerialSeccess::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: green;
+    opacity: 1; /* Firefox */
+  }
+  
+  .deviceSerialSeccess:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: green;
+  }
+  
+  .deviceSerialSeccess::-ms-input-placeholder { /* Microsoft Edge */
+    color: green;
+  }
+
+
+.signaturepadDiv {
+    border: 1px solid lightgray;
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.signaturepadDiv:hover {
+    border: 1px solid black;
+}
+
+.signaturepadDiv1 {
+    border: 1px solid lightgray;
+    
+    border-radius: 5px;
+    width: 70%;
+}
+
+.signaturepadDiv1:hover {
+    border: 1px solid black;
+}
+
+
+.leftForm {
+    flex: 0.3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+
+.LOGO {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    width: 50%;
+
+}
+
+.LOGO > img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+
+
+.warrantyExp {
+    border: 1px solid black;
+    margin-top: 20px;
+    height: 120px;
+    width: 70%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.fanni {
+    border: 1px solid black;
+    margin-top: 20px;
+    height: 110px;
+    width: 70%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+
+}
+
+
+
+.admissionButtonSubmit {
+    width: 70%;
+    margin-top: 5px;
+    height: 50px;
+    border: 1px solid rgb(79, 79, 218);
+    background-color: #fff;
+    border-radius: 5px;
+    color: rgb(79, 79, 218);
+    transition: all 400ms ease;
+}
+
+  .admissionButtonSubmit:hover {
+    color: #fff;
+    background-color: rgb(79, 79, 218);
+  }
+
+
+
+.logoAdmission {
+    object-fit: contain;
+}
+  
+
+.mainAdmitionDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 166px);
+  }
+  
+  .recievedmainDiv {
+    flex: 0.08;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    position: relative;
+  }
+  
+  .admissionIMEI {
+    position: absolute;
+    left: 0px;
+    height: 40px;
+    margin-inline-end: 10px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+  }
+  
+  .admissionIMEI:hover {
+    border: 1px solid gray;
+  }
+  
+  .admissionIMEI:focus {
+    border: 1px solid #0072e5;
+    outline: 1px solid #0072e5;
+  }
+  
+  .recievedSpan {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    z-index: 10;
+    background-color: #fff;
+    margin: 0 3px;
+    padding: 0 10px;
+  }
+  
+  .recievedDiv {
+    position: absolute;
+    top: 13px;
+    right: 0;
+    border: 1px solid lightgray;
+    width: 400px;
+    height: 50px;
+    z-index: 5;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .recievedNew {
+    width: 50px;
+    margin-inline-end: 5px;
+    background-color: #fff;
+    color: #0072e5;
+    border: 1px solid #0072e5;
+    border-radius: 5px;
+    transition: all 500ms ease;
+    font-size: 13px;
+  }
+  
+  .recievedNew:hover {
+    background-color: #0072e5;
+    color: #fff;
+  }
+  
+  .admitionSecondDiv {
+    flex: 0.3;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .customerList {
+    width: 100%;
+    flex: 1;
+    height: 100%;
+    position: relative;
+    margin-inline-end: 8px;
+  }
+  
+  .customerSpan {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    z-index: 10;
+    background-color: #fff;
+    margin: 0 3px;
+    padding: 0 10px;
+  }
+  
+  .customerDiv {
+    position: absolute;
+    top: 13px;
+    right: 0;
+    border: 1px solid lightgray;
+    width: 100%;
+    height: 210px;
+    z-index: 5;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .infoCustomerDiv {
+    flex: 0.9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+  }
+  
+  .firstNameDiv {
+    display: flex;
+    align-items: flex-start;
+    margin-inline-start: 40px;
+  }
+  
+  .firstNameSpanKey {
+    font-size: 14px;
+    flex: 0.15;
+    font-weight: bold;
+  }
+  .firstNameSpanValue {
+    font-size: 14px;
+    flex: 0.85;
+    margin-inline-start: 25px;
+  }
+  
+  .buttonCustomerEditDiv {
+    flex: 0.1;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .editCustomer {
+    margin-bottom: 5px;
+    border: none;
+    border: 1px solid rgb(36, 255, 36);
+    color: rgb(36, 255, 36);
+    background-color: #fff;
+    border-radius: 5px;
+    transition: all 500ms ease;
+  }
+  
+  .editCustomer:hover {
+    border: 1px solid rgb(36, 255, 36);
+    color: #fff;
+    background-color: rgb(36, 255, 36);
+  }
+  
+  .groupList {
+    width: 100%;
+    flex: 1;
+    height: 100%;
+    position: relative;
+    margin-inline-start: 8px;
+  }
+  
+  .groupSpan {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    z-index: 10;
+    background-color: #fff;
+    margin: 0 3px;
+    padding: 0 10px;
+  }
+  
+  .groupDiv {
+    position: absolute;
+    top: 13px;
+    right: 0;
+    border: 1px solid lightgray;
+    width: 100%;
+    height: 210px;
+    z-index: 5;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .grouptDivRight {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-around;
+  }
+  
+  .grouptDivRightMainDiv {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+  }
+  
+  .groupDivSpanKey {
+    font-size: 14px;
+    flex: 1;
+    font-weight: bold;
+    margin-inline-start: 25px;
+  }
+  .groupDivSpanValue {
+    font-size: 14px;
+    flex: 1;
+  }
+  
+  .grouptDivLeft {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-around;
+  }
+  
+  .admitionThirdDiv {
+    flex: 0.3;
+    width: 100%;
+    position: relative;
+  }
+  
+  .admitionSpan {
+    position: absolute;
+    top: 0px;
+    right: 8px;
+    z-index: 10;
+    background-color: #fff;
+    margin: 0 3px;
+    padding: 0 10px;
+  }
+  
+  .admitionItemsDiv {
+    position: absolute;
+    top: 13px;
+    right: 0;
+    border: 1px solid lightgray;
+    width: 100%;
+    height: 250px;
+    z-index: 1;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .textFieldDescDiv {
+    height: 80%;
+    margin-inline-start: 30px;
+    position: relative;
+    flex: 1;
+    margin: 0 5px;
+  }
+  
+  .failedDescSpan {
+    position: absolute;
+    z-index: 10;
+    top: -10px;
+    right: 10px;
+    background-color: #fff;
+    padding: 0 5px;
+    font-weight: bold;
+    transition: all 500ms ease;
+  }
+  .failedDescSpan2 {
+    position: absolute;
+    z-index: 10;
+    top: -10px;
+    right: 10px;
+    background-color: #fff;
+    padding: 0 5px;
+    font-weight: bold;
+    color: #0072e5;
+    transition: all 500ms ease;
+  }
+  .DescDivFinal {
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    margin: 0 3px;
+    transition: all 500ms ease;
+  }
+  .DescDivFinal2 {
+    height: 100%;
+    width: 100%;
+    border: 1px solid #0072e5;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    margin: 0 3px;
+    transition: all 500ms ease;
+  }
+  
+  .textFieldDesc {
+    height: 80%;
+    resize: none;
+    position: absolute;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .textFieldDesc:hover {
+    border: none;
+  }
+  
+  .textFieldDesc:focus {
+    border: none;
+    outline: none;
+  }
+  
+  .acountPatternDiv {
+    flex: 1;
+    height: 80%;
+    margin: 0 3px;
+    position: relative;
+  }
+  
+  .acountpatternSpan {
+    position: absolute;
+    top: -10px;
+    right: 8px;
+    font-weight: bold;
+    background-color: #fff;
+    padding: 0 5px;
+  }
+  
+  .paternAcountDiv {
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 0;
+    flex-direction: column;
+  }
+  
+  .patternAcountButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 10px;
+  }
+  
+  .btnPattern {
+    background-color: #fff;
+    border: 1px solid lightgray;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 8px;
+    border-radius: 8px;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin: 1px 5px;
+    font-size: 14px;
+  }
+  
+  .btnPattern:hover {
+    background-color: rgb(211, 211, 211);
+    color: #000;
+  }
+  
+  .patternLock {
+    z-index: 100;
+    position: relative;
+  }
+  
+  .sectionDiv {
+    flex: 1;
+    margin: 1px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .selectionLock {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+  }
+  
+  .selectionLock:focus {
+    outline: none;
+  }
+  
+  .acountInformationDiv {
+    flex: 1;
+    height: 80%;
+    margin: 0 3px;
+    position: relative;
+  }
+  
+  .aountCustomerSpan {
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    padding: 0 5px;
+    background-color: #fff;
+    z-index: 10;
+    font-weight: bold;
+  }
+  
+  .acountCustomerDiv {
+    position: absolute;
+    border: 1px solid lightgray;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .acountDmailDiv {
+    position: relative;
+    width: 90%;
+    height: 50px;
+    margin-top: 20px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    transition: all 500ms ease;
+  }
+  .acountDmailDiv2 {
+    position: relative;
+    width: 90%;
+    height: 50px;
+    margin-top: 20px;
+    border: 1px solid #0072e5;
+    border-radius: 5px;
+    transition: all 500ms ease;
+  }
+  
+  .acountDivGmailSpan {
+    position: absolute;
+    top: -10px;
+    z-index: 10;
+    background-color: #fff;
+    padding: 0 5px;
+    margin: 0 5px;
+    transition: all 500ms ease;
+  }
+  .acountDivGmailSpan2 {
+    position: absolute;
+    top: -10px;
+    z-index: 10;
+    background-color: #fff;
+    padding: 0 5px;
+    margin: 0 5px;
+    color: #0072e5;
+    transition: all 500ms ease;
+  }
+  
+  .acountInputSpan {
+    position: absolute;
+    width: 100%;
+    border: none;
+    outline: none;
+    top: 10px;
+  }
+  
+  .deviceExtraDiv {
+    flex: 1;
+    height: 80%;
+    margin: 0 3px;
+    position: relative;
+  }
+  
+  .extraDeviceDiv {
+    border: 1px solid lightgray;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+  }
+  .extraDeviceDiv1 {
+    border: 1px solid lightgray;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+  }
+  
+  .multiSelectDiv {
+    width: 80%;
+    height: 50px;
+  }
+  .extraDeviceSpan {
+    position: absolute;
+    top: -11px;
+    padding: 0 5px;
+    margin: 0 8px;
+    background-color: #fff;
+    z-index: 10;
+    font-weight: bold;
+  }
+  .extraDeviceSpan1 {
+    position: absolute;
+    top: -11px;
+    padding: 0 5px;
+    margin: 0 8px;
+    background-color: #fff;
+    z-index: 10;
+    font-weight: bold;
+  }
+  
+  .agentSignatur {
+    flex: 1;
+    height: 80%;
+    margin: 0 3px;
+    position: relative;
+  }
+  
+  .signaturePadDiv {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    /* z-index: -1; */
+  }
+  .signaturePadDiv1 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    /* z-index: -1; */
+  }
+  
+  .agentSigSpan {
+    position: absolute;
+    font-weight: bold;
+    top: -10px;
+    padding: 0 5px;
+    margin: 0 5px;
+    background-color: #fff;
+    z-index: 10;
+  }
+  .agentSigSpan1 {
+    position: absolute;
+    font-weight: bold;
+    top: -10px;
+    padding: 0 5px;
+    margin: 0 5px;
+    background-color: #fff;
+    z-index: 10;
+  }
+  
+  .sigMainDiv {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .admitionForthDiv {
+    flex: 0.3;
+    width: 100%;
+    position: relative;
+  }
+  
+  .agentSpan {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    z-index: 10;
+    background-color: #fff;
+    margin: 0 3px;
+    padding: 0 10px;
+  }
+  
+  .agentItemsDiv {
+    position: absolute;
+    top: 13px;
+    right: 0;
+    border: 1px solid lightgray;
+    width: 100%;
+    height: 250px;
+    z-index: 0;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+  }
+  
+  .agentDescription {
+    height: 100%;
+    flex: 0.75;
+    margin-inline-start: 40px;
+    margin-inline-end: 25px;
+  }
+  
+  .agentescriptionDiv {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+    /* padding-top: 20px; */
+  }
+  
+  .agentDescriptionSpan {
+    position: absolute;
+    top: 5px;
+    margin: 0 8px;
+    padding: 0 5px;
+    background-color: #fff;
+    z-index: 10;
+    font-weight: bold;
+    transition: all 500ms ease;
+  }
+  .agentDescriptionSpan2 {
+    position: absolute;
+    top: 5px;
+    margin: 0 8px;
+    padding: 0 5px;
+    background-color: #fff;
+    z-index: 10;
+    font-weight: bold;
+    color: #0072e5;
+    transition: all 500ms ease;
+  }
+  .agentDescriptionInputDiv {
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    border: 1px solid lightgray;
+    top: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: all 500ms ease;
+  }
+  .agentDescriptionInputDiv2 {
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    border: 1px solid #0072e5;
+    top: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: all 500ms ease;
+  }
+  
+  .agenttextAreaDesc {
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 90%;
+  }
+  
+  .agenttextAreaDesc:focus {
+    border: none;
+    outline: none;
+  }
+  
+  .agentSigPadDiv {
+    height: 90%;
+    flex: 0.25;
+    /* margin-inline-end: 40px; */
+    position: relative;
+    z-index: 5;
+  }
+  
+  .admitionButtonDiv {
+    flex: 0.05;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .admitionFinalFormSubmit {
+    width: 300px;
+    margin-inline-end: 30px;
+    background-color: #fff;
+    color: #0072e5;
+    border: 1px solid #0072e5;
+    border-radius: 5px;
+    transition: all 500ms ease;
+    height: 100%;
+    font-size: large;
+  }
+  
+  .admitionFinalFormSubmit:hover {
+    background-color: #0072e5;
+    color: #fff;
+  }
+  
+  @media screen and (max-height: 1080px) {
+    .recievedSpan {
+      top: -5px;
+    }
+    .recievedDiv {
+      top: 8px;
+    }
+  
+    .customerSpan {
+      top: -10px;
+    }
+    .customerDiv {
+      top: 3px;
+    }
+    .firstNameSpanValue {
+      font-size: 13px;
+    }
+    .firstNameSpanKey {
+      font-size: 13px;
+      flex: 0.2;
+      font-weight: bolder;
+    }
+  
+    .editCustomer {
+      font-size: 12px;
+      margin-inline-end: 3px;
+    }
+  
+    .groupSpan {
+      top: -10px;
+    }
+    .groupDiv {
+      top: 3px;
+    }
+  
+    .groupDivSpanKey {
+      font-size: 13px;
+      font-weight: bolder;
+    }
+    .groupDivSpanValue {
+      font-size: 13px;
+    }
+  
+    .admitionSpan {
+      top: -40px;
+    }
+  
+    .admitionItemsDiv {
+      top: -27px;
+    }
+  
+    .agentSpan {
+      top: -30px;
+    }
+    .agentItemsDiv {
+      top: -17px;
+    }
+  }
+  
+  @media screen and (max-height: 1000px) {
+    .recievedSpan {
+      top: -3px;
+      font-size: 12px;
+      font-weight: bolder;
+    }
+    .recievedDiv > span {
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .recievedDiv {
+      top: 8px;
+      height: 35px;
+    }
+    .recievedNew {
+      font-size: 10px;
+      font-weight: bolder;
+    }
+  
+    .customerSpan {
+      top: -5px;
+      font-weight: bolder;
+      font-size: 12px;
+    }
+    .customerDiv {
+      top: 0px;
+      height: 180px;
+    }
+    .firstNameSpanValue {
+      font-size: 12px;
+    }
+    .firstNameSpanKey {
+      font-size: 12px;
+      flex: 0.2;
+      font-weight: bolder;
+    }
+  
+    .editCustomer {
+      font-size: 12px;
+      margin-inline-end: 3px;
+    }
+  
+    .groupSpan {
+      top: -8px;
+      font-weight: bolder;
+      font-size: 12px;
+    }
+    .groupDiv {
+      top: 0px;
+      height: 180px;
+    }
+  
+    .groupDivSpanKey {
+      font-size: 12px;
+      font-weight: bolder;
+    }
+    .groupDivSpanValue {
+      font-size: 12px;
+    }
+  
+    .admitionSpan {
+      top: -10px;
+      font-size: 12px;
+    }
+  
+    .admitionItemsDiv {
+      top: 3px;
+      height: 200px;
+    }
+  
+    .agentSpan {
+      top: 3px;
+      font-size: 12px;
+      font-weight: bolder;
+    }
+    .agentItemsDiv {
+      top: 13px;
+    }
+  
+    .failedDescSpan {
+      font-size: 12px;
+      top: -8px;
+    }
+    .acountpatternSpan {
+      font-size: 12px;
+      top: -8px;
+    }
+    .aountCustomerSpan {
+      font-size: 12px;
+      top: -8px;
+    }
+    .extraDeviceSpan {
+      font-size: 12px;
+      top: -8px;
+    }
+    .extraDeviceSpan1 {
+      font-size: 12px;
+      top: -8px;
+    }
+    .agentSigSpan {
+      font-size: 12px;
+      top: -8px;
+    }
+    .agentSigSpan1 {
+      font-size: 12px;
+      top: -8px;
+    }
+  
+    .admitionThirdDiv {
+      height: fit-content;
+    }
+  
+    .btnPattern {
+      font-size: 10px;
+      font-weight: bold;
+    }
+  
+    .selectionLock {
+      font-size: 13px;
+      font-weight: bold;
+    }
+  
+    .acountDivGmailSpan {
+      font-size: 12px;
+    }
+  
+    .agentItemsDiv {
+      height: 200px;
+    }
+  
+    .agentDescriptionSpan {
+      font-size: 12px;
+      top: 5;
+    }
+  
+    .m-signature-pad--body {
+      height: 130px;
+    }
+  
+    .admitionFinalFormSubmit {
+      font-size: 13px;
+      height: 30px;
+      width: 200px;
+      font-weight: bolder;
+      margin-top: 15px;
+    }
+  
+    .css-6j8wv5-Input {
+      height: 20px !important;
+    }
+    .css-1t8y0t9-control {
+      height: 20px;
+    }
+    .css-319lph-ValueContainer {
+      height: 20px;
+    }
+  
+    .css-14el2xx-placeholder {
+      font-size: 10px;
+    }
+  
+    .newBtnClear {
+      font-size: 12px;
+    }
+  
+    .css-tj5bde-Svg {
+      height: 13px;
+      width: 13px;
+    }
+    .css-g1d714-ValueContainer {
+      height: 15px;
+    }
+  
+    .css-b62m3t-container {
+      height: fit-content;
+    }
+  
+    .css-1sb7lyj {
+      height: 15px;
+      width: 15px;
+    }
+  
+    .css-tj5bde-Svg {
+      height: 13px;
+      width: 13px;
+    }
+  
+    .css-wdywkq {
+      font-size: 5px;
+    }
+  }
+  @media screen and (max-height: 840px) {
+    .recievedSpan {
+      top: -3px;
+      font-size: 12px;
+      font-weight: bolder;
+    }
+    .recievedDiv > span {
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .recievedDiv {
+      top: 8px;
+      height: 30px;
+    }
+    .recievedNew {
+      font-size: 10px;
+      font-weight: bolder;
+    }
+  
+    .customerSpan {
+      top: -8px;
+      font-weight: bolder;
+      font-size: 12px;
+    }
+    .customerDiv {
+      top: 0px;
+      height: 150px;
+    }
+    .firstNameSpanValue {
+      font-size: 12px;
+    }
+    .firstNameSpanKey {
+      font-size: 12px;
+      flex: 0.2;
+      font-weight: bolder;
+    }
+  
+    .editCustomer {
+      font-size: 10px;
+      margin-inline-end: 3px;
+    }
+  
+    .groupSpan {
+      top: -8px;
+      font-weight: bolder;
+      font-size: 12px;
+    }
+    .groupDiv {
+      top: 0px;
+      height: 150px;
+    }
+  
+    .groupDivSpanKey {
+      font-size: 12px;
+      font-weight: bolder;
+    }
+    .groupDivSpanValue {
+      font-size: 12px;
+    }
+  
+    .admitionSpan {
+      top: -10px;
+      font-size: 12px;
+    }
+  
+    .admitionItemsDiv {
+      top: 3px;
+      height: 200px;
+    }
+  
+    .agentSpan {
+      top: 3px;
+      font-size: 12px;
+      font-weight: bolder;
+    }
+    .agentItemsDiv {
+      top: 13px;
+    }
+  
+    .failedDescSpan {
+      font-size: 12px;
+      top: -8px;
+    }
+    .acountpatternSpan {
+      font-size: 12px;
+      top: -8px;
+    }
+    .aountCustomerSpan {
+      font-size: 12px;
+      top: -8px;
+    }
+    .extraDeviceSpan {
+      font-size: 12px;
+      top: -8px;
+    }
+    .extraDeviceSpan1 {
+      font-size: 12px;
+      top: -8px;
+    }
+    .agentSigSpan {
+      font-size: 12px;
+      top: -8px;
+    }
+    .agentSigSpan1 {
+      font-size: 12px;
+      top: -8px;
+    }
+  
+    .admitionItemsDiv {
+      height: 150px;
+    }
+  
+    .btnPattern {
+      font-size: 10px;
+      font-weight: bold;
+    }
+  
+    .selectionLock {
+      font-size: 13px;
+      font-weight: bold;
+    }
+  
+    .acountDivGmailSpan {
+      font-size: 12px;
+    }
+  
+    .agentItemsDiv {
+      height: 150px;
+    }
+  
+    .agentDescriptionSpan {
+      font-size: 12px;
+      top: 5;
+    }
+  
+    .m-signature-pad--body {
+      height: 95px;
+    }
+  
+    .admitionFinalFormSubmit {
+      font-size: 13px;
+      height: 30px;
+      width: 200px;
+      font-weight: bolder;
+      margin-top: 15px;
+    }
+  
+    .admissionIMEI {
+      height: 22px;
+    }
+    .admissionIMEI::placeholder {
+      font-size: 10px;
+    }
+  
+    .recievedNew {
+      font-size: 7px;
+    }
+  
+    .css-6j8wv5-Input {
+      height: 20px !important;
+    }
+    .css-1t8y0t9-control {
+      height: 20px;
+    }
+    .css-319lph-ValueContainer {
+      height: 20px;
+    }
+  
+    .css-14el2xx-placeholder {
+      font-size: 10px;
+    }
+  
+    .newBtnClear {
+      font-size: 12px;
+    }
+  
+    .css-1t8y0t9-control {
+      max-height: 70px;
+    }
+  
+    .css-tj5bde-Svg {
+      height: 13px;
+      width: 13px;
+    }
+    .css-g1d714-ValueContainer {
+      height: 15px;
+    }
+    .css-1gtlzwf-multiValue {
+      height: 13px;
+    }
+    .css-b62m3t-container {
+      height: fit-content;
+    }
+  
+    .css-1sb7lyj {
+      height: 15px;
+      width: 15px;
+    }
+  
+    .css-tj5bde-Svg {
+      height: 13px;
+      width: 13px;
+    }
+  
+    .css-wdywkq {
+      font-size: 5px;
+    }
+  
+    .admitionButtonDiv {
+      flex: 0.01;
+    }
+  }
+  @media screen and (max-height: 705px) {
+    .recievedSpan {
+      top: -3px;
+      font-size: 10px;
+      font-weight: bolder;
+    }
+    .recievedDiv > span {
+      font-size: 10px;
+      font-weight: bold;
+    }
+    .recievedDiv {
+      top: 0px;
+      height: 25px;
+    }
+    .recievedNew {
+      font-size: 10px;
+      font-weight: bolder;
+    }
+  
+    .customerSpan {
+      top: -15px;
+      font-weight: bolder;
+      font-size: 10px;
+    }
+    .customerDiv {
+      top: -9px;
+      height: 120px;
+    }
+    .firstNameSpanValue {
+      font-size: 10px;
+    }
+    .firstNameSpanKey {
+      font-size: 10px;
+      flex: 0.2;
+      font-weight: bolder;
+    }
+  
+    .editCustomer {
+      font-size: 8px;
+      margin-inline-end: 3px;
+    }
+  
+    .groupSpan {
+      top: -17px;
+      font-weight: bolder;
+      font-size: 10px;
+    }
+    .groupDiv {
+      top: -9px;
+      height: 120px;
+    }
+  
+    .groupDivSpanKey {
+      font-size: 10px;
+      font-weight: bolder;
+    }
+    .groupDivSpanValue {
+      font-size: 10px;
+    }
+  
+    .admitionSpan {
+      top: -25px;
+      font-size: 12px;
+    }
+  
+    .admitionItemsDiv {
+      top: -12px;
+      height: 200px;
+    }
+  
+    .agentSpan {
+      top: -3px;
+      font-size: 12px;
+      font-weight: bolder;
+    }
+    .agentItemsDiv {
+      top: 7px;
+    }
+  
+    .failedDescSpan {
+      font-size: 10px;
+      top: -8px;
+    }
+    .acountpatternSpan {
+      font-size: 10px;
+      top: -8px;
+    }
+    .aountCustomerSpan {
+      font-size: 10px;
+      top: -8px;
+    }
+    .extraDeviceSpan {
+      font-size: 10px;
+      top: -8px;
+    }
+    .extraDeviceSpan1 {
+      font-size: 10px;
+      top: -8px;
+    }
+    .agentSigSpan {
+      font-size: 10px;
+      top: -8px;
+    }
+    .agentSigSpan1 {
+      font-size: 10px;
+      top: -8px;
+    }
+  
+    .admitionItemsDiv {
+      height: 150px;
+    }
+  
+    .btnPattern {
+      font-size: 10px;
+      font-weight: bold;
+    }
+  
+    .selectionLock {
+      font-size: 10px;
+      font-weight: bold;
+    }
+  
+    .acountDivGmailSpan {
+      font-size: 10px;
+    }
+  
+    .agentItemsDiv {
+      height: 150px;
+    }
+  
+    .agentDescriptionSpan {
+      font-size: 10px;
+      top: 5;
+    }
+  
+    .m-signature-pad--body {
+      height: 95px;
+    }
+  
+    .admitionFinalFormSubmit {
+      font-size: 10px;
+      height: fit-content;
+      width: 150px;
+      font-weight: bolder;
+      margin-top: 15px;
+    }
+  
+    .newBtnClear {
+      font-size: 11px;
+    }
+  
+    .acountDmailDiv {
+      height: 20px;
+      flex: 1;
+    }
+  
+    .acountDmailDiv2 {
+      height: 20px;
+      flex: 1;
+    }
+  
+    .acountInputSpan {
+      height: 10px;
+    }
+  
+    .acountCustomerDiv {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    .admissionIMEI {
+      height: 22px;
+    }
+    .admissionIMEI::placeholder {
+      font-size: 10px;
+    }
+  
+    .recievedNew {
+      font-size: 7px;
+    }
+  
+    .css-6j8wv5-Input {
+      height: 20px !important;
+    }
+    .css-1t8y0t9-control {
+      height: 20px;
+    }
+    .css-319lph-ValueContainer {
+      height: 20px;
+    }
+  
+    .css-14el2xx-placeholder {
+      font-size: 10px;
+    }
+  
+    .css-tj5bde-Svg {
+      height: 10px;
+      width: 10px;
+    }
+  
+    .admitionButtonDiv {
+      flex: 0.01;
+    }
+    
+  }
+  .admissionModal .modal-body {
+    max-height: 600px;
+    overflow: auto;
+}
+.admissionModal .tableModal {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+
+
+}
+
+.admissionModal .updateModalSig {
+    display: flex;
+    flex-direction: column;
+
+
+
+}
+.admissionModal .admitionDiv {
+    width: 100%;
+
+
+
+}
+
+.admissionModal .editSignature {
+    border: 1px solid rgb(115, 86, 168);
+    border-radius: 8px;
+    background-color: #fff;
+    color: rgb(115, 86, 168);
+}
+.admissionModal .imageCustomer {
+    border: 1px solid lightgray;
+
+}
+.admissionModal .updateModalSignature {
+    border: 1px solid lightgray;
+    
+
+}
+.admissionModal .customerDesc {
+    border: 1px solid lightgray;
+    resize: none;
+
+
+}
+
+.customerDesc:hover {
+    border: 1px solid black;
+}
+
+.customerDesc:focus {
+    border: 1px solid rgb(82, 82, 236);
+    outline: none;
+}
+
+
+.customerDescDiv {
+    display: flex;
+    flex-direction: column;
+
+
+}
+.pattern-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pattern-wrapper > * {
+  box-sizing: border-box;
+}
+
+.pattern-circle {
+  position: relative;
+  cursor: pointer;
+}
+
+.pattern-dots {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.pattern-lines{
+  background:rgba(255,255,255,.7);
+  position:absolute;
+}
+.pattern-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pattern-wrapper > * {
+  box-sizing: border-box;
+}
+
+.pattern-circle {
+  position: relative;
+  cursor: pointer;
+}
+
+.pattern-dots {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}s
+
+.pattern-lines {
+  background: rgba(255, 255, 255, 0.7);
+  position: absolute;
+}
+.m-signature-pad--body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+ 
+  flex: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#signature-pad {
+  width: 100%;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.canvasForEver {
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  
+
+  
+}
+
+.buttonForDiv {
+  position: relative;
+  
+  width: 100px;
+  z-index: 99;
+  flex: 5%;
+  
+  
+}
+
+
+.newBtnClear {
+  z-index: 100;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+ 
+  
+}
+
+.newBtnClear:focus{
+  outline: none;
+}

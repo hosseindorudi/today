@@ -46,7 +46,7 @@ import { enums } from "../../../../data/Enums";
 import ImportCSV from "../../../../Components/Table/ImportCSVButton/ImportCSV";
 import AdmitionFirstForm from "./AdmitionFirstForm";
 import AdmissionModal from "./tableModal/AdmissionModal";
-import "./admission.css";
+
 const Admission = () => {
   const filteredColumns = [
     "Language_EId",

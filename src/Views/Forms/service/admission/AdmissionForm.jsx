@@ -12,7 +12,7 @@ import AppContext from '../../../../contexts/AppContext';
 import { TabContext } from '../../../../contexts/TabContextProvider';
 import Admission from './Admission';
 import { IMEIvalidation, admissionNumberVal,phoneNumberValidation } from '../../../../validation/validation';
-import './AdmissionForm.css'
+
 
 
 var base64 = require('base-64');

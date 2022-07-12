@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './ad-pattern-lock.css';
 import {getLengthAngle, getPattern, getPointID} from "./util";
 
 class AdPatternLock extends Component {

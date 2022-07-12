@@ -1,6 +1,5 @@
 import React from 'react'
 import AdPatternLock from "./src/ad-pattern-lock";
-import './dist/main.css'
 
 const PatternLock = ( {size, setpatternLock, setPatternArr, width} ) => {
 

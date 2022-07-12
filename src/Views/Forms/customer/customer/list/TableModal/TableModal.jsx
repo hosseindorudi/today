@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {  Button,  Form, Modal } from "react-bootstrap";
-import "./tableModal.css";
+
 
 import AppContext from "../../../../../../contexts/AppContext";
 import { useTranslation } from "react-i18next";
@@ -211,13 +211,12 @@ const TableModal = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
       onHide={props.onHide}
-      className="updateCustomerModal"
     >
       <Modal.Header closeButton></Modal.Header>
+      <Form >
       <Modal.Body>
-        <div className="customerModalTableMainDiv">
-          <div class="updateModalRow">
-          <Form.Group controlId="formGridUserName" className="FormGroupUpdateModal">
+          <div class="Row">
+          <Form.Group controlId="formGridUserName" className="mb-3">
               <Form.Label>{t("username")}</Form.Label>
               <Form.Control
                 type="text"
@@ -226,7 +225,7 @@ const TableModal = (props) => {
                 onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="FormGroupUpdateModal">
+            <Form.Group className="mb-3">
             <Form.Check
               type="switch"
               id="custom-switch"
@@ -236,8 +235,8 @@ const TableModal = (props) => {
             />
             </Form.Group>
           </div>
-           <div className="updateModalRow">
-            <Form.Group controlId="formGridFirstName" className="FormGroupUpdateModal">
+           <div className="Row">
+            <Form.Group controlId="formGridFirstName" className="mb-3">
               <Form.Label>{t("FirstName")}</Form.Label>
               <Form.Control
                 type="text"
@@ -247,7 +246,7 @@ const TableModal = (props) => {
               />
             </Form.Group>
 
-            <Form.Group controlId="formGridLastName" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridLastName" className="mb-3">
               <Form.Label>{t("LastName")}</Form.Label>
               <Form.Control
                 type="text"
@@ -257,28 +256,28 @@ const TableModal = (props) => {
               />
             </Form.Group>
           </div>
-           <div className="updateModalRow">
+           <div className="Row">
             
 
-            <Form.Group controlId="formGridIdcode" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridIdcode" className="mb-3">
               <Form.Label>{t("idcode")}</Form.Label>
               <Form.Control type="text" placeholder={t("idcode")}  value={idCode}
                      onChange={(e) => setIdCode(e.target.value)} />
             </Form.Group>
 
-            <Form.Group controlId="formGridFathersName" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridFathersName" className="mb-3">
               <Form.Label>{t("FathersName")}</Form.Label>
               <Form.Control type="text" placeholder={t("FathersName")}  value={fatherName}
                   onChange={(e) => setFatherName(e.target.value)} />
             </Form.Group>
           </div>
-          <div className="updateModalRow">
-            <Form.Group controlId="formGridUserName" className="FormGroupUpdateModal">
+          <div className="Row">
+            <Form.Group controlId="formGridUserName" className="mb-3">
               <Form.Label>{t("IdCardNumber")}</Form.Label>
               <Form.Control type="number" placeholder={t("IdCardNumber")}  value={idCardNumber}
                   onChange={(e) => setIdCardNumber(e.target.value)} />
             </Form.Group>
-            <Form.Group controlId="formGridGender" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridGender" className="mb-3">
             <Form.Label >{t("Gender")}</Form.Label>
             <Form.Select
               onChange={(e) => setGender(e.target.value)}
@@ -290,16 +289,16 @@ const TableModal = (props) => {
             </Form.Select>
             </Form.Group>
           </div>
-           <div className="updateModalRow">
+           <div className="Row">
             
 
-            <Form.Group controlId="formGridIdCardNumber" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridIdCardNumber" className="mb-3">
               <Form.Label>{t("IdCardSerialNumber")}</Form.Label>
               <Form.Control type="text" placeholder={t("IdCardSerialNumber")}  value={idCardSerialNumber}
                     onChange={(e) => setIdCardSerialNumber(e.target.value)} />
             </Form.Group>
 
-            <Form.Group controlId="formGridFathersName" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridFathersName" className="mb-3">
               <Form.Label>{t("DateOfBirth")}</Form.Label>
               <DatePicker
                       containerClassName="custom-container"
@@ -315,16 +314,16 @@ const TableModal = (props) => {
                     />
             </Form.Group>
           </div>
-           <div className="updateModalRow">
+           <div className="Row">
             
 
-            <Form.Group controlId="formGridIdCardNumber" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridIdCardNumber" className="mb-3">
               <Form.Label>{t("serialLocation")}</Form.Label>
               <Form.Control type="text" placeholder={t("serialLocation")}  value={serialLocation}
                     onChange={(e) => setSerialLocation(e.target.value)} />
             </Form.Group>
 
-            <Form.Group controlId="formGridFathersName" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridFathersName" className="mb-3">
               <Form.Label>{t("serialDate")}</Form.Label>
               <DatePicker
                     containerClassName="custom-container"
@@ -344,8 +343,8 @@ const TableModal = (props) => {
           
           
           
-          <div className="updateModalRow">
-            <Form.Group controlId="formGridMobile1" className="FormGroupUpdateModal">
+          <div className="Row">
+            <Form.Group controlId="formGridMobile1" className="mb-3">
               <Form.Label>{t("Mobile1")}</Form.Label>
               <Form.Control
                 type="number"
@@ -354,7 +353,7 @@ const TableModal = (props) => {
                 onChange={(e) => setPhoneNumber1(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="formGridMobile2" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridMobile2" className="mb-3">
               <Form.Label>{t("Mobile1")}</Form.Label>
               <Form.Control
                 type="number"
@@ -365,8 +364,8 @@ const TableModal = (props) => {
             </Form.Group>
           </div>
           
-          <div className="updateModalRow">
-            <Form.Group controlId="formGridPhone" className="FormGroupUpdateModal">
+          <div className="Row">
+            <Form.Group controlId="formGridPhone" className="mb-3">
               <Form.Label>{t("Phone")}</Form.Label>
               <Form.Control
                 type="number"
@@ -375,15 +374,15 @@ const TableModal = (props) => {
                 onChange={(e) => setHousePhone(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="formGridhomeNumber2" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridhomeNumber2" className="mb-3">
               <Form.Label>{t("homeNumber2")}</Form.Label>
               <Form.Control type="number" placeholder={t("homeNumber2")}  value={housephone2}
                      onChange={(e) => setHousePhone2(e.target.value)} />
             </Form.Group>
             
           </div>
-          <div className="updateModalRow">
-          <Form.Group controlId="formGridfax" className="FormGroupUpdateModal">
+          <div className="Row">
+          <Form.Group controlId="formGridfax" className="mb-3">
               <Form.Label>{t("Fax")}</Form.Label>
               <Form.Control
                 type="text"
@@ -392,7 +391,7 @@ const TableModal = (props) => {
                 onChange={(e) => setfax(e.target.value)}
               />
             </Form.Group>
-            <Form.Group controlId="formGridUserName" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridUserName" className="mb-3">
               <Form.Label>{t("Email")}</Form.Label>
               <Form.Control
                 type="email"
@@ -403,34 +402,34 @@ const TableModal = (props) => {
             </Form.Group>
             
           </div>
-          <div className="updateModalRow">
-          <Form.Group controlId="formGridjob" className="FormGroupUpdateModal">
+          <div className="Row">
+          <Form.Group controlId="formGridjob" className="mb-3">
               <Form.Label>{t("job")}</Form.Label>
               <Form.Control as="textarea" rows={2} placeholder={t("job")}  value={job} onChange={(e) => setjob(e.target.value)}/>
 
             </Form.Group>
-            <Form.Group controlId="formGridUserName" className="FormGroupUpdateModal">
+            <Form.Group controlId="formGridUserName" className="mb-3">
               <Form.Label>{t("website")}</Form.Label>
               <Form.Control type="text" placeholder={t("website")}  value={webSite}
                     onChange={(e) => setWebSite(e.target.value)} />
             </Form.Group>
             
           </div>
-          <div className="updateModalRowJob">
-            <Form.Group controlId="formGridjob" className="FormGroupUpdateModal1">
+          <div className="Row">
+            <Form.Group controlId="formGridjob" className="mb-3">
               <Form.Label>{t("AcquaintedWithCompany")}</Form.Label>
               <Form.Control className="jobTextErea" as="textarea" rows={2} placeholder={t("AcquaintedWithCompany")}  value={acquaintedWithCompany} onChange={(e) => setAcquaintedWithCompany(e.target.value)}/>
             </Form.Group>
           </div>
          
-          <div className="updateModalRow" >
-              <Form.Group className="FormGroupUpdateModal" controlId="exampleForm.ControlTextarea1">
+          <div className="Row" >
+              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Label>{t("customerDesc")}</Form.Label>
                 <Form.Control as="textarea" rows={2} placeholder={t("customerDesc")}  value={description} onChange={(e) => setDescription(e.target.value)}/>
               </Form.Group>
 
             
-            <Form.Group className="FormGroupUpdateModal">
+            <Form.Group className="mb-3">
             <Form.Label >{t("customer.group")}</Form.Label>
             <Form.Select
               value={groupTitleId}
@@ -447,7 +446,7 @@ const TableModal = (props) => {
           </div>
            
            
-          <div className="updateModalRow">
+          <div className="Row">
               <Form.Group className="mb-3" controlId={"startDate"}>
                 <Form.Label>{t("startDate")}</Form.Label>
                     <DatePicker
@@ -471,14 +470,15 @@ const TableModal = (props) => {
                       disabled={!activeDate}
                     />
                   </Form.Group>
-                  <div class="switchDate">
+                <Form.Group className="mb-3">
+                  <Form.Label>{t("IsLimited")}</Form.Label>
                         <Form.Check
                           type="switch"
                           id="custom-switch"
                           onChange={()=> setActiveDate(prev => !prev)}
                           checked ={activeDate}
                         />
-                      </div>
+                     </Form.Group>
                       <Form.Group className="mb-3" controlId={"endDate"}>
                         <Form.Label>{t("endDate")}</Form.Label>  
                         <DatePicker
@@ -503,12 +503,12 @@ const TableModal = (props) => {
                         />
                       </Form.Group>
             
-          </div> 
         </div>
       </Modal.Body>
       <Modal.Footer>
         <Button disabled={loading} onClick={handleSubmitForm}> {t("operatorGroupFormSubmit")}</Button>
       </Modal.Footer>
+      </Form>
     </Modal>
   );
 };

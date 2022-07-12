@@ -8,7 +8,7 @@ import useAxios from '../../../../customHooks/useAxios'
 import useRequest from '../../../../customHooks/useRequest'
 import { customerCreate } from '../../../../services/customerService'
 import BackDrop from '../../../../Components/backDrop/BackDrop'
-import './admitionFirstForm.css'
+
 import { t } from 'i18next'
 const AdmitionFirstForm = () => {
     const [type, setType] = useState("")

@@ -16,7 +16,7 @@ import Admission from "./Admission";
 import { defectReadTitle } from "../../../../services/defectService";
 import PatternModal from "../../../../Components/Table/PatternModal/PatternModal";
 import useWindowSize from "../../../../customHooks/useWindowSize";
-import "./admitionFinalForm.css";
+
 const AmitionFinalForm = () => {
   const [type, setType] = useState("");
   const [textRecieved, setTextRecieved] = useState("");
