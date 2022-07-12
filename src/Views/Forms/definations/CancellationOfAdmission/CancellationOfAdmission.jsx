@@ -32,7 +32,7 @@ const CancellationOfAdmission = () => {
   ];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
-  const [rowValus, setRowValues] = useState({});
+  const [rowValues, setRowValues] = useState({});
 
   const childRef = useRef();
 
@@ -70,7 +70,7 @@ const CancellationOfAdmission = () => {
     <>
       {tableModalOpen && (
         <TableModal
-          rowValus={rowValus}
+          rowValues={rowValues}
           onHide={() => setTableModalOpen(false)}
           tableModalShow={tableModalOpen}
           updated={updated}

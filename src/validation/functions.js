@@ -160,7 +160,22 @@ export const checkTableValues = (type, value, post, exportAccess) => {
       return value;
   }
 };
+export const checkTableTH=(type,access)=>{
+  switch (type) {
+    case "Title":
+      switch (access) {
+        case enums.Definition_Device_Export_r:
+            return t("device")
+        
+      
+        default:
+          return t(type)
+      }
+    default:
+      return t(type)
+  }
 
+}
 export const handleError = (message) => {
   toast.error(message, {
     position: toast.POSITION.BOTTOM_CENTER,

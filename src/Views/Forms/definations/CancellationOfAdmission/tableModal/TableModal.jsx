@@ -1,84 +1,25 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
 import { Button, Form, Modal } from "react-bootstrap";
-import "./tableModal.css";
 import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { provinceReadTitle } from "../../../../../services/provinceService";
-import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
+import { defintionInputs, handleError } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-import { CityUpdate } from "../../../../../services/cityService";
-import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
+import { cancellationOfAdmissionUpdate } from "../../../../../services/CancellationOfAdmissionService";
 const TableModal = (props) => {
+  const {t}=useTranslation()
+  const val=props.rowValues
 const [validated, setValidated] = useState(false);
-  const [provinceOptions,setProvinceOptions]=useState([])
-  const [province, setProvince] = useState(undefined);
-  const { t } = useTranslation();
   const abortController = new AbortController();
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
   const [values, setValues] = useState({
-    title: "",
-    color: "#000000",
-    periority: 1,
-    desc: "",
+    title: val.Title,
+    color: `#${val.Color}`,
+    periority: val.Priority,
+    desc: val.Description,
   });
-  useEffect(() => {
-    const prop = props.rowValus;
-    setValues({
-      ...values,
-      title: prop.Title,
-      color: `#${prop.Color}`,
-      periority: prop.Priority,
-      desc: prop.Description,
-    });
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const createParams = (service) => {
-    const params = {
-      method: "POST",
-      url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
-    };
-    return params;
-  };
-
-  const getDatas=()=>{
-    const provinceTitles = axios.request(
-      createParams(provinceReadTitle)
-    );
-    axios
-    .all([
-      provinceTitles,
-    ])
-    .then(
-      axios.spread((...allData) => {
-        allData[0].data?.Result
-          ? setProvinceOptions(createSelectOptions(allData[0].data.Title))
-          : handleError(allData[0].data.Message);
-          })
-    )
-    .catch((error) => {
-      handleError(error.message);
-    });
-  }
-  useEffect(() => {
-      getDatas();
-     
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    setProvince(provinceOptions.find((m) => m.value === props.rowValus.Province_Id))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[provinceOptions])
-  
   const handleResponse=(response)=>{
     props.updated()
   }
@@ -102,21 +43,16 @@ const [validated, setValidated] = useState(false);
     if (form.checkValidity()) {
       fetchData({
         method: "POST",
-        url: CityUpdate,
+        url: cancellationOfAdmissionUpdate,
         headers: {
           accept: "*/*",
         },
         data: {
           Request: request,
-          Province_Id:province?.value,
-          Id: props.rowValus.Id,
-          Priority: values.periority,
+          Id: val.Id,
           Title: values.title,
           Description: values.desc,
-          Color: values.color.substring(1),
-          SourceType: 0,
-          Registrar: 0,
-          DateSet: "2022-06-19T16:43:29.709Z",
+          Color: values.color.substring(1)
         },
         signal: abortController.signal,
       });
@@ -146,27 +82,11 @@ const [validated, setValidated] = useState(false);
       >
         <Modal.Body>
 
-        <div className="modelDefineRow">
-        <Form.Group className="mb-3" controlId={"province"}>
-        <Form.Label>{t("province")}</Form.Label>
-          <CustomReactMultiSelect
-            isMulti={false}
-            options={provinceOptions}
-            value={province}
-            onchangeHandler={(e) => setProvince(e)}
-            placeholder={t("province")}
-          />
-         </Form.Group>
-
-        </div>
-        {defintionInputs(values).map((input) => (
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChangeHandler}
-              />
-            ))}
-
+        {defintionInputs(
+          values
+        ).map((input) => (
+          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+        ))}
 
         </Modal.Body>
         <Modal.Footer>
