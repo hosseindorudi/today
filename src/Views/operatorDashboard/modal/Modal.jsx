@@ -7,6 +7,7 @@ import { handleError } from "../../../validation/functions";
 import * as fa from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import BackDrop from "../../../Components/backDrop/BackDrop";
 
 const Modal = ({ setIsOpen, getDashboardData }) => {
   const [values, setValues] = useState({
@@ -66,6 +67,7 @@ const Modal = ({ setIsOpen, getDashboardData }) => {
 
   return (
     <>
+      {loading && <BackDrop open={loading}/>}
       <div className="tableModalParentModal">
         <div className="tableModalContainerModal">
           <div className="tableModalHeaderModal">

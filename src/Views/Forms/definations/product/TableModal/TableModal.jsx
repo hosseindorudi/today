@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {  Button,  Form, Modal } from "react-bootstrap";
-import "./tableModal.css";
+
 
 
 import { toast } from "react-toastify";
@@ -8,7 +8,6 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-// import { TabContext } from "../../../../../contexts/TabContextProvider";
 import { productUpdate } from "../../../../../services/productService";
 import { productGroupReadTitle } from "../../../../../services/productGroup";
 import { defintionInputs } from "../../../../../validation/functions";

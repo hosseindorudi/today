@@ -1,9 +1,0 @@
-.modelDefineRow{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    gap: 5px;
-}
-.modelDefineRow .mb-3{width: 100%;}

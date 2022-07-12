@@ -11,14 +11,11 @@ justify-content: center;
     gap:10px;
 }
 .periorityFormModal  #color {
-    width: 50%;
+    width: 100%;
     margin: 0 auto;
 }
 
 .periorityFormDefine .mb-3{
     width: 100%;
 }
-.periorityFormDefine #color{
-    width: 50%;
-    margin: 0 auto;
-}
+

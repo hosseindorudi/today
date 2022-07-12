@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { Button, Form, Modal } from "react-bootstrap";
-import "./tableModal.css";
-import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
@@ -147,7 +145,7 @@ const [validated, setValidated] = useState(false);
       >
         <Modal.Body>
 
-        <div className="modelDefineRow">
+        <div className="Row">
         <Form.Group className="mb-3" controlId={"company"}>
         <Form.Label>{t("company")}</Form.Label>
           <CustomReactMultiSelect

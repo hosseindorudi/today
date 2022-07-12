@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import "./tableModal.css";
-import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
@@ -107,7 +105,7 @@ const TableModal = (props) => {
         {defintionInputs(values).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
-        <div className="OrganizationRow">
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"group"}>
             <Form.Label>{t("organization.group")}</Form.Label>
             <Form.Control

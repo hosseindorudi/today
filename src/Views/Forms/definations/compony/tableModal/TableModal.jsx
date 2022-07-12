@@ -7,7 +7,6 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-// import { TabContext } from "../../../../../contexts/TabContextProvider";
 import { companyUpdate } from "../../../../../services/companyService";
 import { defintionInputs } from "../../../../../validation/functions";
 

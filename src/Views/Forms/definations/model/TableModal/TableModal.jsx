@@ -1,7 +1,5 @@
 import React, {  useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import "./tableModal.css";
-import "../../../../../assets/css/periorityForm.css";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
@@ -169,7 +167,7 @@ useEffect(() => {
         onSubmit={handleSubmit}
       >
         <Modal.Body>
-          <div className="modelDefineRow">
+          <div className="Row">
             <Form.Group className="mb-3" controlId={"device"}>
               <Form.Label>{t("device")}</Form.Label>
               <CustomReactMultiSelect
@@ -194,7 +192,7 @@ useEffect(() => {
           {defintionInputs(values).map((input) => (
             <FormInput key={input.id} {...input} onChange={onChangeHandler} />
           ))}
-          <div className="modelDefineRow">
+          <div className="Row">
             <Form.Group className="mb-3" controlId={"Rom"}>
               <Form.Label>{t("model.Rom")}</Form.Label>
               <Form.Control
@@ -216,7 +214,7 @@ useEffect(() => {
               />
             </Form.Group>
           </div>
-          <div className="modelDefineRow">
+          <div className="Row">
             <Form.Group className="mb-3" controlId={"BodyColor"}>
               <Form.Label>{t("model.BodyColor")}</Form.Label>
               <CustomReactMultiSelect

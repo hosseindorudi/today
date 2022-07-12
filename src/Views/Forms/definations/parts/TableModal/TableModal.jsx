@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {  Button,  Form, Modal } from "react-bootstrap";
-import "./tableModal.css";
-import '../../../../../assets/css/periorityForm.css'
 import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
@@ -205,7 +203,7 @@ const TableModal = (props) => {
     {defintionInputs(values).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
-         <div className="partsRow">
+         <div className="Row">
         <Form.Group className="mb-3" controlId={"groupid"}>
         <Form.Label>{t("partGroup")}</Form.Label>
           <CustomReactMultiSelect
@@ -227,7 +225,7 @@ const TableModal = (props) => {
           />
           </Form.Group>
         </div>
-        <div className="partsRow">
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"length"}>
             <Form.Label>{t("parts.length")}</Form.Label>
             <Form.Control
@@ -259,7 +257,7 @@ const TableModal = (props) => {
             />
           </Form.Group>
         </div>
-        <div className="partsRow">
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"weight"}>
             <Form.Label>{t("parts.weight")}</Form.Label>
             <Form.Control
@@ -290,7 +288,7 @@ const TableModal = (props) => {
             />
           </Form.Group>
         </div>
-        <div className="partsRow">
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"TechnicalCode"}>
             <Form.Label>{t("parts.TechnicalCode")}</Form.Label>
             <Form.Control
