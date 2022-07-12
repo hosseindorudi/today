@@ -81,20 +81,6 @@ const [validated, setValidated] = useState(false);
       >
         <Modal.Body>
 
-
-        <div className="Row">
-        <Form.Group className="mb-3" controlId={"province"}>
-        <Form.Label>{t("province")}</Form.Label>
-          <CustomReactMultiSelect
-            isMulti={false}
-            options={provinceOptions}
-            value={province}
-            onchangeHandler={(e) => setProvince(e)}
-            placeholder={t("province")}
-          />
-         </Form.Group>
-
-        </div>
         {defintionInputs(values).map((input) => (
               <FormInput
                 key={input.id}
