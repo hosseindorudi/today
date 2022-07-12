@@ -7,8 +7,6 @@ import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
 
-// import { productUpdate } from "../../../../../services/productService";
-// import { productGroupReadTitle } from "../../../../../services/productGroup";
 import { defintionInputs } from "../../../../../validation/functions";
 import { statusDeviceStartUpdate } from "../../../../../services/statusDeviceStart";
 

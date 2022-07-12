@@ -8,11 +8,7 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-// import { TabContext } from "../../../../../contexts/TabContextProvider";
-// import { productUpdate } from "../../../../../services/productService";
-// import { productGroupReadTitle } from "../../../../../services/productGroup";
 import { defintionInputs } from "../../../../../validation/functions";
-// import { statusDeviceStartUpdate } from "../../../../../services/statusDeviceStart";
 import { statusDeviceEndUpdate } from "../../../../../services/statusDeviceEndService";
 
 const TableModal = (props) => {

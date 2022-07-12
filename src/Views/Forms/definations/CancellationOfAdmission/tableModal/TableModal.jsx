@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import '../../../../../assets/css/periorityForm.css'
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
@@ -82,11 +81,28 @@ const [validated, setValidated] = useState(false);
       >
         <Modal.Body>
 
-        {defintionInputs(
-          values
-        ).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
+
+        <div className="Row">
+        <Form.Group className="mb-3" controlId={"province"}>
+        <Form.Label>{t("province")}</Form.Label>
+          <CustomReactMultiSelect
+            isMulti={false}
+            options={provinceOptions}
+            value={province}
+            onchangeHandler={(e) => setProvince(e)}
+            placeholder={t("province")}
+          />
+         </Form.Group>
+
+        </div>
+        {defintionInputs(values).map((input) => (
+              <FormInput
+                key={input.id}
+                {...input}
+                onChange={onChangeHandler}
+              />
+            ))}
+
 
         </Modal.Body>
         <Modal.Footer>

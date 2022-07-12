@@ -219,6 +219,12 @@ const RepairsPerformed = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
     fetchData({
       method: "POST",
       url: repairsPerformedCreate,
@@ -242,6 +248,7 @@ const RepairsPerformed = () => {
     });
 
     handleResponseFunc(response, "READ");
+  }
   };
 
   const importSuccess = (message) => {
@@ -487,7 +494,7 @@ const RepairsPerformed = () => {
               </div>
               {defintionInputs(
                 values,
-                t("/Definition/RepairsPerformed/Read"),
+                t("Title"),
                 t("RepairsPerformed_errorMSG")
               ).map((input) => (
                 <FormInput
