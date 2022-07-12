@@ -240,7 +240,7 @@ const OperatorDashboard = () => {
       "success"
     );
 
-      getDashboardData();
+    getDashboardData();
   };
   const handleDeletedFavorite = () => {
     Swal.fire(
@@ -313,8 +313,8 @@ const OperatorDashboard = () => {
         />
       )}
       {isOpen && (
-          <Modal setIsOpen={setIsOpen} getDashboardData={getDashboardData} />
-        )}
+        <Modal setIsOpen={setIsOpen} getDashboardData={getDashboardData} />
+      )}
       <div className="mainOperatorDash">
         <div className="firstOperatorColumn">
           <div className="operatorDashboardInformation">
@@ -418,18 +418,22 @@ const OperatorDashboard = () => {
             <i className="fa fa-plus" aria-hidden="true"></i>
           </button>
         </div>
-        
 
+        {events.length > 0 && (
+          <div className="opratorDashAlert">
+            <h3>لیست رخدادها</h3>
 
-
-        <div className="opratorDashAlert">
-          <h3>لیست رخدادها</h3>
-          {events.length > 0 && (
             <table className="opratorDashActivityTable">
               <thead className="opratorDashActivityTableThead">
                 <tr>
                   {Object.keys(events[0]).map((failed, i) => {
-                    if ((failed !== "Id") & (failed !== "SourceType") & (failed !== "CodePage_EId") & (failed !== "Operator_Id")& (failed !== "OperatorName")) {
+                    if (
+                      (failed !== "Id") &
+                      (failed !== "SourceType") &
+                      (failed !== "CodePage_EId") &
+                      (failed !== "Operator_Id") &
+                      (failed !== "OperatorName")
+                    ) {
                       return (
                         <th
                           key={i}
@@ -447,13 +451,33 @@ const OperatorDashboard = () => {
                   events.map((failed) => (
                     <tr>
                       {Object.keys(failed).map((f, i) => {
-                        if ((f !== "Id") & (f !== "SourceType") & (f !== "CodePage_EId") & (f !== "Operator_Id") & (f !== "OperatorName")) {
+                        if (
+                          (f !== "Id") &
+                          (f !== "SourceType") &
+                          (f !== "CodePage_EId") &
+                          (f !== "Operator_Id") &
+                          (f !== "OperatorName")
+                        ) {
                           return (
                             <td
                               key={i}
                               className="opratorDashActivityTableTbodyTrTd"
                             >
-                              {f=== "DateSet" ?  dateOfLogTable(failed[f]) : (f=== "Description" & failed[f].length > 0 ) ?  <span onClick={()=>{setDescriptionShow(true); setDesc(failed[f])}}>{t("logview")}</span>  : failed[f]}
+                              {f === "DateSet" ? (
+                                dateOfLogTable(failed[f])
+                              ) : (f === "Description") &
+                                (failed[f].length > 0) ? (
+                                <span
+                                  onClick={() => {
+                                    setDescriptionShow(true);
+                                    setDesc(failed[f]);
+                                  }}
+                                >
+                                  {t("logview")}
+                                </span>
+                              ) : (
+                                failed[f]
+                              )}
                             </td>
                           );
                         }
@@ -462,16 +486,22 @@ const OperatorDashboard = () => {
                   ))}
               </tbody>
             </table>
-          )}
-        </div>
-        <div className="opratorDashListOfLogin">
-          <h3>لیست ورود های مجاز</h3>
-          {logins.length > 0 && (
+          </div>
+        )}
+        {logins.length > 0 && (
+          <div className="opratorDashListOfLogin">
+            <h3>لیست ورود های مجاز</h3>
+
             <table className="opratorDashActivityTable">
               <thead className="opratorDashActivityTableThead">
                 <tr>
                   {Object.keys(logins[0]).map((failed, i) => {
-                    if ((failed !== "Id") & (failed !== "SourceType")& (failed !== "Operator_Id")& (failed !== "OperatorName")) {
+                    if (
+                      (failed !== "Id") &
+                      (failed !== "SourceType") &
+                      (failed !== "Operator_Id") &
+                      (failed !== "OperatorName")
+                    ) {
                       return (
                         <th
                           key={i}
@@ -489,13 +519,20 @@ const OperatorDashboard = () => {
                   logins.map((failed) => (
                     <tr>
                       {Object.keys(failed).map((f, i) => {
-                        if ((f !== "Id") & (f !== "SourceType")& (f !== "Operator_Id")& (f !== "OperatorName")) {
+                        if (
+                          (f !== "Id") &
+                          (f !== "SourceType") &
+                          (f !== "Operator_Id") &
+                          (f !== "OperatorName")
+                        ) {
                           return (
                             <td
                               key={i}
                               className="opratorDashActivityTableTbodyTrTd"
                             >
-                              {f=== "DateSet" ?  dateOfLogTable(failed[f]) :  failed[f]}
+                              {f === "DateSet"
+                                ? dateOfLogTable(failed[f])
+                                : failed[f]}
                             </td>
                           );
                         }
@@ -504,16 +541,21 @@ const OperatorDashboard = () => {
                   ))}
               </tbody>
             </table>
-          )}
-        </div>
-        <div className="opratorDashListOfFailed">
-          <h3>لیست ورود های غیر مجاز</h3>
-          {faileds.length > 0 && (
+          </div>
+        )}
+        {faileds.length > 0 && (
+          <div className="opratorDashListOfFailed">
+            <h3>لیست ورود های غیر مجاز</h3>
+
             <table className="opratorDashActivityTable">
               <thead className="opratorDashActivityTableThead">
                 <tr>
                   {Object.keys(faileds[0]).map((failed, i) => {
-                    if ((failed !== "Id") & (failed !== "SourceType")& (failed !== "OperatorName")) {
+                    if (
+                      (failed !== "Id") &
+                      (failed !== "SourceType") &
+                      (failed !== "OperatorName")
+                    ) {
                       return (
                         <th
                           key={i}
@@ -531,13 +573,19 @@ const OperatorDashboard = () => {
                   faileds.map((failed) => (
                     <tr>
                       {Object.keys(failed).map((f, i) => {
-                        if ((f !== "Id") & (f !== "SourceType")& (f !== "OperatorName")) {
+                        if (
+                          (f !== "Id") &
+                          (f !== "SourceType") &
+                          (f !== "OperatorName")
+                        ) {
                           return (
                             <td
                               key={i}
                               className="opratorDashActivityTableTbodyTrTd"
                             >
-                              {f=== "DateSet" ?  dateOfLogTable(failed[f]) :  failed[f]}
+                              {f === "DateSet"
+                                ? dateOfLogTable(failed[f])
+                                : failed[f]}
                             </td>
                           );
                         }
@@ -546,8 +594,8 @@ const OperatorDashboard = () => {
                   ))}
               </tbody>
             </table>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );
