@@ -48,6 +48,7 @@ const OperatorDashboard = () => {
     });
   };
 
+  const filtredColumn = ["Id","SourceType","CodePage_EId","Operator_Id","OperatorName"]
   const handleChangeFavoritPage = (type) => {
     Routes.map((route) => {
       return route.subNav
@@ -426,14 +427,12 @@ const OperatorDashboard = () => {
             <table className="opratorDashActivityTable">
               <thead className="opratorDashActivityTableThead">
                 <tr>
-                  {Object.keys(events[0]).map((failed, i) => {
-                    if (
-                      (failed !== "Id") &
-                      (failed !== "SourceType") &
-                      (failed !== "CodePage_EId") &
-                      (failed !== "Operator_Id") &
-                      (failed !== "OperatorName")
-                    ) {
+                  {Object.keys(events[0])
+                  .filter(
+                    (p) =>
+                      !filtredColumn.includes(p) 
+                  ).map((failed, i) => {
+                    
                       return (
                         <th
                           key={i}
@@ -442,7 +441,7 @@ const OperatorDashboard = () => {
                           {t(failed)}
                         </th>
                       );
-                    }
+                    
                   })}
                 </tr>
               </thead>
@@ -450,14 +449,13 @@ const OperatorDashboard = () => {
                 {events.length > 0 &&
                   events.map((failed) => (
                     <tr>
-                      {Object.keys(failed).map((f, i) => {
-                        if (
-                          (f !== "Id") &
-                          (f !== "SourceType") &
-                          (f !== "CodePage_EId") &
-                          (f !== "Operator_Id") &
-                          (f !== "OperatorName")
-                        ) {
+                      {Object.keys(failed)
+                      .filter(
+                        (p) =>
+                          !filtredColumn.includes(p) 
+                      )
+                      .map((f, i) => {
+                        
                           return (
                             <td
                               key={i}
@@ -480,7 +478,7 @@ const OperatorDashboard = () => {
                               )}
                             </td>
                           );
-                        }
+                        
                       })}
                     </tr>
                   ))}
@@ -495,13 +493,13 @@ const OperatorDashboard = () => {
             <table className="opratorDashActivityTable">
               <thead className="opratorDashActivityTableThead">
                 <tr>
-                  {Object.keys(logins[0]).map((failed, i) => {
-                    if (
-                      (failed !== "Id") &
-                      (failed !== "SourceType") &
-                      (failed !== "Operator_Id") &
-                      (failed !== "OperatorName")
-                    ) {
+                  {Object.keys(logins[0])
+                  .filter(
+                    (p) =>
+                      !filtredColumn.includes(p) 
+                  )
+                  .map((failed, i) => {
+                    
                       return (
                         <th
                           key={i}
@@ -510,7 +508,7 @@ const OperatorDashboard = () => {
                           {t(failed)}
                         </th>
                       );
-                    }
+                  
                   })}
                 </tr>
               </thead>
@@ -518,13 +516,13 @@ const OperatorDashboard = () => {
                 {logins.length > 0 &&
                   logins.map((failed) => (
                     <tr>
-                      {Object.keys(failed).map((f, i) => {
-                        if (
-                          (f !== "Id") &
-                          (f !== "SourceType") &
-                          (f !== "Operator_Id") &
-                          (f !== "OperatorName")
-                        ) {
+                      {Object.keys(failed)
+                      .filter(
+                        (p) =>
+                          !filtredColumn.includes(p) 
+                      )
+                      .map((f, i) => {
+                        
                           return (
                             <td
                               key={i}
@@ -535,7 +533,7 @@ const OperatorDashboard = () => {
                                 : failed[f]}
                             </td>
                           );
-                        }
+                     
                       })}
                     </tr>
                   ))}
@@ -550,12 +548,13 @@ const OperatorDashboard = () => {
             <table className="opratorDashActivityTable">
               <thead className="opratorDashActivityTableThead">
                 <tr>
-                  {Object.keys(faileds[0]).map((failed, i) => {
-                    if (
-                      (failed !== "Id") &
-                      (failed !== "SourceType") &
-                      (failed !== "OperatorName")
-                    ) {
+                  {Object.keys(faileds[0])
+                  .filter(
+                    (p) =>
+                      !filtredColumn.includes(p) 
+                  )
+                  .map((failed, i) => {
+                    
                       return (
                         <th
                           key={i}
@@ -564,7 +563,7 @@ const OperatorDashboard = () => {
                           {t(failed)}
                         </th>
                       );
-                    }
+                    
                   })}
                 </tr>
               </thead>
@@ -572,12 +571,13 @@ const OperatorDashboard = () => {
                 {faileds.length > 0 &&
                   faileds.map((failed) => (
                     <tr>
-                      {Object.keys(failed).map((f, i) => {
-                        if (
-                          (f !== "Id") &
-                          (f !== "SourceType") &
-                          (f !== "OperatorName")
-                        ) {
+                      {Object.keys(failed)
+                      .filter(
+                        (p) =>
+                          !filtredColumn.includes(p) 
+                      )
+                      .map((f, i) => {
+                        
                           return (
                             <td
                               key={i}
@@ -588,7 +588,7 @@ const OperatorDashboard = () => {
                                 : failed[f]}
                             </td>
                           );
-                        }
+                       
                       })}
                     </tr>
                   ))}
