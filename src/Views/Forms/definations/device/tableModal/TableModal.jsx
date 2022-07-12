@@ -158,7 +158,7 @@ const [validated, setValidated] = useState(false);
          </Form.Group>
 
         </div>
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(values,t("device")).map((input) => (
               <FormInput
                 key={input.id}
                 {...input}

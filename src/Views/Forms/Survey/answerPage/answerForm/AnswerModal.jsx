@@ -174,9 +174,10 @@ useEffect(() => {
     }
     if (rating.includes(key)) {
       return (
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "column",alignItems:"center" }}>
         <Rating
           name="simple-controlled"
+          style={{direction:"ltr"}}
           onChange={(event, newValue) => {
             handleChangeValue(newValue, question.Id);
           }}

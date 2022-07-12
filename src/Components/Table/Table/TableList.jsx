@@ -1,7 +1,7 @@
 import { Pagination, TextField } from "@mui/material";
 import React, { useContext, useState } from "react";
 import useButtonAccess from "../../../customHooks/useButtonAccess";
-import { checkTableValues } from "../../../validation/functions";
+import { checkTableTH, checkTableValues } from "../../../validation/functions";
 import DownArrow from "../Arrows/downArrow/DownArrow";
 import MainUpArrow from "../Arrows/MainUpArrow/MainUpArrow";
 import UpArrow from "../Arrows/upArrow/UpArrow";
@@ -264,7 +264,8 @@ const TableList = ({
                               display: !column["show"] ? "none" : null,
                             }}
                           >
-                            {t(column["Header"])}
+                            {/* {t(column["Header"])} */}
+                            {checkTableTH(column["Header"],exportAccess)}
                             <button
                               className="sortingArrowsBTN"
                               onClick={() => handleClickSort(column)}

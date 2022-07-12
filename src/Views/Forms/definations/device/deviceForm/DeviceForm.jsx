@@ -143,7 +143,7 @@ const DeviceForm = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/Device/Write")}</b>
-        <div className="modelDefineRow">
+        <div className="Row">
         <Form.Group className="mb-3" controlId={"company"}>
         <Form.Label>{t("company")}</Form.Label>
           <CustomReactMultiSelect
@@ -156,7 +156,7 @@ const DeviceForm = () => {
          </Form.Group>
 
         </div>
-        {defintionInputs(values,t("model"),t("Model_errorMSG")).map((input) => (
+        {defintionInputs(values,t("device"),t("Device_errorMSG")).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
         
