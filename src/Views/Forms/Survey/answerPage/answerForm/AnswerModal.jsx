@@ -155,7 +155,6 @@ useEffect(() => {
       return (
         <Form.Control
           type="text"
-          placeholder={t(key)}
           name={question.Id}
           onChange={(e)=>handleChangeValue(e.target.value,question.Id)}
         
@@ -166,7 +165,6 @@ useEffect(() => {
       return (
         <Form.Control
           type="number"
-          placeholder={t(key)}
           name={question.Id}
           onChange={(e)=>handleChangeValue(e.target.value,question.Id)}
         />
@@ -182,7 +180,7 @@ useEffect(() => {
             handleChangeValue(newValue, question.Id);
           }}
         />
-        <Form.Control type="text"  placeholder={t("description")}  onChange={(e)=> handleChangeDescription(e.target.value,question.Id)} />
+        <Form.Control type="text"   onChange={(e)=> handleChangeDescription(e.target.value,question.Id)} />
         </div>
       );
     }
@@ -207,7 +205,7 @@ useEffect(() => {
               onChange={() => handleCheckBox(question.Id,item.Id,item.Title)}
             />
           ))}
-         <Form.Control type="text"  placeholder={t("description")}  onChange={(e)=> handleChangeDescription(e.target.value,question.Id)} />
+         <Form.Control type="text"    onChange={(e)=> handleChangeDescription(e.target.value,question.Id)} />
         </div>
       );
     }
@@ -389,7 +387,6 @@ useEffect(() => {
               <Form.Label>{t("FirstName")}</Form.Label>
               <Form.Control
                 type="text"
-                placeholder={t("FirstName")}
                 name="FirstName"
                 value={values.FirstName}
                 
@@ -400,7 +397,6 @@ useEffect(() => {
               <Form.Label>{t("LastName")}</Form.Label>
               <Form.Control
                 type="text"
-                placeholder={t("LastName")}
                 name="LastName"
                 value={values.LastName}
                 
@@ -413,7 +409,6 @@ useEffect(() => {
               <Form.Label>{t("Phone")}</Form.Label>
               <Form.Control
                 type="number"
-                placeholder={t("Phone")}
                 name="Phone"
                 value={values.Phone}
                 onChange={handleChange}
@@ -423,7 +418,6 @@ useEffect(() => {
               <Form.Label>{t("Mobile")}</Form.Label>
               <Form.Control
                 type="number"
-                placeholder={t("Mobile")}
                 name="Mobile"
                 value={values.Mobile}
                 onChange={handleChange}
@@ -435,7 +429,6 @@ useEffect(() => {
               <Form.Label>{t("nationalId")}</Form.Label>
               <Form.Control
                 type="number"
-                placeholder={t("nationalId")}
                 name="NationalCode"
                 value={values.NationalCode}
                 onChange={handleChange}
@@ -445,7 +438,6 @@ useEffect(() => {
               <Form.Label>{t("Description")}</Form.Label>
               <Form.Control
                 type="text"
-                placeholder={t("Description")}
                 name="Description"
                 value={values.Description}
                 onChange={handleChange}

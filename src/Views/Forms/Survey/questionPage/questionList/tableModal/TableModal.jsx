@@ -1,4 +1,4 @@
-import "./tableModal.css";
+
 import { Button, Form, Modal } from "react-bootstrap";
 import useAxios from "../../../../../../customHooks/useAxios";
 import useRequest from "../../../../../../customHooks/useRequest";

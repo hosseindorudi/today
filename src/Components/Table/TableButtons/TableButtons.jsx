@@ -39,7 +39,9 @@ const TableButtons = ({
   policyIpAccess,
   handlePolicyIP,
   handleAddress,
-  addressAccess
+  addressAccess,
+  addOperatorAccess,
+  addOperator
 }) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const { app } = useContext(AppContext);
@@ -216,6 +218,17 @@ const TableButtons = ({
           }}
         >
           <fa.FaMap />
+        </button>
+      )}
+       {haveAccess(addOperatorAccess) && (
+        <button
+          title={t("addOperator")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+          addOperator(rowValue.Id);
+          }}
+        >
+          <fa.FaUserPlus />
         </button>
       )}
     </div>

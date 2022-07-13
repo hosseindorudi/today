@@ -19,4 +19,8 @@ export const createQuestion="/Survey/QuestionPage/CreateQuestion"
 export const updateQuestion="/Survey/QuestionPage/UpdateQuestion"
 export const deleteQuestion="/Survey/QuestionPage/DeleteQuestion"
 export const questionReadQuestion="/Survey/QuestionPage/ReadQuestion"
+export const createQuestionPageOperator="/Survey/QuestionPage/CreateQuestionPageOperator"
+export const readQuestionPageOperator="/Survey/QuestionPage/ReadQuestionPageOperator"
+export const updateQuestionPageOperator="/Survey/QuestionPage/UpdateQuestionPageOperator"
+export const deleteQuestionPageOperator="/Survey/QuestionPage/DeleteQuestionPageOperator"
 
