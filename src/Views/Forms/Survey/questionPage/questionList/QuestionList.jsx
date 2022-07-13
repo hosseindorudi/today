@@ -24,6 +24,7 @@ import { useRef, useState } from 'react';
 import CustomTable from '../../../../../Components/Table/Table/CustomTable';
 import TableModal from './tableModal/TableModal';
 import TableQuestionModal from './tableQuestionModal/TableQuestionModal';
+import LimitModal from './limitModal/LimitModal';
 const QuestionList = () => {
 
   const childRef = useRef();
@@ -43,6 +44,7 @@ const QuestionList = () => {
   const [mobileModal, setMobileModal] = useState(false)
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
+  const [isLimitModal, setIsLimitModal] = useState(false)
   const widthOFScreen = useWindowSize().width
 
   const addObject = {
@@ -60,6 +62,10 @@ const QuestionList = () => {
     const record = res.Record;
     setRowValues(record);
     setTableModalQuestionOpen(true);
+  };
+  const addOperator = (res) => {
+    setRowValues(res);
+    setIsLimitModal(true);
   };
   const updated = () => {
     setTableModalOpen(false);
@@ -102,6 +108,14 @@ const QuestionList = () => {
           updated={addQuestion}
         />
       )}
+      {isLimitModal && (
+        <LimitModal
+          rowValus={rowValus}
+          onHide={() => setIsLimitModal(false)}
+          tableModalShow={isLimitModal}
+          updated={addQuestion}
+        />
+      )}
      
       <CustomTable
         ref={childRef}
@@ -139,6 +153,8 @@ const QuestionList = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        addOperator={addOperator}
+        addOperatorAccess = {enums.Survey_QuestionPage}
       />
     </>
     

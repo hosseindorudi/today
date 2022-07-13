@@ -1,4 +1,5 @@
 export const groupTitle = '/Operator/Group/ReadTitle';
+export const operatorTitles = '/Operator/Operator/ReadTitle'
 export const createOpt = '/Operator/Operator/Create';
 export const readOpt = 'Operator/Operator/Read'
 export const readpaging = 'Operator/Operator/ReadPaging'

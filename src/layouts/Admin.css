@@ -760,6 +760,11 @@
     height: 600px !important;
   }
 
+  /* .mainOperatorDash {
+    width: 350px !important;
+    align-self: center !important;
+  } */
+
   .mainOperatorDash {
     width: 100% !important;
   }

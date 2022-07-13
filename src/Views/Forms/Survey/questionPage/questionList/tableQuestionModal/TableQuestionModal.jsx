@@ -422,7 +422,6 @@ const TableQuestionModal = (props) => {
                 <Form.Label>{t("operatorGroupFormTitle")}</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder={t("QuestionCreateTitle")}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
@@ -434,7 +433,6 @@ const TableQuestionModal = (props) => {
               >
                 <Form.Label>{t("operatorGroupFormDesc")}</Form.Label>
                 <Form.Control
-                  required
                   as="textarea"
                   rows={1}
                   value={description}
@@ -595,7 +593,7 @@ const TableQuestionModal = (props) => {
                   type="submit"
                   className="questionFormSubmit mt-2"
                 >
-                  {t("operatorGroupFormSubmit")}
+                  {t("submit")}
                 </Button>
               ) : (
                 <Container>
@@ -615,7 +613,7 @@ const TableQuestionModal = (props) => {
                         onClick={SubmitOfEdit}
                         className="questionFormSubmit mt-2"
                       >
-                        {t("operatorGroupFormSubmit")}
+                        {t("submit")}
                       </Button>
                     </Col>
                   </Row>
