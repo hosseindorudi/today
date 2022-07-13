@@ -123,7 +123,7 @@
   margin: 10px auto;
 }
 .divTableDashboard{
-  max-height: 400px;
+  /* max-height: 400px; */
   overflow: auto;
   width: 100%;
 }
@@ -311,7 +311,7 @@ tr:nth-child(even) {
 }
 
 .mainOperatorDash .table-responsive-sm{
-  max-height: 300px;
+  /* max-height: 300px; */
   overflow: auto;
   text-align: center;
 }
