@@ -4,6 +4,7 @@ const NavMenu = (props) => {
   const { app, setApp } = useContext(AppContext);
 
     const click=()=>{
+      props.click()
       setApp((prev) => ({ ...prev, sidebarOpen: !app.sidebarOpen }));
     }
 

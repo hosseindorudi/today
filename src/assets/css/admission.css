@@ -257,10 +257,10 @@
     background-color: #f2f2f2;
   }
   
-  thead {
+  /* thead {
     height: 30px;
   }
-  
+   */
   .MainTableTh,
   .TableMainTd {
     max-width: 300px;

@@ -1,20 +1,59 @@
+:root{
+  --heightfooter:25px;
+  --headerheight:40px
+}
+.tab-content {
+  overflow: auto;
+ height: calc(100vh - var(--headerheight) - var(--heightfooter)); 
+}
+.main {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.footer {
+  height: var(--heightfooter);
+  background-color: white;
+  position: relative;
+  border-radius: 2px;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: blue;
+  justify-content: space-between;
+}
+@media screen and (max-width: 1200px) {
+  .footer{
+      font-size: 10px;
+  }
+ }
+ @media screen and (max-width: 600px) {
+  .footer{
+      font-size: 7px;
+  }
+ }
 .mainparent {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .header {
-  height: 50px;
+  height: var(--headerheight);
   color: white;
   background-color: blue;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
+  position: relative;
   padding: 5px;
+  width: 100%;
   text-align: center;
   border-radius: 2px;
 }
@@ -228,42 +267,45 @@
   /* background-color: #fff; */
 }
 
-.main {
-  height: calc(100vh - 90px);
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-}
+
 
 .adminPowerOff {
   cursor: pointer;
 }
 
 .mainLeft {
-  flex: 80%;
+  width: 80%;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 }
 
 .mainRight {
-  flex: 20%;
+  height: 100%;
+  overflow: auto;
+  background: blue;
+  width: 20%;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 }
 
-.footer {
-  height: 40px;
-  background-color: white;
-  position: sticky;
-  border-radius: 2px;
-  width: 100%;
-  bottom: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: blue;
-  justify-content: space-between;
+@media screen and (max-width: 960px) {
+  .mainRight{
+    position: fixed;
+    right: -100%;
+    transition: 850ms;
+    height: calc(100vh - 40px);
+  }
+  .mainLeft{
+    width: 100%;
+  }
 }
+.mainRight-active{
+  right: 0 !important;
+  transition: 350ms;
+  width: 100%;
+  z-index: 9;
+}
+
 
 .leftFooter {
   flex: 1;
@@ -310,17 +352,10 @@
 #sidebarNav{
   z-index: 9999;
 }
-@media screen and (max-width: 960px) {
-  .mainRight {
-    flex: none;
-  }
-}
+
 
 @media screen and (max-width: 650px) {
-  .header {
-    height: 40px;
-    width: 100%;
-  }
+
   .profileImg {
     height: 15px;
     width: 15px;
@@ -441,17 +476,12 @@
     width: 12px;
   }
 
-  .main {
-    height: calc(100vh - 70px);
-  }
+
 
   .tabParrentDiv {
     height: 100%;
   }
 
-  .tab-content {
-    height: 100%;
-  }
 
   .firstOperatorColumn {
     display: flex;
@@ -463,19 +493,6 @@
     height: 600px !important;
   }
 
-  .mainOperatorDash {
-    width: 100% !important;
-  }
-
-  .operatorDashboardInformation {
-    width: 100%;
-    flex: 1 !important;
-    margin: 0 auto;
-  }
-
-  .operatorDashboardInformation > hr {
-    margin: 8px;
-  }
 
   .dashInformationDiv {
     width: 100% !important;
@@ -490,12 +507,6 @@
     font-weight: bold;
   }
 
-  .operatorDashboardFavarot {
-    flex: 1 !important;
-    width: 100% !important;
-    display: flex;
-    flex-wrap: wrap;
-  }
 
   .favarotContainer {
     height: 100px !important;
@@ -551,23 +562,7 @@
     font-weight: bold;
   }
 
-  .opratorDashActivityTable {
-    overflow: auto !important;
-    width: 100% !important;
-  }
-
-  .opratorDashActivityTableThead {
-    height: 25px !important;
-  }
-
-  .opratorDashActivityTableTheadTrTh {
-    font-size: 11px;
-    font-weight: bolder;
-  }
-
-  .opratorDashActivityTableTbodyTrTd {
-    font-size: 11px;
-  }
+ 
 
   .opratorDashNoteContainer {
     width: 100px !important;
@@ -582,10 +577,7 @@
   .opratorDashNoteTitle {
     font-size: 13px !important;
   }
-  .opratorDashAlert > h3 {
-    font-size: 17px;
-    font-weight: bold;
-  }
+
   .opratorDashListOfLogin > h3 {
     font-size: 17px;
     font-weight: bold;
@@ -614,10 +606,7 @@
 }
 
 @media screen and (max-width: 420px) {
-  .header {
-    height: 40px;
-    width: 100%;
-  }
+
   .profileImg {
     height: 15px;
     width: 15px;
@@ -738,17 +727,13 @@
     width: 12px;
   }
 
-  .main {
-    height: calc(100vh - 70px);
-  }
+
 
   .tabParrentDiv {
     height: 100%;
   }
 
-  .tab-content {
-    height: 100%;
-  }
+
 
   .firstOperatorColumn {
     display: flex;
@@ -760,15 +745,8 @@
     height: 600px !important;
   }
 
-  .mainOperatorDash {
-    width: 100% !important;
-  }
 
-  .operatorDashboardInformation {
-    width: 100%;
-    flex: 1 !important;
-    margin: 0 auto;
-  }
+
 
   .operatorDashboardInformation > hr {
     margin: 8px;
@@ -857,24 +835,7 @@
     font-weight: bold;
   }
 
-  .opratorDashActivityTable {
-    overflow: hidden !important;
-    width: 340px !important;
-  }
 
-  .opratorDashActivityTableThead {
-    height: 25px !important;
-  }
-
-  .opratorDashActivityTableTheadTrTh {
-    font-size: 11px;
-    font-weight: bolder;
-  }
-
-  .opratorDashActivityTableTbodyTrTd {
-    font-size: 9px;
-    font-weight: lighter;
-  }
 
   .opratorDashNoteContainer {
     width: 100px !important;
@@ -889,10 +850,7 @@
   .opratorDashNoteTitle {
     font-size: 13px !important;
   }
-  .opratorDashAlert > h3 {
-    font-size: 17px;
-    font-weight: bold;
-  }
+
   .opratorDashListOfLogin > h3 {
     font-size: 17px;
     font-weight: bold;

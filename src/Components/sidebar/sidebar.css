@@ -9,14 +9,12 @@
 }
 
 #sidebarNav{
-    background: blue;
+ 
     height: 100%;
     display: flex;
     justify-content: center;
     transition: 350ms;
     z-index: 10;
-    overflow-x: auto;
-   
 }
 .sidebarWithBtn{
   display: flex;
@@ -116,7 +114,7 @@ left: unset;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  /* height: 100px; */
   
 }
 .logo >img{
@@ -142,27 +140,13 @@ left: unset;
       color: white;
       
   }
-  .sideBar-active{
-    right: 0 !important;
-    transition: 350ms;
-    width: 100%;
-  }
+ 
   @media screen and (max-width: 1200px) {
     .SidebarLink,.DropdownLinkBtn,.DropdownLink{
       font-size: 10px;
     }
     
   }
-  @media screen and (max-width: 960px) {
-    #sidebarNav{
-      position: fixed;
-      right: -100%;
-      transition: 850ms;
-      height: calc(100vh - 40px);
-    }
-    .mainRight{
-      flex: none;
-    }
-  }
+ 
 
  

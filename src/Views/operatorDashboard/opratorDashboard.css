@@ -1,9 +1,10 @@
 .mainOperatorDash {
   height: 100%;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   padding: 10px 10px;
   flex-direction: column;
+  gap: 5px;
 }
 
 .firstOperatorColumn {
@@ -16,12 +17,10 @@
 }
 
 .operatorDashboardInformation {
-  flex: 1;
   display: flex;
   flex-direction: column;
   border: 1px solid lightgray;
-  margin: 0 5px;
-  height: 100%;
+  /* height: 100%; */
 }
 
 .dashInformationDiv {
@@ -52,7 +51,7 @@
   align-items: center;
   justify-content: flex-start;
   border: 1px solid lightgray;
-  height: 100%;
+  /* height: 100%; */
   padding: 10px;
 }
 
@@ -123,11 +122,17 @@
   padding: 0 5px;
   margin: 10px auto;
 }
+.divTableDashboard{
+  max-height: 400px;
+  overflow: auto;
+  width: 100%;
+}
 
 .opratorDashActivityTable {
   border-collapse: collapse;
-  overflow-x: auto;
+  border-spacing: 0;
   width: 100%;
+  overflow: scroll;
 }
 
 .opratorDashActivityTableTheadTrTh {
@@ -151,7 +156,7 @@ tr:nth-child(even) {
 
   flex: 1;
   border: 1px solid lightgray;
-  padding-top: 5px;
+  padding: 5px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -278,12 +283,12 @@ tr:nth-child(even) {
 
 .opratorDashAlert {
   flex: 1;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
   width: 100%;
-  padding: 0 5px;
+  /* padding: 0 5px; */
   margin: 10px auto;
-  overflow-x: auto;
+  /* overflow-x: auto; */
 }
 .opratorDashListOfLogin {
   flex: 1;
@@ -305,7 +310,14 @@ tr:nth-child(even) {
   overflow-x: auto;
 }
 
-h3 {
-  margin-bottom: 5px;
-  margin-right: 5px;
+.mainOperatorDash .table-responsive-sm{
+  max-height: 300px;
+  overflow: auto;
+  text-align: center;
+}
+@media screen and (max-width: 960px) {
+  .mainOperatorDash .table-responsive-sm{
+    font-size: 10px;
+  }
+  
 }

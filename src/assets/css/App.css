@@ -38,12 +38,38 @@ button:disabled{
 .Row .mb-3{
   width: 100%;
 }
+.periorityFormDefine{
+  display: flex;
+justify-content: center;
+}
+.periorityForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  gap:10px;
+}
+.periorityFormModal  #color {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.periorityFormDefine .mb-3{
+  width: 100%;
+}
 @media screen and (max-width:600px){
   .Row{
     flex-direction: column;
+  }
+  .periorityForm{
+    width: 90%;
   }
 }
 .custom-container{
 width: 100%;
 }
 .custom-container .rmdp-input{width: 100%;height: auto;}
+
+
+

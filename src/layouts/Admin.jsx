@@ -76,7 +76,7 @@ function Admin() {
         </div>
       </div>
       <div className="main">
-        <div className="mainRight">
+        <div className={`mainRight ${menu? "mainRight-active":""}`}>
           <Sidebar />
         </div>
         <div className="mainLeft">

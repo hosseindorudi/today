@@ -22,6 +22,8 @@ import { Routes } from "../../Routes";
 import Swal from "sweetalert2";
 import { dateOfLogTable } from "../../validation/functions";
 import DescModal from "../../Components/Table/descriptionModal/DescModal";
+import { Table } from "react-bootstrap";
+
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useGeoLocation();
@@ -48,7 +50,13 @@ const OperatorDashboard = () => {
     });
   };
 
-  const filtredColumn = ["Id","SourceType","CodePage_EId","Operator_Id","OperatorName"]
+  const filtredColumn = [
+    "Id",
+    "SourceType",
+    "CodePage_EId",
+    "Operator_Id",
+    "OperatorName",
+  ];
   const handleChangeFavoritPage = (type) => {
     Routes.map((route) => {
       return route.subNav
@@ -317,7 +325,7 @@ const OperatorDashboard = () => {
         <Modal setIsOpen={setIsOpen} getDashboardData={getDashboardData} />
       )}
       <div className="mainOperatorDash">
-        <div className="firstOperatorColumn">
+        <div className="Row">
           <div className="operatorDashboardInformation">
             <div className="dashInformationDiv">
               <span>{dashboardInfoData.IP}</span>
@@ -421,79 +429,58 @@ const OperatorDashboard = () => {
         </div>
 
         {events.length > 0 && (
-          <div className="opratorDashAlert">
-            <h3>لیست رخدادها</h3>
-
-            <table className="opratorDashActivityTable">
-              <thead className="opratorDashActivityTableThead">
+          <>
+            <b>لیست رخدادها</b>
+            <Table responsive="sm" size="sm" className="tableDashboard">
+              <thead>
                 <tr>
                   {Object.keys(events[0])
-                  .filter(
-                    (p) =>
-                      !filtredColumn.includes(p) 
-                  ).map((failed, i) => {
-                    
-                      return (
-                        <th
-                          key={i}
-                          className="opratorDashActivityTableTheadTrTh"
-                        >
-                          {t(failed)}
-                        </th>
-                      );
-                    
-                  })}
+                    .filter((p) => !filtredColumn.includes(p))
+                    .map((failed, i) => {
+                      return <th key={i}>{t(failed)}</th>;
+                    })}
                 </tr>
               </thead>
-              <tbody className="opratorDashActivityTableTbody">
-                {events.length > 0 &&
-                  events.map((failed) => (
-                    <tr>
-                      {Object.keys(failed)
-                      .filter(
-                        (p) =>
-                          !filtredColumn.includes(p) 
-                      )
+              <tbody>
+                {events.map((failed) => (
+                  <tr>
+                    {Object.keys(failed)
+                      .filter((p) => !filtredColumn.includes(p))
                       .map((f, i) => {
-                        
-                          return (
-                            <td
-                              key={i}
-                              className="opratorDashActivityTableTbodyTrTd"
-                            >
-                              {f === "DateSet" ? (
-                                dateOfLogTable(failed[f])
-                              ) : (f === "Description") &
-                                (failed[f].length > 0) ? (
-                                <span
-                                  onClick={() => {
-                                    setDescriptionShow(true);
-                                    setDesc(failed[f]);
-                                  }}
-                                >
-                                  {t("logview")}
-                                </span>
-                              ) : (
-                                failed[f]
-                              )}
-                            </td>
-                          );
-                        
+                        return (
+                          <td key={i}>
+                            {f === "DateSet" ? (
+                              dateOfLogTable(failed[f])
+                            ) : (f === "Description") &
+                              (failed[f].length > 0) ? (
+                              <span
+                                onClick={() => {
+                                  setDescriptionShow(true);
+                                  setDesc(failed[f]);
+                                }}
+                              >
+                                {t("logview")}
+                              </span>
+                            ) : (
+                              failed[f]
+                            )}
+                          </td>
+                        );
                       })}
-                    </tr>
-                  ))}
+                  </tr>
+                ))}
               </tbody>
-            </table>
-          </div>
-        )}
-        {logins.length > 0 && (
-          <div className="opratorDashListOfLogin">
-            <h3>لیست ورود های مجاز</h3>
+            </Table>
 
-            <table className="opratorDashActivityTable">
-              <thead className="opratorDashActivityTableThead">
+        </>
+        )}
+            {logins.length > 0 && (
+          <>
+            <b>لیست ورود های مجاز</b>
+            <Table responsive="sm" size="sm" className="tableDashboard">
+              <thead>
                 <tr>
-                  {Object.keys(logins[0])
+                {Object.keys(logins[0])
                   .filter(
                     (p) =>
                       !filtredColumn.includes(p) 
@@ -503,7 +490,7 @@ const OperatorDashboard = () => {
                       return (
                         <th
                           key={i}
-                          className="opratorDashActivityTableTheadTrTh"
+                        
                         >
                           {t(failed)}
                         </th>
@@ -512,8 +499,8 @@ const OperatorDashboard = () => {
                   })}
                 </tr>
               </thead>
-              <tbody className="opratorDashActivityTableTbody">
-                {logins.length > 0 &&
+              <tbody>
+              {
                   logins.map((failed) => (
                     <tr>
                       {Object.keys(failed)
@@ -526,7 +513,6 @@ const OperatorDashboard = () => {
                           return (
                             <td
                               key={i}
-                              className="opratorDashActivityTableTbodyTrTd"
                             >
                               {f === "DateSet"
                                 ? dateOfLogTable(failed[f])
@@ -538,17 +524,17 @@ const OperatorDashboard = () => {
                     </tr>
                   ))}
               </tbody>
-            </table>
-          </div>
-        )}
-        {faileds.length > 0 && (
-          <div className="opratorDashListOfFailed">
-            <h3>لیست ورود های غیر مجاز</h3>
+            </Table>
 
-            <table className="opratorDashActivityTable">
-              <thead className="opratorDashActivityTableThead">
+          </>
+        )}
+          {faileds.length > 0 && (
+          <>
+            <b>لیست ورود های غیر مجاز</b>
+            <Table responsive="sm" size="sm" className="tableDashboard">
+              <thead>
                 <tr>
-                  {Object.keys(faileds[0])
+                {Object.keys(faileds[0])
                   .filter(
                     (p) =>
                       !filtredColumn.includes(p) 
@@ -558,7 +544,7 @@ const OperatorDashboard = () => {
                       return (
                         <th
                           key={i}
-                          className="opratorDashActivityTableTheadTrTh"
+                         
                         >
                           {t(failed)}
                         </th>
@@ -567,8 +553,8 @@ const OperatorDashboard = () => {
                   })}
                 </tr>
               </thead>
-              <tbody className="opratorDashActivityTableTbody">
-                {faileds.length > 0 &&
+              <tbody>
+              {
                   faileds.map((failed) => (
                     <tr>
                       {Object.keys(failed)
@@ -581,7 +567,7 @@ const OperatorDashboard = () => {
                           return (
                             <td
                               key={i}
-                              className="opratorDashActivityTableTbodyTrTd"
+                           
                             >
                               {f === "DateSet"
                                 ? dateOfLogTable(failed[f])
@@ -593,9 +579,11 @@ const OperatorDashboard = () => {
                     </tr>
                   ))}
               </tbody>
-            </table>
-          </div>
+            </Table>
+
+          </>
         )}
+        
       </div>
     </>
   );

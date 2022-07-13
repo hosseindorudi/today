@@ -342,11 +342,11 @@
   
 table > tbody > tr:nth-child(even){background-color: #f2f2f2;}
   
-  
+/*   
   thead {
     height: 30px;
     
-  }
+  } */
   
  .MainTableTh,
  .TableMainTd {

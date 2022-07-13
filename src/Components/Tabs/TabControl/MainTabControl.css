@@ -15,10 +15,7 @@
     justify-content: space-between;
     font-size: 10px;
 }
-.tab-content{
-    overflow: auto;
-    height: calc(100vh - 160px); 
-}
+
 .tabExitBtn :hover{
 background: lightgray;
 padding: 1px;
