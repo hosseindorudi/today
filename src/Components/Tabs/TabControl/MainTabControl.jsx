@@ -20,15 +20,16 @@ function MainTabControl() {
  
   return (
     <div className="tabParrentDiv">
-    
+     
       {tabContext.tabs.length > 0 && (
         <Tabs
           activeKey={app.activeTab}
           onSelect={(k) => updateState("activeTab",k)}
-    
+          name="tabNav"
           id="mainTab"
           className="mb-3"
         >
+          {/* height:`calc(100vh - 25px - 40px - ${document.getElementsByName("tabNav")[0].clientHeight})` */}
           {tabContext.tabs.map((menu, index) => (
             <Tab
               key={index}
