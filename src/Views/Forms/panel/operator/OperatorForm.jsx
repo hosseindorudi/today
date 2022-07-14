@@ -179,7 +179,7 @@ const OperatorForm = () => {
             />
             </Form.Group>
             <Form.Group className="mb-3" controlId={"lang"}>
-              <Form.Label>{t("/Operator/Group/Read")}</Form.Label>
+              <Form.Label>{t("SelectLanguage")}</Form.Label>
               <Form.Select value={values.Language_EId} onChange={onChangeHandler}>
                 <option disabled>{t("SelectLanguage")}</option>
                 {languages.map((l,i)=>(
