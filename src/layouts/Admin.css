@@ -310,7 +310,7 @@
   right: 0 !important;
   transition: 350ms;
   width: 100%;
-  z-index: 9;
+  z-index: 999;
 }
 
 

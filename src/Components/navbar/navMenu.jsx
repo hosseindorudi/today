@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import AppContext from "../../contexts/AppContext";
-const NavMenu = (props) => {
+const NavMenu = () => {
   const { app, setApp } = useContext(AppContext);
 
     const click=()=>{
-      props.click()
       setApp((prev) => ({ ...prev, sidebarOpen: !app.sidebarOpen }));
     }
 

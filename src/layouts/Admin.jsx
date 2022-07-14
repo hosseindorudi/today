@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Footer from "../Components/Footer/footer";
 import Home from "../Components/navbar/home";
 import Language from "../Components/navbar/language";
@@ -15,10 +15,11 @@ import useRequest from "../customHooks/useRequest";
 import { logOut } from "../services/authService";
 import useAxios from "../customHooks/useAxios";
 import BackDrop from "../Components/backDrop/BackDrop";
+import AppContext from "../contexts/AppContext";
 
 
 function Admin() {
-  const [menu, setMenu] = useState(false);
+  const { app} = useContext(AppContext);
   const [response, loading,fetchData] = useAxios();
   const request=useRequest()
   const windowSize=useWindowSize()
@@ -29,9 +30,7 @@ function Admin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
-  const handleClickMenu = () => {
-    setMenu(!menu);
-  };
+
 
   const handleLogOut=()=>{
     
@@ -71,12 +70,12 @@ function Admin() {
           <Home />
           <fa.FaPowerOff className="adminPowerOff" onClick={handleLogOut}/>
           {windowSize.width<960 && 
-          <NavMenu click={handleClickMenu} open={menu} />
+          <NavMenu   />
             }
         </div>
       </div>
       <div className="main">
-        <div className={`mainRight ${menu? "mainRight-active":""}`}>
+        <div className={`mainRight ${app.sidebarOpen? "mainRight-active":""}`}>
           <Sidebar />
         </div>
         <div className="mainLeft">
