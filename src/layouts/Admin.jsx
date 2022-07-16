@@ -19,6 +19,9 @@ import AppContext from "../contexts/AppContext";
 
 
 function Admin() {
+  const FirstName=localStorage.getItem("FirstName")
+  const LastName=localStorage.getItem("LastName")
+  const firstAndLastName=FirstName&&LastName?FirstName+" "+LastName :""
   const { app} = useContext(AppContext);
   const [response, loading,fetchData] = useAxios();
   const request=useRequest()
@@ -59,7 +62,7 @@ function Admin() {
         <div className="hederLeft">
           
           <span className="profileName">
-            <div> admin</div>
+            <div>{firstAndLastName}</div>
           </span>
 
           <LogOut />

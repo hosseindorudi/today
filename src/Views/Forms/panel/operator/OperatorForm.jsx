@@ -36,6 +36,8 @@ const OperatorForm = () => {
   const [values, setValues] = useState({
     IsActive: true,
     OperatorName: "",
+    FirstName:"",
+    LastName:"",
     Language_EId:1,
     Password: "",
     InternalPhone: "",
@@ -126,6 +128,8 @@ const OperatorForm = () => {
         Group_Id:operatorGroup?.value,
         Language_EId:values.Language_EId,
         OperatorName:values.OperatorName,
+        FirstName:values.FirstName,
+        LastName:values.LastName,
         Password:values.Password,
         InternalPhone:values.InternalPhone,
         Mobile:values.Mobile,
@@ -188,6 +192,30 @@ const OperatorForm = () => {
               </Form.Select>
             </Form.Group>
 
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"FirstName"}>
+              <Form.Label>{t("FirstName")}</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                value={values.FirstName}
+                placeholder={t("FirstName")}
+                name="FirstName"
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"LastName"}>
+              <Form.Label>{t("LastName")}</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                value={values.LastName}
+                placeholder={t("LastName")}
+                name="LastName"
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
           </div>
           <div className="Row">
             <Form.Group className="mb-3" controlId={"name"}>

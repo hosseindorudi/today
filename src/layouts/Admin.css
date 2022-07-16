@@ -1,7 +1,7 @@
 :root{
   --heightfooter:25px;
   --headerheight:40px;
-  --navTabHeight:40px;
+  --navTabHeight:90px;
 }
 .tabParrentDiv{
     height: calc(100vh - var(--headerheight) - var(--heightfooter));  
