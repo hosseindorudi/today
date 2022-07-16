@@ -40,8 +40,7 @@ const Auth = () => {
       data: {
         request: request,
         username: username.current.value,
-        password: password.current.value,
-        isOperator:  true 
+        password: password.current.value
       },
     });
   };
