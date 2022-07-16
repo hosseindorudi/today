@@ -33,18 +33,18 @@ const QuestionForm = () => {
     tabContext.addRemoveTabs(
       {
         title: "routes.questionForm",
-        path: "/Survey/QuestionPage/Create/",
+        path: "/Poll/QuestionPage/Create/",
         Component: QuestionForm,
-        access: enums.Survey_QuestionPage_Create_w,
+        access: enums.Poll_QuestionPage_Create_w,
       },
       "remove"
     );
     tabContext.addRemoveTabs(
       {
         title: "routes.questionList",
-        path: "/Survey/QuestionPage/Read/",
+        path: "/Poll/QuestionPage/Read/",
         Component: QuestionList,
-        access: enums.Survey_QuestionPage_Read_r,
+        access: enums.Poll_QuestionPage_Read_r,
       },
       "add"
     );

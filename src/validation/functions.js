@@ -131,14 +131,22 @@ export const checkTableValues = (type, value, post, exportAccess) => {
       return <Form.Check type="switch" disabled checked={value} />;
     case "Gender":
       return value ? t("male") : t("female");
+    case "IsReal":
+      return value ? t("real") : t("legal");
+    case "IsOfficially":
+      return value ? t("isOfficially") : t("isNotOfficially");
     case "LimitFrom":
       return post.IsLimited ? convertUTC(value) : "-";
     case "LimitTo":
       return post.IsLimited ? convertUTC(value) : "-";
-    case "DateOfIssuanceIdCard":
-      return post.IsLimited ? convertUTC(value) : "-";
-    case "DateOfBirth":
-      return post.IsLimited ? convertUTC(value) : "-";
+    case "Real_DateOfIssuanceIdCard":
+      return value ? convertUTC(value) : "-";
+    case "Real_DateOfBirth":
+      return value ? convertUTC(value) : "-";
+    case "Legal_RegistrationDate":
+      return value ? convertUTC(value) : "-";
+    case "Legal_ExpirationDate":
+      return value ? convertUTC(value) : "-";
     case "Color":
       return (
         <Form.Control

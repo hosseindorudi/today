@@ -49,9 +49,9 @@ const QuestionList = () => {
 
   const addObject = {
     Component: QuestionForm,
-    path: "/Survey/QuestionPage/Create/",
+    path: "/Poll/QuestionPage/Create/",
     title: "routes.questionForm",
-    access: enums.Survey_QuestionPage_Create_w,
+    access: enums.Poll_QuestionPage_Create_w,
   };
   const setUpdate = (res) => {
     const record = res.Record;
@@ -128,24 +128,24 @@ const QuestionList = () => {
         logApi={questionLog}
         exportId={questionExportId}
         addObject={addObject}
-        exportAccess={enums.Survey_QuestionPage_Export_r}
+        exportAccess={enums.Poll_QuestionPage_Export_r}
         exportLink={questionExport}
-        importAccess={enums.Survey_QuestionPage_Import_w}
-        logAccess={enums.Survey_QuestionPage_Log_r}
+        importAccess={enums.Poll_QuestionPage_Import_w}
+        logAccess={enums.Poll_QuestionPage_Log_r}
         readPagingApi={questionReadPaging}
-        accessListAccess={enums.Survey_QuestionPage_Read_r}
+        accessListAccess={enums.Poll_QuestionPage_Read_r}
         accessListApi={questionAccessList}
         favouriteApi={questionSetToFavorite}
         handleClickHelp={handleClickHelp}
-        addFormAccess={enums.Survey_QuestionPage_Create_w}
+        addFormAccess={enums.Poll_QuestionPage_Create_w}
         filteredColumns={filteredColumns}
-        deleteAccess={enums.Survey_QuestionPage_Delete_w}
-        editAccess={enums.Survey_QuestionPage_Update_w}
+        deleteAccess={enums.Poll_QuestionPage_Delete_w}
+        editAccess={enums.Poll_QuestionPage_Update_w}
         permissionsAccess={""}
         getOneRecord={questionGetOneRecord}
         setUpdate={setUpdate}
         setAddQuestion={setAddQuestion}
-        addAccess = {enums.Survey_QuestionPage_Delete_w}
+        addAccess = {enums.Poll_QuestionPage_Delete_w}
         mobileModal = {mobileModal}
         setMobileModal = {setMobileModal}
         widthOFScreen ={widthOFScreen}
@@ -154,7 +154,7 @@ const QuestionList = () => {
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
         addOperator={addOperator}
-        addOperatorAccess = {enums.Survey_QuestionPage}
+        addOperatorAccess = {enums.Poll_QuestionPage}
       />
     </>
     

@@ -29,9 +29,9 @@ const AnswerList = () => {
   const [response,loading, fetchData, setResponse] = useAxios();
   const addObject = {
     Component: AnswerForm,
-    path: "/Survey/Answer/Create",
+    path: "/Poll/Answer/Create",
     title: "routes.answerForm",
-    access: enums.Survey_AnswerPage_Create_w,
+    access: enums.Poll_AnswerPage_Create_w,
   };
 
 
@@ -67,11 +67,11 @@ const AnswerList = () => {
   return (
     <>
     {loading && <BackDrop open={true} />}
-{answerModalOpen &&(
-  <AnswerModal   onHide={() => setAnswerModalOpen(false)}
-  logs={rowValues}
-  show={answerModalOpen}/>
-)}
+    {answerModalOpen &&(
+      <AnswerModal   onHide={() => setAnswerModalOpen(false)}
+      logs={rowValues}
+      show={answerModalOpen}/>
+    )}
       <CustomTable
         ref={childRef}
         ReadApi={answerPageRead}
@@ -84,19 +84,19 @@ const AnswerList = () => {
         exportId={answerPageExportId}
         changePasswordURL={""}
         addObject={addObject}
-        exportAccess={enums.Survey_AnswerPage_Export_r}
+        exportAccess={enums.Poll_AnswerPage_Export_r}
         exportLink={answerPageExport}
-        importAccess={enums.Survey_AnswerPage_Import_w}
-        logAccess={enums.Survey_AnswerPage_Log_r}
+        importAccess={""}
+        logAccess={enums.Poll_AnswerPage_Log_r}
         readPagingApi={answerPageReadPaging}
-        accessListAccess={enums.Survey_AnswerPage_Read_r}
+        accessListAccess={enums.Poll_AnswerPage_Read_r}
         accessListApi={answerPageAccessList}
         favouriteApi={answerPageFavorite}
         handleClickHelp={handleClickHelp}
-        addFormAccess={enums.Survey_AnswerPage_Create_w}
+        addFormAccess={enums.Poll_AnswerPage_Create_w}
         filteredColumns={filteredColumns}
-        deleteAccess={enums.Survey_AnswerPage_Delete_w}
-        editAccess={enums.Survey_AnswerPage_Update_w}
+        deleteAccess={enums.Poll_AnswerPage_Delete_w}
+        editAccess={""}
         permissionsAccess={""}
         changePasswordAccess={""}
         getOneRecord={answerPageGetOneRecord}
@@ -108,7 +108,7 @@ const AnswerList = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
-        readAnswersAccess={enums.Survey_AnswerPage_Read_r}
+        readAnswersAccess={enums.Poll_AnswerPage_Read_r}
         handleReadAnswers={handleReadAnswers}
       />
     </>
