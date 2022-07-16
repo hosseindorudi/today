@@ -19,6 +19,7 @@ import { partGroupReadTitle } from "../../../../../services/partGroup";
 import { qualityReadTitle } from "../../../../../services/qualityService";
 import axios from "axios";
 import "./partsDefine.css";
+import { ColorReadTitle } from "../../../../../services/colorService";
 const PartsDefine = () => {
   const [type, setType] = useState("");
   const [validated, setValidated] = useState(false);
@@ -26,6 +27,8 @@ const PartsDefine = () => {
   const [partGroup, setPartGroup] = useState(undefined);
   const [qualityOptions, setQualityOptions] = useState([]);
   const [quality, setQuality] = useState(undefined);
+  const [colorOptions, setColorOptions] = useState([]);
+  const [color, setColor] = useState(undefined);
   const tabContext = useContext(TabContext);
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
@@ -39,7 +42,6 @@ const PartsDefine = () => {
     width: 0,
     height: 0,
     weight: 0,
-    BodyColor: "",
     IsPerishable: false,
     MainPart: false,
     TechnicalCode: "",
@@ -96,8 +98,9 @@ const PartsDefine = () => {
   const getDatas = () => {
     const partGroupTitles = axios.request(createParams(partGroupReadTitle));
     const qualityTitles = axios.request(createParams(qualityReadTitle));
+    const colorTitles=axios.request((createParams(ColorReadTitle)))
     axios
-      .all([partGroupTitles, qualityTitles])
+      .all([partGroupTitles, qualityTitles,colorTitles])
       .then(
         axios.spread((...allData) => {
           allData[0].data?.Result
@@ -106,6 +109,9 @@ const PartsDefine = () => {
           allData[1].data?.Result
             ? setQualityOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
+            allData[2].data?.Result
+            ? setColorOptions(createSelectOptions(allData[2].data.Title))
+            : handleError(allData[2].data.Message);
         })
       )
       .catch((error) => {
@@ -155,7 +161,7 @@ const PartsDefine = () => {
           Width: values.width,
           Height: values.height,
           Weight: values.weight,
-          BodyColor: values.BodyColor,
+          Color_Id: color?.value,
           IsPerishable: values.IsPerishable,
           MainPart: values.MainPart,
           TechnicalCode: values.TechnicalCode,
@@ -255,13 +261,14 @@ const PartsDefine = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId={"BodyColor"}>
             <Form.Label>{t("part.BodyColor")}</Form.Label>
-            <Form.Control
-              type="text"
-              min="0"
-              name="BodyColor"
-              value={values.BodyColor}
-              onChange={onChangeHandler}
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={colorOptions}
+              value={color}
+              onchangeHandler={(e) => setColor(e)}
+              placeholder={t("part.BodyColor")}
             />
+          
           </Form.Group>
           <Form.Group className="mb-3" controlId={"IsPerishable"}>
             <Form.Label>{t("part.IsPerishable")}</Form.Label>

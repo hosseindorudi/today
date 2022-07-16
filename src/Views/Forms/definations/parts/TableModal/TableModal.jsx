@@ -11,6 +11,7 @@ import axios from "axios";
 import { partGroupReadTitle } from "../../../../../services/partGroup";
 import { qualityReadTitle } from "../../../../../services/qualityService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
+import { ColorReadTitle } from "../../../../../services/colorService";
 
 
 const TableModal = (props) => {
@@ -21,7 +22,8 @@ const TableModal = (props) => {
   const [partGroup, setPartGroup] = useState(undefined);
   const [qualityOptions, setQualityOptions] = useState([]);
   const [quality, setQuality] = useState(undefined);
-
+  const [colorOptions, setColorOptions] = useState([]);
+  const [color, setColor] = useState(undefined);
   const request = useRequest();
   const abortController = new AbortController();
   const [values, setValues] = useState({
@@ -33,7 +35,6 @@ const TableModal = (props) => {
     width:0,
     height:0,
     weight:0,
-    BodyColor:"",
     IsPerishable:false,
     MainPart:false,
     TechnicalCode:""
@@ -70,7 +71,6 @@ const TableModal = (props) => {
       width:prop.Width,
       height:prop.Height,
       weight:prop.Weight,
-      BodyColor:prop.BodyColor,
       IsPerishable:prop.IsPerishable,
       MainPart:prop.MainPart,
       TechnicalCode:prop.TechnicalCode
@@ -94,6 +94,10 @@ const TableModal = (props) => {
     setPartGroup(partGroupOptions.find(i=>i.value===props.rowValus.PartGroup_Id))
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [partGroupOptions])
+  useEffect(() => {
+    setColor(colorOptions.find(i=>i.value===props.rowValus.Color_Id))
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colorOptions])
  const getDatas=()=>{
     const partGroupTitles = axios.request(
       createParams(partGroupReadTitle)
@@ -101,10 +105,12 @@ const TableModal = (props) => {
     const qualityTitles = axios.request(
       createParams(qualityReadTitle)
     );
+    const colorTitles=axios.request((createParams(ColorReadTitle)))
     axios
     .all([
       partGroupTitles,
       qualityTitles,
+      colorTitles
     ])
     .then(
       axios.spread((...allData) => {
@@ -116,6 +122,9 @@ const TableModal = (props) => {
               createSelectOptions(allData[1].data.Title)
             )
           : handleError(allData[1].data.Message);
+          allData[2].data?.Result
+          ? setColorOptions(createSelectOptions(allData[2].data.Title))
+          : handleError(allData[2].data.Message);
           })
     )
     .catch((error) => {
@@ -150,7 +159,7 @@ const TableModal = (props) => {
     setValidated(true);
     if (form.checkValidity()) {
       setType("SUBMIT");
-      console.log(partGroup)
+  
       fetchData({
         method: "POST",
         url: PartUpdate,
@@ -166,7 +175,7 @@ const TableModal = (props) => {
           Width:values.width,
           Height:values.height,
           Weight:values.weight,
-          BodyColor:values.BodyColor,
+          Color_Id: color?.value,
           IsPerishable:values.IsPerishable,
           MainPart:values.MainPart,
           TechnicalCode:values.TechnicalCode,
@@ -270,12 +279,12 @@ const TableModal = (props) => {
           </Form.Group>
           <Form.Group className="mb-3" controlId={"BodyColor"}>
             <Form.Label>{t("part.BodyColor")}</Form.Label>
-            <Form.Control
-              type="text"
-              min="0"
-              name="BodyColor"
-              value={values.BodyColor}
-              onChange={onChangeHandler}
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={colorOptions}
+              value={color}
+              onchangeHandler={(e) => setColor(e)}
+              placeholder={t("part.BodyColor")}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId={"IsPerishable"}>

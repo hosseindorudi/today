@@ -23,7 +23,7 @@ import useWindowSize from "../../../../customHooks/useWindowSize";
 import ColorForm from "./colorForm/ColorForm";
 
 const ColorList = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar", "SourceType"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

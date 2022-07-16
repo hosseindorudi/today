@@ -24,7 +24,7 @@ import CountryForm from './countryForm/CountryForm';
 
 const Countrylist = () => {
 
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+    const filteredColumns = ["IsLimited",  "Registrar","SourceType"];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});

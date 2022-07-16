@@ -23,7 +23,7 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import DeviceForm from './deviceForm/DeviceForm';
 
 const DeviceList = () => {
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType", "Company_Id"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType", "Company_Id"];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});

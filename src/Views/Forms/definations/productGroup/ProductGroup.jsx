@@ -37,7 +37,7 @@ import ImportCSV from "../../../../Components/Table/ImportCSVButton/ImportCSV";
 import ProductGroupDefine from "./productGroupDefine/ProductGroupDefine";
 import { productGroupAccessList, productGroupCheckFile, productGroupDelete, productGroupExport, productGroupExportId, productGroupFavorite, productGroupGetOneRecord, productGroupImportFile, productGroupLog, productGroupRead, productGroupReadPaging, productGroupSampleFile, productGroupSetUnselectedColumn } from "../../../../services/productGroup";
 const ProductGroup = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar","ProductGroup_Id","Language_EId","SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar","ProductGroup_Id","Language_EId","SourceType"];
   const [response, loading, fetchData, setResponse] = useAxios();
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);
