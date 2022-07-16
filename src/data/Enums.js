@@ -1,25 +1,39 @@
 const enums ={
+  
     //Custom
 
 
     Module_Operator : 100,
-    Module_Agent : 200,
+    //Module_Agent : 200,
     Module_Customer : 300,
     Module_Definition : 400,
-    //Module_HumanResource : 500,
-    //Module_Financial : 600,
+    //Module_Financial : 500,
+    //Module_Treasury : 600,
     //Module_Warehouse : 700,
-    //Module_Treasury : 800,
-    Module_Business : 900,
-    Module_SupplyChain : 1000,
-    //Module_Store : 1100,
-    Module_Distribution : 1200,
-    Module_AfterSales : 1300,
-    //Module_CustomerRelationshipManagement : 1400,
-    //Module_Club : 1500,
-    Module_Survey : 1600,
-    //Module_BalancedScorecard : 1700,
-    //Module_BusinessIntelligence : 1800,
+    //Module_Asset : 800,
+    //Module_OfficeAutomation : 900,
+    //Module_HumanResource : 1000,
+    //Module_Payroll : 1100,
+    //Module_Purchasing : 1200,
+    //Module_Manufacturing : 1300,
+    //Module_PPB : 1400,
+    //Module_Project : 1500,
+    //Module_Logistic : 1600,
+    Module_Business : 1700,
+    //Module_Contract : 1800,
+    //Module_Trading : 1900,
+    Module_Marketing : 2000,
+    //Module_OrganizationalSales : 2100,
+    //Module_Store : 2200,
+    //Module_Distribution : 2300,
+    Module_AfterSales : 2400,
+    //Module_CRM : 2500,
+    //Module_Club : 2600,
+    //Module_Education : 2700,
+    Module_Poll : 2800,
+    //Module_BalancedScorecard : 2900,
+    //Module_BusinessIntelligence : 3000,
+    
     //Module_Setting : 9900,
     //Module_System : 10000,
 
@@ -29,99 +43,100 @@ const enums ={
     Customer_Customer_ChangePassword_w : 305108,
 
 
-    AfterSales_New_Registered : 1300110,
-    AfterSales_New_Registered_Create_w : 1300111,
-    AfterSales_New_Registered_Read_r : 1300112,
-    AfterSales_New_Registered_Update_w : 1300113,
-    AfterSales_New_Registered_Delete_w : 1300114,
-    AfterSales_New_Registered_Import_w : 1300115,
-    AfterSales_New_Registered_Export_r : 1300116,
-    AfterSales_New_Registered_Log_r : 1300117,
+    AfterSales_New_Registered : 2400110,
+    AfterSales_New_Registered_Create_w : 2400111,
+    AfterSales_New_Registered_Read_r : 2400112,
+    AfterSales_New_Registered_Update_w : 2400113,
+    AfterSales_New_Registered_Delete_w : 2400114,
+    AfterSales_New_Registered_Import_w : 2400115,
+    AfterSales_New_Registered_Export_r : 2400116,
+    AfterSales_New_Registered_Log_r : 2400117,
 
-    AfterSales_New_SendToCompany : 1300120,
-    AfterSales_New_SendToCompany_Create_w : 1300121,
-    AfterSales_New_SendToCompany_Read_r : 1300122,
-    AfterSales_New_SendToCompany_Update_w : 1300123,
-    AfterSales_New_SendToCompany_Delete_w : 1300124,
-    AfterSales_New_SendToCompany_Import_w : 1300125,
-    AfterSales_New_SendToCompany_Export_r : 1300126,
-    AfterSales_New_SendToCompany_Log_r : 1300127,
+    AfterSales_New_SendToCompany : 2400120,
+    AfterSales_New_SendToCompany_Create_w : 2400121,
+    AfterSales_New_SendToCompany_Read_r : 2400122,
+    AfterSales_New_SendToCompany_Update_w : 2400123,
+    AfterSales_New_SendToCompany_Delete_w : 2400124,
+    AfterSales_New_SendToCompany_Import_w : 2400125,
+    AfterSales_New_SendToCompany_Export_r : 2400126,
+    AfterSales_New_SendToCompany_Log_r : 2400127,
     
-    AfterSales_New_Admission : 1300130,
-    AfterSales_New_Admission_Create_w : 1300131,
-    AfterSales_New_Admission_Read_r : 1300132,
-    AfterSales_New_Admission_Update_w : 1300133,
-    AfterSales_New_Admission_Delete_w : 1300134,
-    AfterSales_New_Admission_Import_w : 1300135,
-    AfterSales_New_Admission_Export_r : 1300136,
-    AfterSales_New_Admission_Log_r : 1300137,
+    AfterSales_New_Admission : 2400130,
+    AfterSales_New_Admission_Create_w : 2400131,
+    AfterSales_New_Admission_Read_r : 2400132,
+    AfterSales_New_Admission_Update_w : 2400133,
+    AfterSales_New_Admission_Delete_w : 2400134,
+    AfterSales_New_Admission_Import_w : 2400135,
+    AfterSales_New_Admission_Export_r : 2400136,
+    AfterSales_New_Admission_Log_r : 2400137,
 
-    AfterSales_New_InputQualityControl : 1300140,
-    AfterSales_New_InputQualityControl_Read_r : 1300142,
-    AfterSales_New_InputQualityControl_Export_r : 1300146,
-    AfterSales_New_InputQualityControl_Log_r : 1300147,
-    AfterSales_New_InputQualityControl_Qc_w : 1300148,
+    AfterSales_New_InputQualityControl : 2400140,
+    AfterSales_New_InputQualityControl_Read_r : 2400142,
+    AfterSales_New_InputQualityControl_Export_r : 2400146,
+    AfterSales_New_InputQualityControl_Log_r : 2400147,
+    AfterSales_New_InputQualityControl_Qc_w : 2400148,
 
-    AfterSales_New_AssignToTechnician : 1300150,
-    AfterSales_New_AssignToTechnician_Read_r : 1300152,
-    AfterSales_New_AssignToTechnician_Export_r : 1300156,
-    AfterSales_New_AssignToTechnician_Log_r : 1300157,
-    AfterSales_New_AssignToTechnician_Assign_w : 1300158,
+    AfterSales_New_AssignToTechnician : 2400150,
+    AfterSales_New_AssignToTechnician_Read_r : 2400152,
+    AfterSales_New_AssignToTechnician_Export_r : 2400156,
+    AfterSales_New_AssignToTechnician_Log_r : 2400157,
+    AfterSales_New_AssignToTechnician_Assign_w : 2400158,
 
-    AfterSales_New_Repair : 1300160,
-    AfterSales_New_Repair_Read_r : 1300162,
-    AfterSales_New_Repair_Export_r : 1300166,
-    AfterSales_New_Repair_Log_r : 1300167,
-    AfterSales_New_Repair_Repair_w : 1300168,
+    AfterSales_New_Repair : 2400160,
+    AfterSales_New_Repair_Read_r : 2400162,
+    AfterSales_New_Repair_Export_r : 2400166,
+    AfterSales_New_Repair_Log_r : 2400167,
+    AfterSales_New_Repair_Repair_w : 2400168,
 
-    AfterSales_New_OutputQualityControl : 1300170,
-    AfterSales_New_OutputQualityControl_Read_r : 1300172,
-    AfterSales_New_OutputQualityControl_Export_r : 1300176,
-    AfterSales_New_OutputQualityControl_Log_r : 1300177,
-    AfterSales_New_OutputQualityControl_Qc_w : 1300178,
+    AfterSales_New_OutputQualityControl : 2400170,
+    AfterSales_New_OutputQualityControl_Read_r : 2400172,
+    AfterSales_New_OutputQualityControl_Export_r : 2400176,
+    AfterSales_New_OutputQualityControl_Log_r : 2400177,
+    AfterSales_New_OutputQualityControl_Qc_w : 2400178,
 
-    AfterSales_New_Replacement : 1300180,
-    AfterSales_New_Replacement_Read_r : 1300182,
-    AfterSales_New_Replacement_Export_r : 1300186,
-    AfterSales_New_Replacement_Log_r : 1300187,
-    AfterSales_New_Replacement_Replacement_w : 1300188,
+    AfterSales_New_Replacement : 2400180,
+    AfterSales_New_Replacement_Read_r : 2400182,
+    AfterSales_New_Replacement_Export_r : 2400186,
+    AfterSales_New_Replacement_Log_r : 2400187,
+    AfterSales_New_Replacement_Replacement_w : 2400188,
 
-    AfterSales_New_TakeBack : 1300190,
-    AfterSales_New_TakeBack_Read_r : 1300192,
-    AfterSales_New_TakeBack_Export_r : 1300196,
-    AfterSales_New_TakeBack_Log_r : 1300197,
-    AfterSales_New_TakeBack_TakeBack_w : 1300198,
+    AfterSales_New_TakeBack : 2400190,
+    AfterSales_New_TakeBack_Read_r : 2400192,
+    AfterSales_New_TakeBack_Export_r : 2400196,
+    AfterSales_New_TakeBack_Log_r : 2400197,
+    AfterSales_New_TakeBack_TakeBack_w : 2400198,
 
-    AfterSales_New_DeliveryInPerson : 1300200,
-    AfterSales_New_DeliveryInPerson_Read_r : 1300202,
-    AfterSales_New_DeliveryInPerson_Export_r : 1300206,
-    AfterSales_New_DeliveryInPerson_Log_r : 1300207,
-    AfterSales_New_DeliveryInPerson_Delivery_w : 1300208,
+    AfterSales_New_DeliveryInPerson : 2400200,
+    AfterSales_New_DeliveryInPerson_Read_r : 2400202,
+    AfterSales_New_DeliveryInPerson_Export_r : 2400206,
+    AfterSales_New_DeliveryInPerson_Log_r : 2400207,
+    AfterSales_New_DeliveryInPerson_Delivery_w : 2400208,
 
-    AfterSales_New_Courier : 1300210,
-    AfterSales_New_Courier_Read_r : 1300212,
-    AfterSales_New_Courier_Export_r : 1300216,
-    AfterSales_New_Courier_Log_r : 1300217,
-    AfterSales_New_Courier_Send_w : 1300218,
+    AfterSales_New_Courier : 2400210,
+    AfterSales_New_Courier_Read_r : 2400212,
+    AfterSales_New_Courier_Export_r : 2400216,
+    AfterSales_New_Courier_Log_r : 2400217,
+    AfterSales_New_Courier_Send_w : 2400218,
 
-    AfterSales_New_PostToAgent : 1300220,
-    AfterSales_New_PostToAgent_Read_r : 1300222,
-    AfterSales_New_PostToAgent_Export_r : 1300226,
-    AfterSales_New_PostToAgent_Log_r : 1300227,
-    AfterSales_New_PostToAgent_Post_w : 1300228,
+    AfterSales_New_PostToAgent : 2400220,
+    AfterSales_New_PostToAgent_Read_r : 2400222,
+    AfterSales_New_PostToAgent_Export_r : 2400226,
+    AfterSales_New_PostToAgent_Log_r : 2400227,
+    AfterSales_New_PostToAgent_Post_w : 2400228,
 
-    AfterSales_New_PostToCustomer : 1300230,
-    AfterSales_New_PostToCustomer_Read_r : 1300232,
-    AfterSales_New_PostToCustomer_Export_r : 1300236,
-    AfterSales_New_PostToCustomer_Log_r : 1300237,
-    AfterSales_New_PostToCustomer_Post_w : 1300238,
+    AfterSales_New_PostToCustomer : 2400230,
+    AfterSales_New_PostToCustomer_Read_r : 2400232,
+    AfterSales_New_PostToCustomer_Export_r : 2400236,
+    AfterSales_New_PostToCustomer_Log_r : 2400237,
+    AfterSales_New_PostToCustomer_Post_w : 2400238,
 
-    AfterSales_New_Archive : 1300240,
-    AfterSales_New_Archive_Read_r : 1300242,
-    AfterSales_New_Archive_Export_r : 1300246,
-    AfterSales_New_Archive_Log_r : 1300247,
+    AfterSales_New_Archive : 2400240,
+    AfterSales_New_Archive_Read_r : 2400242,
+    AfterSales_New_Archive_Export_r : 2400246,
+    AfterSales_New_Archive_Log_r : 2400247,
 
     //Custom
+
 
 
 
@@ -208,88 +223,6 @@ const enums ={
 
 
 
-    //Agent - 200
-    ////////////////////////////////////////////////////////////
-
-    //Dashboard
-    Agent_Dashboard_Index : 200100,
-    Agent_Dashboard_Index_Read_r : 200101,
-
-
-    //tbl_Agn_AccessList
-    Agent_AccessList_Read_r : 201102,
-
-
-    //tbl_Agn_Agent
-    Agent_Agent : 203100,
-    Agent_Agent_Create_w : 203101,
-    Agent_Agent_Read_r : 203102,
-    Agent_Agent_Update_w : 203103,
-    Agent_Agent_Delete_w : 203104,
-    Agent_Agent_Import_w : 203105,
-    Agent_Agent_Export_r : 203106,
-    Agent_Agent_Log_r : 203107,
-
-
-    //tbl_Agn_AllowedIp
-    Agent_AllowedIp : 204100,
-    Agent_AllowedIp_Create_w : 204101,
-    Agent_AllowedIp_Read_r : 204102,
-    Agent_AllowedIp_Update_w : 204103,
-    Agent_AllowedIp_Delete_w : 204104,
-    Agent_AllowedIp_Import_w : 204105,
-    Agent_AllowedIp_Export_r : 204106,
-    Agent_AllowedIp_Log_r : 204107,
-
-
-    //tbl_Agn_BruteForce
-    Agent_BruteForce : 205100,
-    Agent_BruteForce_Read_r : 205102,
-    Agent_BruteForce_Delete_w : 205104,
-    Agent_BruteForce_Export_r : 205106,
-    Agent_BruteForce_Log_r : 205107,
-
-
-    //tbl_Agn_Event
-    Agent_Event : 206100,
-    Agent_Event_Read_r : 206102,
-    Agent_Event_Export_r : 206106,
-
-
-    //tbl_Agn_FailedHistory
-    Agent_FailedHistory : 207100,
-    Agent_FailedHistory_Read_r : 207102,
-    Agent_FailedHistory_Export_r : 207106,
-    Agent_FailedHistory_Log_r : 207107,
-
-
-    //tbl_Agn_Group
-    Agent_Group : 209100,
-    Agent_Group_Create_w : 209101,
-    Agent_Group_Read_r : 209102,
-    Agent_Group_Update_w : 209103,
-    Agent_Group_Delete_w : 209104,
-    Agent_Group_Import_w : 209105,
-    Agent_Group_Export_r : 209106,
-    Agent_Group_Log_r : 209107,
-
-
-    //tbl_Agn_LoginHistory
-    Agent_LoginHistory : 210100,
-    Agent_LoginHistory_Read_r : 210102,
-    Agent_LoginHistory_Export_r : 210106,
-    Agent_LoginHistory_Log_r : 210107,
-
-
-    //tbl_Agn_OnlineAgent
-    Agent_OnlineAgent : 212100,
-    Agent_OnlineAgent_Read_r : 212102,
-    Agent_OnlineAgent_Delete_w : 212104,
-    Agent_OnlineAgent_Export_r : 212106,
-    Agent_OnlineAgent_Log_r : 212107,
-
-
-
     //Customer - 300
     ////////////////////////////////////////////////////////////
 
@@ -298,62 +231,58 @@ const enums ={
     Customer_Dashboard_Index_Read_r : 300101,
 
 
-    //tbl_Cst_AccessList
-    Customer_AccessList_Read_r : 301102,
-
-
     //tbl_Cst_AllowedIp
-    Customer_AllowedIp : 303100,
-    Customer_AllowedIp_Create_w : 303101,
-    Customer_AllowedIp_Read_r : 303102,
-    Customer_AllowedIp_Update_w : 303103,
-    Customer_AllowedIp_Delete_w : 303104,
-    Customer_AllowedIp_Import_w : 303105,
-    Customer_AllowedIp_Export_r : 303106,
-    Customer_AllowedIp_Log_r : 303107,
+    Customer_AllowedIp : 302100,
+    Customer_AllowedIp_Create_w : 302101,
+    Customer_AllowedIp_Read_r : 302102,
+    Customer_AllowedIp_Update_w : 302103,
+    Customer_AllowedIp_Delete_w : 302104,
+    Customer_AllowedIp_Import_w : 302105,
+    Customer_AllowedIp_Export_r : 302106,
+    Customer_AllowedIp_Log_r : 302107,
 
 
     //tbl_Cst_BruteForce
-    Customer_BruteForce : 305100,
-    Customer_BruteForce_Read_r : 305102,
-    Customer_BruteForce_Delete_w : 305104,
-    Customer_BruteForce_Export_r : 305106,
-    Customer_BruteForce_Log_r : 305107,
+    Customer_BruteForce : 306100,
+    Customer_BruteForce_Read_r : 306102,
+    Customer_BruteForce_Delete_w : 306104,
+    Customer_BruteForce_Export_r : 306106,
+    Customer_BruteForce_Log_r : 306107,
 
 
     //tbl_Cst_Courier
-    Customer_Courier : 306100,
-    Customer_Courier_Create_w : 306101,
-    Customer_Courier_Read_r : 306102,
-    Customer_Courier_Update_w : 306103,
-    Customer_Courier_Delete_w : 306104,
-    Customer_Courier_Import_w : 306105,
-    Customer_Courier_Export_r : 306106,
-    Customer_Courier_Log_r : 306107,
+    Customer_Courier : 307100,
+    Customer_Courier_Create_w : 307101,
+    Customer_Courier_Read_r : 307102,
+    Customer_Courier_Update_w : 307103,
+    Customer_Courier_Delete_w : 307104,
+    Customer_Courier_Import_w : 307105,
+    Customer_Courier_Export_r : 307106,
+    Customer_Courier_Log_r : 307107,
 
 
     //tbl_Cst_Customer
-    Customer_Customer : 307100,
-    Customer_Customer_Create_w : 307101,
-    Customer_Customer_Read_r : 307102,
-    Customer_Customer_Update_w : 307103,
-    Customer_Customer_Delete_w : 307104,
-    Customer_Customer_Import_w : 307105,
-    Customer_Customer_Export_r : 307106,
-    Customer_Customer_Log_r : 307107,
+    Customer_Customer : 308100,
+    Customer_Customer_Create_w : 308101,
+    Customer_Customer_Read_r : 308102,
+    Customer_Customer_Update_w : 308103,
+    Customer_Customer_Delete_w : 308104,
+    Customer_Customer_Import_w : 308105,
+    Customer_Customer_Export_r : 308106,
+    Customer_Customer_Log_r : 308107,
 
 
     //tbl_Cst_Event
-    Customer_Event : 308100,
-    Customer_Event_Read_r : 308102,
-    Customer_Event_Export_r : 308106,
+    Customer_Event : 309100,
+    Customer_Event_Read_r : 309102,
+    Customer_Event_Export_r : 309106,
 
 
     //tbl_Cst_FailedHistory
-    Customer_FailedHistory : 309100,
-    Customer_FailedHistory_Read_r : 309102,
-    Customer_FailedHistory_Export_r : 309106,
-    Customer_FailedHistory_Log_r : 309107,
+    Customer_FailedHistory : 310100,
+    Customer_FailedHistory_Read_r : 310102,
+    Customer_FailedHistory_Export_r : 310106,
+    Customer_FailedHistory_Log_r : 310107,
 
 
     //tbl_Cst_Group
@@ -744,117 +673,148 @@ const enums ={
 
 
 
-    //Business - 900
+    //Business - 1700
     ////////////////////////////////////////////////////////////
 
     //Dashboard
-    Business_Dashboard_Index : 900100,
-    Business_Dashboard_Index_Read_r : 900101,
+    Business_Dashboard_Index : 1700100,
+    Business_Dashboard_Index_Read_r : 1700101,
+
+
+    //tbl_Bsn_Activated
+    Business_Activated : 1701100,
+    Business_Activated_Read_r : 1701102,
+    Business_Activated_Export_r : 1701106,
+    Business_Activated_Log_r : 1701107,
 
 
     //tbl_Bsn_RegistrationGood
-    Business_RegistrationGood : 901100,
-    Business_RegistrationGood_Create_w : 901101,
-    Business_RegistrationGood_Read_r : 901102,
-    Business_RegistrationGood_Update_w : 901103,
-    Business_RegistrationGood_Delete_w : 901104,
-    Business_RegistrationGood_Import_w : 901105,
-    Business_RegistrationGood_Export_r : 901106,
-    Business_RegistrationGood_Log_r : 901107,
-
-
-    //tbl_Bsn_Synchronization
-    Business_Synchronization : 902100,
-    Business_Synchronization_Create_w : 902101,
-    Business_Synchronization_Read_r : 902102,
-    Business_Synchronization_Update_w : 902103,
-    Business_Synchronization_Delete_w : 902104,
-    Business_Synchronization_Import_w : 902105,
-    Business_Synchronization_Export_r : 902106,
-    Business_Synchronization_Log_r : 902107,
+    Business_RegistrationGood : 1702100,
+    Business_RegistrationGood_Create_w : 1702101,
+    Business_RegistrationGood_Read_r : 1702102,
+    Business_RegistrationGood_Update_w : 1702103,
+    Business_RegistrationGood_Delete_w : 1702104,
+    Business_RegistrationGood_Import_w : 1702105,
+    Business_RegistrationGood_Export_r : 1702106,
+    Business_RegistrationGood_Log_r : 1702107,
 
 
 
-    //SupplyChain - 1000
+    //Marketing - 2000
     ////////////////////////////////////////////////////////////
 
     //Dashboard
-    SupplyChain_Dashboard_Index : 1000100,
-    SupplyChain_Dashboard_Index_Read_r : 1000101,
+    Marketing_Dashboard_Index : 2000100,
+    Marketing_Dashboard_Index_Read_r : 2000101,
+
+
+    //tbl_Mrk_Message
+    Marketing_Message : 2001100,
+    Marketing_Message_Create_w : 2001101,
+    Marketing_Message_Read_r : 2001102,
+    Marketing_Message_Update_w : 2001103,
+    Marketing_Message_Delete_w : 2001104,
+    Marketing_Message_Import_w : 2001105,
+    Marketing_Message_Export_r : 2001106,
+    Marketing_Message_Log_r : 2001107,
+
+
+    //tbl_Mrk_Outbox
+    Marketing_Outbox : 2002100,
+    Marketing_Outbox_Read_r : 2002102,
+    Marketing_Outbox_Export_r : 2002106,
+    Marketing_Outbox_Log_r : 2002107,
+
+
+    //tbl_Mrk_PhoneNumber
+    Marketing_PhoneNumber : 2003100,
+    Marketing_PhoneNumber_Create_w : 2003101,
+    Marketing_PhoneNumber_Read_r : 2003102,
+    Marketing_PhoneNumber_Update_w : 2003103,
+    Marketing_PhoneNumber_Delete_w : 2003104,
+    Marketing_PhoneNumber_Import_w : 2003105,
+    Marketing_PhoneNumber_Export_r : 2003106,
+    Marketing_PhoneNumber_Log_r : 2003107,
+
+
+    //tbl_Mrk_PhonePool
+    Marketing_PhonePool : 2004100,
+    Marketing_PhonePool_Create_w : 2004101,
+    Marketing_PhonePool_Read_r : 2004102,
+    Marketing_PhonePool_Update_w : 2004103,
+    Marketing_PhonePool_Delete_w : 2004104,
+    Marketing_PhonePool_Import_w : 2004105,
+    Marketing_PhonePool_Export_r : 2004106,
+    Marketing_PhonePool_Log_r : 2004107,
+
+
+    //tbl_Mrk_PollLink
+    Marketing_PollLink : 2005100,
+    Marketing_PollLink_Read_r : 2005102,
+    Marketing_PollLink_Export_r : 2005106,
+    Marketing_PollLink_Log_r : 2005107,
 
 
 
-    //Distribution - 1200
+    //AfterSales - 2400
     ////////////////////////////////////////////////////////////
 
     //Dashboard
-    Distribution_Dashboard_Index : 1200100,
-    Distribution_Dashboard_Index_Read_r : 1200101,
-
-
-    //tbl_Dsb_DeliveryRegister
-    Distribution_DeliveryRegister : 1201100,
-    Distribution_DeliveryRegister_Create_w : 1201101,
-    Distribution_DeliveryRegister_Read_r : 1201102,
-    Distribution_DeliveryRegister_Export_r : 1201106,
-    Distribution_DeliveryRegister_Log_r : 1201107,
-
-
-    //tbl_Dsb_Package
-    Distribution_Package : 1202100,
-    Distribution_Package_Create_w : 1202101,
-    Distribution_Package_Read_r : 1202102,
-    Distribution_Package_Update_w : 1202103,
-    Distribution_Package_Delete_w : 1202104,
-    Distribution_Package_Import_w : 1202105,
-    Distribution_Package_Export_r : 1202106,
-    Distribution_Package_Log_r : 1202107,
-
-
-
-    //AfterSales - 1300
-    ////////////////////////////////////////////////////////////
-
-    //Dashboard
-    AfterSales_Dashboard_Index : 1300100,
-    AfterSales_Dashboard_Index_Read_r : 1300101,
+    AfterSales_Dashboard_Index : 2400100,
+    AfterSales_Dashboard_Index_Read_r : 2400101,
 
 
     //tbl_Afs_InitialAdmission
-    AfterSales_InitialAdmission : 1306100,
-    AfterSales_InitialAdmission_Read_r : 1306102,
-    AfterSales_InitialAdmission_Delete_w : 1306104,
-    AfterSales_InitialAdmission_Export_r : 1306106,
-    AfterSales_InitialAdmission_Log_r : 1306107,
+    AfterSales_InitialAdmission : 2406100,
+    AfterSales_InitialAdmission_Read_r : 2406102,
+    AfterSales_InitialAdmission_Delete_w : 2406104,
+    AfterSales_InitialAdmission_Export_r : 2406106,
+    AfterSales_InitialAdmission_Log_r : 2406107,
 
 
 
-    //Survey - 1600
+    //Poll - 2800
     ////////////////////////////////////////////////////////////
 
     //Dashboard
-    Survey_Dashboard_Index : 1600100,
-    Survey_Dashboard_Index_Read_r : 1600101,
+    Poll_Dashboard_Index : 2800100,
+    Poll_Dashboard_Index_Read_r : 2800101,
 
 
-    //tbl_Srv_AnswerPage
-    Survey_AnswerPage : 1603100,
-    Survey_AnswerPage_Create_w : 1603101,
-    Survey_AnswerPage_Read_r : 1603102,
-    Survey_AnswerPage_Delete_w : 1603104,
-    Survey_AnswerPage_Export_r : 1603106,
-    Survey_AnswerPage_Log_r : 1603107,
+    //tbl_Pll_AnswerPage
+    Poll_AnswerPage : 2803100,
+    Poll_AnswerPage_Create_w : 2803101,
+    Poll_AnswerPage_Read_r : 2803102,
+    Poll_AnswerPage_Delete_w : 2803104,
+    Poll_AnswerPage_Export_r : 2803106,
+    Poll_AnswerPage_Log_r : 2803107,
 
 
-    //tbl_Srv_QuestionPage
-    Survey_QuestionPage : 1606100,
-    Survey_QuestionPage_Create_w : 1606101,
-    Survey_QuestionPage_Read_r : 1606102,
-    Survey_QuestionPage_Update_w : 1606103,
-    Survey_QuestionPage_Delete_w : 1606104,
-    Survey_QuestionPage_Import_w : 1606105,
-    Survey_QuestionPage_Export_r : 1606106,
-    Survey_QuestionPage_Log_r : 1606107,
+    //tbl_Pll_QuestionPage
+    Poll_QuestionPage : 2806100,
+    Poll_QuestionPage_Create_w : 2806101,
+    Poll_QuestionPage_Read_r : 2806102,
+    Poll_QuestionPage_Update_w : 2806103,
+    Poll_QuestionPage_Delete_w : 2806104,
+    Poll_QuestionPage_Import_w : 2806105,
+    Poll_QuestionPage_Export_r : 2806106,
+    Poll_QuestionPage_Log_r : 2806107,
+
+
+
+    //Setting - 9900
+    ////////////////////////////////////////////////////////////
+
+    //Dashboard
+    Setting_Dashboard_Index : 9900100,
+    Setting_Dashboard_Index_Read_r : 9900101,
+
+
+    //tbl_Stn_Setting
+    Setting_Setting : 9900100,
+    Setting_Setting_Read_r : 9900102,
+    Setting_Setting_Update_w : 9900103,
+    Setting_Setting_Log_r : 9900107,
 
 
 

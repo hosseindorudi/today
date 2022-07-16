@@ -23,27 +23,14 @@ const Auth = () => {
   const location = useLocation();
   const request = useRequest();
   const from = location.state?.from?.pathname || "/";
-  const { app } = useContext(AppContext);
+  const { setApp } = useContext(AppContext);
   const navigate = useNavigate();
   const username = useRef();
   const password = useRef();
   const { t } = useTranslation();
-  const radioTypes = ["operator", "agent"];
-  const [radioType, setRadioType] = useState("operator");
   const [passVisible, setpassVisible] = useState(false);
-  const handleChangeRadio = (event) => {
-    setRadioType(event.target.id);
-  };
-  useEffect(() => {
-    app.type && setRadioType(app.type);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!radioType.length)
-      return toast.error(t("auth.chooseOperator"), {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
     fetchData({
       method: "POST",
       url: login,
@@ -54,16 +41,20 @@ const Auth = () => {
         request: request,
         username: username.current.value,
         password: password.current.value,
-        isOperator: radioType === "operator" ? true : false,
+        isOperator:  true 
       },
     });
   };
 
   const setToken = useCallback(
-    (token) => {
-      localStorage.setItem("token", token);
+    (response) => {
+      localStorage.setItem("token",response.Message);
+      localStorage.setItem("FirstName",response.FirstName)
+      localStorage.setItem("LastName",response.LastName)
+      setApp(prev=>({...prev,FirstName:response.FirstName,LastName:response.LastName}))
       return navigate(from, { replace: true });
     },
+     // eslint-disable-next-line react-hooks/exhaustive-deps
     [navigate, from]
   );
 
@@ -77,7 +68,7 @@ const Auth = () => {
   useEffect(() => {
     if (response) {
       response.Result
-        ? setToken(response.Message)
+        ? setToken(response)
         : handleError(response.Message);
     }
     // if(error){
@@ -123,20 +114,7 @@ const Auth = () => {
               {!passVisible ? <bs.BsFillEyeFill /> : <bs.BsFillEyeSlashFill />}
             </span>
           </Form.Group>
-          <div className="mb-3">
-            {radioTypes.map((key, index) => (
-              <Form.Check
-                inline
-                checked={radioType === key ? true : false}
-                label={t(`auth.${key}`)}
-                name="loginType"
-                type="radio"
-                id={key}
-                key={index}
-                onChange={handleChangeRadio}
-              />
-            ))}
-          </div>
+        
 
           <div className="authSubmitDiv">
             <Button

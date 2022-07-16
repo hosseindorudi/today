@@ -29,6 +29,8 @@ const TableModal = (props) => {
   const [values, setValues] = useState({
     IsActive: rowValues.IsActive,
     OperatorName:rowValues.OperatorName,
+    FirstName:rowValues.FirstName,
+    LastName:rowValues.LastName,
     Language_EId:rowValues.Language_EId,
     InternalPhone: rowValues.InternalPhone,
     Mobile: rowValues.Mobile,
@@ -104,6 +106,8 @@ const TableModal = (props) => {
         Group_Id:operatorGroup?.value,
         Language_EId:values.Language_EId,
         OperatorName:values.OperatorName,
+        FirstName:values.FirstName,
+        LastName:values.LastName,
         Password:"",
         InternalPhone:values.InternalPhone,
         Mobile:values.Mobile,
@@ -170,6 +174,30 @@ const TableModal = (props) => {
               </Form.Select>
             </Form.Group>
 
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"FirstName"}>
+              <Form.Label>{t("FirstName")}</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                value={values.FirstName}
+                placeholder={t("FirstName")}
+                name="FirstName"
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"LastName"}>
+              <Form.Label>{t("LastName")}</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                value={values.LastName}
+                placeholder={t("LastName")}
+                name="LastName"
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
           </div>
           <div className="Row">
             <Form.Group className="mb-3" controlId={"name"}>
