@@ -20,7 +20,6 @@ import { TabContext } from "../../../../contexts/TabContextProvider";
 import { customerGroupReadTitle } from "../../../../services/customerGroupService";
 import {
   idCodeValidation,
-  phoneNumberValidation,
 } from "../../../../validation/validation";
 import CustomerList from "./list/CustomerList";
 
@@ -46,11 +45,7 @@ const CustomerForm = () => {
   const [password, setpassword] = useState("");
   const [idCode, setIdCode] = useState("");
   const [gender, setGender] = useState(true);
-  const [phoneNumber1, setPhoneNumber1] = useState("");
-  const [phoneNumber2, setPhoneNumber2] = useState("");
-  const [housephone, setHousePhone] = useState("");
-  const [housephone2, setHousePhone2] = useState("");
-  const [fax, setfax] = useState("");
+
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
   const [fatherName, setFatherName] = useState("");
@@ -63,6 +58,30 @@ const CustomerForm = () => {
   const [fromDate, setFromDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [activeDate, setActiveDate] = useState(false);
+  const [isOfficially, setIsOfficially] = useState(true)
+  const [isReal, setIsReal] = useState(true)
+  const [workFax, setWorkFax] = useState("")
+  const [homeFax, setHomeFax] = useState("")
+  const [legalNationalID, setlegalNationalID] = useState()
+  const [legalCompanyName, setLegalCompanyName] = useState("")
+  const [legalCompanyType, setLegalCompanyType] = useState("")
+  const [legalEconomicCode, setLegalEconomicCod] = useState()
+  const [legalRegistrationNumber, setLegalRegistrationNumber] = useState()
+  const [legalRegistrationDate, setLegalRegistrationDate] = useState(null)
+  const [legalExpireDate, setLegalExpireDate] = useState(null)
+  const [legalRegistrationunit, setLegalRegistrationUnit] = useState("")
+  const [legalRegistrationOrganization, setLegalRegistrationOrganization] = useState("")
+  const [legalOfficFax, setLegalOfficFax] = useState("")
+  const [legalFactoryFax, setLegalFactoryFax] = useState("")
+  const [skype,setSkype] = useState("")
+  const [faceBook, setFaceBook] = useState("")
+  const [youtube,setYoutube] = useState("")
+  const [instagram, setInstagram] = useState("")
+  const [telegram, setTelegram] = useState("")
+  const [twitter, setTwitter] = useState("")
+
+
+
   const { app } = useContext(AppContext);
   const handleClickMenu = () => {
     tabContext.addRemoveTabs(
@@ -153,14 +172,8 @@ const CustomerForm = () => {
     } else if (!idCode) {
       handleError(t("customer5"));
       return;
-    } else if (!phoneNumber1) {
-      handleError(t("customer6"));
-      return;
-    } else if (!idCodeValidation(idCode)) {
+    }  else if (!idCodeValidation(idCode)) {
       handleError(t("customer7"));
-      return;
-    } else if (!phoneNumber1.match(phoneNumberValidation)) {
-      handleError(t("customer8"));
       return;
     } else {
       setType("SUBMIT");
@@ -177,31 +190,45 @@ const CustomerForm = () => {
           IsActive: isActive,
           CustomerName: name,
           Password: password,
-          NationalCode: idCode,
-          FirstName: firstname,
-          LastName: lastName,
-          FathersName: fatherName,
-          IdCardNumber: idCardNumber,
-          IdCardSerialNumber: idCardSerialNumber,
-          Gender: gender,
-          DateOfBirth: new Date(dateOfBirth),
-          DateOfIssuanceIdCard: new Date(dateOfSerial),
-          PlaceOfIssuanceIdCard: serialLocation,
-          Mobile1: phoneNumber1,
-          Mobile2: phoneNumber2,
-          Phone1: housephone,
-          Phone2: housephone2,
-          Fax: fax,
           Email: email,
-          Job: job,
           AcquaintedWithCompany: acquaintedWithCompany,
           IsLimited: activeDate,
           LimitFrom: new Date(fromDate),
           LimitTo: new Date(endDate),
           Description: description,
           Website: webSite,
-          ExpireDate: "2022-06-16T05:34:40.867Z",
-          DateSet: "2022-06-16T05:34:40.867Z",
+          Skype: skype,
+          Facebook: faceBook,
+          YouTube: youtube,
+          Instagram: instagram,
+          Telegram: telegram,
+          Twitter: twitter,
+          IsOfficially: isOfficially,
+          IsReal: isReal,
+          Real_NationalCode: isReal ? idCode : "",
+          Real_FirstName: isReal ? firstname : "",
+          Real_LastName: isReal ? lastName : "",
+          Real_FathersName: isReal ? fatherName : "",
+          Real_IdCardNumber: isReal ? idCardNumber : "",
+          Real_IdCardSerialNumber: isReal ? idCardSerialNumber : "",
+          Real_Gender: isReal ? gender : "",
+          Real_DateOfBirth: new Date(dateOfBirth) ,
+          Real_DateOfIssuanceIdCard:   new Date(dateOfSerial) ,
+          Real_PlaceOfIssuanceIdCard: isReal ? serialLocation : "",
+          Real_HomeFax: isReal ? homeFax : "",
+          Real_WorkFax: isReal ? workFax : "",
+          Real_Job: isReal ? job : "",
+          Legal_NationalID: !isReal ? legalNationalID : 0,
+          Legal_CompanyName: !isReal ? legalCompanyName : "",
+          Legal_CompanyType: !isReal ? legalCompanyType : "",
+          Legal_EconomicCode: !isReal ? legalEconomicCode : 0,
+          Legal_RegistrationNumber: !isReal ? legalRegistrationNumber : 0,
+          Legal_RegistrationDate: new Date(legalRegistrationDate) ,
+          Legal_ExpirationDate:  new Date(legalExpireDate) ,
+          Legal_RegistrationUnit: !isReal ? legalRegistrationunit : "",
+          Legal_RegistrationOrganization: !isReal ? legalRegistrationOrganization : "",
+          Legal_OfficeFax: !isReal ? legalOfficFax : "",
+          Legal_FactoryFax: !isReal ? legalFactoryFax : "",
           Request: request,
         },
         signal: abortController.signal,
@@ -247,7 +274,31 @@ const CustomerForm = () => {
               />
             </Form.Group>
           </div>
+
           <div className="Row">
+          <Form.Group className="mb-3" controlId={"switch"}>
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              label={t("IsOfficially")}
+              value={isOfficially}
+              checked={isOfficially}
+              onChange={(e) => setIsOfficially(!isOfficially)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId={"switch"}>
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              label={t("isReal")}
+              value={isReal}
+              checked={isReal}
+              onChange={(e) => setIsReal(!isReal)}
+            />
+          </Form.Group>
+          </div>
+
+          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -265,7 +316,7 @@ const CustomerForm = () => {
               />
             </Form.Group>
           </div>
-          <div className="Row">
+          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -284,7 +335,7 @@ const CustomerForm = () => {
             </Form.Group>
           </div>
 
-          <div className="Row">
+          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -304,7 +355,7 @@ const CustomerForm = () => {
               </Form.Select>
             </Form.Group>
           </div>
-          <div className="Row">
+          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -328,7 +379,7 @@ const CustomerForm = () => {
               />
             </Form.Group>
           </div>
-          <div className="Row">
+          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -352,61 +403,34 @@ const CustomerForm = () => {
               />
             </Form.Group>
           </div>
-          <div className="Row">
-            <Form.Group className="mb-3 customerFirstName">
+          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
+            <Form.Group
+              className="mb-3 customerFirstName"
+              controlId="exampleForm.ControlTextarea1"
+            >
               <Form.Control
-                type="number"
-                placeholder={t("phoneNumber")}
-                value={phoneNumber1}
-                onChange={(e) => setPhoneNumber1(e.target.value)}
+                as="textarea"
+                rows={2}
+                placeholder={t("workFax")}
+                value={workFax}
+                onChange={(e) => setWorkFax(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3 customerFirstName">
+            <Form.Group
+              className="mb-3 customerFirstName"
+              controlId="exampleForm.ControlTextarea1"
+            >
               <Form.Control
-                type="number"
-                placeholder={t("phoneNumber2")}
-                value={phoneNumber2}
-                onChange={(e) => setPhoneNumber2(e.target.value)}
+                as="textarea"
+                rows={2}
+                placeholder={t("homeFax")}
+                value={homeFax}
+                onChange={(e) => setHomeFax(e.target.value)}
               />
             </Form.Group>
+            
           </div>
-          <div className="Row">
-            <Form.Group className="mb-3 customerFirstName">
-              <Form.Control
-                type="number"
-                placeholder={t("homeNumber")}
-                value={housephone}
-                onChange={(e) => setHousePhone(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3 customerFirstName">
-              <Form.Control
-                type="number"
-                placeholder={t("homeNumber2")}
-                value={housephone2}
-                onChange={(e) => setHousePhone2(e.target.value)}
-              />
-            </Form.Group>
-          </div>
-          <div className="Row">
-            <Form.Group className="mb-3 customerFirstName">
-              <Form.Control
-                type="email"
-                placeholder={t("customerEmail")}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3 customerFirstName">
-              <Form.Control
-                type="text"
-                placeholder={t("fax")}
-                value={fax}
-                onChange={(e) => setfax(e.target.value)}
-              />
-            </Form.Group>
-          </div>
-          <div className="Row">
+          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
             <Form.Group
               className="mb-3 customerFirstName"
               controlId="exampleForm.ControlTextarea1"
@@ -418,6 +442,212 @@ const CustomerForm = () => {
                 value={job}
                 onChange={(e) => setjob(e.target.value)}
               />
+            </Form.Group>
+          </div>
+
+          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="number"
+                placeholder={t("legalnationalID")}
+                value={legalNationalID}
+                onChange={(e) => setlegalNationalID(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("legalCompanyName")}
+                value={legalCompanyName}
+                onChange={(e) => setLegalCompanyName(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("legalCompanyType")}
+                value={legalCompanyType}
+                onChange={(e) => setLegalCompanyType(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="number"
+                placeholder={t("legalEconomicCode")}
+                value={legalEconomicCode}
+                onChange={(e) => setLegalEconomicCod(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="number"
+                placeholder={t("legalRegistrationNumber")}
+                value={legalRegistrationNumber}
+                onChange={(e) => setLegalRegistrationNumber(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("legalRegistrationUnit")}
+                value={legalRegistrationunit}
+                onChange={(e) => setLegalRegistrationUnit(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+
+          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+            <Form.Group className="mb-3" controlId={"startDate"}>
+              <DatePicker
+                containerClassName="custom-container"
+                placeholder={t("legalRegistrationDate")}
+                onChange={(newValue) => {
+                  setLegalRegistrationDate(newValue);
+                  if (legalExpireDate !== null && newValue > legalExpireDate) {
+                    toast.error(
+                      "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                      {
+                        position: toast.POSITION.BOTTOM_CENTER,
+                      }
+                    );
+
+                    setLegalExpireDate(null);
+                  }
+                }}
+                name="LimitTo"
+                calendar={app.lang === "fa" ? persian : gregorian}
+                locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                calendarPosition="bottom-right"
+                value={legalRegistrationDate}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId={"endDate"}>
+              <DatePicker
+                containerClassName="custom-container"
+                placeholder={t("endDate")}
+                onChange={(newValue) => {
+                  setEndDate(newValue);
+                  if (legalRegistrationDate !== null && newValue < legalRegistrationDate) {
+                    toast.error(
+                      "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                      {
+                        position: toast.POSITION.BOTTOM_CENTER,
+                      }
+                    );
+
+                    setLegalExpireDate(null);
+                  }
+                }}
+                name="LimitTo"
+                calendar={app.lang === "fa" ? persian : gregorian}
+                locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                calendarPosition="bottom-right"
+                value={legalExpireDate}
+              />
+            </Form.Group>
+          </div>
+
+          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("legalRegistrationOrganization")}
+                value={legalRegistrationOrganization}
+                onChange={(e) => setLegalRegistrationOrganization(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("legalOfficFax")}
+                value={legalOfficFax}
+                onChange={(e) => setLegalOfficFax(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("legalFactoryFax")}
+                value={legalFactoryFax}
+                onChange={(e) => setLegalFactoryFax(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+
+          <div className="Row">
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("skype")}
+                value={skype}
+                onChange={(e) => setSkype(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("faceBook")}
+                value={faceBook}
+                onChange={(e) => setFaceBook(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("youtube")}
+                value={youtube}
+                onChange={(e) => setYoutube(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("instagram")}
+                value={instagram}
+                onChange={(e) => setInstagram(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("telegram")}
+                value={telegram}
+                onChange={(e) => setTelegram(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 customerFirstName">
+              <Form.Control
+                type="text"
+                placeholder={t("twitter")}
+                value={twitter}
+                onChange={(e) => setTwitter(e.target.value)}
+              />
+            </Form.Group>
+          </div>
+
+          <div className="Row">
+            <Form.Group
+              className="mb-3 customerFirstName"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Control
+                type="email"
+                placeholder={t("customerEmail")}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              
             </Form.Group>
             <Form.Group
               className="mb-3 customerFirstName"
@@ -452,12 +682,13 @@ const CustomerForm = () => {
               <Form.Control
                 as="textarea"
                 rows={2}
-                placeholder={t("customerDesc")}
+                placeholder={t("description")}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Form.Group>
-
+          </div>
+          <div className="Row">
             <Form.Group className="mb-3">
               <Form.Select
                 aria-label="Default select example"
