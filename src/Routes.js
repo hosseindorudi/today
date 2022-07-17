@@ -3,6 +3,7 @@ import * as IoIcons from "react-icons/io"
 import * as RiIcons from "react-icons/ri"
 import { enums } from "./data/Enums";
 import React, { lazy } from 'react'
+// import DND from "./Views/Forms/test/DND";
 const BruteForceCustomer = lazy(() =>
   import("./Views/Forms/customer/bruteForceCustomer/BruteForceCustomer")
 );
@@ -843,6 +844,14 @@ export const Routes = [
         cName: "sub-nav",
         access: enums.Poll_AnswerPage_Read_r,
       },
+      // {
+      //   title: "routes.DND",
+      //   path: "DND",
+      //   Component: DND,
+      //   icon: <IoIcons.IoIosPaper />,
+      //   cName: "sub-nav",
+      //   access: enums.Poll_AnswerPage_Read_r,
+      // },
     ],
   },
   {

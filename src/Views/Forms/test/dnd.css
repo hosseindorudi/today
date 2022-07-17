@@ -1,0 +1,25 @@
+.DnDMain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.DnDForm{
+    width: 80%;
+
+}
+.dndContainer{
+    display: flex;
+    gap:5px;
+}
+.dndContainer .items{
+    width: 30%;
+    border: 1px solid black;
+    border-radius: 5px;
+    
+}
+.btnRow{
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
