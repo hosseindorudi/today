@@ -81,7 +81,13 @@ const TableList = ({
   handleAddress,
   addressAccess,
   addOperator,
-  addOperatorAccess
+  addOperatorAccess,
+  handlePhone,
+  phoneAccess,
+  handleMobile,
+  mobileAccess,
+  handleAccount,
+  accountAccess 
 }) => {
   const [haveAccess] = useButtonAccess();
   const { t } = useTranslation();
@@ -329,6 +335,12 @@ const TableList = ({
                             handleAddress={handleAddress}
                             addOperator={addOperator}
                             addOperatorAccess={addOperatorAccess}
+                            handlePhone={handlePhone}
+                            phoneAccess = {phoneAccess}
+                            handleMobile={handleMobile}
+                            mobileAccess = {mobileAccess}
+                            handleAccount={handleAccount}
+                            accountAccess = {accountAccess}
                           />
                         </td>
                         {Object.keys(post)

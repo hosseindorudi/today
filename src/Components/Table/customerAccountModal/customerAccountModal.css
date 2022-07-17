@@ -1,0 +1,10 @@
+.listGroupAccount{
+    width: 100%;
+        gap:5px
+}
+.listGroupAccount .btns{
+gap: 5px;
+}
+.listGroupAccount .actionBtns{
+    cursor: pointer;
+}

@@ -1,0 +1,10 @@
+.listGroupPhone{
+    width: 100%;
+        gap:5px
+}
+.listGroupPhone .btns{
+gap: 5px;
+}
+.listGroupPhone .actionBtns{
+    cursor: pointer;
+}

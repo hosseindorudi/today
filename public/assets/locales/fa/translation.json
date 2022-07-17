@@ -743,6 +743,7 @@
   "isReal": "حقیقی/حقوقی",
   "real":"حقیقی",
   "legal":"حقوقی",
+  "bankAccount":"حساب بانکی",
   "twitter":"تویئتر",
   "telegram":"تلگرام",
   "instagram":"اینستا",
@@ -760,6 +761,13 @@
   "legalCompanyName":"نام شرکت",
   "legalnationalID":"شناسه ملی شرکت",
   "homeFax":"فکس خانگی",
-  "workFax":"فکس کار"
-  
+  "workFax":"فکس کار",
+  "BranchCode":"کد شعبه",
+  "BranchName":"نام شعبه",
+  "BankName":"نام بانک",
+  "ShabaNumber":"شماره شبا",
+  "AccountNumber":"شماره حساب",
+  "AccountType":"نوع حساب",
+  "CustomerNumber":"شماره مشتری",
+  "CardNumber":"شماره کارت"
 }

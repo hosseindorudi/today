@@ -1,0 +1,10 @@
+.listGroupMobile{
+    width: 100%;
+        gap:5px
+}
+.listGroupMobile .btns{
+gap: 5px;
+}
+.listGroupMobile .actionBtns{
+    cursor: pointer;
+}

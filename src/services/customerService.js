@@ -18,3 +18,18 @@ export const customerCreateAddress="/Customer/Customer/CreateAddress"
 export const customerReadAddress="/Customer/Customer/ReadAddress"
 export const customerUpdateAddress="/Customer/Customer/UpdateAddress"
 export const customerDeleteAddress="/Customer/Customer/DeleteAddress"
+
+export const customerCreateMobile="/Customer/Customer/CreateMobile"
+export const customerReadMobile="/Customer/Customer/ReadMobile"
+export const customerUpdateMobile="/Customer/Customer/UpdateMobile"
+export const customerDeleteMobile="/Customer/Customer/DeleteMobile"
+
+export const customerCreateBankAccount="/Customer/Customer/CreateBankAccount"
+export const customerReadBankAccount="/Customer/Customer/ReadBankAccount"
+export const customerUpdateBankAccount="/Customer/Customer/UpdateBankAccount"
+export const customerDeleteBankAccount="/Customer/Customer/DeleteBankAccount"
+
+export const customerCreatePhone="/Customer/Customer/CreatePhone"
+export const customerReadPhone="/Customer/Customer/ReadPhone"
+export const customerUpdatePhone="/Customer/Customer/UpdatePhone"
+export const customerDeletePhone="/Customer/Customer/DeletePhone"
