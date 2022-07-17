@@ -1,26 +1,26 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
-import { defaultCoordinates } from "../../../data/constants";
-import { areaReadTitle } from "../../../services/areaService";
-import { cityReadTitle } from "../../../services/cityService";
-import { countryReadTitle } from "../../../services/countryService";
+
 import {
-  customerCreateAddress,
-  customerDeleteAddress,
-  customerReadAddress,
-  customerUpdateAddress,
+
+  customerCreateBankAccount,
+
+  customerDeleteBankAccount,
+
+  customerReadBankAccount,
+
+  customerUpdateBankAccount,
 } from "../../../services/customerService";
 import * as fa from "react-icons/fa";
 import "./customerAccountModal.css";
-import { provinceReadTitle } from "../../../services/provinceService";
-import { sectionReadTitle } from "../../../services/sectionService";
+
 import {
-  createSelectOptions,
+
   handleError,
 } from "../../../validation/functions";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
+
 import Swal from "sweetalert2";
 import {
   Button,
@@ -31,70 +31,54 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import { CustomReactMultiSelect } from "../../Select/customReactSelect";
-import MapModal from "../../map/MapModal";
+
 const CustomerAccountModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
 
-  const [country, setCountry] = useState(undefined);
-  const [countryOptions, setCountryOptions] = useState([]);
-  const [province, setProvince] = useState(undefined);
-  const [provinceOptions, setProvinceOptions] = useState([]);
-  const [city, setCity] = useState(undefined);
-  const [cityOptions, setCityOptions] = useState([]);
-  const [section, setSection] = useState(undefined);
-  const [sectionOptions, setSectionOptions] = useState([]);
-  const [area, setArea] = useState(undefined);
-  const [areaOptions, setAreaOptions] = useState([]);
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
   const [rowID, setRowId] = useState("");
-  const [coordinates, setCoordinates] = useState(defaultCoordinates);
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
-  const [addresses, setAddresses] = useState([]);
+  const [accounts, setAccounts] = useState([]);
   const [values, setValues] = useState({
-    IsPrimary: true,
-    PostalCode: "",
-    MainStreet: "",
-    ByStreet: "",
-    Alley: "",
-    Plaque: 0,
-    Floor: 0,
-    Unit: 0,
-    Address: "",
+    IsPrimary: false,
+    FirstName: "",
+    LastName: "",
+    BankName: "",
+    BranchName: "",
+    BranchCode: "",
+    AccountType: "",
+    AccountNumber: "",
+    ShabaNumber: "",
+    CardNumber: "",
     Description: "",
     Title: "",
   });
 
   const setEmpty = () => {
     setValues({
-      IsPrimary: true,
-      PostalCode: "",
-      MainStreet: "",
-      ByStreet: "",
-      Alley: "",
-      Plaque: 0,
-      Floor: 0,
-      Unit: 0,
-      Address: "",
+      IsPrimary: false,
+      FirstName: "",
+      LastName: "",
+      BankName: "",
+      BranchName: "",
+      BranchCode: "",
+      AccountType: "",
+      AccountNumber: "",
+      ShabaNumber: "",
+      CardNumber: "",
       Description: "",
       Title: "",
     });
-    setCountry(undefined);
-    setProvince(undefined);
-    setCity(undefined);
-    setSection(undefined);
-    setArea(undefined);
-    setCoordinates(defaultCoordinates);
   };
 
   const readDatas = () => {
-    setRequestType("READADDRESS");
+    setRequestType("READACCOUNTS");
     fetchData({
       method: "POST",
-      url: customerReadAddress,
+      url: customerReadBankAccount,
       headers: {
         accept: "*/*",
       },
@@ -105,59 +89,10 @@ const CustomerAccountModal = (props) => {
       signal: abortController.signal,
     });
   };
-  const createParams = (service) => {
-    const params = {
-      method: "POST",
-      url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
-    };
-    return params;
-  };
-
-  const readOptions = () => {
-    const provinceTitle = axios.request(createParams(provinceReadTitle));
-    const countryTitles = axios.request(createParams(countryReadTitle));
-    const cityTitles = axios.request(createParams(cityReadTitle));
-    const sectionTitles = axios.request(createParams(sectionReadTitle));
-    const areaTitles = axios.request(createParams(areaReadTitle));
-    axios
-      .all([
-        provinceTitle,
-        countryTitles,
-        cityTitles,
-        sectionTitles,
-        areaTitles,
-      ])
-      .then(
-        axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setProvinceOptions(createSelectOptions(allData[0].data.Title))
-            : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setCountryOptions(createSelectOptions(allData[1].data.Title))
-            : handleError(allData[1].data.Message);
-          allData[2].data?.Result
-            ? setCityOptions(createSelectOptions(allData[2].data.Title))
-            : handleError(allData[2].data.Message);
-          allData[3].data?.Result
-            ? setSectionOptions(createSelectOptions(allData[3].data.Title))
-            : handleError(allData[3].data.Message);
-          allData[4].data?.Result
-            ? setAreaOptions(createSelectOptions(allData[4].data.Title))
-            : handleError(allData[4].data.Message);
-        })
-      )
-      .catch((error) => {
-        handleError(error.message);
-      });
-  };
 
   useEffect(() => {
     readDatas();
-    readOptions();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -172,8 +107,8 @@ const CustomerAccountModal = (props) => {
           readDatas();
           setEmpty();
           break;
-        case "READADDRESS":
-          setAddresses(response.Record);
+        case "READACCOUNTS":
+          setAccounts(response.Record);
           break;
         default:
           break;
@@ -187,7 +122,7 @@ const CustomerAccountModal = (props) => {
     setRequestType("DELETE");
     fetchData({
       method: "POST",
-      url: customerDeleteAddress,
+      url: customerDeleteBankAccount,
       headers: {
         accept: "*/*",
       },
@@ -243,7 +178,7 @@ const CustomerAccountModal = (props) => {
 
     fetchData({
       method: "POST",
-      url: customerCreateAddress,
+      url: customerCreateBankAccount,
       headers: {
         accept: "*/*",
       },
@@ -251,51 +186,41 @@ const CustomerAccountModal = (props) => {
       data: {
         Id: 0,
         Customer_Id: props.rowValues,
-        Country_Id: country?.value,
-        Province_Id: province?.value,
-        City_Id: city?.value,
-        Section_Id: section?.value,
-        Area_Id: area?.value,
         IsPrimary: values.IsPrimary,
-        PostalCode: values.PostalCode,
-        MainStreet: values.MainStreet,
-        ByStreet: values.ByStreet,
-        Alley: values.Alley,
-        Plaque: values.Plaque,
-        Floor: values.Floor,
-        Unit: values.Unit,
-        Address: values.Address,
-        Latitude: coordinates[0],
-        Longitude: coordinates[1],
+        FirstName: values.FirstName,
+        LastName: values.LastName,
+        BankName: values.BankName,
+        BranchName: values.BranchName,
+        BranchCode: values.BranchCode,
+        AccountType: values.AccountType,
+        AccountNumber: values.AccountNumber,
+        ShabaNumber: values.ShabaNumber,
+        CardNumber: values.CardNumber,
         Description: values.Description,
         Title: values.Title,
+
         Request: request,
       },
     });
   };
 
   const handleQuestionEdit = (record) => {
-    console.log(record);
+    
     setEditButtonActivate(true);
     setValues({
       IsPrimary: record.IsPrimary,
-      PostalCode: record.PostalCode,
-      MainStreet: record.MainStreet,
-      ByStreet: record.ByStreet,
-      Alley: record.Alley,
-      Plaque: record.Plaque,
-      Floor: record.Floor,
-      Unit: record.Unit,
-      Address: record.Address,
+      FirstName: record.FirstName,
+      LastName: record.LastName,
+      BankName: record.BankName,
+      BranchName: record.BranchName,
+      BranchCode: record.BranchCode,
+      AccountType: record.AccountType,
+      AccountNumber: record.AccountNumber,
+      ShabaNumber: record.ShabaNumber,
+      CardNumber: record.CardNumber,
       Description: record.Description,
       Title: record.Title,
     });
-    setCountry(countryOptions.find((f) => f.value === record.Country_Id));
-    setProvince(provinceOptions.find((f) => f.value === record.Province_Id));
-    setCity(cityOptions.find((f) => f.value === record.City_Id));
-    setSection(sectionOptions.find((f) => f.value === record.Section_Id));
-    setArea(areaOptions.find((f) => f.value === record.Area_Id));
-    setCoordinates([record.Latitude, record.Longitude]);
     setRowId(record.Id);
   };
 
@@ -310,7 +235,7 @@ const CustomerAccountModal = (props) => {
     setEditButtonActivate(false);
     fetchData({
       method: "POST",
-      url: customerUpdateAddress,
+      url: customerUpdateBankAccount,
       headers: {
         accept: "*/*",
       },
@@ -318,22 +243,16 @@ const CustomerAccountModal = (props) => {
       data: {
         Id: rowID,
         Customer_Id: props.rowValues,
-        Country_Id: country?.value,
-        Province_Id: province?.value,
-        City_Id: city?.value,
-        Section_Id: section?.value,
-        Area_Id: area?.value,
         IsPrimary: values.IsPrimary,
-        PostalCode: values.PostalCode,
-        MainStreet: values.MainStreet,
-        ByStreet: values.ByStreet,
-        Alley: values.Alley,
-        Plaque: values.Plaque,
-        Floor: values.Floor,
-        Unit: values.Unit,
-        Address: values.Address,
-        Latitude: coordinates[0],
-        Longitude: coordinates[1],
+        FirstName: values.FirstName,
+        LastName: values.LastName,
+        BankName: values.BankName,
+        BranchName: values.BranchName,
+        BranchCode: values.BranchCode,
+        AccountType: values.AccountType,
+        AccountNumber: values.AccountNumber,
+        ShabaNumber: values.ShabaNumber,
+        CardNumber: values.CardNumber,
         Description: values.Description,
         Title: values.Title,
         Request: request,
@@ -348,9 +267,7 @@ const CustomerAccountModal = (props) => {
   const handleChangeSwitch = (e) => {
     setValues({ ...values, [e.target.name]: e.target.checked });
   };
-  const submitMap = (q, coord) => {
-    setCoordinates(coord);
-  };
+
 
   return (
     <>
@@ -379,58 +296,6 @@ const CustomerAccountModal = (props) => {
               </Form.Group>
             </div>
             <div className="Row">
-              <Form.Group className="mb-3" controlId={"country"}>
-                <Form.Label>{t("country")}</Form.Label>
-                <CustomReactMultiSelect
-                  isMulti={false}
-                  options={countryOptions}
-                  value={country}
-                  onchangeHandler={(e) => setCountry(e)}
-                  placeholder={t("country")}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId={"province"}>
-                <Form.Label>{t("province")}</Form.Label>
-                <CustomReactMultiSelect
-                  isMulti={false}
-                  options={provinceOptions}
-                  value={province}
-                  onchangeHandler={(e) => setProvince(e)}
-                  placeholder={t("province")}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId={"city"}>
-                <Form.Label>{t("city")}</Form.Label>
-                <CustomReactMultiSelect
-                  isMulti={false}
-                  options={cityOptions}
-                  value={city}
-                  onchangeHandler={(e) => setCity(e)}
-                  placeholder={t("city")}
-                />
-              </Form.Group>
-            </div>
-            <div className="Row">
-              <Form.Group className="mb-3" controlId={"section"}>
-                <Form.Label>{t("section")}</Form.Label>
-                <CustomReactMultiSelect
-                  isMulti={false}
-                  options={sectionOptions}
-                  value={section}
-                  onchangeHandler={(e) => setSection(e)}
-                  placeholder={t("section")}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId={"area"}>
-                <Form.Label>{t("Area")}</Form.Label>
-                <CustomReactMultiSelect
-                  isMulti={false}
-                  options={areaOptions}
-                  value={area}
-                  onchangeHandler={(e) => setArea(e)}
-                  placeholder={t("Area")}
-                />
-              </Form.Group>
               <Form.Group className="mb-3" controlId={"Title"}>
                 <Form.Label>{t("Title")}</Form.Label>
                 <Form.Control
@@ -440,98 +305,100 @@ const CustomerAccountModal = (props) => {
                   onChange={onChangeHandler}
                 />
               </Form.Group>
-            </div>
-            <div className="Row">
-              <Form.Group className="mb-3" controlId={"PostalCode"}>
-                <Form.Label>{t("PostalCode")}</Form.Label>
+              <Form.Group className="mb-3" controlId={"FirstName"}>
+                <Form.Label>{t("FirstName")}</Form.Label>
                 <Form.Control
                   type="text"
-                  name="PostalCode"
-                  value={values.PostalCode}
+                  name="FirstName"
+                  value={values.FirstName}
                   onChange={onChangeHandler}
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId={"MainStreet"}>
-                <Form.Label>{t("MainStreet")}</Form.Label>
+              <Form.Group className="mb-3" controlId={"LastName"}>
+                <Form.Label>{t("LastName")}</Form.Label>
                 <Form.Control
                   type="text"
-                  name="MainStreet"
-                  value={values.MainStreet}
-                  onChange={onChangeHandler}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId={"ByStreet"}>
-                <Form.Label>{t("ByStreet")}</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="ByStreet"
-                  value={values.ByStreet}
+                  name="LastName"
+                  value={values.LastName}
                   onChange={onChangeHandler}
                 />
               </Form.Group>
             </div>
             <div className="Row">
-              <Form.Group className="mb-3" controlId={"Alley"}>
-                <Form.Label>{t("Alley")}</Form.Label>
+              <Form.Group className="mb-3" controlId={"BankName"}>
+                <Form.Label>{t("BankName")}</Form.Label>
                 <Form.Control
                   type="text"
-                  name="Alley"
-                  value={values.Alley}
+                  name="BankName"
+                  value={values.BankName}
                   onChange={onChangeHandler}
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId={"Plaque"}>
-                <Form.Label>{t("Plaque")}</Form.Label>
+              <Form.Group className="mb-3" controlId={"BranchName"}>
+                <Form.Label>{t("BranchName")}</Form.Label>
                 <Form.Control
-                  type="number"
-                  name="Plaque"
-                  min={0}
-                  value={values.Plaque}
+                  type="text"
+                  name="BranchName"
+                  value={values.BranchName}
                   onChange={onChangeHandler}
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId={"Floor"}>
-                <Form.Label>{t("Floor")}</Form.Label>
+              <Form.Group className="mb-3" controlId={"BranchCode"}>
+                <Form.Label>{t("BranchCode")}</Form.Label>
                 <Form.Control
-                  type="number"
-                  name="Floor"
-                  value={values.Floor}
-                  onChange={onChangeHandler}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId={"Unit"}>
-                <Form.Label>{t("Unit")}</Form.Label>
-                <Form.Control
-                  type="number"
-                  name="Unit"
-                  value={values.Unit}
+                  type="text"
+                  name="BranchCode"
+                  value={values.BranchCode}
                   onChange={onChangeHandler}
                 />
               </Form.Group>
             </div>
             <div className="Row">
-              <Form.Group className="mb-3" controlId={"Address"}>
-                <Form.Label>{t("Address")}</Form.Label>
+              <Form.Group className="mb-3" controlId={"AccountType"}>
+                <Form.Label>{t("AccountType")}</Form.Label>
                 <Form.Control
-                  as="textarea"
-                  rows={2}
-                  value={values.Address}
+                  type="text"
+                  name="AccountType"
+                  value={values.AccountType}
                   onChange={onChangeHandler}
-                  name="Address"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId={"AccountNumber"}>
+                <Form.Label>{t("AccountNumber")}</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="AccountNumber"
+                  value={values.AccountNumber}
+                  onChange={onChangeHandler}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId={"ShabaNumber"}>
+                <Form.Label>{t("ShabaNumber")}</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="ShabaNumber"
+                  value={values.ShabaNumber}
+                  onChange={onChangeHandler}
                 />
               </Form.Group>
             </div>
             <div className="Row">
-              <Form.Group
-                className="mb-3 d-flex flex-column"
-                controlId="chooseLocation"
-              >
-                <Form.Label>{t("chooseLocation")}</Form.Label>
-                <MapModal
-                  qId={""}
-                  submited={submitMap}
-                  coordinats={coordinates}
-                  saveDisabled={false}
+              <Form.Group className="mb-3" controlId={"CardNumber"}>
+                <Form.Label>{t("CardNumber")}</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="CardNumber"
+                  value={values.CardNumber}
+                  onChange={onChangeHandler}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId={"CustomerNumber"}>
+                <Form.Label>{t("CustomerNumber")}</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="CustomerNumber"
+                  value={values.CustomerNumber}
+                  onChange={onChangeHandler}
                 />
               </Form.Group>
             </div>
@@ -541,9 +408,9 @@ const CustomerAccountModal = (props) => {
                 <Form.Control
                   as="textarea"
                   rows={2}
-                  value={values.AddrDescriptioness}
+                  value={values.Description}
                   onChange={onChangeHandler}
-                  name="Description"
+                  name="Address"
                 />
               </Form.Group>
             </div>
@@ -575,8 +442,8 @@ const CustomerAccountModal = (props) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <ListGroup as="ol" numbered className="listGroupAddress">
-            {addresses.map((a) => (
+          <ListGroup as="ol" numbered className="listGroupAccount">
+            {accounts.map((a) => (
               <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between "
@@ -587,8 +454,28 @@ const CustomerAccountModal = (props) => {
                 }}
               >
                 <div>
-                  <div className="fw-bold countryTitle">{t("Address")}</div>
-                  {a.Address}
+                  <div className="fw-bold countryTitle">{t("FirstName")}</div>
+                  {a.FirstName}
+                </div>
+                <div>
+                  <div className="fw-bold countryTitle">{t("LastName")}</div>
+                  {a.LastName}
+                </div>
+                <div>
+                  <div className="fw-bold countryTitle">{t("BankName")}</div>
+                  {a.BankName}
+                </div>
+                <div>
+                  <div className="fw-bold countryTitle">{t("AccountNumber")}</div>
+                  {a.AccountNumber}
+                </div>
+                <div>
+                  <div className="fw-bold countryTitle">{t("ShabaNumber")}</div>
+                  {a.ShabaNumber}
+                </div>
+                <div>
+                  <div className="fw-bold countryTitle">{t("CardNumber")}</div>
+                  {a.CardNumber}
                 </div>
                 <div className="d-flex btns ">
                   <div
