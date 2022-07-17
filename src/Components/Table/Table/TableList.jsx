@@ -1,4 +1,4 @@
-import { Pagination, TextField } from "@mui/material";
+import { Pagination} from "@mui/material";
 import React, { useContext, useState } from "react";
 import useButtonAccess from "../../../customHooks/useButtonAccess";
 import { checkTableTH, checkTableValues } from "../../../validation/functions";
@@ -11,11 +11,18 @@ import * as md from "react-icons/md";
 import * as fa from "react-icons/fa";
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import AdapterJalali from "@date-io/date-fns-jalali";
+
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import gregorian from "react-date-object/calendars/gregorian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import gregorian_en from "react-date-object/locales/gregorian_en";
 import { TabContext } from "../../../contexts/TabContextProvider";
 import DescModal from "../descriptionModal/DescModal";
 import { enums } from "../../../data/Enums";
+import { toast } from "react-toastify";
+import AppContext from "../../../contexts/AppContext";
+
 const TableList = ({
   search,
   handleRefresh,
@@ -81,6 +88,7 @@ const TableList = ({
   const tabContext = useContext(TabContext);
   const [descriptionShow, setDescriptionShow] = useState(false);
   const [desc, setDesc] = useState("");
+  const { app } = useContext(AppContext);
   const handleAdd = () => {
     tabContext.addRemoveTabs(addObject, "add");
   };
@@ -150,6 +158,9 @@ const TableList = ({
               className="searchField"
               style={{ height: search ? "100%" : 0 }}
             >
+              <button className="sendForm" style={{ display: search ? "block" : "none" }}  onClick={handleClickSend}>
+                {t("sendGroup")}
+              </button>
               <div style={{ display: search ? "block" : "none" }}>
                 <fa.FaTimes
                   color="red"
@@ -159,7 +170,6 @@ const TableList = ({
               </div>
               <Form.Group style={{ display: search ? "block" : "none" }}>
                 <Form.Control
-                  className="searchTextChange"
                   type="text"
                   placeholder={t("search")}
                   onChange={handleChangeTitle}
@@ -172,28 +182,28 @@ const TableList = ({
                   display: search ? "block" : "none",
                 }}
               >
-                <LocalizationProvider dateAdapter={AdapterJalali}>
-                  <DatePicker
-                    mask="____/__/__"
-                    label={t("search.startDate")}
-                    value={searchBegin}
-                    onChange={(newValue) => {
-                      setSearchBegin(newValue);
-                      if (searchEnd !== null && newValue > searchEnd) {
-                        alert(t("search.error"));
-                        setSearchBegin(null);
+                <DatePicker
+                containerClassName="custom-container"
+                placeholder={t("search.startDate")}
+                onChange={(newValue) => {
+                  setSearchBegin(newValue);
+                  if (searchEnd !== null && newValue > searchEnd) {
+                    toast.error(
+                      t("search.error"),
+                      {
+                        position: toast.POSITION.BOTTOM_CENTER,
                       }
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        inputProps={{
-                          ...params.inputProps,
-                        }}
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
+                    );
+
+                    setSearchBegin(null);
+                  }
+                }}
+                name="LimitTo"
+                calendar={app.lang === "fa" ? persian : gregorian}
+                locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                calendarPosition="bottom-right"
+                value={searchBegin}
+              />
               </div>
               <div
                 style={{
@@ -201,32 +211,29 @@ const TableList = ({
                   display: search ? "block" : "none",
                 }}
               >
-                <LocalizationProvider dateAdapter={AdapterJalali}>
-                  <DatePicker
-                    label={t("search.endDate")}
-                    mask="____/__/__"
-                    value={searchEnd}
-                    onChange={(newValue) => {
-                      setSearchEnd(newValue);
-                      if (searchBegin === null) {
-                        alert(t("search.errorChooseStart"));
-                        setSearchEnd(null);
-                      }
-                      if (searchBegin !== null && searchBegin > newValue) {
-                        alert(t("search.error"));
-                        setSearchEnd(null);
-                      }
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        inputProps={{
-                          ...params.inputProps,
-                        }}
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
+                <DatePicker
+                containerClassName="custom-container"
+                placeholder={t("search.endDate")}
+                onChange={(newValue) => {
+                  setSearchEnd(newValue);
+                  if (searchBegin === null) {
+                    toast.error(t("search.errorChooseStart"));
+                    setSearchEnd(null);
+                  }
+                  if (searchBegin !== null && searchBegin > newValue) {
+                    toast.error(t("search.error"));
+                    setSearchEnd(null);
+                  }
+                 
+                }}
+                name="LimitTo"
+                calendar={app.lang === "fa" ? persian : gregorian}
+                locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                calendarPosition="bottom-right"
+                value={searchEnd}
+              />
+                
+             
               </div>
             </div>
           </div>
@@ -419,9 +426,7 @@ const TableList = ({
                   </option>
                 ))}
               </select>
-              <button className="sendForm" onClick={handleClickSend}>
-                {t("sendGroup")}
-              </button>
+              
             </div>
           </div>
         </div>
