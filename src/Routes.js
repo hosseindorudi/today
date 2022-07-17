@@ -365,6 +365,14 @@ const OnlineCustomer = lazy(() =>
     "./Views/Forms/customer/online/Online"
   )
 );
+const PhoneNumberGroupList = lazy(() =>
+  import("./Views/Forms/marketing/phoneNumberGroup/PhoneGroupList")
+);
+const PhoneNumberGroupForm = lazy(() =>
+  import(
+    "./Views/Forms/marketing/phoneNumberGroup/phoneNumberGroupDefine/PhoneNumberGroup"
+  )
+);
 export const Routes = [
   {
     title: "routes.panel",
@@ -852,6 +860,30 @@ export const Routes = [
       //   cName: "sub-nav",
       //   access: enums.Poll_AnswerPage_Read_r,
       // },
+    ],
+  },
+  {
+    title: "routes.Marketing",
+    access: enums.Module_Marketing,
+    icon: <IoIcons.IoIosPaper />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+      {
+        title: "/Marketing/PhonePool/Read",
+        path: "/Marketing/PhonePool/Read",
+        Component: PhoneNumberGroupList,
+        button: {
+          Component: PhoneNumberGroupForm,
+          path: "/Marketing/PhonePool/Create",
+          title: "/Marketing/PhonePool/Create",
+          access: enums.Marketing_PhonePool_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Marketing_PhonePool_Read_r,
+      },
+
     ],
   },
   {

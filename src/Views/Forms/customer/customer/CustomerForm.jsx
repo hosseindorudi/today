@@ -585,7 +585,7 @@ const CustomerForm = () => {
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
-                placeholder={t("skype")}
+                placeholder={t("Skype")}
                 value={skype}
                 onChange={(e) => setSkype(e.target.value)}
               />
@@ -593,7 +593,7 @@ const CustomerForm = () => {
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
-                placeholder={t("faceBook")}
+                placeholder={t("Facebook")}
                 value={faceBook}
                 onChange={(e) => setFaceBook(e.target.value)}
               />
@@ -603,7 +603,7 @@ const CustomerForm = () => {
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
-                placeholder={t("youtube")}
+                placeholder={t("YouTube")}
                 value={youtube}
                 onChange={(e) => setYoutube(e.target.value)}
               />
@@ -611,7 +611,7 @@ const CustomerForm = () => {
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
-                placeholder={t("instagram")}
+                placeholder={t("Instagram")}
                 value={instagram}
                 onChange={(e) => setInstagram(e.target.value)}
               />
@@ -621,7 +621,7 @@ const CustomerForm = () => {
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
-                placeholder={t("telegram")}
+                placeholder={t("Telegram")}
                 value={telegram}
                 onChange={(e) => setTelegram(e.target.value)}
               />
@@ -629,7 +629,7 @@ const CustomerForm = () => {
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
-                placeholder={t("twitter")}
+                placeholder={t("Twitter")}
                 value={twitter}
                 onChange={(e) => setTwitter(e.target.value)}
               />
