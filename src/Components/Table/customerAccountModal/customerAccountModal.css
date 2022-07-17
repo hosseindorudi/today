@@ -1,0 +1,10 @@
+.listGroupAddress{
+    width: 100%;
+        gap:5px
+}
+.listGroupAddress .btns{
+gap: 5px;
+}
+.listGroupAddress .actionBtns{
+    cursor: pointer;
+}

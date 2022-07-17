@@ -24,6 +24,9 @@ import {
 import CustomTable from "../../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
 import CustomerAddressModal from "../../../../../Components/Table/customerAddressModal/CustomerAddressModal";
+import CustomerMobileModal from "../../../../../Components/Table/customerMobileModal/CustomerMobileModal";
+import CustomerPhoneModal from "../../../../../Components/Table/customerPhoneModal/CustomePhoneModal";
+import CustomerAccountModal from "../../../../../Components/Table/customerAccountModal/CustomerAccountModal";
 const CustomerList = () => {
   const childRef = useRef();
   const filteredColumns = [
@@ -41,6 +44,9 @@ const CustomerList = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const [isAddress, setIsAddress] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isPhone, setIsPhone] = useState(false)
+  const [isAccount, setIsAccount] = useState(false)
   const widthOFScreen = useWindowSize().width
 
   const addObject = {
@@ -66,7 +72,18 @@ const CustomerList = () => {
     setRowValues(id);
     setIsAddress(true);
   };
-
+  const handlePhone = (id) => {
+    setRowValues(id);
+    setIsPhone(true);
+  };
+  const handleMobile = (id) => {
+    setRowValues(id);
+    setIsMobile(true);
+  };
+  const handleAccount = (id) => {
+    setRowValues(id);
+    setIsAccount(true);
+  };
   const handleClickHelp = () => {
     window.open("https://www.google.com");
   };
@@ -87,6 +104,27 @@ const CustomerList = () => {
           rowValues={rowValues}
           onHide={() => setIsAddress(false)}
           show={isAddress}
+        />
+      )}
+       {isMobile && (
+        <CustomerMobileModal
+          rowValues={rowValues}
+          onHide={() => setIsMobile(false)}
+          show={isMobile}
+        />
+      )}
+       {isPhone && (
+        <CustomerPhoneModal
+          rowValues={rowValues}
+          onHide={() => setIsPhone(false)}
+          show={isPhone}
+        />
+      )}
+       {isAccount && (
+        <CustomerAccountModal
+          rowValues={rowValues}
+          onHide={() => setIsAccount(false)}
+          show={isAccount}
         />
       )}
 
@@ -128,6 +166,12 @@ const CustomerList = () => {
         mobileModalColumns={mobileModalColumns}
         handleAddress={handleAddress}
         addressAccess = {enums.Customer_Customer_Create_w}
+        handlePhone={handlePhone}
+        phoneAccess = {enums.Customer_Customer_Create_w}
+        handleMobile={handleMobile}
+        mobileAccess = {enums.Customer_Customer_Create_w}
+        handleAccount={handleAccount}
+        accountAccess = {enums.Customer_Customer_Create_w}
       />
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import "./tableButtons.css";
 import * as fa from "react-icons/fa";
-import * as gr from 'react-icons/gr'
+import * as gr from "react-icons/gr";
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
 import { toast } from "react-toastify";
@@ -41,22 +41,31 @@ const TableButtons = ({
   handleAddress,
   addressAccess,
   addOperatorAccess,
-  addOperator
+  addOperator,
+  handlePhone,
+  phoneAccess,
+  handleMobile,
+  mobileAccess,
+  handleAccount,
+  accountAccess,
 }) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const { app } = useContext(AppContext);
   const request = useRequest();
   const { t } = useTranslation();
   const [haveAccess] = useButtonAccess();
-  const handleResponse = useCallback((res) => {
-    if (res.length) {
-      return downloadCSVCode(res, app.title);
-    } else {
-      toast.info(t("noDataFound.table"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-  }, [app.title,t]);
+  const handleResponse = useCallback(
+    (res) => {
+      if (res.length) {
+        return downloadCSVCode(res, app.title);
+      } else {
+        toast.info(t("noDataFound.table"), {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+    },
+    [app.title, t]
+  );
 
   const handleExport = () => {
     fetchData({
@@ -100,13 +109,19 @@ const TableButtons = ({
           <fa.FaEdit />
         </button>
       )}
-      {haveAccess(changePasswordType)&&(
-        <button className="Pending widgetLgButton" onClick={()=>handlePassEdit(rowValue.Id)}>
-        <fa.FaLock />
-      </button>
+      {haveAccess(changePasswordType) && (
+        <button
+          className="Pending widgetLgButton"
+          onClick={() => handlePassEdit(rowValue.Id)}
+        >
+          <fa.FaLock />
+        </button>
       )}
       {haveAccess(accessListType) && (
-        <button className="Pending widgetLgButton" onClick={()=>handleClickGetPermission(rowValue.Id)}>
+        <button
+          className="Pending widgetLgButton"
+          onClick={() => handleClickGetPermission(rowValue.Id)}
+        >
           <fa.FaKey />
         </button>
       )}
@@ -132,23 +147,23 @@ const TableButtons = ({
           <fa.FaPlusCircle />
         </button>
       )}
-       {haveAccess(rateAccess) && (
+      {haveAccess(rateAccess) && (
         <button
           title={t("createRate")}
           className="Pending widgetLgButton"
           onClick={() => {
-          handleCreateRate(rowValue.Id);
+            handleCreateRate(rowValue.Id);
           }}
         >
           <fa.FaDollarSign />
         </button>
       )}
-       {haveAccess(readAnswersAccess) && (
+      {haveAccess(readAnswersAccess) && (
         <button
           title={t("readAnswer")}
           className="Pending widgetLgButton"
           onClick={() => {
-          handleReadAnswers(rowValue.Id);
+            handleReadAnswers(rowValue.Id);
           }}
         >
           <fa.FaBookReader />
@@ -159,7 +174,7 @@ const TableButtons = ({
           title={t("policyBrowser")}
           className="Pending widgetLgButton"
           onClick={() => {
-          handlePolicyBrowser(rowValue.Id);
+            handlePolicyBrowser(rowValue.Id);
           }}
         >
           <fa.FaFirefoxBrowser />
@@ -170,18 +185,18 @@ const TableButtons = ({
           title={t("policyIpAccess")}
           className="Pending widgetLgButton"
           onClick={() => {
-          handlePolicyIP(rowValue.Id);
+            handlePolicyIP(rowValue.Id);
           }}
         >
           <fa.FaInternetExplorer />
         </button>
       )}
-       {haveAccess(policyLocationAccess) && (
+      {haveAccess(policyLocationAccess) && (
         <button
           title={t("policyLocationAccess")}
           className="Pending widgetLgButton"
           onClick={() => {
-          handlePolicyLocation(rowValue.Id);
+            handlePolicyLocation(rowValue.Id);
           }}
         >
           <gr.GrMapLocation />
@@ -192,40 +207,73 @@ const TableButtons = ({
           title={t("policyOsAccess")}
           className="Pending widgetLgButton"
           onClick={() => {
-          handlePolicyOs(rowValue.Id);
+            handlePolicyOs(rowValue.Id);
           }}
         >
           <fa.FaWindows />
         </button>
       )}
-       {haveAccess(operatorRoleAccess) && (
+      {haveAccess(operatorRoleAccess) && (
         <button
           title={t("OperatorRole")}
           className="Pending widgetLgButton"
           onClick={() => {
-         handleOperatorRole(rowValue.Id);
+            handleOperatorRole(rowValue.Id);
           }}
         >
           <gr.GrUserSettings />
         </button>
       )}
-       {haveAccess(addressAccess) && (
+      {haveAccess(addressAccess) && (
         <button
           title={t("addAddress")}
           className="Pending widgetLgButton"
           onClick={() => {
-         handleAddress(rowValue.Id);
+            handleAddress(rowValue.Id);
           }}
         >
           <fa.FaMap />
         </button>
       )}
-       {haveAccess(addOperatorAccess) && (
+       {haveAccess(mobileAccess) && (
+        <button
+          title={t("Mobile")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+            handleMobile(rowValue.Id);
+          }}
+        >
+          <fa.FaMobileAlt />
+        </button>
+      )}
+      {haveAccess(phoneAccess) && (
+        <button
+          title={t("Phone")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+            handlePhone(rowValue.Id);
+          }}
+        >
+          <fa.FaPhoneAlt />
+        </button>
+      )}
+       {haveAccess(accountAccess) && (
+        <button
+          title={t("bankAccount")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+            handleAccount(rowValue.Id);
+          }}
+        >
+          <fa.FaMoneyCheckAlt />
+        </button>
+      )}
+      {haveAccess(addOperatorAccess) && (
         <button
           title={t("addOperator")}
           className="Pending widgetLgButton"
           onClick={() => {
-          addOperator(rowValue.Id);
+            addOperator(rowValue.Id);
           }}
         >
           <fa.FaUserPlus />

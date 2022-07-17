@@ -742,5 +742,6 @@
   "IsOfficially":"IsOfficially",
   "isReal": "حقیقی/حقوقی",
   "real":"حقیقی",
-  "legal":"حقوقی"
+  "legal":"حقوقی",
+  "bankAccount":"حساب بانکی"
 }
