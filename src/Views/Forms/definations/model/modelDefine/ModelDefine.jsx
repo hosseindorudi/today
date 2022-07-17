@@ -18,6 +18,7 @@ import {
   defintionInputs,
   handleError,
 } from "../../../../../validation/functions";
+import { companyReadTitle } from "../../../../../services/companyService";
 import Model from "../Model";
 import "./modelDefine.css";
 const ModelDefine = () => {
@@ -29,6 +30,9 @@ const ModelDefine = () => {
   const [color, setColor] = useState(undefined);
   const [countryOptions, setCountryOptions] = useState([]);
   const [country, setCountry] = useState(undefined);
+  const [companyOptions, setCompanyOptions] = useState([])
+  const [company, setCompany] = useState({})
+
   const request = useRequest();
   const tabContext = useContext(TabContext);
   const abortController = new AbortController();
@@ -80,8 +84,9 @@ const ModelDefine = () => {
     const deviceTitles = axios.request(createParams(deviceReadTitle));
     const countryTitles = axios.request(createParams(countryReadTitle));
     const colorTitles=axios.request(createParams(ColorReadTitle));
+    const companyTitle=axios.request(createParams(companyReadTitle));
     axios
-      .all([deviceTitles, countryTitles,colorTitles])
+      .all([deviceTitles, countryTitles,colorTitles,companyTitle])
       .then(
         axios.spread((...allData) => {
           allData[0].data?.Result
@@ -93,6 +98,9 @@ const ModelDefine = () => {
             allData[2].data?.Result
             ? setColorOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
+            allData[3].data?.Result
+            ? setCompanyOptions(createSelectOptions(allData[3].data.Title))
+            : handleError(allData[3].data.Message);
         })
       )
       .catch((error) => {
@@ -138,6 +146,7 @@ const ModelDefine = () => {
           BodyColor: values.BodyColor,
           Activated: values.Activated,
           Priority: values.periority,
+          Company:company?.value,
           Title: values.title,
           Description: values.desc,
           Color: values.color.substring(1),
@@ -184,6 +193,18 @@ const ModelDefine = () => {
               value={country}
               onchangeHandler={(e) => setCountry(e)}
               placeholder={t("country")}
+            />
+          </Form.Group>
+        </div>
+        <div className="Row">
+          <Form.Group className="mb-3" controlId={"/Definition/Company/Read"}>
+            <Form.Label>{t("/Definition/Company/Read")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={companyOptions}
+              value={company}
+              onchangeHandler={(e) => setCompany(e)}
+              placeholder={t("/Definition/Company/Read")}
             />
           </Form.Group>
         </div>
