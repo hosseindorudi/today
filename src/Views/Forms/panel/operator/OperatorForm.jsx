@@ -74,22 +74,15 @@ const OperatorForm = () => {
     fetchData({
       method: "POST",
       url: groupTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-    }
-    setResponse(undefined);
+    response&&handleResponse(response, type)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -119,9 +112,7 @@ const OperatorForm = () => {
     fetchData({
       method: "POST",
       url: createOpt,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         IsActive: values.IsActive,
@@ -136,7 +127,7 @@ const OperatorForm = () => {
          IsLimited: values.IsLimited,
         LimitFrom: setDatePickerDate(values.LimitFrom),
         LimitTo: setDatePickerDate(values.LimitTo),
-        request: request,
+        
       },
     });
     

@@ -6,7 +6,6 @@ import useAxios from "../../../../../../customHooks/useAxios";
 import useRequest from "../../../../../../customHooks/useRequest";
 import { operatorTitles } from "../../../../../../services/operatorService";
 import { createQuestionPageOperator, readQuestionPageOperator,deleteQuestionPageOperator } from "../../../../../../services/questionService";
-import { handleError } from "../../../../../../validation/functions";
 import * as fa from 'react-icons/fa'
 const LimitModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -24,11 +23,9 @@ const LimitModal = (props) => {
     fetchData({
       method: "POST",
       url: operatorTitles,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
 
-      data: request,
+      
 
       signal: abortController.signal,
     });
@@ -47,13 +44,11 @@ const LimitModal = (props) => {
     fetchData({
       method: "POST",
       url: readQuestionPageOperator,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
 
       data: {
         
-        Request: request,
+        
         Id:props.rowValus
     },
 
@@ -91,13 +86,7 @@ const LimitModal = (props) => {
   );
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-
-      setResponse(undefined);
-    }
+   response&&handleResponse(response,requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -110,16 +99,14 @@ const LimitModal = (props) => {
     fetchData({
         method: "POST",
         url: createQuestionPageOperator,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         signal: abortController.signal,
         data: {
           Id: 0,
           Operator_Id:id,
           QuestionPage_Id: form.QuestionPage_Id,
           Count: Number(form.Count),
-          Request: request,
+          
         },
       });
       
@@ -160,13 +147,11 @@ const handleDelete = (id) => {
     fetchData({
         method: "POST",
         url: deleteQuestionPageOperator,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
   
         data: {
           
-          Request: request,
+          
           Id:id
       },
   

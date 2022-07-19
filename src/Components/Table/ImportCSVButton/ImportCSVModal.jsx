@@ -33,10 +33,8 @@ const ImportCSVModal = (props) => {
     fetchData({
       method: "POST",
       url: props.sampleUrl,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     });
   };
   const noFileToast = () => {
@@ -134,10 +132,7 @@ const ImportCSVModal = (props) => {
 
  
   useEffect(() => {
-    if (response) {
-      handleResponse(response, requestType);
-      setResponse(undefined)
-    }
+    response&&handleResponse(response,requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const handleCheckFile = (event) => {

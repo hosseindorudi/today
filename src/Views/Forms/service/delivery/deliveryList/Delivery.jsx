@@ -88,18 +88,12 @@ const Delivery = () => {
       fetchData({
         method: "POST",
         url: admitionRead,
-        headers: {
-          accept: "*/*",
-        },
-        data: request,
+        headers:request,
+        
         signal: abortController.signal,
       });
     };
-    const handleError = (message) => {
-      toast.error(message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-    };
+   
   
 
   
@@ -258,11 +252,8 @@ const Delivery = () => {
       fetchData({
         method: "POST",
         url: admitionSetColumn,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
           Column: temp,
         },
         signal: abortController.signal,
@@ -309,13 +300,8 @@ const Delivery = () => {
     };
   
     useEffect(() => {
-      
-      if (response) {
-        response.Result
-          ? handleResponse(response, requestType)
-          : handleError(response.Message);
-        setResponse(undefined);
-      }
+      response&&handleResponse(response, requestType)
+   
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response, handleResponse]);
   
@@ -350,11 +336,9 @@ const Delivery = () => {
       fetchData({
         method: "POST",
         url: admitionReadPaging,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           paging: paging,
           filter: {
             Flt_OperatorName: flt_Title,
@@ -373,10 +357,8 @@ const Delivery = () => {
       fetchData({
         method: "POST",
         url: admitionLog,
-        headers: {
-          accept: "*/*",
-        },
-        data: request,
+        headers:request,
+        
         signal: abortController.signal,
       });
     };
@@ -404,11 +386,9 @@ const Delivery = () => {
       fetchData({
         method: "POST",
         url: "",
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: id,
         },
         signal: abortController.signal,
@@ -421,11 +401,9 @@ const Delivery = () => {
       fetchData({
         method: "POST",
         url: "",
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: id,
         },
         signal: abortController.signal,
@@ -438,10 +416,8 @@ const Delivery = () => {
       fetchData({
         method: "POST",
         url: admitionAccessList,
-        headers: {
-          accept: "*/*",
-        },
-        data: request,
+        headers:request,
+        
         signal: abortController.signal,
       });
     };
@@ -451,10 +427,8 @@ const Delivery = () => {
       fetchData({
         method: "POST",
         url: admitionFavorite,
-        headers: {
-          accept: "*/*",
-        },
-        data: request,
+        headers:request,
+        
         signal: abortController.signal,
       });
     };

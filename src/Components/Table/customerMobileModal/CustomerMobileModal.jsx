@@ -54,12 +54,10 @@ const CustomerMobileModal = (props) => {
     fetchData({
       method: "POST",
       url: customerReadMobile,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: props.rowValues,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -97,12 +95,10 @@ const CustomerMobileModal = (props) => {
     fetchData({
       method: "POST",
       url: customerDeleteMobile,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -136,13 +132,7 @@ const CustomerMobileModal = (props) => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-
-      setResponse(undefined);
-    }
+   response&&handleResponse(response,requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -153,9 +143,7 @@ const CustomerMobileModal = (props) => {
     fetchData({
       method: "POST",
       url: customerCreateMobile,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: 0,
@@ -164,7 +152,7 @@ const CustomerMobileModal = (props) => {
         IsPrimary: values.IsPrimary,
         Description: values.Description,
         Title: values.Title,
-        Request: request,
+        
       },
     });
   };
@@ -192,9 +180,7 @@ const CustomerMobileModal = (props) => {
     fetchData({
       method: "POST",
       url: customerUpdateMobile,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: rowID,
@@ -203,7 +189,7 @@ const CustomerMobileModal = (props) => {
         IsPrimary: values.IsPrimary,
         Description: values.Description,
         Title: values.Title,
-        Request: request,
+        
       },
     });
   };

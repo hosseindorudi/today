@@ -41,12 +41,10 @@ const setEmpty=()=>{
     fetchData({
       method: "POST",
       url:props.read,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: props.rowValues,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -83,12 +81,10 @@ const setEmpty=()=>{
     fetchData({
       method: "POST",
       url: props.delete,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -122,13 +118,7 @@ const setEmpty=()=>{
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-
-      setResponse(undefined);
-    }
+   response&&handleResponse(response,requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -139,15 +129,13 @@ const setEmpty=()=>{
     fetchData({
       method: "POST",
       url:props.create,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id:0,
         Group_Id:props.rowValues,
         Browser_EId:Number(browser),
-        Request: request,
+        
       },
     });
   };
@@ -170,15 +158,13 @@ const setEmpty=()=>{
     fetchData({
       method: "POST",
       url:props.update,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id:rowID,
         Browser_EId:Number(browser),
         Group_Id:Number(props.rowValues),
-        Request: request,
+        
       },
     });
   };

@@ -41,9 +41,7 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url: groupUpdate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id:value.Id,
@@ -54,20 +52,17 @@ const TableModal = (props) => {
         LimitFrom: setDatePickerDate(values.LimitFrom),
         LimitTo: setDatePickerDate(values.LimitTo),
         Description: values.Description,
-        request: request,
+        
       },
     });
   }
   };
-  const handleSeccess=()=>{
+  const handleResponse=()=>{
     props.updated()
   }
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleSeccess()
-        : handleError(response.Message);
-    }
+    response&&handleResponse()
+   
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const onChangeHandler = (e) => {

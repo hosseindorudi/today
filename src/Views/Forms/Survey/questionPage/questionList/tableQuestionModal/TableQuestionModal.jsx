@@ -26,6 +26,7 @@ import { handleError } from "../../../../../../validation/functions";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "./tableQuestionModal.css";
+import { ResultCodeEnum } from "../../../../../../data/ResultCodeEnum";
 const TableQuestionModal = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -107,11 +108,9 @@ const TableQuestionModal = (props) => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: props.rowValus.Id,
       },
     };
@@ -124,8 +123,7 @@ const TableQuestionModal = (props) => {
       .all([questionTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setQuestions(allData[0].data.Record)
+          allData[0].data?.Result===ResultCodeEnum.Ok? setQuestions(allData[0].data.Record)
             : handleError(allData[0].data.Message);
         })
       )
@@ -168,12 +166,10 @@ const TableQuestionModal = (props) => {
     fetchData({
       method: "POST",
       url: deleteQuestion,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -207,13 +203,7 @@ const TableQuestionModal = (props) => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-
-      setResponse(undefined);
-    }
+   response&&handleResponse(response,requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -229,9 +219,7 @@ const TableQuestionModal = (props) => {
     fetchData({
       method: "POST",
       url: createQuestion,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: 0,
@@ -242,7 +230,7 @@ const TableQuestionModal = (props) => {
         Priority: periodity,
         Description: description,
         Color: color.slice(1),
-        Request: request,
+        
       },
     });
   };
@@ -258,9 +246,7 @@ const TableQuestionModal = (props) => {
       fetchData({
         method: "POST",
         url: updateQuestion,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         signal: abortController.signal,
         data: {
           Id: question.Id,
@@ -271,7 +257,7 @@ const TableQuestionModal = (props) => {
           Priority: question.Priority ===1000 ? 1000 : question.Priority + 1 ,
           Description: question.Description,
           Color: question.Color,
-          Request: request,
+          
         },
       });
       }
@@ -287,9 +273,7 @@ const TableQuestionModal = (props) => {
       fetchData({
         method: "POST",
         url: updateQuestion,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         signal: abortController.signal,
         data: {
           Id: question.Id,
@@ -300,7 +284,7 @@ const TableQuestionModal = (props) => {
           Priority: question.Priority === 1 ? 1 : question.Priority - 1 ,
           Description: question.Description,
           Color: question.Color,
-          Request: request,
+          
         },
       });
     }
@@ -354,9 +338,7 @@ const TableQuestionModal = (props) => {
     fetchData({
       method: "POST",
       url: updateQuestion,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: IdOfQuestion,
@@ -367,7 +349,7 @@ const TableQuestionModal = (props) => {
         Priority: periodity,
         Description: description,
         Color: color.slice(1),
-        Request: request,
+        
       },
     });
 

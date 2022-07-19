@@ -65,10 +65,8 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url: customerGroupReadTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -124,13 +122,8 @@ const TableModal = (props) => {
   };
 
   useEffect(() => {
- 
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-        setResponse(undefined)
-    }
+    
+    response&&handleResponse(response, type)
     return ()=>setResponse(undefined)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -164,9 +157,7 @@ const TableModal = (props) => {
         fetchData({
           method: "POST",
           url: customerUpdate,
-          headers: {
-            accept: "*/*",
-          },
+          headers: request,
           data: {
             Id: values.Id,
             Group_Id: Number(groupTitleId),
@@ -197,7 +188,7 @@ const TableModal = (props) => {
             LimitTo: endDate,
             Description: description,
             Website:webSite,
-            Request: request,
+            
           },
           signal: abortController.signal,
         });

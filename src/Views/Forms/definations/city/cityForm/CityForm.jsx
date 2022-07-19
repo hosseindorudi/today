@@ -13,6 +13,7 @@ import { provinceReadTitle } from "../../../../../services/provinceService";
 import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
 import { CityCreate } from "../../../../../services/cityService";
 import CityList from '../CityList'
+import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 const CityForm = () => {
     const [response, loading, fetchData, setResponse] = useAxios();
     const [validated, setValidated] = useState(false);
@@ -59,10 +60,8 @@ const CityForm = () => {
       const params = {
         method: "POST",
         url: service,
-        headers: {
-          accept: "*/*",
-        },
-        data: request,
+        headers:request
+        
       };
       return params;
     };
@@ -76,8 +75,7 @@ const CityForm = () => {
       ])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setProvinceOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setProvinceOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
             })
       )
@@ -90,12 +88,7 @@ const CityForm = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     useEffect(() => {
-      if (response) {
-        response.Result
-          ? handleResponse(response)
-          : handleError(response.Message);
-        setResponse(undefined);
-      }
+      response&&handleResponse(response)
       return () => abortController.abort();
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response]);
@@ -111,11 +104,9 @@ const CityForm = () => {
         fetchData({
           method: "POST",
           url: CityCreate,
-          headers: {
-            accept: "*/*",
-          },
+          headers: request,
           data: {
-            Request: request,
+            
             Id: 0,
             Province_Id:province?.value,
             Priority: values.periority,

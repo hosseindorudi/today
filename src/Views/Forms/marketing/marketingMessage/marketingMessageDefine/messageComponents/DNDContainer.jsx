@@ -34,12 +34,7 @@ const DNDContainer = ({ value, handleChange, dropped }) => {
     }
   };
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-    }
-    setResponse(undefined);
+    response&&handleResponse(response, type)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -49,10 +44,8 @@ const DNDContainer = ({ value, handleChange, dropped }) => {
     fetchData({
       method: "POST",
       url: questionReadTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

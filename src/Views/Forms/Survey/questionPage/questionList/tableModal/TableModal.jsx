@@ -13,6 +13,7 @@ import {
   handleError,
 } from "../../../../../../validation/functions";
 import BackDrop from "../../../../../../Components/backDrop/BackDrop";
+import { ResultCodeEnum } from "../../../../../../data/ResultCodeEnum";
 
 const TableModal = (props) => {
 
@@ -39,10 +40,8 @@ const TableModal = (props) => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -55,8 +54,7 @@ const TableModal = (props) => {
       .all([questionReadTitle])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setEnumQuestion(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setEnumQuestion(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
         })
       )
@@ -84,11 +82,12 @@ const TableModal = (props) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const handleResponse=()=>{
+    props.updated()
+  }
   useEffect(() => {
-    if (response) {
-      response.Result ? props.updated() : handleError(response.Message);
-    }
+    response&&handleResponse()
+  
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -98,9 +97,7 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url: questionUpdate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: id,
@@ -108,7 +105,7 @@ const TableModal = (props) => {
         QuestionnaireType_Id: questionSelect?.value,
         Title: title,
         Description: description,
-        Request: request,
+        
       },
     });
   };

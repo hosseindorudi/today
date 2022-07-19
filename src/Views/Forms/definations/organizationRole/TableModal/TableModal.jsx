@@ -39,12 +39,7 @@ const TableModal = (props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -60,11 +55,9 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: organizationalRoleUpdate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: props.rowValus.Id,
           Group:values.group,
           Percentage:values.percentage,

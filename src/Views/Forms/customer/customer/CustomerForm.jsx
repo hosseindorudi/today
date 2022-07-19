@@ -110,10 +110,8 @@ const CustomerForm = () => {
     fetchData({
       method: "POST",
       url: customerGroupReadTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -146,12 +144,8 @@ const CustomerForm = () => {
     }
   };
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-    }
-    setResponse(undefined);
+    
+    response&&handleResponse(response, type)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -180,9 +174,7 @@ const CustomerForm = () => {
       fetchData({
         method: "POST",
         url: customerCreate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
           Id: 0,
           Group_Id: Number(groupTitleId),
@@ -229,7 +221,7 @@ const CustomerForm = () => {
           Legal_RegistrationOrganization: !isReal ? legalRegistrationOrganization : "",
           Legal_OfficeFax: !isReal ? legalOfficFax : "",
           Legal_FactoryFax: !isReal ? legalFactoryFax : "",
-          Request: request,
+          
         },
         signal: abortController.signal,
       });

@@ -112,10 +112,8 @@ const Admission = () => {
     fetchData({
       method: "POST",
       url: admitionRead,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -238,11 +236,9 @@ const Admission = () => {
     fetchData({
       method: "POST",
       url: admitionGetOneRecord,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,
@@ -301,11 +297,9 @@ const Admission = () => {
     fetchData({
       method: "POST",
       url: admitionSetColumn,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Column: temp,
       },
       signal: abortController.signal,
@@ -352,12 +346,8 @@ const Admission = () => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    
+   response&&handleResponse(response, requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
 
@@ -392,11 +382,9 @@ const Admission = () => {
     fetchData({
       method: "POST",
       url: admitionReadPaging,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         paging: paging,
         filter: {
           Flt_IMEI1: flt_Title,
@@ -422,10 +410,8 @@ const Admission = () => {
     fetchData({
       method: "POST",
       url: admitionLog,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -435,10 +421,8 @@ const Admission = () => {
     fetchData({
       method: "POST",
       url: admitionAccessList,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -448,10 +432,8 @@ const Admission = () => {
     fetchData({
       method: "POST",
       url: admitionFavorite,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -533,11 +515,9 @@ const Admission = () => {
     fetchData({
       method: "POST",
       url: admitionDelete,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,

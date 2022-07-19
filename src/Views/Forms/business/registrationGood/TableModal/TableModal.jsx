@@ -17,6 +17,7 @@ import { ImportingCompanyReadTitle } from "../../../../../services/importingComp
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { createSelectOptions, handleError, setDatePickerDate } from "../../../../../validation/functions";
 import axios from "axios";
+import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 
 const TableModal = (props) => {
   const val = props.rowValus;
@@ -51,10 +52,8 @@ const TableModal = (props) => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -87,17 +86,13 @@ const TableModal = (props) => {
       .all([companyTitles, deviceTitles, modelTitles, importingCompanyTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setCompanyOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setCompanyOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setDeviceOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result===ResultCodeEnum.Ok? setDeviceOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-          allData[2].data?.Result
-            ? setModelOptions(createSelectOptions(allData[2].data.Title))
+          allData[2].data?.Result===ResultCodeEnum.Ok? setModelOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
-          allData[3].data?.Result
-            ? setImportingCompanyOptions(
+          allData[3].data?.Result===ResultCodeEnum.Ok? setImportingCompanyOptions(
                 createSelectOptions(allData[3].data.Title)
               )
             : handleError(allData[3].data.Message);
@@ -126,12 +121,7 @@ const TableModal = (props) => {
     props.updated()
   }
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse()
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse()
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -146,11 +136,9 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: registrationGoodUpdate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: val.Id,
           Company_Id: company?.value,
           Device_Id: device?.value,

@@ -22,6 +22,7 @@ import Swal from "sweetalert2";
 import "./addCurrencyModal.css";
 import { countryReadTitle } from "../../../services/countryService";
 import { currencyReadTitle } from "../../../services/currencyService";
+import { ResultCodeEnum } from "../../../data/ResultCodeEnum";
 const AddCurrencyModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
@@ -47,10 +48,8 @@ const setEmpty=()=>{
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -62,11 +61,10 @@ const setEmpty=()=>{
       .all([countryTitles, currencyTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
+          allData[0].data?.Result===ResultCodeEnum.Ok?
             ? setCountryOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setCurrencyOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result===ResultCodeEnum.Ok? setCurrencyOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
         })
       )
@@ -79,12 +77,10 @@ const setEmpty=()=>{
     fetchData({
       method: "POST",
       url: props.read,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: props.id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -122,12 +118,10 @@ const setEmpty=()=>{
     fetchData({
       method: "POST",
       url: props.delete,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -161,13 +155,8 @@ const setEmpty=()=>{
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-
-      setResponse(undefined);
-    }
+    
+   response&&handleResponse(response,requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -178,9 +167,7 @@ const setEmpty=()=>{
     fetchData({
       method: "POST",
       url: props.create,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id:0,
@@ -188,7 +175,7 @@ const setEmpty=()=>{
         Country_Id: country?.value,
         Currency_Id: currency?.value,
         Fee: Number(fee),
-        Request: request,
+        
       },
     });
   };
@@ -213,9 +200,7 @@ const setEmpty=()=>{
     fetchData({
       method: "POST",
       url: props.update,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id:rateId,
@@ -223,7 +208,7 @@ const setEmpty=()=>{
         Country_Id: country?.value,
         Currency_Id: currency?.value,
         Fee: Number(fee),
-        Request: request,
+        
       },
     });
   };

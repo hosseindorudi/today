@@ -58,12 +58,8 @@ const AllowedIpCustomerForm = () => {
     }
   };
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+   
+    response&&handleResponse(response, type)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -79,11 +75,9 @@ const AllowedIpCustomerForm = () => {
       fetchData({
         method: "POST",
         url: AllowedIpCustomerCreate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: 0,
           IsActive: values.IsActive,
           Title: values.Title,

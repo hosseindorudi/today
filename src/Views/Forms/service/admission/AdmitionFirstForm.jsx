@@ -94,11 +94,8 @@ const AdmitionFirstForm = () => {
       });
     }
 
-
       useEffect(()=> {
-        if (response){
-        response.Result?handleResponse(response,type):handleError(response.Message)          
-        }
+        response&&handleResponse(response,type)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[response])
 

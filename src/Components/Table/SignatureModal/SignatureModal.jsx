@@ -20,35 +20,21 @@ const SignatureModal = (props) => {
         fetchData({
           method: "POST",
           url: "",
-          headers: {
-            accept: "*/*",
-          },
+          headers: request,
           signal:abortController.signal,
           data: 
           {
             Id: props.rowValus.Id,
-            
-            Request:request,
           },
         });
     }
        
 
 
-    const handleError = (message) => {
-        toast.error(message, {
-          position: toast.POSITION.BOTTOM_CENTER,
-        });
-      };
+
       useEffect(() => {
-        
-        if (response) {
-          
-          response.Result
-            ? console.log("hello")
-            : handleError(response.Message);
-        }
-        setResponse(undefined)
+        response&&console.log("hello")
+      
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [response]);

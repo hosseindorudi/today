@@ -8,10 +8,10 @@ const useRequest = () => {
   const location = useGeoLocation();
 
   const requestBody = {
-    language: app.langCode,
+    Language: app.langCode,
     token: accessToken ? accessToken : "",
-    latitude: location.loaded ? location.coordinates.lat : 0,
-    longitude: location.loaded ? location.coordinates.lng : 0,
+    Latitude: location.loaded ? location.coordinates.lat : 0,
+    Longitude: location.loaded ? location.coordinates.lng : 0,
   };
 
   return requestBody;

@@ -60,12 +60,7 @@ const ReplacementTypeDefine = () => {
     }
   };
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response, type)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -81,11 +76,9 @@ const ReplacementTypeDefine = () => {
       fetchData({
         method: "POST",
         url: replacementTypeCreate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

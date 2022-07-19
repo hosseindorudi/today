@@ -35,12 +35,8 @@ const TableModal = (props) => {
     props.updated()
   }
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse()
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    
+    response&&handleResponse()
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -55,11 +51,9 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: questionnaireTypeUpdate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: props.rowValus.Id,
           Priority: values.periority,
           Title: values.title,

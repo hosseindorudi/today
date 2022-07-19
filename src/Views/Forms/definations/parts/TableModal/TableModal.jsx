@@ -52,10 +52,8 @@ const TableModal = (props) => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -136,12 +134,7 @@ const TableModal = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response, type)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -163,11 +156,9 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: PartUpdate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           PartGroup_Id:partGroup?.value,
           Quality_Id:quality?.value,
           Id: props.rowValus.Id,

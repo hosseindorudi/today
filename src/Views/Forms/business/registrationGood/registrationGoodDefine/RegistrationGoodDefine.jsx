@@ -25,6 +25,7 @@ import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import RegistrationGood from "../RegistrationGood";
 import "../../../../../assets/css/businessForm.css";
+import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 const RegistrationGoodDefine = () => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const [validated, setValidated] = useState(false);
@@ -81,10 +82,8 @@ const RegistrationGoodDefine = () => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -99,17 +98,13 @@ const RegistrationGoodDefine = () => {
       .all([companyTitles, deviceTitles, modelTitles, importingCompanyTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setCompanyOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setCompanyOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setDeviceOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result===ResultCodeEnum.Ok? setDeviceOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-          allData[2].data?.Result
-            ? setModelOptions(createSelectOptions(allData[2].data.Title))
+          allData[2].data?.Result===ResultCodeEnum.Ok? setModelOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
-          allData[3].data?.Result
-            ? setImportingCompanyOptions(createSelectOptions(allData[3].data.Title))
+          allData[3].data?.Result===ResultCodeEnum.Ok? setImportingCompanyOptions(createSelectOptions(allData[3].data.Title))
             : handleError(allData[3].data.Message);
         })
       )
@@ -122,12 +117,7 @@ const RegistrationGoodDefine = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -142,11 +132,9 @@ const RegistrationGoodDefine = () => {
       fetchData({
         method: "POST",
         url: registrationGoodCreate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: 0,
           Company_Id: company?.value,
           Device_Id: device?.value,

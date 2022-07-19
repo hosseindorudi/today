@@ -43,23 +43,16 @@ const AnswerList = () => {
     setAnswerModalOpen(true)
   }
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response)
      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const handleReadAnswers=(id)=>{
     fetchData({
       method: "POST",
       url: answerPageReadAnswer,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         id: id
       }
     });

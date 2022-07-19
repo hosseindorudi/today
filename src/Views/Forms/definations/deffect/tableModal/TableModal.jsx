@@ -57,13 +57,8 @@ const TableModal = (props) => {
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response,type)
-        : handleError(response.Message);
-    }
-    setResponse(undefined)
+  useEffect(() => { 
+    response&&handleResponse(response,type)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   useEffect(() => {
@@ -71,10 +66,8 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url: modelReadTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
 
       signal: abortController.signal,
     });
@@ -87,11 +80,9 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url: defectUpdate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: val.Id,
         Model_Id:model?.value,
         Priority: values.periority,

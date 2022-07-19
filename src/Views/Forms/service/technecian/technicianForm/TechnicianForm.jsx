@@ -16,6 +16,7 @@ import { additionalServiceReadTitle } from "../../../../../services/additionalSe
 import { createSelectOptions } from "../../../../../validation/functions";
 import { Button } from "react-bootstrap";
 import { technicianCreate } from "../../../../../services/technicianService";
+import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 const TechnicianForm = () => {
   const [techDescription, setTechDescription] = useState("");
   const [statusDeviceEndDescription, setStatusDeviceEndDescription] =
@@ -51,10 +52,8 @@ const TechnicianForm = () => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -88,31 +87,25 @@ const TechnicianForm = () => {
       ])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setWarrantyTypeOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setWarrantyTypeOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setWarrantyCancelReasonOptions(
+          allData[1].data?.Result===ResultCodeEnum.Ok? setWarrantyCancelReasonOptions(
                 createSelectOptions(allData[1].data.Title)
               )
             : handleError(allData[1].data.Message);
-          allData[2].data?.Result
-            ? setStatusDeviceStartOptions(
+          allData[2].data?.Result===ResultCodeEnum.Ok? setStatusDeviceStartOptions(
                 createSelectOptions(allData[2].data.Title)
               )
             : handleError(allData[2].data.Message);
-          allData[3].data?.Result
-            ? setStatusDeviceProgressOptions(
+          allData[3].data?.Result===ResultCodeEnum.Ok? setStatusDeviceProgressOptions(
                 createSelectOptions(allData[3].data.Title)
               )
             : handleError(allData[3].data.Message);
-          allData[4].data?.Result
-            ? setStatusDeviceEndOptions(
+          allData[4].data?.Result===ResultCodeEnum.Ok? setStatusDeviceEndOptions(
                 createSelectOptions(allData[4].data.Title)
               )
             : handleError(allData[4].data.Message);
-          allData[5].data?.Result
-            ? setExtraServicesOptions(
+          allData[5].data?.Result===ResultCodeEnum.Ok? setExtraServicesOptions(
                 createSelectOptions(allData[5].data.Title)
               )
             : handleError(allData[5].data.Message);
@@ -150,11 +143,9 @@ const TechnicianForm = () => {
     fetchData({
       method: "POST",
       url: technicianCreate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: 0,
         Admission_Id: 0,
         Customer_Id: 0,

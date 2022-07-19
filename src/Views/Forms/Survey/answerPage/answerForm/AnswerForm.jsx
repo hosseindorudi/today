@@ -29,10 +29,7 @@ const AnswerForm = () => {
     fetchData({
         method: "POST",
         url: questionReadTitle,
-        headers: {
-          accept: "*/*",
-        },
-        data:request 
+        headers:request
     })
     return () => {
         setResponse(undefined)
@@ -56,10 +53,7 @@ const AnswerForm = () => {
     }
   }
   useEffect(() => {
-    if (response){
-        response.Result?handleResponse(response,type):handleError(response.Message)          
-        }
-        setResponse(undefined)
+    response&&handleResponse(response,type)
         // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response])
   const onChageQuestionSelect = (value) => {
@@ -78,11 +72,9 @@ const AnswerForm = () => {
     fetchData({
         method: "POST",
         url: questionReadQuestion,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data:{
-         Request: request,
+         
           Id:selectedTitle.value
         } 
     })

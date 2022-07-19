@@ -23,9 +23,11 @@ import Swal from "sweetalert2";
 import { dateOfLogTable } from "../../validation/functions";
 import DescModal from "../../Components/Table/descriptionModal/DescModal";
 import { Table } from "react-bootstrap";
+import useRequest from "../../customHooks/useRequest";
 
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const request=useRequest()
   const location = useGeoLocation();
   const { loaded } = useContext(OsContext);
   const abortController = new AbortController();
@@ -92,17 +94,7 @@ const OperatorDashboard = () => {
     fetchData({
       method: "POST",
       url: homeDashboard,
-      headers: {
-        accept: "*/*",
-      },
-
-      data: {
-        Language: app.langCode,
-        Token: accessToken ? accessToken : "",
-        Latitude: location.loaded ? location.coordinates.lat : 0,
-        Longitude: location.loaded ? location.coordinates.lng : 0,
-      },
-
+      headers: request,
       signal: abortController.signal,
     });
   };
@@ -110,7 +102,7 @@ const OperatorDashboard = () => {
     setDashboardInfoData(response);
     setExtraInfo(response.Favorite);
     setNotes(response.Note);
-    setIsNote(true);
+    // setIsNote(true);
     setFaileds(response.Failed);
     setLogins(response.Login);
     setEvents(response.Event);
@@ -187,17 +179,9 @@ const OperatorDashboard = () => {
         fetchData({
           method: "POST",
           url: deleteNoteDashboard,
-          headers: {
-            accept: "*/*",
-          },
+          headers: request,
 
           data: {
-            Request: {
-              Language: app.langCode,
-              Token: accessToken ? accessToken : "",
-              Latitude: location.loaded ? location.coordinates.lat : 0,
-              Longitude: location.loaded ? location.coordinates.lng : 0,
-            },
             Id: id,
           },
 
@@ -222,17 +206,9 @@ const OperatorDashboard = () => {
         fetchData({
           method: "POST",
           url: deleteFavorite,
-          headers: {
-            accept: "*/*",
-          },
+          headers: request,
 
           data: {
-            Request: {
-              Language: app.langCode,
-              Token: accessToken ? accessToken : "",
-              Latitude: location.loaded ? location.coordinates.lat : 0,
-              Longitude: location.loaded ? location.coordinates.lng : 0,
-            },
             Id: id,
           },
 
@@ -270,21 +246,13 @@ const OperatorDashboard = () => {
     fetchData({
       method: "POST",
       url: updateDashboard,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
 
       data: {
         Id: note.Id,
         Title: note.Title,
         Body: note.Body,
         IsAlarm: bol,
-        Request: {
-          Language: app.langCode,
-          Token: accessToken ? accessToken : "",
-          Latitude: location.loaded ? location.coordinates.lat : 0,
-          Longitude: location.loaded ? location.coordinates.lng : 0,
-        },
       },
 
       signal: abortController.signal,
@@ -301,12 +269,8 @@ const OperatorDashboard = () => {
   }, [loaded]);
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-    }
-    setResponse(undefined);
+    
+    response&&handleResponse(response, requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, requestType]);
 
@@ -388,7 +352,7 @@ const OperatorDashboard = () => {
         </div>
 
         <div className="opratorDashNoteBefore">
-          {notes.length > 0 &&
+          {notes?.length > 0 &&
             notes.map((note) => (
               <div className="opratorDashNote">
                 <div className="opratorDashNoteContainer">
@@ -428,7 +392,7 @@ const OperatorDashboard = () => {
           </button>
         </div>
 
-        {events.length > 0 && (
+        {events?.length > 0 && (
           <>
             <b>لیست رخدادها</b>
             <Table responsive="sm" size="sm" className="tableDashboard">
@@ -474,7 +438,7 @@ const OperatorDashboard = () => {
 
         </>
         )}
-            {logins.length > 0 && (
+            {logins?.length > 0 && (
           <>
             <b>لیست ورود های مجاز</b>
             <Table responsive="sm" size="sm" className="tableDashboard">
@@ -528,7 +492,7 @@ const OperatorDashboard = () => {
 
           </>
         )}
-          {faileds.length > 0 && (
+          {faileds?.length > 0 && (
           <>
             <b>لیست ورود های غیر مجاز</b>
             <Table responsive="sm" size="sm" className="tableDashboard">

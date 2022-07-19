@@ -23,12 +23,7 @@ const [validated, setValidated] = useState(false);
     props.updated()
   }
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse()
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse()
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -43,11 +38,9 @@ const [validated, setValidated] = useState(false);
       fetchData({
         method: "POST",
         url: cancellationOfAdmissionUpdate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: val.Id,
           Title: values.title,
           Description: values.desc,

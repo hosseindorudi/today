@@ -11,7 +11,6 @@ import * as bs from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/imgs/logo.png";
 import Language from "../Components/navbar/language";
-import { toast } from "react-toastify";
 import "./Auth.css";
 import useAxios from "../customHooks/useAxios";
 import AppContext from "../contexts/AppContext";
@@ -34,11 +33,8 @@ const Auth = () => {
     fetchData({
       method: "POST",
       url: login,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        request: request,
         username: username.current.value,
         password: password.current.value
       },
@@ -57,22 +53,12 @@ const Auth = () => {
     [navigate, from]
   );
 
-  const handleError = (message) => {
+  const handleError = () => {
     username.current.value = "";
     password.current.value = "";
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
   };
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? setToken(response)
-        : handleError(response.Message);
-    }
-    // if(error){
-    // handleError(error.response?.data?.title)
-    // }
+    response?setToken(response):handleError()
   }, [response, setToken]);
   const handlePasswordVisible = () => {
     setpassVisible(!passVisible);

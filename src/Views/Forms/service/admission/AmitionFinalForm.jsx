@@ -79,10 +79,8 @@ const AmitionFinalForm = () => {
         fetchData({
           method: "POST",
           url: admissionAccessoryReadTitle,
-          headers: {
-            accept: "*/*",
-          },
-          data: request,
+          headers: request,
+          
           signal: abortController.signal,
         });
         break;
@@ -91,10 +89,8 @@ const AmitionFinalForm = () => {
         fetchData({
           method: "POST",
           url: defectReadTitle,
-          headers: {
-            accept: "*/*",
-          },
-          data: request,
+          headers: request,
+          
           signal: abortController.signal,
         });
         break;
@@ -148,18 +144,10 @@ const AmitionFinalForm = () => {
     }
   };
 
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-    }
+    response&&handleResponse(response, type)
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -178,9 +166,7 @@ const AmitionFinalForm = () => {
     fetchData({
       method: "POST",
       url: admitionCreate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
 
       data: {
         Id: 0,
@@ -216,7 +202,7 @@ const AmitionFinalForm = () => {
         ProductGroup_Title: "",
         Product_Title: "",
         Part_Title: "",
-        Request: request,
+        
       },
       signal: abortController.signal,
     });

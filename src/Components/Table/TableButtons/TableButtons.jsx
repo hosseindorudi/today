@@ -71,21 +71,16 @@ const TableButtons = ({
     fetchData({
       method: "POST",
       url: exportLink,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: rowValue.Id,
       },
     });
   };
 
   useEffect(() => {
-    if (response) {
-      handleResponse(response);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
   return (

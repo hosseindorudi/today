@@ -24,21 +24,11 @@ const Modal = ({ setIsOpen, getDashboardData }) => {
     toast.success(t("item.created"), {
       position: toast.POSITION.TOP_CENTER,
     });
+    getDashboardData();
+    setIsOpen(false);
   };
   useEffect(() => {
-    if (response) {
-        if(response.Result){
-          handleResponse(response)
-          setResponse(undefined);
-          getDashboardData();
-          setIsOpen(false);
-        }else {
-          handleError(response.Message);
-        }
-
-      
-    }
-    return () => abortController.abort();
+   response&&handleResponse()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const onSubmit = (e) => {
@@ -46,11 +36,9 @@ const Modal = ({ setIsOpen, getDashboardData }) => {
     fetchData({
       method: "POST",
       url: createNoteDashboard,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: 0,
         Title: values.title,
         Body: values.desc,

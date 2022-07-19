@@ -14,6 +14,7 @@ import BackDrop from "../../../../../Components/backDrop/BackDrop";
 import { questionnaireTypeReadTitle } from "../../../../../services/questionnaireType";
 import { createSelectOptions } from "../../../../../validation/functions";
 import axios from "axios";
+import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 
 const QuestionForm = () => {
 
@@ -29,7 +30,7 @@ const QuestionForm = () => {
   const tabContext = useContext(TabContext);
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
-  const handleClickMenu = () => {
+  const handleResponse = () => {
     tabContext.addRemoveTabs(
       {
         title: "routes.questionForm",
@@ -54,10 +55,8 @@ const QuestionForm = () => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -70,8 +69,7 @@ const QuestionForm = () => {
       .all([questionReadTitle])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setEnumQuestion(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setEnumQuestion(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
         })
       )
@@ -96,21 +94,10 @@ const QuestionForm = () => {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };
-  const handleSeccess = (message) => {
-    toast.success(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
+ 
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleSeccess(response.message)
-        : handleError(response.message);
-      response.Result && handleClickMenu();
-
-    }
-    setResponse(undefined);
+    response&&handleResponse()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -120,9 +107,7 @@ const QuestionForm = () => {
     fetchData({
       method: "POST",
       url: questionCreate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: 0,
@@ -130,7 +115,7 @@ const QuestionForm = () => {
         QuestionnaireType_Id: Number(questionSelect.value),
         Title: title,
         Description: description,
-        Request: request,
+        
       },
     });
   };

@@ -53,12 +53,7 @@ const ProductGroupDefine = () => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -72,11 +67,9 @@ const ProductGroupDefine = () => {
     fetchData({
       method: "POST",
       url: productGroupCreate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: 0,
         Priority: values.periority,
         Title: values.title,

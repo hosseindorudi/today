@@ -22,16 +22,13 @@ const PasswordModal = (props) => {
         fetchData({
           method: "POST",
           url: props.changePasswordURL,
-          headers: {
-            accept: "*/*",
-          },
+          headers: request,
           signal:abortController.signal,
           data: 
           {
             Id: props.rowValus.Id,
             Old:oldPass,
             New: newPass,
-            Request:request,
           },
         });}
         else {
@@ -41,21 +38,9 @@ const PasswordModal = (props) => {
         }
       };
 
-    const handleError = (message) => {
-        toast.error(message, {
-          position: toast.POSITION.BOTTOM_CENTER,
-        });
-      };
+
       useEffect(() => {
-        
-        if (response) {
-          
-          response.Result
-            ? props.updated()
-            : handleError(response.Message);
-        }
-        setResponse(undefined)
-        
+        response&&props.updated() 
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [response]);
   return (

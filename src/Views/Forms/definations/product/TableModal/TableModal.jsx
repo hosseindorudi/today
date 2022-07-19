@@ -53,12 +53,7 @@ const TableModal = (props) => {
     
   };
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response,type)
-        : handleError(response.Message);
-    }
-    setResponse(undefined)
+    response&&handleResponse(response,type)
         // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -67,10 +62,8 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url: productGroupReadTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
 
       signal: abortController.signal,
     });
@@ -83,11 +76,9 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url: productUpdate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: val.Id,
         ProductGroup_Id: values.groupId,
         ProductGroup_Title:"",

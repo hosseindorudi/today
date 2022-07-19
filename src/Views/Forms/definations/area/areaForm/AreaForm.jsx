@@ -63,10 +63,8 @@ const AreaForm = () => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -76,8 +74,7 @@ const AreaForm = () => {
       .all([sectionTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setSectionOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setSectionOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
         })
       )
@@ -90,12 +87,7 @@ const AreaForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -110,11 +102,9 @@ const AreaForm = () => {
       fetchData({
         method: "POST",
         url: areaCreate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: 0,
           Section_Id: section?.value,
           Priority: values.periority,

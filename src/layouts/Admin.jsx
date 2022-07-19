@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Footer from "../Components/Footer/footer";
 import Home from "../Components/navbar/home";
 import Language from "../Components/navbar/language";
@@ -9,7 +9,6 @@ import MainTabControl from "../Components/Tabs/TabControl/MainTabControl";
 import useWindowSize from "../customHooks/useWindowSize";
 import "./Admin.css";
 import LogOut from "../Components/navbar/logOut";
-import useAuth from "../customHooks/useAuth";
 import { useNavigate } from 'react-router-dom';
 import useRequest from "../customHooks/useRequest";
 import { logOut } from "../services/authService";
@@ -26,12 +25,12 @@ function Admin() {
   const [response, loading,fetchData] = useAxios();
   const request=useRequest()
   const windowSize=useWindowSize()
-  const [verifyToken]=useAuth()
+  // const [verifyToken]=useAuth()
   const navigate=useNavigate()
-  useEffect(() => {
-      verifyToken()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //     verifyToken()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   
 
 
@@ -40,10 +39,8 @@ function Admin() {
     fetchData({
       method: "POST",
       url: logOut,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     });
    
     localStorage.removeItem("token");

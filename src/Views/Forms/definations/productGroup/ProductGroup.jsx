@@ -78,10 +78,8 @@ const ProductGroup = () => {
     fetchData({
       method: "POST",
       url: productGroupRead,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -90,11 +88,9 @@ const ProductGroup = () => {
     fetchData({
       method: "POST",
       url: productGroupReadPaging,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         paging: paging,
         filter: {
           flt_Title: flt_Title,
@@ -209,12 +205,7 @@ const ProductGroup = () => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+   response&&handleResponse(response, requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
 
@@ -247,11 +238,9 @@ const ProductGroup = () => {
     fetchData({
       method: "POST",
       url: productGroupSetUnselectedColumn,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Column: temp,
       },
       signal: abortController.signal,
@@ -304,11 +293,9 @@ const ProductGroup = () => {
     fetchData({
       method: "POST",
       url: productGroupDelete,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,
@@ -354,11 +341,9 @@ const ProductGroup = () => {
     fetchData({
       method: "POST",
       url: productGroupGetOneRecord,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,
@@ -408,10 +393,8 @@ const ProductGroup = () => {
     fetchData({
       method: "POST",
       url: productGroupFavorite,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -424,10 +407,8 @@ const ProductGroup = () => {
     fetchData({
       method: "POST",
       url: productGroupLog,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -449,10 +430,8 @@ const ProductGroup = () => {
     fetchData({
       method: "POST",
       url: productGroupAccessList,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };

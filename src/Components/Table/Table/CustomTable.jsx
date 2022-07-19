@@ -57,10 +57,8 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.ReadApi,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -69,10 +67,8 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.logApi,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -81,11 +77,9 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.readPagingApi,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         paging: paging,
         filter: {
           flt_Title: flt_Title,
@@ -101,10 +95,8 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.accessListApi,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -122,10 +114,8 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.favouriteApi,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -134,11 +124,9 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.deleteApi,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,
@@ -149,11 +137,9 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.getOneRecord,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,
@@ -164,11 +150,9 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.getOneRecord,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,
@@ -179,11 +163,9 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.getOneRecord,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,
@@ -194,11 +176,9 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.unSelectedAPI,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Column: temp,
       },
       signal: abortController.signal,
@@ -353,12 +333,7 @@ const CustomTable = forwardRef((props, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+   response&&handleResponse(response, requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
   const importSuccess = (message) => {
@@ -382,11 +357,9 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.getPermissionURL&&props.getPermissionURL,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,
@@ -398,11 +371,9 @@ const CustomTable = forwardRef((props, ref) => {
     fetchData({
       method: "POST",
       url: props.setPermissionURL&&props.setPermissionURL,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         id: groupId,
         AccessList:codes
       },

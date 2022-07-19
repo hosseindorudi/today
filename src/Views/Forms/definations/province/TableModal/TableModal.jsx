@@ -60,22 +60,15 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url: countryReadTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response, type)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -91,11 +84,9 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: provinceUpdate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: props.rowValus.Id,
           Country_Id: country?.value,
           Priority: values.periority,

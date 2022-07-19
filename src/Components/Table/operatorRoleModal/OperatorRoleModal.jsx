@@ -24,6 +24,7 @@ import Swal from "sweetalert2";
 import { organizationalRoleReadTitle } from "../../../services/organizationRoleService";
 import { groupReadTitle } from "../../../services/groupService";
 import { operatorCreateOperatorRole, operatorDeleteOperatorRole, operatorReadOperatorRole, operatorUpdateOperatorRole } from "../../../services/operatorService";
+import { ResultCodeEnum } from "../../../data/ResultCodeEnum";
 const OperatorRoleModel = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
@@ -52,10 +53,8 @@ const OperatorRoleModel = (props) => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -67,11 +66,9 @@ const OperatorRoleModel = (props) => {
       .all([organizationalRoleTitle, groupTitle])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setOrganizationalRoleOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setOrganizationalRoleOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setGroupOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result===ResultCodeEnum.Ok? setGroupOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
         })
       )
@@ -84,12 +81,10 @@ const OperatorRoleModel = (props) => {
     fetchData({
       method: "POST",
       url: operatorReadOperatorRole,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: props.id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -128,12 +123,10 @@ const OperatorRoleModel = (props) => {
     fetchData({
       method: "POST",
       url: operatorDeleteOperatorRole,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -167,13 +160,7 @@ const OperatorRoleModel = (props) => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-
-      setResponse(undefined);
-    }
+   response&&handleResponse(response,requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -184,9 +171,7 @@ const OperatorRoleModel = (props) => {
     fetchData({
       method: "POST",
       url: operatorCreateOperatorRole,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: 0,
@@ -195,7 +180,7 @@ const OperatorRoleModel = (props) => {
         OrganizationalRole_Id: organizationalRole?.value,
         IsPrimary: isPrimary,
         Description:description,
-        Request: request,
+        
       },
     });
   };
@@ -221,9 +206,7 @@ const OperatorRoleModel = (props) => {
     fetchData({
       method: "POST",
       url: operatorUpdateOperatorRole,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: roleId,
@@ -232,7 +215,7 @@ const OperatorRoleModel = (props) => {
         OrganizationalRole_Id: organizationalRole?.value,
         IsPrimary: isPrimary,
         Description:description,
-        Request: request,
+        
       },
     });
   };

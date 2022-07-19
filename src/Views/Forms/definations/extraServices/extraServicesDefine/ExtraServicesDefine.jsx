@@ -60,10 +60,8 @@ const ExtraServicesDefine = () => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -73,8 +71,7 @@ const ExtraServicesDefine = () => {
       .all([modelTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setModelOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setModelOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
         })
       )
@@ -88,12 +85,7 @@ const ExtraServicesDefine = () => {
   }, []);
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -113,11 +105,9 @@ const ExtraServicesDefine = () => {
       fetchData({
         method: "POST",
         url: additionalServiceCreate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: 0,
           Model_Id: model?.value,
           Priority: values.periority,

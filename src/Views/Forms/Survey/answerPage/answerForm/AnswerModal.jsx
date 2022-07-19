@@ -319,20 +319,13 @@ useEffect(() => {
     fetchData({
       method: "POST",
       url: AnswerPageFailedReadTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-    }
-    setResponse(undefined);
+    response&&handleResponse(response, type)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const handleSubmit = (e) => {
@@ -349,12 +342,10 @@ useEffect(() => {
     fetchData({
       method: "POST",
       url: answerPageCreate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: 0,
-        Request: request,
+        
         QuestionPage_Id: questions[0].QuestionPage_Id,
         AnswerPageFailed_Id: answerPageFailed.value,
         NationalCode: values.NationalCode,

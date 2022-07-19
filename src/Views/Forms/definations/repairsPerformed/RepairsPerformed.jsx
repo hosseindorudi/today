@@ -48,6 +48,7 @@ import ExportAllButton from "../../../../Components/Table/ExportButton/ExportAll
 import AppContext from "../../../../contexts/AppContext";
 import useGeoLocation from "../../../../customHooks/useGeoLocation";
 import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
+import { ResultCodeEnum } from "../../../../data/ResultCodeEnum";
 const RepairsPerformed = () => {
   const { app } = useContext(AppContext);
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -85,10 +86,8 @@ const RepairsPerformed = () => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -102,16 +101,13 @@ const RepairsPerformed = () => {
       .all([modelTitles, perfomedGroupTitles, getAllData])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setModelOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setModelOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setPerformedGroupOptions(
+          allData[1].data?.Result===ResultCodeEnum.Ok? setPerformedGroupOptions(
               createSelectRepairedOptions(allData[1].data.Title)
               )
             : handleError(allData[1].data.Message);
-          allData[2].data?.Result
-            ? setPerformedData(allData[2].data.Record)
+          allData[2].data?.Result===ResultCodeEnum.Ok? setPerformedData(allData[2].data.Record)
             : handleError(allData[2].data.Message);
           setIsFavorite(allData[2].data.IsFavorite)
           setModel(undefined);
@@ -154,21 +150,16 @@ const RepairsPerformed = () => {
   // },[perfomedData])
 
   useEffect(() => {
-    handleResponseFunc(response, "READ");
+    handleResponse(response, "READ");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponseFunc(response, type)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response, type)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
-  const handleResponseFunc = useCallback(
+  const handleResponse = useCallback(
     (response, type) => {
       switch (type) {
         case "DELETE":
@@ -209,10 +200,8 @@ const RepairsPerformed = () => {
     fetchData({
       method: "POST",
       url: repairsPerformedLog,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -228,11 +217,8 @@ const RepairsPerformed = () => {
     fetchData({
       method: "POST",
       url: repairsPerformedCreate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
         Id: 0,
         Parent_Id: performedGroup !== {} ? performedGroup.value : 0,
         Model_Id: model?.value,
@@ -247,7 +233,7 @@ const RepairsPerformed = () => {
       signal: abortController.signal,
     });
 
-    handleResponseFunc(response, "READ");
+    handleResponse(response, "READ");
   }
   };
 
@@ -268,10 +254,7 @@ const RepairsPerformed = () => {
       fetchData({
         method: "POST",
         url: repairsPerformedSetToFavorite,
-        headers: {
-          accept: "*/*",
-        },
-        data: request,
+        headers:request,
         signal: abortController.signal,
       });
     };
@@ -322,20 +305,10 @@ const RepairsPerformed = () => {
           fetchData({
             method: "POST",
             url: repairsPerformedDelete,
-            headers: {
-              accept: "*/*",
-            },
-  
+            headers:request,
             data: {
-              Request: {
-                Language: app.langCode,
-                Token: accessToken ? accessToken : "",
-                Latitude: location.loaded ? location.coordinates.lat : 0,
-                Longitude: location.loaded ? location.coordinates.lng : 0,
-              },
               Id: id,
             },
-  
             signal: abortController.signal,
           });
         }
@@ -361,11 +334,9 @@ const RepairsPerformed = () => {
       fetchData({
         method: "POST",
         url: repairsPerformedUpdate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: editData.Id,
           Parent_Id: performedGroup !== {} ? performedGroup.value : 0,
           Model_Id: model[0]?.value,

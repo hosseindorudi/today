@@ -34,12 +34,7 @@ const TableModal = (props) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response)
-        : handleError(response.Message);
-        setResponse(undefined)
-    }
+    response&&handleResponse()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response,handleResponse]);
 
@@ -48,11 +43,9 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url:reasonForCancellationOfWarrantyUpdate ,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: val.Id,
         Priority: values.periority,
         Title: values.title,

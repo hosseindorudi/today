@@ -15,6 +15,7 @@ import { countryReadTitle } from "../../../../../services/countryService";
 import { modelUpdate } from "../../../../../services/modelService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { ColorReadTitle } from "../../../../../services/colorService";
+import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 
 const TableModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
@@ -44,10 +45,8 @@ const TableModal = (props) => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -71,14 +70,11 @@ useEffect(() => {
       .all([deviceTitles, countryTitles,colorTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ?setDeviceOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok?setDeviceOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setCountryOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result===ResultCodeEnum.Ok? setCountryOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-            allData[2].data?.Result
-            ? setColorOptions(createSelectOptions(allData[2].data.Title))
+            allData[2].data?.Result===ResultCodeEnum.Ok? setColorOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
         })
       )
@@ -102,10 +98,8 @@ useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (response) {
-      response.Result ? handleResponse() : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse()
+   
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -120,11 +114,9 @@ useEffect(() => {
       fetchData({
         method: "POST",
         url: modelUpdate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: props.rowValus.Id,
           Device_Id: device?.value,
           Country_Id: country?.value,

@@ -47,12 +47,7 @@ const TableModal = (props) => {
     
   };
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response,type)
-        : handleError(response.Message);
-    }
-    setResponse(undefined)
+    response&&handleResponse(response,type)
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -68,11 +63,9 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url: statusDeviceStartUpdate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: val.Id,
         Priority: values.periority,
         Title: values.title,

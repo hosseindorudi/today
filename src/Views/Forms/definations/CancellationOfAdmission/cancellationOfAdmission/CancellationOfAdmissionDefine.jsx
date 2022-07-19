@@ -51,12 +51,7 @@ const CancellationOfAdmissionDefine = () => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -71,11 +66,9 @@ const CancellationOfAdmissionDefine = () => {
       fetchData({
         method: "POST",
         url: cancellationOfAdmissionCreate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: 0,
           Title: values.title,
           Description: values.desc,

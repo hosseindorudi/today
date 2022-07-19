@@ -79,12 +79,10 @@ const CustomerAccountModal = (props) => {
     fetchData({
       method: "POST",
       url: customerReadBankAccount,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: props.rowValues,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -123,12 +121,10 @@ const CustomerAccountModal = (props) => {
     fetchData({
       method: "POST",
       url: customerDeleteBankAccount,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -162,13 +158,7 @@ const CustomerAccountModal = (props) => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-
-      setResponse(undefined);
-    }
+   response&&handleResponse(response,requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -179,9 +169,7 @@ const CustomerAccountModal = (props) => {
     fetchData({
       method: "POST",
       url: customerCreateBankAccount,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: 0,
@@ -199,7 +187,7 @@ const CustomerAccountModal = (props) => {
         Description: values.Description,
         Title: values.Title,
 
-        Request: request,
+        
       },
     });
   };
@@ -236,9 +224,7 @@ const CustomerAccountModal = (props) => {
     fetchData({
       method: "POST",
       url: customerUpdateBankAccount,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: rowID,
@@ -255,7 +241,7 @@ const CustomerAccountModal = (props) => {
         CardNumber: values.CardNumber,
         Description: values.Description,
         Title: values.Title,
-        Request: request,
+        
       },
     });
   };

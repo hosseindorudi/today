@@ -32,16 +32,11 @@ const TableModal = (props) => {
      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
-  const submitted=(response)=>{
+  const handleResponse=()=>{
     props.updated()
   }
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? submitted(response)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse()
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -57,11 +52,9 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: partGroupUpdate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: props.rowValus.Id,
           Priority: values.periority,
           Title: values.title,

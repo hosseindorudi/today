@@ -33,7 +33,7 @@ const CustomerGroupForm = () => {
     LimitTo: new Date(),
     Description: "",
   });
-  const handleClickMenu = () => {
+  const handleResponse = () => {
     tabContext.addRemoveTabs(
       {
         Component: CustomerGroupForm,
@@ -67,9 +67,7 @@ const CustomerGroupForm = () => {
     fetchData({
       method: "POST",
       url: customerGroupCreate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         IsActive: values.IsActive,
@@ -79,19 +77,14 @@ const CustomerGroupForm = () => {
         LimitFrom: setDatePickerDate(values.LimitFrom),
         LimitTo: setDatePickerDate(values.LimitTo),
         Description: values.Description,
-        request: request,
+        
       },
     });
   }
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleClickMenu()
-        : handleError(response.Message);
-       
-    }
+    response&&handleResponse(response)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const onChangeHandler = (e) => {

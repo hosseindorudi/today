@@ -73,22 +73,15 @@ const OutputQualityControlDefine = () => {
     fetchData({
       method: "POST",
       url: modelReadTitle,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, type)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse(response, type)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -104,11 +97,9 @@ const OutputQualityControlDefine = () => {
       fetchData({
         method: "POST",
         url: outputQualityControlCreate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Id: 0,
           Model_Id: model?.value,
           Priority: values.periority,

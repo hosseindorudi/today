@@ -17,12 +17,8 @@ const ExportAllButton = (props) => {
       fetchData({
         method: "POST",
         url: props.exportLink,
-        headers: {
-          accept: "*/*",
-        },
-        data:{
-          Request: request,
-        },
+        headers:request,
+      
         signal: abortController.signal,
       })
 
@@ -37,11 +33,9 @@ const ExportAllButton = (props) => {
         fetchData({
           method: "POST",
           url: props.exportLink,
-          headers: {
-            accept: "*/*",
-          },
+          headers: request,
           data:{
-            Request: request,
+            
             paging: paging,
             filter: {
               flt_Title: props.flt_Title,
@@ -64,10 +58,7 @@ const ExportAllButton = (props) => {
             downloadCSVCode(res,t("exportCSV"))
       }
       useEffect(() => {
-        if (response) {
-            response.length ? handleDownload(response) : noFileToast();
-          }
-          return () => abortController.abort();
+        response?.length? handleDownload(response) : noFileToast()
           // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [response])
   return (

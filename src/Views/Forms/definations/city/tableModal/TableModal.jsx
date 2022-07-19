@@ -39,10 +39,8 @@ const [validated, setValidated] = useState(false);
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -81,12 +79,7 @@ const [validated, setValidated] = useState(false);
     props.updated()
   }
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse()
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+    response&&handleResponse()
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -101,11 +94,9 @@ const [validated, setValidated] = useState(false);
       fetchData({
         method: "POST",
         url: CityUpdate,
-        headers: {
-          accept: "*/*",
-        },
+        headers:request,
         data: {
-          Request: request,
+          
           Province_Id:province?.value,
           Id: props.rowValus.Id,
           Priority: values.periority,

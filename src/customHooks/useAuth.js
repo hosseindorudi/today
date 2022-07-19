@@ -23,9 +23,7 @@ const useAuth = () => {
     const params={
       method: "POST",
       url: verify,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data:{
         language:langCode?langCode.no:app.langCode,
         token: accessToken ? accessToken : "",

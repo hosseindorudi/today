@@ -36,12 +36,11 @@ const AdmissionModal = (props) => {
         defect:val.Defect,
 
     })
-
+    const handleResponse=()=>{
+      props.updated()
+    }
     useEffect(() => {
-        if (response) {
-          response.Result ? props.updated() : handleError(response.Message);
-          
-        }
+      response&&handleResponse()
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [response]);
 
@@ -62,9 +61,7 @@ const AdmissionModal = (props) => {
         fetchData({
           method: "POST",
           url: admitionUpdate,
-          headers: {
-            accept: "*/*",
-          },
+          headers: request,
           signal: abortController.signal,
           data: {
               Id:val.Id,

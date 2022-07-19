@@ -36,12 +36,10 @@ const OsPolicyModal = (props) => {
     fetchData({
       method: "POST",
       url: props.read,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: props.id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -79,12 +77,10 @@ const OsPolicyModal = (props) => {
     fetchData({
       method: "POST",
       url: props.delete,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -118,13 +114,7 @@ const OsPolicyModal = (props) => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-
-      setResponse(undefined);
-    }
+   response&&handleResponse(response,requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -135,15 +125,13 @@ const OsPolicyModal = (props) => {
     fetchData({
       method: "POST",
       url: props.create,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: 0,
         Group_Id: props.id,
         Os_EId: os,
-        Request: request,
+        
       },
     });
   };
@@ -166,15 +154,13 @@ const OsPolicyModal = (props) => {
     fetchData({
       method: "POST",
       url: props.update,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: osId,
         Group_Id: props.id,
         Os_EId: os,
-        Request: request,
+        
       },
     });
   };

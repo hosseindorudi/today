@@ -78,10 +78,8 @@ const Product = () => {
     fetchData({
       method: "POST",
       url: productRead,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -90,11 +88,9 @@ const Product = () => {
     fetchData({
       method: "POST",
       url: productReadPaging,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         paging: paging,
         filter: {
           flt_Title: flt_Title,
@@ -209,12 +205,7 @@ const Product = () => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-      setResponse(undefined);
-    }
+   response&&handleResponse(response, requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
 
@@ -247,11 +238,9 @@ const Product = () => {
     fetchData({
       method: "POST",
       url: productSetUnselectedColumn,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Column: temp,
       },
       signal: abortController.signal,
@@ -304,11 +293,9 @@ const Product = () => {
     fetchData({
       method: "POST",
       url: productDelete,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,
@@ -354,11 +341,9 @@ const Product = () => {
     fetchData({
       method: "POST",
       url: productGetOneRecord,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: id,
       },
       signal: abortController.signal,
@@ -408,10 +393,8 @@ const Product = () => {
     fetchData({
       method: "POST",
       url: productFavorite,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -424,10 +407,8 @@ const Product = () => {
     fetchData({
       method: "POST",
       url: productLog,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };
@@ -449,10 +430,8 @@ const Product = () => {
     fetchData({
       method: "POST",
       url: productAccessList,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
       signal: abortController.signal,
     });
   };

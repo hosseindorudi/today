@@ -36,12 +36,7 @@ const TableModal = (props) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response)
-        : handleError(response.Message);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   response&&handleResponse(response)// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   const handleSubmit = (e) => {
@@ -49,11 +44,9 @@ const TableModal = (props) => {
     fetchData({
       method: "POST",
       url: productGroupUpdate,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
-        Request: request,
+        
         Id: val.Id,
         Priority: values.periority,
         Title: values.title,

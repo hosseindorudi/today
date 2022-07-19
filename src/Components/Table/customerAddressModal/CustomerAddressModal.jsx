@@ -33,6 +33,7 @@ import {
 } from "react-bootstrap";
 import { CustomReactMultiSelect } from "../../Select/customReactSelect";
 import MapModal from "../../map/MapModal";
+import { ResultCodeEnum } from "../../../data/ResultCodeEnum";
 const CustomerAddressModal = (props) => {
   const [response, loading, fetchData, setResponse] = useAxios();
   const request = useRequest();
@@ -95,12 +96,10 @@ const CustomerAddressModal = (props) => {
     fetchData({
       method: "POST",
       url: customerReadAddress,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: props.rowValues,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -109,10 +108,8 @@ const CustomerAddressModal = (props) => {
     const params = {
       method: "POST",
       url: service,
-      headers: {
-        accept: "*/*",
-      },
-      data: request,
+      headers: request,
+      
     };
     return params;
   };
@@ -133,20 +130,15 @@ const CustomerAddressModal = (props) => {
       ])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
-            ? setProvinceOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result===ResultCodeEnum.Ok? setProvinceOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result
-            ? setCountryOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result===ResultCodeEnum.Ok? setCountryOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-          allData[2].data?.Result
-            ? setCityOptions(createSelectOptions(allData[2].data.Title))
+          allData[2].data?.Result===ResultCodeEnum.Ok? setCityOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
-          allData[3].data?.Result
-            ? setSectionOptions(createSelectOptions(allData[3].data.Title))
+          allData[3].data?.Result===ResultCodeEnum.Ok? setSectionOptions(createSelectOptions(allData[3].data.Title))
             : handleError(allData[3].data.Message);
-          allData[4].data?.Result
-            ? setAreaOptions(createSelectOptions(allData[4].data.Title))
+          allData[4].data?.Result===ResultCodeEnum.Ok? setAreaOptions(createSelectOptions(allData[4].data.Title))
             : handleError(allData[4].data.Message);
         })
       )
@@ -188,12 +180,10 @@ const CustomerAddressModal = (props) => {
     fetchData({
       method: "POST",
       url: customerDeleteAddress,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       data: {
         Id: id,
-        Request: request,
+        
       },
       signal: abortController.signal,
     });
@@ -227,13 +217,7 @@ const CustomerAddressModal = (props) => {
   };
 
   useEffect(() => {
-    if (response) {
-      response.Result
-        ? handleResponse(response, requestType)
-        : handleError(response.Message);
-
-      setResponse(undefined);
-    }
+   response&&handleResponse(response,requestType)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -244,9 +228,7 @@ const CustomerAddressModal = (props) => {
     fetchData({
       method: "POST",
       url: customerCreateAddress,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: 0,
@@ -269,7 +251,7 @@ const CustomerAddressModal = (props) => {
         Longitude: coordinates[1],
         Description: values.Description,
         Title: values.Title,
-        Request: request,
+        
       },
     });
   };
@@ -311,9 +293,7 @@ const CustomerAddressModal = (props) => {
     fetchData({
       method: "POST",
       url: customerUpdateAddress,
-      headers: {
-        accept: "*/*",
-      },
+      headers: request,
       signal: abortController.signal,
       data: {
         Id: rowID,
@@ -336,7 +316,7 @@ const CustomerAddressModal = (props) => {
         Longitude: coordinates[1],
         Description: values.Description,
         Title: values.Title,
-        Request: request,
+        
       },
     });
   };
