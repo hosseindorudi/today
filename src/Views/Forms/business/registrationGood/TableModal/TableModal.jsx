@@ -15,7 +15,11 @@ import { deviceReadTitle } from "../../../../../services/deviceService";
 import { modelReadTitle } from "../../../../../services/modelService";
 import { ImportingCompanyReadTitle } from "../../../../../services/importingCompanyService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
-import { createSelectOptions, handleError, setDatePickerDate } from "../../../../../validation/functions";
+import {
+  createSelectOptions,
+  handleError,
+  setDatePickerDate,
+} from "../../../../../validation/functions";
 import axios from "axios";
 import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 
@@ -34,7 +38,7 @@ const TableModal = (props) => {
   const [expirationDate, setExpirationdate] = useState(new Date());
   const { t } = useTranslation();
   const abortController = new AbortController();
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [values, setValues] = useState({
     ModelNumber: "",
@@ -53,7 +57,6 @@ const TableModal = (props) => {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
@@ -86,13 +89,17 @@ const TableModal = (props) => {
       .all([companyTitles, deviceTitles, modelTitles, importingCompanyTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok? setCompanyOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setCompanyOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result===ResultCodeEnum.Ok? setDeviceOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result === ResultCodeEnum.Ok
+            ? setDeviceOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-          allData[2].data?.Result===ResultCodeEnum.Ok? setModelOptions(createSelectOptions(allData[2].data.Title))
+          allData[2].data?.Result === ResultCodeEnum.Ok
+            ? setModelOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
-          allData[3].data?.Result===ResultCodeEnum.Ok? setImportingCompanyOptions(
+          allData[3].data?.Result === ResultCodeEnum.Ok
+            ? setImportingCompanyOptions(
                 createSelectOptions(allData[3].data.Title)
               )
             : handleError(allData[3].data.Message);
@@ -106,9 +113,9 @@ const TableModal = (props) => {
     getDatas();
     setValues({
       ModelNumber: val.ModelNumber,
-      SerialNumber:val.SerialNumber,
+      SerialNumber: val.SerialNumber,
       CodeNumber: val.CodeNumber,
-      IMEI1:val.IMEI1,
+      IMEI1: val.IMEI1,
       IMEI2: val.IMEI2,
       Cottage: val.Cottage,
       CommodityID: val.CommodityID,
@@ -117,11 +124,11 @@ const TableModal = (props) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const handleResponse=()=>{
-    props.updated()
-  }
+  const handleResponse = () => {
+    props.updated();
+  };
   useEffect(() => {
-    response&&handleResponse()
+    response && handleResponse();
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -136,9 +143,8 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: registrationGoodUpdate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: val.Id,
           Company_Id: company?.value,
           Device_Id: device?.value,
@@ -181,165 +187,161 @@ const TableModal = (props) => {
       className="updateCustomerModal"
     >
       <Modal.Header closeButton></Modal.Header>
-      <Form
-        noValidate
-        validated={validated}
-        onSubmit={handleSubmit}
-      >
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Modal.Body>
-        <div className="Row">
-          <Form.Group className="mb-3" controlId={"company"}>
-            <Form.Label>{t("company")}</Form.Label>
-            <CustomReactMultiSelect
-              isMulti={false}
-              options={companyOptions}
-              value={company}
-              onchangeHandler={(e) => setCompany(e)}
-              placeholder={t("company")}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"device"}>
-            <Form.Label>{t("device")}</Form.Label>
-            <CustomReactMultiSelect
-              isMulti={false}
-              options={deviceOptions}
-              value={device}
-              onchangeHandler={(e) => setDevice(e)}
-              placeholder={t("device")}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"model"}>
-            <Form.Label>{t("model")}</Form.Label>
-            <CustomReactMultiSelect
-              isMulti={false}
-              options={modelOptions}
-              value={model}
-              onchangeHandler={(e) => setModel(e)}
-              placeholder={t("model")}
-            />
-          </Form.Group>
-        </div>
-        <div className="Row">
-          <Form.Group className="mb-3" controlId={"importingCompany"}>
-            <Form.Label>{t("ImportingCompanyHeader")}</Form.Label>
-            <CustomReactMultiSelect
-              isMulti={false}
-              options={importingCompanyOptions}
-              value={importingCompany}
-              onchangeHandler={(e) => setImportingCompany(e)}
-              placeholder={t("ImportingCompanyHeader")}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"modelNumber"}>
-            <Form.Label>{t("ModelNumber")}</Form.Label>
-            <Form.Control
-              type="string"
-              name="ModelNumber"
-              value={values.ModelNumber}
-              onChange={onChangeHandler}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"SerialNumber"}>
-            <Form.Label>{t("SerialNumber")}</Form.Label>
-            <Form.Control
-              type="string"
-              name="SerialNumber"
-              value={values.SerialNumber}
-              onChange={onChangeHandler}
-            />
-          </Form.Group>
-        </div>
-        <div className="Row">
-          <Form.Group className="mb-3" controlId={"CodeNumber"}>
-            <Form.Label>{t("CodeNumber")}</Form.Label>
-            <Form.Control
-              type="text"
-              name="CodeNumber"
-              value={values.CodeNumber}
-              onChange={onChangeHandler}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"IMEI1"}>
-            <Form.Label>{t("IMEI1")}</Form.Label>
-            <Form.Control
-              type="text"
-              name="IMEI1"
-              value={values.IMEI1}
-              onChange={onChangeHandler}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"IMEI2"}>
-            <Form.Label>{t("IMEI2")}</Form.Label>
-            <Form.Control
-              type="text"
-              name="IMEI2"
-              value={values.IMEI2}
-              onChange={onChangeHandler}
-            />
-          </Form.Group>
-        </div>
-        <div className="Row">
-          <Form.Group className="mb-3" controlId={"Cottage"}>
-            <Form.Label>{t("Cottage")}</Form.Label>
-            <Form.Control
-              type="number"
-              name="Cottage"
-              value={values.Cottage}
-              onChange={onChangeHandler}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"CommodityID"}>
-            <Form.Label>{t("CommodityID")}</Form.Label>
-            <Form.Control
-              type="text"
-              name="CommodityID"
-              value={values.CommodityID}
-              onChange={onChangeHandler}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"WarrantyDate"}>
-            <Form.Label>{t("WarrantyDate")}</Form.Label>
-            <DatePicker
-            containerClassName="custom-container"
-              onChange={setWarrantyDate}
-              calendar={lang === "fa" ? persian : gregorian}
-              locale={lang === "fa" ? persian_fa : gregorian_en}
-              calendarPosition="bottom-right"
-              value={warrantyDate}
-            />
-          </Form.Group>
-        </div>
-        <div className="Row">
-          <Form.Group className="mb-3" controlId={"ExpirationDate"}>
-            <Form.Label>{t("ExpirationDate")}</Form.Label>
-            <DatePicker
-                 containerClassName="custom-container"
-              onChange={setExpirationdate}
-              calendar={lang === "fa" ? persian : gregorian}
-              locale={lang === "fa" ? persian_fa : gregorian_en}
-              calendarPosition="bottom-right"
-              value={expirationDate}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"ActivationCode"}>
-            <Form.Label>{t("ActivationCode")}</Form.Label>
-            <Form.Control
-              type="number"
-              name="ActivationCode"
-              value={values.ActivationCode}
-              onChange={onChangeHandler}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"InternalCode"}>
-            <Form.Label>{t("InternalCode")}</Form.Label>
-            <Form.Control
-              type="number"
-              name="InternalCode"
-              value={values.InternalCode}
-              onChange={onChangeHandler}
-            />
-          </Form.Group>
-        </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"company"}>
+              <Form.Label>{t("company")}</Form.Label>
+              <CustomReactMultiSelect
+                isMulti={false}
+                options={companyOptions}
+                value={company}
+                onchangeHandler={(e) => setCompany(e)}
+                placeholder={t("company")}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"device"}>
+              <Form.Label>{t("device")}</Form.Label>
+              <CustomReactMultiSelect
+                isMulti={false}
+                options={deviceOptions}
+                value={device}
+                onchangeHandler={(e) => setDevice(e)}
+                placeholder={t("device")}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"model"}>
+              <Form.Label>{t("model")}</Form.Label>
+              <CustomReactMultiSelect
+                isMulti={false}
+                options={modelOptions}
+                value={model}
+                onchangeHandler={(e) => setModel(e)}
+                placeholder={t("model")}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"importingCompany"}>
+              <Form.Label>{t("ImportingCompanyHeader")}</Form.Label>
+              <CustomReactMultiSelect
+                isMulti={false}
+                options={importingCompanyOptions}
+                value={importingCompany}
+                onchangeHandler={(e) => setImportingCompany(e)}
+                placeholder={t("ImportingCompanyHeader")}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"modelNumber"}>
+              <Form.Label>{t("ModelNumber")}</Form.Label>
+              <Form.Control
+                type="string"
+                name="ModelNumber"
+                value={values.ModelNumber}
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"SerialNumber"}>
+              <Form.Label>{t("SerialNumber")}</Form.Label>
+              <Form.Control
+                type="string"
+                name="SerialNumber"
+                value={values.SerialNumber}
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"CodeNumber"}>
+              <Form.Label>{t("CodeNumber")}</Form.Label>
+              <Form.Control
+                type="text"
+                name="CodeNumber"
+                value={values.CodeNumber}
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"IMEI1"}>
+              <Form.Label>{t("IMEI1")}</Form.Label>
+              <Form.Control
+                type="text"
+                name="IMEI1"
+                value={values.IMEI1}
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"IMEI2"}>
+              <Form.Label>{t("IMEI2")}</Form.Label>
+              <Form.Control
+                type="text"
+                name="IMEI2"
+                value={values.IMEI2}
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"Cottage"}>
+              <Form.Label>{t("Cottage")}</Form.Label>
+              <Form.Control
+                type="number"
+                name="Cottage"
+                value={values.Cottage}
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"CommodityID"}>
+              <Form.Label>{t("CommodityID")}</Form.Label>
+              <Form.Control
+                type="text"
+                name="CommodityID"
+                value={values.CommodityID}
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"WarrantyDate"}>
+              <Form.Label>{t("WarrantyDate")}</Form.Label>
+              <DatePicker
+                containerClassName="custom-container"
+                onChange={setWarrantyDate}
+                calendar={lang === "fa" ? persian : gregorian}
+                locale={lang === "fa" ? persian_fa : gregorian_en}
+                calendarPosition="bottom-right"
+                value={warrantyDate}
+              />
+            </Form.Group>
+          </div>
+          <div className="Row">
+            <Form.Group className="mb-3" controlId={"ExpirationDate"}>
+              <Form.Label>{t("ExpirationDate")}</Form.Label>
+              <DatePicker
+                containerClassName="custom-container"
+                onChange={setExpirationdate}
+                calendar={lang === "fa" ? persian : gregorian}
+                locale={lang === "fa" ? persian_fa : gregorian_en}
+                calendarPosition="bottom-right"
+                value={expirationDate}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"ActivationCode"}>
+              <Form.Label>{t("ActivationCode")}</Form.Label>
+              <Form.Control
+                type="number"
+                name="ActivationCode"
+                value={values.ActivationCode}
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"InternalCode"}>
+              <Form.Label>{t("InternalCode")}</Form.Label>
+              <Form.Control
+                type="number"
+                name="InternalCode"
+                value={values.InternalCode}
+                onChange={onChangeHandler}
+              />
+            </Form.Group>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button disabled={loading} type="submit">

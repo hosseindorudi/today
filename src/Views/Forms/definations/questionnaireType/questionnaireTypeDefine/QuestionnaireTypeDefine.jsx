@@ -3,10 +3,7 @@ import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import "../../../../../assets/css/periorityForm.css";
 import { toast } from "react-toastify";
 import { questionnaireTypeCreate } from "../../../../../services/questionnaireType";
@@ -16,7 +13,7 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import { enums } from "../../../../../data/Enums";
 import useRequest from "../../../../../customHooks/useRequest";
 const QuestionnaireTypeDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const request = useRequest();
   const tabContext = useContext(TabContext);
@@ -54,7 +51,7 @@ const QuestionnaireTypeDefine = () => {
   };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -69,9 +66,8 @@ const QuestionnaireTypeDefine = () => {
       fetchData({
         method: "POST",
         url: questionnaireTypeCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

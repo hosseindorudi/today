@@ -11,7 +11,6 @@ import {
 import * as fa from "react-icons/fa";
 import "./customerPhoneModal.css";
 
-import { handleError } from "../../../validation/functions";
 import { useTranslation } from "react-i18next";
 
 import Swal from "sweetalert2";
@@ -25,7 +24,7 @@ import {
   Col,
 } from "react-bootstrap";
 const CustomerPhoneModal = (props) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
@@ -57,7 +56,6 @@ const CustomerPhoneModal = (props) => {
       headers: request,
       data: {
         Id: props.rowValues,
-        
       },
       signal: abortController.signal,
     });
@@ -98,7 +96,6 @@ const CustomerPhoneModal = (props) => {
       headers: request,
       data: {
         Id: id,
-        
       },
       signal: abortController.signal,
     });
@@ -132,7 +129,7 @@ const CustomerPhoneModal = (props) => {
   };
 
   useEffect(() => {
-   response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -152,7 +149,6 @@ const CustomerPhoneModal = (props) => {
         IsPrimary: values.IsPrimary,
         Description: values.Description,
         Title: values.Title,
-        
       },
     });
   };
@@ -189,7 +185,6 @@ const CustomerPhoneModal = (props) => {
         IsPrimary: values.IsPrimary,
         Description: values.Description,
         Title: values.Title,
-        
       },
     });
   };

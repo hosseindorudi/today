@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 import { createOpt, groupTitle } from "../../../../services/operatorService";
 import {
   createSelectOptions,
-  handleError,
   setDatePickerDate,
 } from "../../../../validation/functions";
 import { languages } from "../../../../assets/languages/languages";
@@ -25,27 +24,26 @@ import { CustomReactMultiSelect } from "../../../../Components/Select/customReac
 const OperatorForm = () => {
   const { app } = useContext(AppContext);
   const [validated, setValidated] = useState(false);
-  const [type, setType] = useState("")
+  const [type, setType] = useState("");
   const { t } = useTranslation();
-  const [operatorGroup, setOperatorGroup] = useState(undefined)
-  const [operatorGroupOptions, setOperatorGroupOptions] = useState([])
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [operatorGroup, setOperatorGroup] = useState(undefined);
+  const [operatorGroupOptions, setOperatorGroupOptions] = useState([]);
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const tabContext = useContext(TabContext);
   const abortController = new AbortController();
   const [values, setValues] = useState({
     IsActive: true,
     OperatorName: "",
-    FirstName:"",
-    LastName:"",
-    Language_EId:1,
+    FirstName: "",
+    LastName: "",
+    Language_EId: 1,
     Password: "",
     InternalPhone: "",
     Mobile: "",
-    IsLimited:true,
+    IsLimited: true,
     LimitTo: new Date(),
-    LimitFrom:new Date(),
-
+    LimitFrom: new Date(),
   });
   const handleSubmited = () => {
     tabContext.addRemoveTabs(
@@ -75,14 +73,14 @@ const OperatorForm = () => {
       method: "POST",
       url: groupTitle,
       headers: request,
-      
+
       signal: abortController.signal,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -108,7 +106,7 @@ const OperatorForm = () => {
     setValidated(true);
     if (form.checkValidity()) {
     }
-    setType("SUBMIT")
+    setType("SUBMIT");
     fetchData({
       method: "POST",
       url: createOpt,
@@ -116,21 +114,19 @@ const OperatorForm = () => {
       signal: abortController.signal,
       data: {
         IsActive: values.IsActive,
-        Group_Id:operatorGroup?.value,
-        Language_EId:values.Language_EId,
-        OperatorName:values.OperatorName,
-        FirstName:values.FirstName,
-        LastName:values.LastName,
-        Password:values.Password,
-        InternalPhone:values.InternalPhone,
-        Mobile:values.Mobile,
-         IsLimited: values.IsLimited,
+        Group_Id: operatorGroup?.value,
+        Language_EId: values.Language_EId,
+        OperatorName: values.OperatorName,
+        FirstName: values.FirstName,
+        LastName: values.LastName,
+        Password: values.Password,
+        InternalPhone: values.InternalPhone,
+        Mobile: values.Mobile,
+        IsLimited: values.IsLimited,
         LimitFrom: setDatePickerDate(values.LimitFrom),
         LimitTo: setDatePickerDate(values.LimitTo),
-        
       },
     });
-    
   };
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -138,7 +134,7 @@ const OperatorForm = () => {
   const handleChangeSwitch = (e) => {
     setValues({ ...values, [e.target.name]: e.target.checked });
   };
-  const setDate = (date,name) => {
+  const setDate = (date, name) => {
     setValues({ ...values, [name]: date.toDate() });
   };
   return (
@@ -155,34 +151,38 @@ const OperatorForm = () => {
           <div className="Row ">
             <Form.Group className="mb-3" controlId={"Activated"}>
               <Form.Label>{t("Activated")}</Form.Label>
-            <Form.Check  style={{ textAlign: "center" }}
+              <Form.Check
+                style={{ textAlign: "center" }}
                 type="switch"
                 checked={values.IsActive}
                 name="IsActive"
-                onChange={handleChangeSwitch} />
-              </Form.Group>
+                onChange={handleChangeSwitch}
+              />
+            </Form.Group>
           </div>
           <div className="Row ">
             <Form.Group className="mb-3" controlId={"group"}>
               <Form.Label>{t("/Operator/Group/Read")}</Form.Label>
               <CustomReactMultiSelect
-              isMulti={false}
-              options={operatorGroupOptions}
-              value={operatorGroup}
-              onchangeHandler={(e) => setOperatorGroup(e)}
-              placeholder={t("/Operator/Group/Read")}
-            />
+                isMulti={false}
+                options={operatorGroupOptions}
+                value={operatorGroup}
+                onchangeHandler={(e) => setOperatorGroup(e)}
+                placeholder={t("/Operator/Group/Read")}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId={"lang"}>
               <Form.Label>{t("SelectLanguage")}</Form.Label>
-              <Form.Select value={values.Language_EId} onChange={onChangeHandler}>
+              <Form.Select
+                value={values.Language_EId}
+                onChange={onChangeHandler}
+              >
                 <option disabled>{t("SelectLanguage")}</option>
-                {languages.map((l,i)=>(
+                {languages.map((l, i) => (
                   <option value={l.no}>{l.name}</option>
                 ))}
               </Form.Select>
             </Form.Group>
-
           </div>
           <div className="Row">
             <Form.Group className="mb-3" controlId={"FirstName"}>
@@ -233,7 +233,7 @@ const OperatorForm = () => {
             </Form.Group>
           </div>
           <div className="Row">
-          <Form.Group className="mb-3" controlId={"InternalPhone"}>
+            <Form.Group className="mb-3" controlId={"InternalPhone"}>
               <Form.Label>{t("InternalPhone")}</Form.Label>
               <Form.Control
                 type="number"
@@ -259,8 +259,8 @@ const OperatorForm = () => {
               <Form.Label>{t("LimitFrom")}</Form.Label>
               <DatePicker
                 containerClassName="custom-container"
-                onChange={(e)=>setDate(e,"LimitFrom")}
-                name='LimitFrom'
+                onChange={(e) => setDate(e, "LimitFrom")}
+                name="LimitFrom"
                 calendar={app.lang === "fa" ? persian : gregorian}
                 locale={app.lang === "fa" ? persian_fa : gregorian_en}
                 calendarPosition="bottom-right"
@@ -282,8 +282,8 @@ const OperatorForm = () => {
               <Form.Label>{t("LimitTo")}</Form.Label>
               <DatePicker
                 containerClassName="custom-container"
-                onChange={(e)=>setDate(e,"LimitTo")}
-                name='LimitTo'
+                onChange={(e) => setDate(e, "LimitTo")}
+                name="LimitTo"
                 calendar={app.lang === "fa" ? persian : gregorian}
                 locale={app.lang === "fa" ? persian_fa : gregorian_en}
                 calendarPosition="bottom-right"
@@ -292,7 +292,7 @@ const OperatorForm = () => {
               />
             </Form.Group>
           </div>
-         
+
           <Button disabled={loading} type="submit">
             {t("submit")}
           </Button>

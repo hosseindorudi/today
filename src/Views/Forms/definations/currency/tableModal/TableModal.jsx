@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
@@ -19,21 +18,16 @@ const TableModal = (props) => {
     IsReference: val.IsReference,
     Rate: val.Rate,
   });
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   // const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
 
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
   const handleResponse = () => {
     props.updated();
   };
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -41,9 +35,9 @@ const TableModal = (props) => {
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  const handleSwich=(e)=>{
+  const handleSwich = (e) => {
     setValues({ ...values, [e.target.name]: e.target.checked });
-  }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -55,9 +49,8 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: currencyUpdate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: val.Id,
           Priority: values.periority,
           Title: values.title,
@@ -80,9 +73,7 @@ const TableModal = (props) => {
       className="editModalPeriority"
     >
       <Modal.Header closeButton></Modal.Header>
-      <Form onSubmit={handleSubmit}       noValidate
-        validated={validated}
-        >
+      <Form onSubmit={handleSubmit} noValidate validated={validated}>
         <Modal.Body>
           <div className="Row">
             <Form.Group className="mb-3" controlId={"Rate"}>

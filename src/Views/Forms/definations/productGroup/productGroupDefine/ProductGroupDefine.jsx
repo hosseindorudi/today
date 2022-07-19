@@ -11,7 +11,7 @@ import ProductGroup from "../ProductGroup";
 import "../../../../../assets/css/periorityForm.css";
 import { defintionInputs } from "../../../../../validation/functions";
 const ProductGroupDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
@@ -46,14 +46,9 @@ const ProductGroupDefine = () => {
       "add"
     );
   };
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -69,7 +64,6 @@ const ProductGroupDefine = () => {
       url: productGroupCreate,
       headers: request,
       data: {
-        
         Id: 0,
         Priority: values.periority,
         Title: values.title,

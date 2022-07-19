@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
+import {
+  createSelectOptions,
+  defintionInputs,
+  handleError,
+} from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { modelReadTitle } from "../../../../../services/modelService";
 import { additionalServiceUpdate } from "../../../../../services/additionalServiceService";
 const TableModal = (props) => {
-const [validated, setValidated] = useState(false);
-const [modelOptions,setModelOptions]=useState([])
-const [model, setModel] = useState(undefined);
+  const [validated, setValidated] = useState(false);
+  const [modelOptions, setModelOptions] = useState([]);
+  const [model, setModel] = useState(undefined);
   const { t } = useTranslation();
   const abortController = new AbortController();
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [values, setValues] = useState({
     title: "",
@@ -32,7 +36,7 @@ const [model, setModel] = useState(undefined);
       periority: prop.Priority,
       desc: prop.Description,
     });
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const createParams = (service) => {
@@ -40,46 +44,41 @@ const [model, setModel] = useState(undefined);
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
 
-  const getDatas=()=>{
-    const modelTitles = axios.request(
-      createParams(modelReadTitle)
-    );
+  const getDatas = () => {
+    const modelTitles = axios.request(createParams(modelReadTitle));
     axios
-    .all([
-      modelTitles,
-    ])
-    .then(
-      axios.spread((...allData) => {
-        allData[0].data?.Result
-          ? setModelOptions(createSelectOptions(allData[0].data.Title))
-          : handleError(allData[0].data.Message);
-          })
-    )
-    .catch((error) => {
-      handleError(error.message);
-    });
-  }
+      .all([modelTitles])
+      .then(
+        axios.spread((...allData) => {
+          allData[0].data?.Result
+            ? setModelOptions(createSelectOptions(allData[0].data.Title))
+            : handleError(allData[0].data.Message);
+        })
+      )
+      .catch((error) => {
+        handleError(error.message);
+      });
+  };
   useEffect(() => {
-      getDatas();
-      
+    getDatas();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    setModel(modelOptions.find((m) => m.value === props.rowValus.Model_Id))
+    setModel(modelOptions.find((m) => m.value === props.rowValus.Model_Id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[modelOptions])
-  
-  const handleResponse=(response)=>{
-    props.updated()
-  }
+  }, [modelOptions]);
+
+  const handleResponse = (response) => {
+    props.updated();
+  };
   useEffect(() => {
-    response&&handleResponse()
+    response && handleResponse();
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -87,17 +86,16 @@ const [model, setModel] = useState(undefined);
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.checkValidity()) {
-     e.stopPropagation();
+      e.stopPropagation();
     }
     setValidated(true);
     if (form.checkValidity()) {
       fetchData({
         method: "POST",
         url: additionalServiceUpdate,
-        headers:request,
+        headers: request,
         data: {
-          
-          Model_Id:model?.value,
+          Model_Id: model?.value,
           Id: props.rowValus.Id,
           Priority: values.periority,
           Title: values.title,
@@ -107,10 +105,7 @@ const [model, setModel] = useState(undefined);
         },
         signal: abortController.signal,
       });
-      
-     }
-    
-  
+    }
   };
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -132,32 +127,24 @@ const [model, setModel] = useState(undefined);
         onSubmit={handleSubmit}
       >
         <Modal.Body>
-
-        <div className="Row">
+          <div className="Row">
             <Form.Group className="mb-3" controlId={"model"}>
-                <Form.Label>{t("model")}</Form.Label>
-                    <CustomReactMultiSelect
-                    isMulti={false}
-                    options={modelOptions}
-                    value={model}
-                    onchangeHandler={(e) => setModel(e)}
-                    placeholder={t("model")}
-                    />
-           </Form.Group>
-
-        </div>
-        {defintionInputs(values).map((input) => (
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChangeHandler}
+              <Form.Label>{t("model")}</Form.Label>
+              <CustomReactMultiSelect
+                isMulti={false}
+                options={modelOptions}
+                value={model}
+                onchangeHandler={(e) => setModel(e)}
+                placeholder={t("model")}
               />
-            ))}
-
-
+            </Form.Group>
+          </div>
+          {defintionInputs(values).map((input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          ))}
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={loading} type='submit' >
+          <Button disabled={loading} type="submit">
             {" "}
             {t("operatorGroupFormSubmit")}
           </Button>

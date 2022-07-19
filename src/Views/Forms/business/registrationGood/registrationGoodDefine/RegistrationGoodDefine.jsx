@@ -27,7 +27,7 @@ import RegistrationGood from "../RegistrationGood";
 import "../../../../../assets/css/businessForm.css";
 import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 const RegistrationGoodDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const request = useRequest();
   const tabContext = useContext(TabContext);
@@ -83,7 +83,6 @@ const RegistrationGoodDefine = () => {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
@@ -98,13 +97,19 @@ const RegistrationGoodDefine = () => {
       .all([companyTitles, deviceTitles, modelTitles, importingCompanyTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok? setCompanyOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setCompanyOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result===ResultCodeEnum.Ok? setDeviceOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result === ResultCodeEnum.Ok
+            ? setDeviceOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-          allData[2].data?.Result===ResultCodeEnum.Ok? setModelOptions(createSelectOptions(allData[2].data.Title))
+          allData[2].data?.Result === ResultCodeEnum.Ok
+            ? setModelOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
-          allData[3].data?.Result===ResultCodeEnum.Ok? setImportingCompanyOptions(createSelectOptions(allData[3].data.Title))
+          allData[3].data?.Result === ResultCodeEnum.Ok
+            ? setImportingCompanyOptions(
+                createSelectOptions(allData[3].data.Title)
+              )
             : handleError(allData[3].data.Message);
         })
       )
@@ -117,7 +122,7 @@ const RegistrationGoodDefine = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -132,9 +137,8 @@ const RegistrationGoodDefine = () => {
       fetchData({
         method: "POST",
         url: registrationGoodCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Company_Id: company?.value,
           Device_Id: device?.value,
@@ -147,8 +151,16 @@ const RegistrationGoodDefine = () => {
           IMEI2: values.IMEI2,
           Cottage: values.Cottage,
           CommodityID: values.CommodityID,
-          WarrantyDate: setDatePickerDate(warrantyDate instanceof DateObject?warrantyDate.toDate():warrantyDate),
-          ExpirationDate: setDatePickerDate(expirationDate instanceof DateObject?expirationDate.toDate():expirationDate),
+          WarrantyDate: setDatePickerDate(
+            warrantyDate instanceof DateObject
+              ? warrantyDate.toDate()
+              : warrantyDate
+          ),
+          ExpirationDate: setDatePickerDate(
+            expirationDate instanceof DateObject
+              ? expirationDate.toDate()
+              : expirationDate
+          ),
           ActivationCode: values.ActivationCode,
           InternalCode: values.InternalCode,
         },
@@ -168,7 +180,9 @@ const RegistrationGoodDefine = () => {
         validated={validated}
         onSubmit={handleSubmit}
       >
-        <b className="titleBusinessForm">{t("/Business/RegistrationGood/Write")}</b>
+        <b className="titleBusinessForm">
+          {t("/Business/RegistrationGood/Write")}
+        </b>
         <div className="Row">
           <Form.Group className="mb-3" controlId={"company"}>
             <Form.Label>{t("company")}</Form.Label>
@@ -282,7 +296,7 @@ const RegistrationGoodDefine = () => {
           <Form.Group className="mb-3" controlId={"WarrantyDate"}>
             <Form.Label>{t("WarrantyDate")}</Form.Label>
             <DatePicker
-            containerClassName="custom-container"
+              containerClassName="custom-container"
               onChange={setWarrantyDate}
               calendar={lang === "fa" ? persian : gregorian}
               locale={lang === "fa" ? persian_fa : gregorian_en}
@@ -295,7 +309,7 @@ const RegistrationGoodDefine = () => {
           <Form.Group className="mb-3" controlId={"ExpirationDate"}>
             <Form.Label>{t("ExpirationDate")}</Form.Label>
             <DatePicker
-                 containerClassName="custom-container"
+              containerClassName="custom-container"
               onChange={setExpirationdate}
               calendar={lang === "fa" ? persian : gregorian}
               locale={lang === "fa" ? persian_fa : gregorian_en}

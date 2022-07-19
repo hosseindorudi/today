@@ -30,7 +30,7 @@ import { ResultCodeEnum } from "../../../../../../data/ResultCodeEnum";
 const TableQuestionModal = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [enumQuestion, setEnumQuestion] = useState([]);
   const abortController = new AbortController();
@@ -63,13 +63,13 @@ const TableQuestionModal = (props) => {
 
   const handleAddQuestionItem = (questionItem1) => {
     setQuestionItem((prev) => [...prev, questionItem1]);
-    console.log(questionItem)
+    console.log(questionItem);
   };
 
   const handleChangeQuestionItem = (event, index, type) => {
     let newArr = questionItem.map((item, i) => {
-      console.log(item.Id, index, i)
-      return i === index 
+      console.log(item.Id, index, i);
+      return i === index
         ? {
             ...item,
             [type]:
@@ -110,7 +110,6 @@ const TableQuestionModal = (props) => {
       url: service,
       headers: request,
       data: {
-        
         Id: props.rowValus.Id,
       },
     };
@@ -123,7 +122,8 @@ const TableQuestionModal = (props) => {
       .all([questionTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok? setQuestions(allData[0].data.Record)
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setQuestions(allData[0].data.Record)
             : handleError(allData[0].data.Message);
         })
       )
@@ -169,7 +169,6 @@ const TableQuestionModal = (props) => {
       headers: request,
       data: {
         Id: id,
-        
       },
       signal: abortController.signal,
     });
@@ -203,7 +202,7 @@ const TableQuestionModal = (props) => {
   };
 
   useEffect(() => {
-   response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -230,70 +229,69 @@ const TableQuestionModal = (props) => {
         Priority: periodity,
         Description: description,
         Color: color.slice(1),
-        
       },
     });
   };
 
-  const increasePeriority = (e,question) => {
-
-      if (question.Priority === 1000) {
-        handleError(t("periorityQuestionError1000"))
-        return;
-      } else {
+  const increasePeriority = (e, question) => {
+    if (question.Priority === 1000) {
+      handleError(t("periorityQuestionError1000"));
+      return;
+    } else {
       e.preventDefault();
       setRequestType("SUBMIT");
       fetchData({
         method: "POST",
         url: updateQuestion,
-        headers:request,
+        headers: request,
         signal: abortController.signal,
         data: {
           Id: question.Id,
           QuestionPage_Id: question.QuestionPage_Id,
           QuestionType_EId: question.QuestionType_EId,
-          QuestionItem: question.QuestionItem === null ? [] : question.QuestionItem ,  
+          QuestionItem:
+            question.QuestionItem === null ? [] : question.QuestionItem,
           Title: question.Title,
-          Priority: question.Priority ===1000 ? 1000 : question.Priority + 1 ,
+          Priority: question.Priority === 1000 ? 1000 : question.Priority + 1,
           Description: question.Description,
           Color: question.Color,
-          
-        },
-      });
-      }
-  }
-  const decreasePeriority = (e,question) => {
-
-      if (question.Priority === 1) {
-        handleError(t("periorityQuestionError1"));
-        return;
-      } else {
-      e.preventDefault();
-      setRequestType("SUBMIT");
-      fetchData({
-        method: "POST",
-        url: updateQuestion,
-        headers:request,
-        signal: abortController.signal,
-        data: {
-          Id: question.Id,
-          QuestionPage_Id: question.QuestionPage_Id,
-          QuestionType_EId: question.QuestionType_EId,
-          QuestionItem:question.QuestionItem === null ? [] : question.QuestionItem,
-          Title: question.Title,
-          Priority: question.Priority === 1 ? 1 : question.Priority - 1 ,
-          Description: question.Description,
-          Color: question.Color,
-          
         },
       });
     }
-  }
+  };
+  const decreasePeriority = (e, question) => {
+    if (question.Priority === 1) {
+      handleError(t("periorityQuestionError1"));
+      return;
+    } else {
+      e.preventDefault();
+      setRequestType("SUBMIT");
+      fetchData({
+        method: "POST",
+        url: updateQuestion,
+        headers: request,
+        signal: abortController.signal,
+        data: {
+          Id: question.Id,
+          QuestionPage_Id: question.QuestionPage_Id,
+          QuestionType_EId: question.QuestionType_EId,
+          QuestionItem:
+            question.QuestionItem === null ? [] : question.QuestionItem,
+          Title: question.Title,
+          Priority: question.Priority === 1 ? 1 : question.Priority - 1,
+          Description: question.Description,
+          Color: question.Color,
+        },
+      });
+    }
+  };
 
   const handleQuestionEdit = (question) => {
     console.log(question.Color);
 
-    (question.QuestionItem !== [] & question.QuestionItem !== null) ? setMultiSelectActivation(true) : setMultiSelectActivation(false);
+    (question.QuestionItem !== []) & (question.QuestionItem !== null)
+      ? setMultiSelectActivation(true)
+      : setMultiSelectActivation(false);
     setTitle(question.Title);
     setDescription(question.Description);
     setQuestionSelect(
@@ -304,12 +302,10 @@ const TableQuestionModal = (props) => {
     setPeriodity(question.Priority);
     setEditButtonActivate(true);
     let array = question.QuestionItem;
-    console.log(array)
-    array.map((arr) => (
-      arr['Color'] = `#${arr['Color']}`
-    ))
-    setQuestionItem(array)
-    console.log(questionItem)
+    console.log(array);
+    array.map((arr) => (arr["Color"] = `#${arr["Color"]}`));
+    setQuestionItem(array);
+    console.log(questionItem);
   };
 
   const cancletationOFEdit = () => {
@@ -319,21 +315,20 @@ const TableQuestionModal = (props) => {
     setColor("#000000");
     setPeriodity(1);
     setEditButtonActivate(false);
-    setMultiSelectActivation(false)
-    setQuestionItem([])
+    setMultiSelectActivation(false);
+    setQuestionItem([]);
   };
 
   const SubmitOfEdit = (e) => {
     e.preventDefault();
     setRequestType("SUBMIT");
     let newArr = questionItem.map((item, i) => {
-      console.log(questionItem[i]["Color"].slice(1))
+      console.log(questionItem[i]["Color"].slice(1));
       return { ...item, Color: questionItem[i]["Color"].slice(1) };
     });
     setQuestionItem(newArr);
-    console.log(questionItem)
-    console.log(newArr)
-    
+    console.log(questionItem);
+    console.log(newArr);
 
     fetchData({
       method: "POST",
@@ -349,7 +344,6 @@ const TableQuestionModal = (props) => {
         Priority: periodity,
         Description: description,
         Color: color.slice(1),
-        
       },
     });
 
@@ -359,9 +353,8 @@ const TableQuestionModal = (props) => {
     setColor("#000000");
     setPeriodity(1);
     setEditButtonActivate(false);
-    setMultiSelectActivation(false)
-    setQuestionItem([])
-    
+    setMultiSelectActivation(false);
+    setQuestionItem([]);
   };
 
   return (
@@ -554,7 +547,7 @@ const TableQuestionModal = (props) => {
                             </Form.Label>
                             <Form.Control
                               type="color"
-                              value={ questionItem[index]["Color"]} // multiSelectActivation ?  `#${questionItem[index]["Color"]}` :
+                              value={questionItem[index]["Color"]} // multiSelectActivation ?  `#${questionItem[index]["Color"]}` :
                               onChange={(e) => {
                                 handleChangeQuestionItem(e, index, "Color");
                               }}
@@ -607,7 +600,6 @@ const TableQuestionModal = (props) => {
         <Modal.Footer className="questionModalFooter">
           <ListGroup as="ol" numbered className="questionListGroup">
             {questions.map((question) => (
-              
               <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between align-items-center mb-1 listGroupItemQuestion"
@@ -619,12 +611,12 @@ const TableQuestionModal = (props) => {
                 <div className="ms-2 questionMain">
                   <div className="fw-bold questionTitle">{question.Title}</div>
                   {question.Description}
-                  
-                  
                 </div>
                 <div className="questionMain">
                   <b>{t("periodity")}:</b>
-                  <span style={{marginInlineStart:5}}>{question.Priority}</span>
+                  <span style={{ marginInlineStart: 5 }}>
+                    {question.Priority}
+                  </span>
                 </div>
                 <div className="ms-2 questionButtons">
                   <div
@@ -640,12 +632,16 @@ const TableQuestionModal = (props) => {
                     <fa.FaTrash />
                   </div>
 
-                  <div className="questionDownDiv" >
-                    <fa.FaLongArrowAltDown  onClick={(e) => decreasePeriority(e,question)}/>
+                  <div className="questionDownDiv">
+                    <fa.FaLongArrowAltDown
+                      onClick={(e) => decreasePeriority(e, question)}
+                    />
                   </div>
 
                   <div className="questionUpDiv">
-                    <fa.FaLongArrowAltUp  onClick={(e) => increasePeriority(e,question)}/>
+                    <fa.FaLongArrowAltUp
+                      onClick={(e) => increasePeriority(e, question)}
+                    />
                   </div>
                 </div>
               </ListGroup.Item>

@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Form } from "react-bootstrap";
@@ -13,11 +12,11 @@ import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_en from "react-date-object/locales/gregorian_en";
 import AppContext from "../../../../contexts/AppContext";
-import { handleError, setDatePickerDate } from "../../../../validation/functions";
+import { setDatePickerDate } from "../../../../validation/functions";
 import { customerGroupCreate } from "../../../../services/customerGroupService";
 import CustomerGroup from "./List/CustomerGroup";
 const CustomerGroupForm = () => {
-  const {app}=useContext(AppContext)
+  const { app } = useContext(AppContext);
   const [validated, setValidated] = useState(false);
   const { t } = useTranslation();
   const [response, loading, fetchData] = useAxios();
@@ -37,9 +36,9 @@ const CustomerGroupForm = () => {
     tabContext.addRemoveTabs(
       {
         Component: CustomerGroupForm,
-          path: "/Customer/Group/Create",
-          title: "/Customer/Group/Create",
-          access: enums.Customer_Group_Create_w,
+        path: "/Customer/Group/Create",
+        title: "/Customer/Group/Create",
+        access: enums.Customer_Group_Create_w,
       },
       "remove"
     );
@@ -55,7 +54,6 @@ const CustomerGroupForm = () => {
     );
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -64,27 +62,26 @@ const CustomerGroupForm = () => {
     }
     setValidated(true);
     if (form.checkValidity()) {
-    fetchData({
-      method: "POST",
-      url: customerGroupCreate,
-      headers: request,
-      signal: abortController.signal,
-      data: {
-        IsActive: values.IsActive,
-        Title: values.Title,
-        MaxSession: values.MaxSession,
-        IsLimited: values.IsLimited,
-        LimitFrom: setDatePickerDate(values.LimitFrom),
-        LimitTo: setDatePickerDate(values.LimitTo),
-        Description: values.Description,
-        
-      },
-    });
-  }
+      fetchData({
+        method: "POST",
+        url: customerGroupCreate,
+        headers: request,
+        signal: abortController.signal,
+        data: {
+          IsActive: values.IsActive,
+          Title: values.Title,
+          MaxSession: values.MaxSession,
+          IsLimited: values.IsLimited,
+          LimitFrom: setDatePickerDate(values.LimitFrom),
+          LimitTo: setDatePickerDate(values.LimitTo),
+          Description: values.Description,
+        },
+      });
+    }
   };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const onChangeHandler = (e) => {
@@ -93,7 +90,7 @@ const CustomerGroupForm = () => {
   const handleChangeSwitch = (e) => {
     setValues({ ...values, [e.target.name]: e.target.checked });
   };
-  const setDate = (date,name) => {
+  const setDate = (date, name) => {
     setValues({ ...values, [name]: date.toDate() });
   };
   return (
@@ -167,8 +164,8 @@ const CustomerGroupForm = () => {
               <Form.Label>{t("LimitFrom")}</Form.Label>
               <DatePicker
                 containerClassName="custom-container"
-                onChange={(e)=>setDate(e,"LimitFrom")}
-                name='LimitFrom'
+                onChange={(e) => setDate(e, "LimitFrom")}
+                name="LimitFrom"
                 calendar={app.lang === "fa" ? persian : gregorian}
                 locale={app.lang === "fa" ? persian_fa : gregorian_en}
                 calendarPosition="bottom-right"
@@ -190,8 +187,8 @@ const CustomerGroupForm = () => {
               <Form.Label>{t("LimitTo")}</Form.Label>
               <DatePicker
                 containerClassName="custom-container"
-                onChange={(e)=>setDate(e,"LimitTo")}
-                name='LimitTo'
+                onChange={(e) => setDate(e, "LimitTo")}
+                name="LimitTo"
                 calendar={app.lang === "fa" ? persian : gregorian}
                 locale={app.lang === "fa" ? persian_fa : gregorian_en}
                 calendarPosition="bottom-right"

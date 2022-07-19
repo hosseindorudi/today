@@ -3,10 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import useAxios from "../../../../../customHooks/useAxios";
 import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useRequest from "../../../../../customHooks/useRequest";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { enums } from "../../../../../data/Enums";
@@ -16,7 +13,7 @@ import { ColorCreate } from "../../../../../services/colorService";
 const ColorForm = () => {
   const { t } = useTranslation();
   const [validated, setValidated] = useState(false);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
@@ -52,7 +49,7 @@ const ColorForm = () => {
   };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -72,9 +69,8 @@ const ColorForm = () => {
       fetchData({
         method: "POST",
         url: ColorCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

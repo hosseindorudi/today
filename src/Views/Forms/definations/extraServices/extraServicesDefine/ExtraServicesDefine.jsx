@@ -14,13 +14,14 @@ import {
   defintionInputs,
   handleError,
 } from "../../../../../validation/functions";
+import ResultCodeEnum from "../../../../../data/ResultCodeEnum";
 import { Form, Button } from "react-bootstrap";
 import { modelReadTitle } from "../../../../../services/modelService";
 import axios from "axios";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 const ExtraServicesDefine = () => {
   const [validated, setValidated] = useState(false);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [modelOptions, setModelOptions] = useState([]);
   const [model, setModel] = useState(undefined);
   const tabContext = useContext(TabContext);
@@ -61,7 +62,6 @@ const ExtraServicesDefine = () => {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
@@ -71,7 +71,8 @@ const ExtraServicesDefine = () => {
       .all([modelTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok? setModelOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setModelOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
         })
       )
@@ -85,7 +86,7 @@ const ExtraServicesDefine = () => {
   }, []);
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -105,9 +106,8 @@ const ExtraServicesDefine = () => {
       fetchData({
         method: "POST",
         url: additionalServiceCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Model_Id: model?.value,
           Priority: values.periority,

@@ -3,16 +3,16 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import {  defintionInputs, handleError } from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { qualityUpdate } from "../../../../../services/qualityService";
 
 const TableModal = (props) => {
   const [validated, setValidated] = useState(false);
-  const [type,setType]=useState("")
+  const [type, setType] = useState("");
   const { t } = useTranslation();
   const abortController = new AbortController();
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [values, setValues] = useState({
     title: "",
@@ -29,12 +29,12 @@ const TableModal = (props) => {
       periority: prop.Priority,
       desc: prop.Description,
     });
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
-  const submitted=(response)=>{
-    props.updated()
-  }
+
+  const submitted = (response) => {
+    props.updated();
+  };
   const handleResponse = (response, type) => {
     switch (type) {
       case "SUBMIT":
@@ -46,7 +46,7 @@ const TableModal = (props) => {
   };
 
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -62,9 +62,8 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: qualityUpdate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: props.rowValus.Id,
           Priority: values.periority,
           Title: values.title,
@@ -99,13 +98,12 @@ const TableModal = (props) => {
         onSubmit={handleSubmit}
       >
         <Modal.Body>
-      
-        {defintionInputs(values).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
+          {defintionInputs(values).map((input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          ))}
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={loading} type='submit' >
+          <Button disabled={loading} type="submit">
             {" "}
             {t("operatorGroupFormSubmit")}
           </Button>

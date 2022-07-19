@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {  Button,  Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 
-
-
-import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
@@ -13,48 +10,42 @@ import { productGroupReadTitle } from "../../../../../services/productGroup";
 import { defintionInputs } from "../../../../../validation/functions";
 
 const TableModal = (props) => {
-  const val=props.rowValus
-  const [type,setType]=useState("")
-  const [productGroups, setProductGroups] = useState([])
+  const val = props.rowValus;
+  const [type, setType] = useState("");
+  const [productGroups, setProductGroups] = useState([]);
   const [values, setValues] = useState({
     title: val.Title,
     color: `#${val.Color}`,
     periority: val.Priority,
     desc: val.Description,
-    groupId:val.ProductGroup_Id
+    groupId: val.ProductGroup_Id,
   });
- 
-  const [response, loading, fetchData, setResponse] = useAxios();
+
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
 
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  const handleSuccess=()=>{
-    props.updated()
-  }
+  const handleSuccess = () => {
+    props.updated();
+  };
   const handleResponse = (response, type) => {
     switch (type) {
       case "READTITLE":
         setProductGroups(response.Title);
         break;
-        case "SUBMIT":
-        handleSuccess()
+      case "SUBMIT":
+        handleSuccess();
         break;
       default:
         break;
     }
-    
   };
   useEffect(() => {
-    response&&handleResponse(response,type)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    response && handleResponse(response, type);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   useEffect(() => {
@@ -63,7 +54,6 @@ const TableModal = (props) => {
       method: "POST",
       url: productGroupReadTitle,
       headers: request,
-      
 
       signal: abortController.signal,
     });
@@ -72,16 +62,15 @@ const TableModal = (props) => {
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    setType("SUBMIT")
+    setType("SUBMIT");
     fetchData({
       method: "POST",
       url: productUpdate,
       headers: request,
       data: {
-        
         Id: val.Id,
         ProductGroup_Id: values.groupId,
-        ProductGroup_Title:"",
+        ProductGroup_Title: "",
         Priority: values.periority,
         Title: values.title,
         Description: values.desc,
@@ -92,31 +81,28 @@ const TableModal = (props) => {
       },
       signal: abortController.signal,
     });
-  
   };
   return (
     <Modal
-    show={props.tableModalShow}
-    size="lg"
-    aria-labelledby="contained-modal-title-vcenter"
-    centered
-    onHide={props.onHide}
-    className='editModalPeriority'
-  >
-    <Modal.Header closeButton></Modal.Header>
-    <Form onSubmit={handleSubmit}>
-    <Modal.Body>
-    <div className="periorityFormsEdit">
-    <div className="formInput">
+      show={props.tableModalShow}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      onHide={props.onHide}
+      className="editModalPeriority"
+    >
+      <Modal.Header closeButton></Modal.Header>
+      <Form onSubmit={handleSubmit}>
+        <Modal.Body>
+          <div className="periorityFormsEdit">
+            <div className="formInput">
               <label className="formInputsLabel">{t("productGroup")}</label>
               <Form.Select
                 name="groupId"
                 value={values.groupId}
                 onChange={onChange}
               >
-                <option  disabled>
-                  {t("productGroup")}
-                </option>
+                <option disabled>{t("productGroup")}</option>
                 {productGroups.map((p, i) => (
                   <option key={i} value={p.Id}>
                     {p.Title}
@@ -124,21 +110,24 @@ const TableModal = (props) => {
                 ))}
               </Form.Select>
             </div>
-          {defintionInputs(values).map((input) => (
-            <FormInput
-              key={input.id}
-              {...input}
-              value={values[input.name]}
-              onChange={onChange}
-            />
-          ))}
-      </div>
-    </Modal.Body>
-    <Modal.Footer>
-      <Button disabled={loading} type='submit'> {t("submit")}</Button>
-    </Modal.Footer>
-    </Form>
-  </Modal>
+            {defintionInputs(values).map((input) => (
+              <FormInput
+                key={input.id}
+                {...input}
+                value={values[input.name]}
+                onChange={onChange}
+              />
+            ))}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button disabled={loading} type="submit">
+            {" "}
+            {t("submit")}
+          </Button>
+        </Modal.Footer>
+      </Form>
+    </Modal>
   );
 };
 

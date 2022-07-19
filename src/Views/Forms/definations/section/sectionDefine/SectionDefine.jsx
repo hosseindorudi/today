@@ -13,11 +13,10 @@ import { sectionCreate } from "../../../../../services/sectionService";
 import {
   createSelectOptions,
   defintionInputs,
-  handleError,
 } from "../../../../../validation/functions";
 import Section from "../Section";
 const SectionDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const [type, setType] = useState("");
   const [cityOptions, setCityOptions] = useState([]);
@@ -73,14 +72,14 @@ const SectionDefine = () => {
       method: "POST",
       url: cityReadTitle,
       headers: request,
-      
+
       signal: abortController.signal,
     });
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -96,9 +95,8 @@ const SectionDefine = () => {
       fetchData({
         method: "POST",
         url: sectionCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           City_Id: city?.value,
           Priority: values.periority,

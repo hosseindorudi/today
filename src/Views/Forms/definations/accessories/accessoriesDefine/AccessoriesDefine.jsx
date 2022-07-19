@@ -13,7 +13,7 @@ import { admissionAccessoryCreate } from "../../../../../services/admissionAcces
 import { defintionInputs } from "../../../../../validation/functions";
 const AccessoriesDefine = () => {
   const [validated, setValidated] = useState(false);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
@@ -47,14 +47,9 @@ const AccessoriesDefine = () => {
       "add"
     );
   };
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -74,9 +69,8 @@ const AccessoriesDefine = () => {
       fetchData({
         method: "POST",
         url: admissionAccessoryCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

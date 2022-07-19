@@ -15,7 +15,7 @@ import { defintionInputs } from "../../../../../validation/functions";
 const ProductDefine = () => {
   const [type, setType] = useState("");
   const tabContext = useContext(TabContext);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
   const [products, setProducts] = useState([]);
@@ -63,14 +63,9 @@ const ProductDefine = () => {
         break;
     }
   };
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
 
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -81,7 +76,6 @@ const ProductDefine = () => {
       method: "POST",
       url: productGroupReadTitle,
       headers: request,
-      
 
       signal: abortController.signal,
     });
@@ -101,7 +95,6 @@ const ProductDefine = () => {
       url: productCreate,
       headers: request,
       data: {
-        
         ProductGroup_Id: values.groupId,
         ProductGroup_Title: "string",
         Id: 0,

@@ -24,7 +24,7 @@ import { countryReadTitle } from "../../../services/countryService";
 import { currencyReadTitle } from "../../../services/currencyService";
 import { ResultCodeEnum } from "../../../data/ResultCodeEnum";
 const AddCurrencyModal = (props) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [currencyOptions, setCurrencyOptions] = useState([]);
   const [currency, setCurrency] = useState(undefined);
@@ -34,22 +34,21 @@ const AddCurrencyModal = (props) => {
   const [rates, setRates] = useState([]);
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
-  const [rateId, setRateId] = useState("")
+  const [rateId, setRateId] = useState("");
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
 
-const setEmpty=()=>{
-    setCurrency(null)
-    setCountry(null)
-    setFee("")
-}
+  const setEmpty = () => {
+    setCurrency(null);
+    setCountry(null);
+    setFee("");
+  };
 
   const createParams = (service) => {
     const params = {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
@@ -61,10 +60,11 @@ const setEmpty=()=>{
       .all([countryTitles, currencyTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok?
+          allData[0].data?.Result === ResultCodeEnum.Ok
             ? setCountryOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result===ResultCodeEnum.Ok? setCurrencyOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result === ResultCodeEnum.Ok
+            ? setCurrencyOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
         })
       )
@@ -80,7 +80,6 @@ const setEmpty=()=>{
       headers: request,
       data: {
         Id: props.id,
-        
       },
       signal: abortController.signal,
     });
@@ -96,11 +95,11 @@ const setEmpty=()=>{
       switch (type) {
         case "DELETE":
           handleDeleted();
-          
+
           break;
         case "SUBMIT":
           readDatas();
-            setEmpty()
+          setEmpty();
           break;
         case "READRATE":
           setRates(response.Record);
@@ -121,7 +120,6 @@ const setEmpty=()=>{
       headers: request,
       data: {
         Id: id,
-        
       },
       signal: abortController.signal,
     });
@@ -133,7 +131,7 @@ const setEmpty=()=>{
       t("sweetAlert.recordDeleted"),
       "success"
     );
-    setEmpty()
+    setEmpty();
     readDatas();
   };
 
@@ -155,8 +153,7 @@ const setEmpty=()=>{
   };
 
   useEffect(() => {
-    
-   response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -170,27 +167,26 @@ const setEmpty=()=>{
       headers: request,
       signal: abortController.signal,
       data: {
-        Id:0,
+        Id: 0,
         RepairsPerformed_Id: props.id,
         Country_Id: country?.value,
         Currency_Id: currency?.value,
         Fee: Number(fee),
-        
       },
     });
   };
 
   const handleQuestionEdit = (rate) => {
-    setEditButtonActivate(true)
-    setFee(rate.Fee)
-    setCountry(countryOptions.find(c=>c.value===rate.Country_Id))
-    setCurrency(currencyOptions.find(c=>c.value===rate.Currency_Id))
-    setRateId(rate.Id)
+    setEditButtonActivate(true);
+    setFee(rate.Fee);
+    setCountry(countryOptions.find((c) => c.value === rate.Country_Id));
+    setCurrency(currencyOptions.find((c) => c.value === rate.Currency_Id));
+    setRateId(rate.Id);
   };
 
   const cancletationOFEdit = () => {
-    setEditButtonActivate(false)
-    setEmpty()
+    setEditButtonActivate(false);
+    setEmpty();
   };
 
   const SubmitOfEdit = (e) => {
@@ -203,12 +199,11 @@ const setEmpty=()=>{
       headers: request,
       signal: abortController.signal,
       data: {
-        Id:rateId,
+        Id: rateId,
         [props.typeTitle]: props.id,
         Country_Id: country?.value,
         Currency_Id: currency?.value,
         Fee: Number(fee),
-        
       },
     });
   };
@@ -304,33 +299,35 @@ const setEmpty=()=>{
                 style={{
                   border: `1px solid black`,
                   borderRadius: 4,
-                  alignItems:"center"
+                  alignItems: "center",
                 }}
               >
-                <div >
+                <div>
                   <div className="fw-bold countryTitle">{t("country")}</div>
-                {rate.Country_Title}
+                  {rate.Country_Title}
                 </div>
-                <div >
-                  <div className="fw-bold currencyTitle">{t("Currency_Title")}</div>
-                {rate.Currency_Title}
+                <div>
+                  <div className="fw-bold currencyTitle">
+                    {t("Currency_Title")}
+                  </div>
+                  {rate.Currency_Title}
                 </div>
-                <div >
+                <div>
                   <div className="fw-bold currencyTitle">{t("Fee")}</div>
-                {rate.Fee.toLocaleString()}
+                  {rate.Fee.toLocaleString()}
                 </div>
                 <div className="d-flex btns ">
                   <div
                     className="actionBtns"
                     onClick={() => handleQuestionEdit(rate)}
                   >
-                    <fa.FaRegEdit color="green"/>
+                    <fa.FaRegEdit color="green" />
                   </div>
                   <div
                     className="actionBtns"
                     onClick={() => deleteCalled(rate.Id)}
                   >
-                    <fa.FaTrash color="red"/>
+                    <fa.FaTrash color="red" />
                   </div>
                 </div>
               </ListGroup.Item>

@@ -16,17 +16,22 @@ import { CustomReactMultiSelect } from "../../../Components/Select/customReactSe
 import {
   createSelectOptions,
   handleError,
-  checkTableValues
+  checkTableValues,
 } from "../../../validation/functions";
-import './operatorRoleModal.css'
+import "./operatorRoleModal.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { organizationalRoleReadTitle } from "../../../services/organizationRoleService";
 import { groupReadTitle } from "../../../services/groupService";
-import { operatorCreateOperatorRole, operatorDeleteOperatorRole, operatorReadOperatorRole, operatorUpdateOperatorRole } from "../../../services/operatorService";
+import {
+  operatorCreateOperatorRole,
+  operatorDeleteOperatorRole,
+  operatorReadOperatorRole,
+  operatorUpdateOperatorRole,
+} from "../../../services/operatorService";
 import { ResultCodeEnum } from "../../../data/ResultCodeEnum";
 const OperatorRoleModel = (props) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [organizationalRoleOptions, setOrganizationalRoleOptions] = useState(
     []
@@ -39,7 +44,7 @@ const OperatorRoleModel = (props) => {
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
   const [operatorRoles, setOperatorRoles] = useState([]);
-    const [roleId, setRoleId] = useState("");
+  const [roleId, setRoleId] = useState("");
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
 
@@ -54,21 +59,26 @@ const OperatorRoleModel = (props) => {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
 
   const getDatas = () => {
-    const organizationalRoleTitle = axios.request(createParams(organizationalRoleReadTitle));
+    const organizationalRoleTitle = axios.request(
+      createParams(organizationalRoleReadTitle)
+    );
     const groupTitle = axios.request(createParams(groupReadTitle));
     axios
       .all([organizationalRoleTitle, groupTitle])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok? setOrganizationalRoleOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setOrganizationalRoleOptions(
+                createSelectOptions(allData[0].data.Title)
+              )
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result===ResultCodeEnum.Ok? setGroupOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result === ResultCodeEnum.Ok
+            ? setGroupOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
         })
       )
@@ -84,7 +94,6 @@ const OperatorRoleModel = (props) => {
       headers: request,
       data: {
         Id: props.id,
-        
       },
       signal: abortController.signal,
     });
@@ -105,7 +114,7 @@ const OperatorRoleModel = (props) => {
         case "SUBMIT":
           readDatas();
           setEmpty();
-          setEditButtonActivate(false)
+          setEditButtonActivate(false);
           break;
         case "Read":
           setOperatorRoles(response.Record);
@@ -126,7 +135,6 @@ const OperatorRoleModel = (props) => {
       headers: request,
       data: {
         Id: id,
-        
       },
       signal: abortController.signal,
     });
@@ -160,7 +168,7 @@ const OperatorRoleModel = (props) => {
   };
 
   useEffect(() => {
-   response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -179,8 +187,7 @@ const OperatorRoleModel = (props) => {
         Group_Id: group?.value,
         OrganizationalRole_Id: organizationalRole?.value,
         IsPrimary: isPrimary,
-        Description:description,
-        
+        Description: description,
       },
     });
   };
@@ -188,9 +195,13 @@ const OperatorRoleModel = (props) => {
   const handleQuestionEdit = (role) => {
     setEditButtonActivate(true);
     setDescription(role.Description);
-    setIsPrimary(role.IsPrimary)
+    setIsPrimary(role.IsPrimary);
     setGroup(groupOptions.find((c) => c.value === role.Group_Id));
-    setOrganizationalRole(organizationalRoleOptions.find((c) => c.value === role.OrganizationalRole_Id));
+    setOrganizationalRole(
+      organizationalRoleOptions.find(
+        (c) => c.value === role.OrganizationalRole_Id
+      )
+    );
     setRoleId(role.Id);
   };
 
@@ -214,14 +225,13 @@ const OperatorRoleModel = (props) => {
         Group_Id: group?.value,
         OrganizationalRole_Id: organizationalRole?.value,
         IsPrimary: isPrimary,
-        Description:description,
-        
+        Description: description,
       },
     });
   };
-  const handleChangeSwitch=(e)=>{
-    setIsPrimary(e.target.checked)
-  }
+  const handleChangeSwitch = (e) => {
+    setIsPrimary(e.target.checked);
+  };
   return (
     <>
       <Modal
@@ -236,12 +246,17 @@ const OperatorRoleModel = (props) => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <div className="Row" style={{textAlign:"center"}}>
-          <Form.Group className="mb-3" controlId="IsPrimary">
+            <div className="Row" style={{ textAlign: "center" }}>
+              <Form.Group className="mb-3" controlId="IsPrimary">
                 <Form.Label>{t("IsPrimary")}</Form.Label>
-                <Form.Check type="switch" name='IsPrimary' checked={isPrimary} onChange={handleChangeSwitch}/>
+                <Form.Check
+                  type="switch"
+                  name="IsPrimary"
+                  checked={isPrimary}
+                  onChange={handleChangeSwitch}
+                />
               </Form.Group>
-              </div>
+            </div>
             <div className="Row">
               <Form.Group className="mb-3" controlId="group">
                 <Form.Label>{t("/Operator/Group/Read")}</Form.Label>
@@ -254,7 +269,9 @@ const OperatorRoleModel = (props) => {
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="organizationRole">
-                <Form.Label>{t("/Definition/OrganizationalRole/Read")}</Form.Label>
+                <Form.Label>
+                  {t("/Definition/OrganizationalRole/Read")}
+                </Form.Label>
                 <CustomReactMultiSelect
                   isMulti={false}
                   options={organizationalRoleOptions}
@@ -265,9 +282,15 @@ const OperatorRoleModel = (props) => {
               </Form.Group>
             </div>
             <div className="Row">
-            <Form.Group className="mb-3" controlId="Description">
+              <Form.Group className="mb-3" controlId="Description">
                 <Form.Label>{t("Description")}</Form.Label>
-                <Form.Control as="textarea" rows={2} value={description} onChange={(e)=>setDescription(e.target.value)} placeholder={t("Description")}/>
+                <Form.Control
+                  as="textarea"
+                  rows={2}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder={t("Description")}
+                />
               </Form.Group>
             </div>
             {!editButtonActivate ? (
@@ -319,7 +342,9 @@ const OperatorRoleModel = (props) => {
                 }}
               >
                 <div>
-                  <div className="fw-bold countryTitle">{t("/Operator/Group/Read")}</div>
+                  <div className="fw-bold countryTitle">
+                    {t("/Operator/Group/Read")}
+                  </div>
                   {role.Group_Title}
                 </div>
                 <div>
@@ -330,7 +355,7 @@ const OperatorRoleModel = (props) => {
                 </div>
                 <div>
                   <div className="fw-bold currencyTitle">{t("IsPrimary")}</div>
-                  {checkTableValues("MySession",role.IsPrimary)}
+                  {checkTableValues("MySession", role.IsPrimary)}
                 </div>
                 <div className="d-flex btns ">
                   <div

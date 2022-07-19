@@ -2,7 +2,7 @@ import { t } from "i18next";
 import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import {  usePapaParse, useCSVDownloader } from "react-papaparse";
+import { usePapaParse, useCSVDownloader } from "react-papaparse";
 
 import { toast } from "react-toastify";
 import AppContext from "../../../contexts/AppContext";
@@ -21,7 +21,7 @@ const ImportCSVModal = (props) => {
   const [showCheckResultModal, setShowCheckResultModal] = useState(false);
   const { CSVDownloader, Type } = useCSVDownloader();
   const [checkResult, setCheckResult] = useState(null);
-  const [response, loading, fetchData,setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [checkFile, setCheckFile] = useState(null);
   const [importFile, setImportFile] = useState(null);
   const [requestType, setRequestType] = useState("");
@@ -34,7 +34,6 @@ const ImportCSVModal = (props) => {
       method: "POST",
       url: props.sampleUrl,
       headers: request,
-      
     });
   };
   const noFileToast = () => {
@@ -100,13 +99,13 @@ const ImportCSVModal = (props) => {
     readString(res, config);
   };
   const handleCheckFileModal = (response) => {
-    setCheckResult(response.Message)
-    setShowCheckResultModal(true)
+    setCheckResult(response.Message);
+    setShowCheckResultModal(true);
   };
-  const handleImportSuccess=(res)=>{
-    props.onHide()
-    props.importSuccess(res.Message)
-  }
+  const handleImportSuccess = (res) => {
+    props.onHide();
+    props.importSuccess(res.Message);
+  };
   const handleResponse = useCallback((res, type) => {
     switch (type) {
       case "SAMPLE":
@@ -120,9 +119,11 @@ const ImportCSVModal = (props) => {
             });
         break;
       case "IMPORT":
-       res.Result?handleImportSuccess(res):toast.error(res.Message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+        res.Result
+          ? handleImportSuccess(res)
+          : toast.error(res.Message, {
+              position: toast.POSITION.TOP_CENTER,
+            });
         break;
       default:
         break;
@@ -130,9 +131,8 @@ const ImportCSVModal = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
- 
   useEffect(() => {
-    response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const handleCheckFile = (event) => {

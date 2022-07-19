@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
@@ -18,7 +18,7 @@ import { ColorReadTitle } from "../../../../../services/colorService";
 import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 
 const TableModal = (props) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const { t } = useTranslation();
   const [deviceOptions, setDeviceOptions] = useState([]);
@@ -46,35 +46,39 @@ const TableModal = (props) => {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
-useEffect(() => {
-    setDevice(deviceOptions.find((i)=>i.value===props.rowValus.Device_Id))
+  useEffect(() => {
+    setDevice(deviceOptions.find((i) => i.value === props.rowValus.Device_Id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-},[deviceOptions])
-useEffect(() => {
-  setCountry(countryOptions.find((i)=>i.value===props.rowValus.Country_Id))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [countryOptions])
-useEffect(() => {
-  setColor(colorOptions.find((i)=>i.value===props.rowValus.Color_Id))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [colorOptions])
+  }, [deviceOptions]);
+  useEffect(() => {
+    setCountry(
+      countryOptions.find((i) => i.value === props.rowValus.Country_Id)
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countryOptions]);
+  useEffect(() => {
+    setColor(colorOptions.find((i) => i.value === props.rowValus.Color_Id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colorOptions]);
   const getDatas = () => {
     const deviceTitles = axios.request(createParams(deviceReadTitle));
     const countryTitles = axios.request(createParams(countryReadTitle));
-    const colorTitles=axios.request(createParams(ColorReadTitle));
+    const colorTitles = axios.request(createParams(ColorReadTitle));
     axios
-      .all([deviceTitles, countryTitles,colorTitles])
+      .all([deviceTitles, countryTitles, colorTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok?setDeviceOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setDeviceOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result===ResultCodeEnum.Ok? setCountryOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result === ResultCodeEnum.Ok
+            ? setCountryOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-            allData[2].data?.Result===ResultCodeEnum.Ok? setColorOptions(createSelectOptions(allData[2].data.Title))
+          allData[2].data?.Result === ResultCodeEnum.Ok
+            ? setColorOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
         })
       )
@@ -98,8 +102,8 @@ useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse()
-   
+    response && handleResponse();
+
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -114,9 +118,8 @@ useEffect(() => {
       fetchData({
         method: "POST",
         url: modelUpdate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: props.rowValus.Id,
           Device_Id: device?.value,
           Country_Id: country?.value,
@@ -210,12 +213,12 @@ useEffect(() => {
             <Form.Group className="mb-3" controlId={"BodyColor"}>
               <Form.Label>{t("model.BodyColor")}</Form.Label>
               <CustomReactMultiSelect
-              isMulti={false}
-              options={colorOptions}
-              value={color}
-              onchangeHandler={(e) => setColor(e)}
-              placeholder={t("model.BodyColor")}
-            />
+                isMulti={false}
+                options={colorOptions}
+                value={color}
+                onchangeHandler={(e) => setColor(e)}
+                placeholder={t("model.BodyColor")}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId={"model.activated"}>
               <Form.Label>{t("model.activated")}</Form.Label>

@@ -13,12 +13,11 @@ import { outputQualityControlCreate } from "../../../../../services/outPutQualit
 import {
   createSelectOptions,
   defintionInputs,
-  handleError,
 } from "../../../../../validation/functions";
 import OutputQualityControl from "../OutputQualityControl";
 import "./outputQualityControl.css";
 const OutputQualityControlDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const [type, setType] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
@@ -74,14 +73,14 @@ const OutputQualityControlDefine = () => {
       method: "POST",
       url: modelReadTitle,
       headers: request,
-      
+
       signal: abortController.signal,
     });
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -97,9 +96,8 @@ const OutputQualityControlDefine = () => {
       fetchData({
         method: "POST",
         url: outputQualityControlCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Model_Id: model?.value,
           Priority: values.periority,

@@ -5,13 +5,13 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
-import '../../../assets/css/table.css'
+import "../../../assets/css/table.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
-import { handleError, setDatePickerDate } from "../../../validation/functions";
+import { setDatePickerDate } from "../../../validation/functions";
 import BackDrop from "../../backDrop/BackDrop";
 import AccessListModal from "../AccessListModal/AccessListModal";
 import LogModal from "../LogModal/LogModal";
@@ -25,11 +25,11 @@ import RighSideContainer from "./RighSideContainer";
 import TableList from "./TableList";
 const CustomTable = forwardRef((props, ref) => {
   const { t } = useTranslation();
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [accessLists, setAccessLists] = useState(undefined);
   const [groupId, setGroupId] = useState();
-  const [showGetPermissionModal,setShowGetPermissionModal]=useState(false)
-  const [permissions,setPermissions]=useState(undefined)
+  const [showGetPermissionModal, setShowGetPermissionModal] = useState(false);
+  const [permissions, setPermissions] = useState(undefined);
   const [showAccessListModal, setAccessListModal] = useState(false);
   const [passwordModalOpen, setPasswordmodalOpen] = useState(false);
   const [requestType, setRequestType] = useState("");
@@ -58,7 +58,7 @@ const CustomTable = forwardRef((props, ref) => {
       method: "POST",
       url: props.ReadApi,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
@@ -68,7 +68,7 @@ const CustomTable = forwardRef((props, ref) => {
       method: "POST",
       url: props.logApi,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
@@ -79,7 +79,6 @@ const CustomTable = forwardRef((props, ref) => {
       url: props.readPagingApi,
       headers: request,
       data: {
-        
         paging: paging,
         filter: {
           flt_Title: flt_Title,
@@ -96,26 +95,26 @@ const CustomTable = forwardRef((props, ref) => {
       method: "POST",
       url: props.accessListApi,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
-  const handleGetPermissionModal=(response)=>{
-    setPermissions(response.AccessList)
-    setShowGetPermissionModal(true)
-  }
-  const handleSetPermission=()=>{
+  const handleGetPermissionModal = (response) => {
+    setPermissions(response.AccessList);
+    setShowGetPermissionModal(true);
+  };
+  const handleSetPermission = () => {
     toast.success(t("updatedRecord"), {
       position: toast.POSITION.TOP_CENTER,
     });
-  }
+  };
   const handleClickFav = () => {
     setRequestType("FAVORITE");
     fetchData({
       method: "POST",
       url: props.favouriteApi,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
@@ -126,7 +125,6 @@ const CustomTable = forwardRef((props, ref) => {
       url: props.deleteApi,
       headers: request,
       data: {
-        
         Id: id,
       },
       signal: abortController.signal,
@@ -139,7 +137,6 @@ const CustomTable = forwardRef((props, ref) => {
       url: props.getOneRecord,
       headers: request,
       data: {
-        
         Id: id,
       },
       signal: abortController.signal,
@@ -152,7 +149,6 @@ const CustomTable = forwardRef((props, ref) => {
       url: props.getOneRecord,
       headers: request,
       data: {
-        
         Id: id,
       },
       signal: abortController.signal,
@@ -165,7 +161,6 @@ const CustomTable = forwardRef((props, ref) => {
       url: props.getOneRecord,
       headers: request,
       data: {
-        
         Id: id,
       },
       signal: abortController.signal,
@@ -178,7 +173,6 @@ const CustomTable = forwardRef((props, ref) => {
       url: props.unSelectedAPI,
       headers: request,
       data: {
-        
         Column: temp,
       },
       signal: abortController.signal,
@@ -316,7 +310,7 @@ const CustomTable = forwardRef((props, ref) => {
           handleGetPermissionModal(response);
           break;
         case "SETPERMISSIONS":
-          handleSetPermission(response)
+          handleSetPermission(response);
           break;
         default:
           break;
@@ -333,7 +327,7 @@ const CustomTable = forwardRef((props, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-   response&&handleResponse(response, requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
   const importSuccess = (message) => {
@@ -352,34 +346,32 @@ const CustomTable = forwardRef((props, ref) => {
     setFlt_Title(event.target.value);
   };
   const handleClickGetPermission = (id) => {
-    setGroupId(id)
+    setGroupId(id);
     setRequestType("GETPERMISSION");
     fetchData({
       method: "POST",
-      url: props.getPermissionURL&&props.getPermissionURL,
+      url: props.getPermissionURL && props.getPermissionURL,
       headers: request,
       data: {
-        
         Id: id,
       },
       signal: abortController.signal,
     });
   };
-  const setPermission=(codes)=>{
+  const setPermission = (codes) => {
     setRequestType("SETPERMISSIONS");
-    setShowGetPermissionModal(false)
+    setShowGetPermissionModal(false);
     fetchData({
       method: "POST",
-      url: props.setPermissionURL&&props.setPermissionURL,
+      url: props.setPermissionURL && props.setPermissionURL,
       headers: request,
       data: {
-        
         id: groupId,
-        AccessList:codes
+        AccessList: codes,
       },
       signal: abortController.signal,
     });
-  }
+  };
   const deleteCalled = (id) => {
     Swal.fire({
       title: t("table.deleteTitle"),
@@ -484,17 +476,17 @@ const CustomTable = forwardRef((props, ref) => {
           updated={updatedPassword}
         />
       )}
-       {showGetPermissionModal &&(
-          <PermissionModal  permissions={permissions}
+      {showGetPermissionModal && (
+        <PermissionModal
+          permissions={permissions}
           show={showGetPermissionModal}
           onHide={() => setShowGetPermissionModal(false)}
           setPermission={setPermission}
-          />
-        )}
-        {
-        (props.mobileModal & props.widthOFScreen < 420) ?(
-          <MobileModel 
-          setMobileModal = {props.setMobileModal}
+        />
+      )}
+      {props.mobileModal & (props.widthOFScreen < 420) ? (
+        <MobileModel
+          setMobileModal={props.setMobileModal}
           searchBegin={searchBegin}
           searchEnd={searchEnd}
           setSearchEnd={setSearchEnd}
@@ -502,27 +494,23 @@ const CustomTable = forwardRef((props, ref) => {
           search={search}
           handleChangeTitle={handleChangeTitle}
           flt_Title={flt_Title}
-          />
-        ) : null
-      }
-        {
-        (props.mobileModalColumns & props.widthOFScreen < 420) ?(
-          <MobileModalsColumn
-            setMobileModalColumns={props.setMobileModalColumns}
-            {...props}
-            columnSideBar={columnSideBar}
-            setColumnSideBar={setColumnSideBar}
-            checkAllC={checkAllC}
-            checkAllHandler={checkAllHandler}
-            productsColumns={productsColumns}
-            unSelected={unSelected}
-            CheckBoxChangeHandler={CheckBoxChangeHandler}
-          />
-        ) : null
-      }
-        {
-        (props.mobileModalButtons & props.widthOFScreen < 420) ?(
-          <MobileModalRightBar
+        />
+      ) : null}
+      {props.mobileModalColumns & (props.widthOFScreen < 420) ? (
+        <MobileModalsColumn
+          setMobileModalColumns={props.setMobileModalColumns}
+          {...props}
+          columnSideBar={columnSideBar}
+          setColumnSideBar={setColumnSideBar}
+          checkAllC={checkAllC}
+          checkAllHandler={checkAllHandler}
+          productsColumns={productsColumns}
+          unSelected={unSelected}
+          CheckBoxChangeHandler={CheckBoxChangeHandler}
+        />
+      ) : null}
+      {props.mobileModalButtons & (props.widthOFScreen < 420) ? (
+        <MobileModalRightBar
           {...props}
           numberOfRecordsPerPage={numberOfRecordsPerPage}
           currentPage={currentPage}
@@ -542,10 +530,9 @@ const CustomTable = forwardRef((props, ref) => {
           handleClickAccessList={handleClickAccessList}
           IsFavorite={IsFavorite}
           handleClickFav={handleClickFav}
-          setMobileModalButtons= {props.setMobileModalButtons}
-          />
-        ): null
-      }
+          setMobileModalButtons={props.setMobileModalButtons}
+        />
+      ) : null}
       <div className="reacttableParent">
         <RighSideContainer
           {...props}
@@ -592,17 +579,19 @@ const CustomTable = forwardRef((props, ref) => {
             handleClickSend={handleClickSend}
             handleClearFilter={handleClearFilter}
             handleClickGetPermission={handleClickGetPermission}
-            mobileModal = {props.mobileModal}
-            setMobileModal = {props.setMobileModal}
+            mobileModal={props.mobileModal}
+            setMobileModal={props.setMobileModal}
             widthOFScreen={props.widthOFScreen}
             setMobileModalButtons={props.setMobileModalButtons}
             setMobileModalColumns={props.setMobileModalColumns}
             handleAddQuestion={handleAddQuestion}
-            addAccess= {props.addAccess}
+            addAccess={props.addAccess}
             handleCreateRate={props.handleCreateRate}
-            rateAccess={props.rateAccess?props.rateAccess:""}
+            rateAccess={props.rateAccess ? props.rateAccess : ""}
             handleReadAnswers={props.handleReadAnswers}
-            readAnswersAccess={props.readAnswersAccess?props.readAnswersAccess:""}
+            readAnswersAccess={
+              props.readAnswersAccess ? props.readAnswersAccess : ""
+            }
           />
           <LeftSideContainer
             {...props}

@@ -8,13 +8,10 @@ import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import { sendTypeCreate } from "../../../../../services/sendType";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import SendType from "../SendType";
 const SendTypeDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const [type, setType] = useState("");
   const request = useRequest();
@@ -60,7 +57,7 @@ const SendTypeDefine = () => {
     }
   };
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -76,9 +73,8 @@ const SendTypeDefine = () => {
       fetchData({
         method: "POST",
         url: sendTypeCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

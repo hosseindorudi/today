@@ -18,9 +18,7 @@ import { enums } from "../../../../data/Enums";
 import { TabContext } from "../../../../contexts/TabContextProvider";
 
 import { customerGroupReadTitle } from "../../../../services/customerGroupService";
-import {
-  idCodeValidation,
-} from "../../../../validation/validation";
+import { idCodeValidation } from "../../../../validation/validation";
 import CustomerList from "./list/CustomerList";
 
 // import { setDatePickerDate } from '../../../../validation/functions';
@@ -33,7 +31,7 @@ const CustomerForm = () => {
   const [dateOfSerial, setDateOfSerial] = useState(null);
   const { t } = useTranslation();
   const abortController = new AbortController();
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [groupTitles, setGroupTitles] = useState([]);
   const [groupTitleId, setGroupTitleId] = useState();
@@ -58,29 +56,28 @@ const CustomerForm = () => {
   const [fromDate, setFromDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [activeDate, setActiveDate] = useState(false);
-  const [isOfficially, setIsOfficially] = useState(true)
-  const [isReal, setIsReal] = useState(true)
-  const [workFax, setWorkFax] = useState("")
-  const [homeFax, setHomeFax] = useState("")
-  const [legalNationalID, setlegalNationalID] = useState()
-  const [legalCompanyName, setLegalCompanyName] = useState("")
-  const [legalCompanyType, setLegalCompanyType] = useState("")
-  const [legalEconomicCode, setLegalEconomicCod] = useState()
-  const [legalRegistrationNumber, setLegalRegistrationNumber] = useState()
-  const [legalRegistrationDate, setLegalRegistrationDate] = useState(null)
-  const [legalExpireDate, setLegalExpireDate] = useState(null)
-  const [legalRegistrationunit, setLegalRegistrationUnit] = useState("")
-  const [legalRegistrationOrganization, setLegalRegistrationOrganization] = useState("")
-  const [legalOfficFax, setLegalOfficFax] = useState("")
-  const [legalFactoryFax, setLegalFactoryFax] = useState("")
-  const [skype,setSkype] = useState("")
-  const [faceBook, setFaceBook] = useState("")
-  const [youtube,setYoutube] = useState("")
-  const [instagram, setInstagram] = useState("")
-  const [telegram, setTelegram] = useState("")
-  const [twitter, setTwitter] = useState("")
-
-
+  const [isOfficially, setIsOfficially] = useState(true);
+  const [isReal, setIsReal] = useState(true);
+  const [workFax, setWorkFax] = useState("");
+  const [homeFax, setHomeFax] = useState("");
+  const [legalNationalID, setlegalNationalID] = useState();
+  const [legalCompanyName, setLegalCompanyName] = useState("");
+  const [legalCompanyType, setLegalCompanyType] = useState("");
+  const [legalEconomicCode, setLegalEconomicCod] = useState();
+  const [legalRegistrationNumber, setLegalRegistrationNumber] = useState();
+  const [legalRegistrationDate, setLegalRegistrationDate] = useState(null);
+  const [legalExpireDate, setLegalExpireDate] = useState(null);
+  const [legalRegistrationunit, setLegalRegistrationUnit] = useState("");
+  const [legalRegistrationOrganization, setLegalRegistrationOrganization] =
+    useState("");
+  const [legalOfficFax, setLegalOfficFax] = useState("");
+  const [legalFactoryFax, setLegalFactoryFax] = useState("");
+  const [skype, setSkype] = useState("");
+  const [faceBook, setFaceBook] = useState("");
+  const [youtube, setYoutube] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [telegram, setTelegram] = useState("");
+  const [twitter, setTwitter] = useState("");
 
   const { app } = useContext(AppContext);
   const handleClickMenu = () => {
@@ -111,7 +108,7 @@ const CustomerForm = () => {
       method: "POST",
       url: customerGroupReadTitle,
       headers: request,
-      
+
       signal: abortController.signal,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -144,8 +141,7 @@ const CustomerForm = () => {
     }
   };
   useEffect(() => {
-    
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -166,7 +162,7 @@ const CustomerForm = () => {
     } else if (!idCode) {
       handleError(t("customer5"));
       return;
-    }  else if (!idCodeValidation(idCode)) {
+    } else if (!idCodeValidation(idCode)) {
       handleError(t("customer7"));
       return;
     } else {
@@ -174,7 +170,7 @@ const CustomerForm = () => {
       fetchData({
         method: "POST",
         url: customerCreate,
-        headers:request,
+        headers: request,
         data: {
           Id: 0,
           Group_Id: Number(groupTitleId),
@@ -204,8 +200,8 @@ const CustomerForm = () => {
           Real_IdCardNumber: isReal ? idCardNumber : "",
           Real_IdCardSerialNumber: isReal ? idCardSerialNumber : "",
           Real_Gender: isReal ? gender : "",
-          Real_DateOfBirth: new Date(dateOfBirth) ,
-          Real_DateOfIssuanceIdCard:   new Date(dateOfSerial) ,
+          Real_DateOfBirth: new Date(dateOfBirth),
+          Real_DateOfIssuanceIdCard: new Date(dateOfSerial),
           Real_PlaceOfIssuanceIdCard: isReal ? serialLocation : "",
           Real_HomeFax: isReal ? homeFax : "",
           Real_WorkFax: isReal ? workFax : "",
@@ -215,13 +211,14 @@ const CustomerForm = () => {
           Legal_CompanyType: !isReal ? legalCompanyType : "",
           Legal_EconomicCode: !isReal ? legalEconomicCode : 0,
           Legal_RegistrationNumber: !isReal ? legalRegistrationNumber : 0,
-          Legal_RegistrationDate: new Date(legalRegistrationDate) ,
-          Legal_ExpirationDate:  new Date(legalExpireDate) ,
+          Legal_RegistrationDate: new Date(legalRegistrationDate),
+          Legal_ExpirationDate: new Date(legalExpireDate),
           Legal_RegistrationUnit: !isReal ? legalRegistrationunit : "",
-          Legal_RegistrationOrganization: !isReal ? legalRegistrationOrganization : "",
+          Legal_RegistrationOrganization: !isReal
+            ? legalRegistrationOrganization
+            : "",
           Legal_OfficeFax: !isReal ? legalOfficFax : "",
           Legal_FactoryFax: !isReal ? legalFactoryFax : "",
-          
         },
         signal: abortController.signal,
       });
@@ -237,7 +234,6 @@ const CustomerForm = () => {
           <b>{t("customerTitle")}</b>
           <div class="Row">
             <Form.Group className="mb-3" controlId={"switch"}>
-            
               <Form.Check
                 type="switch"
                 id="custom-switch"
@@ -268,29 +264,29 @@ const CustomerForm = () => {
           </div>
 
           <div className="Row">
-          <Form.Group className="mb-3" controlId={"switch"}>
-            <Form.Check
-              type="switch"
-              id="custom-switch"
-              label={t("IsOfficially")}
-              value={isOfficially}
-              checked={isOfficially}
-              onChange={(e) => setIsOfficially(!isOfficially)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId={"switch"}>
-            <Form.Check
-              type="switch"
-              id="custom-switch"
-              label={t("isReal")}
-              value={isReal}
-              checked={isReal}
-              onChange={(e) => setIsReal(!isReal)}
-            />
-          </Form.Group>
+            <Form.Group className="mb-3" controlId={"switch"}>
+              <Form.Check
+                type="switch"
+                id="custom-switch"
+                label={t("IsOfficially")}
+                value={isOfficially}
+                checked={isOfficially}
+                onChange={(e) => setIsOfficially(!isOfficially)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"switch"}>
+              <Form.Check
+                type="switch"
+                id="custom-switch"
+                label={t("isReal")}
+                value={isReal}
+                checked={isReal}
+                onChange={(e) => setIsReal(!isReal)}
+              />
+            </Form.Group>
           </div>
 
-          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: !isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -308,7 +304,7 @@ const CustomerForm = () => {
               />
             </Form.Group>
           </div>
-          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: !isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -327,7 +323,7 @@ const CustomerForm = () => {
             </Form.Group>
           </div>
 
-          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: !isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -347,7 +343,7 @@ const CustomerForm = () => {
               </Form.Select>
             </Form.Group>
           </div>
-          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: !isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -371,7 +367,7 @@ const CustomerForm = () => {
               />
             </Form.Group>
           </div>
-          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: !isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -395,7 +391,7 @@ const CustomerForm = () => {
               />
             </Form.Group>
           </div>
-          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: !isReal ? "none" : "flex" }}>
             <Form.Group
               className="mb-3 customerFirstName"
               controlId="exampleForm.ControlTextarea1"
@@ -420,9 +416,8 @@ const CustomerForm = () => {
                 onChange={(e) => setHomeFax(e.target.value)}
               />
             </Form.Group>
-            
           </div>
-          <div className="Row" style={{display: !isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: !isReal ? "none" : "flex" }}>
             <Form.Group
               className="mb-3 customerFirstName"
               controlId="exampleForm.ControlTextarea1"
@@ -437,7 +432,7 @@ const CustomerForm = () => {
             </Form.Group>
           </div>
 
-          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="number"
@@ -455,7 +450,7 @@ const CustomerForm = () => {
               />
             </Form.Group>
           </div>
-          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -473,7 +468,7 @@ const CustomerForm = () => {
               />
             </Form.Group>
           </div>
-          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="number"
@@ -492,7 +487,7 @@ const CustomerForm = () => {
             </Form.Group>
           </div>
 
-          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3" controlId={"startDate"}>
               <DatePicker
                 containerClassName="custom-container"
@@ -524,7 +519,10 @@ const CustomerForm = () => {
                 placeholder={t("endDate")}
                 onChange={(newValue) => {
                   setEndDate(newValue);
-                  if (legalRegistrationDate !== null && newValue < legalRegistrationDate) {
+                  if (
+                    legalRegistrationDate !== null &&
+                    newValue < legalRegistrationDate
+                  ) {
                     toast.error(
                       "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
                       {
@@ -544,13 +542,15 @@ const CustomerForm = () => {
             </Form.Group>
           </div>
 
-          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
                 placeholder={t("legalRegistrationOrganization")}
                 value={legalRegistrationOrganization}
-                onChange={(e) => setLegalRegistrationOrganization(e.target.value)}
+                onChange={(e) =>
+                  setLegalRegistrationOrganization(e.target.value)
+                }
               />
             </Form.Group>
             <Form.Group className="mb-3 customerFirstName">
@@ -562,7 +562,7 @@ const CustomerForm = () => {
               />
             </Form.Group>
           </div>
-          <div className="Row" style={{display: isReal ? 'none' : 'flex'}}>
+          <div className="Row" style={{ display: isReal ? "none" : "flex" }}>
             <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
@@ -639,11 +639,8 @@ const CustomerForm = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              
             </Form.Group>
-            <Form.Group
-              className="mb-3 customerFirstName"
-            >
+            <Form.Group className="mb-3 customerFirstName">
               <Form.Control
                 type="text"
                 placeholder={t("website")}
@@ -758,9 +755,7 @@ const CustomerForm = () => {
           </div>
           <div className="Row">
             {widthOfScreen > 420 && (
-              <Button
-                type="submit"
-              >{t("submit")}</Button>
+              <Button type="submit">{t("submit")}</Button>
             )}
           </div>
         </form>

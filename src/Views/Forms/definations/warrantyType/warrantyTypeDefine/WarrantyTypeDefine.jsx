@@ -12,7 +12,7 @@ import WarrantyType from "../WarrantyType";
 import { warrantyTypeCreate } from "../../../../../services/warrantyType";
 import { defintionInputs } from "../../../../../validation/functions";
 const WarrantyTypeDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const [validated, setValidated] = useState(false);
   const request = useRequest();
@@ -48,14 +48,9 @@ const WarrantyTypeDefine = () => {
       "add"
     );
   };
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -74,9 +69,8 @@ const WarrantyTypeDefine = () => {
       fetchData({
         method: "POST",
         url: warrantyTypeCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

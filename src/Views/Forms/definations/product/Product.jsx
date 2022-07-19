@@ -1,10 +1,4 @@
- 
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import AdapterJalali from "@date-io/date-fns-jalali";
@@ -32,13 +26,36 @@ import { t } from "i18next";
 import { Pagination } from "@mui/material";
 import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
-import { convertUTC, setDatePickerDate } from "../../../../validation/functions";
+import {
+  convertUTC,
+  setDatePickerDate,
+} from "../../../../validation/functions";
 import ImportCSV from "../../../../Components/Table/ImportCSVButton/ImportCSV";
 import ProductDefine from "./productDefine/ProductDefine";
-import { productAccessList, productCheckFile, productDelete, productExport, productExportId, productFavorite, productGetOneRecord, productImportFile, productLog, productRead, productReadPaging, productSampleFile, productSetUnselectedColumn } from "../../../../services/productService";
+import {
+  productAccessList,
+  productCheckFile,
+  productDelete,
+  productExport,
+  productExportId,
+  productFavorite,
+  productGetOneRecord,
+  productImportFile,
+  productLog,
+  productRead,
+  productReadPaging,
+  productSampleFile,
+  productSetUnselectedColumn,
+} from "../../../../services/productService";
 const Product = () => {
-  const filteredColumns = ["IsLimited", "Registrar","ProductGroup_Id","Language_EId","SourceType"];
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const filteredColumns = [
+    "IsLimited",
+    "Registrar",
+    "ProductGroup_Id",
+    "Language_EId",
+    "SourceType",
+  ];
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);
   const [showAccessListModal, setAccessListModal] = useState(false);
@@ -67,10 +84,10 @@ const Product = () => {
   const abortController = new AbortController();
   const handleAdd = () => {
     const item = {
-            Component:ProductDefine,
-            path:"/productForm",
-            title:"routes.productForm",
-            access:enums.Definition_Product_Create_w,
+      Component: ProductDefine,
+      path: "/productForm",
+      title: "routes.productForm",
+      access: enums.Definition_Product_Create_w,
     };
     tabContext.addRemoveTabs(item, "add");
   };
@@ -79,7 +96,7 @@ const Product = () => {
       method: "POST",
       url: productRead,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
@@ -90,7 +107,6 @@ const Product = () => {
       url: productReadPaging,
       headers: request,
       data: {
-        
         paging: paging,
         filter: {
           flt_Title: flt_Title,
@@ -101,11 +117,7 @@ const Product = () => {
       signal: abortController.signal,
     });
   };
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
+
   useEffect(() => {
     setRequestType("READ");
     getTable();
@@ -205,7 +217,7 @@ const Product = () => {
   };
 
   useEffect(() => {
-   response&&handleResponse(response, requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
 
@@ -240,7 +252,6 @@ const Product = () => {
       url: productSetUnselectedColumn,
       headers: request,
       data: {
-        
         Column: temp,
       },
       signal: abortController.signal,
@@ -276,14 +287,14 @@ const Product = () => {
         return convertUTC(value);
       case "IsActive":
         return <Form.Check type="switch" disabled checked={value} />;
-        case "Gender":
-        return value?t("male"):t("female");
+      case "Gender":
+        return value ? t("male") : t("female");
       case "LimitFrom":
         return post.IsLimited ? convertUTC(value) : "-";
       case "LimitTo":
         return post.IsLimited ? convertUTC(value) : "-";
-        case "Color":
-          return <input disabled type={"color"} value={`#${value}`}/>;
+      case "Color":
+        return <input disabled type={"color"} value={`#${value}`} />;
       default:
         return value;
     }
@@ -295,7 +306,6 @@ const Product = () => {
       url: productDelete,
       headers: request,
       data: {
-        
         Id: id,
       },
       signal: abortController.signal,
@@ -343,7 +353,6 @@ const Product = () => {
       url: productGetOneRecord,
       headers: request,
       data: {
-        
         Id: id,
       },
       signal: abortController.signal,
@@ -394,7 +403,7 @@ const Product = () => {
       method: "POST",
       url: productFavorite,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
@@ -408,7 +417,7 @@ const Product = () => {
       method: "POST",
       url: productLog,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
@@ -431,7 +440,7 @@ const Product = () => {
       method: "POST",
       url: productAccessList,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
@@ -512,7 +521,12 @@ const Product = () => {
                   />
                 )}
                 {haveAccess(enums.Definition_Product_Import_w) && (
-                  <ImportCSV importSuccess={importSuccess} sampleUrl={productSampleFile} fileCheckURL={productCheckFile} importURL={productImportFile}/>
+                  <ImportCSV
+                    importSuccess={importSuccess}
+                    sampleUrl={productSampleFile}
+                    fileCheckURL={productCheckFile}
+                    importURL={productImportFile}
+                  />
                 )}
                 {haveAccess(enums.Definition_Product_Log_r) && (
                   <button
@@ -523,14 +537,14 @@ const Product = () => {
                     <fa.FaHistory />
                   </button>
                 )}
-               
+
                 {haveAccess(enums.Operator_AccessList_Read_r) && (
-                <button
-                  className="reactTableParentAccessButton"
-                  onClick={handleClickAccessList}
-                >
-                  <fa.FaUserLock />
-                </button>
+                  <button
+                    className="reactTableParentAccessButton"
+                    onClick={handleClickAccessList}
+                  >
+                    <fa.FaUserLock />
+                  </button>
                 )}
                 <button
                   disabled={IsFavorite}
@@ -725,17 +739,13 @@ const Product = () => {
                           {posts.map((post, index) => (
                             <tr key={index}>
                               <td className="TableMainTd">
-                              <TableButtons
+                                <TableButtons
                                   exportLink={productExportId}
                                   deleteType={enums.Definition_Product_Delete_w}
                                   editType={enums.Definition_Product_Update_w}
                                   exportType={enums.Definition_Product_Export_r}
-                                  accessListType={
-                                    ""
-                                  }
-                                  changePasswordType={
-                                   ""
-                                  }
+                                  accessListType={""}
+                                  changePasswordType={""}
                                   deleteCalled={deleteCalled}
                                   rowValue={post}
                                   handleClickEdit={handleClickEdit}
@@ -878,4 +888,4 @@ const Product = () => {
   );
 };
 
-export default Product
+export default Product;
