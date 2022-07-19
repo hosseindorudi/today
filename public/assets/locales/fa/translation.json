@@ -797,5 +797,8 @@
   "Legal_RegistrationUnit":"واحد ثبت",
   "Legal_RegistrationOrganization":"سازمان ثبت",
   "Legal_OfficeFax":"فکس اداری",
-  "Legal_FactoryFax":"فکس کارخانه"
+  "Legal_FactoryFax":"فکس کارخانه",
+  "/Marketing/Message/Read":"متن پویا",
+  "/Marketing/Message/Create":"فرم متن پویا",
+  "marketing.enterYourMessage":"متن خود را وارد کنید"
 }

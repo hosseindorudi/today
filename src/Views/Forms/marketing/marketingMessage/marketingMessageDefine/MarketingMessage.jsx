@@ -4,8 +4,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTranslation } from "react-i18next";
 import "./dnd.css";
-import DNDContainer from "./DNDContainer";
-const DND = () => {
+import DNDContainer from "./messageComponents/DNDContainer";
+const MarketingMessage = () => {
   const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [value,setValue]=useState("")
@@ -43,4 +43,4 @@ const DND = () => {
   );
 };
 
-export default DND;
+export default MarketingMessage;

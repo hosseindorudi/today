@@ -3,7 +3,12 @@ import * as IoIcons from "react-icons/io"
 import * as RiIcons from "react-icons/ri"
 import { enums } from "./data/Enums";
 import React, { lazy } from 'react'
-// import DND from "./Views/Forms/test/DND";
+const MarketingMessage = lazy(() =>
+  import("./Views/Forms/marketing/marketingMessage/marketingMessageDefine/MarketingMessage")
+);
+const MarketingMessageList = lazy(() =>
+  import("./Views/Forms/marketing/marketingMessage/MarketingMessageList")
+);
 const BruteForceCustomer = lazy(() =>
   import("./Views/Forms/customer/bruteForceCustomer/BruteForceCustomer")
 );
@@ -882,6 +887,20 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
         access: enums.Marketing_PhonePool_Read_r,
+      },
+      {
+        title: "/Marketing/Message/Read",
+        path: "/Marketing/Message/Read",
+        Component: MarketingMessageList,
+        button: {
+          Component: MarketingMessage,
+          path: "/Marketing/Message/Create",
+          title: "/Marketing/Message/Create",
+          access: enums.Marketing_Message_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Marketing_Message_Read_r,
       },
 
     ],

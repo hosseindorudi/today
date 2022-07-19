@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
-import BackDrop from "../../../Components/backDrop/BackDrop";
-import useAxios from "../../../customHooks/useAxios";
-import useRequest from "../../../customHooks/useRequest";
-import { questionReadTitle } from "../../../services/questionService";
-import { handleError } from "../../../validation/functions";
+import BackDrop from "../../../../../../Components/backDrop/BackDrop";
+import useAxios from "../../../../../../customHooks/useAxios";
+import useRequest from "../../../../../../customHooks/useRequest";
+import { questionReadTitle } from "../../../../../../services/questionService";
+import { handleError } from "../../../../../../validation/functions";
 import { DndItem } from "./DndItem";
 import DndTextArea from "./DndTextArea";
 
