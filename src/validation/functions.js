@@ -131,10 +131,12 @@ export const checkTableValues = (type, value, post, exportAccess) => {
       return <Form.Check type="switch" disabled checked={value} />;
     case "Gender":
       return value ? t("male") : t("female");
+    case "Real_Gender":
+      return value ? t("male") : t("female");
     case "IsReal":
       return value ? t("real") : t("legal");
     case "IsOfficially":
-      return value ? t("isOfficially") : t("isNotOfficially");
+      return value ? t("IsOfficially") : t("IsNotOfficially");
     case "LimitFrom":
       return post.IsLimited ? convertUTC(value) : "-";
     case "LimitTo":
