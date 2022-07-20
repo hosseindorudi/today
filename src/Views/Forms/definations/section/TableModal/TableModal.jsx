@@ -3,7 +3,10 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
+import {
+  createSelectOptions,
+  defintionInputs,
+} from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { sectionUpdate } from "../../../../../services/sectionService";
 import { cityReadTitle } from "../../../../../services/cityService";
@@ -16,7 +19,7 @@ const TableModal = (props) => {
   const abortController = new AbortController();
   const [cityOptions, setCityOptions] = useState([]);
   const [city, setCity] = useState(undefined);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [values, setValues] = useState({
     title: "",
@@ -33,14 +36,14 @@ const TableModal = (props) => {
       periority: prop.Priority,
       desc: prop.Description,
     });
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const submitted=()=>{
-    props.updated()
-  }
+  const submitted = () => {
+    props.updated();
+  };
   useEffect(() => {
-    setCity(cityOptions.find(i=>i.value===props.rowValus.City_Id))
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    setCity(cityOptions.find((i) => i.value === props.rowValus.City_Id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cityOptions]);
   const handleResponse = (response, type) => {
     switch (type) {
@@ -60,14 +63,14 @@ const TableModal = (props) => {
       method: "POST",
       url: cityReadTitle,
       headers: request,
-      
+
       signal: abortController.signal,
     });
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -83,9 +86,8 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: sectionUpdate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: props.rowValus.Id,
           City_Id: city?.value,
           Priority: values.periority,
@@ -120,7 +122,7 @@ const TableModal = (props) => {
         onSubmit={handleSubmit}
       >
         <Modal.Body>
-        <Form.Group className="mb-3" controlId={"city"}>
+          <Form.Group className="mb-3" controlId={"city"}>
             <Form.Label>{t("city")}</Form.Label>
             <CustomReactMultiSelect
               isMulti={false}
@@ -130,15 +132,13 @@ const TableModal = (props) => {
               placeholder={t("city")}
             />
           </Form.Group>
-      
-        {defintionInputs(values).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
 
-
+          {defintionInputs(values).map((input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          ))}
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={loading} type='submit' >
+          <Button disabled={loading} type="submit">
             {" "}
             {t("operatorGroupFormSubmit")}
           </Button>

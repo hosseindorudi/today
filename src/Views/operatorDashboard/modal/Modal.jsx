@@ -3,7 +3,6 @@ import "./modal.css";
 import { createNoteDashboard } from "../../../services/dashboardServices";
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
-import { handleError } from "../../../validation/functions";
 import * as fa from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
@@ -15,7 +14,7 @@ const Modal = ({ setIsOpen, getDashboardData }) => {
     desc: "",
   });
   const [alarm, setAlarm] = useState(false);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
   const { t } = useTranslation();
@@ -28,7 +27,7 @@ const Modal = ({ setIsOpen, getDashboardData }) => {
     setIsOpen(false);
   };
   useEffect(() => {
-   response&&handleResponse()
+    response && handleResponse();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const onSubmit = (e) => {
@@ -38,7 +37,6 @@ const Modal = ({ setIsOpen, getDashboardData }) => {
       url: createNoteDashboard,
       headers: request,
       data: {
-        
         Id: 0,
         Title: values.title,
         Body: values.desc,
@@ -46,7 +44,6 @@ const Modal = ({ setIsOpen, getDashboardData }) => {
       },
       signal: abortController.signal,
     });
-    
   };
 
   const onChange = (e) => {
@@ -55,7 +52,7 @@ const Modal = ({ setIsOpen, getDashboardData }) => {
 
   return (
     <>
-      {loading && <BackDrop open={loading}/>}
+      {loading && <BackDrop open={loading} />}
       <div className="tableModalParentModal">
         <div className="tableModalContainerModal">
           <div className="tableModalHeaderModal">

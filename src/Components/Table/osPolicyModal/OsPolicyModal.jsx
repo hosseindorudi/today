@@ -12,12 +12,11 @@ import {
 import useRequest from "../../../customHooks/useRequest";
 import useAxios from "../../../customHooks/useAxios";
 import { useTranslation } from "react-i18next";
-import { handleError } from "../../../validation/functions";
 
 import Swal from "sweetalert2";
 import { osEnums } from "../../../data/osEnums";
 const OsPolicyModal = (props) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [os, setOs] = useState(null);
   const [osDatas, setOsDatas] = useState([]);
@@ -39,7 +38,6 @@ const OsPolicyModal = (props) => {
       headers: request,
       data: {
         Id: props.id,
-        
       },
       signal: abortController.signal,
     });
@@ -59,7 +57,7 @@ const OsPolicyModal = (props) => {
         case "SUBMIT":
           readDatas();
           setEmpty();
-          setEditButtonActivate(false)
+          setEditButtonActivate(false);
           break;
         case "READRATE":
           setOsDatas(response.Record);
@@ -80,7 +78,6 @@ const OsPolicyModal = (props) => {
       headers: request,
       data: {
         Id: id,
-        
       },
       signal: abortController.signal,
     });
@@ -114,7 +111,7 @@ const OsPolicyModal = (props) => {
   };
 
   useEffect(() => {
-   response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -131,7 +128,6 @@ const OsPolicyModal = (props) => {
         Id: 0,
         Group_Id: props.id,
         Os_EId: os,
-        
       },
     });
   };
@@ -160,7 +156,6 @@ const OsPolicyModal = (props) => {
         Id: osId,
         Group_Id: props.id,
         Os_EId: os,
-        
       },
     });
   };
@@ -183,7 +178,9 @@ const OsPolicyModal = (props) => {
               <Form.Group className="mb-3" controlId="OS">
                 <Form.Label>{t("OS")}</Form.Label>
                 <Form.Select value={os} onChange={(e) => setOs(e.target.value)}>
-                  <option selected disabled>{t("OS")}</option>
+                  <option selected disabled>
+                    {t("OS")}
+                  </option>
                   {Object.keys(osEnums).map((o, i) => (
                     <option key={i} value={osEnums[o]}>
                       {o}
@@ -197,7 +194,7 @@ const OsPolicyModal = (props) => {
                 variant="primary"
                 type="submit"
                 className="questionFormSubmit mt-2"
-                disabled={loading ||!os}
+                disabled={loading || !os}
               >
                 {t("operatorGroupFormSubmit")}
               </Button>
@@ -218,7 +215,7 @@ const OsPolicyModal = (props) => {
                       variant="success"
                       onClick={SubmitOfEdit}
                       className="questionFormSubmit mt-2"
-                      disabled={loading||!os}
+                      disabled={loading || !os}
                     >
                       {t("edit")}
                     </Button>
@@ -230,7 +227,7 @@ const OsPolicyModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <ListGroup as="ol" numbered className="listGroupCurrencyModal">
-            {osDatas.map((o,i) => (
+            {osDatas.map((o, i) => (
               <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between "
@@ -243,7 +240,9 @@ const OsPolicyModal = (props) => {
               >
                 <div>
                   <div className="fw-bold countryTitle">{t("OS")}</div>
-                  {Object.keys(osEnums).find(key => osEnums[key] === o.Os_EId)}
+                  {Object.keys(osEnums).find(
+                    (key) => osEnums[key] === o.Os_EId
+                  )}
                 </div>
 
                 <div className="d-flex btns ">

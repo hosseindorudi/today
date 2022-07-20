@@ -4,7 +4,6 @@ import BackDrop from "../../../../../../Components/backDrop/BackDrop";
 import useAxios from "../../../../../../customHooks/useAxios";
 import useRequest from "../../../../../../customHooks/useRequest";
 import { questionReadTitle } from "../../../../../../services/questionService";
-import { handleError } from "../../../../../../validation/functions";
 import { DndItem } from "./DndItem";
 import DndTextArea from "./DndTextArea";
 
@@ -12,7 +11,7 @@ const DNDContainer = ({ value, handleChange, dropped }) => {
   const [items, setItems] = useState([]);
   const [type, setType] = useState("");
   const request = useRequest();
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
 
   const handleResponse = (response, type) => {
     switch (type) {
@@ -34,7 +33,7 @@ const DNDContainer = ({ value, handleChange, dropped }) => {
     }
   };
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -45,7 +44,6 @@ const DNDContainer = ({ value, handleChange, dropped }) => {
       method: "POST",
       url: questionReadTitle,
       headers: request,
-      
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

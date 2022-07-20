@@ -8,13 +8,10 @@ import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import { cancellationOfAdmissionCreate } from "../../../../../services/CancellationOfAdmissionService";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import CancellationOfAdmission from "../CancellationOfAdmission";
 const CancellationOfAdmissionDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const request = useRequest();
   const tabContext = useContext(TabContext);
@@ -23,7 +20,7 @@ const CancellationOfAdmissionDefine = () => {
     title: "",
     color: "#000000",
     periority: 1,
-    desc: ""
+    desc: "",
   });
   const { t } = useTranslation();
   const handleResponse = () => {
@@ -51,7 +48,7 @@ const CancellationOfAdmissionDefine = () => {
   };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -66,13 +63,12 @@ const CancellationOfAdmissionDefine = () => {
       fetchData({
         method: "POST",
         url: cancellationOfAdmissionCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Title: values.title,
           Description: values.desc,
-          Color: values.color.substring(1)
+          Color: values.color.substring(1),
         },
         signal: abortController.signal,
       });
@@ -92,9 +88,7 @@ const CancellationOfAdmissionDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/CancellationOfAdmission/Write")}</b>
-        {defintionInputs(
-          values
-        ).map((input) => (
+        {defintionInputs(values).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 

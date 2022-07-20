@@ -8,14 +8,11 @@ import useRequest from "../../../../../customHooks/useRequest";
 import { Form, Button } from "react-bootstrap";
 import { enums } from "../../../../../data/Enums";
 import "../../../../../assets/css/periorityForm.css";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import StatusDeviceEnd from "../StatusDeviceEnd";
 import { statusDeviceEndCreate } from "../../../../../services/statusDeviceEndService";
 const StatusDeviceEndDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const [validated, setValidated] = useState(false);
   const request = useRequest();
@@ -52,7 +49,7 @@ const StatusDeviceEndDefine = () => {
   };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -72,9 +69,8 @@ const StatusDeviceEndDefine = () => {
       fetchData({
         method: "POST",
         url: statusDeviceEndCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

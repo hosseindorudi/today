@@ -3,21 +3,18 @@ import { useContext, useEffect, useState } from "react";
 import useAxios from "../../../../../customHooks/useAxios";
 import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useRequest from "../../../../../customHooks/useRequest";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { enums } from "../../../../../data/Enums";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { currencyCreate } from "../../../../../services/currencyService";
 import Currency from "../Currency";
-import './currencyDefine.css'
+import "./currencyDefine.css";
 const CurrencyDefine = () => {
   const { t } = useTranslation();
   const [validated, setValidated] = useState(false);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
@@ -55,7 +52,7 @@ const CurrencyDefine = () => {
   };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -63,9 +60,9 @@ const CurrencyDefine = () => {
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  const handleSwich=(e)=>{
+  const handleSwich = (e) => {
     setValues({ ...values, [e.target.name]: e.target.checked });
-  }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -77,9 +74,8 @@ const CurrencyDefine = () => {
       fetchData({
         method: "POST",
         url: currencyCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,
@@ -92,7 +88,7 @@ const CurrencyDefine = () => {
       });
     }
   };
-  
+
   return (
     <div className="currency">
       <Form
@@ -105,11 +101,23 @@ const CurrencyDefine = () => {
         <div className="Row">
           <Form.Group className="mb-3" controlId={"Rate"}>
             <Form.Label>{t("Rate")}</Form.Label>
-            <Form.Control type="number" required name='Rate' value={values.Rate} placeholder={t("Rate")} onChange={onChangeHandler} />
+            <Form.Control
+              type="number"
+              required
+              name="Rate"
+              value={values.Rate}
+              placeholder={t("Rate")}
+              onChange={onChangeHandler}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId={"IsReference"}>
             <Form.Label>{t("IsReference")}</Form.Label>
-            <Form.Check type='switch' checked={values.IsReference} name='IsReference'  onChange={handleSwich} />
+            <Form.Check
+              type="switch"
+              checked={values.IsReference}
+              name="IsReference"
+              onChange={handleSwich}
+            />
           </Form.Group>
         </div>
         {defintionInputs(

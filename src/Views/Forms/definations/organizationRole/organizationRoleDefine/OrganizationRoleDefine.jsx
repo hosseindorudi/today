@@ -8,14 +8,11 @@ import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import { organizationalRoleCreate } from "../../../../../services/organizationRoleService";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import OrganizationRole from "../OrganizationRole";
 import "./organizationRoleDefine.css";
 const OrganizationRoleDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const request = useRequest();
   const tabContext = useContext(TabContext);
@@ -53,7 +50,7 @@ const OrganizationRoleDefine = () => {
     );
   };
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -68,9 +65,8 @@ const OrganizationRoleDefine = () => {
       fetchData({
         method: "POST",
         url: organizationalRoleCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Group: values.group,
           Percentage: values.percentage,

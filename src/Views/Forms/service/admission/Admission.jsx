@@ -69,7 +69,7 @@ const Admission = () => {
     "Customer_Title",
     "Group_Title",
   ];
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const [accessLists, setAccessLists] = useState(undefined);
   const [showAccessListModal, setAccessListModal] = useState(false);
@@ -113,13 +113,8 @@ const Admission = () => {
       method: "POST",
       url: admitionRead,
       headers: request,
-      
+
       signal: abortController.signal,
-    });
-  };
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
     });
   };
 
@@ -238,7 +233,6 @@ const Admission = () => {
       url: admitionGetOneRecord,
       headers: request,
       data: {
-        
         Id: id,
       },
       signal: abortController.signal,
@@ -299,7 +293,6 @@ const Admission = () => {
       url: admitionSetColumn,
       headers: request,
       data: {
-        
         Column: temp,
       },
       signal: abortController.signal,
@@ -346,8 +339,7 @@ const Admission = () => {
   };
 
   useEffect(() => {
-    
-   response&&handleResponse(response, requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
 
@@ -384,7 +376,6 @@ const Admission = () => {
       url: admitionReadPaging,
       headers: request,
       data: {
-        
         paging: paging,
         filter: {
           Flt_IMEI1: flt_Title,
@@ -411,7 +402,7 @@ const Admission = () => {
       method: "POST",
       url: admitionLog,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
@@ -422,7 +413,7 @@ const Admission = () => {
       method: "POST",
       url: admitionAccessList,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
@@ -433,7 +424,7 @@ const Admission = () => {
       method: "POST",
       url: admitionFavorite,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
@@ -517,7 +508,6 @@ const Admission = () => {
       url: admitionDelete,
       headers: request,
       data: {
-        
         Id: id,
       },
       signal: abortController.signal,
@@ -673,9 +663,15 @@ const Admission = () => {
                   <div className="bredCrumbTable">
                     <div role="presentation" style={{ direction: "ltr" }}>
                       <Breadcrumb>
-                        <Breadcrumb.Item href="#">{t("admissionHome")}</Breadcrumb.Item>
-                        <Breadcrumb.Item active>{t("admissionForm")}</Breadcrumb.Item>
-                        <Breadcrumb.Item active>{t("admission2")}</Breadcrumb.Item>
+                        <Breadcrumb.Item href="#">
+                          {t("admissionHome")}
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item active>
+                          {t("admissionForm")}
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item active>
+                          {t("admission2")}
+                        </Breadcrumb.Item>
                       </Breadcrumb>
                     </div>
                   </div>
@@ -713,9 +709,7 @@ const Admission = () => {
                           onChange={(newValue) => {
                             setSearchBegin(newValue);
                             if (seartEnd !== null && newValue > seartEnd) {
-                              alert(
-                                t("admissionDateDesc")
-                              );
+                              alert(t("admissionDateDesc"));
                               setSearchBegin(null);
                             }
                           }}
@@ -748,9 +742,7 @@ const Admission = () => {
                               setSearchEnd(null);
                             }
                             if (seartBegin !== null && seartBegin > newValue) {
-                              alert(
-                                t("admissionDateDesc")
-                              );
+                              alert(t("admissionDateDesc"));
                               setSearchEnd(null);
                             }
                           }}

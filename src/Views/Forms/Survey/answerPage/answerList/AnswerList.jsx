@@ -3,30 +3,51 @@ import React, { useEffect, useRef, useState } from "react";
 // import { t } from "i18next";
 // import { toast } from "react-toastify";
 
-import { answerPageAccessList, answerPageCheckFile, answerPageDelete, answerPageExport, answerPageExportId, answerPageFavorite, answerPageGetOneRecord, answerPageImport, answerPageLog, answerPageRead, answerPageReadAnswer, answerPageReadPaging, answerPageSampleFile, answerPageSetColumn } from "../../../../../services/answerService";
+import {
+  answerPageAccessList,
+  answerPageCheckFile,
+  answerPageDelete,
+  answerPageExport,
+  answerPageExportId,
+  answerPageFavorite,
+  answerPageGetOneRecord,
+  answerPageImport,
+  answerPageLog,
+  answerPageRead,
+  answerPageReadAnswer,
+  answerPageReadPaging,
+  answerPageSampleFile,
+  answerPageSetColumn,
+} from "../../../../../services/answerService";
 import AnswerForm from "../answerForm/AnswerForm";
 import { enums } from "../../../../../data/Enums";
 import CustomTable from "../../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
 import AnswerModal from "../../../../../Components/Table/answerModal/AnswerModal";
 import useAxios from "../../../../../customHooks/useAxios";
-import { handleError } from "../../../../../validation/functions";
 import useRequest from "../../../../../customHooks/useRequest";
 import BackDrop from "../../../../../Components/backDrop/BackDrop";
 
 const AnswerList = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType","QuestionPage_Id","AnswerPageFailed_Id","Answer"];
-
+  const filteredColumns = [
+    "IsLimited",
+    "Id",
+    "Registrar",
+    "SourceType",
+    "QuestionPage_Id",
+    "AnswerPageFailed_Id",
+    "Answer",
+  ];
 
   const childRef = useRef();
   const [rowValues, setRowValues] = useState([]);
   const [answerModalOpen, setAnswerModalOpen] = useState(false);
   const [mobileModal, setMobileModal] = useState(false);
-  const request=useRequest()
+  const request = useRequest();
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
-  const [response,loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const addObject = {
     Component: AnswerForm,
     path: "/Poll/Answer/Create",
@@ -34,37 +55,37 @@ const AnswerList = () => {
     access: enums.Poll_AnswerPage_Create_w,
   };
 
-
   const handleClickHelp = () => {
     window.open("https://www.google.com");
   };
-  const handleResponse=(response)=>{
-    setRowValues(response.Record)
-    setAnswerModalOpen(true)
-  }
+  const handleResponse = (response) => {
+    setRowValues(response.Record);
+    setAnswerModalOpen(true);
+  };
   useEffect(() => {
-    response&&handleResponse(response)
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    response && handleResponse(response);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
-  const handleReadAnswers=(id)=>{
+  const handleReadAnswers = (id) => {
     fetchData({
       method: "POST",
       url: answerPageReadAnswer,
       headers: request,
       data: {
-        
-        id: id
-      }
+        id: id,
+      },
     });
-  }
+  };
   return (
     <>
-    {loading && <BackDrop open={true} />}
-    {answerModalOpen &&(
-      <AnswerModal   onHide={() => setAnswerModalOpen(false)}
-      logs={rowValues}
-      show={answerModalOpen}/>
-    )}
+      {loading && <BackDrop open={true} />}
+      {answerModalOpen && (
+        <AnswerModal
+          onHide={() => setAnswerModalOpen(false)}
+          logs={rowValues}
+          show={answerModalOpen}
+        />
+      )}
       <CustomTable
         ref={childRef}
         ReadApi={answerPageRead}

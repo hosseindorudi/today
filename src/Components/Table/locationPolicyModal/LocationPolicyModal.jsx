@@ -12,13 +12,12 @@ import {
 import useRequest from "../../../customHooks/useRequest";
 import useAxios from "../../../customHooks/useAxios";
 import { useTranslation } from "react-i18next";
-import { handleError } from "../../../validation/functions";
 import "./locationPolicyModal.css";
 import Swal from "sweetalert2";
 import { defaultCoordinates } from "../../../data/constants";
 import MapModal from "../../map/MapModal";
 const LocationPolicyModal = (props) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [coordinates, setCoordinates] = useState(defaultCoordinates);
   const [radius, setRadius] = useState(0);
@@ -41,7 +40,6 @@ const LocationPolicyModal = (props) => {
       headers: request,
       data: {
         Id: props.id,
-        
       },
       signal: abortController.signal,
     });
@@ -82,7 +80,6 @@ const LocationPolicyModal = (props) => {
       headers: request,
       data: {
         Id: id,
-        
       },
       signal: abortController.signal,
     });
@@ -116,7 +113,7 @@ const LocationPolicyModal = (props) => {
   };
 
   useEffect(() => {
-   response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -135,7 +132,6 @@ const LocationPolicyModal = (props) => {
         Latitude: coordinates[0],
         Longitude: coordinates[1],
         Radius: radius,
-        
       },
     });
   };
@@ -144,7 +140,7 @@ const LocationPolicyModal = (props) => {
     setEditButtonActivate(true);
     setCoordinates([location.Latitude, location.Longitude]);
     setRadius(location.Radius);
-    setLocationId(location.Id)
+    setLocationId(location.Id);
   };
 
   const cancletationOFEdit = () => {
@@ -167,7 +163,6 @@ const LocationPolicyModal = (props) => {
         Latitude: coordinates[0],
         Longitude: coordinates[1],
         Radius: radius,
-        
       },
     });
   };
@@ -175,11 +170,15 @@ const LocationPolicyModal = (props) => {
     setCoordinates(coord);
   };
   const createRadiusOptions = () => {
-    let options=[]
-    for (let index = 0; index <= 10000; index+=500) {
-      options.push(<option key={index} value={index}>{index}</option>);
+    let options = [];
+    for (let index = 0; index <= 10000; index += 500) {
+      options.push(
+        <option key={index} value={index}>
+          {index}
+        </option>
+      );
     }
-    return options
+    return options;
   };
   return (
     <>
@@ -196,7 +195,10 @@ const LocationPolicyModal = (props) => {
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <div className="Row">
-              <Form.Group className="mb-3 d-flex flex-column" controlId="chooseLocation">
+              <Form.Group
+                className="mb-3 d-flex flex-column"
+                controlId="chooseLocation"
+              >
                 <Form.Label>{t("chooseLocation")}</Form.Label>
                 <MapModal
                   qId={""}
@@ -266,10 +268,10 @@ const LocationPolicyModal = (props) => {
                 <div>
                   <div className="fw-bold countryTitle">{t("Location")}</div>
                   <MapModal
-                  qId={""}
-                  coordinats={[lo.Latitude,lo.Longitude]}
-                  saveDisabled={true}
-                />
+                    qId={""}
+                    coordinats={[lo.Latitude, lo.Longitude]}
+                    saveDisabled={true}
+                  />
                 </div>
                 <div>
                   <div className="fw-bold currencyTitle">{t("Radius")}</div>

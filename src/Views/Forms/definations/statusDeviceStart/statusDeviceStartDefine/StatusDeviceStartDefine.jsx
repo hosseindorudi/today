@@ -13,7 +13,7 @@ import StatusDeviceStart from "../StatusDeviceStart";
 import { statusDeviceStartCreate } from "../../../../../services/statusDeviceStart";
 
 const StatusDeviceStartDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const tabContext = useContext(TabContext);
   const request = useRequest();
@@ -48,14 +48,9 @@ const StatusDeviceStartDefine = () => {
       "add"
     );
   };
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -75,9 +70,8 @@ const StatusDeviceStartDefine = () => {
       fetchData({
         method: "POST",
         url: statusDeviceStartCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

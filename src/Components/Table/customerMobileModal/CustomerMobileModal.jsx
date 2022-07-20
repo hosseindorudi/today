@@ -11,7 +11,6 @@ import {
 } from "../../../services/customerService";
 import * as fa from "react-icons/fa";
 import "./customerMobileModal.css";
-import { handleError } from "../../../validation/functions";
 
 import Swal from "sweetalert2";
 import {
@@ -25,7 +24,7 @@ import {
 } from "react-bootstrap";
 
 const CustomerMobileModal = (props) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
@@ -57,7 +56,6 @@ const CustomerMobileModal = (props) => {
       headers: request,
       data: {
         Id: props.rowValues,
-        
       },
       signal: abortController.signal,
     });
@@ -98,7 +96,6 @@ const CustomerMobileModal = (props) => {
       headers: request,
       data: {
         Id: id,
-        
       },
       signal: abortController.signal,
     });
@@ -132,7 +129,7 @@ const CustomerMobileModal = (props) => {
   };
 
   useEffect(() => {
-   response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -152,7 +149,6 @@ const CustomerMobileModal = (props) => {
         IsPrimary: values.IsPrimary,
         Description: values.Description,
         Title: values.Title,
-        
       },
     });
   };
@@ -189,7 +185,6 @@ const CustomerMobileModal = (props) => {
         IsPrimary: values.IsPrimary,
         Description: values.Description,
         Title: values.Title,
-        
       },
     });
   };

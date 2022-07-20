@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { answerPageCreate } from "../../../../../services/answerService";
 import {
   createSelectOptions,
-  handleError,
   setDatePickerDate,
 } from "../../../../../validation/functions";
 import useAxios from "../../../../../customHooks/useAxios";
@@ -36,7 +35,7 @@ const AnswerModal = (props) => {
     color: "#0000FF",
   });
   const [type, setType] = useState("");
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [values, setValues] = useState({
     Description: "",
     Phone: undefined,
@@ -88,7 +87,7 @@ const AnswerModal = (props) => {
   const rating = ["FiveStar"];
   const map = ["Geolocation"];
 
-  const handleChangeValue = (value,id) => {
+  const handleChangeValue = (value, id) => {
     const temp = [...answer];
     let index = temp.findIndex((i) => i.Question_Id === Number(id));
     if (index !== -1) {
@@ -99,7 +98,7 @@ const AnswerModal = (props) => {
     }
     setAnswer(temp);
   };
-  const handleChangeDescription=(value,id)=>{
+  const handleChangeDescription = (value, id) => {
     const temp = [...answer];
     let index = temp.findIndex((i) => i.Question_Id === Number(id));
     if (index !== -1) {
@@ -109,42 +108,44 @@ const AnswerModal = (props) => {
       };
     }
     setAnswer(temp);
-  }
+  };
   const handleChangeDate = (date, id) => {
     const dateObj = date.toDate();
-    handleChangeValue(setDatePickerDate(dateObj),id)
+    handleChangeValue(setDatePickerDate(dateObj), id);
   };
-  const handleCheckBox=(questionId,itemId,title)=>{
-    let item=[ {
+  const handleCheckBox = (questionId, itemId, title) => {
+    let item = [
+      {
         Id: 0,
         QuestionItem_Id: itemId,
         Answer: title,
-        Description: ""
-      }]
-      const temp = [...answer];
-      let index = temp.findIndex((i) => i.Question_Id === Number(questionId));
-      if (index !== -1) {
-        temp[index] = {
-          ...temp[index],
-          AnswerItem:item
-        };
-      }
-      setAnswer(temp);
-  }
-useEffect(() => {
-  questions.map(q=>{
-    const newElement= {
+        Description: "",
+      },
+    ];
+    const temp = [...answer];
+    let index = temp.findIndex((i) => i.Question_Id === Number(questionId));
+    if (index !== -1) {
+      temp[index] = {
+        ...temp[index],
+        AnswerItem: item,
+      };
+    }
+    setAnswer(temp);
+  };
+  useEffect(() => {
+    questions.map((q) => {
+      const newElement = {
         Question_Id: q.Id,
         Answer: "",
         Description: "",
-        AnswerItem: []
-      }
-   return setAnswer(oldArray => [...oldArray, newElement]);
-  })
-  return () => {
-    setAnswer([])
-}
-}, [questions])
+        AnswerItem: [],
+      };
+      return setAnswer((oldArray) => [...oldArray, newElement]);
+    });
+    return () => {
+      setAnswer([]);
+    };
+  }, [questions]);
 
   const checkAnswerOptions = (question) => {
     let key = "";
@@ -156,8 +157,7 @@ useEffect(() => {
         <Form.Control
           type="text"
           name={question.Id}
-          onChange={(e)=>handleChangeValue(e.target.value,question.Id)}
-        
+          onChange={(e) => handleChangeValue(e.target.value, question.Id)}
         />
       );
     }
@@ -166,21 +166,32 @@ useEffect(() => {
         <Form.Control
           type="number"
           name={question.Id}
-          onChange={(e)=>handleChangeValue(e.target.value,question.Id)}
+          onChange={(e) => handleChangeValue(e.target.value, question.Id)}
         />
       );
     }
     if (rating.includes(key)) {
       return (
-        <div style={{ display: "flex", flexDirection: "column",alignItems:"center" }}>
-        <Rating
-          name="simple-controlled"
-          style={{direction:"ltr"}}
-          onChange={(event, newValue) => {
-            handleChangeValue(newValue, question.Id);
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
-        />
-        <Form.Control type="text"   onChange={(e)=> handleChangeDescription(e.target.value,question.Id)} />
+        >
+          <Rating
+            name="simple-controlled"
+            style={{ direction: "ltr" }}
+            onChange={(event, newValue) => {
+              handleChangeValue(newValue, question.Id);
+            }}
+          />
+          <Form.Control
+            type="text"
+            onChange={(e) =>
+              handleChangeDescription(e.target.value, question.Id)
+            }
+          />
         </div>
       );
     }
@@ -188,7 +199,9 @@ useEffect(() => {
       return (
         <Form.Control
           type="time"
-          onChange={(event) => handleChangeValue(event.target.value, question.Id)}
+          onChange={(event) =>
+            handleChangeValue(event.target.value, question.Id)
+          }
         />
       );
     }
@@ -202,10 +215,15 @@ useEffect(() => {
               type="radio"
               name={question.Id}
               id={`inline-radio-${item.Id}`}
-              onChange={() => handleCheckBox(question.Id,item.Id,item.Title)}
+              onChange={() => handleCheckBox(question.Id, item.Id, item.Title)}
             />
           ))}
-         <Form.Control type="text"    onChange={(e)=> handleChangeDescription(e.target.value,question.Id)} />
+          <Form.Control
+            type="text"
+            onChange={(e) =>
+              handleChangeDescription(e.target.value, question.Id)
+            }
+          />
         </div>
       );
     }
@@ -245,7 +263,13 @@ useEffect(() => {
                 id={`inline-radio-${question.Id}-1`}
                 onChange={() => handleChangeValue(t("No"), question.Id)}
               />
-              <Form.Control type="text" placeholder={t("description")} onChange={(e)=>handleChangeDescription(e.target.value,question.Id)}/>
+              <Form.Control
+                type="text"
+                placeholder={t("description")}
+                onChange={(e) =>
+                  handleChangeDescription(e.target.value, question.Id)
+                }
+              />
             </>
           )}
         </div>
@@ -262,12 +286,19 @@ useEffect(() => {
       );
     }
     if (map.includes(key)) {
-      return <MapModal qId={question.Id} submited={submitMap} coordinats={defaultCoordinates} saveDisabled={false} />;
+      return (
+        <MapModal
+          qId={question.Id}
+          submited={submitMap}
+          coordinats={defaultCoordinates}
+          saveDisabled={false}
+        />
+      );
     }
   };
   const submitMap = (id, coordinates) => {
     const coString = coordinates[0] + "," + coordinates[1];
-    handleChangeValue(coString,id)
+    handleChangeValue(coString, id);
   };
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -320,12 +351,11 @@ useEffect(() => {
       method: "POST",
       url: AnswerPageFailedReadTitle,
       headers: request,
-      
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const handleSubmit = (e) => {
@@ -336,8 +366,10 @@ useEffect(() => {
       });
     }
     const TimeElapsed = calcualteEndTime();
-    const filteredAnwer=answer.filter(f=>f.Answer.length>0||f.AnswerItem.length>0)
-    
+    const filteredAnwer = answer.filter(
+      (f) => f.Answer.length > 0 || f.AnswerItem.length > 0
+    );
+
     setType("SUBMIT");
     fetchData({
       method: "POST",
@@ -345,7 +377,7 @@ useEffect(() => {
       headers: request,
       data: {
         Id: 0,
-        
+
         QuestionPage_Id: questions[0].QuestionPage_Id,
         AnswerPageFailed_Id: answerPageFailed.value,
         NationalCode: values.NationalCode,
@@ -380,7 +412,6 @@ useEffect(() => {
                 type="text"
                 name="FirstName"
                 value={values.FirstName}
-                
                 onChange={handleChange}
               />
             </Form.Group>
@@ -390,7 +421,6 @@ useEffect(() => {
                 type="text"
                 name="LastName"
                 value={values.LastName}
-                
                 onChange={handleChange}
               />
             </Form.Group>
@@ -472,9 +502,7 @@ useEffect(() => {
                 <div className="ms-2">
                   <div className="fw-bold">{q.Title}</div>
                   {q.Description}
-                  <div className="answers">
-                    {checkAnswerOptions(q)}
-                  </div>
+                  <div className="answers">{checkAnswerOptions(q)}</div>
                 </div>
               </ListGroup.Item>
             ))}

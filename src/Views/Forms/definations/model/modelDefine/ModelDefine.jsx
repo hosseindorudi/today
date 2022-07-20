@@ -23,7 +23,7 @@ import Model from "../Model";
 import "./modelDefine.css";
 import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 const ModelDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const [deviceOptions, setDeviceOptions] = useState([]);
   const [device, setDevice] = useState(undefined);
@@ -31,8 +31,8 @@ const ModelDefine = () => {
   const [color, setColor] = useState(undefined);
   const [countryOptions, setCountryOptions] = useState([]);
   const [country, setCountry] = useState(undefined);
-  const [companyOptions, setCompanyOptions] = useState([])
-  const [company, setCompany] = useState({})
+  const [companyOptions, setCompanyOptions] = useState([]);
+  const [company, setCompany] = useState({});
 
   const request = useRequest();
   const tabContext = useContext(TabContext);
@@ -44,7 +44,7 @@ const ModelDefine = () => {
     desc: "",
     Activated: false,
     RamMemory: 0,
-    RomMemory: 0
+    RomMemory: 0,
   });
   const { t } = useTranslation();
   const handleResponse = () => {
@@ -75,26 +75,29 @@ const ModelDefine = () => {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
   const getDatas = () => {
     const deviceTitles = axios.request(createParams(deviceReadTitle));
     const countryTitles = axios.request(createParams(countryReadTitle));
-    const colorTitles=axios.request(createParams(ColorReadTitle));
-    const companyTitle=axios.request(createParams(companyReadTitle));
+    const colorTitles = axios.request(createParams(ColorReadTitle));
+    const companyTitle = axios.request(createParams(companyReadTitle));
     axios
-      .all([deviceTitles, countryTitles,colorTitles,companyTitle])
+      .all([deviceTitles, countryTitles, colorTitles, companyTitle])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok? setDeviceOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setDeviceOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result===ResultCodeEnum.Ok? setCountryOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result === ResultCodeEnum.Ok
+            ? setCountryOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-            allData[2].data?.Result===ResultCodeEnum.Ok? setColorOptions(createSelectOptions(allData[2].data.Title))
+          allData[2].data?.Result === ResultCodeEnum.Ok
+            ? setColorOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
-            allData[3].data?.Result===ResultCodeEnum.Ok? setCompanyOptions(createSelectOptions(allData[3].data.Title))
+          allData[3].data?.Result === ResultCodeEnum.Ok
+            ? setCompanyOptions(createSelectOptions(allData[3].data.Title))
             : handleError(allData[3].data.Message);
         })
       )
@@ -107,7 +110,7 @@ const ModelDefine = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -122,9 +125,8 @@ const ModelDefine = () => {
       fetchData({
         method: "POST",
         url: modelCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Device_Id: device?.value,
           Country_Id: country?.value,
@@ -134,7 +136,7 @@ const ModelDefine = () => {
           BodyColor: values.BodyColor,
           Activated: values.Activated,
           Priority: values.periority,
-          Company:company?.value,
+          Company: company?.value,
           Title: values.title,
           Description: values.desc,
           Color: values.color.substring(1),

@@ -3,7 +3,10 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { createSelectOptions, defintionInputs, handleError } from "../../../../../validation/functions";
+import {
+  createSelectOptions,
+  defintionInputs,
+} from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { countryReadTitle } from "../../../../../services/countryService";
 import { provinceUpdate } from "../../../../../services/provinceService";
@@ -11,12 +14,12 @@ import { CustomReactMultiSelect } from "../../../../../Components/Select/customR
 
 const TableModal = (props) => {
   const [validated, setValidated] = useState(false);
-  const [type,setType]=useState("")
+  const [type, setType] = useState("");
   const { t } = useTranslation();
   const abortController = new AbortController();
   const [countryOptions, setCountryOptions] = useState([]);
   const [country, setCountry] = useState(undefined);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [values, setValues] = useState({
     title: "",
@@ -33,12 +36,12 @@ const TableModal = (props) => {
       periority: prop.Priority,
       desc: prop.Description,
     });
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
-  const submitted=(response)=>{
-    props.updated()
-  }
+
+  const submitted = (response) => {
+    props.updated();
+  };
   const handleResponse = (response, type) => {
     switch (type) {
       case "READTITLE":
@@ -52,23 +55,25 @@ const TableModal = (props) => {
     }
   };
   useEffect(() => {
-    setCountry(countryOptions.find(i=>i.value===props.rowValus.Country_Id))
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [countryOptions])
+    setCountry(
+      countryOptions.find((i) => i.value === props.rowValus.Country_Id)
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countryOptions]);
   useEffect(() => {
     setType("READTITLE");
     fetchData({
       method: "POST",
       url: countryReadTitle,
       headers: request,
-      
+
       signal: abortController.signal,
     });
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -84,9 +89,8 @@ const TableModal = (props) => {
       fetchData({
         method: "POST",
         url: provinceUpdate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: props.rowValus.Id,
           Country_Id: country?.value,
           Priority: values.periority,
@@ -122,7 +126,6 @@ const TableModal = (props) => {
         onSubmit={handleSubmit}
       >
         <Modal.Body>
-      
           <Form.Group className="mb-3" controlId={"model"}>
             <Form.Label>{t("country")}</Form.Label>
             <CustomReactMultiSelect
@@ -133,13 +136,13 @@ const TableModal = (props) => {
               placeholder={t("country")}
             />
           </Form.Group>
-     
-        {defintionInputs(values).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
+
+          {defintionInputs(values).map((input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          ))}
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={loading} type='submit' >
+          <Button disabled={loading} type="submit">
             {" "}
             {t("operatorGroupFormSubmit")}
           </Button>

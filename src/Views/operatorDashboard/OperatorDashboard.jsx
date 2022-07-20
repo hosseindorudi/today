@@ -4,7 +4,6 @@ import { useState } from "react";
 import Modal from "./modal/Modal";
 import useGeoLocation from "../../customHooks/useGeoLocation";
 import { OsContext } from "../../contexts/OsInformationProvider";
-import { toast } from "react-toastify";
 import {
   homeDashboard,
   deleteNoteDashboard,
@@ -12,7 +11,6 @@ import {
   deleteFavorite,
 } from "../../services/dashboardServices";
 import useAxios from "../../customHooks/useAxios";
-import AppContext from "../../contexts/AppContext";
 import BackDrop from "../../Components/backDrop/BackDrop";
 import { useTranslation } from "react-i18next";
 import { TabContext } from "../../contexts/TabContextProvider";
@@ -27,13 +25,12 @@ import useRequest from "../../customHooks/useRequest";
 
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const request=useRequest()
+  const request = useRequest();
   const location = useGeoLocation();
   const { loaded } = useContext(OsContext);
   const abortController = new AbortController();
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [dashboardInfoData, setDashboardInfoData] = useState({});
-  const accessToken = localStorage.getItem("token");
   const [extraInfo, setExtraInfo] = useState([]);
   const [notes, setNotes] = useState([]);
   const [faileds, setFaileds] = useState([]);
@@ -41,16 +38,10 @@ const OperatorDashboard = () => {
   const [events, setEvents] = useState([]);
   const [requestType, setRequestType] = useState("");
   const [isNote, setIsNote] = useState(false);
-  const { app } = useContext(AppContext);
   const [descriptionShow, setDescriptionShow] = useState(false);
   const [desc, setDesc] = useState("");
   const { t } = useTranslation();
   const tabContext = useContext(TabContext);
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
 
   const filtredColumn = [
     "Id",
@@ -269,8 +260,7 @@ const OperatorDashboard = () => {
   }, [loaded]);
 
   useEffect(() => {
-    
-    response&&handleResponse(response, requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, requestType]);
 
@@ -435,119 +425,74 @@ const OperatorDashboard = () => {
                 ))}
               </tbody>
             </Table>
-
-        </>
+          </>
         )}
-            {logins?.length > 0 && (
+        {logins?.length > 0 && (
           <>
             <b>لیست ورود های مجاز</b>
             <Table responsive="sm" size="sm" className="tableDashboard">
               <thead>
                 <tr>
-                {Object.keys(logins[0])
-                  .filter(
-                    (p) =>
-                      !filtredColumn.includes(p) 
-                  )
-                  .map((failed, i) => {
-                    
-                      return (
-                        <th
-                          key={i}
-                        
-                        >
-                          {t(failed)}
-                        </th>
-                      );
-                  
-                  })}
+                  {Object.keys(logins[0])
+                    .filter((p) => !filtredColumn.includes(p))
+                    .map((failed, i) => {
+                      return <th key={i}>{t(failed)}</th>;
+                    })}
                 </tr>
               </thead>
               <tbody>
-              {
-                  logins.map((failed) => (
-                    <tr>
-                      {Object.keys(failed)
-                      .filter(
-                        (p) =>
-                          !filtredColumn.includes(p) 
-                      )
+                {logins.map((failed) => (
+                  <tr>
+                    {Object.keys(failed)
+                      .filter((p) => !filtredColumn.includes(p))
                       .map((f, i) => {
-                        
-                          return (
-                            <td
-                              key={i}
-                            >
-                              {f === "DateSet"
-                                ? dateOfLogTable(failed[f])
-                                : failed[f]}
-                            </td>
-                          );
-                     
+                        return (
+                          <td key={i}>
+                            {f === "DateSet"
+                              ? dateOfLogTable(failed[f])
+                              : failed[f]}
+                          </td>
+                        );
                       })}
-                    </tr>
-                  ))}
+                  </tr>
+                ))}
               </tbody>
             </Table>
-
           </>
         )}
-          {faileds?.length > 0 && (
+        {faileds?.length > 0 && (
           <>
             <b>لیست ورود های غیر مجاز</b>
             <Table responsive="sm" size="sm" className="tableDashboard">
               <thead>
                 <tr>
-                {Object.keys(faileds[0])
-                  .filter(
-                    (p) =>
-                      !filtredColumn.includes(p) 
-                  )
-                  .map((failed, i) => {
-                    
-                      return (
-                        <th
-                          key={i}
-                         
-                        >
-                          {t(failed)}
-                        </th>
-                      );
-                    
-                  })}
+                  {Object.keys(faileds[0])
+                    .filter((p) => !filtredColumn.includes(p))
+                    .map((failed, i) => {
+                      return <th key={i}>{t(failed)}</th>;
+                    })}
                 </tr>
               </thead>
               <tbody>
-              {
-                  faileds.map((failed) => (
-                    <tr>
-                      {Object.keys(failed)
-                      .filter(
-                        (p) =>
-                          !filtredColumn.includes(p) 
-                      )
+                {faileds.map((failed) => (
+                  <tr>
+                    {Object.keys(failed)
+                      .filter((p) => !filtredColumn.includes(p))
                       .map((f, i) => {
-                        
-                          return (
-                            <td
-                              key={i}
-                           
-                            >
-                              {f === "DateSet"
-                                ? dateOfLogTable(failed[f])
-                                : failed[f]}
-                            </td>
-                          );
-                       
+                        return (
+                          <td key={i}>
+                            {f === "DateSet"
+                              ? dateOfLogTable(failed[f])
+                              : failed[f]}
+                          </td>
+                        );
                       })}
-                    </tr>
-                  ))}
+                  </tr>
+                ))}
               </tbody>
             </Table>
-
           </>
         )}
-        
       </div>
     </>
   );

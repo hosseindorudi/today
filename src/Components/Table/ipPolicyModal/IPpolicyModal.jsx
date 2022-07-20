@@ -12,21 +12,18 @@ import {
 import useRequest from "../../../customHooks/useRequest";
 import useAxios from "../../../customHooks/useAxios";
 import { useTranslation } from "react-i18next";
-import {
-  handleError
-} from "../../../validation/functions";
-import './IPpolicyModal.css'
+import "./IPpolicyModal.css";
 import Swal from "sweetalert2";
 
 const IPpolicyModal = (props) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [IP_From, setIP_From] = useState("");
   const [IP_To, setIP_To] = useState("");
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
   const [IPs, setIps] = useState([]);
-const [ipId, setIpId] = useState("");
+  const [ipId, setIpId] = useState("");
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
 
@@ -42,7 +39,6 @@ const [ipId, setIpId] = useState("");
       headers: request,
       data: {
         Id: props.id,
-        
       },
       signal: abortController.signal,
     });
@@ -62,7 +58,7 @@ const [ipId, setIpId] = useState("");
         case "SUBMIT":
           readDatas();
           setEmpty();
-          setEditButtonActivate(false)
+          setEditButtonActivate(false);
           break;
         case "Read":
           setIps(response.Record);
@@ -83,7 +79,6 @@ const [ipId, setIpId] = useState("");
       headers: request,
       data: {
         Id: id,
-        
       },
       signal: abortController.signal,
     });
@@ -117,7 +112,7 @@ const [ipId, setIpId] = useState("");
   };
 
   useEffect(() => {
-   response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -135,7 +130,6 @@ const [ipId, setIpId] = useState("");
         Group_Id: props.id,
         IP_From: IP_From,
         IP_To: IP_To,
-        
       },
     });
   };
@@ -143,7 +137,7 @@ const [ipId, setIpId] = useState("");
   const handleQuestionEdit = (ip) => {
     setEditButtonActivate(true);
     setIP_From(ip.IP_From);
-    setIP_To(ip.IP_To)
+    setIP_To(ip.IP_To);
     setIpId(ip.Id);
   };
 
@@ -166,7 +160,6 @@ const [ipId, setIpId] = useState("");
         Group_Id: props.id,
         IP_From: IP_From,
         IP_To: IP_To,
-        
       },
     });
   };
@@ -188,13 +181,23 @@ const [ipId, setIpId] = useState("");
             <div className="Row">
               <Form.Group className="mb-3" controlId="IP_From">
                 <Form.Label>{t("IP_From")}</Form.Label>
-                <Form.Control maxLength={15}  value={IP_From} onChange={(e)=>setIP_From(e.target.value)} placeholder={t("IP_From")}/>
+                <Form.Control
+                  maxLength={15}
+                  value={IP_From}
+                  onChange={(e) => setIP_From(e.target.value)}
+                  placeholder={t("IP_From")}
+                />
               </Form.Group>
             </div>
             <div className="Row">
-            <Form.Group className="mb-3" controlId="IP_To">
+              <Form.Group className="mb-3" controlId="IP_To">
                 <Form.Label>{t("IP_To")}</Form.Label>
-                <Form.Control maxLength={15}  value={IP_To} onChange={(e)=>setIP_To(e.target.value)} placeholder={t("IP_To")}/>
+                <Form.Control
+                  maxLength={15}
+                  value={IP_To}
+                  onChange={(e) => setIP_To(e.target.value)}
+                  placeholder={t("IP_To")}
+                />
               </Form.Group>
             </div>
             {!editButtonActivate ? (
@@ -250,9 +253,7 @@ const [ipId, setIpId] = useState("");
                   {ip.IP_From}
                 </div>
                 <div>
-                  <div className="fw-bold currencyTitle">
-                    {t("IP_To")}
-                  </div>
+                  <div className="fw-bold currencyTitle">{t("IP_To")}</div>
                   {ip.IP_To}
                 </div>
                 <div className="d-flex btns ">

@@ -6,7 +6,6 @@ import useRequest from "../../../../../customHooks/useRequest";
 import {
   createSelectOptions,
   defintionInputs,
-  handleError,
 } from "../../../../../validation/functions";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -20,11 +19,11 @@ import { CustomReactMultiSelect } from "../../../../../Components/Select/customR
 const DeffectForm = () => {
   const { t } = useTranslation();
   const [validated, setValidated] = useState(false);
-  const [type, setType] = useState("")
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [type, setType] = useState("");
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
-  const [modelOptions, setModelOptions] = useState([])
-  const [model, setmodel] = useState(undefined)
+  const [modelOptions, setModelOptions] = useState([]);
+  const [model, setmodel] = useState(undefined);
   const request = useRequest();
   const abortController = new AbortController();
   const [values, setValues] = useState({
@@ -70,8 +69,8 @@ const DeffectForm = () => {
     }
   };
   useEffect(() => {
-    response&&handleResponse(response,type)
- 
+    response && handleResponse(response, type);
+
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -85,7 +84,6 @@ const DeffectForm = () => {
       method: "POST",
       url: modelReadTitle,
       headers: request,
-      
 
       signal: abortController.signal,
     });
@@ -100,15 +98,14 @@ const DeffectForm = () => {
     }
     setValidated(true);
     if (form.checkValidity()) {
-      setType("SUBMIT")
+      setType("SUBMIT");
       fetchData({
         method: "POST",
         url: defectCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
-          Model_Id:model?.value,
+          Model_Id: model?.value,
           Priority: values.periority,
           Title: values.title,
           Description: values.desc,
@@ -131,16 +128,16 @@ const DeffectForm = () => {
       >
         <b>{t("/Definition/Defect/Write")}</b>
         <div className="Row">
-        <Form.Group  className="mb-3" >
-          <Form.Label>{t("model")}</Form.Label>
-        <CustomReactMultiSelect
-                  isMulti={false}
-                  options={modelOptions}
-                  value={model}
-                  onchangeHandler={(e) => setmodel(e)}
-                  placeholder={t("model")}
-                />
-        </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>{t("model")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={modelOptions}
+              value={model}
+              onchangeHandler={(e) => setmodel(e)}
+              placeholder={t("model")}
+            />
+          </Form.Group>
         </div>
         {defintionInputs(
           values,

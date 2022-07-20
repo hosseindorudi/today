@@ -3,10 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import useAxios from "../../../../../customHooks/useAxios";
 import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useRequest from "../../../../../customHooks/useRequest";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { enums } from "../../../../../data/Enums";
@@ -14,11 +11,10 @@ import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { PhonePoolCreate } from "../../../../../services/phoneNumberGroupService";
 import PhoneNumberGroupList from "../PhoneGroupList";
 
-
 const PhoneNumberGroup = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   const [validated, setValidated] = useState(false);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
@@ -54,7 +50,7 @@ const PhoneNumberGroup = () => {
   };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -74,9 +70,8 @@ const PhoneNumberGroup = () => {
       fetchData({
         method: "POST",
         url: PhonePoolCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,
@@ -100,11 +95,13 @@ const PhoneNumberGroup = () => {
       >
         <b>{t("/Marketing/PhonePool/Create")}</b>
 
-        {defintionInputs(values, t("/Marketing/PhonePool/Create"), t("/Marketing/PhonePool/Create_errorMSG")).map(
-          (input) => (
-            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-          )
-        )}
+        {defintionInputs(
+          values,
+          t("/Marketing/PhonePool/Create"),
+          t("/Marketing/PhonePool/Create_errorMSG")
+        ).map((input) => (
+          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+        ))}
 
         <Button disabled={loading} type="submit">
           {t("submit")}
@@ -112,6 +109,6 @@ const PhoneNumberGroup = () => {
       </Form>
     </div>
   );
-}
+};
 
-export default PhoneNumberGroup
+export default PhoneNumberGroup;

@@ -31,7 +31,7 @@ const PartsDefine = () => {
   const [colorOptions, setColorOptions] = useState([]);
   const [color, setColor] = useState(undefined);
   const tabContext = useContext(TabContext);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
   const [values, setValues] = useState({
@@ -90,23 +90,25 @@ const PartsDefine = () => {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
   const getDatas = () => {
     const partGroupTitles = axios.request(createParams(partGroupReadTitle));
     const qualityTitles = axios.request(createParams(qualityReadTitle));
-    const colorTitles=axios.request((createParams(ColorReadTitle)))
+    const colorTitles = axios.request(createParams(ColorReadTitle));
     axios
-      .all([partGroupTitles, qualityTitles,colorTitles])
+      .all([partGroupTitles, qualityTitles, colorTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok? setPartGroupOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setPartGroupOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result===ResultCodeEnum.Ok? setQualityOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result === ResultCodeEnum.Ok
+            ? setQualityOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-            allData[2].data?.Result===ResultCodeEnum.Ok? setColorOptions(createSelectOptions(allData[2].data.Title))
+          allData[2].data?.Result === ResultCodeEnum.Ok
+            ? setColorOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
         })
       )
@@ -119,7 +121,7 @@ const PartsDefine = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -140,9 +142,8 @@ const PartsDefine = () => {
       fetchData({
         method: "POST",
         url: partCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           PartGroup_Id: partGroup?.value,
           Quality_Id: quality?.value,
           Id: 0,
@@ -257,7 +258,6 @@ const PartsDefine = () => {
               onchangeHandler={(e) => setColor(e)}
               placeholder={t("part.BodyColor")}
             />
-          
           </Form.Group>
           <Form.Group className="mb-3" controlId={"IsPerishable"}>
             <Form.Label>{t("part.IsPerishable")}</Form.Label>

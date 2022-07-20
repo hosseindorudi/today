@@ -3,15 +3,15 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
-import { defintionInputs, handleError } from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { cancellationOfAdmissionUpdate } from "../../../../../services/CancellationOfAdmissionService";
 const TableModal = (props) => {
-  const {t}=useTranslation()
-  const val=props.rowValues
-const [validated, setValidated] = useState(false);
+  const { t } = useTranslation();
+  const val = props.rowValues;
+  const [validated, setValidated] = useState(false);
   const abortController = new AbortController();
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [values, setValues] = useState({
     title: val.Title,
@@ -19,11 +19,11 @@ const [validated, setValidated] = useState(false);
     periority: val.Priority,
     desc: val.Description,
   });
-  const handleResponse=(response)=>{
-    props.updated()
-  }
+  const handleResponse = (response) => {
+    props.updated();
+  };
   useEffect(() => {
-    response&&handleResponse()
+    response && handleResponse();
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -31,27 +31,23 @@ const [validated, setValidated] = useState(false);
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.checkValidity()) {
-     e.stopPropagation();
+      e.stopPropagation();
     }
     setValidated(true);
     if (form.checkValidity()) {
       fetchData({
         method: "POST",
         url: cancellationOfAdmissionUpdate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: val.Id,
           Title: values.title,
           Description: values.desc,
-          Color: values.color.substring(1)
+          Color: values.color.substring(1),
         },
         signal: abortController.signal,
       });
-      
-     }
-    
-  
+    }
   };
   const onChangeHandler = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -73,19 +69,12 @@ const [validated, setValidated] = useState(false);
         onSubmit={handleSubmit}
       >
         <Modal.Body>
-
-        {defintionInputs(values).map((input) => (
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChangeHandler}
-              />
-            ))}
-
-
+          {defintionInputs(values).map((input) => (
+            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
+          ))}
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={loading} type='submit' >
+          <Button disabled={loading} type="submit">
             {" "}
             {t("operatorGroupFormSubmit")}
           </Button>

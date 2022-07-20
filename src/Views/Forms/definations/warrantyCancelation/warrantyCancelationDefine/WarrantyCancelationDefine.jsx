@@ -9,14 +9,11 @@ import { enums } from "../../../../../data/Enums";
 import { toast } from "react-toastify";
 import { reasonForCancellationOfWarrantyCreate } from "../../../../../services/warrantyCancellationService";
 import WarrantyCancelation from "../WarrantyCancelation";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import { Form, Button } from "react-bootstrap";
 
 const WarrantyCancelationDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const [validated, setValidated] = useState(false);
   const request = useRequest();
@@ -54,7 +51,7 @@ const WarrantyCancelationDefine = () => {
   };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -73,9 +70,8 @@ const WarrantyCancelationDefine = () => {
       fetchData({
         method: "POST",
         url: reasonForCancellationOfWarrantyCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

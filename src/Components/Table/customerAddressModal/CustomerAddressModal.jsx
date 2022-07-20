@@ -35,7 +35,7 @@ import { CustomReactMultiSelect } from "../../Select/customReactSelect";
 import MapModal from "../../map/MapModal";
 import { ResultCodeEnum } from "../../../data/ResultCodeEnum";
 const CustomerAddressModal = (props) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
 
   const [country, setCountry] = useState(undefined);
@@ -99,7 +99,6 @@ const CustomerAddressModal = (props) => {
       headers: request,
       data: {
         Id: props.rowValues,
-        
       },
       signal: abortController.signal,
     });
@@ -109,7 +108,6 @@ const CustomerAddressModal = (props) => {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
@@ -130,15 +128,20 @@ const CustomerAddressModal = (props) => {
       ])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok? setProvinceOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setProvinceOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result===ResultCodeEnum.Ok? setCountryOptions(createSelectOptions(allData[1].data.Title))
+          allData[1].data?.Result === ResultCodeEnum.Ok
+            ? setCountryOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-          allData[2].data?.Result===ResultCodeEnum.Ok? setCityOptions(createSelectOptions(allData[2].data.Title))
+          allData[2].data?.Result === ResultCodeEnum.Ok
+            ? setCityOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
-          allData[3].data?.Result===ResultCodeEnum.Ok? setSectionOptions(createSelectOptions(allData[3].data.Title))
+          allData[3].data?.Result === ResultCodeEnum.Ok
+            ? setSectionOptions(createSelectOptions(allData[3].data.Title))
             : handleError(allData[3].data.Message);
-          allData[4].data?.Result===ResultCodeEnum.Ok? setAreaOptions(createSelectOptions(allData[4].data.Title))
+          allData[4].data?.Result === ResultCodeEnum.Ok
+            ? setAreaOptions(createSelectOptions(allData[4].data.Title))
             : handleError(allData[4].data.Message);
         })
       )
@@ -183,7 +186,6 @@ const CustomerAddressModal = (props) => {
       headers: request,
       data: {
         Id: id,
-        
       },
       signal: abortController.signal,
     });
@@ -217,7 +219,7 @@ const CustomerAddressModal = (props) => {
   };
 
   useEffect(() => {
-   response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -251,7 +253,6 @@ const CustomerAddressModal = (props) => {
         Longitude: coordinates[1],
         Description: values.Description,
         Title: values.Title,
-        
       },
     });
   };
@@ -316,7 +317,6 @@ const CustomerAddressModal = (props) => {
         Longitude: coordinates[1],
         Description: values.Description,
         Title: values.Title,
-        
       },
     });
   };

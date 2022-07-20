@@ -49,7 +49,7 @@ const TableButtons = ({
   handleAccount,
   accountAccess,
 }) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const { app } = useContext(AppContext);
   const request = useRequest();
   const { t } = useTranslation();
@@ -73,14 +73,13 @@ const TableButtons = ({
       url: exportLink,
       headers: request,
       data: {
-        
         Id: rowValue.Id,
       },
     });
   };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
   return (
@@ -230,7 +229,7 @@ const TableButtons = ({
           <fa.FaMap />
         </button>
       )}
-       {haveAccess(mobileAccess) && (
+      {haveAccess(mobileAccess) && (
         <button
           title={t("Mobile")}
           className="Pending widgetLgButton"
@@ -252,7 +251,7 @@ const TableButtons = ({
           <fa.FaPhoneAlt />
         </button>
       )}
-       {haveAccess(accountAccess) && (
+      {haveAccess(accountAccess) && (
         <button
           title={t("bankAccount")}
           className="Pending widgetLgButton"

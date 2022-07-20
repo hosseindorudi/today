@@ -8,14 +8,11 @@ import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import { partGroupCreate } from "../../../../../services/partGroup";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import PartGroup from "../PartGroup";
 
 const PartGroupDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const request = useRequest();
   const tabContext = useContext(TabContext);
@@ -51,7 +48,7 @@ const PartGroupDefine = () => {
     );
   };
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -66,9 +63,8 @@ const PartGroupDefine = () => {
       fetchData({
         method: "POST",
         url: partGroupCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

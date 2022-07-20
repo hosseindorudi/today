@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {  Button,  Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 
-import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
@@ -10,7 +9,7 @@ import { productGroupUpdate } from "../../../../../services/productGroup";
 import { defintionInputs } from "../../../../../validation/functions";
 
 const TableModal = (props) => {
-  const val=props.rowValus
+  const val = props.rowValus;
   const [values, setValues] = useState({
     title: val.Title,
     color: `#${val.Color}`,
@@ -21,22 +20,14 @@ const TableModal = (props) => {
   const request = useRequest();
   const abortController = new AbortController();
 
- 
-
-
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
   const handleResponse = () => {
-    props.updated()
+    props.updated();
   };
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   useEffect(() => {
-   response&&handleResponse(response)// eslint-disable-next-line react-hooks/exhaustive-deps
+    response && handleResponse(response); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   const handleSubmit = (e) => {
@@ -46,7 +37,6 @@ const TableModal = (props) => {
       url: productGroupUpdate,
       headers: request,
       data: {
-        
         Id: val.Id,
         Priority: values.periority,
         Title: values.title,
@@ -58,7 +48,6 @@ const TableModal = (props) => {
       },
       signal: abortController.signal,
     });
-  
   };
   return (
     <Modal
@@ -67,12 +56,12 @@ const TableModal = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
       onHide={props.onHide}
-      className='editModalPeriority'
+      className="editModalPeriority"
     >
       <Modal.Header closeButton></Modal.Header>
       <Form onSubmit={handleSubmit}>
-      <Modal.Body>
-      <div className="periorityFormsEdit">
+        <Modal.Body>
+          <div className="periorityFormsEdit">
             {defintionInputs(values).map((input) => (
               <FormInput
                 key={input.id}
@@ -81,11 +70,14 @@ const TableModal = (props) => {
                 onChange={onChange}
               />
             ))}
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button disabled={loading} type='submit'> {t("submit")}</Button>
-      </Modal.Footer>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button disabled={loading} type="submit">
+            {" "}
+            {t("submit")}
+          </Button>
+        </Modal.Footer>
       </Form>
     </Modal>
   );

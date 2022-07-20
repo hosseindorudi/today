@@ -15,10 +15,11 @@ import {
   defintionInputs,
   handleError,
 } from "../../../../../validation/functions";
+import ResultCodeEnum from "../../../../../data/ResultCodeEnum";
 import { areaCreate } from "../../../../../services/areaService";
 import AreaList from "../AreaList";
 const AreaForm = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const [sectionOptions, setSectionOptions] = useState([]);
   const [section, setSection] = useState(undefined);
@@ -64,7 +65,6 @@ const AreaForm = () => {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
@@ -74,7 +74,8 @@ const AreaForm = () => {
       .all([sectionTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok? setSectionOptions(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setSectionOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
         })
       )
@@ -87,7 +88,7 @@ const AreaForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -102,9 +103,8 @@ const AreaForm = () => {
       fetchData({
         method: "POST",
         url: areaCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Section_Id: section?.value,
           Priority: values.periority,

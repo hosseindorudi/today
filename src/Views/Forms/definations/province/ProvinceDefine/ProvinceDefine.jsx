@@ -13,12 +13,11 @@ import { provinceCreate } from "../../../../../services/provinceService";
 import {
   createSelectOptions,
   defintionInputs,
-  handleError,
 } from "../../../../../validation/functions";
 import Province from "../Province";
 
 const ProvinceDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const [type, setType] = useState("");
   const [countryOptions, setCountryOptions] = useState([]);
@@ -74,14 +73,14 @@ const ProvinceDefine = () => {
       method: "POST",
       url: countryReadTitle,
       headers: request,
-      
+
       signal: abortController.signal,
     });
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -97,9 +96,8 @@ const ProvinceDefine = () => {
       fetchData({
         method: "POST",
         url: provinceCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Country_Id: country?.value,
           Priority: values.periority,
@@ -140,7 +138,11 @@ const ProvinceDefine = () => {
             />
           </Form.Group>
         </div>
-        {defintionInputs(values,t("personInformationState"),t("province_errorMSG")).map((input) => (
+        {defintionInputs(
+          values,
+          t("personInformationState"),
+          t("province_errorMSG")
+        ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
         <Button disabled={loading} type="submit">

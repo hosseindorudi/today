@@ -3,22 +3,14 @@ import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
 
 import {
-
   customerCreateBankAccount,
-
   customerDeleteBankAccount,
-
   customerReadBankAccount,
-
   customerUpdateBankAccount,
 } from "../../../services/customerService";
 import * as fa from "react-icons/fa";
 import "./customerAccountModal.css";
 
-import {
-
-  handleError,
-} from "../../../validation/functions";
 import { useTranslation } from "react-i18next";
 
 import Swal from "sweetalert2";
@@ -33,7 +25,7 @@ import {
 } from "react-bootstrap";
 
 const CustomerAccountModal = (props) => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
 
   const abortController = new AbortController();
@@ -82,7 +74,6 @@ const CustomerAccountModal = (props) => {
       headers: request,
       data: {
         Id: props.rowValues,
-        
       },
       signal: abortController.signal,
     });
@@ -124,7 +115,6 @@ const CustomerAccountModal = (props) => {
       headers: request,
       data: {
         Id: id,
-        
       },
       signal: abortController.signal,
     });
@@ -158,7 +148,7 @@ const CustomerAccountModal = (props) => {
   };
 
   useEffect(() => {
-   response&&handleResponse(response,requestType)
+    response && handleResponse(response, requestType);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -186,14 +176,11 @@ const CustomerAccountModal = (props) => {
         CardNumber: values.CardNumber,
         Description: values.Description,
         Title: values.Title,
-
-        
       },
     });
   };
 
   const handleQuestionEdit = (record) => {
-    
     setEditButtonActivate(true);
     setValues({
       IsPrimary: record.IsPrimary,
@@ -241,7 +228,6 @@ const CustomerAccountModal = (props) => {
         CardNumber: values.CardNumber,
         Description: values.Description,
         Title: values.Title,
-        
       },
     });
   };
@@ -253,7 +239,6 @@ const CustomerAccountModal = (props) => {
   const handleChangeSwitch = (e) => {
     setValues({ ...values, [e.target.name]: e.target.checked });
   };
-
 
   return (
     <>
@@ -452,7 +437,9 @@ const CustomerAccountModal = (props) => {
                   {a.BankName}
                 </div>
                 <div>
-                  <div className="fw-bold countryTitle">{t("AccountNumber")}</div>
+                  <div className="fw-bold countryTitle">
+                    {t("AccountNumber")}
+                  </div>
                   {a.AccountNumber}
                 </div>
                 <div>

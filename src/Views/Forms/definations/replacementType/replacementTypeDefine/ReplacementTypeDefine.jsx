@@ -8,13 +8,10 @@ import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import { replacementTypeCreate } from "../../../../../services/replacementTypeService";
-import {
-  defintionInputs,
-  handleError,
-} from "../../../../../validation/functions";
+import { defintionInputs } from "../../../../../validation/functions";
 import ReplacementType from "../ReplacementType";
 const ReplacementTypeDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
   const [type, setType] = useState("");
   const request = useRequest();
@@ -60,7 +57,7 @@ const ReplacementTypeDefine = () => {
     }
   };
   useEffect(() => {
-    response&&handleResponse(response, type)
+    response && handleResponse(response, type);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -76,9 +73,8 @@ const ReplacementTypeDefine = () => {
       fetchData({
         method: "POST",
         url: replacementTypeCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

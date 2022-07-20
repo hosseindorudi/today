@@ -12,7 +12,7 @@ import { defintionInputs } from "../../../../../validation/functions";
 import { statusDeviceProgressCreate } from "../../../../../services/statusDeviceProgress";
 import StatusDeviceProgress from "../StatusDeviceProgress";
 const StatusDeviceProgressDefine = () => {
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);
   const [validated, setValidated] = useState(false);
   const request = useRequest();
@@ -47,14 +47,9 @@ const StatusDeviceProgressDefine = () => {
       "add"
     );
   };
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
 
   useEffect(() => {
-    response&&handleResponse(response)
+    response && handleResponse(response);
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
@@ -74,9 +69,8 @@ const StatusDeviceProgressDefine = () => {
       fetchData({
         method: "POST",
         url: statusDeviceProgressCreate,
-        headers:request,
+        headers: request,
         data: {
-          
           Id: 0,
           Priority: values.periority,
           Title: values.title,

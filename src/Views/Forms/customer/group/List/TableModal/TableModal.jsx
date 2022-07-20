@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {  Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import AppContext from "../../../../../../contexts/AppContext";
 import { useTranslation } from "react-i18next";
 import useRequest from "../../../../../../customHooks/useRequest";
@@ -9,7 +9,7 @@ import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_en from "react-date-object/locales/gregorian_en";
 import useAxios from "../../../../../../customHooks/useAxios";
-import { handleError, setDatePickerDate } from "../../../../../../validation/functions";
+import { setDatePickerDate } from "../../../../../../validation/functions";
 import { customerGroupUpdate } from "../../../../../../services/customerGroupService";
 
 const TableModal = (props) => {
@@ -19,11 +19,11 @@ const TableModal = (props) => {
   const request = useRequest();
   const { t } = useTranslation();
   const abortController = new AbortController();
-  const value=props.rowValues
+  const value = props.rowValues;
 
   const [values, setValues] = useState({
-    IsActive:value.IsActive,
-    Title:value.Title,
+    IsActive: value.IsActive,
+    Title: value.Title,
     MaxSession: value.MaxSession,
     IsLimited: value.IsLimited,
     LimitFrom: new Date(value.LimitFrom),
@@ -38,31 +38,30 @@ const TableModal = (props) => {
     }
     setValidated(true);
     if (form.checkValidity()) {
-    fetchData({
-      method: "POST",
-      url: customerGroupUpdate,
-      headers: request,
-      signal: abortController.signal,
-      data: {
-        Id:value.Id,
-        IsActive: values.IsActive,
-        Title: values.Title,
-        MaxSession: values.MaxSession,
-        IsLimited: values.IsLimited,
-        LimitFrom: setDatePickerDate(values.LimitFrom),
-        LimitTo: setDatePickerDate(values.LimitTo),
-        Description: values.Description,
-        
-      },
-    });
-  }
+      fetchData({
+        method: "POST",
+        url: customerGroupUpdate,
+        headers: request,
+        signal: abortController.signal,
+        data: {
+          Id: value.Id,
+          IsActive: values.IsActive,
+          Title: values.Title,
+          MaxSession: values.MaxSession,
+          IsLimited: values.IsLimited,
+          LimitFrom: setDatePickerDate(values.LimitFrom),
+          LimitTo: setDatePickerDate(values.LimitTo),
+          Description: values.Description,
+        },
+      });
+    }
   };
-  const handleResponse=()=>{
-    props.updated()
-  }
+  const handleResponse = () => {
+    props.updated();
+  };
   useEffect(() => {
-    response&&handleResponse()
-   
+    response && handleResponse();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const onChangeHandler = (e) => {
@@ -71,7 +70,7 @@ const TableModal = (props) => {
   const handleChangeSwitch = (e) => {
     setValues({ ...values, [e.target.name]: e.target.checked });
   };
-  const setDate = (date,name) => {
+  const setDate = (date, name) => {
     setValues({ ...values, [name]: date.toDate() });
   };
   return (
@@ -83,14 +82,9 @@ const TableModal = (props) => {
       onHide={props.onHide}
     >
       <Modal.Header closeButton></Modal.Header>
-      <Form
-       
-        noValidate
-        validated={validated}
-        onSubmit={handleSubmit}
-      >
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Modal.Body>
-        <div className="Row ">
+          <div className="Row ">
             <Form.Group className="mb-3" controlId={"switch"}>
               <Form.Label>{t("IsActive")}</Form.Label>
               <Form.Check
@@ -150,8 +144,8 @@ const TableModal = (props) => {
               <Form.Label>{t("LimitFrom")}</Form.Label>
               <DatePicker
                 containerClassName="custom-container"
-                onChange={(e)=>setDate(e,"LimitFrom")}
-                name='LimitFrom'
+                onChange={(e) => setDate(e, "LimitFrom")}
+                name="LimitFrom"
                 calendar={app.lang === "fa" ? persian : gregorian}
                 locale={app.lang === "fa" ? persian_fa : gregorian_en}
                 calendarPosition="bottom-right"
@@ -173,8 +167,8 @@ const TableModal = (props) => {
               <Form.Label>{t("LimitTo")}</Form.Label>
               <DatePicker
                 containerClassName="custom-container"
-                onChange={(e)=>setDate(e,"LimitTo")}
-                name='LimitTo'
+                onChange={(e) => setDate(e, "LimitTo")}
+                name="LimitTo"
                 calendar={app.lang === "fa" ? persian : gregorian}
                 locale={app.lang === "fa" ? persian_fa : gregorian_en}
                 calendarPosition="bottom-right"

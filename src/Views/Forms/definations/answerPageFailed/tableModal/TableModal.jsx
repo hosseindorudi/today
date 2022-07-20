@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-
-import { toast } from "react-toastify";
 import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
@@ -17,16 +15,11 @@ const TableModal = (props) => {
     periority: val.Priority,
     desc: val.Description,
   });
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   // const tabContext = useContext(TabContext);
   const request = useRequest();
   const abortController = new AbortController();
 
-  const handleError = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
   const handleResponse = () => {
     props.updated();
   };
@@ -34,7 +27,7 @@ const TableModal = (props) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   useEffect(() => {
-   response&&handleResponse(response);
+    response && handleResponse(response);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -45,7 +38,6 @@ const TableModal = (props) => {
       url: AnswerPageFailedUpdate,
       headers: request,
       data: {
-        
         Id: val.Id,
         Priority: values.periority,
         Title: values.title,

@@ -17,7 +17,6 @@ import axios from "axios";
 import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 
 const QuestionForm = () => {
-
   const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -28,7 +27,7 @@ const QuestionForm = () => {
   const abortController = new AbortController();
 
   const tabContext = useContext(TabContext);
-  const [response, loading, fetchData, setResponse] = useAxios();
+  const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const handleResponse = () => {
     tabContext.addRemoveTabs(
@@ -56,7 +55,6 @@ const QuestionForm = () => {
       method: "POST",
       url: service,
       headers: request,
-      
     };
     return params;
   };
@@ -69,7 +67,8 @@ const QuestionForm = () => {
       .all([questionReadTitle])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result===ResultCodeEnum.Ok? setEnumQuestion(createSelectOptions(allData[0].data.Title))
+          allData[0].data?.Result === ResultCodeEnum.Ok
+            ? setEnumQuestion(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
         })
       )
@@ -94,10 +93,9 @@ const QuestionForm = () => {
       position: toast.POSITION.BOTTOM_CENTER,
     });
   };
- 
 
   useEffect(() => {
-    response&&handleResponse()
+    response && handleResponse();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -115,7 +113,6 @@ const QuestionForm = () => {
         QuestionnaireType_Id: Number(questionSelect.value),
         Title: title,
         Description: description,
-        
       },
     });
   };
@@ -172,7 +169,6 @@ const QuestionForm = () => {
             >
               <Form.Label>{t("operatorGroupFormDesc")}</Form.Label>
               <Form.Control
-                
                 as="textarea"
                 rows={5}
                 value={description}
@@ -188,7 +184,6 @@ const QuestionForm = () => {
               {t("operatorGroupFormSubmit")}
             </Button>
           </Form>
-
         </div>
       </div>
     </>
