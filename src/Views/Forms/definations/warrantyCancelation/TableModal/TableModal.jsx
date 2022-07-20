@@ -29,7 +29,7 @@ const TableModal = (props) => {
   useEffect(() => {
     response && handleResponse();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response, handleResponse]);
+  }, [response]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

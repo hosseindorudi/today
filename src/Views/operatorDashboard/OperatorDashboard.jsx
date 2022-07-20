@@ -93,7 +93,7 @@ const OperatorDashboard = () => {
     setDashboardInfoData(response);
     setExtraInfo(response.Favorite);
     setNotes(response.Note);
-    // setIsNote(true);
+    setIsNote(true);
     setFaileds(response.Failed);
     setLogins(response.Login);
     setEvents(response.Event);
