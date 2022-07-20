@@ -37,6 +37,7 @@ const ImportCSVModal = (props) => {
     });
   };
   const noFileToast = () => {
+    
     toast.info(t("noDataFound.table"), {
       position: toast.POSITION.TOP_CENTER,
     });

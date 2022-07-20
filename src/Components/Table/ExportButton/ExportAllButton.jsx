@@ -7,12 +7,10 @@ import useRequest from '../../../customHooks/useRequest';
 import { downloadCSVCode, setDatePickerDate } from '../../../validation/functions';
 import { toast } from "react-toastify";
 const ExportAllButton = (props) => {
-    const [response, loading, fetchData,setResponse] = useAxios();
+    const [response, loading, fetchData] = useAxios();
     const request=useRequest()
     const abortController = new AbortController();
     const handleExport = () => {
-
-      
       if (props.repaireExp) {
       fetchData({
         method: "POST",
@@ -49,16 +47,24 @@ const ExportAllButton = (props) => {
       };
 
       const noFileToast = () => {
+    
         toast.info(t("noDataFound.table"), {
           position: toast.POSITION.TOP_CENTER,
         });
       };
       const handleDownload=(res)=>{
-        setResponse(undefined)
+       
             downloadCSVCode(res,t("exportCSV"))
       }
+      const handleResponse=(response)=>{
+        if(response.length){
+          return handleDownload(response)
+        }
+        return noFileToast()
+      }
       useEffect(() => {
-        response?.length? handleDownload(response) : noFileToast()
+        response&&handleResponse(response)
+        // response?.length? handleDownload(response) : noFileToast()
           // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [response])
   return (

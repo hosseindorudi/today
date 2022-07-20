@@ -214,6 +214,7 @@ const CustomTable = forwardRef((props, ref) => {
     );
   };
   const logResponse = (res) => {
+    
     if (!res.Log.length) {
       return toast.info(t("noDataFound.table"), {
         position: toast.POSITION.TOP_CENTER,

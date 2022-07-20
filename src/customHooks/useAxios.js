@@ -45,6 +45,7 @@ const useAxios = () => {
       toastError(error.message);
     } finally {
       setLoading(false);
+     
     }
   };
 
