@@ -176,6 +176,7 @@ const OperatorForm = () => {
               <Form.Select
                 value={values.Language_EId}
                 onChange={onChangeHandler}
+                name="Language_EId"
               >
                 <option disabled>{t("SelectLanguage")}</option>
                 {languages.map((l, i) => (
