@@ -1,10 +1,11 @@
-
-import * as IoIcons from "react-icons/io"
-import * as RiIcons from "react-icons/ri"
+import * as IoIcons from "react-icons/io";
+import * as RiIcons from "react-icons/ri";
 import { enums } from "./data/Enums";
-import React, { lazy } from 'react'
+import React, { lazy } from "react";
 const MarketingMessage = lazy(() =>
-  import("./Views/Forms/marketing/marketingMessage/marketingMessageDefine/MarketingMessage")
+  import(
+    "./Views/Forms/marketing/marketingMessage/marketingMessageDefine/MarketingMessage"
+  )
 );
 const MarketingMessageList = lazy(() =>
   import("./Views/Forms/marketing/marketingMessage/MarketingMessageList")
@@ -22,10 +23,14 @@ const CustomerGroup = lazy(() =>
   import("./Views/Forms/customer/group/List/CustomerGroup")
 );
 const AccessoriesDefine = lazy(() =>
-  import("./Views/Forms/definations/accessories/accessoriesDefine/AccessoriesDefine")
+  import(
+    "./Views/Forms/definations/accessories/accessoriesDefine/AccessoriesDefine"
+  )
 );
 const StatusDeviceStartDefine = lazy(() =>
-  import("./Views/Forms/definations/statusDeviceStart/statusDeviceStartDefine/StatusDeviceStartDefine")
+  import(
+    "./Views/Forms/definations/statusDeviceStart/statusDeviceStartDefine/StatusDeviceStartDefine"
+  )
 );
 const StatusDeviceStart = lazy(() =>
   import("./Views/Forms/definations/statusDeviceStart/StatusDeviceStart")
@@ -43,13 +48,17 @@ const StatusDeviceProgress = lazy(() =>
   import("./Views/Forms/definations/statusDeviceProgress/StatusDeviceProgress")
 );
 const StatusDeviceProgressDefine = lazy(() =>
-  import("./Views/Forms/definations/statusDeviceProgress/statusDeviceProgressDefine/StatusDeviceProgressDefine")
+  import(
+    "./Views/Forms/definations/statusDeviceProgress/statusDeviceProgressDefine/StatusDeviceProgressDefine"
+  )
 );
 const StatusDeviceEnd = lazy(() =>
   import("./Views/Forms/definations/statusDeviceEnd/StatusDeviceEnd")
 );
 const StatusDeviceEndDefine = lazy(() =>
-  import("./Views/Forms/definations/statusDeviceEnd/statusDeviceEndDefine/StatusDeviceEndDefine")
+  import(
+    "./Views/Forms/definations/statusDeviceEnd/statusDeviceEndDefine/StatusDeviceEndDefine"
+  )
 );
 const AnswerList = lazy(() =>
   import("./Views/Forms/Survey/answerPage/answerList/AnswerList")
@@ -61,11 +70,11 @@ const QuestionnaireType = lazy(() =>
   import("./Views/Forms/definations/questionnaireType/QuestionnaireType")
 );
 const QuestionnaireTypeDefine = lazy(() =>
-  import("./Views/Forms/definations/questionnaireType/questionnaireTypeDefine/QuestionnaireTypeDefine")
+  import(
+    "./Views/Forms/definations/questionnaireType/questionnaireTypeDefine/QuestionnaireTypeDefine"
+  )
 );
-const Model = lazy(() =>
-  import("./Views/Forms/definations/model/Model")
-);
+const Model = lazy(() => import("./Views/Forms/definations/model/Model"));
 const ModelDefine = lazy(() =>
   import("./Views/Forms/definations/model/modelDefine/ModelDefine")
 );
@@ -73,13 +82,17 @@ const OrganizationRole = lazy(() =>
   import("./Views/Forms/definations/organizationRole/OrganizationRole")
 );
 const OrganizationRoleDefine = lazy(() =>
-  import("./Views/Forms/definations/organizationRole/organizationRoleDefine/OrganizationRoleDefine")
+  import(
+    "./Views/Forms/definations/organizationRole/organizationRoleDefine/OrganizationRoleDefine"
+  )
 );
 const OutputQualityControl = lazy(() =>
   import("./Views/Forms/definations/outputQualityControl/OutputQualityControl")
 );
 const OutputQualityControlDefine = lazy(() =>
-  import("./Views/Forms/definations/outputQualityControl/outputQualityControlDefine/OutputQualityControlDefine")
+  import(
+    "./Views/Forms/definations/outputQualityControl/outputQualityControlDefine/OutputQualityControlDefine"
+  )
 );
 const ProvinceDefine = lazy(() =>
   import("./Views/Forms/definations/province/ProvinceDefine/ProvinceDefine")
@@ -90,11 +103,11 @@ const Province = lazy(() =>
 const QualityDefine = lazy(() =>
   import("./Views/Forms/definations/quality/qualityDefine/QualityDefine")
 );
-const Quality = lazy(() =>
-  import("./Views/Forms/definations/quality/Quality")
-);
+const Quality = lazy(() => import("./Views/Forms/definations/quality/Quality"));
 const ReplacementTypeDefine = lazy(() =>
-  import("./Views/Forms/definations/replacementType/replacementTypeDefine/ReplacementTypeDefine")
+  import(
+    "./Views/Forms/definations/replacementType/replacementTypeDefine/ReplacementTypeDefine"
+  )
 );
 const ReplacementType = lazy(() =>
   import("./Views/Forms/definations/replacementType/ReplacementType")
@@ -108,9 +121,7 @@ const PartGroupDefine = lazy(() =>
 const RepairsPerformed = lazy(() =>
   import("./Views/Forms/definations/repairsPerformed/RepairsPerformed")
 );
-const Section = lazy(() =>
-  import("./Views/Forms/definations/section/Section")
-);
+const Section = lazy(() => import("./Views/Forms/definations/section/Section"));
 const SectionDefine = lazy(() =>
   import("./Views/Forms/definations/section/sectionDefine/SectionDefine")
 );
@@ -121,7 +132,9 @@ const SendTypeDefine = lazy(() =>
   import("./Views/Forms/definations/sendType/sendTypeDefine/SendTypeDefine")
 );
 const RegistrationGoodDefine = lazy(() =>
-  import("./Views/Forms/business/registrationGood/registrationGoodDefine/RegistrationGoodDefine")
+  import(
+    "./Views/Forms/business/registrationGood/registrationGoodDefine/RegistrationGoodDefine"
+  )
 );
 const RegistrationGood = lazy(() =>
   import("./Views/Forms/business/registrationGood/RegistrationGood")
@@ -351,24 +364,16 @@ const CancellationOfAdmissionDefine = lazy(() =>
   )
 );
 const CustomerEvents = lazy(() =>
-  import(
-    "./Views/Forms/customer/events/Events"
-  )
+  import("./Views/Forms/customer/events/Events")
 );
 const CustomerLoginFailed = lazy(() =>
-  import(
-    "./Views/Forms/customer/loginFailed/LoginFailed"
-  )
+  import("./Views/Forms/customer/loginFailed/LoginFailed")
 );
 const CustomerLoginSeccess = lazy(() =>
-  import(
-    "./Views/Forms/customer/loginSeccess/LoginSeccess"
-  )
+  import("./Views/Forms/customer/loginSeccess/LoginSeccess")
 );
 const OnlineCustomer = lazy(() =>
-  import(
-    "./Views/Forms/customer/online/Online"
-  )
+  import("./Views/Forms/customer/online/Online")
 );
 const PhoneNumberGroupList = lazy(() =>
   import("./Views/Forms/marketing/phoneNumberGroup/PhoneGroupList")
@@ -377,6 +382,23 @@ const PhoneNumberGroupForm = lazy(() =>
   import(
     "./Views/Forms/marketing/phoneNumberGroup/phoneNumberGroupDefine/PhoneNumberGroup"
   )
+);
+const PhoneNumberList = lazy(() =>
+  import("./Views/Forms/marketing/phoneNumber/PhoneNumberList")
+);
+const PhoneNumberForm = lazy(() =>
+  import(
+    "./Views/Forms/marketing/phoneNumber/phoneNumberDefine/PhoneNumberDefine"
+  )
+);
+const MarketingOutBox = lazy(() =>
+  import("./Views/Forms/marketing/outBox/MarketingOutBox")
+);
+const MarketingSend = lazy(() =>
+  import("./Views/Forms/marketing/marketingSend/MarketingSend")
+);
+const CreatedLinks = lazy(() =>
+  import("./Views/Forms/marketing/createdLinks/CreatedLinks")
 );
 export const Routes = [
   {
@@ -889,6 +911,20 @@ export const Routes = [
         access: enums.Marketing_PhonePool_Read_r,
       },
       {
+        title: "/Marketing/PhoneNumber/Read",
+        path: "/Marketing/PhoneNumber/Read",
+        Component: PhoneNumberList,
+        button: {
+          Component: PhoneNumberForm,
+          path: "/Marketing/PhoneNumber/Create",
+          title: "/Marketing/PhoneNumber/Create",
+          access: enums.Marketing_PhoneNumber_Create_w,
+        },
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Marketing_PhoneNumber_Read_r,
+      },
+      {
         title: "/Marketing/Message/Read",
         path: "/Marketing/Message/Read",
         Component: MarketingMessageList,
@@ -902,7 +938,30 @@ export const Routes = [
         cName: "sub-nav",
         access: enums.Marketing_Message_Read_r,
       },
-
+      {
+        title: "/Marketing/OutBox/Read",
+        path: "/Marketing/OutBox/Read",
+        Component: MarketingOutBox,
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Marketing_Outbox_Read_r,
+      },
+      {
+        title: "/Marketing/Links/Read",
+        path: "/Marketing/Links/Read",
+        Component: CreatedLinks,
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Marketing_Outbox_Read_r,
+      },
+      {
+        title: "/Marketing/Send/Read",
+        path: "/Marketing/Send/Read",
+        Component: MarketingSend,
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+        access: enums.Marketing_Outbox_Read_r,
+      },
     ],
   },
   {
