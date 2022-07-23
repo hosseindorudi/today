@@ -321,3 +321,8 @@ tr:nth-child(even) {
   }
   
 }
+.locationDasboard{
+  display: flex;
+  justify-content: center;
+  padding: 2px;
+}

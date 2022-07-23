@@ -1,3 +1,4 @@
+
 const osEnums={
     windows : 1,
     mac : 2,
@@ -17,6 +18,9 @@ const osEnums={
 
     Other : 1000
 }
+
+
+
 module.exports={
     osEnums
 }

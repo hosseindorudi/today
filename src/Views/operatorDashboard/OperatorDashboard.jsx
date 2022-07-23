@@ -18,10 +18,11 @@ import * as fa from "react-icons/fa";
 
 import { Routes } from "../../Routes";
 import Swal from "sweetalert2";
-import { dateOfLogTable } from "../../validation/functions";
+import { dateOfLogTable, findOsIcon } from "../../validation/functions";
 import DescModal from "../../Components/Table/descriptionModal/DescModal";
 import { Table } from "react-bootstrap";
 import useRequest from "../../customHooks/useRequest";
+import MapShowLocation from "../../Components/map/MapShowLocation";
 
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -267,7 +268,6 @@ const OperatorDashboard = () => {
   return (
     <>
       {loading && <BackDrop open={loading} />}
-
       {descriptionShow && (
         <DescModal
           onHide={() => setDescriptionShow(false)}
@@ -282,13 +282,14 @@ const OperatorDashboard = () => {
         <div className="Row">
           <div className="operatorDashboardInformation">
             <div className="dashInformationDiv">
-              <span>{dashboardInfoData.IP}</span>
+              <MapShowLocation value={dashboardInfoData.IP} isIP={true} />
+
               <span>:IP</span>
             </div>
 
             <div className="dashInformationDiv">
               {/* {Platform.OSVersion} */}
-              <span>{dashboardInfoData.OS}</span>
+              <span>{dashboardInfoData.OS &&findOsIcon(dashboardInfoData.OS)}</span>
               <span>:OS</span>
             </div>
 
@@ -405,9 +406,14 @@ const OperatorDashboard = () => {
                           <td key={i}>
                             {f === "DateSet" ? (
                               dateOfLogTable(failed[f])
+                            ) : f === "IP" ? (
+                              <MapShowLocation value={failed[f]} isIP={true} />
+                            ): f==="OS"?(
+                              findOsIcon(failed[f])
                             ) : (f === "Description") &
                               (failed[f].length > 0) ? (
                               <span
+                                className="Link"
                                 onClick={() => {
                                   setDescriptionShow(true);
                                   setDesc(failed[f]);
@@ -448,9 +454,15 @@ const OperatorDashboard = () => {
                       .map((f, i) => {
                         return (
                           <td key={i}>
-                            {f === "DateSet"
-                              ? dateOfLogTable(failed[f])
-                              : failed[f]}
+                            {f === "DateSet" ? (
+                              dateOfLogTable(failed[f])
+                            ) : f === "IP" ? (
+                              <MapShowLocation value={failed[f]} isIP={true} />
+                            ) : f==="OS"?(
+                              findOsIcon(failed[f])
+                            ) : (
+                              failed[f]
+                            )}
                           </td>
                         );
                       })}
@@ -481,9 +493,15 @@ const OperatorDashboard = () => {
                       .map((f, i) => {
                         return (
                           <td key={i}>
-                            {f === "DateSet"
-                              ? dateOfLogTable(failed[f])
-                              : failed[f]}
+                            {f === "DateSet" ? (
+                              dateOfLogTable(failed[f])
+                            ) : f === "IP" ? (
+                              <MapShowLocation value={failed[f]} isIP={true} />
+                            ) : f==="OS"?(
+                              findOsIcon(failed[f])
+                            ) : (
+                              failed[f]
+                            )}
                           </td>
                         );
                       })}

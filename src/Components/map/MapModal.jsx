@@ -2,7 +2,7 @@ import { t } from "i18next";
 import Mapir from "mapir-react-component";
 import React, { useEffect, useState } from "react";
 import { Button, FormGroup, Modal } from "react-bootstrap";
-import { mapApiKey } from "../../data/constants";
+import {  mapApiKey } from "../../data/constants";
 import { searchApi } from "../../services/mapService";
 import "./map.css";
 
@@ -155,7 +155,10 @@ const MapModal = ({qId,submited,coordinats,saveDisabled}) => {
           </Modal.Footer>
         </Modal>
       )}
-      <Button onClick={() => setShow(true)}>{t("map")}</Button>
+    
+       <Button onClick={() => setShow(true)}>{t("location")}</Button>
+      
+     
     </>
   );
 };

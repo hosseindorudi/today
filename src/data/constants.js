@@ -11,7 +11,7 @@ const browser=[
         name:"safari"
     }
 ]
-const defaultCoordinates=[51.42, 35.72]
+const defaultCoordinates=[51.420470, 35.729054]
 const radius=[
     "500m","1000m","1500m","2000m"
 ]
