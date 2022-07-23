@@ -81,7 +81,7 @@ const PermissionModal = (props) => {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Control
                 type="text"
-                placeholder="page"
+                placeholder={t("Page")}
                 onChange={handleFilter}
                 value={filterValue}
               />
@@ -109,7 +109,7 @@ const PermissionModal = (props) => {
               {Object.keys(permissions.length > 0 && permissions[0])
                 .filter((f) => f !== "CodePage")
                 .map((k) => (
-                  <th key={k}>{k}</th>
+                  <th key={k}>{t(k)}</th>
                 ))}
             </tr>
           </thead>
@@ -135,7 +135,7 @@ const PermissionModal = (props) => {
                         disabled
                       />
                     ) : (
-                      a[key]
+                      <>{t(a[key])}</>
                     )}
                   </td>
                 ))}
