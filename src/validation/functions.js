@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { languages } from "../assets/languages/languages";
 import MapShowLocation from "../Components/map/MapShowLocation";
 import { enums } from "../data/Enums";
-import { osIcons } from "../data/osIcons";
+import { browserIcons, osIcons } from "../data/iconsEnum";
 
 export const convertUTC = (utc) => {
   const lang = localStorage.getItem("i18nextLng");
@@ -124,6 +124,16 @@ export const findOsIcon = (value) => {
   const os = splited[0];
   return osIcons[os];
 };
+export const findBrowserIcon=(value)=>{
+  const splited = value.split(" ");
+  const browser = splited[0];
+  return browserIcons[browser];
+}
+export const findGeoLocation=(value)=>{
+  const splited=value.split(",")
+  
+  return splited[0]==="0"?0: [Number(splited[0]),Number(splited[1])]
+}
 export const checkTableValues = (type, value, post, exportAccess) => {
   switch (type) {
     case "DateSet":
@@ -151,8 +161,12 @@ export const checkTableValues = (type, value, post, exportAccess) => {
       return value ? convertUTC(value) : "-";
     case "Color":
       return <Form.Control type="color" value={`#${value}`} disabled />;
+    case "Geolocation":
+      return  findGeoLocation(value)===0?"-":<MapShowLocation value={value} isIP={false} />
     case "OS":
       return findOsIcon(value);
+      case "Browser":
+        return findBrowserIcon(value);
     case "IP":
       return <MapShowLocation isIP={true} value={value} />;
     case "Description":

@@ -18,7 +18,7 @@ import * as fa from "react-icons/fa";
 
 import { Routes } from "../../Routes";
 import Swal from "sweetalert2";
-import { dateOfLogTable, findOsIcon } from "../../validation/functions";
+import { dateOfLogTable, findBrowserIcon, findGeoLocation, findOsIcon } from "../../validation/functions";
 import DescModal from "../../Components/Table/descriptionModal/DescModal";
 import { Table } from "react-bootstrap";
 import useRequest from "../../customHooks/useRequest";
@@ -283,27 +283,25 @@ const OperatorDashboard = () => {
           <div className="operatorDashboardInformation">
             <div className="dashInformationDiv">
               <MapShowLocation value={dashboardInfoData.IP} isIP={true} />
-
               <span>:IP</span>
             </div>
 
             <div className="dashInformationDiv">
-              {/* {Platform.OSVersion} */}
               <span>{dashboardInfoData.OS &&findOsIcon(dashboardInfoData.OS)}</span>
               <span>:OS</span>
             </div>
 
             <div className="dashInformationDiv">
-              <span>{dashboardInfoData.Browser}</span>
+              <span>{dashboardInfoData.Browser &&findBrowserIcon(dashboardInfoData.Browser)}</span>
               <span>:Browser</span>
             </div>
 
             <div className="dashInformationDiv">
               <span>
                 {location.loaded ? (
-                  <>{`${location.coordinates.lat},${location.coordinates.lng}`}</>
+                   <MapShowLocation value={[location.coordinates.lng,location.coordinates.lat]} isIP={false} />
                 ) : (
-                  "not supported"
+                  "-"
                 )}
               </span>
               <span>:GeoLocation</span>
@@ -408,8 +406,13 @@ const OperatorDashboard = () => {
                               dateOfLogTable(failed[f])
                             ) : f === "IP" ? (
                               <MapShowLocation value={failed[f]} isIP={true} />
-                            ): f==="OS"?(
+                            ): f==="Geolocation"? (
+                            findGeoLocation(failed[f])===0?"-":<MapShowLocation value={findGeoLocation(failed[f])} isIP={false} />
+                            )
+                            :f==="OS"?(
                               findOsIcon(failed[f])
+                            ): f==="Browser"?(
+                              findBrowserIcon(failed[f])
                             ) : (f === "Description") &
                               (failed[f].length > 0) ? (
                               <span
@@ -458,7 +461,11 @@ const OperatorDashboard = () => {
                               dateOfLogTable(failed[f])
                             ) : f === "IP" ? (
                               <MapShowLocation value={failed[f]} isIP={true} />
-                            ) : f==="OS"?(
+                            ): f==="Geolocation"? (
+                              findGeoLocation(failed[f])===0?"-":<MapShowLocation value={findGeoLocation(failed[f])} isIP={false} />
+                              ): f==="Browser"?(
+                              findBrowserIcon(failed[f])
+                            )  : f==="OS"?(
                               findOsIcon(failed[f])
                             ) : (
                               failed[f]
@@ -497,7 +504,11 @@ const OperatorDashboard = () => {
                               dateOfLogTable(failed[f])
                             ) : f === "IP" ? (
                               <MapShowLocation value={failed[f]} isIP={true} />
-                            ) : f==="OS"?(
+                            ): f==="Geolocation"? (
+                              findGeoLocation(failed[f])===0?"-":<MapShowLocation value={findGeoLocation(failed[f])} isIP={false} />
+                              ): f==="Browser"?(
+                              findBrowserIcon(failed[f])
+                            ): f==="OS"?(
                               findOsIcon(failed[f])
                             ) : (
                               failed[f]
