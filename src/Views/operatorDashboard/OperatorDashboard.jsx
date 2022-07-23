@@ -3,7 +3,6 @@ import "./opratorDashboard.css";
 import { useState } from "react";
 import Modal from "./modal/Modal";
 import useGeoLocation from "../../customHooks/useGeoLocation";
-import { OsContext } from "../../contexts/OsInformationProvider";
 import {
   homeDashboard,
   deleteNoteDashboard,
@@ -28,7 +27,6 @@ const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const request = useRequest();
   const location = useGeoLocation();
-  const { loaded } = useContext(OsContext);
   const abortController = new AbortController();
   const [response, loading, fetchData] = useAxios();
   const [dashboardInfoData, setDashboardInfoData] = useState({});
@@ -252,13 +250,11 @@ const OperatorDashboard = () => {
   };
 
   useEffect(() => {
-    if (loaded) {
       getDashboardData();
-    }
 
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded]);
+  }, []);
 
   useEffect(() => {
     response && handleResponse(response, requestType);
