@@ -52,19 +52,14 @@ const ExportAllButton = (props) => {
           position: toast.POSITION.TOP_CENTER,
         });
       };
-      const handleDownload=(res)=>{
-       
-            downloadCSVCode(res,t("exportCSV"))
-      }
       const handleResponse=(response)=>{
-        if(response.length){
-          return handleDownload(response)
+        if(response.File){
+          return downloadCSVCode(response.File,response.File.FileDownloadName)
         }
         return noFileToast()
       }
       useEffect(() => {
         response&&handleResponse(response)
-        // response?.length? handleDownload(response) : noFileToast()
           // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [response])
   return (

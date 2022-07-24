@@ -30,14 +30,15 @@ export const setDatePickerDate = (dater) => {
 };
 
 export const downloadCSVCode = (data, title) => {
-  let csvContent = "data:text/csv;charset=utf-8,";
-  csvContent += data + "\r\n";
-  var encodedUri = encodeURI(csvContent);
-  var link = document.createElement("a");
-  link.setAttribute("href", encodedUri);
-  link.setAttribute("download", `${t(title)}.csv`);
-  document.body.appendChild(link);
-  link.click();
+ 
+  // let csvContent = "data:text/csv;charset=utf-8,";
+  // csvContent += data + "\r\n";
+  // var encodedUri = encodeURI(csvContent);
+  // var link = document.createElement("a");
+  // link.setAttribute("href", encodedUri);
+  // link.setAttribute("download", `${t(title)}.csv`);
+  // document.body.appendChild(link);
+  // link.click();
 };
 
 export const defintionInputs = (values, typeTitle, errorMSG) => {
@@ -132,7 +133,7 @@ export const findBrowserIcon=(value)=>{
 export const findGeoLocation=(value)=>{
   const splited=value.split(",")
   
-  return splited[0]==="0"?0: [Number(splited[0]),Number(splited[1])]
+  return splited[0]==="0"?0: [Number(splited[1]),Number(splited[0])]
 }
 export const checkTableValues = (type, value, post, exportAccess) => {
   switch (type) {

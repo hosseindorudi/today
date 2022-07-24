@@ -46,6 +46,7 @@ const Auth = () => {
       localStorage.setItem("token",response.Message);
       localStorage.setItem("FirstName",response.FirstName)
       localStorage.setItem("LastName",response.LastName)
+      localStorage.setItem("Id",response.Id)
       setApp(prev=>({...prev,FirstName:response.FirstName,LastName:response.LastName}))
       return navigate(from, { replace: true });
     },

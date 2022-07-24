@@ -8,13 +8,13 @@ import * as fa from "react-icons/fa";
 import MainTabControl from "../Components/Tabs/TabControl/MainTabControl";
 import useWindowSize from "../customHooks/useWindowSize";
 import "./Admin.css";
-import LogOut from "../Components/navbar/logOut";
 import { useNavigate } from "react-router-dom";
 import useRequest from "../customHooks/useRequest";
 import { logOut, verify } from "../services/authService";
 import useAxios from "../customHooks/useAxios";
 import BackDrop from "../Components/backDrop/BackDrop";
 import AppContext from "../contexts/AppContext";
+import ProfileInfo from "../Components/navbar/profileInfo";
 
 function Admin() {
   const FirstName = localStorage.getItem("FirstName");
@@ -78,7 +78,7 @@ function Admin() {
             <div>{firstAndLastName}</div>
           </span>
 
-          <LogOut />
+          <ProfileInfo />
         </div>
         <div className="headerMid"></div>
         <div className="headerRight">

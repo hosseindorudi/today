@@ -2,7 +2,7 @@ import './descModal.css'
 import { Modal } from "react-bootstrap";
 import { convertUTC } from '../../../validation/functions';
 const DescModal = (props) => {
-    console.log(props.value.split("\n"))
+
   return (
     <>
         <Modal
@@ -24,7 +24,7 @@ const DescModal = (props) => {
                 a = date[3]?.split("T")
                 a && (a[0] = convertUTC(a[0]))
                 a && (date[3] = a.join("   "))
-                console.log(date.join(" "))
+            
                 return <>{date.join(" ")} <br /></>
               }else {
                 return <>{val} <br /></>

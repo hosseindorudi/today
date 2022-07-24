@@ -258,7 +258,7 @@ const CustomerAddressModal = (props) => {
   };
 
   const handleQuestionEdit = (record) => {
-    console.log(record);
+
     setEditButtonActivate(true);
     setValues({
       IsPrimary: record.IsPrimary,

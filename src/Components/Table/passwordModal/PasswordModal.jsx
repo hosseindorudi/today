@@ -24,13 +24,13 @@ const PasswordModal = (props) => {
         headers: request,
         signal: abortController.signal,
         data: {
-          Id: props.rowValus.Id,
+          Id: props.rowValues,
           Old: oldPass,
           New: newPass,
         },
       });
     } else {
-      toast.error("پسورد و تاییدیه پسورد باید یکی باشند", {
+      toast.error(t("passwordsDoesntMatch"), {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }

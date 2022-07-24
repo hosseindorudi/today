@@ -39,7 +39,7 @@ const LogModal = (props) => {
                 a = date[3]?.split("T")
                 a && (a[0] = convertUTC(a[0]))
                 a && (date[3] = a.join("   "))
-                console.log(date.join(" "))
+                
                 return <>{date.join(" ")} <br /></>
               }else {
                 return <>{desc} <br /></>

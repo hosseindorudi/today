@@ -258,7 +258,7 @@ const CustomTable = forwardRef((props, ref) => {
   };
   const setPasswordFor = (res) => {
     const record = res.Record;
-    setRowValues(record);
+    setRowValues(record.Id);
     setPasswordmodalOpen(true);
   };
 
@@ -471,7 +471,7 @@ const CustomTable = forwardRef((props, ref) => {
       {passwordModalOpen && (
         <PasswordModal
           changePasswordURL={props.changePasswordURL}
-          rowValus={rowValus}
+          rowValues={rowValus}
           show={passwordModalOpen}
           onHide={() => setPasswordmodalOpen(false)}
           updated={updatedPassword}

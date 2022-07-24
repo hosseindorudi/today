@@ -878,5 +878,7 @@
   "Setting":"تنظیمات",
   "CancellationOfWarranty":"علت ابطال گارانتی",
   "RegistrationGood":"ثبت کالا",
-  "InitialAdmission":"پذیرش اولیه"
+  "InitialAdmission":"پذیرش اولیه",
+  "passwordsDoesntMatch":"پسوورد جدید با تاییدیه یکسان نیست",
+  "operator.ProfileUpdate":"پروفایل با موفقیعت بروز شد"
 }
