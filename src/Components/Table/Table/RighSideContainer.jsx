@@ -30,6 +30,7 @@ const RighSideContainer = ({
   IsFavorite,
   handleClickFav,
   handleClickHelp,
+
 }) => {
   const [haveAccess] = useButtonAccess();
   const {t}=useTranslation()
@@ -88,6 +89,7 @@ const RighSideContainer = ({
               sampleUrl={sampleUrl}
               fileCheckURL={fileCheckURL}
               importURL={importURL}
+            
             />
           )}
           {haveAccess(logAccess) && (

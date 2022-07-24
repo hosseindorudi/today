@@ -142,6 +142,7 @@ const ImportCSVModal = (props) => {
   const handleChangeImport = (event) => {
     setImportFile(event.target.files[0]);
   };
+ 
   return (
     <>
       {showCheckResultModal && (
@@ -218,6 +219,20 @@ const ImportCSVModal = (props) => {
                   onClick={handleUploadImport}
                 >
                   {t("upload")}
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="import">
+            <h4>{t("importWithUI")}</h4>
+            <div className="checkFileButtons">
+              <p>{t("importCSVUI")}</p>
+              <div className="uploadButtonAndFile">
+                <Button
+                  variant="info"
+                  onClick={()=>props.handleUIClick()}
+                >
+                  {t("importUIButton")}
                 </Button>
               </div>
             </div>

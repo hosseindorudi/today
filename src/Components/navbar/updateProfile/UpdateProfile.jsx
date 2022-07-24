@@ -2,14 +2,12 @@ import React, {  useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useAxios from "../../../customHooks/useAxios";
-import {
-  updateRecord,
-} from "../../../services/operatorService";
 import useRequest from "../../../customHooks/useRequest";
 import {
   setDatePickerDate,
 } from "../../../validation/functions";
 import { languages } from "../../../assets/languages/languages";
+import { dashboardProfileUpdate } from "../../../services/dashboardServices";
 
 const UpdateProfile = ({show,onHide,updated,profile}) => {
   const [validated, setValidated] = useState(false);
@@ -61,7 +59,7 @@ const UpdateProfile = ({show,onHide,updated,profile}) => {
     setType("SUBMIT");
     fetchData({
       method: "POST",
-      url: updateRecord,
+      url: dashboardProfileUpdate,
       headers: request,
       signal: abortController.signal,
       data: {

@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as fa from "react-icons/fa";
 import { t } from "i18next";
 import PasswordModal from "../Table/passwordModal/PasswordModal";
-import { getoneRecord, operatorChangePassword } from "../../services/operatorService";
 import { toast } from "react-toastify";
 import useAxios from "../../customHooks/useAxios";
 import useRequest from "../../customHooks/useRequest";
 import UpdateProfile from "./updateProfile/UpdateProfile";
 import BackDrop from "../backDrop/BackDrop";
+import { changePasswordDashboard, getOneRecordDashboard } from "../../services/dashboardServices";
 
 const ProfileInfo = () => {
   const [open, setopen] = useState(false);
@@ -43,10 +43,10 @@ const ProfileInfo = () => {
     setType("GETONERECORD")
     fetchData({
       method: "POST",
-      url: getoneRecord,
+      url: getOneRecordDashboard,
       headers: request,
       data: {
-        Id: localStorage.getItem("Id"),
+        Id: userId,
       },
     });
   }
@@ -81,7 +81,7 @@ const ProfileInfo = () => {
       {changePassIsOpen && (
         <PasswordModal
           rowValues={userId}
-          changePasswordURL={operatorChangePassword}
+          changePasswordURL={changePasswordDashboard}
           show={changePassIsOpen}
           onHide={() => setChangePassIsOpen(false)}
           updated={updatedPassword}

@@ -880,5 +880,10 @@
   "RegistrationGood":"ثبت کالا",
   "InitialAdmission":"پذیرش اولیه",
   "passwordsDoesntMatch":"پسوورد جدید با تاییدیه یکسان نیست",
-  "operator.ProfileUpdate":"پروفایل با موفقیعت بروز شد"
+  "operator.ProfileUpdate":"پروفایل با موفقیعت بروز شد",
+  "importWithUI":"وارد کردن با UI",
+  "importCSVUI":"وارد کردن CSV با UI",
+  "importUIButton":"ورود",
+  "uploadUrFIle":"فایل csv خود را بارگزاری کنید",
+  "selectCSVFileOnly":"فرمت فایل csv نمیباشد"
 }

@@ -451,6 +451,7 @@ const CustomTable = forwardRef((props, ref) => {
     setSearchBegin(null);
     setSearchEnd(null);
   };
+
   return (
     <>
       {loading && <BackDrop open={true} />}
@@ -552,6 +553,7 @@ const CustomTable = forwardRef((props, ref) => {
           handleClickAccessList={handleClickAccessList}
           IsFavorite={IsFavorite}
           handleClickFav={handleClickFav}
+          
         />
         <div className="groupContainerLeft">
           <TableList
