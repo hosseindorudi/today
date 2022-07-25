@@ -2,7 +2,7 @@ import { t } from "i18next";
 import React, { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { usePapaParse, useCSVDownloader } from "react-papaparse";
+// import { usePapaParse, useCSVDownloader } from "react-papaparse";
 
 import { toast } from "react-toastify";
 import AppContext from "../../../contexts/AppContext";
@@ -17,9 +17,9 @@ const ImportCSVModal = (props) => {
   const { app } = useContext(AppContext);
   const accessToken = localStorage.getItem("token");
   const location = useGeoLocation();
-  const { readString } = usePapaParse();
+  // const { readString } = usePapaParse();
   const [showCheckResultModal, setShowCheckResultModal] = useState(false);
-  const { CSVDownloader, Type } = useCSVDownloader();
+  // const { CSVDownloader, Type } = useCSVDownloader();
   const [checkResult, setCheckResult] = useState(null);
   const [response, loading, fetchData] = useAxios();
   const [checkFile, setCheckFile] = useState(null);
@@ -97,7 +97,7 @@ const ImportCSVModal = (props) => {
         setSample(results.data);
       },
     };
-    readString(res, config);
+    // readString(res, config);
   };
   const handleCheckFileModal = (response) => {
     setCheckResult(response.Message);
@@ -169,18 +169,19 @@ const ImportCSVModal = (props) => {
             <div className="smapleFileDownload">
               <p>{t("modalImport.clickForDownload")}</p>
               {sample && (
-                <CSVDownloader
-                  className="csvDownloadBtn"
-                  type={Type.Button}
-                  filename={"sampleFile"}
-                  bom={true}
-                  config={{
-                    delimiter: ";",
-                  }}
-                  data={sample}
-                >
-                  {t("download")}
-                </CSVDownloader>
+                <></>
+                // <CSVDownloader
+                //   className="csvDownloadBtn"
+                //   type={Type.Button}
+                //   filename={"sampleFile"}
+                //   bom={true}
+                //   config={{
+                //     delimiter: ";",
+                //   }}
+                //   data={sample}
+                // >
+                //   {t("download")}
+                // </CSVDownloader>
               )}
               <Button
                 variant="info"
