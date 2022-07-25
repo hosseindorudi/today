@@ -10,7 +10,7 @@ const style = {
   border:"50% solid",
   width:"auto"
 }
-export const HeaderItem = ({ id, text, index, moveCard,accessor,handleCheckBox }) => {
+export const HeaderItem = ({ id, text, index, moveCard,accessor,handleCheckBox,card }) => {
   const ref = useRef(null)
   const [{ handlerId }, drop] = useDrop({
     accept: "HEADER",
@@ -71,7 +71,7 @@ export const HeaderItem = ({ id, text, index, moveCard,accessor,handleCheckBox }
   drag(drop(ref))
   return (
     <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
-      {<Form.Check type="checkbox" label={text} defaultChecked={true} onChange={(e)=>handleCheckBox(e.target.checked,accessor)}/>}
+      {<Form.Check type="checkbox" label={text} defaultChecked={true} onChange={(e)=>handleCheckBox(e.target.checked,accessor,card)}/>}
     </div>
   )
 }

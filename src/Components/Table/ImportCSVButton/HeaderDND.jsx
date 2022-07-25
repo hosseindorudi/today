@@ -7,7 +7,7 @@ const style = {
   fontSize:10,
   border: '1px dashed gray',
 }
-export const HeaderDND = ({headers,columns, setColumns,setHeaders}) => {
+export const HeaderDND = ({headers,columns, setColumns,setHeaders,setRemoved}) => {
   
     const moveCard = useCallback((dragIndex, hoverIndex) => {
       setColumns((prevCards) =>
@@ -28,10 +28,12 @@ export const HeaderDND = ({headers,columns, setColumns,setHeaders}) => {
       )
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    const handleCheckBox=useCallback((checked,accessor)=>{
+    const handleCheckBox=useCallback((checked,accessor,card)=>{
         if(!checked)
-        return setColumns(columns=>columns.filter(column=>column.accessor!==accessor))
-        console.log(headers,columns)
+        setColumns(columns=>columns.filter(column=>column.accessor!==accessor))
+        setHeaders(headers=>headers.filter(header=>header.accessor!==accessor))
+        setRemoved(oldArray => [...oldArray, card]);
+        return
           // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     const renderCard = useCallback((card, index) => {
@@ -44,6 +46,7 @@ export const HeaderDND = ({headers,columns, setColumns,setHeaders}) => {
           accessor={card.accessor}
           moveCard={moveCard}
           handleCheckBox={handleCheckBox}
+          card={card}
         />
       )
         // eslint-disable-next-line react-hooks/exhaustive-deps

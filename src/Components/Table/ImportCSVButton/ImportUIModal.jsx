@@ -7,6 +7,7 @@ import { useCSVReader } from "react-papaparse";
 import { toast } from "react-toastify";
 import ReactTable from "../../reactTable/ReactTable";
 import { HeaderDND } from "./HeaderDND";
+import RemovedColumns from "./RemovedColumns";
 
 const styles = {
   csvReader: {
@@ -49,7 +50,7 @@ const ImportUIModal = (props) => {
   const data=useMemo(()=>rowData,[rowData])
   const columns=useMemo(()=>columnData,[columnData])
   const [headers,setHeaders]=useState([])
-
+  const [removed, setRemoved] = useState([]);
   const { CSVReader } = useCSVReader();
   const { t } = useTranslation();
 
@@ -128,14 +129,14 @@ const ImportUIModal = (props) => {
         {file && (
           <>
             <Form.Label>{t("preview")}</Form.Label>
-            <div style={styles.headerDivImport} >
+            <div style={styles.headerDivImport}>
             <Form.Group className="mb-3" controlId="headers">
             <Form.Label>{t("importHeaders")}</Form.Label>
-              <HeaderDND headers={headers} columns={columnData} setColumns={setColumnData} setHeaders={setHeaders}/>
+              <HeaderDND headers={headers} columns={columnData} setColumns={setColumnData} setHeaders={setHeaders} setRemoved={setRemoved} removed={removed}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="removed">
             <Form.Label>{t("removedColumns")}</Form.Label> 
-            
+            <RemovedColumns removed={removed} setColumns={setColumnData} setHeaders={setHeaders} setRemoved={setRemoved} />
             </Form.Group>
             </div>
            
