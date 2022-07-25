@@ -1,9 +1,13 @@
 import React, { useMemo, useState } from "react";
-import { Button, Form, Modal, Table } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTranslation } from "react-i18next";
 import { useCSVReader } from "react-papaparse";
 import { toast } from "react-toastify";
-import { useTable } from "react-table";
+import ReactTable from "../../reactTable/ReactTable";
+import { HeaderDND } from "./HeaderDND";
+
 const styles = {
   csvReader: {
     display: "flex",
@@ -33,30 +37,21 @@ const styles = {
   progressBarBackgroundColor: {
     backgroundColor: "green",
   },
-  table: {
-    fontSize: 11,
-    whiteSpace: "nowrap",
-    textAlign: "center",
-  },
+  headerDivImport:{
+    display:'flex',
+    justifyContent:"space-around"
+  }
 };
 const ImportUIModal = (props) => {
   const [file, setFile] = useState(null);
-  const [tableColumns, setTableColumns] = useState([]);
-  const [tableData,setTableData]=useState([])
-  const data=useMemo(()=>tableData,[file])
-  const columns=useMemo(()=>tableColumns,[file])
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({
-      columns,
-      data,
-    });
+  const [columnData, setColumnData] = useState([]);
+  const [rowData,setRowData]=useState([])
+  const data=useMemo(()=>rowData,[rowData])
+  const columns=useMemo(()=>columnData,[columnData])
+  const [headers,setHeaders]=useState([])
 
   const { CSVReader } = useCSVReader();
   const { t } = useTranslation();
-
- 
-
-  // const [data, setData] = useState([]);
 
   const handleOnUploadAccepted = (data) => {
     if (data.errors.length)
@@ -71,17 +66,19 @@ const ImportUIModal = (props) => {
         index: index,
       };
     });
-    setTableColumns(columns)
-    const rowd = data.data.slice(1).map((row) => {
+    const rows = data.data.slice(1).map((row) => {
       return row.reduce((acc, curr, index) => {
         acc[columns[index].accessor] = curr;
         return acc;
       }, {});
     });
-    setTableData(rowd)
+    setRowData(rows)
+    setColumnData(columns)
+    setHeaders(columns)
   };
 
   return (
+    <DndProvider backend={HTML5Backend}>
     <Modal
       {...props}
       size="lg"
@@ -131,49 +128,18 @@ const ImportUIModal = (props) => {
         {file && (
           <>
             <Form.Label>{t("preview")}</Form.Label>
-            <Table style={styles.table} responsive {...getTableProps()}>
-              <thead>
-                {headerGroups.map((headerGroup)=>(
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column)=>(
-                      <th {...column.getHeaderProps()}>
-                        {column.render("Header")}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody {...getTableBodyProps()}>{
-                  rows.map((row,i)=>{
-                    prepareRow(row)
-                    return <tr {...row.getRowProps()}>
-                      {row.cells.map((cell)=>(
-                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                      ))}
-                    </tr>
-                  })
-              }
-                </tbody>
-            </Table>
-            {/* <Table responsive style={styles.table}>
-          <thead>
-            <tr>
-            {file[0].map((th,index)=>(
-              <th key={index}>{th}</th>
-            ))}
-            </tr>
-          </thead>
-          <tbody>
-          {file.slice(1).map((row,index)=>(
-            <tr key={index}>
-              {row.map((td,i)=>(
-                <td key={i}>{td}</td>
-              ))}
-            </tr>
-          ))}
-          </tbody>
-
-        </Table> */}
+            <div style={styles.headerDivImport} >
+            <Form.Group className="mb-3" controlId="headers">
+            <Form.Label>{t("importHeaders")}</Form.Label>
+              <HeaderDND headers={headers} columns={columnData} setColumns={setColumnData} setHeaders={setHeaders}/>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="removed">
+            <Form.Label>{t("removedColumns")}</Form.Label> 
+            
+            </Form.Group>
+            </div>
+           
+            <ReactTable columns={columns} data={data}/>
           </>
         )}
       </Modal.Body>
@@ -181,6 +147,7 @@ const ImportUIModal = (props) => {
         <Button>{t("submit")}</Button>
       </Modal.Footer>
     </Modal>
+    </DndProvider>
   );
 };
 

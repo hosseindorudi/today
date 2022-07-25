@@ -887,5 +887,7 @@
   "uploadUrFIle":"فایل csv خود را بارگزاری کنید",
   "selectCSVFileOnly":"فرمت فایل csv نمیباشد",
   "remove":"حذف",
-  "preview":"پیشنمایش"
+  "preview":"پیشنمایش",
+  "importHeaders":"ستون ها",
+  "removedColumns":"ستون های حذف شده"
 }
