@@ -145,7 +145,7 @@ const ImportUIModal = (props) => {
         )}
       </Modal.Body>
       <Modal.Footer>
-        <Button>{t("submit")}</Button>
+        <Button disabled={!file}>{t("submit")}</Button>
       </Modal.Footer>
     </Modal>
     </DndProvider>
