@@ -14,6 +14,7 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     marginBottom: 10,
+    width: "80%"
   },
   browseFile: {
     width: "10%",
@@ -38,18 +39,26 @@ const styles = {
   progressBarBackgroundColor: {
     backgroundColor: "green",
   },
-  headerDivImport:{
-    display:'flex',
-    justifyContent:"space-around"
+  headerDivImport: {
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  buttonPrepare:{
+    margin:10
+  },
+  CsvRowImport:{
+    display:"flex",
+    justifyContent:"space-between"
   }
 };
 const ImportUIModal = (props) => {
+  const [withHeader,setWithHeader]=useState(true)
   const [file, setFile] = useState(null);
   const [columnData, setColumnData] = useState([]);
-  const [rowData,setRowData]=useState([])
-  const data=useMemo(()=>rowData,[rowData])
-  const columns=useMemo(()=>columnData,[columnData])
-  const [headers,setHeaders]=useState([])
+  const [rowData, setRowData] = useState([]);
+  const data = useMemo(() => rowData, [rowData]);
+  const columns = useMemo(() => columnData, [columnData]);
+  const [headers, setHeaders] = useState([]);
   const [removed, setRemoved] = useState([]);
   const { CSVReader } = useCSVReader();
   const { t } = useTranslation();
@@ -60,94 +69,151 @@ const ImportUIModal = (props) => {
         position: toast.POSITION.TOP_CENTER,
       });
     setFile(data.data);
-    const columns = data.data[0].map((col, index) => {
-      return {
-        Header: col,
-        accessor: col.split(" ").join("_").toLowerCase(),
-        index: index,
-      };
-    });
-    const rows = data.data.slice(1).map((row) => {
-      return row.reduce((acc, curr, index) => {
-        acc[columns[index].accessor] = curr;
-        return acc;
-      }, {});
-    });
-    setRowData(rows)
-    setColumnData(columns)
-    setHeaders(columns)
-  };
+    let columns=[]
+    let rows=[]
+    if(withHeader){
+    
+      columns = data.data[0].map((col, index) => {
 
+        return {
+          Header: col===""?`NO-HEADER${index}`:col,
+          accessor:col===""?`NO-HEADER${index}`:col.split(" ").join("_").toLowerCase(),
+          index: index,
+        };
+      });
+      rows = data.data.slice(1).map((row) => {
+        return row.reduce((acc, curr, index) => {
+          acc[columns[index].accessor] = curr;
+          return acc;
+        }, {});
+      });
+    }else{
+      columns = data.data[0].map((col, index) => {
+        return {
+          Header: index.toString(),
+          accessor: index.toString(),
+          index: index,
+        };
+      });
+      rows = data.data.map((row) => {
+        return row.reduce((acc, curr, index) => {
+          acc[columns[index].accessor] = curr;
+          return acc;
+        }, {});
+      });
+    }  
+    setRowData(rows);
+    setColumnData(columns);
+    setHeaders(columns);
+  };
+  const handleRemove = () => {
+    setHeaders([]);
+    setFile(null);
+    setRowData([]);
+    setColumnData([]);
+    setRemoved([]);
+  };
+  const handleClickPrepare=()=>{
+
+  }
   return (
     <DndProvider backend={HTML5Backend}>
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      backdrop="static"
-      keyboard={false}
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {t("importFile")}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="Row">
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>{t("uploadUrFIle")}</Form.Label>
-            <CSVReader onUploadAccepted={handleOnUploadAccepted}>
-              {({
-                getRootProps,
-                acceptedFile,
-                ProgressBar,
-                getRemoveFileProps,
-              }) => (
-                <>
-                  <div style={styles.csvReader}>
-                    <button
-                      type="button"
-                      {...getRootProps()}
-                      style={styles.browseFile}
-                    >
-                      {t("upload")}
-                    </button>
-                    <div style={styles.acceptedFile}>
-                      {acceptedFile && acceptedFile.name}
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {t("importFile")}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="Row">
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>{t("uploadUrFIle")}</Form.Label>
+              <div style={styles.CsvRowImport} >
+              <CSVReader
+                onUploadAccepted={handleOnUploadAccepted}
+                accept=".csv"
+              >
+                {({
+                  getRootProps,
+                  acceptedFile,
+                  ProgressBar,
+                  getRemoveFileProps,
+                }) => (
+                  <>
+                    <div style={styles.csvReader}>
+                      <button
+                        type="button"
+                        {...getRootProps()}
+                        style={styles.browseFile}
+                      >
+                        {t("select")}
+                      </button>
+                      <div style={styles.acceptedFile}>
+                        {acceptedFile && acceptedFile.name}
+                      </div>
+                      <button
+                        {...getRemoveFileProps()}
+                        style={styles.remove}
+                        onClick={(event) => {
+                          getRemoveFileProps().onClick(event);
+                          handleRemove();
+                        }}
+                      >
+                        {t("remove")}
+                      </button>
                     </div>
-                    <button {...getRemoveFileProps()} style={styles.remove}>
-                      {t("remove")}
-                    </button>
-                  </div>
-                  <ProgressBar style={styles.progressBarBackgroundColor} />
-                </>
-              )}
-            </CSVReader>
-          </Form.Group>
-        </div>
-        {file && (
-          <>
-            <Form.Label>{t("preview")}</Form.Label>
-            <div style={styles.headerDivImport}>
-            <Form.Group className="mb-3" controlId="headers">
-            <Form.Label>{t("importHeaders")}</Form.Label>
-              <HeaderDND headers={headers} columns={columnData} setColumns={setColumnData} setHeaders={setHeaders} setRemoved={setRemoved} removed={removed}/>
+                    {/* <ProgressBar style={styles.progressBarBackgroundColor} /> */}
+                  </>
+                )}
+              </CSVReader>
+              <Form.Check label={t("withHeader")} checked={withHeader} onChange={()=>setWithHeader(!withHeader)}/>
+              </div>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="removed">
-            <Form.Label>{t("removedColumns")}</Form.Label> 
-            <RemovedColumns removed={removed} setColumns={setColumnData} setHeaders={setHeaders} setRemoved={setRemoved} />
-            </Form.Group>
-            </div>
-           
-            <ReactTable columns={columns} data={data}/>
-          </>
-        )}
-      </Modal.Body>
-      <Modal.Footer>
-        <Button disabled={!file}>{t("submit")}</Button>
-      </Modal.Footer>
-    </Modal>
+          </div>
+          {file && (
+            <>
+              <Form.Label>{t("preview")}</Form.Label>
+              <div style={styles.headerDivImport}>
+                <Form.Group className="mb-3" controlId="headers">
+                  <Form.Label>{t("importHeaders")}</Form.Label>
+                  <HeaderDND
+                    headers={headers}
+                    columns={columnData}
+                    setColumns={setColumnData}
+                    setHeaders={setHeaders}
+                    setRemoved={setRemoved}
+                    removed={removed}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="removed">
+                  <Form.Label>{t("removedColumns")}</Form.Label>
+                  <RemovedColumns
+                    removed={removed}
+                    setColumns={setColumnData}
+                    setHeaders={setHeaders}
+                    setRemoved={setRemoved}
+                  />
+                </Form.Group>
+              </div>
+
+              <ReactTable columns={columns} data={data} />
+              <Button size="sm" style={styles.buttonPrepare} onClick={handleClickPrepare}>{t("prepare")}</Button>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button disabled={!file} onClick={() => console.log(columns, data)}>
+            {t("submit")}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </DndProvider>
   );
 };

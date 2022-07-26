@@ -889,5 +889,8 @@
   "remove":"حذف",
   "preview":"پیشنمایش",
   "importHeaders":"ستون ها",
-  "removedColumns":"ستون های حذف شده"
+  "removedColumns":"ستون های حذف شده",
+  "select":"انتخاب",
+  "prepare":"آماده سازی",
+  "withHeader":"با هدر"
 }
