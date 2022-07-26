@@ -85,7 +85,7 @@ const ImportUIModal = (props) => {
 
         return {
           Header: col===""?`NO-HEADER${index}`:col,
-          accessor:col===""?`NO-HEADER${index}`:col.split(" ").join("_").toLowerCase(),
+          accessor:col===""?`NO-HEADER${index}`:col,
           index: index,
         };
       });
@@ -142,6 +142,8 @@ const ImportUIModal = (props) => {
     }
   })
   setFinalHeader(finalColumns)
+  console.log(columns,data)
+
   }
   const handleResponse = useCallback((res, type) => {
     switch (type) {
@@ -159,6 +161,9 @@ const ImportUIModal = (props) => {
     response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
+  const config={
+    skipEmptyLines:true
+  }
   return (
     <DndProvider backend={HTML5Backend}>
       {loading && <BackDrop open={true}/>}
@@ -183,6 +188,8 @@ const ImportUIModal = (props) => {
               <CSVReader
                 onUploadAccepted={handleOnUploadAccepted}
                 accept=".csv"
+                config={config}
+               
               >
                 {({
                   getRootProps,
@@ -256,7 +263,7 @@ const ImportUIModal = (props) => {
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={!file} onClick={() => console.log(data)}>
+          <Button disabled={!file} onClick={() => console.log(columns,data)}>
             {t("submit")}
           </Button>
         </Modal.Footer>
