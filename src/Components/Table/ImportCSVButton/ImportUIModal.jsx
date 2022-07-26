@@ -1,14 +1,16 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTranslation } from "react-i18next";
 import { useCSVReader } from "react-papaparse";
 import { toast } from "react-toastify";
+import useAxios from "../../../customHooks/useAxios";
 import ReactTable from "../../reactTable/ReactTable";
 import { HeaderDND } from "./HeaderDND";
 import RemovedColumns from "./RemovedColumns";
-
+import useRequest from '../../../customHooks/useRequest'
+import BackDrop from '../../backDrop/BackDrop'
 const styles = {
   csvReader: {
     display: "flex",
@@ -52,6 +54,12 @@ const styles = {
   }
 };
 const ImportUIModal = (props) => {
+  const [response, loading, fetchData] = useAxios();
+  const [columnInfo,setColumnInfo]=useState([])
+  const [finalHeader,setFinalHeader]=useState([])
+  const [finalData,setFinalData]=useState([])
+  const request=useRequest()
+  const [type, setType] = useState("")
   const [withHeader,setWithHeader]=useState(true)
   const [file, setFile] = useState(null);
   const [columnData, setColumnData] = useState([]);
@@ -112,12 +120,48 @@ const ImportUIModal = (props) => {
     setRowData([]);
     setColumnData([]);
     setRemoved([]);
+    setColumnInfo([])
+    setFinalData([])
   };
   const handleClickPrepare=()=>{
-
+    setType("COLUMNINFO");
+    fetchData({
+      method: "POST",
+      url: props.columnInfo,
+      headers: request,
+    });
   }
+  const setFinalTableData=(columnInfo)=>{
+  const finalColumns = columnInfo.map((col,index)=>{
+    return{
+      Header:col.Name,
+      accessor:col.Name,
+      Type:col.Type,
+      Length:col.Length,
+      Required:col.Necessary
+    }
+  })
+  setFinalHeader(finalColumns)
+  }
+  const handleResponse = useCallback((res, type) => {
+    switch (type) {
+      case "COLUMNINFO":
+        setColumnInfo(res.Column)
+        setFinalTableData(res.Column)
+        break;
+      
+      default:
+        break;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    response && handleResponse(response, type);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response]);
   return (
     <DndProvider backend={HTML5Backend}>
+      {loading && <BackDrop open={true}/>}
       <Modal
         {...props}
         size="lg"
@@ -205,11 +249,14 @@ const ImportUIModal = (props) => {
 
               <ReactTable columns={columns} data={data} />
               <Button size="sm" style={styles.buttonPrepare} onClick={handleClickPrepare}>{t("prepare")}</Button>
+              {columnInfo.length>0 &&
+              <ReactTable columns={finalHeader} data={finalData} />
+              }
             </>
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={!file} onClick={() => console.log(columns, data)}>
+          <Button disabled={!file} onClick={() => console.log(data)}>
             {t("submit")}
           </Button>
         </Modal.Footer>
