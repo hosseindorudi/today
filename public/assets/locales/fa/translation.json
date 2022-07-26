@@ -889,5 +889,6 @@
   "remove":"حذف",
   "preview":"پیشنمایش",
   "importHeaders":"ستون ها",
-  "removedColumns":"ستون های حذف شده"
+  "removedColumns":"ستون های حذف شده",
+  "auth.companyCod":"کدشرکت/نمایندگی"
 }
