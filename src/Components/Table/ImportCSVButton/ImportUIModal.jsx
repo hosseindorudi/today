@@ -9,14 +9,14 @@ import useAxios from "../../../customHooks/useAxios";
 import ReactTable from "../../reactTable/ReactTable";
 import { HeaderDND } from "./HeaderDND";
 import RemovedColumns from "./RemovedColumns";
-import useRequest from '../../../customHooks/useRequest'
-import BackDrop from '../../backDrop/BackDrop'
+import useRequest from "../../../customHooks/useRequest";
+import BackDrop from "../../backDrop/BackDrop";
 const styles = {
   csvReader: {
     display: "flex",
     flexDirection: "row",
     marginBottom: 10,
-    width: "80%"
+    width: "80%",
   },
   browseFile: {
     width: "10%",
@@ -45,22 +45,24 @@ const styles = {
     display: "flex",
     justifyContent: "space-around",
   },
-  buttonPrepare:{
-    margin:10
+  buttonPrepare: {
+    margin: 10,
   },
-  CsvRowImport:{
-    display:"flex",
-    justifyContent:"space-between"
-  }
+  CsvRowImport: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
 };
 const ImportUIModal = (props) => {
   const [response, loading, fetchData] = useAxios();
-  const [columnInfo,setColumnInfo]=useState([])
-  const [finalHeader,setFinalHeader]=useState([])
-  const [finalData,setFinalData]=useState([])
-  const request=useRequest()
-  const [type, setType] = useState("")
-  const [withHeader,setWithHeader]=useState(true)
+  const [columnInfo, setColumnInfo] = useState([]);
+  const [finalHeader, setFinalHeader] = useState([]);
+  const [finalData, setFinalData] = useState([]);
+  const dataFinal = useMemo(() => finalData, [finalData]);
+  const columnsFinal = useMemo(() => finalHeader, [finalHeader]);
+  const request = useRequest();
+  const [type, setType] = useState("");
+  const [withHeader, setWithHeader] = useState(true);
   const [file, setFile] = useState(null);
   const [columnData, setColumnData] = useState([]);
   const [rowData, setRowData] = useState([]);
@@ -77,25 +79,24 @@ const ImportUIModal = (props) => {
         position: toast.POSITION.TOP_CENTER,
       });
     setFile(data.data);
-    let columns=[]
-    let rows=[]
-    if(withHeader){
-    
+    let columns = [];
+    let rows = [];
+    if (withHeader) {
       columns = data.data[0].map((col, index) => {
-
         return {
-          Header: col===""?`NO-HEADER${index}`:col,
-          accessor:col===""?`NO-HEADER${index}`:col,
+          Header: col === "" ? `NO-HEADER${index}` : col,
+          accessor: col === "" ? `NO-HEADER${index}` : col,
           index: index,
         };
       });
+      
       rows = data.data.slice(1).map((row) => {
         return row.reduce((acc, curr, index) => {
           acc[columns[index].accessor] = curr;
           return acc;
         }, {});
       });
-    }else{
+    } else {
       columns = data.data[0].map((col, index) => {
         return {
           Header: index.toString(),
@@ -109,7 +110,8 @@ const ImportUIModal = (props) => {
           return acc;
         }, {});
       });
-    }  
+      
+    }
     setRowData(rows);
     setColumnData(columns);
     setHeaders(columns);
@@ -120,38 +122,76 @@ const ImportUIModal = (props) => {
     setRowData([]);
     setColumnData([]);
     setRemoved([]);
-    setColumnInfo([])
-    setFinalData([])
+    setColumnInfo([]);
+    setFinalData([]);
   };
-  const handleClickPrepare=()=>{
+  const handleClickPrepare = () => {
     setType("COLUMNINFO");
     fetchData({
       method: "POST",
       url: props.columnInfo,
       headers: request,
     });
-  }
-  const setFinalTableData=(columnInfo)=>{
-  const finalColumns = columnInfo.map((col,index)=>{
-    return{
-      Header:col.Name,
-      accessor:col.Name,
-      Type:col.Type,
-      Length:col.Length,
-      Required:col.Necessary
-    }
-  })
-  setFinalHeader(finalColumns)
-  console.log(columns,data)
+  };
+ 
+  const setFinalTableData = (columnInfo) => {
+    //Required Headers from backEnd
+    const finalColumns = columnInfo.map((col, index) => {
+      return {
+        Header: col.Name,
+        accessor: col.Name,
+        Type: col.Type,
+        Length: col.Length,
+        Required: col.Necessary,
+      };
+    });
+  
 
-  }
+    //Creating new data with respect to sorted columns and Removed columns
+    const availableHeaders = columns.map((col) => col.Header);
+    
+    const finalRowData = rowData.map((d, i) =>
+      Object.keys(d).reduce((acc, key) => {
+        if (availableHeaders.includes(key)) {
+          acc[key] = d[key];
+        }
+        return acc;
+      }, {})
+    );
+    
+   let sortedData=[] 
+    finalRowData.map((d,i)=>{
+      let obj={}
+      availableHeaders.map((h,i)=>{     
+       return Object.assign(obj, {[h]: d[h]});
+      })
+     return sortedData.push(obj)
+  })
+//creating new FinalRowData with respect to new headers
+const data= sortedData.map((row) => {
+    return Object.keys(row).reduce((acc, curr, index) => {
+      acc[finalColumns[index].accessor] = row[curr];
+      return acc;
+    }, {});
+  });
+setFinalHeader(finalColumns);
+
+setFinalData(data)
+  };
+  const handleClickSubmit = () => {
+
+// console.log(sortedData)
+  // console.log(finalHeader)
+  // console.log(rowData)
+  
+  };
   const handleResponse = useCallback((res, type) => {
     switch (type) {
       case "COLUMNINFO":
-        setColumnInfo(res.Column)
-        setFinalTableData(res.Column)
+        setColumnInfo(res.Column);
+        setFinalTableData(res.Column);
         break;
-      
+
       default:
         break;
     }
@@ -161,12 +201,12 @@ const ImportUIModal = (props) => {
     response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
-  const config={
-    skipEmptyLines:true
-  }
+  const config = {
+    skipEmptyLines: true,
+  };
   return (
     <DndProvider backend={HTML5Backend}>
-      {loading && <BackDrop open={true}/>}
+      {loading && <BackDrop open={true} />}
       <Modal
         {...props}
         size="lg"
@@ -184,47 +224,50 @@ const ImportUIModal = (props) => {
           <div className="Row">
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>{t("uploadUrFIle")}</Form.Label>
-              <div style={styles.CsvRowImport} >
-              <CSVReader
-                onUploadAccepted={handleOnUploadAccepted}
-                accept=".csv"
-                config={config}
-               
-              >
-                {({
-                  getRootProps,
-                  acceptedFile,
-                  ProgressBar,
-                  getRemoveFileProps,
-                }) => (
-                  <>
-                    <div style={styles.csvReader}>
-                      <button
-                        type="button"
-                        {...getRootProps()}
-                        style={styles.browseFile}
-                      >
-                        {t("select")}
-                      </button>
-                      <div style={styles.acceptedFile}>
-                        {acceptedFile && acceptedFile.name}
+              <div style={styles.CsvRowImport}>
+                <CSVReader
+                  onUploadAccepted={handleOnUploadAccepted}
+                  accept=".csv"
+                  config={config}
+                >
+                  {({
+                    getRootProps,
+                    acceptedFile,
+                    ProgressBar,
+                    getRemoveFileProps,
+                  }) => (
+                    <>
+                      <div style={styles.csvReader}>
+                        <button
+                          type="button"
+                          {...getRootProps()}
+                          style={styles.browseFile}
+                        >
+                          {t("select")}
+                        </button>
+                        <div style={styles.acceptedFile}>
+                          {acceptedFile && acceptedFile.name}
+                        </div>
+                        <button
+                          {...getRemoveFileProps()}
+                          style={styles.remove}
+                          onClick={(event) => {
+                            getRemoveFileProps().onClick(event);
+                            handleRemove();
+                          }}
+                        >
+                          {t("remove")}
+                        </button>
                       </div>
-                      <button
-                        {...getRemoveFileProps()}
-                        style={styles.remove}
-                        onClick={(event) => {
-                          getRemoveFileProps().onClick(event);
-                          handleRemove();
-                        }}
-                      >
-                        {t("remove")}
-                      </button>
-                    </div>
-                    {/* <ProgressBar style={styles.progressBarBackgroundColor} /> */}
-                  </>
-                )}
-              </CSVReader>
-              <Form.Check label={t("withHeader")} checked={withHeader} onChange={()=>setWithHeader(!withHeader)}/>
+                      {/* <ProgressBar style={styles.progressBarBackgroundColor} /> */}
+                    </>
+                  )}
+                </CSVReader>
+                <Form.Check
+                  label={t("withHeader")}
+                  checked={withHeader}
+                  onChange={() => setWithHeader(!withHeader)}
+                />
               </div>
             </Form.Group>
           </div>
@@ -255,15 +298,21 @@ const ImportUIModal = (props) => {
               </div>
 
               <ReactTable columns={columns} data={data} />
-              <Button size="sm" style={styles.buttonPrepare} onClick={handleClickPrepare}>{t("prepare")}</Button>
-              {columnInfo.length>0 &&
-              <ReactTable columns={finalHeader} data={finalData} />
-              }
+              <Button
+                size="sm"
+                style={styles.buttonPrepare}
+                onClick={handleClickPrepare}
+              >
+                {t("prepare")}
+              </Button>
+              {columnInfo.length > 0 && (
+                <ReactTable columns={columnsFinal} data={dataFinal} />
+              )}
             </>
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={!file} onClick={() => console.log(columns,data)}>
+          <Button disabled={!file} onClick={handleClickSubmit}>
             {t("submit")}
           </Button>
         </Modal.Footer>
