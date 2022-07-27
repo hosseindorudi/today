@@ -228,6 +228,7 @@ const OperatorDashboard = () => {
   };
 
   const handleUpdate = () => {
+    console.log("updated")
     getDashboardData();
   };
 
@@ -446,6 +447,7 @@ const OperatorDashboard = () => {
                 </tr>
               </thead>
               <tbody>
+        {console.log(logins)}
                 {logins.map((failed) => (
                   <tr>
                     {Object.keys(failed)

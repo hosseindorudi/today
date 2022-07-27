@@ -114,12 +114,15 @@ left: unset;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: blue;
   /* height: 100px; */
   
 }
-.logo >img{
+.logo > a >img{
   border-radius: 10px;
-  
   /* width: 150px; */
   height: 90px;
 }

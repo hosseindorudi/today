@@ -54,12 +54,13 @@ const Sidebar = () => {
     <>
  
         <nav id="sidebarNav"  >
-         
+
           <div  className='sidebarWrapper'>
             <div className='logo'>
-              <img src={logo} alt='ctelecomlogo'/>
+              <a href='https://ctelecom.ir/' target="_blank" rel="noopener noreferrer"><img src={logo} alt='ctelecomlogo'/></a>
             </div>
             <hr className='hrSideNavbar'/>
+
             <div className="searchSidebar">
               <Search handleChange={handleChangeSearchValue} />
             </div>
@@ -71,6 +72,7 @@ const Sidebar = () => {
             Routes.map((item, index) => {
               return <SubMenu item={item} key={index} search={search}/>;
             })}
+
           </div>
         </nav>
     </>

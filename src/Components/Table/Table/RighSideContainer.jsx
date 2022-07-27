@@ -49,27 +49,33 @@ const RighSideContainer = ({
           {t("table.tools")}
         </span>
         <div className="reacttableParentMainRightDownToolBoxDiv">
-          <div
+          <button
+          className="reactTableParentSearchButton"
             onClick={() => {
               setSearch((prev) => !prev);
             }}
             style={{
               color:
-                !search && searchBegin !== null && searchEnd !== null
+                (!search && searchBegin !== null && searchEnd !== null)
                   ? "red"
                   : "lightgray",
+                  border:
+                (!search && searchBegin !== null && searchEnd !== null)
+                  &&
+                  "1px solid red"
             }}
           >
-            <i className="fa fa-search searchDater" aria-hidden="true"></i>
-          </div>
+            <fa.FaFunnelDollar/>
+          </button>
           <div className="reacttableParentMainRightDownToolBoxDivColumnBtn">
             <button
-              className={columnSideBar ? "hold" : "columnBtnTableToggle"}
+              className="reactTableParentColumnButton"
+
               onClick={() => {
                 setColumnSideBar(!columnSideBar);
               }}
             >
-              {t("table.groups")}
+              <fa.FaColumns />
             </button>
           </div>
           {haveAccess(exportAccess) && (

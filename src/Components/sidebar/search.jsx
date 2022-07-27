@@ -8,7 +8,7 @@ function Search(props) {
     <InputGroup className="mb-3">
     <InputGroup.Text id="basic-addon1"><BsSearch/></InputGroup.Text>
     <FormControl
-      
+      style={{backgroundColor:"white", color:"black"}}
       aria-label="search"
       aria-describedby="basic-addon1"
      

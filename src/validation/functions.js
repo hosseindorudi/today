@@ -138,7 +138,7 @@ export const findGeoLocation=(value)=>{
 export const checkTableValues = (type, value, post, exportAccess) => {
   switch (type) {
     case "DateSet":
-      return convertUTC(value);
+      return dateOfLogTable(value);
     case "IsActive":
     case "Activated":
     case "IsPerishable":
@@ -210,7 +210,8 @@ export const handleError = (message) => {
 export const dateOfLogTable = (date) => {
   let a = date.split("T");
   a[0] = convertUTC(a[0]);
-  return a.join("\n");
+  a[1] = a[1].split(".")[0]
+  return a.reverse().join(" ");
 };
 
 export const checkQuestionEId = (EID, value) => {

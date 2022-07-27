@@ -101,7 +101,7 @@ const SelectedGroup = (props) => {
                 <Col>{group.Value}</Col>
                 <Col className="d-flex justify-content-end mb-2">
                     <Button className="m-1" variant="outline-warning" size="sm" onClick={() => addNewPermission(group.Id)}>اضافه کردن</Button>
-                    <Button className="m-1" variant="outline-info" size="sm" onClick={() => copyPermission(group.Id)}>کپی</Button>
+                    <Button className="m-1" variant="outline-info" size="sm" onClick={() => copyPermission(group.Id)}>جایگزینی</Button>
                 </Col>
               </Row>
             ))}
