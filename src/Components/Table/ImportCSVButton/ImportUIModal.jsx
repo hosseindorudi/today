@@ -115,6 +115,7 @@ const ImportUIModal = (props) => {
     setRowData(rows);
     setColumnData(columns);
     setHeaders(columns);
+    getColumns()
   };
   const handleRemove = () => {
     setHeaders([]);
@@ -125,7 +126,8 @@ const ImportUIModal = (props) => {
     setColumnInfo([]);
     setFinalData([]);
   };
-  const handleClickPrepare = () => {
+  const getColumns = () => {
+    
     setType("COLUMNINFO");
     fetchData({
       method: "POST",
@@ -133,8 +135,8 @@ const ImportUIModal = (props) => {
       headers: request,
     });
   };
- 
   const setFinalTableData = (columnInfo) => {
+   
     //Required Headers from backEnd
     const finalColumns = columnInfo.map((col, index) => {
       return {
@@ -158,7 +160,7 @@ const ImportUIModal = (props) => {
         return acc;
       }, {})
     );
-    
+
    let sortedData=[] 
     finalRowData.map((d,i)=>{
       let obj={}
@@ -179,7 +181,7 @@ setFinalHeader(finalColumns);
 setFinalData(data)
   };
   const handleClickSubmit = () => {
-
+    
 // console.log(sortedData)
   // console.log(finalHeader)
   // console.log(rowData)
@@ -189,7 +191,7 @@ setFinalData(data)
     switch (type) {
       case "COLUMNINFO":
         setColumnInfo(res.Column);
-        setFinalTableData(res.Column);
+        // setFinalTableData(res.Column);
         break;
 
       default:
@@ -301,13 +303,13 @@ setFinalData(data)
               <Button
                 size="sm"
                 style={styles.buttonPrepare}
-                onClick={handleClickPrepare}
+                onClick={()=>setFinalTableData(columnInfo)}
               >
                 {t("prepare")}
               </Button>
-              {columnInfo.length > 0 && (
+             
                 <ReactTable columns={columnsFinal} data={dataFinal} />
-              )}
+              
             </>
           )}
         </Modal.Body>
