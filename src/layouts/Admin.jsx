@@ -15,6 +15,7 @@ import useAxios from "../customHooks/useAxios";
 import BackDrop from "../Components/backDrop/BackDrop";
 import AppContext from "../contexts/AppContext";
 import ProfileInfo from "../Components/navbar/profileInfo";
+import SafeModeChanger from "../Components/navbar/SafeModeChanger";
 
 function Admin() {
   const FirstName = localStorage.getItem("FirstName");
@@ -79,9 +80,12 @@ function Admin() {
           </span>
 
           <ProfileInfo />
+
         </div>
         <div className="headerMid"></div>
         <div className="headerRight">
+        <SafeModeChanger/>
+
           <Language />
           <Home />
           <fa.FaPowerOff className="adminPowerOff" onClick={handleLogOut} />

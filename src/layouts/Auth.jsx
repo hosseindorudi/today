@@ -26,6 +26,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const username = useRef();
   const password = useRef();
+  const companyCode = useRef();
   const { t } = useTranslation();
   const [passVisible, setpassVisible] = useState(false);
   const handleSubmit = (e) => {
@@ -36,7 +37,8 @@ const Auth = () => {
       headers: request,
       data: {
         username: username.current.value,
-        password: password.current.value
+        password: password.current.value,
+        Domain: companyCode.current.value
       },
     });
   };
@@ -47,6 +49,7 @@ const Auth = () => {
       localStorage.setItem("FirstName",response.FirstName)
       localStorage.setItem("LastName",response.LastName)
       localStorage.setItem("Id",response.Id)
+      localStorage.setItem("Domain",companyCode.current.value)
       setApp(prev=>({...prev,FirstName:response.FirstName,LastName:response.LastName}))
       return navigate(from, { replace: true });
     },
@@ -101,6 +104,18 @@ const Auth = () => {
             </span>
           </Form.Group>
         
+          <Form.Group className="mb-3" controlId="formBasicCode">
+            <Form.Label>{t("auth.companyCod")}</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder={t("auth.companyCod")}
+              required
+              ref={companyCode}
+              min={1000}
+              defaultValue={localStorage.getItem("Domain") ? localStorage.getItem("Domain") : 1000}
+
+            />
+          </Form.Group>
 
           <div className="authSubmitDiv">
             <Button
