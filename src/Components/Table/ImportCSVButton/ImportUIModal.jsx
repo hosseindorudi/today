@@ -89,7 +89,7 @@ const ImportUIModal = (props) => {
           index: index,
         };
       });
-      
+
       rows = data.data.slice(1).map((row) => {
         return row.reduce((acc, curr, index) => {
           acc[columns[index].accessor] = curr;
@@ -110,12 +110,11 @@ const ImportUIModal = (props) => {
           return acc;
         }, {});
       });
-      
     }
     setRowData(rows);
     setColumnData(columns);
     setHeaders(columns);
-    getColumns()
+    getColumns();
   };
   const handleRemove = () => {
     setHeaders([]);
@@ -127,7 +126,6 @@ const ImportUIModal = (props) => {
     setFinalData([]);
   };
   const getColumns = () => {
-    
     setType("COLUMNINFO");
     fetchData({
       method: "POST",
@@ -136,7 +134,6 @@ const ImportUIModal = (props) => {
     });
   };
   const setFinalTableData = (columnInfo) => {
-   
     //Required Headers from backEnd
     const finalColumns = columnInfo.map((col, index) => {
       return {
@@ -147,11 +144,10 @@ const ImportUIModal = (props) => {
         Required: col.Necessary,
       };
     });
-  
 
     //Creating new data with respect to sorted columns and Removed columns
     const availableHeaders = columns.map((col) => col.Header);
-    
+
     const finalRowData = rowData.map((d, i) =>
       Object.keys(d).reduce((acc, key) => {
         if (availableHeaders.includes(key)) {
@@ -161,31 +157,29 @@ const ImportUIModal = (props) => {
       }, {})
     );
 
-   let sortedData=[] 
-    finalRowData.map((d,i)=>{
-      let obj={}
-      availableHeaders.map((h,i)=>{     
-       return Object.assign(obj, {[h]: d[h]});
-      })
-     return sortedData.push(obj)
-  })
-//creating new FinalRowData with respect to new headers
-const data= sortedData.map((row) => {
-    return Object.keys(row).reduce((acc, curr, index) => {
-      acc[finalColumns[index].accessor] = row[curr];
-      return acc;
-    }, {});
-  });
-setFinalHeader(finalColumns);
+    let sortedData = [];
+    finalRowData.map((d, i) => {
+      let obj = {};
+      availableHeaders.map((h, i) => {
+        return Object.assign(obj, { [h]: d[h] });
+      });
+      return sortedData.push(obj);
+    });
+    //creating new FinalRowData with respect to new headers
+    const data = sortedData.map((row) => {
+      return Object.keys(row).reduce((acc, curr, index) => {
+        acc[finalColumns[index].accessor] = row[curr];
+        return acc;
+      }, {});
+    });
+    setFinalHeader(finalColumns);
 
-setFinalData(data)
+    setFinalData(data);
   };
   const handleClickSubmit = () => {
-    
-// console.log(sortedData)
-  // console.log(finalHeader)
-  // console.log(rowData)
-  
+    // console.log(sortedData)
+    // console.log(finalHeader)
+    // console.log(rowData)
   };
   const handleResponse = useCallback((res, type) => {
     switch (type) {
@@ -303,13 +297,20 @@ setFinalData(data)
               <Button
                 size="sm"
                 style={styles.buttonPrepare}
-                onClick={()=>setFinalTableData(columnInfo)}
+                onClick={() => setFinalTableData(columnInfo)}
               >
                 {t("prepare")}
               </Button>
-             
-                <ReactTable columns={columnsFinal} data={dataFinal} />
-              
+
+              <ReactTable
+                columns={columnsFinal}
+                data={dataFinal}
+                getCellProps={(cellInfo) => ({
+                  style: {
+                    backgroundColor: "green",
+                  },
+                })}
+              />
             </>
           )}
         </Modal.Body>

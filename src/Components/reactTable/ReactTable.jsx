@@ -8,7 +8,8 @@ const styles = {
       textAlign: "center",
     },
   };
-const ReactTable = ({columns,data}) => {
+  const defaultPropGetter = () => ({})
+const ReactTable = ({columns,data, getCellProps = defaultPropGetter,}) => {
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
@@ -32,7 +33,13 @@ const ReactTable = ({columns,data}) => {
           prepareRow(row)
           return <tr {...row.getRowProps()}>
             {row.cells.map((cell)=>(
-              <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+              <td {...cell.getCellProps([
+                {
+                  className: cell.column.className,
+                  style: cell.column.style,
+                },
+                getCellProps(cell),
+              ])}>{cell.render("Cell")}</td>
             ))}
           </tr>
         })
