@@ -6,7 +6,7 @@ import { t } from "i18next";
 import { enums } from "../../../../../data/Enums";
 import CustomTable from "../../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
-import { checkFileOperator, deleteRecordOpt, exportFile, getoneRecord, importFileOperator, logTable, operatorChangePassword, operatorExportId, readOpt, readpaging, sampleFileOperator, setToFavorit, setUnselectedColumn } from "../../../../../services/operatorService";
+import { checkFileOperator, deleteRecordOpt, exportFile, getoneRecord, importFileOperator, logTable, operatorChangePassword, operatorColumnInfo, operatorExportId, readOpt, readpaging, sampleFileOperator, setToFavorit, setUnselectedColumn } from "../../../../../services/operatorService";
 import OperatorForm from "../OperatorForm";
 import OperatorRoleModel from "../../../../../Components/Table/operatorRoleModal/OperatorRoleModal";
 const Operator = () => {
@@ -104,6 +104,7 @@ const Operator = () => {
         policyBrowserAccess={""}
         handleOperatorRole={handleOperatorRole}
         operatorRoleAccess={enums.Operator_Operator_Create_w}
+        columnInfo={operatorColumnInfo}
       />
     </>
   );

@@ -890,5 +890,8 @@
   "preview":"پیشنمایش",
   "importHeaders":"ستون ها",
   "removedColumns":"ستون های حذف شده",
-  "auth.companyCod":"کدشرکت/نمایندگی"
+  "auth.companyCod":"کدشرکت/نمایندگی",
+  "select":"انتخاب",
+  "prepare":"آماده سازی",
+  "withHeader":"با هدر"
 }

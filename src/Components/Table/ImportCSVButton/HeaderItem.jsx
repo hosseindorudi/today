@@ -1,16 +1,20 @@
+import { IconButton } from '@mui/material'
 import { useRef } from 'react'
-import { Form } from 'react-bootstrap'
+import ClearIcon from '@mui/icons-material/Clear';
 import { useDrag, useDrop } from 'react-dnd'
 const style = {
-  
-  padding: '0.2rem 0.5rem',
+  display:"flex",
+  flexDirection:"Row",
+  alignItems:"center",
+  justifyContent:"space-between",
+  // padding: '0.2rem 0.5rem',
   marginBottom: '.2rem',
   backgroundColor: 'aqua',
   cursor: 'pointer',
   border:"50% solid",
   width:"auto"
 }
-export const HeaderItem = ({ id, text, index, moveCard,accessor,handleCheckBox,card }) => {
+export const HeaderItem = ({ id, text, index, moveCard,accessor,handleClick,card }) => {
   const ref = useRef(null)
   const [{ handlerId }, drop] = useDrop({
     accept: "HEADER",
@@ -71,7 +75,9 @@ export const HeaderItem = ({ id, text, index, moveCard,accessor,handleCheckBox,c
   drag(drop(ref))
   return (
     <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
-      {<Form.Check type="checkbox" label={text} defaultChecked={true} onChange={(e)=>handleCheckBox(e.target.checked,accessor,card)}/>}
+     <b>{text}</b>  <IconButton color="primary" size='small' aria-label="close" component="span" onClick={()=>handleClick(accessor,card)}>
+          <ClearIcon fontSize="inherit"/>
+        </IconButton>
     </div>
   )
 }

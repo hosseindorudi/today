@@ -30,6 +30,7 @@ const RighSideContainer = ({
   IsFavorite,
   handleClickFav,
   handleClickHelp,
+  columnInfo
 
 }) => {
   const [haveAccess] = useButtonAccess();
@@ -89,6 +90,7 @@ const RighSideContainer = ({
               sampleUrl={sampleUrl}
               fileCheckURL={fileCheckURL}
               importURL={importURL}
+              columnInfo={columnInfo}
             
             />
           )}
