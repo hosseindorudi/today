@@ -30,7 +30,7 @@ const RighSideContainer = ({
   IsFavorite,
   handleClickFav,
   handleClickHelp,
-
+  totalRecord,
 }) => {
   const [haveAccess] = useButtonAccess();
   const {t}=useTranslation()
@@ -42,7 +42,12 @@ const RighSideContainer = ({
         <span className="reacttableParentMainRightUpInformation">
           {t("table.information")}
         </span>
-        <div className="reacttableParentMainRightUpInformationDiv"></div>
+        <div className="reacttableParentMainRightUpInformationDiv">
+          <div className="customTableInformationData">
+            <span>تعداد کل</span>
+            <span>{totalRecord}</span>
+          </div>
+        </div>
       </div>
       <div className="reacttableParentMainRightDown">
         <span className="reacttableParentMainRightDownToolBox">

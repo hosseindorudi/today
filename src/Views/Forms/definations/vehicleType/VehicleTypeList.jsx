@@ -23,7 +23,7 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import VehicleTypeForm from './vehicleTypeForm/VehicleTypeForm';
 
 const VehicleTypeList = () => {
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType"];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});

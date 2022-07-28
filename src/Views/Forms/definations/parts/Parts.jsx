@@ -15,13 +15,12 @@ const Parts = () => {
   const childRef = useRef();
   const filteredColumns = [
     "IsLimited",
-    
     "Registrar",
     "Language_EId",
     "SourceType",
     "PartGroup_Id",
     "Quality_Id",
-    
+    "Color_Id"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

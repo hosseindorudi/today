@@ -50,7 +50,7 @@ export const defintionInputs = (values, typeTitle, errorMSG) => {
       label: typeTitle ? typeTitle : t("title"),
       placeholder: typeTitle ? typeTitle : t("title"),
       errorMessage: errorMSG ? errorMSG : t("title.errorMessage"),
-      pattern: "^[\u0600-\u06FF,A-Za-z0-9,+, ]{2,255}",
+      pattern: "^[\u0600-\u06FF,A-Za-z0-9,+, ,_,-]{2,255}",
       required: true,
       value: values.title,
     },

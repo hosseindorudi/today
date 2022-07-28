@@ -301,7 +301,9 @@ const TableList = ({
                   </thead>
                   <tbody>
                     {posts.map((post, index) => (
-                      <tr key={index}>
+                      <tr key={index} style={{
+                        backgroundColor: post["SourceType"] === 0 && "rgb(200, 46, 46)"
+                      }}>
                         <td className="TableMainTd">
                           <TableButtons
                             exportLink={exportId}

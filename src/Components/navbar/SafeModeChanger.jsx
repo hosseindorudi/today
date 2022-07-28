@@ -9,7 +9,7 @@ const SafeModeChanger = () => {
 
   return (
     <div className="safeRow">
-      <span className="blink" style={{display: activate ? "block" : "none"}}>SAFE MODE</span>
+      <span className="blink" style={{display: activate ? "block" : "none"}}>Safe mode</span>
       <label class="switch">
         <input type="checkbox" onChange={()=> {setActivation(!activate);setApp(prev=>({...prev,SafeMode:!activate}))}}/>
         <span class="slider round"></span>

@@ -116,7 +116,7 @@ left: unset;
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 10;
   background-color: blue;
   /* height: 100px; */
   
@@ -126,6 +126,22 @@ left: unset;
   /* width: 150px; */
   height: 90px;
 }
+
+.mainCtDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: blue;
+}
+
+.mainCtDiv > span {
+  color: #ffffff;
+}
+
 .DropdownLink:active {
     background-color: #3a3b3a;
     box-shadow: 0 1px #666;

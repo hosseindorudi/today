@@ -17,7 +17,7 @@ import AccessoriesDefine from "./accessoriesDefine/AccessoriesDefine";
 import { admissionAccessoryAccessList, admissionAccessoryCheckFile, admissionAccessoryDelete, admissionAccessoryExport, admissionAccessoryExportId, admissionAccessoryFavorite, admissionAccessoryGetOneRecord, admissionAccessoryImportFile, admissionAccessoryLog, admissionAccessoryRead, admissionAccessoryReadPaging, admissionAccessorySampleFile, admissionAccessorySetUnselectedColumn } from "../../../../services/admissionAccessory";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 const Accessories = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar","SourceType"];
 
 
 

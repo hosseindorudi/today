@@ -17,7 +17,7 @@ import { additionalServiceAccessList, additionalServiceCheckFile, additionalServ
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
 const ExtraServices = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType", "Model_Id"];
+  const filteredColumns = ["IsLimited", "Registrar","SourceType", "Model_Id"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

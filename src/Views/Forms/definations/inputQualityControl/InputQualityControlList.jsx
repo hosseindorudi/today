@@ -23,7 +23,7 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import InputQualityControlForm from './inputQualityControlForm/InputQualityControlForm';
 
 const InputQualityControlList = () => {
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType", "Model_Id"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType", "Model_Id"];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});

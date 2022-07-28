@@ -25,7 +25,7 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 const ComponyList = () => {
 
 
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

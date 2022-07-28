@@ -13,7 +13,6 @@ const QuestionnaireType = () => {
   const childRef = useRef();
   const filteredColumns = [
     "IsLimited",
-    "Id",
     "Registrar",
     "Group_Id",
     "Language_EId",

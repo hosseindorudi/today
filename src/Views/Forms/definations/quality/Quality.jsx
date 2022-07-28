@@ -15,7 +15,6 @@ const Quality = () => {
   const childRef = useRef();
   const filteredColumns = [
     "IsLimited",
-  
     "Registrar",
     "Language_EId",
     "SourceType",

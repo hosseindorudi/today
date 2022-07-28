@@ -14,7 +14,7 @@ import { reasonForCancellationOfWarrantyAccessList, reasonForCancellationOfWarra
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import WarrantyCancelationDefine from "./warrantyCancelationDefine/WarrantyCancelationDefine";
 const WarrantyCancelation = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar","SourceType"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

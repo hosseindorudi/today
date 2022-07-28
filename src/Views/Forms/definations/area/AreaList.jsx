@@ -23,7 +23,7 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import areaForm from './areaForm/AreaForm';
 
 const AreaList = () => {
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType", "Section_Id"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType", "Section_Id"];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});

@@ -23,7 +23,7 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import CityForm from './cityForm/CityForm';
 
 const CityList = () => {
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType", "Province_Id"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType", "Province_Id"];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});

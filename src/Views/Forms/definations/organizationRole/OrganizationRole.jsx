@@ -12,7 +12,6 @@ const OrganizationRole = () => {
   const childRef = useRef();
   const filteredColumns = [
     "IsLimited",
-    "Id",
     "Registrar",
     "Language_EId",
     "SourceType",

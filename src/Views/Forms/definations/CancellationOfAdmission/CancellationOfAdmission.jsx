@@ -25,7 +25,6 @@ import CancellationOfAdmissionDefine from "./cancellationOfAdmission/Cancellatio
 const CancellationOfAdmission = () => {
   const filteredColumns = [
     "IsLimited",
-    "Id",
     "Registrar",
     "SourceType",
     "Province_Id",
