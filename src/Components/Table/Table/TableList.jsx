@@ -1,4 +1,4 @@
-import { Pagination} from "@mui/material";
+import { Pagination } from "@mui/material";
 import React, { useContext, useState } from "react";
 import useButtonAccess from "../../../customHooks/useButtonAccess";
 import { checkTableTH, checkTableValues } from "../../../validation/functions";
@@ -11,7 +11,7 @@ import * as md from "react-icons/md";
 import * as fa from "react-icons/fa";
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-
+import BreadCrumb from "../BreadCrumb/BreadCrumb";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import gregorian from "react-date-object/calendars/gregorian";
@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 import AppContext from "../../../contexts/AppContext";
 
 const TableList = ({
+  BcItems,
   search,
   handleRefresh,
   addFormAccess,
@@ -87,7 +88,7 @@ const TableList = ({
   handleMobile,
   mobileAccess,
   handleAccount,
-  accountAccess 
+  accountAccess,
 }) => {
   const [haveAccess] = useButtonAccess();
   const { t } = useTranslation();
@@ -151,6 +152,7 @@ const TableList = ({
             className="reacttableParentMiddleMiddleSide"
             style={{ display: widthOFScreen < 420 ? "none" : "block" }}
           >
+            <BreadCrumb BcItems={BcItems} />
             {/* <div className="bredCrumbTable">
             <div role="presentation" style={{ direction: "ltr" }}>
               <Breadcrumb>
@@ -164,7 +166,11 @@ const TableList = ({
               className="searchField"
               style={{ height: search ? "100%" : 0 }}
             >
-              <button className="sendForm" style={{ display: search ? "block" : "none" }}  onClick={handleClickSend}>
+              <button
+                className="sendForm"
+                style={{ display: search ? "block" : "none" }}
+                onClick={handleClickSend}
+              >
                 {t("sendGroup")}
               </button>
               <div style={{ display: search ? "block" : "none" }}>
@@ -189,27 +195,24 @@ const TableList = ({
                 }}
               >
                 <DatePicker
-                containerClassName="custom-container"
-                placeholder={t("search.startDate")}
-                onChange={(newValue) => {
-                  setSearchBegin(newValue);
-                  if (searchEnd !== null && newValue > searchEnd) {
-                    toast.error(
-                      t("search.error"),
-                      {
+                  containerClassName="custom-container"
+                  placeholder={t("search.startDate")}
+                  onChange={(newValue) => {
+                    setSearchBegin(newValue);
+                    if (searchEnd !== null && newValue > searchEnd) {
+                      toast.error(t("search.error"), {
                         position: toast.POSITION.BOTTOM_CENTER,
-                      }
-                    );
+                      });
 
-                    setSearchBegin(null);
-                  }
-                }}
-                name="LimitTo"
-                calendar={app.lang === "fa" ? persian : gregorian}
-                locale={app.lang === "fa" ? persian_fa : gregorian_en}
-                calendarPosition="bottom-right"
-                value={searchBegin}
-              />
+                      setSearchBegin(null);
+                    }
+                  }}
+                  name="LimitTo"
+                  calendar={app.lang === "fa" ? persian : gregorian}
+                  locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                  calendarPosition="bottom-right"
+                  value={searchBegin}
+                />
               </div>
               <div
                 style={{
@@ -218,28 +221,25 @@ const TableList = ({
                 }}
               >
                 <DatePicker
-                containerClassName="custom-container"
-                placeholder={t("search.endDate")}
-                onChange={(newValue) => {
-                  setSearchEnd(newValue);
-                  if (searchBegin === null) {
-                    toast.error(t("search.errorChooseStart"));
-                    setSearchEnd(null);
-                  }
-                  if (searchBegin !== null && searchBegin > newValue) {
-                    toast.error(t("search.error"));
-                    setSearchEnd(null);
-                  }
-                 
-                }}
-                name="LimitTo"
-                calendar={app.lang === "fa" ? persian : gregorian}
-                locale={app.lang === "fa" ? persian_fa : gregorian_en}
-                calendarPosition="bottom-right"
-                value={searchEnd}
-              />
-                
-             
+                  containerClassName="custom-container"
+                  placeholder={t("search.endDate")}
+                  onChange={(newValue) => {
+                    setSearchEnd(newValue);
+                    if (searchBegin === null) {
+                      toast.error(t("search.errorChooseStart"));
+                      setSearchEnd(null);
+                    }
+                    if (searchBegin !== null && searchBegin > newValue) {
+                      toast.error(t("search.error"));
+                      setSearchEnd(null);
+                    }
+                  }}
+                  name="LimitTo"
+                  calendar={app.lang === "fa" ? persian : gregorian}
+                  locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                  calendarPosition="bottom-right"
+                  value={searchEnd}
+                />
               </div>
             </div>
           </div>
@@ -280,7 +280,7 @@ const TableList = ({
                             }}
                           >
                             {/* {t(column["Header"])} */}
-                            {checkTableTH(column["Header"],exportAccess)}
+                            {checkTableTH(column["Header"], exportAccess)}
                             <button
                               className="sortingArrowsBTN"
                               onClick={() => handleClickSort(column)}
@@ -301,9 +301,13 @@ const TableList = ({
                   </thead>
                   <tbody>
                     {posts.map((post, index) => (
-                      <tr key={index} style={{
-                        backgroundColor: post["SourceType"] === 0 && "rgb(200, 46, 46)"
-                      }}>
+                      <tr
+                        key={index}
+                        style={{
+                          backgroundColor:
+                            post["SourceType"] === 0 && "rgb(200, 46, 46)",
+                        }}
+                      >
                         <td className="TableMainTd">
                           <TableButtons
                             exportLink={exportId}
@@ -338,11 +342,11 @@ const TableList = ({
                             addOperator={addOperator}
                             addOperatorAccess={addOperatorAccess}
                             handlePhone={handlePhone}
-                            phoneAccess = {phoneAccess}
+                            phoneAccess={phoneAccess}
                             handleMobile={handleMobile}
-                            mobileAccess = {mobileAccess}
+                            mobileAccess={mobileAccess}
                             handleAccount={handleAccount}
-                            accountAccess = {accountAccess}
+                            accountAccess={accountAccess}
                           />
                         </td>
                         {Object.keys(post)
@@ -440,7 +444,6 @@ const TableList = ({
                   </option>
                 ))}
               </select>
-              
             </div>
           </div>
         </div>
