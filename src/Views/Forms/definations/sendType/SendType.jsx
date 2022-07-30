@@ -23,6 +23,7 @@ const SendType = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/SendType/Read")];
 
   const addObject = {
     Component: SendTypeDefine,
@@ -95,6 +96,7 @@ const SendType = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

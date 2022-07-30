@@ -26,6 +26,7 @@ const ImportingImportingCompanyList = () => {
   
 
   const filteredColumns = ["IsLimited", "Registrar","SourceType"];
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/ImportingCompany/Read")];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
@@ -112,6 +113,7 @@ const ImportingImportingCompanyList = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
      
      </>

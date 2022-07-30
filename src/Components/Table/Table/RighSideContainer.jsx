@@ -4,6 +4,7 @@ import useButtonAccess from "../../../customHooks/useButtonAccess";
 import ExportAllButton from "../ExportButton/ExportAllButton";
 import ImportCSV from "../ImportCSVButton/ImportCSV";
 import * as fa from "react-icons/fa";
+import * as bs from "react-icons/bs";
 import useWindowSize from "../../../customHooks/useWindowSize";
 const RighSideContainer = ({
   setSearch,
@@ -38,17 +39,7 @@ const RighSideContainer = ({
 
   return (
     <div className="groupContainerRight" style ={{display : withOfScreen < 420 ? "none" : "flex"}}>
-      <div className="reacttableParentMainRightUp">
-        <span className="reacttableParentMainRightUpInformation">
-          {t("table.information")}
-        </span>
-        <div className="reacttableParentMainRightUpInformationDiv">
-          <div className="customTableInformationData">
-            <span>تعداد کل</span>
-            <span>{totalRecord}</span>
-          </div>
-        </div>
-      </div>
+      
       <div className="reacttableParentMainRightDown">
         <span className="reacttableParentMainRightDownToolBox">
           {t("table.tools")}
@@ -70,7 +61,7 @@ const RighSideContainer = ({
                   "1px solid red"
             }}
           >
-            <fa.FaFunnelDollar/>
+            <bs.BsFunnelFill/>
           </button>
           <div className="reacttableParentMainRightDownToolBoxDivColumnBtn">
             <button
@@ -138,6 +129,17 @@ const RighSideContainer = ({
           >
             <fa.FaQuestionCircle />
           </button>
+        </div>
+      </div>
+      <div className="reacttableParentMainRightUp">
+        <span className="reacttableParentMainRightUpInformation">
+          {t("table.information")}
+        </span>
+        <div className="reacttableParentMainRightUpInformationDiv">
+          <div className="customTableInformationData">
+            <span>تعداد کل</span>
+            <span>{totalRecord}</span>
+          </div>
         </div>
       </div>
     </div>

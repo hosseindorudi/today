@@ -32,6 +32,8 @@ left: unset;
 }
 .sidebarWrapper{
     width: 100%;
+    display: flex;
+    flex-direction: column;
     /* overflow-x: auto; */
 }
 .SidebarLink {
@@ -153,11 +155,18 @@ left: unset;
   }
   .searchSidebar{
       margin-inline: 0.5rem;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
   }
-  .searchSidebar input:first-of-type ,.searchSidebar span:first-of-type{
+  .mainCtDiv input:first-of-type ,.mainCtDiv span:first-of-type{
       background-color: transparent;
       color: white;
       
+  }
+  .input-group {
+    width: 99%;
   }
  
   @media screen and (max-width: 1200px) {

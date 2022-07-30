@@ -41,7 +41,7 @@ const OperatorForm = () => {
     Password: "",
     InternalPhone: "",
     Mobile: "",
-    IsLimited: true,
+    IsLimited: false,
     LimitTo: new Date(),
     LimitFrom: new Date(),
   });
@@ -124,7 +124,7 @@ const OperatorForm = () => {
         Mobile: values.Mobile,
         IsLimited: values.IsLimited,
         LimitFrom: setDatePickerDate(values.LimitFrom),
-        LimitTo: setDatePickerDate(values.LimitTo),
+        LimitTo: setDatePickerDate(values.LimitTo)
       },
     });
   };
@@ -149,7 +149,7 @@ const OperatorForm = () => {
         >
           <b>{t("/Operator/Operator/Create")}</b>
           <div className="Row ">
-            <Form.Group className="mb-3" controlId={"Activated"}>
+            <Form.Group className="mb-3 activationRow" controlId={"Activated"}>
               <Form.Label>{t("Activated")}</Form.Label>
               <Form.Check
                 style={{ textAlign: "center" }}
@@ -168,7 +168,6 @@ const OperatorForm = () => {
                 options={operatorGroupOptions}
                 value={operatorGroup}
                 onchangeHandler={(e) => setOperatorGroup(e)}
-                placeholder={t("/Operator/Group/Read")}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId={"lang"}>
@@ -192,7 +191,6 @@ const OperatorForm = () => {
                 required
                 type="text"
                 value={values.FirstName}
-                placeholder={t("FirstName")}
                 name="FirstName"
                 onChange={onChangeHandler}
               />
@@ -203,7 +201,6 @@ const OperatorForm = () => {
                 required
                 type="text"
                 value={values.LastName}
-                placeholder={t("LastName")}
                 name="LastName"
                 onChange={onChangeHandler}
               />
@@ -216,7 +213,6 @@ const OperatorForm = () => {
                 required
                 type="text"
                 value={values.OperatorName}
-                placeholder={t("OperatorName")}
                 name="OperatorName"
                 onChange={onChangeHandler}
               />
@@ -227,7 +223,6 @@ const OperatorForm = () => {
                 required
                 type="password"
                 value={values.Password}
-                placeholder={t("password")}
                 name="Password"
                 onChange={onChangeHandler}
               />
@@ -239,7 +234,6 @@ const OperatorForm = () => {
               <Form.Control
                 type="number"
                 value={values.InternalPhone}
-                placeholder={t("InternalPhone")}
                 name="InternalPhone"
                 onChange={onChangeHandler}
               />
@@ -249,7 +243,6 @@ const OperatorForm = () => {
               <Form.Control
                 type="number"
                 value={values.Mobile}
-                placeholder={t("Mobile")}
                 name="Mobile"
                 onChange={onChangeHandler}
               />

@@ -29,7 +29,7 @@ const CityList = () => {
     "SourceType",
     "Province_Id",
   ];
-  const BcItems = ["تعاریف پایه", "جدول شهر"];
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/City/Read")];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
 

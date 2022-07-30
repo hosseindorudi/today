@@ -24,6 +24,7 @@ import InputQualityControlForm from './inputQualityControlForm/InputQualityContr
 
 const InputQualityControlList = () => {
     const filteredColumns = ["IsLimited", "Registrar","SourceType", "Model_Id"];
+    const BcItems = [t("routes.basicDefinations"), t("/Definition/InputQualityControl/Read")];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});
@@ -109,6 +110,7 @@ const InputQualityControlList = () => {
        setMobileModalButtons={setMobileModalButtons}
        setMobileModalColumns={setMobileModalColumns}
        mobileModalColumns={mobileModalColumns}
+       BcItems={BcItems}
      />
     
     </>

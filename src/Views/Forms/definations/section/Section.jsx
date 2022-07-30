@@ -24,6 +24,7 @@ const Section = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/Section/Read")];
 
   const addObject = {
     Component: SectionDefine,
@@ -96,6 +97,7 @@ const Section = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

@@ -18,6 +18,7 @@ const WarrantyCancelation = () => {
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/warrantyCancelation/Read")];
 
 
   const childRef = useRef();
@@ -99,6 +100,7 @@ return (
      setMobileModalButtons={setMobileModalButtons}
      setMobileModalColumns={setMobileModalColumns}
      mobileModalColumns={mobileModalColumns}
+     BcItems={BcItems}
    />
   
   </>

@@ -4,6 +4,7 @@ import useAxios from "../../../../customHooks/useAxios";
 import useRequest from "../../../../customHooks/useRequest";
 import { groupGetPermission } from "../../../../services/groupService";
 import BackDrop from "../../../backDrop/BackDrop";
+import {t} from 'i18next'
 const SelectedGroup = (props) => {
   const groups = props.groups;
   const [response,loading, fetchData] = useAxios();
@@ -100,8 +101,8 @@ const SelectedGroup = (props) => {
               <Row className="mb-3 border-bottom border-lightgray d-flex justify-content-between" key={group.Id}>
                 <Col>{group.Value}</Col>
                 <Col className="d-flex justify-content-end mb-2">
-                    <Button className="m-1" variant="outline-warning" size="sm" onClick={() => addNewPermission(group.Id)}>اضافه کردن</Button>
-                    <Button className="m-1" variant="outline-info" size="sm" onClick={() => copyPermission(group.Id)}>جایگزینی</Button>
+                    <Button className="m-1" variant="outline-warning" size="sm" onClick={() => addNewPermission(group.Id)}>{t("Add")}</Button>
+                    <Button className="m-1" variant="outline-info" size="sm" onClick={() => copyPermission(group.Id)}>{t("Replacement")}</Button>
                 </Col>
               </Row>
             ))}

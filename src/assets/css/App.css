@@ -38,6 +38,15 @@ button:disabled{
 .Row .mb-3{
   width: 100%;
 }
+
+.activationRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-switch {
+  margin: 0 10px;
+}
 .periorityFormDefine{
   display: flex;
 justify-content: center;

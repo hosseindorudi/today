@@ -233,7 +233,7 @@ const CustomerForm = () => {
         <form className="periorityForm" onSubmit={handleSubmitForm}>
           <b>{t("customerTitle")}</b>
           <div class="Row">
-            <Form.Group className="mb-3" controlId={"switch"}>
+            <Form.Group className="mb-3 activationRow" controlId={"switch"}>
               <Form.Check
                 type="switch"
                 id="custom-switch"

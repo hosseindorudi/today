@@ -57,14 +57,16 @@ const Sidebar = () => {
                 <img src={logo} alt="ctelecomlogo" />
               </a>
             </div>
-            <span>{localStorage.getItem("FirstName") + " " + localStorage.getItem("LastName")}</span>
+            <span>{localStorage.getItem("Domain")}</span>
+            <hr className="hrSideNavbar" />
+            <Search handleChange={handleChangeSearchValue} />
+          
 
           </div>
-          <hr className="hrSideNavbar" />
 
           <div className="searchSidebar">
-            <Search handleChange={handleChangeSearchValue} />
-          </div>
+            
+          
           {search.length > 0
             ? foundMenues.map((item, index) => {
                 return <SubMenu item={item} key={index} search={search} />;
@@ -72,6 +74,7 @@ const Sidebar = () => {
             : Routes.map((item, index) => {
                 return <SubMenu item={item} key={index} search={search} />;
               })}
+              </div>
         </div>
       </nav>
     </>

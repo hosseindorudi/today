@@ -24,6 +24,7 @@ import ColorForm from "./colorForm/ColorForm";
 
 const ColorList = () => {
   const filteredColumns = ["IsLimited", "Registrar", "SourceType"];
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/Color/Read")];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
@@ -106,6 +107,7 @@ const ColorList = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems = {BcItems}
       />
     </>
   );

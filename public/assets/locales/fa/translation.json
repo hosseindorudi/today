@@ -831,7 +831,7 @@
   "Registered":"ثبت شده ها",
   "Admission":"پذیرش",
   "Assign To Technician":"اختضاض به تکسین",
-  "Replacement":"جایگذینی",
+  "Replacement":"جایگزینی",
   "Take Back":"عودت",
   "Delivery InPerson":"تحویل حضوری",
   "Delivery":"ارسال",
@@ -890,5 +890,8 @@
   "preview":"پیشنمایش",
   "importHeaders":"ستون ها",
   "removedColumns":"ستون های حذف شده",
-  "auth.companyCod":"کدشرکت/نمایندگی"
+  "auth.companyCod":"کدشرکت/نمایندگی",
+  "safeModeSwalText":"در این مد تغییرات شما موقتی بوده و پس از خروج از این مد داده های شما حذف خواهد شد آیا میخواهید ادامه دهید؟",
+  "safeModeSwalTitle": "تاییدیه Safe mode",
+  "Id":"شماره"
 }

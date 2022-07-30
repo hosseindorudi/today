@@ -23,6 +23,7 @@ const StatusDeviceProgress = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/StatusDeviceProgress/Read")];
 
   const addObject = {
     Component: StatusDeviceProgressDefine,
@@ -95,6 +96,7 @@ const StatusDeviceProgress = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

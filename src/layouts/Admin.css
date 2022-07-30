@@ -36,15 +36,10 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 50px;
+  width: 47px;
   height: 20px;
 }
 
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
 
 .slider {
   position: absolute;

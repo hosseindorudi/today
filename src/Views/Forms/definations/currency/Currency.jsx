@@ -12,6 +12,7 @@ const Currency = () => {
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/Currency/Read")];
 
   const childRef = useRef();
 
@@ -91,6 +92,7 @@ const Currency = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

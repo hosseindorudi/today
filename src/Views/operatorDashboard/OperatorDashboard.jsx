@@ -116,12 +116,12 @@ const OperatorDashboard = () => {
     }
   };
 
-  useEffect(() => {
-    if (isNote) {
-      noteSwal(notes, 0);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isNote]);
+  // useEffect(() => {
+  //   if (isNote) {
+  //     noteSwal(notes, 0);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isNote]);
 
   const handleResponse = useCallback(
     (response, type) => {
@@ -250,17 +250,17 @@ const OperatorDashboard = () => {
     });
   };
 
-  useEffect(() => {
-      getDashboardData();
+  // useEffect(() => {
+  //     getDashboardData();
 
-    return () => abortController.abort();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   return () => abortController.abort();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-  useEffect(() => {
-    response && handleResponse(response, requestType);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response, requestType]);
+  // useEffect(() => {
+  //   response && handleResponse(response, requestType);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [response, requestType]);
 
   return (
     <>
@@ -275,7 +275,7 @@ const OperatorDashboard = () => {
       {isOpen && (
         <Modal setIsOpen={setIsOpen} getDashboardData={getDashboardData} />
       )}
-      <div className="mainOperatorDash">
+      {/* <div className="mainOperatorDash">
         <div className="Row">
           <div className="operatorDashboardInformation">
             <div className="dashInformationDiv">
@@ -520,7 +520,7 @@ const OperatorDashboard = () => {
             </Table>
           </>
         )}
-      </div>
+      </div> */}
     </>
   );
 };

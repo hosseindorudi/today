@@ -106,7 +106,7 @@ const OperatorGroupForm = () => {
         >
           <b>{t("/Operator/Group/Create")}</b>
           <div className="Row ">
-            <Form.Group className="mb-3" controlId={"switch"}>
+            <Form.Group className="mb-3 activationRow" controlId={"switch"}>
               <Form.Label>{t("IsActive")}</Form.Label>
               <Form.Check
                 style={{ textAlign: "center" }}
@@ -124,7 +124,6 @@ const OperatorGroupForm = () => {
                 required
                 type="text"
                 value={values.Title}
-                placeholder={t("title")}
                 name="Title"
                 onChange={onChangeHandler}
               />
@@ -138,7 +137,6 @@ const OperatorGroupForm = () => {
                 style={{ textAlign: "center" }}
                 type="number"
                 value={values.MaxSession}
-                placeholder={t("MaxSession")}
                 name="MaxSession"
                 min={1}
                 max={1000}
@@ -154,7 +152,6 @@ const OperatorGroupForm = () => {
                 rows={2}
                 type="text"
                 value={values.Description}
-                placeholder={t("Description")}
                 name="Description"
                 onChange={onChangeHandler}
               />

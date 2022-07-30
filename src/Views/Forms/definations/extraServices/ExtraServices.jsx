@@ -18,6 +18,7 @@ import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
 const ExtraServices = () => {
   const filteredColumns = ["IsLimited", "Registrar","SourceType", "Model_Id"];
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/AdditionalService/Read")];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
@@ -115,6 +116,7 @@ const ExtraServices = () => {
         mobileModalColumns={mobileModalColumns}
         rateAccess={enums.Definition_AdditionalService_Read_r}
         handleCreateRate={handleCreateRate}
+        BcItems={BcItems}
       />
    
     </>

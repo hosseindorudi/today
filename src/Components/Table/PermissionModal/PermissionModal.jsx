@@ -137,7 +137,7 @@ const PermissionModal = (props) => {
                 onChange={handleFilter}
                 value={filterValue}
               />
-              <Button variant="outline-primary" size="sm" onClick={getPermissionGroup}>دسترسی</Button>
+              <Button variant="outline-primary" size="sm" onClick={getPermissionGroup}>{t("Permission")}</Button>
 
             </Form.Group>
           </div>

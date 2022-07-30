@@ -114,14 +114,15 @@ const TableList = ({
           style={{ height: search ? "15%" : "10%" }}
         >
           <div className="reacttableParentPlusButton">
-            <button className="groupListRefresh" onClick={handleRefresh}>
-              <fi.FiRefreshCcw />
-            </button>
+            
             {haveAccess(addFormAccess) && (
               <button className="plusBUTTON" onClick={handleAdd}>
                 <md.MdPostAdd />
               </button>
             )}
+            <button className="groupListRefresh" onClick={handleRefresh}>
+              <fi.FiRefreshCcw />
+            </button>
 
             {widthOFScreen < 420 && (
               <>
@@ -153,15 +154,6 @@ const TableList = ({
             style={{ display: widthOFScreen < 420 ? "none" : "block" }}
           >
             <BreadCrumb BcItems={BcItems} />
-            {/* <div className="bredCrumbTable">
-            <div role="presentation" style={{ direction: "ltr" }}>
-              <Breadcrumb>
-                <Breadcrumb.Item href="#">خانه</Breadcrumb.Item>
-                <Breadcrumb.Item active>فرم</Breadcrumb.Item>
-                <Breadcrumb.Item active>جدول</Breadcrumb.Item>
-              </Breadcrumb>
-            </div>
-          </div> */}
             <div
               className="searchField"
               style={{ height: search ? "100%" : 0 }}
@@ -305,7 +297,7 @@ const TableList = ({
                         key={index}
                         style={{
                           backgroundColor:
-                            post["SourceType"] === 0 && "rgb(200, 46, 46)",
+                            post["SafeMode"] && "pink",
                         }}
                       >
                         <td className="TableMainTd">
