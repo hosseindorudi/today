@@ -1,5 +1,6 @@
+import { IconButton } from "@mui/material";
 import React, { useCallback } from "react";
-import {Form} from 'react-bootstrap'
+import ClearIcon from '@mui/icons-material/Clear';
 const styles = {
   parent: {
     width: "fit-content",
@@ -7,33 +8,33 @@ const styles = {
     border: "1px dashed gray",
   },
   item: {
-    padding: "0.2rem 0.5rem",
-    marginBottom: ".2rem",
-    backgroundColor: "aqua",
-    cursor: "pointer",
-    border: "50% solid",
-    width: "auto",
+    display:"flex",
+  flexDirection:"Row",
+  alignItems:"center",
+  justifyContent:"space-between",
+  // padding: '0.2rem 0.5rem',
+  marginBottom: '.2rem',
+  backgroundColor: 'aqua',
+  cursor: 'pointer',
+  border:"50% solid",
+  width:"auto"
   },
 };
 const RemovedColumns = ({ removed,setColumns,setHeaders,setRemoved }) => {
+  const handleClick=(accessor,card)=>{
+      
+    setColumns(oldArray => [...oldArray, card])
+    setHeaders(oldArray => [...oldArray, card])
+    setRemoved(removed=>removed.filter(header=>header.accessor!==accessor));
+    return
+  }
   const renderCard = useCallback((card, index) => {
-    const handleCheckBox=(checked,accessor,card)=>{
-      if(checked)
-      setColumns(oldArray => [...oldArray, card])
-      setHeaders(oldArray => [...oldArray, card])
-      setRemoved(removed=>removed.filter(header=>header.accessor!==accessor));
-      return
-    }
+  
     return (
-      <div style={styles.item}>
-        {
-          <Form.Check
-            type="checkbox"
-            label={card.Header}
-            defaultChecked={false}
-            onChange={(e) => handleCheckBox(e.target.checked, card.accessor, card)}
-          />
-        }
+      <div style={styles.item} key={index}>
+         <b>{card.Header}</b>  <IconButton color="primary" size='small' aria-label="close" component="span" onClick={()=>handleClick(card.accessor,card)}>
+          <ClearIcon fontSize="inherit"/>
+        </IconButton>
       </div>
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps

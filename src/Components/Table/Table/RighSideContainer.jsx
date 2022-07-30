@@ -32,6 +32,7 @@ const RighSideContainer = ({
   handleClickFav,
   handleClickHelp,
   totalRecord,
+  columnInfo,
 }) => {
   const [haveAccess] = useButtonAccess();
   const {t}=useTranslation()
@@ -91,6 +92,7 @@ const RighSideContainer = ({
               sampleUrl={sampleUrl}
               fileCheckURL={fileCheckURL}
               importURL={importURL}
+              columnInfo={columnInfo}
             
             />
           )}

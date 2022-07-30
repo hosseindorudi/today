@@ -28,8 +28,7 @@ export const HeaderDND = ({headers,columns, setColumns,setHeaders,setRemoved}) =
       )
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    const handleCheckBox=useCallback((checked,accessor,card)=>{
-        if(!checked)
+    const handleClick=useCallback((accessor,card)=>{
         setColumns(columns=>columns.filter(column=>column.accessor!==accessor))
         setHeaders(headers=>headers.filter(header=>header.accessor!==accessor))
         setRemoved(oldArray => [...oldArray, card]);
@@ -45,7 +44,7 @@ export const HeaderDND = ({headers,columns, setColumns,setHeaders,setRemoved}) =
           text={card.Header}
           accessor={card.accessor}
           moveCard={moveCard}
-          handleCheckBox={handleCheckBox}
+          handleClick={handleClick}
           card={card}
         />
       )
