@@ -50,7 +50,7 @@ export const defintionInputs = (values, typeTitle, errorMSG) => {
       label: typeTitle ? typeTitle : t("title"),
       placeholder: typeTitle ? typeTitle : t("title"),
       errorMessage: errorMSG ? errorMSG : t("title.errorMessage"),
-      pattern: "^[\u0600-\u06FF,A-Za-z0-9,+, ]{2,255}",
+      pattern: "^[\u0600-\u06FF,A-Za-z0-9,+, ,_,-]{2,255}",
       required: true,
       value: values.title,
     },
@@ -138,7 +138,7 @@ export const findGeoLocation=(value)=>{
 export const checkTableValues = (type, value, post, exportAccess) => {
   switch (type) {
     case "DateSet":
-      return convertUTC(value);
+      return dateOfLogTable(value);
     case "IsActive":
     case "Activated":
     case "IsPerishable":
@@ -210,7 +210,8 @@ export const handleError = (message) => {
 export const dateOfLogTable = (date) => {
   let a = date.split("T");
   a[0] = convertUTC(a[0]);
-  return a.join("\n");
+  a[1] = a[1].split(".")[0]
+  return a.reverse().join(" ");
 };
 
 export const checkQuestionEId = (EID, value) => {

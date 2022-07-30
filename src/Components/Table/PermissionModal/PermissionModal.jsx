@@ -7,6 +7,7 @@ import { groupTitle } from "../../../services/operatorService";
 import useAxios from "../../../customHooks/useAxios";
 import BackDrop from "../../backDrop/BackDrop";
 import useRequest from "../../../customHooks/useRequest";
+import * as fa from 'react-icons/fa'
 const PermissionModal = (props) => {
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
@@ -126,7 +127,7 @@ const PermissionModal = (props) => {
       className="modalPermission"
     >
       <Modal.Header closeButton></Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="modalTopPad">
         <div className="filterCheckboxes">
           <div>
             <Form.Group className="mb-3 Row" controlId="exampleForm.ControlInput1">
@@ -136,7 +137,7 @@ const PermissionModal = (props) => {
                 onChange={handleFilter}
                 value={filterValue}
               />
-              <Button variant="outline-primary" size="sm" onClick={getPermissionGroup}>دسترسی</Button>
+              <Button variant="outline-primary" size="sm" onClick={getPermissionGroup}>{t("Permission")}</Button>
 
             </Form.Group>
           </div>
@@ -157,8 +158,8 @@ const PermissionModal = (props) => {
           </div>
         </div>
         <Table className="tablePermission">
-          <thead>
-            <tr>
+          <thead className="permissionTableRow">
+            <tr >
               {Object.keys(permissions.length > 0 && permissions[0])
                 .filter((f) => f !== "CodePage")
                 .map((k) => (
@@ -181,12 +182,12 @@ const PermissionModal = (props) => {
                         onChange={(e) => handleCheck(a["CodePage"], e)}
                       />
                     ) : key === "IsReadOnly" ? (
-                      <Form.Check
-                        type="switch"
-                        id="custom-switch"
-                        defaultChecked={a[key]}
-                        disabled
-                      />
+                      a[key] ? 
+                       <fa.FaReadme style={{color:"green"}}/>
+                       :
+                       <fa.FaFileSignature style={{color:"red"}}/>
+                      
+
                     ) : (
                       <>{t(a[key])}</>
                     )}

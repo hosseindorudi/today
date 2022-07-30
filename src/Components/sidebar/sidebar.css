@@ -32,6 +32,8 @@ left: unset;
 }
 .sidebarWrapper{
     width: 100%;
+    display: flex;
+    flex-direction: column;
     /* overflow-x: auto; */
 }
 .SidebarLink {
@@ -114,15 +116,34 @@ left: unset;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: blue;
   /* height: 100px; */
   
 }
-.logo >img{
+.logo > a >img{
   border-radius: 10px;
-  
   /* width: 150px; */
   height: 90px;
 }
+
+.mainCtDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: blue;
+}
+
+.mainCtDiv > span {
+  color: #ffffff;
+}
+
 .DropdownLink:active {
     background-color: #3a3b3a;
     box-shadow: 0 1px #666;
@@ -134,11 +155,18 @@ left: unset;
   }
   .searchSidebar{
       margin-inline: 0.5rem;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
   }
-  .searchSidebar input:first-of-type ,.searchSidebar span:first-of-type{
+  .mainCtDiv input:first-of-type ,.mainCtDiv span:first-of-type{
       background-color: transparent;
       color: white;
       
+  }
+  .input-group {
+    width: 99%;
   }
  
   @media screen and (max-width: 1200px) {

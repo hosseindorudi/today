@@ -15,7 +15,7 @@ import {
   defintionInputs,
   handleError,
 } from "../../../../../validation/functions";
-import ResultCodeEnum from "../../../../../data/ResultCodeEnum";
+import {ResultCodeEnum} from "../../../../../data/ResultCodeEnum";
 import { areaCreate } from "../../../../../services/areaService";
 import AreaList from "../AreaList";
 const AreaForm = () => {

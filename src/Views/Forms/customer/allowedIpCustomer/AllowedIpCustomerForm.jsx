@@ -103,7 +103,7 @@ const AllowedIpCustomerForm = () => {
       >
         <b>{t("/Customer/AllowedIp/write")}</b>
         <div className="Row ">
-          <Form.Group className="mb-3" controlId={"switch"}>
+          <Form.Group className="mb-3 activationRow" controlId={"switch"}>
             <Form.Label>{t("IsActive")}</Form.Label>
             <Form.Check
               style={{ textAlign: "center" }}
@@ -121,7 +121,6 @@ const AllowedIpCustomerForm = () => {
               required
               type="text"
               value={values.Title}
-              placeholder={t("title")}
               name="Title"
               onChange={onChangeHandler}
             />
@@ -136,7 +135,6 @@ const AllowedIpCustomerForm = () => {
               maxLength={15}
               type="text"
               value={values.IP_From}
-              placeholder={t("IP_From")}
               name="IP_From"
               onChange={onChangeHandler}
             />
@@ -151,7 +149,6 @@ const AllowedIpCustomerForm = () => {
               maxLength={15}
               type="text"
               value={values.IP_To}
-              placeholder={t("IP_To")}
               name="IP_To"
               onChange={onChangeHandler}
             />
@@ -165,7 +162,6 @@ const AllowedIpCustomerForm = () => {
               rows={2}
               type="text"
               value={values.Description}
-              placeholder={t("Description")}
               name="Description"
               onChange={onChangeHandler}
             />

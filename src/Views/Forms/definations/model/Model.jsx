@@ -12,7 +12,6 @@ const Model = () => {
   const childRef = useRef();
   const filteredColumns = [
     "IsLimited",
-    "Id",
     "Registrar",
     "Language_EId",
     "SourceType",
@@ -20,6 +19,8 @@ const Model = () => {
     "Country_Id",
     "Color_Id"
   ];
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/Model/Read")];
+
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
   const [mobileModal, setMobileModal] = useState(false)
@@ -105,6 +106,7 @@ const Model = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

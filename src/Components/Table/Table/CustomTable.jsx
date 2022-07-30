@@ -52,6 +52,7 @@ const CustomTable = forwardRef((props, ref) => {
   const [checkAllC, setCheckAllC] = useState(true);
   const [productsColumns, setproductsColumns] = useState([]);
   const abortController = new AbortController();
+  const [totalRecord, setTotalRecord] = useState()
 
   const getTable = () => {
     fetchData({
@@ -192,6 +193,7 @@ const CustomTable = forwardRef((props, ref) => {
   const setData = (response) => {
     const res = response.Record;
     const paging = response.Paging;
+    setTotalRecord(paging.TotalRecord)
     setIsFavorite(response.IsFavorite);
     setUnSelected(response.UnselectedColumn);
     setPosts(res);
@@ -553,7 +555,7 @@ const CustomTable = forwardRef((props, ref) => {
           handleClickAccessList={handleClickAccessList}
           IsFavorite={IsFavorite}
           handleClickFav={handleClickFav}
-          
+          totalRecord={totalRecord}
         />
         <div className="groupContainerLeft">
           <TableList

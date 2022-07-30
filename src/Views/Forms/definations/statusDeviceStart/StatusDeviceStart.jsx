@@ -13,7 +13,6 @@ const StatusDeviceStart = () => {
   const childRef = useRef();
   const filteredColumns = [
     "IsLimited",
-    "Id",
     "Registrar",
     "Language_EId",
     "SourceType",
@@ -24,6 +23,7 @@ const StatusDeviceStart = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/StatusDeviceStart/Read")];
 
   const addObject = {
     Component: StatusDeviceStartDefine,
@@ -96,6 +96,7 @@ const StatusDeviceStart = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

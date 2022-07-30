@@ -93,19 +93,19 @@ const ProfileInfo = () => {
       <div className="logOut" ref={ref} onClick={click}>
         <div className="logOutReletive">
           <>
-            <fa.FaArrowAltCircleDown />
+            <fa.FaUserCircle  className="profile_Image_"/>
           </>
           <div
             className="dropdown-content"
             style={{ display: open ? "flex" : "none" }}
           >
             <div onClick={() => handleClickProfile()}>
-              <fa.FaUserAlt style={{ color: "black" }} />
+              <fa.FaUserEdit style={{ color: "black" }} />
               <button className="dropDownLink">{t("profile")}</button>
             </div>
 
             <div onClick={() => setChangePassIsOpen(true)}>
-              <fa.FaUserLock style={{ color: "black" }} />
+              <fa.FaKey style={{ color: "black" }} />
               <button className="dropDownLink">
                 {t("btn.chnagePassword")}
               </button>

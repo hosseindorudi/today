@@ -10,7 +10,7 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import { warrantyTypeAccessList, warrantyTypeCheckFile, warrantyTypeDelete, warrantyTypeExport, warrantyTypeExportId, warrantyTypeFavorite, warrantyTypeGetOneRecord, warrantyTypeImportFile, warrantyTypeLog, warrantyTypeRead, warrantyTypeReadPaging, warrantyTypeSampleFile, warrantyTypeSetUnselectedColumn } from "../../../../services/warrantyType";
 import WarrantyTypeDefine from './warrantyTypeDefine/WarrantyTypeDefine';
 const WarrantyType = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar","SourceType"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
@@ -22,6 +22,7 @@ const WarrantyType = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/WarrantyType/Read")];
 
   const addObject = {
     Component: WarrantyTypeDefine,
@@ -95,6 +96,7 @@ return (
      setMobileModalButtons={setMobileModalButtons}
      setMobileModalColumns={setMobileModalColumns}
      mobileModalColumns={mobileModalColumns}
+     BcItems={BcItems}
    />
   
   </>

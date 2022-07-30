@@ -5,10 +5,10 @@ function Search(props) {
  
   return (
     <>
-    <InputGroup className="mb-3">
+    <InputGroup className="mb-3" style={{ marginInlineEnd:1.5}}>
     <InputGroup.Text id="basic-addon1"><BsSearch/></InputGroup.Text>
     <FormControl
-      
+      style={{backgroundColor:"white", color:"black"}}
       aria-label="search"
       aria-describedby="basic-addon1"
      

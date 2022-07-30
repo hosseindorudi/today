@@ -24,6 +24,7 @@ import DeviceForm from './deviceForm/DeviceForm';
 
 const DeviceList = () => {
     const filteredColumns = ["IsLimited", "Registrar","SourceType", "Company_Id"];
+    const BcItems = [t("routes.basicDefinations"), t("/Definition/Device/Read")];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});
@@ -109,6 +110,7 @@ const DeviceList = () => {
        setMobileModalButtons={setMobileModalButtons}
        setMobileModalColumns={setMobileModalColumns}
        mobileModalColumns={mobileModalColumns}
+       BcItems={BcItems}
      />
     
     </>

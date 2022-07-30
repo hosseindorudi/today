@@ -25,6 +25,7 @@ import CountryForm from './countryForm/CountryForm';
 const Countrylist = () => {
 
     const filteredColumns = ["IsLimited",  "Registrar","SourceType"];
+    const BcItems = [t("routes.basicDefinations"), t("/Definition/Country/Read")];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});
@@ -109,6 +110,7 @@ const Countrylist = () => {
        setMobileModalButtons={setMobileModalButtons}
        setMobileModalColumns={setMobileModalColumns}
        mobileModalColumns={mobileModalColumns}
+       BcItems={BcItems}
      />
     
     </>

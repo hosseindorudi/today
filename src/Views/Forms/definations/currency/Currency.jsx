@@ -8,10 +8,11 @@ import useWindowSize from "../../../../customHooks/useWindowSize";
 import CurrencyDefine from "./currencyDefine/CurrencyDefine";
 import { currencyAccessList, currencyCheckFile, currencyDelete, currencyExport, currencyExportId, currencyFavorite, currencyGetOneRecord, currencyImport, currencyLog, currencyRead, currencyReadPaging, currencySampleFile, currencySetColumn } from "../../../../services/currencyService";
 const Currency = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar", "SourceType"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/Currency/Read")];
 
   const childRef = useRef();
 
@@ -91,6 +92,7 @@ const Currency = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

@@ -15,13 +15,12 @@ const Parts = () => {
   const childRef = useRef();
   const filteredColumns = [
     "IsLimited",
-    
     "Registrar",
     "Language_EId",
     "SourceType",
     "PartGroup_Id",
     "Quality_Id",
-    
+    "Color_Id"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
@@ -29,6 +28,7 @@ const Parts = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/Part/Read")];
 
   const addObject = {
     Component: PartsDefine,
@@ -102,6 +102,7 @@ const Parts = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

@@ -23,7 +23,8 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import VehicleTypeForm from './vehicleTypeForm/VehicleTypeForm';
 
 const VehicleTypeList = () => {
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType"];
+    const BcItems = [t("routes.basicDefinations"), t("/Definition/VehicleType/Read")];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});
@@ -108,6 +109,7 @@ const VehicleTypeList = () => {
        setMobileModalButtons={setMobileModalButtons}
        setMobileModalColumns={setMobileModalColumns}
        mobileModalColumns={mobileModalColumns}
+       BcItems={BcItems}
      />
     
     </>

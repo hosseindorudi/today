@@ -25,11 +25,11 @@ import CancellationOfAdmissionDefine from "./cancellationOfAdmission/Cancellatio
 const CancellationOfAdmission = () => {
   const filteredColumns = [
     "IsLimited",
-    "Id",
     "Registrar",
     "SourceType",
     "Province_Id",
   ];
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/CancellationOfAdmission/Read")];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValues, setRowValues] = useState({});
@@ -113,6 +113,7 @@ const CancellationOfAdmission = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Footer from "../Components/Footer/footer";
 import Home from "../Components/navbar/home";
 import Language from "../Components/navbar/language";
@@ -16,6 +16,7 @@ import BackDrop from "../Components/backDrop/BackDrop";
 import AppContext from "../contexts/AppContext";
 import ProfileInfo from "../Components/navbar/profileInfo";
 import SafeModeChanger from "../Components/navbar/SafeModeChanger";
+import DndImport from "../Components/Table/DndImport/DndImport";
 
 function Admin() {
   const FirstName = localStorage.getItem("FirstName");
@@ -24,6 +25,7 @@ function Admin() {
     FirstName && LastName ? FirstName + " " + LastName : "";
   const { app,setApp } = useContext(AppContext);
   const [response, loading, fetchData] = useAxios();
+  const [modalOpen, setModalOpen] = useState(false)
   const request = useRequest();
   const windowSize = useWindowSize();
   // const [verifyToken]=useAuth()
@@ -73,6 +75,12 @@ function Admin() {
   return (
     <div className="mainparent">
       {loading && <BackDrop open={true} />}
+      {
+        modalOpen && <DndImport 
+          onHide={() => setModalOpen(false)}
+          tableModalShow={modalOpen}
+        />
+      }
       <div className="header">
         <div className="hederLeft">
           <span className="profileName">
@@ -84,7 +92,8 @@ function Admin() {
         </div>
         <div className="headerMid"></div>
         <div className="headerRight">
-        <SafeModeChanger/>
+        <SafeModeChanger handleLogOut={handleLogOut}/>
+        <button onClick={()=>setModalOpen(true)}>1</button>
 
           <Language />
           <Home />

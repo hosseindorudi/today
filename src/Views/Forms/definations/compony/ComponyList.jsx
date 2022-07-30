@@ -25,7 +25,8 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 const ComponyList = () => {
 
 
-    const filteredColumns = ["IsLimited", "Id", "Registrar","SourceType"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType"];
+    const BcItems = [t("routes.basicDefinations"), t("/Definition/Company/Read")];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
@@ -112,6 +113,7 @@ const ComponyList = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
      
      </>

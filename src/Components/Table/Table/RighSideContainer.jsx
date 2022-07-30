@@ -4,6 +4,7 @@ import useButtonAccess from "../../../customHooks/useButtonAccess";
 import ExportAllButton from "../ExportButton/ExportAllButton";
 import ImportCSV from "../ImportCSVButton/ImportCSV";
 import * as fa from "react-icons/fa";
+import * as bs from "react-icons/bs";
 import useWindowSize from "../../../customHooks/useWindowSize";
 const RighSideContainer = ({
   setSearch,
@@ -30,8 +31,8 @@ const RighSideContainer = ({
   IsFavorite,
   handleClickFav,
   handleClickHelp,
-  columnInfo
-
+  totalRecord,
+  columnInfo,
 }) => {
   const [haveAccess] = useButtonAccess();
   const {t}=useTranslation()
@@ -39,38 +40,39 @@ const RighSideContainer = ({
 
   return (
     <div className="groupContainerRight" style ={{display : withOfScreen < 420 ? "none" : "flex"}}>
-      <div className="reacttableParentMainRightUp">
-        <span className="reacttableParentMainRightUpInformation">
-          {t("table.information")}
-        </span>
-        <div className="reacttableParentMainRightUpInformationDiv"></div>
-      </div>
+      
       <div className="reacttableParentMainRightDown">
         <span className="reacttableParentMainRightDownToolBox">
           {t("table.tools")}
         </span>
         <div className="reacttableParentMainRightDownToolBoxDiv">
-          <div
+          <button
+          className="reactTableParentSearchButton"
             onClick={() => {
               setSearch((prev) => !prev);
             }}
             style={{
               color:
-                !search && searchBegin !== null && searchEnd !== null
+                (!search && searchBegin !== null && searchEnd !== null)
                   ? "red"
                   : "lightgray",
+                  border:
+                (!search && searchBegin !== null && searchEnd !== null)
+                  &&
+                  "1px solid red"
             }}
           >
-            <i className="fa fa-search searchDater" aria-hidden="true"></i>
-          </div>
+            <bs.BsFunnelFill/>
+          </button>
           <div className="reacttableParentMainRightDownToolBoxDivColumnBtn">
             <button
-              className={columnSideBar ? "hold" : "columnBtnTableToggle"}
+              className="reactTableParentColumnButton"
+
               onClick={() => {
                 setColumnSideBar(!columnSideBar);
               }}
             >
-              {t("table.groups")}
+              <fa.FaColumns />
             </button>
           </div>
           {haveAccess(exportAccess) && (
@@ -129,6 +131,17 @@ const RighSideContainer = ({
           >
             <fa.FaQuestionCircle />
           </button>
+        </div>
+      </div>
+      <div className="reacttableParentMainRightUp">
+        <span className="reacttableParentMainRightUpInformation">
+          {t("table.information")}
+        </span>
+        <div className="reacttableParentMainRightUpInformationDiv">
+          <div className="customTableInformationData">
+            <span>تعداد کل</span>
+            <span>{totalRecord}</span>
+          </div>
         </div>
       </div>
     </div>

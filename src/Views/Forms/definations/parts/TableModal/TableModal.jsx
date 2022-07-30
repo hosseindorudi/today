@@ -109,13 +109,14 @@ const TableModal = (props) => {
       .all([partGroupTitles, qualityTitles, colorTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
+          console.log(allData[0].data.Title)
+          allData[0].data?.Result === 0 
             ? setPartGroupOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
-          allData[1].data?.Result
+          allData[1].data?.Result === 0
             ? setQualityOptions(createSelectOptions(allData[1].data.Title))
             : handleError(allData[1].data.Message);
-          allData[2].data?.Result
+          allData[2].data?.Result === 0
             ? setColorOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
         })
@@ -196,7 +197,7 @@ const TableModal = (props) => {
         onSubmit={handleSubmit}
       >
         <Modal.Body>
-          {defintionInputs(values).map((input) => (
+          {defintionInputs(values,t("Part")).map((input) => (
             <FormInput key={input.id} {...input} onChange={onChangeHandler} />
           ))}
           <div className="Row">

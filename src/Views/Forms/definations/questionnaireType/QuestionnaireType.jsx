@@ -13,7 +13,6 @@ const QuestionnaireType = () => {
   const childRef = useRef();
   const filteredColumns = [
     "IsLimited",
-    "Id",
     "Registrar",
     "Group_Id",
     "Language_EId",
@@ -25,6 +24,7 @@ const QuestionnaireType = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/QuestionnaireType/Read")];
 
   const addObject = {
     Component: QuestionnaireTypeDefine,
@@ -97,6 +97,7 @@ const QuestionnaireType = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

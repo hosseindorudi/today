@@ -16,7 +16,6 @@ const Province = () => {
   const childRef = useRef();
   const filteredColumns = [
     "IsLimited",
-    "Id",
     "Registrar",
     "Language_EId",
     "SourceType",
@@ -28,6 +27,7 @@ const Province = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/Province/Read")];
 
   const addObject = {
     title: "/Definition/Province/Write",
@@ -101,6 +101,7 @@ const Province = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

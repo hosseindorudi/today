@@ -49,7 +49,7 @@ const Auth = () => {
       localStorage.setItem("FirstName",response.FirstName)
       localStorage.setItem("LastName",response.LastName)
       localStorage.setItem("Id",response.Id)
-      localStorage.setItem("Domain",companyCode.current.value)
+      localStorage.setItem("Domain",response.Domain)
       setApp(prev=>({...prev,FirstName:response.FirstName,LastName:response.LastName}))
       return navigate(from, { replace: true });
     },

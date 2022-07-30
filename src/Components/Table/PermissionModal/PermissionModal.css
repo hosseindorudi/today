@@ -12,4 +12,26 @@
 .filterCheckboxes{
     display: flex;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #fff;
+}
+
+.modalTopPad {
+    padding-top: 0;
+    overflow-y: scroll;
+}
+
+.tablePermission >thead  {
+    position: sticky;
+    top: 50px;
+    z-index: 999;
+}
+.permissionTableRow  {
+    
+    position: sticky;
+
+    z-index: 999;
+    background-color: lightgray;
 }

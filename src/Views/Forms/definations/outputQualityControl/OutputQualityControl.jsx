@@ -12,7 +12,6 @@ const OutputQualityControl = () => {
   const childRef = useRef();
   const filteredColumns = [
     "IsLimited",
-    "Id",
     "Registrar",
     "Language_EId",
     "SourceType",
@@ -24,6 +23,7 @@ const OutputQualityControl = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const BcItems = [t("routes.basicDefinations"), t("/Definition/OutputQualityControl/Read")];
 
   const addObject = {
     Component: OutputQualityControlDefine,
@@ -103,6 +103,7 @@ const OutputQualityControl = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        BcItems={BcItems}
       />
     </>
   );

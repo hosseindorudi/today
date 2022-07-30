@@ -14,7 +14,7 @@ import {
   defintionInputs,
   handleError,
 } from "../../../../../validation/functions";
-import ResultCodeEnum from "../../../../../data/ResultCodeEnum";
+import {ResultCodeEnum} from "../../../../../data/ResultCodeEnum";
 import { Form, Button } from "react-bootstrap";
 import { modelReadTitle } from "../../../../../services/modelService";
 import axios from "axios";
