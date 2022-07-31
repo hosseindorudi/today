@@ -212,13 +212,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 }
 
 .customTableInformationData {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  border: 1px solid lightgray;
+  width: 90%;
+  height: 40px;
+  margin-top: 15px;
+  border-radius: 5px;
 }
 
 .reacttableParentMainRightDown {

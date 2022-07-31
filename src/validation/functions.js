@@ -64,7 +64,6 @@ export const defintionInputs = (values, typeTitle, errorMSG) => {
       required: true,
       value: values.periority,
       min: 1,
-      max: 1000,
     },
     {
       id: 3,
