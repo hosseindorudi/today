@@ -278,7 +278,7 @@ const ImportUIModal = (props) => {
           </div>
           {file && (
             <>
-              <Form.Label>{t("preview")}</Form.Label>
+              <Form.Label><b>{t("preview")}</b></Form.Label>
               <div style={styles.headerDivImport}>
                 <Form.Group className="mb-3" controlId="headers">
                   <Form.Label>{t("importHeaders")}</Form.Label>
@@ -310,7 +310,8 @@ const ImportUIModal = (props) => {
               >
                 {t("prepare")}
               </Button>
-
+              <Form.Group>
+              <Form.Label><b>{t("final")}</b></Form.Label>
               <ReactTable
                 columns={columnsFinal}
                 data={dataFinal}
@@ -320,6 +321,7 @@ const ImportUIModal = (props) => {
                   },
                 })}
               />
+              </Form.Group>
             </>
           )}
         </Modal.Body>

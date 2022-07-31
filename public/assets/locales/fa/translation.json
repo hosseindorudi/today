@@ -896,5 +896,6 @@
   "Id":"شماره",
   "select":"انتخاب",
   "prepare":"آماده سازی",
-  "withHeader":"با هدر"
+  "withHeader":"با هدر",
+  "final":"نهایی"
 }
