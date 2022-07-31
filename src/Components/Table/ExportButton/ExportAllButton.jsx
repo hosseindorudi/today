@@ -53,8 +53,8 @@ const ExportAllButton = (props) => {
         });
       };
       const handleResponse=(response)=>{
-        if(response.File){
-          return downloadCSVCode(response.File,response.File.FileDownloadName)
+        if(response.Content && response.Content.length>0){
+          return downloadCSVCode(response.Content,response.Name)
         }
         return noFileToast()
       }

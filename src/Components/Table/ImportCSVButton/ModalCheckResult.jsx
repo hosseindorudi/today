@@ -12,9 +12,12 @@ const ModalCheckResult = (props) => {
     <Modal.Header closeButton>
     </Modal.Header>
     <Modal.Body>
-    <div className='checkResultModal' style={{direction:"ltr"}}>
-       <p> {props.data}</p>
-    </div>
+   
+    
+    {props.data.split('\r\n').map((d,i)=>(
+        <div >{d} <br /></div>
+       ))}
+
     </Modal.Body>
   </Modal>
   )

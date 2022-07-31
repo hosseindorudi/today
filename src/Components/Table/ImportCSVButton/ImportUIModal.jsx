@@ -11,6 +11,7 @@ import { HeaderDND } from "./HeaderDND";
 import RemovedColumns from "./RemovedColumns";
 import useRequest from "../../../customHooks/useRequest";
 import BackDrop from "../../backDrop/BackDrop";
+import {  validateLength, validateRequired, validateType } from "../../../validation/validation";
 const styles = {
   csvReader: {
     display: "flex",
@@ -52,6 +53,10 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
   },
+  ModalBody:{
+    maxHeight:600,
+    overflow:"auto"
+  }
 };
 const ImportUIModal = (props) => {
   const [response, loading, fetchData] = useAxios();
@@ -156,7 +161,6 @@ const ImportUIModal = (props) => {
         return acc;
       }, {})
     );
-
     let sortedData = [];
     finalRowData.map((d, i) => {
       let obj = {};
@@ -166,12 +170,16 @@ const ImportUIModal = (props) => {
       return sortedData.push(obj);
     });
     //creating new FinalRowData with respect to new headers
+    console.log(finalColumns,sortedData)
     const data = sortedData.map((row) => {
       return Object.keys(row).reduce((acc, curr, index) => {
-        acc[finalColumns[index].accessor] = row[curr];
+         
+        acc[finalColumns[index]?.accessor] = row[curr];
         return acc;
+        
       }, {});
     });
+    
     setFinalHeader(finalColumns);
 
     setFinalData(data);
@@ -210,13 +218,14 @@ const ImportUIModal = (props) => {
         centered
         backdrop="static"
         keyboard={false}
+        
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             {t("importFile")}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={styles.ModalBody}>
           <div className="Row">
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>{t("uploadUrFIle")}</Form.Label>
@@ -269,7 +278,7 @@ const ImportUIModal = (props) => {
           </div>
           {file && (
             <>
-              <Form.Label>{t("preview")}</Form.Label>
+              <Form.Label><b>{t("preview")}</b></Form.Label>
               <div style={styles.headerDivImport}>
                 <Form.Group className="mb-3" controlId="headers">
                   <Form.Label>{t("importHeaders")}</Form.Label>
@@ -301,16 +310,18 @@ const ImportUIModal = (props) => {
               >
                 {t("prepare")}
               </Button>
-
+              <Form.Group>
+              <Form.Label><b>{t("final")}</b></Form.Label>
               <ReactTable
                 columns={columnsFinal}
                 data={dataFinal}
                 getCellProps={(cellInfo) => ({
                   style: {
-                    backgroundColor: "green",
+                    backgroundColor: validateType(cellInfo) &&validateLength(cellInfo)&&validateRequired(cellInfo)?"white":"coral",
                   },
                 })}
               />
+              </Form.Group>
             </>
           )}
         </Modal.Body>

@@ -1,31 +1,22 @@
 import { t } from "i18next";
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback,useEffect } from "react";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { usePapaParse, useCSVDownloader } from "react-papaparse";
-
 import { toast } from "react-toastify";
-import AppContext from "../../../contexts/AppContext";
 import useAxios from "../../../customHooks/useAxios";
-import useGeoLocation from "../../../customHooks/useGeoLocation";
 import useRequest from "../../../customHooks/useRequest";
+import { downloadCSVCode } from "../../../validation/functions";
 
 import "./importModal.css";
 import ModalCheckResult from "./ModalCheckResult";
 
 const ImportCSVModal = (props) => {
-  const { app } = useContext(AppContext);
-  const accessToken = localStorage.getItem("token");
-  const location = useGeoLocation();
-  const { readString } = usePapaParse();
   const [showCheckResultModal, setShowCheckResultModal] = useState(false);
-  const { CSVDownloader, Type } = useCSVDownloader();
   const [checkResult, setCheckResult] = useState(null);
   const [response, loading, fetchData] = useAxios();
   const [checkFile, setCheckFile] = useState(null);
   const [importFile, setImportFile] = useState(null);
   const [requestType, setRequestType] = useState("");
-  const [sample, setSample] = useState(null);
   const request = useRequest();
 
   const handleClickSample = () => {
@@ -46,61 +37,31 @@ const ImportCSVModal = (props) => {
   const handleUploadCheck = () => {
     setRequestType("CHECK");
     var formData = new FormData();
-    formData.append("Request.Language", app.langCode);
-    formData.append(
-      "Request.Latitude",
-      location.loaded ? location.coordinates.lat : 0
-    );
-    formData.append(
-      "Request.Longitude",
-      location.loaded ? location.coordinates.lng : 0
-    );
-    formData.append("Request.Token", accessToken ? accessToken : "");
     formData.append("File", checkFile);
     fetchData({
       method: "POST",
       url: props.fileCheckURL,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers:request, 
+      // {
+      //   "Content-Type": "multipart/form-data",
+      // },
       data: formData,
     });
   };
   const handleUploadImport = () => {
     setRequestType("IMPORT");
     var formData = new FormData();
-    formData.append("Request.Language", app.langCode);
-    formData.append(
-      "Request.Latitude",
-      location.loaded ? location.coordinates.lat : 0
-    );
-    formData.append(
-      "Request.Longitude",
-      location.loaded ? location.coordinates.lng : 0
-    );
-    formData.append("Request.Token", accessToken ? accessToken : "");
     formData.append("File", importFile);
     fetchData({
       method: "POST",
       url: props.importURL,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers:request,
       data: formData,
     });
   };
 
-  const handleSampleDownload = (res) => {
-    const config = {
-      worker: true,
-      complete: (results) => {
-        setSample(results.data);
-      },
-    };
-    readString(res, config);
-  };
-  const handleCheckFileModal = (response) => {
-    setCheckResult(response.Message);
+  const handleCheckFileModal = (Message) => {
+    setCheckResult(Message);
     setShowCheckResultModal(true);
   };
   const handleImportSuccess = (res) => {
@@ -110,21 +71,13 @@ const ImportCSVModal = (props) => {
   const handleResponse = useCallback((res, type) => {
     switch (type) {
       case "SAMPLE":
-        res.length ? handleSampleDownload(res) : noFileToast();
+        res.Content?.length>0 ?downloadCSVCode(res.Content,"sample") : noFileToast();
         break;
       case "CHECK":
-        res.Result
-          ? handleCheckFileModal(res)
-          : toast.error(res.Message, {
-              position: toast.POSITION.TOP_CENTER,
-            });
+         handleCheckFileModal(res.Message)
         break;
       case "IMPORT":
-        res.Result
-          ? handleImportSuccess(res)
-          : toast.error(res.Message, {
-              position: toast.POSITION.TOP_CENTER,
-            });
+           handleImportSuccess(res)
         break;
       default:
         break;
@@ -168,21 +121,6 @@ const ImportCSVModal = (props) => {
             <h4>{t("modalImport.sampleFile")}</h4>
             <div className="smapleFileDownload">
               <p>{t("modalImport.clickForDownload")}</p>
-              {sample && (
-              
-                <CSVDownloader
-                  className="csvDownloadBtn"
-                  type={Type.Button}
-                  filename={"sampleFile"}
-                  bom={true}
-                  config={{
-                    delimiter: ";",
-                  }}
-                  data={sample}
-                >
-                  {t("download")}
-                </CSVDownloader>
-              )}
               <Button
                 variant="info"
                 disabled={loading}
