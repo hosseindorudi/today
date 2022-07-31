@@ -50,7 +50,7 @@ const Sidebar = () => {
           <div className="mainCtDiv">
             <div className="logo">
               <a
-                href="https://ctelecom.ir/"
+                href={localStorage.getItem("Website")}
                 target="_blank"
                 rel="noopener noreferrer"
               >

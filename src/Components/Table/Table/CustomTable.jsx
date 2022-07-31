@@ -53,6 +53,8 @@ const CustomTable = forwardRef((props, ref) => {
   const [productsColumns, setproductsColumns] = useState([]);
   const abortController = new AbortController();
   const [totalRecord, setTotalRecord] = useState()
+  const [sortedBy, setSortedBy] = useState()
+  const [isAssending, setIsAssending] = useState()
 
   const getTable = () => {
     fetchData({
@@ -193,7 +195,10 @@ const CustomTable = forwardRef((props, ref) => {
   const setData = (response) => {
     const res = response.Record;
     const paging = response.Paging;
+    console.log(paging)
     setTotalRecord(paging.TotalRecord)
+    setSortedBy(paging.SortBy)
+    setIsAssending(paging.IsAscending)
     setIsFavorite(response.IsFavorite);
     setUnSelected(response.UnselectedColumn);
     setPosts(res);
@@ -556,6 +561,8 @@ const CustomTable = forwardRef((props, ref) => {
           IsFavorite={IsFavorite}
           handleClickFav={handleClickFav}
           totalRecord={totalRecord}
+          sortedBy={sortedBy}
+          isAssending={isAssending}
         />
         <div className="groupContainerLeft">
           <TableList

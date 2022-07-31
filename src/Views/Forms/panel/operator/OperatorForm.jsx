@@ -42,7 +42,7 @@ const OperatorForm = () => {
     InternalPhone: "",
     Mobile: "",
     IsLimited: false,
-    LimitTo: new Date(),
+    LimitTo: new Date().setDate(new Date().getDate() + 7),
     LimitFrom: new Date(),
   });
   const handleSubmited = () => {

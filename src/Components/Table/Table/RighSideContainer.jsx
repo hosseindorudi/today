@@ -33,6 +33,8 @@ const RighSideContainer = ({
   handleClickHelp,
   totalRecord,
   columnInfo,
+  sortedBy,
+  isAssending
 }) => {
   const [haveAccess] = useButtonAccess();
   const {t}=useTranslation()
@@ -41,6 +43,24 @@ const RighSideContainer = ({
   return (
     <div className="groupContainerRight" style ={{display : withOfScreen < 420 ? "none" : "flex"}}>
       
+      
+      <div className="reacttableParentMainRightUp">
+        <span className="reacttableParentMainRightUpInformation">
+          {t("table.information")}
+        </span>
+        <div className="reacttableParentMainRightUpInformationDiv">
+          <div className="customTableInformationData">
+            <span>{totalRecord}</span>
+          </div>
+          <div className="customTableInformationData">
+            <span>{t(sortedBy)}</span>
+          </div>
+          <div className="customTableInformationData">
+            <span>{isAssending ? <fa.FaLongArrowAltUp/> : <fa.FaLongArrowAltDown/>}</span>
+          </div>
+        </div>
+      </div>
+
       <div className="reacttableParentMainRightDown">
         <span className="reacttableParentMainRightDownToolBox">
           {t("table.tools")}
@@ -131,17 +151,6 @@ const RighSideContainer = ({
           >
             <fa.FaQuestionCircle />
           </button>
-        </div>
-      </div>
-      <div className="reacttableParentMainRightUp">
-        <span className="reacttableParentMainRightUpInformation">
-          {t("table.information")}
-        </span>
-        <div className="reacttableParentMainRightUpInformationDiv">
-          <div className="customTableInformationData">
-            <span>تعداد کل</span>
-            <span>{totalRecord}</span>
-          </div>
         </div>
       </div>
     </div>

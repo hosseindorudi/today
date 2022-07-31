@@ -29,7 +29,7 @@ const OperatorGroupForm = () => {
     MaxSession: 1,
     IsLimited: false,
     LimitFrom: new Date(),
-    LimitTo: new Date(),
+    LimitTo: new Date().setDate(new Date().getDate() + 7),
     Description: "",
   });
   const handleResponse = () => {
@@ -139,7 +139,6 @@ const OperatorGroupForm = () => {
                 value={values.MaxSession}
                 name="MaxSession"
                 min={1}
-                max={1000}
                 onChange={onChangeHandler}
               />
             </Form.Group>
