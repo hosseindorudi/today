@@ -4,40 +4,59 @@ const ResultCodeEnum={
     Ip_Unauthorized : 11,
     Ip_Blocked : 12,
 
-    Username_UEmpty : 21,
-    Username_PEmpty : 22,
-    Username_NotExist : 23,
-    Username_Password : 24,
-    Username_InActive : 25,
-    Username_Expired : 26,
+    Domain_Invalid : 21,
+    Domain_NotExist : 22,
+    Domain_InActive : 23,
+    Domain_MaxSession : 24,
+    Domain_Expired : 25,
 
-    Group_Empty : 31,
-    Group_NotExist : 32,
-    Group_InActive : 33,
-    Group_Expired : 34,
+    Username_UEmpty : 31,
+    Username_PEmpty : 32,
+    Username_NotExist : 33,
+    Username_SafeMode : 34,
+    Username_Password : 35,
+    Username_InActive : 36,
+    Username_Expired : 37,
 
-    Policy_MaxSession : 41,
-    Policy_Os : 42,
-    Policy_Ip : 43,
-    Policy_Browser : 44,
-    Policy_Location : 45,
+    Group_NotExist : 41,
+    Group_InActive : 42,
+    Group_SafeMode : 43,
+    Group_Expired : 44,
 
-    Token_Empty : 51,
-    Token_Type : 52,
-    Token_Unauthorized : 53,
-    Token_Expired : 54,
+    Policy_MaxSession : 51,
+    Policy_Os : 52,
+    Policy_Ip : 53,
+    Policy_Browser : 54,
+    Policy_Location : 55,
 
-    Unauthorized_Os : 61,
-    Unauthorized_Ip : 62,
-    Unauthorized_Browser : 63,
-    Unauthorized_Location : 64,
-    Unauthorized_Access : 65,
+    Token_Empty : 61,
+    Token_Type : 62,
+    Token_Unauthorized : 63,
+    Token_Expired : 64,
 
-    Error_Data : 71,
-    Error_Database : 72,
+    Unauthorized_Os : 71,
+    Unauthorized_Ip : 72,
+    Unauthorized_Browser : 73,
+    Unauthorized_Location : 74,
+    Unauthorized_Access : 75,
+
+    Invalid_Input : 81,
+    Invalid_Filter : 82,
+    Invalid_SelectedId : 83,
+
+    SafeMode_Main : 91,
+    SafeMode_NotAuthorized : 92,
+
+    Record_Undefined : 101,
+    Record_NotAuthorized : 102,
+            
+    Failed_Create : 111,
+    Failed_Read : 112,
+    Failed_Update : 113,
+    Failed_Delete : 114,
 
 
-    Failed : 1000
+    Unknown : 1000
 }
 
 module.exports={

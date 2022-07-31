@@ -11,6 +11,7 @@ import { HeaderDND } from "./HeaderDND";
 import RemovedColumns from "./RemovedColumns";
 import useRequest from "../../../customHooks/useRequest";
 import BackDrop from "../../backDrop/BackDrop";
+import {  validateLength, validateRequired, validateType } from "../../../validation/validation";
 const styles = {
   csvReader: {
     display: "flex",
@@ -52,6 +53,10 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
   },
+  ModalBody:{
+    maxHeight:600,
+    overflow:"auto"
+  }
 };
 const ImportUIModal = (props) => {
   const [response, loading, fetchData] = useAxios();
@@ -210,13 +215,14 @@ const ImportUIModal = (props) => {
         centered
         backdrop="static"
         keyboard={false}
+        
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             {t("importFile")}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={styles.ModalBody}>
           <div className="Row">
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>{t("uploadUrFIle")}</Form.Label>
@@ -307,7 +313,7 @@ const ImportUIModal = (props) => {
                 data={dataFinal}
                 getCellProps={(cellInfo) => ({
                   style: {
-                    backgroundColor: "green",
+                    backgroundColor: validateType(cellInfo) &&validateLength(cellInfo)&&validateRequired(cellInfo)?"white":"coral",
                   },
                 })}
               />

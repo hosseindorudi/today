@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 // export const idCodeValidation = "^[0-9]{10}$";
 const admissionNumberVal = "^[0-9]{15}$";
  const idCodeValidation = (idCode) => {
@@ -35,7 +37,7 @@ const admissionNumberVal = "^[0-9]{15}$";
     }
 
 };
-
+const isIntOnly=/^\d+$/;
 const phoneNumberValidation = /^[0]?[9][0|3|1|9|2]+[0-9]{8}$/
 
 // export const emailValidation = "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
@@ -85,10 +87,73 @@ const IMEIvalidation = (imei) => {
     }
 }
 
+const checkIsBoolean=(value)=>{
+   if(value)
+   return value==="True"||value==="TRUE"||value==="true"||value==="False"||value==="false"||value==="false"||value==="1"||value==="0"?true:false
+}
+const isValidDate=(date)=>{
+    const format={
+        dateTime:"D/M/YYYY H:m",
+        dateOnly:"D/M/YYYY"
+    }
+    if(date){
+       let dateTimeValid=moment(date, format.dateTime, true).isValid()
+       let dateValid=moment(date, format.dateOnly, true).isValid()
+      return dateTimeValid===true||dateValid===true ?true:false
+    }
+
+}
+
+const validateType=(cellInfo)=>{
+    const type=cellInfo.column.Type
+    const value=cellInfo.value
+    switch (type) {
+        case "int":
+           return isIntOnly.test(value)
+        case "bool":
+            return checkIsBoolean(value)
+        case "string":
+            return true
+        case "DateTime":
+
+            return isValidDate(value)
+        default:
+            return true
+    }
+   
+
+    
+}
+
+const validateLength=(cellInfo)=>{
+    const length=cellInfo.column.Length
+    const type=cellInfo.column.Type
+    const value=cellInfo.value
+    if(type==="string"){
+        if(value&& value.length>length){
+            return false
+        }
+    
+    }
+    return true
+}
+const validateRequired=(cellInfo)=>{
+    const required=cellInfo.column.Required
+    const value=cellInfo.value
+    if(required){
+       if(!value||value.length===0)
+       return false
+    }
+    return true
+}
+
 module.exports={
     onlyNumberAndDot,
     phoneNumberValidation,
     IMEIvalidation,
     admissionNumberVal,
-    idCodeValidation
+    idCodeValidation,
+    validateType,
+    validateRequired,
+    validateLength
 }

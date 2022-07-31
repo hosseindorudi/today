@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./tableButtons.css";
 import * as fa from "react-icons/fa";
 import * as gr from "react-icons/gr";
@@ -6,7 +6,6 @@ import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import AppContext from "../../../contexts/AppContext";
 import { downloadCSVCode } from "../../../validation/functions";
 import useButtonAccess from "../../../customHooks/useButtonAccess";
 
@@ -50,23 +49,25 @@ const TableButtons = ({
   accountAccess,
 }) => {
   const [response, loading, fetchData] = useAxios();
-  const { app } = useContext(AppContext);
   const request = useRequest();
   const { t } = useTranslation();
   const [haveAccess] = useButtonAccess();
   const handleResponse = useCallback(
     (res) => {
-      if (res.length) {
-        return downloadCSVCode(res, app.title);
-      } else {
-        toast.info(t("noDataFound.table"), {
-          position: toast.POSITION.TOP_CENTER,
-        });
+      if(res.Content && res.Content.length>0){
+        return downloadCSVCode(res.Content,"operator")
       }
+      return noFileToast()
     },
-    [app.title, t]
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
-
+  const noFileToast = () => {
+    
+    toast.info(t("noDataFound.table"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
   const handleExport = () => {
     fetchData({
       method: "POST",

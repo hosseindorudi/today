@@ -29,16 +29,16 @@ export const setDatePickerDate = (dater) => {
   return finalDate.toString();
 };
 
-export const downloadCSVCode = (data, title) => {
+export const downloadCSVCode = (data,title) => {
  
-  // let csvContent = "data:text/csv;charset=utf-8,";
-  // csvContent += data + "\r\n";
-  // var encodedUri = encodeURI(csvContent);
-  // var link = document.createElement("a");
-  // link.setAttribute("href", encodedUri);
-  // link.setAttribute("download", `${t(title)}.csv`);
-  // document.body.appendChild(link);
-  // link.click();
+  let csvContent = "data:text/csv;charset=utf-8,";
+  csvContent += data + "\r\n";
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", `${t(title)}.csv`);
+  document.body.appendChild(link);
+  link.click();
 };
 
 export const defintionInputs = (values, typeTitle, errorMSG) => {
