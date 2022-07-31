@@ -16,6 +16,7 @@ import {
     CountryLog,
     CountrySetUnselectedColumn,
     CountryAccessList,
+    CountryColumnInfo,
         } from '../../../../services/countryService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
@@ -111,6 +112,7 @@ const Countrylist = () => {
        setMobileModalColumns={setMobileModalColumns}
        mobileModalColumns={mobileModalColumns}
        BcItems={BcItems}
+       columnInfo={CountryColumnInfo}
      />
     
     </>

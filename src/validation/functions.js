@@ -36,7 +36,7 @@ export const downloadCSVCode = (data,title) => {
   var encodedUri = encodeURI(csvContent);
   var link = document.createElement("a");
   link.setAttribute("href", encodedUri);
-  link.setAttribute("download", `${t(title)}.csv`);
+  link.setAttribute("download", title);
   document.body.appendChild(link);
   link.click();
 };

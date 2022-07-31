@@ -161,7 +161,6 @@ const ImportUIModal = (props) => {
         return acc;
       }, {})
     );
-
     let sortedData = [];
     finalRowData.map((d, i) => {
       let obj = {};
@@ -171,12 +170,16 @@ const ImportUIModal = (props) => {
       return sortedData.push(obj);
     });
     //creating new FinalRowData with respect to new headers
+    console.log(finalColumns,sortedData)
     const data = sortedData.map((row) => {
       return Object.keys(row).reduce((acc, curr, index) => {
-        acc[finalColumns[index].accessor] = row[curr];
+         
+        acc[finalColumns[index]?.accessor] = row[curr];
         return acc;
+        
       }, {});
     });
+    
     setFinalHeader(finalColumns);
 
     setFinalData(data);

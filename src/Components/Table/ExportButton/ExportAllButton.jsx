@@ -54,7 +54,7 @@ const ExportAllButton = (props) => {
       };
       const handleResponse=(response)=>{
         if(response.Content && response.Content.length>0){
-          return downloadCSVCode(response.Content,"operator")
+          return downloadCSVCode(response.Content,response.Name)
         }
         return noFileToast()
       }

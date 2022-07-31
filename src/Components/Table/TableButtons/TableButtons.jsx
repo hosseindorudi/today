@@ -55,7 +55,7 @@ const TableButtons = ({
   const handleResponse = useCallback(
     (res) => {
       if(res.Content && res.Content.length>0){
-        return downloadCSVCode(res.Content,"operator")
+        return downloadCSVCode(res.Content,res.Name)
       }
       return noFileToast()
     },
