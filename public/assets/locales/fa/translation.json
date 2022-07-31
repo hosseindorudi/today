@@ -264,7 +264,7 @@
   "modalImport.sampleFile": "نمونه فایل",
   "download": "دانلود",
   "modalImport.clickForDownload": "برای دیدن نمونه فایل کلیک کنید",
-  "modalImport.checkFile": "چک فایل",
+  "modalImport.checkFile": "بررسی فایل",
   "modalImport.checkFileUpload": "csv خود رای برای چک بارگزاری کنید",
   "upload": "بارگزاری",
   "modalImport.importCSV": "CSV خود را وارد کنید",
@@ -901,5 +901,6 @@
   "SourceType":"منبع",
   "Register":"ثبت کننده",
   "Create":"ایجاد",
-  "final":"نهایی"
+  "final":"نهایی",
+  "uploadOnlyCSv":"فرمت فایل csv نمیباشد"
 }
