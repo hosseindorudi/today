@@ -48,6 +48,7 @@ const CustomerList = () => {
   const [isPhone, setIsPhone] = useState(false)
   const [isAccount, setIsAccount] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const BcItems = [t("/Customer/Customer/Read"), t("/Customer/Customer/Read")];
 
   const addObject = {
     Component: CustomerForm,
@@ -130,6 +131,7 @@ const CustomerList = () => {
 
       <CustomTable
         ref={childRef}
+        BcItems={BcItems}
         ReadApi={customerRead}
         deleteApi={customerDelete}
         unSelectedAPI={customerSetUnselectedColumn}

@@ -27,6 +27,7 @@ import AnswerModal from "../../../../../Components/Table/answerModal/AnswerModal
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import BackDrop from "../../../../../Components/backDrop/BackDrop";
+import { useTranslation } from "react-i18next";
 
 const AnswerList = () => {
   const filteredColumns = [
@@ -48,6 +49,9 @@ const AnswerList = () => {
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
   const [response, loading, fetchData] = useAxios();
+  const {t} = useTranslation()
+  const BcItems = [t("/Survey/QuestionPage/Read"), t("/Survey/AnswerPage/Read")];
+
   const addObject = {
     Component: AnswerForm,
     path: "/Poll/Answer/Create",
@@ -88,6 +92,7 @@ const AnswerList = () => {
       )}
       <CustomTable
         ref={childRef}
+        BcItems={BcItems}
         ReadApi={answerPageRead}
         deleteApi={answerPageDelete}
         unSelectedAPI={answerPageSetColumn}

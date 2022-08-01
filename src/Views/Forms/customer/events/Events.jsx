@@ -13,6 +13,8 @@ import {
     CustomerEventAccessList,
   
   } from '../../../../services/eventsService';
+import { t } from "i18next";
+
 const CustomerEvents = () => {
     const childRef = useRef();
     const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType", "CodePage_EId", "Customer_Id"];
@@ -20,6 +22,7 @@ const CustomerEvents = () => {
     const [mobileModalButtons, setMobileModalButtons] = useState(false)
     const [mobileModalColumns, setMobileModalColumns] = useState(false)
     const widthOFScreen = useWindowSize().width
+    const BcItems = [t("/Customer/Customer/Read"), t("/Customer/Event/Read")];
   
   
   
@@ -32,6 +35,7 @@ const CustomerEvents = () => {
   
         <CustomTable
           ref={childRef}
+          BcItems={BcItems}
           ReadApi={CustomerEventRead}
           deleteApi={""}
           unSelectedAPI={CustomerEventSetUnselectedColumn}

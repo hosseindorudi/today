@@ -17,6 +17,7 @@ import {
 
 } from '../../../../services/loginFailedService';
 import useWindowSize from '../../../../customHooks/useWindowSize';
+import { useTranslation } from 'react-i18next';
 
 const FailedLogin = () => {
   const childRef = useRef();
@@ -25,6 +26,8 @@ const FailedLogin = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const {t} = useTranslation()
+  const BcItems = [t("/Operator/Operator/Read"), t("/Operator/FailedHistory/Read")];
 
 
 
@@ -36,6 +39,7 @@ const FailedLogin = () => {
     <>
 
       <CustomTable
+      BcItems={BcItems}
         ref={childRef}
         ReadApi={FailedHistoryRead}
         deleteApi={""}

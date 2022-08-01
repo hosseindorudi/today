@@ -2,6 +2,7 @@
 import React, {
   useRef, useState,
 } from "react";
+import { t } from "i18next";
 import { enums } from '../../../../data/Enums';
 import CustomTable from '../../../../Components/Table/Table/CustomTable';
 import useWindowSize from '../../../../customHooks/useWindowSize';
@@ -13,6 +14,7 @@ const BruteForceCustomer = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const BcItems = [t("/Customer/Customer/Read"), t("/Customer/BruteForce/Read")];
 
 
 
@@ -25,6 +27,7 @@ const BruteForceCustomer = () => {
 
       <CustomTable
         ref={childRef}
+        BcItems={BcItems}
         ReadApi={bruteForceCustomerRead}
         deleteApi={bruteForceCustomerDelete}
         unSelectedAPI={bruteForceCustomerSetUnselectedColumn}
