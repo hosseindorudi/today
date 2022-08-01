@@ -16,6 +16,7 @@ import {
 
 } from '../../../../services/eventsService';
 import { enums } from '../../../../data/Enums';
+import { useTranslation } from 'react-i18next';
 const Incident = () => {
   const childRef = useRef();
   const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType", "CodePage_EId", "Operator_Id"];
@@ -23,6 +24,8 @@ const Incident = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const {t} = useTranslation()
+  const BcItems = [t("/Operator/Operator/Read"), t("/Operator/Event/Read")];
 
 
 
@@ -35,6 +38,7 @@ const Incident = () => {
 
       <CustomTable
         ref={childRef}
+        BcItems={BcItems}
         ReadApi={EventRead}
         deleteApi={""}
         unSelectedAPI={EventSetUnselectedColumn}

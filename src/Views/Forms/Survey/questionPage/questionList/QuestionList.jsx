@@ -25,6 +25,7 @@ import CustomTable from '../../../../../Components/Table/Table/CustomTable';
 import TableModal from './tableModal/TableModal';
 import TableQuestionModal from './tableQuestionModal/TableQuestionModal';
 import LimitModal from './limitModal/LimitModal';
+import { useTranslation } from 'react-i18next';
 const QuestionList = () => {
 
   const childRef = useRef();
@@ -46,6 +47,8 @@ const QuestionList = () => {
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const [isLimitModal, setIsLimitModal] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const {t} = useTranslation()
+  const BcItems = [t("/Survey/QuestionPage/Read"), t("/Survey/QuestionPage/Read")];
 
   const addObject = {
     Component: QuestionForm,
@@ -119,6 +122,7 @@ const QuestionList = () => {
      
       <CustomTable
         ref={childRef}
+        BcItems={BcItems}
         ReadApi={questionRead}
         deleteApi={questionDelete}
         unSelectedAPI={questionSetUnselectedColumn}

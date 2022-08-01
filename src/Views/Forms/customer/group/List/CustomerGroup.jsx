@@ -59,6 +59,7 @@ const CustomerGroup = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
+  const BcItems = [t("/Customer/Customer/Read"), t("/Customer/Group/Read")];
 
   const addObject = {
     Component: CustomerGroupForm,
@@ -154,6 +155,7 @@ const CustomerGroup = () => {
       )}
       <CustomTable
         ref={childRef}
+        BcItems={BcItems}
         ReadApi={customerGroupRead}
         deleteApi={customerGroupDelete}
         unSelectedAPI={customerGroupSetUnselectedColumn}

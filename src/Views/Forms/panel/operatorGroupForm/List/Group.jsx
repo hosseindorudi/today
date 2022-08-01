@@ -56,6 +56,7 @@ const Group = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
+  const BcItems = [t("/Operator/Operator/Read"), t("/Operator/Group/Create")];
 
   const addObject = {
     Component: OperatorGroupForm,
@@ -195,6 +196,7 @@ const Group = () => {
         policyOsAccess={enums.Operator_Group_Create_w}
         handlePolicyLocation={handlePolicyLocation}
         policyLocationAccess={enums.Operator_Group_Create_w}
+        BcItems={BcItems}
       />
     </>
   );

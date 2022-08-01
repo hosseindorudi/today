@@ -19,7 +19,7 @@ const Operator = () => {
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
   const [operatorRoleOpen, setOperatorRoleOpen] = useState(false);
-
+  const BcItems = [t("/Operator/Operator/Read"), t("/Operator/Operator/Create")];
   const addObject = {
     Component: OperatorForm,
     path: "/Operator/Operator/Create",
@@ -105,6 +105,7 @@ const Operator = () => {
         handleOperatorRole={handleOperatorRole}
         operatorRoleAccess={enums.Operator_Operator_Create_w}
         columnInfo={operatorColumnInfo}
+        BcItems={BcItems}
       />
     </>
   );

@@ -23,6 +23,7 @@ const AllowedIp = () => {
     const [mobileModalButtons, setMobileModalButtons] = useState(false)
     const [mobileModalColumns, setMobileModalColumns] = useState(false)
     const widthOFScreen = useWindowSize().width
+    const BcItems = [t("/Operator/Operator/Read"), t("/Operator/AllowedIp/write")];
   
     const addObject = {
       Component: AllowedIpForm,
@@ -96,6 +97,7 @@ const AllowedIp = () => {
        setMobileModalButtons={setMobileModalButtons}
        setMobileModalColumns={setMobileModalColumns}
        mobileModalColumns={mobileModalColumns}
+       BcItems={BcItems}
      />
     
     </>
