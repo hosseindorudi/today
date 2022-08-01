@@ -902,5 +902,6 @@
   "Register":"ثبت کننده",
   "Create":"ایجاد",
   "final":"نهایی",
-  "uploadOnlyCSv":"فرمت فایل csv نمیباشد"
+  "uploadOnlyCSv":"فرمت فایل csv نمیباشد",
+  "manualUpload":"بارگزاری دستی"
 }

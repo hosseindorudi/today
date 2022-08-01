@@ -4,7 +4,7 @@ import { NativeTypes } from 'react-dnd-html5-backend'
 import * as fa from 'react-icons/fa'
 import { toast } from 'react-toastify'
 export const TargetBox = (props) => {
-  const { onDrop,handleClickAdd } = props
+  const { onDrop,handleClickAdd,inputId } = props
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
       accept: [NativeTypes.FILE],
@@ -40,12 +40,12 @@ export const TargetBox = (props) => {
   )
   const isActive = canDrop && isOver
   return (
-    <label ref={drop} className={isActive ? "drag-active" : "" } id="label-file-upload" htmlFor="input-file-upload">
+    <label ref={drop} className={isActive ? "drag-active" : "" } id="label-file-upload" htmlFor={inputId}>
     <div>
       
       <button onClick={handleClickAdd} className="upload-button"><fa.FaPlus className="dndPlusBtn"/></button>
     </div>
-    
+    <label className='labelDrop'>فایل را رها کنید</label>
   </label>
   )
 }
