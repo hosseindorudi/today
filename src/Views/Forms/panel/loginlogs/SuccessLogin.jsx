@@ -14,6 +14,7 @@ import {
   LoginHistoryAccessList,
 } from "../../../../services/loginHistoryServices";
 import useWindowSize from "../../../../customHooks/useWindowSize";
+import { useTranslation } from "react-i18next";
 
 const SuccessLogin = () => {
   const childRef = useRef();
@@ -30,6 +31,8 @@ const SuccessLogin = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
+  const {t} = useTranslation()
+  const BcItems = [t("/Operator/Operator/Read"), t("/Operator/LoginHistory/Read")];
 
   const handleClickHelp = () => {
     window.open("https://www.google.com");
@@ -39,6 +42,7 @@ const SuccessLogin = () => {
     <>
       <CustomTable
         ref={childRef}
+        BcItems={BcItems}
         ReadApi={LoginHistoryRead}
         deleteApi={""}
         unSelectedAPI={LoginHistorySetUnselectedColumn}

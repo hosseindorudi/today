@@ -15,6 +15,7 @@ const AllowedCustomerIp = () => {
 
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});
+    const BcItems = [t("/Customer/Customer/Read"), t("/Customer/AllowedIp/Read")];
   
   
     const childRef = useRef();
@@ -62,6 +63,7 @@ const AllowedCustomerIp = () => {
      
      <CustomTable
        ref={childRef}
+       BcItems={BcItems}
        ReadApi={AllowedIpCustomerRead}
        deleteApi={AllowedIpCustomerDelete}
        unSelectedAPI={AllowedIpCustomerSetColumn}

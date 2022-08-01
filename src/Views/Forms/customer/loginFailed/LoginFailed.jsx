@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import CustomTable from '../../../../Components/Table/Table/CustomTable';
 import useWindowSize from '../../../../customHooks/useWindowSize';
 import { enums } from '../../../../data/Enums';
@@ -20,6 +21,8 @@ const LoginFailed = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const {t} = useTranslation()
+  const BcItems = [t("/Customer/Customer/Read"), t("/Customer/FailedHistory/Read")];
 
 
 
@@ -32,6 +35,7 @@ const LoginFailed = () => {
 
       <CustomTable
         ref={childRef}
+        BcItems={BcItems}
         ReadApi={CustomerFailedHistoryRead}
         deleteApi={""}
         unSelectedAPI={CustomerFailedHistorySetUnselectedColumn}

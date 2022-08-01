@@ -17,6 +17,7 @@ import {  BruteForceRead,
  import { enums } from '../../../../data/Enums';
 import CustomTable from '../../../../Components/Table/Table/CustomTable';
 import useWindowSize from '../../../../customHooks/useWindowSize';
+import { useTranslation } from 'react-i18next';
 const Attacks = () => {
   const childRef = useRef();
   const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType"];
@@ -24,6 +25,8 @@ const Attacks = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const widthOFScreen = useWindowSize().width
+  const {t} = useTranslation()
+  const BcItems = [t("/Operator/Operator/Read"), t("/Operator/BruteForce/Read")];
 
 
 
@@ -36,6 +39,7 @@ const Attacks = () => {
 
       <CustomTable
         ref={childRef}
+        BcItems={BcItems}
         ReadApi={BruteForceRead}
         deleteApi={BruteForceDelete}
         unSelectedAPI={BruteForceSetUnselectedColumn}
