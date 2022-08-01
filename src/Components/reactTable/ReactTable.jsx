@@ -1,7 +1,6 @@
 import React from 'react'
-import { Form, Table } from 'react-bootstrap';
+import {  Table } from 'react-bootstrap';
 import { useTable } from "react-table";
-import { CustomReactMultiSelect } from '../Select/customReactSelect';
 const styles = {
     table: {
       fontSize: 11,
@@ -13,7 +12,6 @@ const styles = {
      
     }
   };
-
 
   const EditableCell = ({
     value: initialValue,
@@ -39,7 +37,7 @@ const styles = {
       setValue(initialValue)
     }, [initialValue])
   
-    return isEditable?<div style={styles.td}><input value={value} onChange={onChange} onBlur={onBlur} /><select><option>{id}</option></select></div>:value
+    return isEditable?<div style={styles.td}><input value={value} onChange={onChange} onBlur={onBlur} /></div>:value
   }
 
   const defaultPropGetter = () => ({})
@@ -47,6 +45,7 @@ const styles = {
     Cell:EditableCell,
   }
 const ReactTable = ({columns,data, getCellProps = defaultPropGetter,updateMyData,isEditable}) => {
+    
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
