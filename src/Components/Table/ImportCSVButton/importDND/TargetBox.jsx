@@ -45,7 +45,7 @@ export const TargetBox = (props) => {
       
       <button onClick={handleClickAdd} className="upload-button"><fa.FaPlus className="dndPlusBtn"/></button>
     </div>
-    <label className='labelDrop'>فایل را رها کنید</label>
+    <label className='labelDrop'>{t("dropFile")}</label>
   </label>
   )
 }

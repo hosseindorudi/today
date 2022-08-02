@@ -904,5 +904,6 @@
   "final":"نهایی",
   "Department":"بخش",
   "uploadOnlyCSv":"فرمت فایل csv نمیباشد",
-  "manualUpload":"بارگزاری دستی"
+  "manualUpload":"بارگزاری دستی",
+  "dropFile":"فایل را رها کنید"
 }

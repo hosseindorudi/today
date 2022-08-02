@@ -70,6 +70,8 @@ const styles = {
   }
 };
 const ImportUIModal = (props) => {
+  const {file,withHeader}=props
+  // const {file}=props;
   const [response, loading, fetchData] = useAxios();
   const [columnInfo, setColumnInfo] = useState([]);
   const [finalHeader, setFinalHeader] = useState([]);
@@ -79,8 +81,8 @@ const ImportUIModal = (props) => {
   const columnsFinal = useMemo(() => finalHeader, [finalHeader]);
   const request = useRequest();
   const [type, setType] = useState("");
-  const [withHeader, setWithHeader] = useState(true);
-  const [file, setFile] = useState(null);
+  // const [withHeader, setWithHeader] = useState(true);
+  // const [file, setFile] = useState(null);
   const [columnData, setColumnData] = useState([]);
   const [rowData, setRowData] = useState([]);
   const data = useMemo(() => rowData, [rowData]);
@@ -91,6 +93,48 @@ const ImportUIModal = (props) => {
   const { t } = useTranslation();
 
 
+
+
+  useEffect(() => {
+    let columns = [];
+    let rows = [];
+    if (withHeader) {
+      columns = file[0].map((col, index) => {
+        return {
+          Header: col === "" ? `NO-HEADER${index}` : col,
+          accessor: col === "" ? `NO-HEADER${index}` : col,
+          index: index,
+        };
+      });
+
+      rows = file.slice(1).map((row) => {
+        return row.reduce((acc, curr, index) => {
+          acc[columns[index].accessor] = curr;
+          return acc;
+        }, {});
+      });
+    } else {
+      columns = file[0].map((col, index) => {
+        return {
+          Header: index.toString(),
+          accessor: index.toString(),
+          index: index,
+        };
+      });
+      rows = file.map((row) => {
+        return row.reduce((acc, curr, index) => {
+          acc[columns[index].accessor] = curr;
+          return acc;
+        }, {});
+      });
+    }
+    setRowData(rows);
+    setColumnData(columns);
+    setHeaders(columns);
+    getColumns();
+
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const updateMyData = (rowIndex, columnId, value) => {
     setFinalData(old =>
@@ -106,59 +150,59 @@ const ImportUIModal = (props) => {
     )
   }
   const resetData = () => setFinalData(originalData)
-  const handleOnUploadAccepted = (data) => {
-    if (data.errors.length)
-      return toast.warn(t("selectCSVFileOnly"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    setFile(data.data);
-    let columns = [];
-    let rows = [];
-    if (withHeader) {
-      columns = data.data[0].map((col, index) => {
-        return {
-          Header: col === "" ? `NO-HEADER${index}` : col,
-          accessor: col === "" ? `NO-HEADER${index}` : col,
-          index: index,
-        };
-      });
+  // const handleOnUploadAccepted = (data) => {
+  //   if (data.errors.length)
+  //     return toast.warn(t("selectCSVFileOnly"), {
+  //       position: toast.POSITION.TOP_CENTER,
+  //     });
+  //   setFile(data.data);
+  //   let columns = [];
+  //   let rows = [];
+  //   if (withHeader) {
+  //     columns = data.data[0].map((col, index) => {
+  //       return {
+  //         Header: col === "" ? `NO-HEADER${index}` : col,
+  //         accessor: col === "" ? `NO-HEADER${index}` : col,
+  //         index: index,
+  //       };
+  //     });
 
-      rows = data.data.slice(1).map((row) => {
-        return row.reduce((acc, curr, index) => {
-          acc[columns[index].accessor] = curr;
-          return acc;
-        }, {});
-      });
-    } else {
-      columns = data.data[0].map((col, index) => {
-        return {
-          Header: index.toString(),
-          accessor: index.toString(),
-          index: index,
-        };
-      });
-      rows = data.data.map((row) => {
-        return row.reduce((acc, curr, index) => {
-          acc[columns[index].accessor] = curr;
-          return acc;
-        }, {});
-      });
-    }
-    setRowData(rows);
-    setColumnData(columns);
-    setHeaders(columns);
-    getColumns();
-  };
-  const handleRemove = () => {
-    setHeaders([]);
-    setFile(null);
-    setRowData([]);
-    setColumnData([]);
-    setRemoved([]);
-    setColumnInfo([]);
-    setFinalData([]);
-    setFinalHeader([])
-  };
+  //     rows = data.data.slice(1).map((row) => {
+  //       return row.reduce((acc, curr, index) => {
+  //         acc[columns[index].accessor] = curr;
+  //         return acc;
+  //       }, {});
+  //     });
+  //   } else {
+  //     columns = data.data[0].map((col, index) => {
+  //       return {
+  //         Header: index.toString(),
+  //         accessor: index.toString(),
+  //         index: index,
+  //       };
+  //     });
+  //     rows = data.data.map((row) => {
+  //       return row.reduce((acc, curr, index) => {
+  //         acc[columns[index].accessor] = curr;
+  //         return acc;
+  //       }, {});
+  //     });
+  //   }
+  //   setRowData(rows);
+  //   setColumnData(columns);
+  //   setHeaders(columns);
+  //   getColumns();
+  // };
+  // const handleRemove = () => {
+  //   setHeaders([]);
+  //   setFile(null);
+  //   setRowData([]);
+  //   setColumnData([]);
+  //   setRemoved([]);
+  //   setColumnInfo([]);
+  //   setFinalData([]);
+  //   setFinalHeader([])
+  // };
   const getColumns = () => {
     setType("COLUMNINFO");
     fetchData({
@@ -259,7 +303,7 @@ const ImportUIModal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={styles.ModalBody}>
-          <div className="Row">
+          {/* <div className="Row">
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>{t("uploadUrFIle")}</Form.Label>
               <div style={styles.CsvRowImport}>
@@ -297,7 +341,7 @@ const ImportUIModal = (props) => {
                           {t("remove")}
                         </button>
                       </div>
-                      {/* <ProgressBar style={styles.progressBarBackgroundColor} /> */}
+                   
                     </>
                   )}
                 </CSVReader>
@@ -308,7 +352,8 @@ const ImportUIModal = (props) => {
                 />
               </div>
             </Form.Group>
-          </div>
+          </div> */}
+          
           {file && (
             <>
               <Form.Label><b>{t("preview")}</b></Form.Label>
