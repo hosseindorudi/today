@@ -1,7 +1,6 @@
 import QuestionForm from '../questionForm/QuestionForm';
 import './questionList.css'
 import { toast } from "react-toastify";
-import { t } from "i18next";
 import { enums } from '../../../../../data/Enums';
 
 import {

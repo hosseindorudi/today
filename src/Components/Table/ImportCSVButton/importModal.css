@@ -60,3 +60,72 @@ display: flex;
 .progressBarBackgroundColor{
     background-color: red;
 }
+
+
+.dndMainDiv {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 250px;
+    justify-content: space-between;
+}
+.dndChild {
+    flex: 1;
+    padding: 3px;
+    height: 100%;
+}
+
+.dndInsideChild {
+    border: 1px dashed black;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#checkFileInput {
+    display: none;
+  }
+#uploadFileInput{
+  display: none;
+}
+  
+  #label-file-upload {
+    height: 70px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 2px;
+    border-radius: 1rem;
+    border-style: dashed;
+    border-color: #cbd5e1;
+    background-color: #f8fafc;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+  #label-file-upload.drag-active {
+    background-color: #ffffff;
+  }
+  .upload-button {
+   
+    padding: 0.25rem;
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+  }
+  
+  .upload-button:hover {
+    text-decoration-line: underline;
+  }
+  .labelDrop{
+    font-size: 8px;
+  }
+
+  .dndPlusBtn {
+    color: gray;
+  }

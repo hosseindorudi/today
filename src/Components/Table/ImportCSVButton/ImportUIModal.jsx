@@ -11,6 +11,7 @@ import { HeaderDND } from "./HeaderDND";
 import RemovedColumns from "./RemovedColumns";
 import useRequest from "../../../customHooks/useRequest";
 import BackDrop from "../../backDrop/BackDrop";
+import * as md from 'react-icons/md'
 import {  validateLength, validateRequired, validateType } from "../../../validation/validation";
 const styles = {
   csvReader: {
@@ -56,6 +57,16 @@ const styles = {
   ModalBody:{
     maxHeight:600,
     overflow:"auto"
+  },
+  refresh:{
+    color:"red",
+    cursor:"pointer",
+    fontSize:20
+  },
+  lableFinal:{
+    display:"flex",
+    alignItems:"center",
+    gap:10
   }
 };
 const ImportUIModal = (props) => {
@@ -64,6 +75,7 @@ const ImportUIModal = (props) => {
   const [finalHeader, setFinalHeader] = useState([]);
   const [finalData, setFinalData] = useState([]);
   const dataFinal = useMemo(() => finalData, [finalData]);
+  const [originalData,setOriginalData] =useState([])
   const columnsFinal = useMemo(() => finalHeader, [finalHeader]);
   const request = useRequest();
   const [type, setType] = useState("");
@@ -78,6 +90,22 @@ const ImportUIModal = (props) => {
   const { CSVReader } = useCSVReader();
   const { t } = useTranslation();
 
+
+
+  const updateMyData = (rowIndex, columnId, value) => {
+    setFinalData(old =>
+      old.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...old[rowIndex],
+            [columnId]: value,
+          }
+        }
+        return row
+      })
+    )
+  }
+  const resetData = () => setFinalData(originalData)
   const handleOnUploadAccepted = (data) => {
     if (data.errors.length)
       return toast.warn(t("selectCSVFileOnly"), {
@@ -129,6 +157,7 @@ const ImportUIModal = (props) => {
     setRemoved([]);
     setColumnInfo([]);
     setFinalData([]);
+    setFinalHeader([])
   };
   const getColumns = () => {
     setType("COLUMNINFO");
@@ -170,30 +199,34 @@ const ImportUIModal = (props) => {
       return sortedData.push(obj);
     });
     //creating new FinalRowData with respect to new headers
-    console.log(finalColumns,sortedData)
-    const data = sortedData.map((row) => {
+    let data = sortedData.map((row) => {
       return Object.keys(row).reduce((acc, curr, index) => {
-         
+        
         acc[finalColumns[index]?.accessor] = row[curr];
         return acc;
         
       }, {});
     });
+
+    //adding extra columns in case its not available in previous headers.
+    if(finalColumns.length>availableHeaders.length){
+      for (let index = availableHeaders.length; index < finalColumns.length; index++) {
+      data=data.map(v =>({...v, [finalColumns[index].accessor]: ""})) 
+    }  
+    }
     
     setFinalHeader(finalColumns);
 
     setFinalData(data);
+    setOriginalData(data)
   };
   const handleClickSubmit = () => {
-    // console.log(sortedData)
-    // console.log(finalHeader)
-    // console.log(rowData)
+      console.log(dataFinal)
   };
   const handleResponse = useCallback((res, type) => {
     switch (type) {
       case "COLUMNINFO":
         setColumnInfo(res.Column);
-        // setFinalTableData(res.Column);
         break;
 
       default:
@@ -302,7 +335,7 @@ const ImportUIModal = (props) => {
                 </Form.Group>
               </div>
 
-              <ReactTable columns={columns} data={data} />
+              <ReactTable columns={columns} data={data} isEditable={false}/>
               <Button
                 size="sm"
                 style={styles.buttonPrepare}
@@ -311,7 +344,7 @@ const ImportUIModal = (props) => {
                 {t("prepare")}
               </Button>
               <Form.Group>
-              <Form.Label><b>{t("final")}</b></Form.Label>
+              <Form.Label style={styles.lableFinal}><b>{t("final")}</b>{finalData.length>0&&<md.MdOutlineRestartAlt onClick={resetData} style={styles.refresh}/>} </Form.Label>
               <ReactTable
                 columns={columnsFinal}
                 data={dataFinal}
@@ -320,13 +353,15 @@ const ImportUIModal = (props) => {
                     backgroundColor: validateType(cellInfo) &&validateLength(cellInfo)&&validateRequired(cellInfo)?"white":"coral",
                   },
                 })}
+                isEditable={true}
+                updateMyData={updateMyData}
               />
               </Form.Group>
             </>
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={!file} onClick={handleClickSubmit}>
+          <Button disabled={!finalData.length>0||loading} onClick={handleClickSubmit}>
             {t("submit")}
           </Button>
         </Modal.Footer>
