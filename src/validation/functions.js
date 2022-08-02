@@ -6,7 +6,7 @@ import { languages } from "../assets/languages/languages";
 import MapShowLocation from "../Components/map/MapShowLocation";
 import { enums } from "../data/Enums";
 import { browserIcons, osIcons } from "../data/iconsEnum";
-
+import * as fa from'react-icons/fa'
 export const convertUTC = (utc) => {
   const lang = localStorage.getItem("i18nextLng");
   var local = new Date(utc);
@@ -136,6 +136,8 @@ export const findGeoLocation=(value)=>{
 }
 export const checkTableValues = (type, value, post, exportAccess) => {
   switch (type) {
+    case "SafeMode":
+      return value ? <fa.FaCheck style={{color:"green"}}/> : <fa.FaRegWindowClose style={{color:"red"}}/>
     case "DateSet":
       return dateOfLogTable(value);
     case "IsActive":

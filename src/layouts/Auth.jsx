@@ -51,6 +51,7 @@ const Auth = () => {
       localStorage.setItem("Id",response.Id)
       localStorage.setItem("Domain",response.Domain)
       localStorage.setItem("Website", response.Website)
+      localStorage.setItem("CompanyCode", companyCode.current.value)
       setApp(prev=>({...prev,FirstName:response.FirstName,LastName:response.LastName}))
       return navigate(from, { replace: true });
     },
@@ -113,7 +114,7 @@ const Auth = () => {
               required
               ref={companyCode}
               min={1000}
-              defaultValue={localStorage.getItem("Domain") ? localStorage.getItem("Domain") : 1000}
+              defaultValue={localStorage.getItem("CompanyCode") ? localStorage.getItem("CompanyCode") : 1000}
 
             />
           </Form.Group>
