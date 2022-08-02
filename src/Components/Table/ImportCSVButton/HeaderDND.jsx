@@ -3,9 +3,11 @@ import { useCallback } from 'react'
 import { HeaderItem } from './HeaderItem'
 
 const style = {
-  width: "fit-content",
   fontSize:10,
   border: '1px dashed gray',
+  height:300,
+  overflow:"auto",
+  width:"100%"
 }
 export const HeaderDND = ({headers,columns, setColumns,setHeaders,setRemoved}) => {
   

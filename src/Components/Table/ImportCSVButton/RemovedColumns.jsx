@@ -3,9 +3,11 @@ import React, { useCallback } from "react";
 import ClearIcon from '@mui/icons-material/Clear';
 const styles = {
   parent: {
-    width: "fit-content",
     fontSize: 10,
     border: "1px dashed gray",
+    height:230,
+    width:"100%",
+    overflow:"auto"
   },
   item: {
     display:"flex",

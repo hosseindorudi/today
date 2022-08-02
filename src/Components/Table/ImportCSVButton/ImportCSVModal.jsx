@@ -31,32 +31,22 @@ const styles = {
 };
 const ImportCSVModal = (props) => {
   const { CSVReader } = useCSVReader();
-  const [zoneHover, setZoneHover] = useState(false);
   const { file, setFile, withHeader, setWithHeader } = props;
   const [showCheckResultModal, setShowCheckResultModal] = useState(false);
   const [checkResult, setCheckResult] = useState(null);
   const [response, loading, fetchData] = useAxios();
   const [checkFile, setCheckFile] = useState(null);
   const [importFile, setImportFile] = useState(null);
-  // const [manualImportFile, setManualImportFile] = useState(null);
   const [requestType, setRequestType] = useState("");
   const request = useRequest();
   const inputRefCheckFile = useRef(null);
   const inputRefUpload = useRef(null);
-  const inputRefManualImport = useRef(null);
   const handleFileDropCheckFile = useCallback(
     (item) => {
       const files = item.files;
       setCheckFile(files[0]);
     },
     [setCheckFile]
-  );
-  const handleFileDropManual = useCallback(
-    (item) => {
-      const files = item.files;
-      setFile(files[0]);
-    },
-    [setFile]
   );
   const handleFileDropUpload = useCallback(
     (item) => {
@@ -70,9 +60,6 @@ const ImportCSVModal = (props) => {
   };
   const handleClickUploadFile = () => {
     inputRefUpload.current.click();
-  };
-  const handleClickManualFile = () => {
-    inputRefManualImport.current.click();
   };
 
   const handleClickSample = () => {
@@ -97,9 +84,6 @@ const ImportCSVModal = (props) => {
       method: "POST",
       url: props.fileCheckURL,
       headers: request,
-      // {
-      //   "Content-Type": "multipart/form-data",
-      // },
       data: formData,
     });
   };
@@ -159,55 +143,12 @@ const ImportCSVModal = (props) => {
       });
     setImportFile(event.target.files[0]);
   };
-  const handleChangeManualImport = (event) => {
-    if (event.target.files[0].type !== "text/csv")
-      return toast.info(t("uploadOnlyCSv"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    setFile(event.target.files[0]);
-  };
   const handleOnUploadAccepted = (data) => {
     if (data.errors.length)
       return toast.warn(t("selectCSVFileOnly"), {
         position: toast.POSITION.TOP_CENTER,
       });
     setFile(data.data);
-    // let columns = [];
-    // let rows = [];
-    // if (withHeader) {
-    //   columns = data.data[0].map((col, index) => {
-    //     return {
-    //       Header: col === "" ? `NO-HEADER${index}` : col,
-    //       accessor: col === "" ? `NO-HEADER${index}` : col,
-    //       index: index,
-    //     };
-    //   });
-
-    //   rows = data.data.slice(1).map((row) => {
-    //     return row.reduce((acc, curr, index) => {
-    //       acc[columns[index].accessor] = curr;
-    //       return acc;
-    //     }, {});
-    //   });
-    // } else {
-    //   columns = data.data[0].map((col, index) => {
-    //     return {
-    //       Header: index.toString(),
-    //       accessor: index.toString(),
-    //       index: index,
-    //     };
-    //   });
-    //   rows = data.data.map((row) => {
-    //     return row.reduce((acc, curr, index) => {
-    //       acc[columns[index].accessor] = curr;
-    //       return acc;
-    //     }, {});
-    //   });
-    // }
-    // setRowData(rows);
-    // setColumnData(columns);
-    // setHeaders(columns);
-    // getColumns();
   };
   const handleRemove = () => {
     setFile(null)
@@ -326,23 +267,12 @@ const ImportCSVModal = (props) => {
                     }}
                     onUploadAccepted={(results) => {
                       handleOnUploadAccepted(results);
-                      setZoneHover(false);
-                    }}
-                    onDragOver={(event) => {
-                      event.preventDefault();
-                      setZoneHover(true);
-                    }}
-                    onDragLeave={(event) => {
-                      event.preventDefault();
-                      setZoneHover(false);
                     }}
                   >
                     {({
                       getRootProps,
                       acceptedFile,
-                      ProgressBar,
                       getRemoveFileProps,
-                      Remove,
                     }) => (
                       <>
                         <div {...getRootProps()} className="label-file-upload">
@@ -371,20 +301,6 @@ const ImportCSVModal = (props) => {
                       </>
                     )}
                   </CSVReader>
-                  {/* <input
-                    accept=".csv"
-                    type="file"
-                    id="manualFileInput"
-                    onChange={handleChangeManualImport}
-                    ref={inputRefManualImport}
-                    multiple={false}
-                  />
-                  <TargetBox
-                    onDrop={handleFileDropManual}
-                    handleClickAdd={handleClickManualFile}
-                    inputId={"manualFileInput"}
-                  />
-                  <FileList files={file} /> */}
                   <div style={{ display: "flex" }}>
                     <Form.Check
                       style={{ fontsize: "0.8rem" }}
@@ -404,16 +320,6 @@ const ImportCSVModal = (props) => {
                   </div>
                 </div>
               </div>
-              {/* <div className="dndChild">
-                <div className="dndInsideChild">
-                  <Button
-                    variant="secondary"
-                    onClick={() => props.handleUIClick()}
-                  >
-                    {t("manualUpload")}
-                  </Button>
-                </div>
-              </div> */}
             </div>
           </DndProvider>
         </Modal.Body>
