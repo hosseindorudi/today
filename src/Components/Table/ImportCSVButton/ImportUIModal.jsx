@@ -199,14 +199,21 @@ const ImportUIModal = (props) => {
       return sortedData.push(obj);
     });
     //creating new FinalRowData with respect to new headers
-    const data = sortedData.map((row) => {
+    let data = sortedData.map((row) => {
       return Object.keys(row).reduce((acc, curr, index) => {
-         
+        
         acc[finalColumns[index]?.accessor] = row[curr];
         return acc;
         
       }, {});
     });
+
+    //adding extra columns in case its not available in previous headers.
+    if(finalColumns.length>availableHeaders.length){
+      for (let index = availableHeaders.length; index < finalColumns.length; index++) {
+      data=data.map(v =>({...v, [finalColumns[index].accessor]: ""})) 
+    }  
+    }
     
     setFinalHeader(finalColumns);
 
@@ -214,13 +221,12 @@ const ImportUIModal = (props) => {
     setOriginalData(data)
   };
   const handleClickSubmit = () => {
-    
+      console.log(dataFinal)
   };
   const handleResponse = useCallback((res, type) => {
     switch (type) {
       case "COLUMNINFO":
         setColumnInfo(res.Column);
-        // setFinalTableData(res.Column);
         break;
 
       default:
