@@ -168,6 +168,7 @@ const ImportUIModal = (props) => {
   const setFinalTableData = () => {
     setFinalData([]);
     setOriginalData([]);
+
     //Creating new data with respect to sorted columns and Removed columns
     const availableHeaders = columns.map((col) => col.Header);
 
