@@ -1,7 +1,7 @@
 import { t } from "i18next";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
@@ -12,8 +12,26 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TargetBox } from "./importDND/TargetBox";
 import { FileList } from "./importDND/FileList";
-
+import { useCSVReader } from "react-papaparse";
+import * as fa from "react-icons/fa";
+const styles = {
+  lable: {
+    fontWeight: "bold",
+    fontSize: 8,
+  },
+  acceptedFile: {
+    display: "flex",
+    alignItems: "center",
+  },
+  remove: {
+    border: "none",
+    background: "none",
+    color: "red",
+  },
+};
 const ImportCSVModal = (props) => {
+  const { CSVReader } = useCSVReader();
+  const { file, setFile, withHeader, setWithHeader } = props;
   const [showCheckResultModal, setShowCheckResultModal] = useState(false);
   const [checkResult, setCheckResult] = useState(null);
   const [response, loading, fetchData] = useAxios();
@@ -23,7 +41,6 @@ const ImportCSVModal = (props) => {
   const request = useRequest();
   const inputRefCheckFile = useRef(null);
   const inputRefUpload = useRef(null);
-
   const handleFileDropCheckFile = useCallback(
     (item) => {
       const files = item.files;
@@ -67,9 +84,6 @@ const ImportCSVModal = (props) => {
       method: "POST",
       url: props.fileCheckURL,
       headers: request,
-      // {
-      //   "Content-Type": "multipart/form-data",
-      // },
       data: formData,
     });
   };
@@ -84,7 +98,6 @@ const ImportCSVModal = (props) => {
       data: formData,
     });
   };
-
   const handleCheckFileModal = (Message) => {
     setCheckResult(Message);
     setShowCheckResultModal(true);
@@ -130,7 +143,16 @@ const ImportCSVModal = (props) => {
       });
     setImportFile(event.target.files[0]);
   };
-
+  const handleOnUploadAccepted = (data) => {
+    if (data.errors.length)
+      return toast.warn(t("selectCSVFileOnly"), {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    setFile(data.data);
+  };
+  const handleRemove = () => {
+    setFile(null)
+  };
   return (
     <>
       {showCheckResultModal && (
@@ -145,10 +167,11 @@ const ImportCSVModal = (props) => {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className="ModalImport"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {t("importFile")}
+            <label className="labelModalImport">{t("importFile")} </label>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -237,12 +260,64 @@ const ImportCSVModal = (props) => {
               </div>
               <div className="dndChild">
                 <div className="dndInsideChild">
-                  <Button
-                    variant="secondary"
-                    onClick={() => props.handleUIClick()}
+                  <CSVReader
+                    accept=".csv"
+                    config={{
+                      skipEmptyLines: true,
+                    }}
+                    onUploadAccepted={(results) => {
+                      handleOnUploadAccepted(results);
+                    }}
                   >
-                    {t("manualUpload")}
-                  </Button>
+                    {({
+                      getRootProps,
+                      acceptedFile,
+                      getRemoveFileProps,
+                    }) => (
+                      <>
+                        <div {...getRootProps()} className="label-file-upload">
+                          <div>
+                            <button disabled className="upload-button">
+                              <fa.FaPlus className="dndPlusBtn" />
+                            </button>
+                          </div>
+                          <label className="labelDrop">{t("dropFile")}</label>
+                        </div>
+                        {acceptedFile && (
+                          <div style={styles.acceptedFile}>
+                            <div style={styles.lable}>{acceptedFile.name}</div>{" "}
+                            <button
+                              {...getRemoveFileProps()}
+                              style={styles.remove}
+                              onClick={(event) => {
+                                getRemoveFileProps().onClick(event);
+                                handleRemove();
+                              }}
+                            >
+                              <fa.FaWindowClose />
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </CSVReader>
+                  <div style={{ display: "flex" }}>
+                    <Form.Check
+                      style={{ fontsize: "0.8rem" }}
+                      label={t("withHeader")}
+                      checked={withHeader}
+                      onChange={() => setWithHeader(!withHeader)}
+                    />
+                  </div>
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    <Button
+                      variant="primary"
+                      disabled={!file || loading ? true : false}
+                      onClick={() => props.handleUIClick()}
+                    >
+                      {t("manualUpload")}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

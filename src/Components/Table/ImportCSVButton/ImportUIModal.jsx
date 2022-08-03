@@ -3,49 +3,40 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTranslation } from "react-i18next";
-import { useCSVReader } from "react-papaparse";
-import { toast } from "react-toastify";
 import useAxios from "../../../customHooks/useAxios";
 import ReactTable from "../../reactTable/ReactTable";
 import { HeaderDND } from "./HeaderDND";
 import RemovedColumns from "./RemovedColumns";
 import useRequest from "../../../customHooks/useRequest";
 import BackDrop from "../../backDrop/BackDrop";
-import * as md from 'react-icons/md'
-import {  validateLength, validateRequired, validateType } from "../../../validation/validation";
+import * as md from "react-icons/md";
+import * as fa from "react-icons/fa";
+import { toast } from "react-toastify";
+import {
+  validateLength,
+  validateRequired,
+  validateType,
+} from "../../../validation/validation";
 const styles = {
-  csvReader: {
+  textField: {
+    fontSize: 10,
+  },
+  topLayer: {
     display: "flex",
     flexDirection: "row",
-    marginBottom: 10,
-    width: "80%",
+    gap: "1%",
   },
-  browseFile: {
-    width: "10%",
-    height: 30,
-    background: "cornflowerblue",
-    color: "white",
+  topLayerHeader: {
+    width: "15%",
+    height: "100%",
   },
-  acceptedFile: {
-    border: "1px solid #ccc",
-    height: 30,
-    paddingLeft: 10,
-    width: "80%",
+  topLayerRemove: {
+    width: "15%",
+    height: "100%",
   },
-  remove: {
-    borderRadius: 0,
-    padding: "0 20px",
-    background: "darkred",
-    color: "white",
-    width: "10%",
-    height: 30,
-  },
-  progressBarBackgroundColor: {
-    backgroundColor: "green",
-  },
-  headerDivImport: {
-    display: "flex",
-    justifyContent: "space-around",
+  table: {
+    width: "70%",
+    height: "100%",
   },
   buttonPrepare: {
     margin: 10,
@@ -54,68 +45,70 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
   },
-  ModalBody:{
-    maxHeight:600,
-    overflow:"auto"
+  ModalBody: {
+    maxHeight: 600,
+    overflow: "auto",
   },
-  refresh:{
-    color:"red",
-    cursor:"pointer",
-    fontSize:20
+  refresh: {
+    color: "red",
+    cursor: "pointer",
+    fontSize: 20,
   },
-  lableFinal:{
-    display:"flex",
-    alignItems:"center",
-    gap:10
+  lableFinal: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+  },
+  labelHeaders: {
+    fontSize: 10,
+    fontWeight: "bold",
+  },
+  row: {
+    display: "flex",
+    alignItems: "center",
+    gap: 2,
+  },
+  addBtn: {
+    cursor: "pointer",
+  },
+  lowLayer:{
+    display:"flex"
+  },
+  tableLower:{
+    width:"80%",
+    height: "100%",
+  },
+  buttons:{
+    display:'flex',
+    flexDirection:"column",
+    width:"20%"
   }
 };
 const ImportUIModal = (props) => {
+  const { file, withHeader } = props;
   const [response, loading, fetchData] = useAxios();
   const [columnInfo, setColumnInfo] = useState([]);
   const [finalHeader, setFinalHeader] = useState([]);
+  const [addColumnValue, setAddColumnValue] = useState("")
   const [finalData, setFinalData] = useState([]);
   const dataFinal = useMemo(() => finalData, [finalData]);
-  const [originalData,setOriginalData] =useState([])
+  const [originalData, setOriginalData] = useState([]);
   const columnsFinal = useMemo(() => finalHeader, [finalHeader]);
   const request = useRequest();
   const [type, setType] = useState("");
-  const [withHeader, setWithHeader] = useState(true);
-  const [file, setFile] = useState(null);
   const [columnData, setColumnData] = useState([]);
   const [rowData, setRowData] = useState([]);
   const data = useMemo(() => rowData, [rowData]);
   const columns = useMemo(() => columnData, [columnData]);
   const [headers, setHeaders] = useState([]);
   const [removed, setRemoved] = useState([]);
-  const { CSVReader } = useCSVReader();
   const { t } = useTranslation();
 
-
-
-  const updateMyData = (rowIndex, columnId, value) => {
-    setFinalData(old =>
-      old.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...old[rowIndex],
-            [columnId]: value,
-          }
-        }
-        return row
-      })
-    )
-  }
-  const resetData = () => setFinalData(originalData)
-  const handleOnUploadAccepted = (data) => {
-    if (data.errors.length)
-      return toast.warn(t("selectCSVFileOnly"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    setFile(data.data);
+  useEffect(() => {
     let columns = [];
     let rows = [];
     if (withHeader) {
-      columns = data.data[0].map((col, index) => {
+      columns = file[0].map((col, index) => {
         return {
           Header: col === "" ? `NO-HEADER${index}` : col,
           accessor: col === "" ? `NO-HEADER${index}` : col,
@@ -123,21 +116,21 @@ const ImportUIModal = (props) => {
         };
       });
 
-      rows = data.data.slice(1).map((row) => {
+      rows = file.slice(1).map((row) => {
         return row.reduce((acc, curr, index) => {
           acc[columns[index].accessor] = curr;
           return acc;
         }, {});
       });
     } else {
-      columns = data.data[0].map((col, index) => {
+      columns = file[0].map((col, index) => {
         return {
           Header: index.toString(),
           accessor: index.toString(),
           index: index,
         };
       });
-      rows = data.data.map((row) => {
+      rows = file.map((row) => {
         return row.reduce((acc, curr, index) => {
           acc[columns[index].accessor] = curr;
           return acc;
@@ -148,17 +141,24 @@ const ImportUIModal = (props) => {
     setColumnData(columns);
     setHeaders(columns);
     getColumns();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const updateMyData = (rowIndex, columnId, value) => {
+    setFinalData((old) =>
+      old.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...old[rowIndex],
+            [columnId]: value,
+          };
+        }
+        return row;
+      })
+    );
   };
-  const handleRemove = () => {
-    setHeaders([]);
-    setFile(null);
-    setRowData([]);
-    setColumnData([]);
-    setRemoved([]);
-    setColumnInfo([]);
-    setFinalData([]);
-    setFinalHeader([])
-  };
+  const resetData = () => setFinalData(originalData);
   const getColumns = () => {
     setType("COLUMNINFO");
     fetchData({
@@ -167,18 +167,9 @@ const ImportUIModal = (props) => {
       headers: request,
     });
   };
-  const setFinalTableData = (columnInfo) => {
-    //Required Headers from backEnd
-    const finalColumns = columnInfo.map((col, index) => {
-      return {
-        Header: col.Name,
-        accessor: col.Name,
-        Type: col.Type,
-        Length: col.Length,
-        Required: col.Necessary,
-      };
-    });
-
+  const setFinalTableData = () => {
+    setFinalData([])
+    setOriginalData([])
     //Creating new data with respect to sorted columns and Removed columns
     const availableHeaders = columns.map((col) => col.Header);
 
@@ -201,32 +192,43 @@ const ImportUIModal = (props) => {
     //creating new FinalRowData with respect to new headers
     let data = sortedData.map((row) => {
       return Object.keys(row).reduce((acc, curr, index) => {
-        
-        acc[finalColumns[index]?.accessor] = row[curr];
+        acc[finalHeader[index]?.accessor] = row[curr];
         return acc;
-        
       }, {});
     });
 
     //adding extra columns in case its not available in previous headers.
-    if(finalColumns.length>availableHeaders.length){
-      for (let index = availableHeaders.length; index < finalColumns.length; index++) {
-      data=data.map(v =>({...v, [finalColumns[index].accessor]: ""})) 
-    }  
+    if (finalHeader.length > availableHeaders.length) {
+      for (
+        let index = availableHeaders.length;
+        index < finalHeader.length;
+        index++
+      ) {
+        data = data.map((v) => ({ ...v, [finalHeader[index].accessor]: "" }));
+      }
     }
-    
-    setFinalHeader(finalColumns);
 
     setFinalData(data);
-    setOriginalData(data)
+    setOriginalData(data);
   };
   const handleClickSubmit = () => {
-      console.log(dataFinal)
+    console.log(dataFinal);
   };
   const handleResponse = useCallback((res, type) => {
     switch (type) {
       case "COLUMNINFO":
         setColumnInfo(res.Column);
+        //Required Headers from backEnd
+        const finalColumns = res.Column.map((col, index) => {
+          return {
+            Header: col.Name,
+            accessor: col.Name,
+            Type: col.Type,
+            Length: col.Length,
+            Required: col.Necessary,
+          };
+        });
+        setFinalHeader(finalColumns);
         break;
 
       default:
@@ -238,11 +240,25 @@ const ImportUIModal = (props) => {
     response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
-  const config = {
-    skipEmptyLines: true,
-  };
+  const handleClickAdd = () => {
+    if(addColumnValue.length===0)
+    return toast.info(t("coloumnEmpty"), {
+      position: toast.POSITION.TOP_CENTER,
+    });
+   if(columnData.find(f=>f.Header===addColumnValue))
+   return toast.info(t("columnExits"), {
+      position: toast.POSITION.TOP_CENTER,
+    })
+    let obj={
+      Header: addColumnValue,
+      accessor: addColumnValue,
+      index: columnData.length
+    } 
+    setColumnData(oldArray => [...oldArray,obj]);
+    setHeaders(oldArray => [...oldArray,obj ]);
+  };  
   return (
-    <DndProvider backend={HTML5Backend}>
+   <>
       {loading && <BackDrop open={true} />}
       <Modal
         {...props}
@@ -251,7 +267,6 @@ const ImportUIModal = (props) => {
         centered
         backdrop="static"
         keyboard={false}
-        
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -259,114 +274,123 @@ const ImportUIModal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={styles.ModalBody}>
-          <div className="Row">
-            <Form.Group controlId="formFile" className="mb-3">
-              <Form.Label>{t("uploadUrFIle")}</Form.Label>
-              <div style={styles.CsvRowImport}>
-                <CSVReader
-                  onUploadAccepted={handleOnUploadAccepted}
-                  accept=".csv"
-                  config={config}
-                >
-                  {({
-                    getRootProps,
-                    acceptedFile,
-                    ProgressBar,
-                    getRemoveFileProps,
-                  }) => (
-                    <>
-                      <div style={styles.csvReader}>
-                        <button
-                          type="button"
-                          {...getRootProps()}
-                          style={styles.browseFile}
-                        >
-                          {t("select")}
-                        </button>
-                        <div style={styles.acceptedFile}>
-                          {acceptedFile && acceptedFile.name}
-                        </div>
-                        <button
-                          {...getRemoveFileProps()}
-                          style={styles.remove}
-                          onClick={(event) => {
-                            getRemoveFileProps().onClick(event);
-                            handleRemove();
-                          }}
-                        >
-                          {t("remove")}
-                        </button>
-                      </div>
-                      {/* <ProgressBar style={styles.progressBarBackgroundColor} /> */}
-                    </>
-                  )}
-                </CSVReader>
-                <Form.Check
-                  label={t("withHeader")}
-                  checked={withHeader}
-                  onChange={() => setWithHeader(!withHeader)}
-                />
-              </div>
-            </Form.Group>
-          </div>
           {file && (
             <>
-              <Form.Label><b>{t("preview")}</b></Form.Label>
-              <div style={styles.headerDivImport}>
-                <Form.Group className="mb-3" controlId="headers">
-                  <Form.Label>{t("importHeaders")}</Form.Label>
-                  <HeaderDND
-                    headers={headers}
-                    columns={columnData}
-                    setColumns={setColumnData}
-                    setHeaders={setHeaders}
-                    setRemoved={setRemoved}
-                    removed={removed}
+              <div style={styles.topLayer}>
+                <div style={styles.topLayerRemove}>
+                  <div>
+                    <Form.Group>
+                      <Form.Label style={styles.labelHeaders}>
+                        {t("addColumn")}
+                      </Form.Label>
+                      <div style={styles.row}>
+                        <Form.Control
+                          placeholder={t("columnName")}
+                          style={styles.textField}
+                          value={addColumnValue}
+                          onChange={(e)=>setAddColumnValue(e.target.value)}
+                        />
+                        <fa.FaPlus
+                          style={styles.addBtn}
+                          onClick={handleClickAdd}
+                          
+                        />
+                      </div>
+                    </Form.Group>
+                  </div>
+                  <Form.Group className="mb-3" controlId="removed">
+                    <Form.Label style={styles.labelHeaders}>
+                      {t("removedColumns")}
+                    </Form.Label>
+                    <RemovedColumns
+                      removed={removed}
+                      setColumns={setColumnData}
+                      setHeaders={setHeaders}
+                      setRemoved={setRemoved}
+                    />
+                  </Form.Group>
+                </div>
+                <div style={styles.topLayerHeader}>
+                  <Form.Group className="mb-3" controlId="headers">
+                    <Form.Label style={styles.labelHeaders}>
+                      {t("importHeaders")}
+                    </Form.Label>
+                    <DndProvider backend={HTML5Backend}>
+                    <HeaderDND
+                      headers={headers}
+                      columns={columnData}
+                      setColumns={setColumnData}
+                      setHeaders={setHeaders}
+                      setRemoved={setRemoved}
+                      removed={removed}
+                    />
+                    </DndProvider>
+                  </Form.Group>
+                </div>
+                <div style={styles.table}>
+                  <ReactTable
+                    columns={columns}
+                    data={data}
+                    isEditable={false}
                   />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="removed">
-                  <Form.Label>{t("removedColumns")}</Form.Label>
-                  <RemovedColumns
-                    removed={removed}
-                    setColumns={setColumnData}
-                    setHeaders={setHeaders}
-                    setRemoved={setRemoved}
-                  />
-                </Form.Group>
+                </div>
               </div>
-
-              <ReactTable columns={columns} data={data} isEditable={false}/>
-              <Button
-                size="sm"
-                style={styles.buttonPrepare}
-                onClick={() => setFinalTableData(columnInfo)}
-              >
-                {t("prepare")}
-              </Button>
               <Form.Group>
-              <Form.Label style={styles.lableFinal}><b>{t("final")}</b>{finalData.length>0&&<md.MdOutlineRestartAlt onClick={resetData} style={styles.refresh}/>} </Form.Label>
-              <ReactTable
-                columns={columnsFinal}
-                data={dataFinal}
-                getCellProps={(cellInfo) => ({
-                  style: {
-                    backgroundColor: validateType(cellInfo) &&validateLength(cellInfo)&&validateRequired(cellInfo)?"white":"coral",
-                  },
-                })}
-                isEditable={true}
-                updateMyData={updateMyData}
-              />
-              </Form.Group>
+                <Form.Label style={styles.lableFinal}>
+                  <b>{t("final")}</b>
+                  {finalData.length > 0 && (
+                    <md.MdOutlineRestartAlt
+                      onClick={resetData}
+                      style={styles.refresh}
+                    />
+                  )}{" "}
+                </Form.Label>
+                </Form.Group>
+                <div style={styles.lowLayer}>
+                  <div style={styles.buttons}>
+                    <Button
+                      size="sm"
+                      style={styles.buttonPrepare}
+                      onClick={() => setFinalTableData(columnInfo)}
+                    >
+                      {t("prepare")}
+                    </Button>
+                    <Button
+                      size="sm"
+                      style={styles.buttonPrepare}
+                      disabled={!finalData.length > 0 || loading}
+                      onClick={handleClickSubmit}
+                    >
+                      {t("submit")}
+                    </Button>
+                  </div>
+                  <div style={styles.tableLower}>
+                  <ReactTable
+                  columns={columnsFinal}
+                  data={dataFinal}
+                  getCellProps={(cellInfo) => ({
+                    style: {
+                      backgroundColor:
+                        validateType(cellInfo) &&
+                        validateLength(cellInfo) &&
+                        validateRequired(cellInfo)
+                          ? "white"
+                          : "coral",
+                    },
+                  })}
+                  isEditable={true}
+                  updateMyData={updateMyData}
+                />
+                  </div>
+                </div>
+               
+             
             </>
           )}
         </Modal.Body>
-        <Modal.Footer>
-          <Button disabled={!finalData.length>0||loading} onClick={handleClickSubmit}>
-            {t("submit")}
-          </Button>
-        </Modal.Footer>
+      
       </Modal>
-    </DndProvider>
+      </>
   );
 };
 

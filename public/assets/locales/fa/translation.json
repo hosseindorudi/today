@@ -889,7 +889,7 @@
   "remove":"حذف",
   "preview":"پیشنمایش",
   "importHeaders":"ستون ها",
-  "removedColumns":"ستون های حذف شده",
+  "removedColumns":"حذف شده",
   "auth.companyCod":"کدشرکت/نمایندگی",
   "safeModeSwalText":"در این مد تغییرات شما موقتی بوده و پس از خروج از این مد داده های شما حذف خواهد شد آیا میخواهید ادامه دهید؟",
   "safeModeSwalTitle": "تاییدیه Safe mode",
@@ -904,5 +904,10 @@
   "final":"نهایی",
   "Department":"بخش",
   "uploadOnlyCSv":"فرمت فایل csv نمیباشد",
-  "manualUpload":"بارگزاری دستی"
+  "manualUpload":"بارگزاری دستی",
+  "dropFile":"فایل را رها کنید",
+  "columnName":"نام ستون",
+  "addColumn":"اضافه کردن",
+  "coloumnEmpty":"نام ستون خالی است",
+  "columnExits":"ستون وجود دارد"
 }
