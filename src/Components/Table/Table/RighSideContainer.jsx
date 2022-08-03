@@ -33,6 +33,7 @@ const RighSideContainer = ({
   handleClickHelp,
   totalRecord,
   columnInfo,
+  importarray,
   sortedBy,
   isAssending
 }) => {
@@ -113,6 +114,7 @@ const RighSideContainer = ({
               fileCheckURL={fileCheckURL}
               importURL={importURL}
               columnInfo={columnInfo}
+              importarray={importarray}
             
             />
           )}

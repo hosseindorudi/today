@@ -16,3 +16,4 @@ export const CountryLog="/Definition/Country/Log"
 export const CountrySetUnselectedColumn="/Definition/Country/SetUnselectedColumn"
 export const CountryAccessList="/Definition/Country/AccessList"
 export const CountryColumnInfo='Definition/Country/ColumnInfo'
+export const CountryImportArray='Definition/Country/ImportArray'

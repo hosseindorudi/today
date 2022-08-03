@@ -17,6 +17,7 @@ import {
     CountrySetUnselectedColumn,
     CountryAccessList,
     CountryColumnInfo,
+    CountryImportArray,
         } from '../../../../services/countryService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
@@ -113,6 +114,7 @@ const Countrylist = () => {
        mobileModalColumns={mobileModalColumns}
        BcItems={BcItems}
        columnInfo={CountryColumnInfo}
+       importarray={CountryImportArray}
      />
     
     </>

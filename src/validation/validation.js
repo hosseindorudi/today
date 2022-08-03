@@ -87,10 +87,10 @@ const IMEIvalidation = (imei) => {
     }
 }
 
-const checkIsBoolean=(value)=>{
-   if(value)
-   return value==="True"||value==="TRUE"||value==="true"||value==="False"||value==="FALSE"||value==="false"||value==="1"||value==="0"?true:false
-}
+// const checkIsBoolean=(value)=>{
+//    if(value)
+//    return value===true||value===false?true:false
+// }
 const isValidDate=(date)=>{
     const format={
         dateTime:"D/M/YYYY H:m",
@@ -111,7 +111,8 @@ const validateType=(cellInfo)=>{
         case "int":
            return isIntOnly.test(value)
         case "bool":
-            return checkIsBoolean(value)
+            return true 
+            // checkIsBoolean(value)
         case "string":
             return true
         case "DateTime":
@@ -140,7 +141,8 @@ const validateLength=(cellInfo)=>{
 const validateRequired=(cellInfo)=>{
     const required=cellInfo.column.Required
     const value=cellInfo.value
-    if(required){
+    const type=cellInfo.column.Type
+    if(required&&type!=="bool"){
        if(!value||value.length===0)
        return false
     }

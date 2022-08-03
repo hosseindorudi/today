@@ -101,7 +101,7 @@ const ImportUIModal = (props) => {
   const [headers, setHeaders] = useState([]);
   const [removed, setRemoved] = useState([]);
   const { t } = useTranslation();
-
+ 
   useEffect(() => {
     let columns = [];
     let rows = [];
@@ -116,7 +116,7 @@ const ImportUIModal = (props) => {
 
       rows = file.slice(1).map((row) => {
         return row.reduce((acc, curr, index) => {
-          acc[columns[index].accessor] = curr;
+          acc[columns[index].accessor] =curr;
           return acc;
         }, {});
       });
@@ -211,7 +211,13 @@ const ImportUIModal = (props) => {
     setOriginalData(data);
   };
   const handleClickSubmit = () => {
-    console.log(dataFinal);
+    setType("SUBMIT")
+    fetchData({
+      method: "POST",
+      url: props.importarray,
+      headers: request,
+      data: dataFinal
+    });
   };
   const handleResponse = useCallback((res, type) => {
     switch (type) {
@@ -227,10 +233,14 @@ const ImportUIModal = (props) => {
             Required: col.Necessary,
             Parent: col.Parent,
             ParentTitle: col.ParentTitle,
+            isData:true
           };
         });
         setFinalHeader(finalColumns);
 
+        break;
+      case "SUBMIT":
+          props.importSuccess(res.Message)
         break;
 
       default:

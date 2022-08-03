@@ -16,7 +16,10 @@ const ImportCSV = (props) => {
     setModalShow(false)
     setModalImportUI(true)
   }
-
+  const importSuccess=(message)=>{
+    setModalImportUI(false)
+    props.importSuccess(message)
+  }
   return (
     <>
     {modalShow&&
@@ -25,7 +28,7 @@ const ImportCSV = (props) => {
     />
     } 
     {modalImportUI &&(
-      <ImportUIModal onHide={()=>setModalImportUI(false)} show={modalImportUI} columnInfo={props.columnInfo} file={file} withHeader={withHeader}/>
+      <ImportUIModal onHide={()=>setModalImportUI(false)} show={modalImportUI} columnInfo={props.columnInfo} file={file} withHeader={withHeader} importarray={props.importarray} importSuccess={importSuccess}/>
     )}
     <button  className="reactTableParentImportButton" title="importCSV" onClick={handleOpenModalCSV}>
     <fa.FaFileCsv />
