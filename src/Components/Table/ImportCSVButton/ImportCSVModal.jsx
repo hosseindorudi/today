@@ -108,7 +108,7 @@ const ImportCSVModal = (props) => {
     switch (type) {
       case "SAMPLE":
         res.Content?.length > 0
-          ? downloadCSVCode(res.Content, "sample")
+          ? downloadCSVCode(res.Content, res.Name)
           : noFileToast();
         break;
       case "CHECK":
