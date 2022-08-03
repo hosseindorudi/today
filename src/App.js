@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { languages } from "./assets/languages/languages";
 import "./assets/css/App.css";
-import "./assets/css/periorityForm.css"
-import "./assets/css/admission.css"
+import "./assets/css/periorityForm.css";
+import "./assets/css/admission.css";
 import Admin from "./layouts/Admin";
 import { Route, Routes, useLocation } from "react-router-dom";
 import AppContext from "./contexts/AppContext";
@@ -15,9 +15,9 @@ import TabContextProvider from "./contexts/TabContextProvider";
 import { AuthProvider } from "./contexts/AuthProvider";
 import RequireAuth from "./Components/RequireAuth";
 import OsInformationProvider from "./contexts/OsInformationProvider";
+import QuestionPage from "./questionPage/QuestionPage";
 
 function App() {
-
   const search = useLocation().search;
   const typeOfUser = new URLSearchParams(search).get("type");
   const [app, setApp] = useState({
@@ -30,7 +30,6 @@ function App() {
   });
   const currentLanguageCode = localStorage.getItem("i18nextLng") || "fa";
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
-
 
   useEffect(() => {
     document.body.dir = currentLanguage.dir || "ltr";
@@ -49,19 +48,30 @@ function App() {
 
   return (
     <div className={"App " + assignFont()}>
+             
       <OsInformationProvider>
+      
         <AuthProvider>
           <AppContext.Provider value={{ app, setApp }}>
             <TabContextProvider>
+            
               <Routes>
+              
+           
+                <Route exact path="/poll" element={<QuestionPage />} />
+
                 <Route path="/auth" element={<Auth />} />
+                
                 <Route element={<RequireAuth />}>
                   <Route path="/" element={<Admin />} />
                 </Route>
+
                 <Route path="*" element={<Pagenotfound />} />
               </Routes>
+              
               <ToastContainer rtl={currentLanguage.dir ? true : false} />
             </TabContextProvider>
+            
           </AppContext.Provider>
         </AuthProvider>
       </OsInformationProvider>

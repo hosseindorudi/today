@@ -5,7 +5,7 @@ import SubMenu from "./SubMenu";
 import "./sidebar.css";
 import Search from "./search";
 import { useTranslation } from "react-i18next";
-import logo from "../../assets/imgs/logo.png";
+// import logo from "../../assets/imgs/logo.png";
 
 const Sidebar = () => {
   const [foundMenues, setFoundMenues] = useState([]);
@@ -54,7 +54,7 @@ const Sidebar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={logo} alt="ctelecomlogo" />
+                <img src={"data:image/png;base64," + localStorage.getItem("Logo")} alt="ctelecomlogo" />
               </a>
             </div>
             <span>{localStorage.getItem("Domain")}</span>
