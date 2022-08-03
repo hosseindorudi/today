@@ -51,6 +51,7 @@ const Auth = () => {
       localStorage.setItem("Id",response.Id)
       localStorage.setItem("Domain",response.Domain)
       localStorage.setItem("Website", response.Website)
+      localStorage.setItem("Logo", response.Logo)
       localStorage.setItem("CompanyCode", companyCode.current.value)
       setApp(prev=>({...prev,FirstName:response.FirstName,LastName:response.LastName}))
       return navigate(from, { replace: true });
