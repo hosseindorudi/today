@@ -69,25 +69,25 @@ const styles = {
   addBtn: {
     cursor: "pointer",
   },
-  lowLayer:{
-    display:"flex"
+  lowLayer: {
+    display: "flex",
   },
-  tableLower:{
-    width:"80%",
+  tableLower: {
+    width: "80%",
     height: "100%",
   },
-  buttons:{
-    display:'flex',
-    flexDirection:"column",
-    width:"20%"
-  }
+  buttons: {
+    display: "flex",
+    flexDirection: "column",
+    width: "20%",
+  },
 };
 const ImportUIModal = (props) => {
   const { file, withHeader } = props;
   const [response, loading, fetchData] = useAxios();
   const [columnInfo, setColumnInfo] = useState([]);
   const [finalHeader, setFinalHeader] = useState([]);
-  const [addColumnValue, setAddColumnValue] = useState("")
+  const [addColumnValue, setAddColumnValue] = useState("");
   const [finalData, setFinalData] = useState([]);
   const dataFinal = useMemo(() => finalData, [finalData]);
   const [originalData, setOriginalData] = useState([]);
@@ -166,8 +166,8 @@ const ImportUIModal = (props) => {
     });
   };
   const setFinalTableData = () => {
-    setFinalData([])
-    setOriginalData([])
+    setFinalData([]);
+    setOriginalData([]);
     //Creating new data with respect to sorted columns and Removed columns
     const availableHeaders = columns.map((col) => col.Header);
 
@@ -224,9 +224,12 @@ const ImportUIModal = (props) => {
             Type: col.Type,
             Length: col.Length,
             Required: col.Necessary,
+            Parent: col.Parent,
+            ParentTitle: col.ParentTitle,
           };
         });
         setFinalHeader(finalColumns);
+
         break;
 
       default:
@@ -239,25 +242,25 @@ const ImportUIModal = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
   const handleClickAdd = () => {
-    if(addColumnValue.length===0)
-    return toast.info(t("coloumnEmpty"), {
-      position: toast.POSITION.TOP_CENTER,
-    });
-   if(columnData.find(f=>f.Header===addColumnValue))
-   return toast.info(t("columnExits"), {
-      position: toast.POSITION.TOP_CENTER,
-    })
-    let obj={
+    if (addColumnValue.length === 0)
+      return toast.info(t("coloumnEmpty"), {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    if (columnData.find((f) => f.Header === addColumnValue))
+      return toast.info(t("columnExits"), {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    let obj = {
       Header: addColumnValue,
       accessor: addColumnValue,
-      index: addColumnValue
-    } 
-    setColumnData(oldArray => [...oldArray,obj]);
-    setHeaders(oldArray => [...oldArray,obj ]);
-    setAddColumnValue("")
-  };  
+      index: addColumnValue,
+    };
+    setColumnData((oldArray) => [...oldArray, obj]);
+    setHeaders((oldArray) => [...oldArray, obj]);
+    setAddColumnValue("");
+  };
   return (
-   <>
+    <>
       {loading && <BackDrop open={true} />}
       <Modal
         {...props}
@@ -287,12 +290,11 @@ const ImportUIModal = (props) => {
                           placeholder={t("columnName")}
                           style={styles.textField}
                           value={addColumnValue}
-                          onChange={(e)=>setAddColumnValue(e.target.value)}
+                          onChange={(e) => setAddColumnValue(e.target.value)}
                         />
                         <fa.FaPlus
                           style={styles.addBtn}
                           onClick={handleClickAdd}
-                          
                         />
                       </div>
                     </Form.Group>
@@ -344,52 +346,49 @@ const ImportUIModal = (props) => {
                     />
                   )}{" "}
                 </Form.Label>
-                </Form.Group>
-                <div style={styles.lowLayer}>
-                  <div style={styles.buttons}>
-                    <Button
-                      size="sm"
-                      style={styles.buttonPrepare}
-                      onClick={() => setFinalTableData(columnInfo)}
-                    >
-                      {t("prepare")}
-                    </Button>
-                    <Button
-                      size="sm"
-                      style={styles.buttonPrepare}
-                      disabled={!finalData.length > 0 || loading}
-                      onClick={handleClickSubmit}
-                    >
-                      {t("submit")}
-                    </Button>
-                  </div>
-                  <div style={styles.tableLower}>
-                  <ReactTable
-                  columns={columnsFinal}
-                  data={dataFinal}
-                  getCellProps={(cellInfo) => ({
-                    style: {
-                      backgroundColor:
-                        validateType(cellInfo) &&
-                        validateLength(cellInfo) &&
-                        validateRequired(cellInfo)
-                          ? "white"
-                          : "coral",
-                    },
-                  })}
-                  isEditable={true}
-                  updateMyData={updateMyData}
-                />
-                  </div>
+              </Form.Group>
+              <div style={styles.lowLayer}>
+                <div style={styles.buttons}>
+                  <Button
+                    size="sm"
+                    style={styles.buttonPrepare}
+                    onClick={() => setFinalTableData(columnInfo)}
+                  >
+                    {t("prepare")}
+                  </Button>
+                  <Button
+                    size="sm"
+                    style={styles.buttonPrepare}
+                    disabled={!finalData.length > 0 || loading}
+                    onClick={handleClickSubmit}
+                  >
+                    {t("submit")}
+                  </Button>
                 </div>
-               
-             
+                <div style={styles.tableLower}>
+                  <ReactTable
+                    columns={columnsFinal}
+                    data={dataFinal}
+                    getCellProps={(cellInfo) => ({
+                      style: {
+                        backgroundColor:
+                          validateType(cellInfo) &&
+                          validateLength(cellInfo) &&
+                          validateRequired(cellInfo)
+                            ? "white"
+                            : "coral",
+                      },
+                    })}
+                    isEditable={true}
+                    updateMyData={updateMyData}
+                  />
+                </div>
+              </div>
             </>
           )}
         </Modal.Body>
-      
       </Modal>
-      </>
+    </>
   );
 };
 

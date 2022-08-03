@@ -909,5 +909,6 @@
   "columnName":"نام ستون",
   "addColumn":"اضافه کردن",
   "coloumnEmpty":"نام ستون خالی است",
-  "columnExits":"ستون تکراری وجود دارد"
+  "columnExits":"ستون تکراری وجود دارد",
+  "selectAnOption":"انتخاب کنید"
 }

@@ -1,6 +1,9 @@
+import { t } from 'i18next';
 import React from 'react'
-import {  Table } from 'react-bootstrap';
+import {   Table } from 'react-bootstrap';
 import { useTable } from "react-table";
+
+
 const styles = {
     table: {
       fontSize: 11,
@@ -16,20 +19,30 @@ const styles = {
   const EditableCell = ({
     value: initialValue,
     row: { index },
-    column: { id },
+    column:{id},
+    column:columns,
     updateMyData, // This is a custom function that we supplied to our table instance
-    isEditable
+    isEditable,
   }) => {
     // We need to keep and update the state of the cell normally
     const [value, setValue] = React.useState(initialValue)
-  
     const onChange = e => {
       setValue(e.target.value)
     }
-  
+    const createSelect=(titles,value)=>{
+      return <select value={value} aria-label="Default select" onChange={handleChangeSelect}>
+        <option hidden>{t("selectAnOption")}</option>
+        {titles.map((t)=>(
+        <option value={t.Id}>{t.Value}</option>
+      ))}</select>
+    }
+    const handleChangeSelect=(e)=>{
+      const val=e.target.value
+      updateMyData(index,id,val)
+    }
     // We'll only update the external data when the input is blurred
     const onBlur = () => {
-      updateMyData(index, id, value)
+      updateMyData(index,id, value)
     }
   
     // If the initialValue is changed external, sync it up with our state
@@ -37,7 +50,7 @@ const styles = {
       setValue(initialValue)
     }, [initialValue])
   
-    return isEditable?<div style={styles.td}><input value={value} onChange={onChange} onBlur={onBlur} /></div>:value
+    return isEditable?<div style={styles.td}><input value={value} onChange={onChange} onBlur={onBlur} />{columns.Parent&&createSelect(columns.ParentTitle,value)}</div>:value
   }
 
   const defaultPropGetter = () => ({})
@@ -54,6 +67,8 @@ const ReactTable = ({columns,data, getCellProps = defaultPropGetter,updateMyData
       updateMyData,
       isEditable
     });
+
+  
   return (
     <Table style={styles.table} responsive {...getTableProps()}>
     <thead>
