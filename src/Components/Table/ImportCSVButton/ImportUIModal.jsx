@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTranslation } from "react-i18next";
 import useAxios from "../../../customHooks/useAxios";
 import ReactTable from "../../reactTable/ReactTable";
@@ -252,10 +250,11 @@ const ImportUIModal = (props) => {
     let obj={
       Header: addColumnValue,
       accessor: addColumnValue,
-      index: columnData.length
+      index: addColumnValue
     } 
     setColumnData(oldArray => [...oldArray,obj]);
     setHeaders(oldArray => [...oldArray,obj ]);
+    setAddColumnValue("")
   };  
   return (
    <>
@@ -315,7 +314,7 @@ const ImportUIModal = (props) => {
                     <Form.Label style={styles.labelHeaders}>
                       {t("importHeaders")}
                     </Form.Label>
-                    <DndProvider backend={HTML5Backend}>
+                    {/* <DndProvider backend={HTML5Backend}> */}
                     <HeaderDND
                       headers={headers}
                       columns={columnData}
@@ -324,7 +323,7 @@ const ImportUIModal = (props) => {
                       setRemoved={setRemoved}
                       removed={removed}
                     />
-                    </DndProvider>
+                    {/* </DndProvider> */}
                   </Form.Group>
                 </div>
                 <div style={styles.table}>

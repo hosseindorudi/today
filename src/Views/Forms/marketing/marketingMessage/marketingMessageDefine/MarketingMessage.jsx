@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTranslation } from "react-i18next";
 import "./dnd.css";
 import DNDContainer from "./messageComponents/DNDContainer";
@@ -14,7 +12,6 @@ const MarketingMessage = () => {
     setValue((prevState) => prevState + i.bValue);
   }
   return (
-    <DndProvider backend={HTML5Backend}>
       <div className="DnDMain">
         <Form className="DnDForm">
           <div className="Row">
@@ -39,7 +36,6 @@ const MarketingMessage = () => {
           
         </Form>
       </div>
-    </DndProvider>
   );
 };
 

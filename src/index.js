@@ -10,6 +10,8 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import { HashRouter} from 'react-router-dom';
 import BackDrop from './Components/backDrop/BackDrop';
 import ErrorBoundary from './Components/errorBoundary/ErrorBoundary'
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 // import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -39,7 +41,9 @@ root.render(
   
   <Suspense fallback={ <BackDrop open={true}/>}>
   <HashRouter>
+  <DndProvider backend={HTML5Backend}>
     <App />
+    </DndProvider>
   </HashRouter>
   </Suspense>
   </ErrorBoundary>

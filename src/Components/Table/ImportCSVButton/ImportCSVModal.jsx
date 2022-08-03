@@ -5,11 +5,9 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
-import { downloadCSVCode } from "../../../validation/functions";
+import { downloadCSVCode, isDuplicateExistInArray } from "../../../validation/functions";
 import "./importModal.css";
 import ModalCheckResult from "./ModalCheckResult";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { TargetBox } from "./importDND/TargetBox";
 import { FileList } from "./importDND/FileList";
 import { useCSVReader } from "react-papaparse";
@@ -31,7 +29,7 @@ const styles = {
 };
 const ImportCSVModal = (props) => {
   const { CSVReader } = useCSVReader();
-  const { file, setFile, withHeader, setWithHeader } = props;
+  const { file, setFile, withHeader, setwithheader } = props;
   const [showCheckResultModal, setShowCheckResultModal] = useState(false);
   const [checkResult, setCheckResult] = useState(null);
   const [response, loading, fetchData] = useAxios();
@@ -148,6 +146,10 @@ const ImportCSVModal = (props) => {
       return toast.warn(t("selectCSVFileOnly"), {
         position: toast.POSITION.TOP_CENTER,
       });
+    if(withHeader && isDuplicateExistInArray(data?.data[0]))
+    return toast.info(t("columnExits"), {
+      position: toast.POSITION.TOP_CENTER,
+    })
     setFile(data.data);
   };
   const handleRemove = () => {
@@ -175,7 +177,6 @@ const ImportCSVModal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DndProvider backend={HTML5Backend}>
             <div className="dndMainDiv">
               <div className="dndChild">
                 <div className="dndInsideChild">
@@ -306,7 +307,7 @@ const ImportCSVModal = (props) => {
                       style={{ fontsize: "0.8rem" }}
                       label={t("withHeader")}
                       checked={withHeader}
-                      onChange={() => setWithHeader(!withHeader)}
+                      onChange={() => setwithheader(!withHeader)}
                     />
                   </div>
                   <div style={{ display: "flex", gap: "5px" }}>
@@ -321,7 +322,7 @@ const ImportCSVModal = (props) => {
                 </div>
               </div>
             </div>
-          </DndProvider>
+      
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={() => props.onHide()}>

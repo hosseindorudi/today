@@ -242,3 +242,13 @@ export const getGeoFromIp = async (ip) => {
     });
   return result;
 };
+
+export const isDuplicateExistInArray=(arr)=>{
+    let resultToReturn = false;
+    // call some function with callback function as argument
+    resultToReturn = arr.some((element, index) => {
+        return arr.indexOf(element) !== index
+    });
+    return resultToReturn
+        
+}

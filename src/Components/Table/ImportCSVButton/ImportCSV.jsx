@@ -21,7 +21,7 @@ const ImportCSV = (props) => {
     <>
     {modalShow&&
     <ImportCSVModal onHide={()=>setModalShow(false)} show={modalShow} importSuccess={props.importSuccess} sampleUrl={props.sampleUrl} fileCheckURL={props.fileCheckURL} importURL={props.importURL} handleUIClick={handleUIClick}
-    file={file} setFile={setFile} withHeader={withHeader} setWithHeader={setWithHeader}
+    file={file} setFile={setFile} withHeader={withHeader} setwithheader={setWithHeader}
     />
     } 
     {modalImportUI &&(
