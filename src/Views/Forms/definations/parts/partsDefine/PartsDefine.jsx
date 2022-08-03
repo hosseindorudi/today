@@ -21,6 +21,7 @@ import axios from "axios";
 import "./partsDefine.css";
 import { ColorReadTitle } from "../../../../../services/colorService";
 import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
+import { modelReadTitle } from "../../../../../services/modelService";
 const PartsDefine = () => {
   const [type, setType] = useState("");
   const [validated, setValidated] = useState(false);
@@ -30,6 +31,8 @@ const PartsDefine = () => {
   const [quality, setQuality] = useState(undefined);
   const [colorOptions, setColorOptions] = useState([]);
   const [color, setColor] = useState(undefined);
+  const [modelOptions, setmMdelOptions] = useState([]);
+  const [model, setModel] = useState(undefined);
   const tabContext = useContext(TabContext);
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
@@ -97,8 +100,9 @@ const PartsDefine = () => {
     const partGroupTitles = axios.request(createParams(partGroupReadTitle));
     const qualityTitles = axios.request(createParams(qualityReadTitle));
     const colorTitles = axios.request(createParams(ColorReadTitle));
+    const modelTitles = axios.request(createParams(modelReadTitle));
     axios
-      .all([partGroupTitles, qualityTitles, colorTitles])
+      .all([partGroupTitles, qualityTitles, colorTitles,modelTitles])
       .then(
         axios.spread((...allData) => {
           allData[0].data?.Result === ResultCodeEnum.Ok
@@ -110,6 +114,9 @@ const PartsDefine = () => {
           allData[2].data?.Result === ResultCodeEnum.Ok
             ? setColorOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
+          allData[3].data?.Result === ResultCodeEnum.Ok
+            ? setmMdelOptions(createSelectOptions(allData[3].data.Title))
+            : handleError(allData[3].data.Message);
         })
       )
       .catch((error) => {
@@ -146,6 +153,7 @@ const PartsDefine = () => {
         data: {
           PartGroup_Id: partGroup?.value,
           Quality_Id: quality?.value,
+          Model_Id: model?.value,
           Id: 0,
           Length: values.length,
           Width: values.width,
@@ -184,6 +192,7 @@ const PartsDefine = () => {
             <FormInput key={input.id} {...input} onChange={onChangeHandler} />
           )
         )}
+
         <div className="partsRow">
           <Form.Group className="mb-3" controlId={"groupid"}>
             <Form.Label>{t("partGroup")}</Form.Label>
@@ -205,7 +214,18 @@ const PartsDefine = () => {
               placeholder={t("quality")}
             />
           </Form.Group>
+          <Form.Group className="mb-3" controlId={"modelId"}>
+            <Form.Label>{t("model")}</Form.Label>
+            <CustomReactMultiSelect
+              isMulti={false}
+              options={modelOptions}
+              value={model}
+              onchangeHandler={(e) => setModel(e)}
+              placeholder={t("model")}
+            />
+          </Form.Group>
         </div>
+        
         <div className="partsRow">
           <Form.Group className="mb-3" controlId={"length"}>
             <Form.Label>{t("parts.length")}</Form.Label>
