@@ -7,7 +7,7 @@ import useWindowSize from "../../../../customHooks/useWindowSize";
 import RegistrationGoodDefine from "./registrationGoodDefine/RegistrationGoodDefine";
 import { enums } from "../../../../data/Enums";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
-import { registrationGoodAccessList, registrationGoodCheckFile, registrationGoodDelete, registrationGoodExport, registrationGoodExportId, registrationGoodGetOneRecord, registrationGoodImport, registrationGoodLog, registrationGoodRead, registrationGoodReadPaging, registrationGoodSampleFile, registrationGoodSetToFavorite, registrationGoodSetUnselectedColumn } from "../../../../services/registrationGoodService";
+import { registrationGoodAccessList, registrationGoodCheckFile, RegistrationGoodColumnInfo, registrationGoodDelete, registrationGoodExport, registrationGoodExportId, registrationGoodGetOneRecord, registrationGoodImport, RegistrationGoodImportArray, registrationGoodLog, registrationGoodRead, registrationGoodReadPaging, registrationGoodSampleFile, registrationGoodSetToFavorite, registrationGoodSetUnselectedColumn } from "../../../../services/registrationGoodService";
 const RegistrationGood = () => {
   const childRef = useRef();
   const filteredColumns = [
@@ -63,6 +63,8 @@ const RegistrationGood = () => {
       )}
       
       <CustomTable
+        columnInfo={RegistrationGoodColumnInfo}
+        importarray={RegistrationGoodImportArray}
         ref={childRef}
         ReadApi={registrationGoodRead}
         deleteApi={registrationGoodDelete}

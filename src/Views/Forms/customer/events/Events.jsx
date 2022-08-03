@@ -11,6 +11,8 @@ import {
     CustomerEventLog,
     CustomerEventSetUnselectedColumn,
     CustomerEventAccessList,
+    CustomerColumnInfo,
+    CustomerImportArray,
   
   } from '../../../../services/eventsService';
 import { t } from "i18next";
@@ -34,6 +36,8 @@ const CustomerEvents = () => {
       <>
   
         <CustomTable
+        columnInfo={CustomerColumnInfo}
+        importarray={CustomerImportArray}
           ref={childRef}
           BcItems={BcItems}
           ReadApi={CustomerEventRead}

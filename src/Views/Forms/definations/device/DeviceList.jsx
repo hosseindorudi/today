@@ -16,6 +16,8 @@ import {
     DeviceLog,
     DeviceSetUnselectedColumn,
     DeviceAccessList,
+    DeviceColumnInfo,
+    DeviceImportArray,
         } from '../../../../services/deviceService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
@@ -75,6 +77,8 @@ const DeviceList = () => {
      )}
      
      <CustomTable
+        columnInfo={DeviceColumnInfo}
+        importarray={DeviceImportArray}
        ref={childRef}
        ReadApi={DeviceRead}
        deleteApi={DeviceDelete}

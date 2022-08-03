@@ -9,7 +9,7 @@ import { t } from "i18next";
 import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
-import { qualityAccessList, qualityCheckFile, qualityDelete, qualityExport, qualityExportId, qualityFavorite, qualityGetOneRecord, qualityImportFile, qualityLog, qualityRead, qualityReadPaging, qualitySampleFile, qualitySetUnselectedColumn } from "../../../../services/qualityService";
+import { qualityAccessList, qualityCheckFile, QualityColumnInfo, qualityDelete, qualityExport, qualityExportId, qualityFavorite, qualityGetOneRecord, QualityImportArray, qualityImportFile, qualityLog, qualityRead, qualityReadPaging, qualitySampleFile, qualitySetUnselectedColumn } from "../../../../services/qualityService";
 import QualityDefine from "./qualityDefine/QualityDefine";
 const Quality = () => {
   const childRef = useRef();
@@ -66,6 +66,8 @@ const Quality = () => {
       
     
       <CustomTable
+        columnInfo={QualityColumnInfo}
+        importarray={QualityImportArray}
         ref={childRef}
         ReadApi={qualityRead}
         deleteApi={qualityDelete}

@@ -10,7 +10,7 @@ import { enums } from "../../../../data/Enums";
 import { t } from "i18next";
 import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
-import { reasonForCancellationOfWarrantyAccessList, reasonForCancellationOfWarrantyCheckFile, reasonForCancellationOfWarrantyDelete, reasonForCancellationOfWarrantyExport, reasonForCancellationOfWarrantyExportId, reasonForCancellationOfWarrantyFavorite, reasonForCancellationOfWarrantyGetOneRecord, reasonForCancellationOfWarrantyImportFile, reasonForCancellationOfWarrantyLog, reasonForCancellationOfWarrantyRead, reasonForCancellationOfWarrantyReadPaging, reasonForCancellationOfWarrantySampleFile, reasonForCancellationOfWarrantySetUnselectedColumn } from "../../../../services/warrantyCancellationService";
+import { reasonForCancellationOfWarrantyAccessList, reasonForCancellationOfWarrantyCheckFile, reasonForCancellationOfWarrantyColumnInfo, reasonForCancellationOfWarrantyDelete, reasonForCancellationOfWarrantyExport, reasonForCancellationOfWarrantyExportId, reasonForCancellationOfWarrantyFavorite, reasonForCancellationOfWarrantyGetOneRecord, reasonForCancellationOfWarrantyImportArray, reasonForCancellationOfWarrantyImportFile, reasonForCancellationOfWarrantyLog, reasonForCancellationOfWarrantyRead, reasonForCancellationOfWarrantyReadPaging, reasonForCancellationOfWarrantySampleFile, reasonForCancellationOfWarrantySetUnselectedColumn } from "../../../../services/warrantyCancellationService";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import WarrantyCancelationDefine from "./warrantyCancelationDefine/WarrantyCancelationDefine";
 const WarrantyCancelation = () => {
@@ -65,6 +65,8 @@ return (
    )}
    
    <CustomTable
+        columnInfo={reasonForCancellationOfWarrantyColumnInfo}
+        importarray={reasonForCancellationOfWarrantyImportArray}
      ref={childRef}
      ReadApi={reasonForCancellationOfWarrantyRead}
      deleteApi={reasonForCancellationOfWarrantyDelete}

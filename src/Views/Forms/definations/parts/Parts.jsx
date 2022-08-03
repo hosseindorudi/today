@@ -6,7 +6,7 @@ import React, {
 import TableModal from "./TableModal/TableModal";
 import PartsDefine from "./partsDefine/PartsDefine";
 import { enums } from "../../../../data/Enums";
-import { PartAccessList, PartCheckFile, PartDelete, PartExport, PartExportId, PartFavorite, PartGetOneRecord, PartImportFile, PartLog, partRead, PartReadPaging, PartSampleFile, PartSetUnselectedColumn } from "../../../../services/partService";
+import { PartAccessList, PartCheckFile, PartColumnInfo, PartDelete, PartExport, PartExportId, PartFavorite, PartGetOneRecord, PartImportArray, PartImportFile, PartLog, partRead, PartReadPaging, PartSampleFile, PartSetUnselectedColumn } from "../../../../services/partService";
 import { t } from "i18next";
 import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
@@ -67,6 +67,8 @@ const Parts = () => {
       
     
       <CustomTable
+        columnInfo={PartColumnInfo}
+        importarray={PartImportArray}
         ref={childRef}
         ReadApi={partRead}
         deleteApi={PartDelete}

@@ -14,12 +14,14 @@ import {
   customerDeletePolicyOs,
   customerGroupAccessList,
   customerGroupCheckFile,
+  customerGroupColumnInfo,
   customerGroupDelete,
   customerGroupExport,
   customerGroupExportId,
   customerGroupFavorite,
   customerGroupGetOneRecord,
   customerGroupImport,
+  customerGroupImportArray,
   customerGroupLog,
   customerGroupRead,
   customerGroupReadPaging,
@@ -154,6 +156,8 @@ const CustomerGroup = () => {
         />
       )}
       <CustomTable
+        columnInfo={customerGroupColumnInfo}
+        importarray={customerGroupImportArray}
         ref={childRef}
         BcItems={BcItems}
         ReadApi={customerGroupRead}

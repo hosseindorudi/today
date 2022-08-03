@@ -16,6 +16,8 @@ import {
     areaLog,
     areaSetColumn,
     areaAccessList,
+    AreaColumnInfo,
+    AreaImportArray,
         } from '../../../../services/areaService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
@@ -75,6 +77,8 @@ const AreaList = () => {
      )}
      
      <CustomTable
+        columnInfo={AreaColumnInfo}
+        importarray={AreaImportArray}
        ref={childRef}
        ReadApi={areaRead}
        deleteApi={areaDelete}

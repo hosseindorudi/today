@@ -7,7 +7,7 @@ import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
 import useWindowSize from '../../../../customHooks/useWindowSize';
 
-import { warrantyTypeAccessList, warrantyTypeCheckFile, warrantyTypeDelete, warrantyTypeExport, warrantyTypeExportId, warrantyTypeFavorite, warrantyTypeGetOneRecord, warrantyTypeImportFile, warrantyTypeLog, warrantyTypeRead, warrantyTypeReadPaging, warrantyTypeSampleFile, warrantyTypeSetUnselectedColumn } from "../../../../services/warrantyType";
+import { warrantyTypeAccessList, warrantyTypeCheckFile, WarrantyTypeColumnInfo, warrantyTypeDelete, warrantyTypeExport, warrantyTypeExportId, warrantyTypeFavorite, warrantyTypeGetOneRecord, WarrantyTypeImportArray, warrantyTypeImportFile, warrantyTypeLog, warrantyTypeRead, warrantyTypeReadPaging, warrantyTypeSampleFile, warrantyTypeSetUnselectedColumn } from "../../../../services/warrantyType";
 import WarrantyTypeDefine from './warrantyTypeDefine/WarrantyTypeDefine';
 const WarrantyType = () => {
   const filteredColumns = ["IsLimited", "Registrar","SourceType"];
@@ -61,6 +61,8 @@ return (
    )}
    
    <CustomTable
+        columnInfo={WarrantyTypeColumnInfo}
+        importarray={WarrantyTypeImportArray}
      ref={childRef}
      ReadApi={warrantyTypeRead}
      deleteApi={warrantyTypeDelete}

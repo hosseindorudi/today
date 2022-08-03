@@ -14,5 +14,5 @@ export const reasonForCancellationOfWarrantyImportFile="/Definition/Cancellation
 export const reasonForCancellationOfWarrantyLog="/Definition/CancellationOfWarranty/Log"
 export const reasonForCancellationOfWarrantySetUnselectedColumn="/Definition/CancellationOfWarranty/SetUnselectedColumn"
 export const reasonForCancellationOfWarrantyAccessList="/Definition/CancellationOfWarranty/AccessList"
-export const CancellationOfWarrantyColumnInfo='/Definition/CancellationOfWarranty/ColumnInfo'
-export const CancellationOfWarrantyImportArray='/Definition/CancellationOfWarranty/ImportArray'
+export const reasonForCancellationOfWarrantyColumnInfo='/Definition/CancellationOfWarranty/ColumnInfo'
+export const reasonForCancellationOfWarrantyImportArray='/Definition/CancellationOfWarranty/ImportArray'

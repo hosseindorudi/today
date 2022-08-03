@@ -16,6 +16,8 @@ import {
     InputQualityControlLog,
     InputQualityControlSetUnselectedColumn,
     InputQualityControlAccessList,
+    InputQualityControlColumnInfo,
+    InputQualityControlImportArray,
         } from '../../../../services/inputQualityControlService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
@@ -75,6 +77,8 @@ const InputQualityControlList = () => {
      )}
      
      <CustomTable
+        columnInfo={InputQualityControlColumnInfo}
+        importarray={InputQualityControlImportArray}
        ref={childRef}
        ReadApi={InputQualityControlRead}
        deleteApi={InputQualityControlDelete}

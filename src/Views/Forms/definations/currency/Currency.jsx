@@ -6,7 +6,7 @@ import { enums } from "../../../../data/Enums";
 import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import CurrencyDefine from "./currencyDefine/CurrencyDefine";
-import { currencyAccessList, currencyCheckFile, currencyDelete, currencyExport, currencyExportId, currencyFavorite, currencyGetOneRecord, currencyImport, currencyLog, currencyRead, currencyReadPaging, currencySampleFile, currencySetColumn } from "../../../../services/currencyService";
+import { currencyAccessList, currencyCheckFile, CurrencyColumnInfo, currencyDelete, currencyExport, currencyExportId, currencyFavorite, currencyGetOneRecord, currencyImport, CurrencyImportArray, currencyLog, currencyRead, currencyReadPaging, currencySampleFile, currencySetColumn } from "../../../../services/currencyService";
 const Currency = () => {
   const filteredColumns = ["IsLimited", "Registrar", "SourceType"];
 
@@ -57,6 +57,8 @@ const Currency = () => {
       )}
 
       <CustomTable
+        columnInfo={CurrencyColumnInfo}
+        importarray={CurrencyImportArray}
         ref={childRef}
         ReadApi={currencyRead}
         deleteApi={currencyDelete}

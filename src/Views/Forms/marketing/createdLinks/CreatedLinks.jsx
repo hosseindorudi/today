@@ -15,6 +15,8 @@ import {
   PhonePoolLog,
   PhonePoolSetUnselectedColumn,
   PhonePoolAccessList,
+  PhonePoolColumnInfo,
+  PhonePoolImportArray,
 } from "../../../../services/phoneNumberGroupService";
 import { enums } from "../../../../data/Enums";
 
@@ -32,6 +34,8 @@ const CreatedLinks = () => {
   return (
     <>
       <CustomTable
+        columnInfo={PhonePoolColumnInfo}
+        importarray={PhonePoolImportArray}
         ref={childRef}
         ReadApi={PhonePoolRead}
         deleteApi={PhonePoolDelete}

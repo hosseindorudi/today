@@ -16,6 +16,8 @@ import {
     ImportingCompanyLog,
     ImportingCompanySetUnselectedColumn,
     ImportingCompanyAccessList,
+    ImportingCompanyImportArray,
+    ImportingCompanyColumnInfo,
         } from '../../../../services/importingCompanyService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
@@ -78,6 +80,8 @@ const ImportingImportingCompanyList = () => {
       )}
       
       <CustomTable
+        columnInfo={ImportingCompanyColumnInfo}
+        importarray={ImportingCompanyImportArray}
         ref={childRef}
         ReadApi={ImportingCompanyRead}
         deleteApi={ImportingCompanyDelete}

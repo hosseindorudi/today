@@ -16,6 +16,8 @@ import {
     VehicleTypeLog,
     VehicleTypeSetUnselectedColumn,
     VehicleTypeAccessList,
+    VehicleTypeColumnInfo,
+    VehicleTypeImportArray,
         } from '../../../../services/vehicleTypeService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
@@ -74,6 +76,8 @@ const VehicleTypeList = () => {
      )}
      
      <CustomTable
+        columnInfo={VehicleTypeColumnInfo}
+        importarray={VehicleTypeImportArray}
        ref={childRef}
        ReadApi={VehicleTypeRead}
        deleteApi={VehicleTypeDelete}

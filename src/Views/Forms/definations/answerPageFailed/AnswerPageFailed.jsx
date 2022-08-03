@@ -16,6 +16,8 @@ import {
   AnswerPageFailedLog,
   AnswerPageFailedSetColumn,
   AnswerPageFailedAccessList,
+  AnswerPageFailedColumnInfo,
+  AnswerPageFailedImportArray,
 } from "../../../../services/answerPageFailedService";
 import { enums } from "../../../../data/Enums";
 import { toast } from "react-toastify";
@@ -70,6 +72,8 @@ const AnswerPageFailed = () => {
       )}
 
       <CustomTable
+        columnInfo={AnswerPageFailedColumnInfo}
+        importarray={AnswerPageFailedImportArray}
         ref={childRef}
         ReadApi={AnswerPageFailedRead}
         deleteApi={AnswerPageFailedDelete}

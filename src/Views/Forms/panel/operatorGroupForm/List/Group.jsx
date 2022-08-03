@@ -4,6 +4,7 @@ import TableModal from "./TableModal/TableModal";
 import {
   groupAccessList,
   groupCheckFile,
+  groupColumnInfo,
   groupCreatePolicyIP,
   groupCreatePolicyLocation,
   groupCreatePolicyOs,
@@ -16,6 +17,7 @@ import {
   groupFavorite,
   groupGetOneRecord,
   groupGetPermission,
+  groupImportArray,
   groupImportFile,
   groupLog,
   groupRead,
@@ -151,6 +153,8 @@ const Group = () => {
         />
       )}
       <CustomTable
+        columnInfo={groupColumnInfo}
+        importarray={groupImportArray}
         ref={childRef}
         ReadApi={groupRead}
         deleteApi={groupDelete}

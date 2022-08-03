@@ -16,6 +16,8 @@ import {
   ColorLog,
   ColorSetUnselectedColumn,
   ColorAccessList,
+  ColorColumnInfo,
+  ColorImportArray,
 } from "../../../../services/colorService";
 import { enums } from "../../../../data/Enums";
 import { toast } from "react-toastify";
@@ -72,6 +74,8 @@ const ColorList = () => {
       )}
 
       <CustomTable
+        columnInfo={ColorColumnInfo}
+        importarray={ColorImportArray}
         ref={childRef}
         ReadApi={ColorRead}
         deleteApi={ColorDelete}

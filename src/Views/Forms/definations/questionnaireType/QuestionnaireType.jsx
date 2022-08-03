@@ -8,7 +8,7 @@ import { enums } from "../../../../data/Enums";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import QuestionnaireTypeDefine from "./questionnaireTypeDefine/QuestionnaireTypeDefine";
-import { questionnaireTypeAccessList, questionnaireTypeCheckFile, questionnaireTypeDelete, questionnaireTypeExport, questionnaireTypeExportId, questionnaireTypeGetOneRecord, questionnaireTypeImport, questionnaireTypeLog, questionnaireTypeRead, questionnaireTypeReadPaging, questionnaireTypeSampleFile, questionnaireTypeSetToFavorite, questionnaireTypeSetUnselectedColumn } from "../../../../services/questionnaireType";
+import { questionnaireTypeAccessList, questionnaireTypeCheckFile, QuestionnaireTypeColumnInfo, questionnaireTypeDelete, questionnaireTypeExport, questionnaireTypeExportId, questionnaireTypeGetOneRecord, questionnaireTypeImport, QuestionnaireTypeImportArray, questionnaireTypeLog, questionnaireTypeRead, questionnaireTypeReadPaging, questionnaireTypeSampleFile, questionnaireTypeSetToFavorite, questionnaireTypeSetUnselectedColumn } from "../../../../services/questionnaireType";
 const QuestionnaireType = () => {
   const childRef = useRef();
   const filteredColumns = [
@@ -62,6 +62,8 @@ const QuestionnaireType = () => {
       )}
       
       <CustomTable
+        columnInfo={QuestionnaireTypeColumnInfo}
+        importarray={QuestionnaireTypeImportArray}
         ref={childRef}
         ReadApi={questionnaireTypeRead}
         deleteApi={questionnaireTypeDelete}

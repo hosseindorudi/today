@@ -77,6 +77,8 @@ const Countrylist = () => {
      )}
      
      <CustomTable
+        columnInfo={CountryColumnInfo}
+        importarray={CountryImportArray}
        ref={childRef}
        ReadApi={CountryRead}
        deleteApi={CountryDelete}
@@ -113,8 +115,6 @@ const Countrylist = () => {
        setMobileModalColumns={setMobileModalColumns}
        mobileModalColumns={mobileModalColumns}
        BcItems={BcItems}
-       columnInfo={CountryColumnInfo}
-       importarray={CountryImportArray}
      />
     
     </>

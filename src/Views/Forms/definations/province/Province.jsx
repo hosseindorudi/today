@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import ProvinceDefine from "./ProvinceDefine/ProvinceDefine";
-import { provinceAccessList, provinceCheckFile, provinceDelete, provinceExport, provinceExportId, provinceFavorite, provinceGetOneRecord, provinceImportFile, provinceLog, provinceRead, provinceReadPaging, provinceSampleFile, provinceSetUnselectedColumn } from "../../../../services/provinceService";
+import { provinceAccessList, provinceCheckFile, ProvinceColumnInfo, provinceDelete, provinceExport, provinceExportId, provinceFavorite, provinceGetOneRecord, ProvinceImportArray, provinceImportFile, provinceLog, provinceRead, provinceReadPaging, provinceSampleFile, provinceSetUnselectedColumn } from "../../../../services/provinceService";
 
 const Province = () => {
   const childRef = useRef();
@@ -66,6 +66,8 @@ const Province = () => {
       
     
       <CustomTable
+        columnInfo={ProvinceColumnInfo}
+        importarray={ProvinceImportArray}
         ref={childRef}
         ReadApi={provinceRead}
         deleteApi={provinceDelete}

@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import StatusDeviceStartDefine from "./statusDeviceStartDefine/StatusDeviceStartDefine";
-import { statusDeviceStartAccessList, statusDeviceStartCheckFile, statusDeviceStartDelete, statusDeviceStartExport, statusDeviceStartExportId, statusDeviceStartFavorite, statusDeviceStartGetOneRecord, statusDeviceStartImportFile, statusDeviceStartLog, statusDeviceStartRead, statusDeviceStartReadPaging, statusDeviceStartSampleFile, statusDeviceStartSetUnselectedColumn } from "../../../../services/statusDeviceStart";
+import { statusDeviceStartAccessList, statusDeviceStartCheckFile, StatusDeviceStartColumnInfo, statusDeviceStartDelete, statusDeviceStartExport, statusDeviceStartExportId, statusDeviceStartFavorite, statusDeviceStartGetOneRecord, StatusDeviceStartImportArray, statusDeviceStartImportFile, statusDeviceStartLog, statusDeviceStartRead, statusDeviceStartReadPaging, statusDeviceStartSampleFile, statusDeviceStartSetUnselectedColumn } from "../../../../services/statusDeviceStart";
 
 const StatusDeviceStart = () => {
   const childRef = useRef();
@@ -61,6 +61,8 @@ const StatusDeviceStart = () => {
       )}
 
       <CustomTable
+        columnInfo={StatusDeviceStartColumnInfo}
+        importarray={StatusDeviceStartImportArray}
         ref={childRef}
         ReadApi={statusDeviceStartRead}
         deleteApi={statusDeviceStartDelete}

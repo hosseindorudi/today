@@ -9,11 +9,13 @@ import {
   customerAccessList,
   customerChangePassword,
   customerCheckFile,
+  CustomerColumnInfo,
   customerDelete,
   customerExport,
   customerExportId,
   customerFavorite,
   customerGetOneRecord,
+  CustomerImportArray,
   customerImportFile,
   customerLog,
   customerRead,
@@ -130,6 +132,8 @@ const CustomerList = () => {
       )}
 
       <CustomTable
+        columnInfo={CustomerColumnInfo}
+        importarray={CustomerImportArray}
         ref={childRef}
         BcItems={BcItems}
         ReadApi={customerRead}

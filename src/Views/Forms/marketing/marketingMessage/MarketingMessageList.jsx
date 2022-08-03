@@ -17,6 +17,8 @@ import {
     PhonePoolLog,
     PhonePoolSetUnselectedColumn,
     PhonePoolAccessList,
+    PhonePoolColumnInfo,
+    PhonePoolImportArray,
         } from '../../../../services/phoneNumberGroupService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
@@ -66,6 +68,8 @@ const MarketingMessageList = () => {
      )}
      
      <CustomTable
+        columnInfo={PhonePoolColumnInfo}
+        importarray={PhonePoolImportArray}
        ref={childRef}
        ReadApi={PhonePoolRead}
        deleteApi={PhonePoolDelete}

@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import SectionDefine from "./sectionDefine/SectionDefine";
-import { sectionAccessList, sectionCheckFile, sectionDelete, sectionExport, sectionExportId, sectionGetOneRecord, sectionImport, sectionLog, sectionRead, sectionReadPaging, sectionSampleFile, sectionSetToFavorite, sectionSetUnselectedColumn } from "../../../../services/sectionService";
+import { sectionAccessList, sectionCheckFile, SectionColumnInfo, sectionDelete, sectionExport, sectionExportId, sectionGetOneRecord, sectionImport, SectionImportArray, sectionLog, sectionRead, sectionReadPaging, sectionSampleFile, sectionSetToFavorite, sectionSetUnselectedColumn } from "../../../../services/sectionService";
 
 const Section = () => {
   const childRef = useRef();
@@ -62,6 +62,8 @@ const Section = () => {
       )}
 
       <CustomTable
+        columnInfo={SectionColumnInfo}
+        importarray={SectionImportArray}
         ref={childRef}
         ReadApi={sectionRead}
         deleteApi={sectionDelete}

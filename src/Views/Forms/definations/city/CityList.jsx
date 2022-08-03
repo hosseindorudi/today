@@ -16,6 +16,8 @@ import {
   CityLog,
   CitySetUnselectedColumn,
   CityAccessList,
+  CityColumnInfo,
+  CityImportArray,
 } from "../../../../services/cityService";
 import { enums } from "../../../../data/Enums";
 import { toast } from "react-toastify";
@@ -77,6 +79,8 @@ const CityList = () => {
       )}
 
       <CustomTable
+        columnInfo={CityColumnInfo}
+        importarray={CityImportArray}
         ref={childRef}
         ReadApi={CityRead}
         deleteApi={CityDelete}

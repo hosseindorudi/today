@@ -9,7 +9,7 @@ import { t } from "i18next";
 import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
-import { partGroupRead,partGroupAccessList, partGroupCheckFile, partGroupDelete, partGroupExport, partGroupExportId, partGroupFavorite, partGroupGetOneRecord, partGroupImportFile, partGroupLog, partGroupReadPaging, partGroupSampleFile, partGroupSetUnselectedColumn } from "../../../../services/partGroup";
+import { partGroupRead,partGroupAccessList, partGroupCheckFile, partGroupDelete, partGroupExport, partGroupExportId, partGroupFavorite, partGroupGetOneRecord, partGroupImportFile, partGroupLog, partGroupReadPaging, partGroupSampleFile, partGroupSetUnselectedColumn, PartGroupImportArray, PartGroupColumnInfo } from "../../../../services/partGroup";
 import PartGroupDefine from "./partGroupDefine/PartGroupDefine";
 const PartGroup = () => {
   const childRef = useRef();
@@ -67,6 +67,8 @@ const PartGroup = () => {
       
     
       <CustomTable
+        columnInfo={PartGroupColumnInfo}
+        importarray={PartGroupImportArray}
         ref={childRef}
         ReadApi={partGroupRead}
         deleteApi={partGroupDelete}

@@ -16,6 +16,8 @@ import {
     defectLog,
     defectSetUnselectedColumn,
     defectAccessList,
+    DefectColumnInfo,
+    DefectImportArray,
         } from '../../../../services/defectService';
 import DeffectForm from './deffectForm/DeffectForm';
 import { enums } from '../../../../data/Enums';
@@ -73,6 +75,8 @@ const DeffectList = () => {
      )}
      
      <CustomTable
+        columnInfo={DefectColumnInfo}
+        importarray={DefectImportArray}
        ref={childRef}
        ReadApi={defectRead}
        deleteApi={defectDelete}

@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from "react";
 import TableModal from "./TableModal/TableModal";
 import { toast } from "react-toastify";
@@ -6,11 +5,33 @@ import { t } from "i18next";
 import { enums } from "../../../../../data/Enums";
 import CustomTable from "../../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../../customHooks/useWindowSize";
-import { checkFileOperator, deleteRecordOpt, exportFile, getoneRecord, importFileOperator, logTable, operatorChangePassword, operatorColumnInfo, operatorExportId, operatorImportArray, readOpt, readpaging, sampleFileOperator, setToFavorit, setUnselectedColumn } from "../../../../../services/operatorService";
+import {
+  checkFileOperator,
+  deleteRecordOpt,
+  exportFile,
+  getoneRecord,
+  importFileOperator,
+  logTable,
+  operatorChangePassword,
+  operatorColumnInfo,
+  operatorExportId,
+  operatorImportArray,
+  readOpt,
+  readpaging,
+  sampleFileOperator,
+  setToFavorit,
+  setUnselectedColumn,
+} from "../../../../../services/operatorService";
 import OperatorForm from "../OperatorForm";
 import OperatorRoleModel from "../../../../../Components/Table/operatorRoleModal/OperatorRoleModal";
 const Operator = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType","Group_Id"];
+  const filteredColumns = [
+    "IsLimited",
+    "Id",
+    "Registrar",
+    "SourceType",
+    "Group_Id",
+  ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValues, setRowValues] = useState({});
   const childRef = useRef();
@@ -19,7 +40,10 @@ const Operator = () => {
   const [mobileModalColumns, setMobileModalColumns] = useState(false);
   const widthOFScreen = useWindowSize().width;
   const [operatorRoleOpen, setOperatorRoleOpen] = useState(false);
-  const BcItems = [t("/Operator/Operator/Read"), t("/Operator/Operator/Create")];
+  const BcItems = [
+    t("/Operator/Operator/Read"),
+    t("/Operator/Operator/Create"),
+  ];
   const addObject = {
     Component: OperatorForm,
     path: "/Operator/Operator/Create",
@@ -44,10 +68,10 @@ const Operator = () => {
     window.open("https://www.google.com");
   };
 
-  const handleOperatorRole=(id)=>{
-      setRowValues(id)
-      setOperatorRoleOpen(true)
-  }
+  const handleOperatorRole = (id) => {
+    setRowValues(id);
+    setOperatorRoleOpen(true);
+  };
   return (
     <>
       {tableModalOpen && (
@@ -58,12 +82,17 @@ const Operator = () => {
           updated={updated}
         />
       )}
-      {operatorRoleOpen &&(
-        <OperatorRoleModel show={operatorRoleOpen} onHide={() => setOperatorRoleOpen(false)} id={rowValues}/>
-
+      {operatorRoleOpen && (
+        <OperatorRoleModel
+          show={operatorRoleOpen}
+          onHide={() => setOperatorRoleOpen(false)}
+          id={rowValues}
+        />
       )}
 
       <CustomTable
+        columnInfo={operatorColumnInfo}
+        importarray={operatorImportArray}
         ref={childRef}
         ReadApi={readOpt}
         deleteApi={deleteRecordOpt}
@@ -81,7 +110,7 @@ const Operator = () => {
         logAccess={enums.Operator_Operator_Log_r}
         readPagingApi={readpaging}
         accessListAccess={enums.Operator_AccessList_Read_r}
-        accessListApi={''}
+        accessListApi={""}
         favouriteApi={setToFavorit}
         handleClickHelp={handleClickHelp}
         addFormAccess={enums.Operator_Operator_Create_w}
@@ -104,8 +133,6 @@ const Operator = () => {
         policyBrowserAccess={""}
         handleOperatorRole={handleOperatorRole}
         operatorRoleAccess={enums.Operator_Operator_Create_w}
-        columnInfo={operatorColumnInfo}
-        importarray={operatorImportArray}
         BcItems={BcItems}
       />
     </>

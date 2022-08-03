@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import StatusDeviceProgressDefine from "./statusDeviceProgressDefine/StatusDeviceProgressDefine";
-import { statusDeviceProgressAccessList, statusDeviceProgressCheckFile, statusDeviceProgressDelete, statusDeviceProgressExport, statusDeviceProgressExportId, statusDeviceProgressFavorite, statusDeviceProgressGetOneRecord, statusDeviceProgressImportFile, statusDeviceProgressLog, statusDeviceProgressRead, statusDeviceProgressReadPaging, statusDeviceProgressSampleFile, statusDeviceProgressSetUnselectedColumn } from "../../../../services/statusDeviceProgress";
+import { statusDeviceProgressAccessList, statusDeviceProgressCheckFile, StatusDeviceProgressColumnInfo, statusDeviceProgressDelete, statusDeviceProgressExport, statusDeviceProgressExportId, statusDeviceProgressFavorite, statusDeviceProgressGetOneRecord, StatusDeviceProgressImportArray, statusDeviceProgressImportFile, statusDeviceProgressLog, statusDeviceProgressRead, statusDeviceProgressReadPaging, statusDeviceProgressSampleFile, statusDeviceProgressSetUnselectedColumn } from "../../../../services/statusDeviceProgress";
 
 const StatusDeviceProgress = () => {
   const childRef = useRef();
@@ -61,6 +61,8 @@ const StatusDeviceProgress = () => {
       )}
 
       <CustomTable
+        columnInfo={StatusDeviceProgressColumnInfo}
+        importarray={StatusDeviceProgressImportArray}
         ref={childRef}
         ReadApi={statusDeviceProgressRead}
         deleteApi={statusDeviceProgressDelete}

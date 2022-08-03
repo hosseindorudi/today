@@ -6,7 +6,7 @@ import { t } from "i18next";
 import { enums } from "../../../../data/Enums";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../customHooks/useWindowSize";
-import { outputQualityControlAccessList, outputQualityControlCheckFile, outputQualityControlDelete, outputQualityControlExport, outputQualityControlExportId, outputQualityControlFavorite, outputQualityControlGetOneRecord, outputQualityControlImportFile, outputQualityControlLog, outputQualityControlRead, outputQualityControlReadPaging, outputQualityControlSampleFile, outputQualityControlSetUnselectedColumn } from "../../../../services/outPutQualityControlService";
+import { outputQualityControlAccessList, outputQualityControlCheckFile, OutputQualityControlColumnInfo, outputQualityControlDelete, outputQualityControlExport, outputQualityControlExportId, outputQualityControlFavorite, outputQualityControlGetOneRecord, OutputQualityControlImportArray, outputQualityControlImportFile, outputQualityControlLog, outputQualityControlRead, outputQualityControlReadPaging, outputQualityControlSampleFile, outputQualityControlSetUnselectedColumn } from "../../../../services/outPutQualityControlService";
 import OutputQualityControlDefine from "./outputQualityControlDefine/OutputQualityControlDefine";
 const OutputQualityControl = () => {
   const childRef = useRef();
@@ -68,6 +68,8 @@ const OutputQualityControl = () => {
           />
         )} */}
       <CustomTable
+        columnInfo={OutputQualityControlColumnInfo}
+        importarray={OutputQualityControlImportArray}
         ref={childRef}
         ReadApi={outputQualityControlRead}
         deleteApi={outputQualityControlDelete}

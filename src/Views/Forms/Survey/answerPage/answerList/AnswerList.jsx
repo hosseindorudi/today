@@ -6,12 +6,14 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   answerPageAccessList,
   answerPageCheckFile,
+  AnswerPageColumnInfo,
   answerPageDelete,
   answerPageExport,
   answerPageExportId,
   answerPageFavorite,
   answerPageGetOneRecord,
   answerPageImport,
+  AnswerPageImportArray,
   answerPageLog,
   answerPageRead,
   answerPageReadAnswer,
@@ -91,6 +93,8 @@ const AnswerList = () => {
         />
       )}
       <CustomTable
+        columnInfo={AnswerPageColumnInfo}
+        importarray={AnswerPageImportArray}
         ref={childRef}
         BcItems={BcItems}
         ReadApi={answerPageRead}

@@ -25,6 +25,9 @@ const EditableCell = ({
   // We need to keep and update the state of the cell normally
   const [value, setValue] = React.useState(initialValue);
   const onChange = (e) => {
+    if(columns.Type==="DateTime"&&e.target.value==="")
+    return setValue(null);
+    
     setValue(e.target.value);
   };
   const createSelect = (titles, value) => {
@@ -49,6 +52,11 @@ const EditableCell = ({
   const onBlur = () => {
     updateMyData(index, id, value);
   };
+  const checkDate=()=>{
+    if(value==="")
+    return  updateMyData(index, id, null);
+    return value
+  }
   const checkBoolean=()=>{
     if(typeof value !=="boolean")
     return  updateMyData(index, id, value.toLowerCase()==="true"?true:false);
@@ -67,7 +75,7 @@ const EditableCell = ({
   return isEditable ? (
     columns.Type && columns.Type === "bool" ? (
       <Form.Check type="switch"  checked={checkBoolean()} onChange={handleChangeSwitch}/>
-    ) : (
+    ):columns.Type==="DateTime"?(<input value={checkDate()} onChange={onChange} onBlur={onBlur} />) : (
       <div style={styles.td}>
         <input value={value} onChange={onChange} onBlur={onBlur} />
         {columns.Parent && createSelect(columns.ParentTitle, value)}

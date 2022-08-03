@@ -6,7 +6,7 @@ import { t } from "i18next";
 import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
-import { sendTypeAccessList, sendTypeCheckFile, sendTypeDelete, sendTypeExport, sendTypeExportId, sendTypeGetOneRecord, sendTypeImport, sendTypeLog, sendTypeRead, sendTypeReadPaging, sendTypeSampleFile, sendTypeSetToFavorite, sendTypeSetUnselectedColumn } from "../../../../services/sendType";
+import { sendTypeAccessList, sendTypeCheckFile, SendTypeColumnInfo, sendTypeDelete, sendTypeExport, sendTypeExportId, sendTypeGetOneRecord, sendTypeImport, SendTypeImportArray, sendTypeLog, sendTypeRead, sendTypeReadPaging, sendTypeSampleFile, sendTypeSetToFavorite, sendTypeSetUnselectedColumn } from "../../../../services/sendType";
 import SendTypeDefine from "./sendTypeDefine/SendTypeDefine";
 
 const SendType = () => {
@@ -61,6 +61,8 @@ const SendType = () => {
       )}
 
       <CustomTable
+        columnInfo={SendTypeColumnInfo}
+        importarray={SendTypeImportArray}
         ref={childRef}
         ReadApi={sendTypeRead}
         deleteApi={sendTypeDelete}

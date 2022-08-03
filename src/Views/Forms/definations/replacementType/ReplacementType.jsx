@@ -10,11 +10,13 @@ import ReplacementTypeDefine from "./replacementTypeDefine/ReplacementTypeDefine
 import {
   replacementTypeAccessList,
   replacementTypeCheckFile,
+  ReplacementTypeColumnInfo,
   replacementTypeDelete,
   replacementTypeExport,
   replacementTypeExportId,
   replacementTypeGetOneRecord,
   replacementTypeImport,
+  ReplacementTypeImportArray,
   replacementTypeLog,
   replacementTypeRead,
   replacementTypeReadPaging,
@@ -75,6 +77,8 @@ const ReplacementType = () => {
       )}
 
       <CustomTable
+        columnInfo={ReplacementTypeColumnInfo}
+        importarray={ReplacementTypeImportArray}
         ref={childRef}
         ReadApi={replacementTypeRead}
         deleteApi={replacementTypeDelete}

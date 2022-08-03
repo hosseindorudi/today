@@ -16,6 +16,8 @@ import {
   cancellationOfAdmissionAccessList,
   cancellationOfAdmissionFavorite,
   cancellationOfAdmissionGetOneRecord,
+  CancellationOfAdmissionColumnInfo,
+  CancellationOfAdmissionImportArray,
 } from "../../../../services/CancellationOfAdmissionService";
 import { enums } from "../../../../data/Enums";
 import { toast } from "react-toastify";
@@ -78,6 +80,8 @@ const CancellationOfAdmission = () => {
       )}
 
       <CustomTable
+        columnInfo={CancellationOfAdmissionColumnInfo}
+        importarray={CancellationOfAdmissionImportArray}
         ref={childRef}
         ReadApi={cancellationOfAdmissionRead}
         deleteApi={cancellationOfAdmissionDelete}

@@ -7,7 +7,7 @@ import { enums } from "../../../../data/Enums";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import OrganizationRoleDefine from "./organizationRoleDefine/OrganizationRoleDefine";
-import { organizationalRoleAccessList, organizationalRoleCheckFile, organizationalRoleDelete, organizationalRoleExport, organizationalRoleExportId, organizationalRoleFavorite, organizationalRoleGetOneRecord, organizationalRoleImportFile, organizationalRoleLog, organizationalRoleRead, organizationalRoleReadPaging, organizationalRoleSampleFile, organizationalRoleSetUnselectedColumn } from "../../../../services/organizationRoleService";
+import { organizationalRoleAccessList, organizationalRoleCheckFile, OrganizationalRoleColumnInfo, organizationalRoleDelete, organizationalRoleExport, organizationalRoleExportId, organizationalRoleFavorite, organizationalRoleGetOneRecord, OrganizationalRoleImportArray, organizationalRoleImportFile, organizationalRoleLog, organizationalRoleRead, organizationalRoleReadPaging, organizationalRoleSampleFile, organizationalRoleSetUnselectedColumn } from "../../../../services/organizationRoleService";
 const OrganizationRole = () => {
   const childRef = useRef();
   const filteredColumns = [
@@ -67,6 +67,8 @@ const OrganizationRole = () => {
           />
         )} */}
       <CustomTable
+        columnInfo={OrganizationalRoleColumnInfo}
+        importarray={OrganizationalRoleImportArray}
         ref={childRef}
         ReadApi={organizationalRoleRead}
         deleteApi={organizationalRoleDelete}

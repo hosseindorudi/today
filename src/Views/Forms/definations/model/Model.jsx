@@ -6,7 +6,7 @@ import { t } from "i18next";
 import { enums } from "../../../../data/Enums";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../customHooks/useWindowSize";
-import { modelAccessList, modelCheckFile, modelDelete, modelExport, modelExportId, modelFavorite, modelGetOneRecord, modelImportFile, modelLog, modelRead, modelReadPaging, modelSampleFile, modelSetUnselectedColumn } from "../../../../services/modelService";
+import { modelAccessList, modelCheckFile, ModelColumnInfo, modelDelete, modelExport, modelExportId, modelFavorite, modelGetOneRecord, ModelImportArray, modelImportFile, modelLog, modelRead, modelReadPaging, modelSampleFile, modelSetUnselectedColumn } from "../../../../services/modelService";
 import ModelDefine from "./modelDefine/ModelDefine";
 const Model = () => {
   const childRef = useRef();
@@ -71,6 +71,8 @@ const Model = () => {
           />
         )} */}
       <CustomTable
+        columnInfo={ModelColumnInfo}
+        importarray={ModelImportArray}
         ref={childRef}
         ReadApi={modelRead}
         deleteApi={modelDelete}

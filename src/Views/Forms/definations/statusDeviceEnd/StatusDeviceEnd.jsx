@@ -6,7 +6,7 @@ import { t } from "i18next";
 import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
-import { statusDeviceEndAccessList, statusDeviceEndCheckFile, statusDeviceEndDelete, statusDeviceEndExport, statusDeviceEndExportId, statusDeviceEndFavorite, statusDeviceEndGetOneRecord, statusDeviceEndImportFile, statusDeviceEndLog, statusDeviceEndRead, statusDeviceEndReadPaging, statusDeviceEndSampleFile, statusDeviceEndSetUnselectedColumn } from "../../../../services/statusDeviceEndService";
+import { statusDeviceEndAccessList, statusDeviceEndCheckFile, StatusDeviceEndColumnInfo, statusDeviceEndDelete, statusDeviceEndExport, statusDeviceEndExportId, statusDeviceEndFavorite, statusDeviceEndGetOneRecord, StatusDeviceEndImportArray, statusDeviceEndImportFile, statusDeviceEndLog, statusDeviceEndRead, statusDeviceEndReadPaging, statusDeviceEndSampleFile, statusDeviceEndSetUnselectedColumn } from "../../../../services/statusDeviceEndService";
 import StatusDeviceEndDefine from "./statusDeviceEndDefine/StatusDeviceEndDefine";
 
 const StatusDeviceEnd = () => {
@@ -61,6 +61,8 @@ const StatusDeviceEnd = () => {
       )}
 
       <CustomTable
+        columnInfo={StatusDeviceEndColumnInfo}
+        importarray={StatusDeviceEndImportArray}
         ref={childRef}
         ReadApi={statusDeviceEndRead}
         deleteApi={statusDeviceEndDelete}

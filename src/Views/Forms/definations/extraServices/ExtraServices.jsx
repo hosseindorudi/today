@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 
 import ExtraServicesDefine from "./extraServicesDefine/ExtraServicesDefine";
-import { additionalServiceAccessList, additionalServiceCheckFile, additionalServiceCreateRate, additionalServiceDelete, additionalServiceDeleteRate, additionalServiceExport, additionalServiceExportId, additionalServiceFavorite, additionalServiceGetOneRecord, additionalServiceImportFile, additionalServiceLog, additionalServiceRead, additionalServiceReadPaging, additionalServiceReadRate, additionalServiceSampleFile, additionalServiceSetUnselectedColumn, additionalServiceUpdateRate } from "../../../../services/additionalServiceService";
+import { additionalServiceAccessList, additionalServiceCheckFile, AdditionalServiceColumnInfo, additionalServiceCreateRate, additionalServiceDelete, additionalServiceDeleteRate, additionalServiceExport, additionalServiceExportId, additionalServiceFavorite, additionalServiceGetOneRecord, AdditionalServiceImportArray, additionalServiceImportFile, additionalServiceLog, additionalServiceRead, additionalServiceReadPaging, additionalServiceReadRate, additionalServiceSampleFile, additionalServiceSetUnselectedColumn, additionalServiceUpdateRate } from "../../../../services/additionalServiceService";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
 const ExtraServices = () => {
@@ -79,6 +79,8 @@ const ExtraServices = () => {
       )}
       
       <CustomTable
+        columnInfo={AdditionalServiceColumnInfo}
+        importarray={AdditionalServiceImportArray}
         ref={childRef}
         ReadApi={additionalServiceRead}
         deleteApi={additionalServiceDelete}
