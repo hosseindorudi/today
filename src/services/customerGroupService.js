@@ -36,3 +36,5 @@ export const customerCreatePolicyLocation="/Customer/Group/CreatePolicyLocation"
 export const customerReadPolicyLocation="/Customer/Group/ReadPolicyLocation"
 export const customerUpdatePolicyLocation="/Customer/Group/UpdatePolicyLocation"
 export const customerDeletePolicyLocation="/Customer/Group/DeletePolicyLocation"
+export const customerGroupColumnInfo='/Customer/Group/ColumnInfo'
+export const customerGroupImportArray='/Customer/Group/ImportArray'

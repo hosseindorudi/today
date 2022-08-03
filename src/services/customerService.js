@@ -33,3 +33,5 @@ export const customerCreatePhone="/Customer/Customer/CreatePhone"
 export const customerReadPhone="/Customer/Customer/ReadPhone"
 export const customerUpdatePhone="/Customer/Customer/UpdatePhone"
 export const customerDeletePhone="/Customer/Customer/DeletePhone"
+export const CustomerColumnInfo='/Customer/Customer/ColumnInfo'
+export const CustomerImportArray='/Customer/Customer/ImportArray'

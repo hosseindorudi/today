@@ -14,3 +14,5 @@ export const technicianImportFile="/Definition/Technician/Import"
 export const technicianLog="/Definition/Technician/Log"
 export const technicianSetUnselectedColumn="/Definition/Technician/SetUnselectedColumn"
 export const technicianAccessList="/Definition/Technician/AccessList"
+export const TechnicianColumnInfo='/Definition/Technician/ColumnInfo'
+export const TechnicianImportArray='/Definition/Technician/ImportArray'

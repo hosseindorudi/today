@@ -23,4 +23,6 @@ export const createQuestionPageOperator="/Poll/QuestionPage/CreateQuestionPageOp
 export const readQuestionPageOperator="/Poll/QuestionPage/ReadQuestionPageOperator"
 export const updateQuestionPageOperator="/Poll/QuestionPage/UpdateQuestionPageOperator"
 export const deleteQuestionPageOperator="/Poll/QuestionPage/DeleteQuestionPageOperator"
+export const QuestionPageColumnInfo='/Poll/QuestionPage/ColumnInfo'
+export const QuestionPageImportArray='/Poll/QuestionPage/ImportArray'
 

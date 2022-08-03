@@ -14,3 +14,5 @@ export const defectImportFile="/Definition/Defect/Import"
 export const defectLog="/Definition/Defect/Log"
 export const defectSetUnselectedColumn="/Definition/Defect/SetUnselectedColumn"
 export const defectAccessList="/Definition/Defect/AccessList"
+export const DefectColumnInfo='/Definition/Defect/ColumnInfo'
+export const DefectImportArray='/Definition/Defect/ImportArray'

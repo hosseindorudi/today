@@ -22,3 +22,5 @@ export const AnswerPageFailedFavorite =
   "/Definition/AnswerPageFailed/SetToFavorite";
 export const AnswerPageFailedAccessList =
   "/Definition/AnswerPageFailed/AccessList";
+  export const AnswerPageFailedColumnInfo='/Definition/AnswerPageFailed/ColumnInfo'
+export const AnswerPageFailedImportArray='/Definition/AnswerPageFailed/ImportArray'

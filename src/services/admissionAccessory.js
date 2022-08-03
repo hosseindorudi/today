@@ -14,3 +14,5 @@ export const admissionAccessoryImportFile="/Definition/AdmissionAccessory/Import
 export const admissionAccessoryLog="/Definition/AdmissionAccessory/Log"
 export const admissionAccessorySetUnselectedColumn="/Definition/AdmissionAccessory/SetUnselectedColumn"
 export const admissionAccessoryAccessList="/Definition/AdmissionAccessory/AccessList"
+export const AdmissionAccessoryColumnInfo='Definition/AdmissionAccessory/ColumnInfo'
+export const AdmissionAccessoryImportArray='Definition/AdmissionAccessory/ImportArray'

@@ -14,3 +14,5 @@ export const currencyExportId = "/Definition/Currency/ExportId";
 export const currencyLog = "/Definition/Currency/Log";
 export const currencyFavorite = "/Definition/Currency/SetToFavorite";
 export const currencyAccessList = "/Definition/Currency/AccessList";
+export const CurrencyColumnInfo='/Definition/Currency/ColumnInfo'
+export const CurrencyImportArray='/Definition/Currency/ImportArray'

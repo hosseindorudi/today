@@ -18,3 +18,5 @@ export const additionalServiceCreateRate="/Definition/AdditionalService/CreateRa
 export const additionalServiceUpdateRate="/Definition/AdditionalService/UpdateRate"
 export const additionalServiceReadRate="/Definition/AdditionalService/ReadRate"
 export const additionalServiceDeleteRate="/Definition/AdditionalService/DeleteRate"
+export const AdditionalServiceColumnInfo='/Definition/AdditionalService/ColumnInfo'
+export const AdditionalServiceImportArray='/Definition/AdditionalService/ImportArray'

@@ -14,3 +14,5 @@ export const PhonePoolImportFile="/Marketing/PhonePool/Import"
 export const PhonePoolLog="/Marketing/PhonePool/Log"
 export const PhonePoolSetUnselectedColumn="/Marketing/PhonePool/SetUnselectedColumn"
 export const PhonePoolAccessList="/Marketing/PhonePool/AccessList"
+export const PhonePoolColumnInfo='/Marketing/PhonePool/ColumnInfo'
+export const PhonePoolImportArray='/Marketing/PhonePool/ImportArray'

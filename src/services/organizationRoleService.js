@@ -14,3 +14,5 @@ export const organizationalRoleImportFile="/Definition/OrganizationalRole/Import
 export const organizationalRoleLog="/Definition/OrganizationalRole/Log"
 export const organizationalRoleSetUnselectedColumn="/Definition/OrganizationalRole/SetUnselectedColumn"
 export const organizationalRoleAccessList="/Definition/OrganizationalRole/AccessList"
+export const OrganizationalRoleColumnInfo='/Definition/OrganizationalRole/ColumnInfo'
+export const OrganizationalRoleImportArray='/Definition/OrganizationalRole/ImportArray'

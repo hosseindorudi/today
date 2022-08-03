@@ -15,3 +15,5 @@ export const answerPageLog = "/Poll/AnswerPage/Log"
 export const answerPageFavorite = "/Poll/AnswerPage/SetToFavorite"
 export const answerPageAccessList = "/Poll/AnswerPage/AccessList"
 export const answerPageReadAnswer = "/Poll/AnswerPage/ReadAnswer"
+export const AnswerPageColumnInfo='/Poll/AnswerPage/ColumnInfo'
+export const AnswerPageImportArray='/Poll/AnswerPage/ImportArray'

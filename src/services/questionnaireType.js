@@ -14,3 +14,5 @@ export const questionnaireTypeExportId="/Definition/QuestionnaireType/ExportId"
 export const questionnaireTypeLog="/Definition/QuestionnaireType/log"
 export const questionnaireTypeSetToFavorite="/Definition/QuestionnaireType/SetToFavorite"
 export const questionnaireTypeAccessList="/Definition/QuestionnaireType/AccessList"
+export const QuestionnaireTypeColumnInfo='/Definition/QuestionnaireType/ColumnInfo'
+export const QuestionnaireTypeImportArray='/Definition/QuestionnaireType/ImportArray'

@@ -36,3 +36,5 @@ export const groupCreatePolicyLocation="/Operator/Group/CreatePolicyLocation"
 export const groupReadPolicyLocation="/Operator/Group/ReadPolicyLocation"
 export const groupUpdatePolicyLocation="/Operator/Group/UpdatePolicyLocation"
 export const groupDeletePolicyLocation="/Operator/Group/DeletePolicyLocation"
+export const groupColumnInfo='/Operator/Group/ColumnInfo'
+export const groupImportArray='/Operator/Group/ImportArray'

@@ -14,3 +14,5 @@ export const partGroupImportFile="/Definition/PartGroup/Import"
 export const partGroupLog="/Definition/PartGroup/Log"
 export const partGroupSetUnselectedColumn="/Definition/PartGroup/SetUnselectedColumn"
 export const partGroupAccessList="/Definition/PartGroup/AccessList"
+export const PartGroupColumnInfo='/Definition/PartGroup/ColumnInfo'
+export const PartGroupImportArray='/Definition/PartGroup/ImportArray'

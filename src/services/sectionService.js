@@ -14,3 +14,5 @@ export const sectionExportId="/Definition/Section/ExportId"
 export const sectionLog="/Definition/Section/log"
 export const sectionSetToFavorite="/Definition/Section/SetToFavorite"
 export const sectionAccessList="/Definition/Section/AccessList"
+export const SectionColumnInfo='/Definition/Section/ColumnInfo'
+export const SectionImportArray='/Definition/Section/ImportArray'

@@ -14,3 +14,5 @@ export const InputQualityControlImportFile="/Definition/InputQualityControl/Impo
 export const InputQualityControlLog="/Definition/InputQualityControl/Log"
 export const InputQualityControlSetUnselectedColumn="/Definition/InputQualityControl/SetUnselectedColumn"
 export const InputQualityControlAccessList="/Definition/InputQualityControl/AccessList"
+export const InputQualityControlColumnInfo='/Definition/InputQualityControl/ColumnInfo'
+export const InputQualityControlImportArray='/Definition/InputQualityControl/ImportArray'

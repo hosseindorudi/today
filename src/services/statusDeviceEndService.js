@@ -14,3 +14,5 @@ export const statusDeviceEndImportFile="/Definition/StatusDeviceEnd/Import"
 export const statusDeviceEndLog="/Definition/StatusDeviceEnd/Log"
 export const statusDeviceEndSetUnselectedColumn="/Definition/StatusDeviceEnd/SetUnselectedColumn"
 export const statusDeviceEndAccessList="/Definition/StatusDeviceEnd/AccessList"
+export const StatusDeviceEndColumnInfo='/Definition/StatusDeviceEnd/ColumnInfo'
+export const StatusDeviceEndImportArray='/Definition/StatusDeviceEnd/ImportArray'

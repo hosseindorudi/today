@@ -14,3 +14,5 @@ export const statusDeviceProgressImportFile="/Definition/StatusDeviceProgress/Im
 export const statusDeviceProgressLog="/Definition/StatusDeviceProgress/Log"
 export const statusDeviceProgressSetUnselectedColumn="/Definition/StatusDeviceProgress/SetUnselectedColumn"
 export const statusDeviceProgressAccessList="/Definition/StatusDeviceProgress/AccessList"
+export const StatusDeviceProgressColumnInfo='/Definition/StatusDeviceProgress/ColumnInfo'
+export const StatusDeviceProgressImportArray='/Definition/StatusDeviceProgress/ImportArray'

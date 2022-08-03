@@ -15,3 +15,5 @@ export const productGroupImportFile="/Definition/ProductGroup/Import"
 export const productGroupLog="/Definition/ProductGroup/Log"
 export const productGroupSetUnselectedColumn="/Definition/ProductGroup/SetUnselectedColumn"
 export const productGroupAccessList="/Definition/ProductGroup/AccessList"
+export const ProductGroupColumnInfo='/Definition/ProductGroup/ColumnInfo'
+export const ProductGroupImportArray='/Definition/ProductGroup/ImportArray'

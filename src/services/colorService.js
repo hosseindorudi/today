@@ -15,3 +15,5 @@ export const ColorImportFile = "/Definition/Color/Import";
 export const ColorLog = "/Definition/Color/Log";
 export const ColorSetUnselectedColumn = "/Definition/Color/SetUnselectedColumn";
 export const ColorAccessList = "/Definition/Color/AccessList";
+export const ColorColumnInfo='/Definition/Color/ColumnInfo'
+export const ColorImportArray='/Definition/Color/ImportArray'

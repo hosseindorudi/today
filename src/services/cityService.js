@@ -15,3 +15,5 @@ export const CityImportFile="/Definition/City/Import"
 export const CityLog="/Definition/City/Log"
 export const CitySetUnselectedColumn="/Definition/City/SetUnselectedColumn"
 export const CityAccessList="/Definition/City/AccessList"
+export const CityColumnInfo='/Definition/City/ColumnInfo'
+export const CityImportArray='/Definition/City/ImportArray'

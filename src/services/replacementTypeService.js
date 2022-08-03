@@ -14,3 +14,5 @@ export const replacementTypeExportId="/Definition/ReplacementType/ExportId"
 export const replacementTypeLog="/Definition/ReplacementType/log"
 export const replacementTypeSetToFavorite="/Definition/ReplacementType/SetToFavorite"
 export const replacementTypeAccessList="/Definition/ReplacementType/AccessList"
+export const ReplacementTypeColumnInfo='/Definition/ReplacementType/ColumnInfo'
+export const ReplacementTypeImportArray='/Definition/ReplacementType/ImportArray'

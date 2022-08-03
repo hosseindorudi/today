@@ -14,3 +14,5 @@ export const CustomerEventExport="/Customer/Event/Export"
 export const CustomerEventLog="/Customer/Event/Log"
 export const CustomerEventSetUnselectedColumn="/Customer/Event/SetUnselectedColumn"
 export const CustomerEventAccessList="/Customer/Event/AccessList"
+export const CustomerColumnInfo='/Customer/Event/ColumnInfo'
+export const CustomerImportArray='/Customer/Event/ImportArray'

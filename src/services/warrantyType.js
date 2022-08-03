@@ -14,3 +14,5 @@ export const warrantyTypeImportFile="/Definition/WarrantyType/Import"
 export const warrantyTypeLog="/Definition/WarrantyType/Log"
 export const warrantyTypeSetUnselectedColumn="/Definition/WarrantyType/SetUnselectedColumn"
 export const warrantyTypeAccessList="/Definition/WarrantyType/AccessList"
+export const WarrantyTypeColumnInfo='/Definition/WarrantyType/ColumnInfo'
+export const WarrantyTypeImportArray='/Definition/WarrantyType/ImportArray'

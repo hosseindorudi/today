@@ -18,4 +18,6 @@ export const repairsPerformedCreateRate="/Definition/RepairsPerformed/CreateRate
 export const repairsPerformedUpdateRate="/Definition/RepairsPerformed/UpdateRate"
 export const repairsPerformedReadRate="/Definition/RepairsPerformed/ReadRate"
 export const repairsPerformedDeleteRate="/Definition/RepairsPerformed/DeleteRate"
+export const RepairsPerformedColumnInfo='/Definition/RepairsPerformed/ColumnInfo'
+export const RepairsPerformedImportArray='/Definition/RepairsPerformed/ImportArray'
 

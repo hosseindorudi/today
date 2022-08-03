@@ -14,3 +14,5 @@ export const provinceImportFile="/Definition/Province/Import"
 export const provinceLog="/Definition/Province/Log"
 export const provinceSetUnselectedColumn="/Definition/Province/SetUnselectedColumn"
 export const provinceAccessList="/Definition/Province/AccessList"
+export const ProvinceColumnInfo='/Definition/Province/ColumnInfo'
+export const ProvinceImportArray='/Definition/Province/ImportArray'

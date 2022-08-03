@@ -14,3 +14,5 @@ export const DeviceImportFile="/Definition/Device/Import"
 export const DeviceLog="/Definition/Device/Log"
 export const DeviceSetUnselectedColumn="/Definition/Device/SetUnselectedColumn"
 export const DeviceAccessList="/Definition/Device/AccessList"
+export const DeviceColumnInfo='/Definition/Device/ColumnInfo'
+export const DeviceImportArray='/Definition/Device/ImportArray'

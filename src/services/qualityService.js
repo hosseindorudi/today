@@ -14,3 +14,5 @@ export const qualityImportFile="/Definition/Quality/Import"
 export const qualityLog="/Definition/Quality/Log"
 export const qualitySetUnselectedColumn="/Definition/Quality/SetUnselectedColumn"
 export const qualityAccessList="/Definition/Quality/AccessList"
+export const QualityColumnInfo='/Definition/Quality/ColumnInfo'
+export const QualityImportArray='/Definition/Quality/ImportArray'

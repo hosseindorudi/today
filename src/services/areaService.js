@@ -14,3 +14,5 @@ export const areaExportId = "/Definition/Area/ExportId"
 export const areaLog = "/Definition/Area/Log"
 export const areaFavorite = "/Definition/Area/SetToFavorite"
 export const areaAccessList = "/Definition/Area/AccessList"
+export const AreaColumnInfo='/Definition/Area/ColumnInfo'
+export const AreaImportArray='/Definition/Area/ImportArray'

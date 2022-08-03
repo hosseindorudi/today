@@ -14,3 +14,5 @@ export const VehicleTypeImportFile="/Definition/VehicleType/Import"
 export const VehicleTypeLog="/Definition/VehicleType/Log"
 export const VehicleTypeSetUnselectedColumn="/Definition/VehicleType/SetUnselectedColumn"
 export const VehicleTypeAccessList="/Definition/VehicleType/AccessList"
+export const VehicleTypeColumnInfo='/Definition/VehicleType/ColumnInfo'
+export const VehicleTypeImportArray='/Definition/VehicleType/ImportArray'

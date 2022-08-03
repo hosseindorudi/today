@@ -14,3 +14,5 @@ export const cancellationOfAdmissionImportFile="/Definition/CancellationOfAdmiss
 export const cancellationOfAdmissionLog="/Definition/CancellationOfAdmission/Log"
 export const cancellationOfAdmissionSetUnselectedColumn="/Definition/CancellationOfAdmission/SetUnselectedColumn"
 export const cancellationOfAdmissionAccessList="/Definition/CancellationOfAdmission/AccessList"
+export const CancellationOfAdmissionColumnInfo='/Definition/CancellationOfAdmission/ColumnInfo'
+export const CancellationOfAdmissionImportArray='/Definition/CancellationOfAdmission/ImportArray'

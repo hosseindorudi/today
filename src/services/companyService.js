@@ -14,3 +14,5 @@ export const companyImportFile="/Definition/Company/Import"
 export const companyLog="/Definition/Company/Log"
 export const companySetUnselectedColumn="/Definition/Company/SetUnselectedColumn"
 export const companyAccessList="/Definition/Company/AccessList"
+export const CompanyColumnInfo='/Definition/Company/ColumnInfo'
+export const CompanyImportArray='/Definition/Company/ImportArray'

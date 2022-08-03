@@ -14,3 +14,5 @@ export const modelImportFile="/Definition/Model/Import"
 export const modelLog="/Definition/Model/Log"
 export const modelSetUnselectedColumn="/Definition/Model/SetUnselectedColumn"
 export const modelAccessList="/Definition/Model/AccessList"
+export const ModelColumnInfo='/Definition/Model/ColumnInfo'
+export const ModelImportArray='/Definition/Model/ImportArray'

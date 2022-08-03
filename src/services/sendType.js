@@ -14,3 +14,5 @@ export const sendTypeExportId="/Definition/SendType/ExportId"
 export const sendTypeLog="/Definition/SendType/log"
 export const sendTypeSetToFavorite="/Definition/SendType/SetToFavorite"
 export const sendTypeAccessList="/Definition/SendType/AccessList"
+export const SendTypeColumnInfo='/Definition/SendType/ColumnInfo'
+export const SendTypeImportArray='/Definition/SendType/ImportArray'

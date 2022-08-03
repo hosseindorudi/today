@@ -13,3 +13,5 @@ export const PartImportFile="/Definition/Part/Import"
 export const PartLog="/Definition/Part/Log"
 export const PartSetUnselectedColumn="/Definition/Part/SetUnselectedColumn"
 export const PartAccessList="/Definition/Part/AccessList"
+export const PartColumnInfo='/Definition/Part/ColumnInfo'
+export const PartImportArray='/Definition/Part/ImportArray'

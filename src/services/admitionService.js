@@ -14,3 +14,5 @@ export const admitionExportId = "/AfterSales/Admission/ExportId"
 export const admitionLog = "/AfterSales/Admission/Log"
 export const admitionFavorite = "/AfterSales/Admission/SetToFavorite"
 export const admitionAccessList = "/AfterSales/Admission/AccessList"
+export const AdmissionColumnInfo='AfterSales/Admission/ColumnInfo'
+export const AdmissionImportArray='AfterSales/Admission/ImportArray'
