@@ -10,6 +10,11 @@ const style = {
   };
 const DndTextArea = ({value,handleChange}) => {
   const {t}=useTranslation()
+  const changeInput=(e)=>{
+    
+   if(!e.target.value.includes("{")||!e.target.value.includes("}"))
+    return handleChange(e)
+  }
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.ITEM,
         drop: () => ({ name: "dropTextField" }),
@@ -26,7 +31,7 @@ const DndTextArea = ({value,handleChange}) => {
         backgroundColor = "white";
       }
   return (
-    <Form.Control placeholder={t("marketing.enterYourMessage")}   style={{ ...style, backgroundColor }} data-testid="dropTextField"  ref={drop} as={"textarea"} value={value} onChange={handleChange} rows={"5"} />
+    <Form.Control placeholder={t("marketing.enterYourMessage")}   style={{ ...style, backgroundColor }} data-testid="dropTextField"  ref={drop} as={"textarea"} value={value} onChange={changeInput} rows={"5"} />
   )
 }
 

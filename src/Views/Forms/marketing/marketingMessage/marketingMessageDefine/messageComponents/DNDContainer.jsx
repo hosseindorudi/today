@@ -20,7 +20,7 @@ const DNDContainer = ({ value, handleChange, dropped }) => {
           const newElement = {
             Id: r.Id,
             Value: r.Value,
-            bValue: `{${r.Value}}`,
+            bValue: `{${r.Value}:${r.Id}}`,
           };
           return setItems((oldArray) => [...oldArray, newElement]);
         });
@@ -56,7 +56,7 @@ const DNDContainer = ({ value, handleChange, dropped }) => {
         <div className="items">
           <ListGroup>
             {items.map((i, index) => (
-              <DndItem i={i} index={index} dropped={dropped} />
+              <DndItem i={i} key={index} index={index} dropped={dropped} />
             ))}
           </ListGroup>
         </div>
