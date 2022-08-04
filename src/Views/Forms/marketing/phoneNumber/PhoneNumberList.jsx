@@ -5,22 +5,22 @@ import PhoneNumberDefine from "./phoneNumberDefine/PhoneNumberDefine";
 import TableModal from "./tableModal/TableModal";
 import { t } from "i18next";
 import {
-  PhonePoolRead,
-  PhonePoolReadPaging,
-  PhonePoolGetOneRecord,
-  PhonePoolDelete,
-  PhonePoolFavorite,
-  PhonePoolExportId,
-  PhonePoolExport,
-  PhonePoolSampleFile,
-  PhonePoolCheckFile,
-  PhonePoolImportFile,
-  PhonePoolLog,
-  PhonePoolSetUnselectedColumn,
-  PhonePoolAccessList,
-  PhonePoolColumnInfo,
-  PhonePoolImportArray,
-} from "../../../../services/phoneNumberGroupService";
+  PhoneNumberRead,
+  PhoneNumberReadPaging,
+  PhoneNumberGetOneRecord,
+  PhoneNumberDelete,
+  PhoneNumberFavorite,
+  PhoneNumberExportId,
+  PhoneNumberExport,
+  PhoneNumberSampleFile,
+  PhoneNumberCheckFile,
+  PhoneNumberImportFile,
+  PhoneNumberLog,
+  PhoneNumberSetUnselectedColumn,
+  PhoneNumberAccessList,
+  PhoneNumberColumnInfo,
+  PhoneNumberImportArray,
+} from "../../../../services/phoneNumber";
 import { enums } from "../../../../data/Enums";
 import { toast } from "react-toastify";
 
@@ -69,35 +69,35 @@ const PhoneNumberList = () => {
       )}
 
       <CustomTable
-        columnInfo={PhonePoolColumnInfo}
-        importarray={PhonePoolImportArray}
+        columnInfo={PhoneNumberColumnInfo}
+        importarray={PhoneNumberImportArray}
         ref={childRef}
-        ReadApi={PhonePoolRead}
-        deleteApi={PhonePoolDelete}
-        unSelectedAPI={PhonePoolSetUnselectedColumn}
-        sampleUrl={PhonePoolSampleFile}
-        fileCheckURL={PhonePoolCheckFile}
-        importURL={PhonePoolImportFile}
-        logApi={PhonePoolLog}
-        exportId={PhonePoolExportId}
+        ReadApi={PhoneNumberRead}
+        deleteApi={PhoneNumberDelete}
+        unSelectedAPI={PhoneNumberSetUnselectedColumn}
+        sampleUrl={PhoneNumberSampleFile}
+        fileCheckURL={PhoneNumberCheckFile}
+        importURL={PhoneNumberImportFile}
+        logApi={PhoneNumberLog}
+        exportId={PhoneNumberExportId}
         changePasswordURL={""}
         addObject={addObject}
-        exportAccess={enums.Marketing_PhonePool_Export_r}
-        exportLink={PhonePoolExport}
-        importAccess={enums.Marketing_PhonePool_Import_w}
-        logAccess={enums.Marketing_PhonePool_Log_r}
-        readPagingApi={PhonePoolReadPaging}
-        accessListAccess={enums.Marketing_PhonePool_Read_r}
-        accessListApi={PhonePoolAccessList}
-        favouriteApi={PhonePoolFavorite}
+        exportAccess={enums.Marketing_PhoneNumber_Export_r}
+        exportLink={PhoneNumberExport}
+        importAccess={enums.Marketing_PhoneNumber_Import_w}
+        logAccess={enums.Marketing_PhoneNumber_Log_r}
+        readPagingApi={PhoneNumberReadPaging}
+        accessListAccess={enums.Marketing_PhoneNumber_Read_r}
+        accessListApi={PhoneNumberAccessList}
+        favouriteApi={PhoneNumberFavorite}
         handleClickHelp={handleClickHelp}
-        addFormAccess={enums.Marketing_PhonePool_Create_w}
+        addFormAccess={enums.Marketing_PhoneNumber_Create_w}
         filteredColumns={filteredColumns}
-        deleteAccess={enums.Marketing_PhonePool_Delete_w}
-        editAccess={enums.Marketing_PhonePool_Update_w}
+        deleteAccess={enums.Marketing_PhoneNumber_Delete_w}
+        editAccess={enums.Marketing_PhoneNumber_Update_w}
         permissionsAccess={""}
         changePasswordAccess={""}
-        getOneRecord={PhonePoolGetOneRecord}
+        getOneRecord={PhoneNumberGetOneRecord}
         setUpdate={setUpdate}
         mobileModal={mobileModal}
         setMobileModal={setMobileModal}

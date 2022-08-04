@@ -14,7 +14,7 @@ import {
   createSelectOptions,
   defintionInputs,
 } from "../../../../../validation/functions";
-
+import { PhoneNumberCreate } from "../../../../../services/phoneNumber";
 const PhoneNumberDefine = () => {
   const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
@@ -94,13 +94,13 @@ const PhoneNumberDefine = () => {
       setType("SUBMIT");
       fetchData({
         method: "POST",
-        url: "",
+        url: PhoneNumberCreate,
         headers: request,
         data: {
           Id: 0,
-          Country_Id: phoneNumberGroup?.value,
+          PhonePool_Id: phoneNumberGroup?.value,
           Priority: values.periority,
-          Title: values.title,
+          Number: values.title,
           Description: values.desc,
           Color: values.color.substring(1),
           SourceType: 0,
@@ -127,20 +127,20 @@ const PhoneNumberDefine = () => {
         <b>{t("/Marketing/PhoneNumber/Create")}</b>
         <div className="Row">
           <Form.Group className="mb-3" controlId={"phoneNumberGroup"}>
-            <Form.Label>{t("phoneNumberGroup")}</Form.Label>
+            <Form.Label>{t("/Marketing/PhonePool/Create")}</Form.Label>
             <CustomReactMultiSelect
               isMulti={false}
               options={phoneNumberGroupOptions}
               value={phoneNumberGroup}
               onchangeHandler={(e) => setPhoneNumberGroup(e)}
-              placeholder={t("phoneNumberGroup")}
+              placeholder={t("/Marketing/PhonePool/Create")}
             />
           </Form.Group>
         </div>
         {defintionInputs(
           values,
-          t("personInformationState"),
-          t("province_errorMSG")
+          t("/Marketing/PhoneNumber/Create"),
+          t("phoneNumber_errorMSG")
         ).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}

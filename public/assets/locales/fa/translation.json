@@ -327,6 +327,7 @@
   "routes.sentcustomerform": "فرم ارسال مشتری",
   "title": "موضوع",
   "title.errorMessage": "موضوع نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
+  "phoneNumber_errorMSG": "شماره تماس نمیتواند کمتر از 11 کاراکر باشد",
   "Model_errorMSG": "مدل نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
   "Company_errorMSG": "کمپانی نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
   "City_errorMSG": "شهرستان نمیتواند کمتر از 2 و بیشتر از 255 کاراکر باشد",
@@ -910,5 +911,10 @@
   "addColumn":"اضافه کردن",
   "coloumnEmpty":"نام ستون خالی است",
   "columnExits":"ستون تکراری وجود دارد",
-  "selectAnOption":"انتخاب کنید"
+  "selectAnOption":"انتخاب کنید",
+  "/Marketing/PhoneNumber/Create":"شماره تماس",
+  "/Marketing/PhoneNumber/Read":"شماره تماس",
+  "PhonePool_Id":"شماره گروه",
+  "PhonePool_Title":"نام گروه",
+  "Number":"شماره تماس"
 }
