@@ -911,5 +911,6 @@
   "coloumnEmpty":"نام ستون خالی است",
   "columnExits":"ستون تکراری وجود دارد",
   "selectAnOption":"انتخاب کنید",
-  "Subject":"موضوع"
+  "Subject":"موضوع",
+  "Body":"متن"
 }
