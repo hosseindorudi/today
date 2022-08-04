@@ -85,7 +85,6 @@ const styles = {
 const ImportUIModal = (props) => {
   const { file, withHeader } = props;
   const [response, loading, fetchData] = useAxios();
-  const [columnInfo, setColumnInfo] = useState([]);
   const [finalHeader, setFinalHeader] = useState([]);
   const [addColumnValue, setAddColumnValue] = useState("");
   const [finalData, setFinalData] = useState([]);
@@ -101,7 +100,7 @@ const ImportUIModal = (props) => {
   const [headers, setHeaders] = useState([]);
   const [removed, setRemoved] = useState([]);
   const { t } = useTranslation();
- 
+
   useEffect(() => {
     let columns = [];
     let rows = [];
@@ -116,7 +115,7 @@ const ImportUIModal = (props) => {
 
       rows = file.slice(1).map((row) => {
         return row.reduce((acc, curr, index) => {
-          acc[columns[index].accessor] =curr;
+          acc[columns[index].accessor] = curr;
           return acc;
         }, {});
       });
@@ -138,7 +137,7 @@ const ImportUIModal = (props) => {
     setRowData(rows);
     setColumnData(columns);
     setHeaders(columns);
-    getColumns();
+    getColumns("COLUMNINFO");
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -157,18 +156,15 @@ const ImportUIModal = (props) => {
     );
   };
   const resetData = () => setFinalData(originalData);
-  const getColumns = () => {
-    setType("COLUMNINFO");
+  const getColumns = (type) => {
+    setType(type);
     fetchData({
       method: "POST",
       url: props.columnInfo,
       headers: request,
     });
   };
-  const setFinalTableData = () => {
-    setFinalData([]);
-    setOriginalData([]);
-
+  const prepareTable = (fHeader) => {
     //Creating new data with respect to sorted columns and Removed columns
     const availableHeaders = columns.map((col) => col.Header);
 
@@ -191,40 +187,45 @@ const ImportUIModal = (props) => {
     //creating new FinalRowData with respect to new headers
     let data = sortedData.map((row) => {
       return Object.keys(row).reduce((acc, curr, index) => {
-        acc[finalHeader[index]?.accessor] = row[curr];
+        acc[fHeader[index]?.accessor] = row[curr];
         return acc;
       }, {});
     });
 
     //adding extra columns in case its not available in previous headers.
-    if (finalHeader.length > availableHeaders.length) {
+    if (fHeader.length > availableHeaders.length) {
       for (
         let index = availableHeaders.length;
-        index < finalHeader.length;
+        index < fHeader.length;
         index++
       ) {
-        data = data.map((v) => ({ ...v, [finalHeader[index].accessor]: "" }));
+        data = data.map((v) => ({ ...v, [fHeader[index].accessor]: "" }));
       }
     }
 
     setFinalData(data);
     setOriginalData(data);
   };
+  const setFinalTableData = () => {
+    setFinalData([]);
+    setOriginalData([]);
+    getColumns("PREPARE");
+  };
   const handleClickSubmit = () => {
-    setType("SUBMIT")
+    setType("SUBMIT");
     fetchData({
       method: "POST",
       url: props.importarray,
       headers: request,
-      data: dataFinal
+      data: dataFinal,
     });
   };
-  const handleResponse = useCallback((res, type) => {
+  const handleResponse = (res, type) => {
+    let finalColumns = [];
     switch (type) {
       case "COLUMNINFO":
-        setColumnInfo(res.Column);
         //Required Headers from backEnd
-        const finalColumns = res.Column.map((col, index) => {
+        finalColumns = res.Column.map((col, index) => {
           return {
             Header: col.Name,
             accessor: col.Name,
@@ -233,21 +234,37 @@ const ImportUIModal = (props) => {
             Required: col.Necessary,
             Parent: col.Parent,
             ParentTitle: col.ParentTitle,
-            isData:true
+            isData: true,
           };
         });
         setFinalHeader(finalColumns);
 
         break;
+      case "PREPARE":
+        finalColumns = res.Column.map((col, index) => {
+          return {
+            Header: col.Name,
+            accessor: col.Name,
+            Type: col.Type,
+            Length: col.Length,
+            Required: col.Necessary,
+            Parent: col.Parent,
+            ParentTitle: col.ParentTitle,
+            isData: true,
+          };
+        });
+        setFinalHeader(finalColumns);
+        prepareTable(finalColumns);
+        break;
       case "SUBMIT":
-          props.importSuccess(res.Message)
+        props.importSuccess(res.Message);
         break;
 
       default:
         break;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
   useEffect(() => {
     response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -363,7 +380,7 @@ const ImportUIModal = (props) => {
                   <Button
                     size="sm"
                     style={styles.buttonPrepare}
-                    onClick={() => setFinalTableData(columnInfo)}
+                    onClick={() => setFinalTableData()}
                   >
                     {t("prepare")}
                   </Button>
