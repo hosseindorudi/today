@@ -17,6 +17,7 @@ import {
 } from "../../../../../validation/functions";
 import { DeviceCreate } from "../../../../../services/deviceService";
 import DeviceList from "../DeviceList";
+import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 const DeviceForm = () => {
   const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
@@ -73,7 +74,7 @@ const DeviceForm = () => {
       .all([companyTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
+          allData[0].data?.Result === ResultCodeEnum.Ok
             ? setCompanyOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
         })

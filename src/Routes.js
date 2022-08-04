@@ -13,12 +13,6 @@ const MarketingMessageList = lazy(() =>
 const BruteForceCustomer = lazy(() =>
   import("./Views/Forms/customer/bruteForceCustomer/BruteForceCustomer")
 );
-const AllowedCustomerIp = lazy(() =>
-  import("./Views/Forms/customer/allowedIpCustomer/AllowedCustomerIp")
-);
-const AllowedIpCustomerForm = lazy(() =>
-  import("./Views/Forms/customer/allowedIpCustomer/AllowedIpCustomerForm")
-);
 const CustomerGroup = lazy(() =>
   import("./Views/Forms/customer/group/List/CustomerGroup")
 );
@@ -145,13 +139,6 @@ const CurrencyDefine = lazy(() =>
 const Currency = lazy(() =>
   import("./Views/Forms/definations/currency/Currency")
 );
-const AllowedIpForm = lazy(() =>
-  import("./Views/Forms/panel/virtualIpForm/AllowedIpForm")
-);
-const AllowedIp = lazy(() =>
-  import("./Views/Forms/panel/virtualIpForm/AllowedIp")
-);
-
 const OnlineOperator = lazy(() =>
   import("./Views/Forms/panel/onlineOperator/OnlineOperator")
 );
@@ -446,20 +433,6 @@ export const Routes = [
         cName: "sub-nav",
       },
       {
-        title: "/Operator/AllowedIp/Read",
-        path: "/Operator/AllowedIp/Read",
-        access: enums.Operator_AllowedIp_Read_r,
-        Component: AllowedIp,
-        button: {
-          Component: AllowedIpForm,
-          path: "/Operator/AllowedIp/write",
-          title: "/Operator/AllowedIp/write",
-          access: enums.Operator_AllowedIp_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
         title: "routes.attacks",
         path: "/optbruteforce",
         access: enums.Operator_BruteForce_Read_r,
@@ -535,20 +508,6 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
         access: enums.Customer_Customer_Read_r,
-      },
-      {
-        title: "/Customer/AllowedIp/Read",
-        path: "/Customer/AllowedIp/Read",
-        access: enums.Customer_AllowedIp_Read_r,
-        Component: AllowedCustomerIp,
-        button: {
-          Component: AllowedIpCustomerForm,
-          path: "/Customer/AllowedIp/write",
-          title: "/Customer/AllowedIp/write",
-          access: enums.Customer_AllowedIp_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
       },
       {
         title: "/Customer/BruteForce/Read",
