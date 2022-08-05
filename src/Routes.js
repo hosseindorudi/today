@@ -906,12 +906,12 @@ export const Routes = [
         access: enums.Marketing_Outbox_Read_r,
       },
       {
-        title: "/Marketing/Links/Read",
-        path: "/Marketing/Links/Read",
+        title: "/Marketing/PollLink/Read",
+        path: "/Marketing/PollLink/Read",
         Component: CreatedLinks,
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
-        access: enums.Marketing_Outbox_Read_r,
+        access: enums.Marketing_PollLink_Read_r,
       },
       {
         title: "/Marketing/Send/Read",

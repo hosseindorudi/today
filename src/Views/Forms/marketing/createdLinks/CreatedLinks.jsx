@@ -2,22 +2,15 @@ import React, { useRef, useState } from "react";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import {
-  PhonePoolRead,
-  PhonePoolReadPaging,
-  PhonePoolGetOneRecord,
-  PhonePoolDelete,
-  PhonePoolFavorite,
-  PhonePoolExportId,
-  PhonePoolExport,
-  PhonePoolSampleFile,
-  PhonePoolCheckFile,
-  PhonePoolImportFile,
-  PhonePoolLog,
-  PhonePoolSetUnselectedColumn,
-  PhonePoolAccessList,
-  PhonePoolColumnInfo,
-  PhonePoolImportArray,
-} from "../../../../services/phoneNumberGroupService";
+  PollLinkRead,
+  PollLinkReadPaging,
+  PollLinkFavorite,
+  PollLinkExportId,
+  PollLinkExport,
+  PollLinkLog,
+  PollLinkSetUnselectedColumn,
+  PollLinkAccessList,
+} from "../../../../services/pollLinkServices";
 import { enums } from "../../../../data/Enums";
 
 const CreatedLinks = () => {
@@ -34,27 +27,27 @@ const CreatedLinks = () => {
   return (
     <>
       <CustomTable
-        columnInfo={PhonePoolColumnInfo}
-        importarray={PhonePoolImportArray}
+        columnInfo={""}
+        importarray={""}
         ref={childRef}
-        ReadApi={PhonePoolRead}
-        deleteApi={PhonePoolDelete}
-        unSelectedAPI={PhonePoolSetUnselectedColumn}
-        sampleUrl={PhonePoolSampleFile}
-        fileCheckURL={PhonePoolCheckFile}
-        importURL={PhonePoolImportFile}
-        logApi={PhonePoolLog}
-        exportId={PhonePoolExportId}
+        ReadApi={PollLinkRead}
+        deleteApi={""}
+        unSelectedAPI={PollLinkSetUnselectedColumn}
+        sampleUrl={""}
+        fileCheckURL={""}
+        importURL={""}
+        logApi={PollLinkLog}
+        exportId={PollLinkExportId}
         changePasswordURL={""}
         addObject={""}
-        exportAccess={enums.Marketing_Outbox_Export_r}
-        exportLink={PhonePoolExport}
+        exportAccess={enums.Marketing_PollLink_Export_r}
+        exportLink={PollLinkExport}
         importAccess={""}
-        logAccess={enums.Marketing_Outbox_Log_r}
-        readPagingApi={PhonePoolReadPaging}
-        accessListAccess={enums.Marketing_Outbox_Read_r}
-        accessListApi={PhonePoolAccessList}
-        favouriteApi={PhonePoolFavorite}
+        logAccess={enums.Marketing_PollLink_Log_r}
+        readPagingApi={PollLinkReadPaging}
+        accessListAccess={enums.Marketing_PollLink_Read_r}
+        accessListApi={PollLinkAccessList}
+        favouriteApi={PollLinkFavorite}
         handleClickHelp={handleClickHelp}
         addFormAccess={""}
         filteredColumns={filteredColumns}
@@ -62,7 +55,7 @@ const CreatedLinks = () => {
         editAccess={""}
         permissionsAccess={""}
         changePasswordAccess={""}
-        getOneRecord={PhonePoolGetOneRecord}
+        getOneRecord={""}
         setUpdate={""}
         mobileModal={mobileModal}
         setMobileModal={setMobileModal}
