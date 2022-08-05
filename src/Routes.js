@@ -2,6 +2,7 @@ import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
 import { enums } from "./data/Enums";
 import React, { lazy } from "react";
+import Setting from "./Views/Forms/marketing/setting/Setting";
 const MarketingMessage = lazy(() =>
   import(
     "./Views/Forms/marketing/marketingMessage/marketingMessageDefine/MarketingMessage"
@@ -1628,4 +1629,21 @@ export const Routes = [
   //             }
 
   //           ]}
+  {
+        title: 'Setting',
+        access:enums.Module_Poll,
+        icon: <IoIcons.IoIosPaper/> ,
+        iconClosed: <RiIcons.RiArrowDownSFill/> ,
+        iconOpened: <RiIcons.RiArrowUpSFill/> ,
+        subNav: [
+          {
+            title: "/Setting/Setting/Read",
+            path: "/Setting/Setting/Read",
+            Component: Setting,
+            icon: <IoIcons.IoIosPaper />,
+            cName: "sub-nav",
+            access: enums.Setting_Setting_Read_r,
+          },
+        ]},
 ];
+
