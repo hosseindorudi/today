@@ -5,10 +5,40 @@ import { toast } from "react-toastify";
 import BackDrop from "../../../../Components/backDrop/BackDrop";
 import useAxios from "../../../../customHooks/useAxios";
 import useRequest from "../../../../customHooks/useRequest";
-import { SettingRead, SettingUpdate } from "../../../../services/settingService";
-
+import { enums } from "../../../../data/Enums";
+import {
+  SettingAccessList,
+  SettingFavorite,
+  SettingLog,
+  SettingRead,
+  SettingUpdate,
+} from "../../../../services/settingService";
+import SideButtons from "../../../../Components/sideButtons/SideButtons";
+const styles = {
+  ParentSetting: {
+    display: "flex",
+  },
+  side:{
+    display:"flex",
+    flexDirection:"column",
+    justifyContent:"center",
+    flexGrow:2
+  },
+  main:{
+    flexGrow:8,
+    display:"flex",
+    justifyContent:"center"
+  },
+  form:{
+    display:"flex",
+    flexDirection:"column",
+    alignItems:"center",
+    width:"80%"
+  }
+};
 const Setting = () => {
   const [response, loading, fetchData] = useAxios();
+  const [IsFavorite, setIsFavorite] = useState(false);
   const [data, setData] = useState(null);
   const [type, setType] = useState("");
   const { t } = useTranslation();
@@ -31,11 +61,12 @@ const Setting = () => {
     switch (type) {
       case "READ":
         setData(response.Record);
+        setIsFavorite(response.IsFavorite)
         break;
       case "UPDATE":
         toast.success(t("updatedRecord"), {
-            position: toast.POSITION.TOP_CENTER,
-          });
+          position: toast.POSITION.TOP_CENTER,
+        });
         break;
       default:
         break;
@@ -48,17 +79,29 @@ const Setting = () => {
       method: "POST",
       url: SettingUpdate,
       headers: request,
-      data:data
+      data: data,
     });
   };
   const handleChange = (name, value) => {
     setData({ ...data, [name]: value });
   };
+
   return (
-    <>
+    <div style={styles.ParentSetting}>
       {loading && <BackDrop open={true} />}
-      <div className="periorityFormDefine">
-        <Form className="periorityForm" onSubmit={handleSubmit}>
+      <div style={styles.side}>
+        <SideButtons
+          logApi={SettingLog}
+          favApi={SettingFavorite}
+          accessListApi={SettingAccessList}
+          logAccess={enums.Setting_Setting_Log_r}
+          accessListAccess={enums.Setting_Setting_Read_r}
+          IsFavorite={IsFavorite}
+          setIsFavorite={setIsFavorite}
+        />
+      </div>
+      <div style={styles.main}>
+        <Form style={styles.form} onSubmit={handleSubmit}>
           <b>{t("Setting")}</b>
           {data && (
             <>
@@ -85,6 +128,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.Hamta_IsActive}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId={"Hamta_Username"}>
@@ -95,6 +139,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.Hamta_IsActive}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId={"Hamta_Password"}>
@@ -106,6 +151,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.Hamta_IsActive}
                   />
                 </Form.Group>
               </div>
@@ -144,6 +190,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.Email_IsActive}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId={"Email_Password"}>
@@ -155,6 +202,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.Email_IsActive}
                   />
                 </Form.Group>
               </div>
@@ -167,6 +215,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.Email_IsActive}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId={"Email_SMTPPort"}>
@@ -178,6 +227,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.Email_IsActive}
                   />
                 </Form.Group>
               </div>
@@ -204,6 +254,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.SMS_IsActive}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId={"SMS_Number"}>
@@ -214,6 +265,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.SMS_IsActive}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId={"SMS_Username"}>
@@ -224,6 +276,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.SMS_IsActive}
                   />
                 </Form.Group>
               </div>
@@ -237,6 +290,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.SMS_IsActive}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId={"SMS_Company"}>
@@ -247,6 +301,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.SMS_IsActive}
                   />
                 </Form.Group>
               </div>
@@ -273,6 +328,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.WhatsApp_IsActive}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId={"WhatsApp_Number"}>
@@ -283,6 +339,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.WhatsApp_IsActive}
                   />
                 </Form.Group>
               </div>
@@ -309,6 +366,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.Hamvar_IsActive}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId={"Hamvar_Username"}>
@@ -319,6 +377,7 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.Hamvar_IsActive}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId={"Hamvar_Password"}>
@@ -330,11 +389,15 @@ const Setting = () => {
                     onChange={(e) =>
                       handleChange(e.target.name, e.target.value)
                     }
+                    disabled={!data.Hamvar_IsActive}
                   />
                 </Form.Group>
               </div>
               <div className="Row ">
-                <Form.Group className="mb-3" controlId={"Setting_ComplexityOfPassword"}>
+                <Form.Group
+                  className="mb-3"
+                  controlId={"Setting_ComplexityOfPassword"}
+                >
                   <Form.Label>{t("Setting_ComplexityOfPassword")}</Form.Label>
                   <Form.Check
                     style={{ textAlign: "center" }}
@@ -354,7 +417,7 @@ const Setting = () => {
           </Button>
         </Form>
       </div>
-    </>
+    </div>
   );
 };
 

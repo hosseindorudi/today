@@ -937,5 +937,7 @@
   "Hamvar_Url":"لینک هموار",
   "Hamvar_Username":"نام کاربری هموار",
   "Hamvar_Password":"پسوورد هموار",
-  "Setting_ComplexityOfPassword":"دشواری پسوورد"
+  "Setting_ComplexityOfPassword":"دشواری پسوورد",
+  "ItIsMe":"من هستم؟",
+  "ImportUI":"وارد كردن"
 }

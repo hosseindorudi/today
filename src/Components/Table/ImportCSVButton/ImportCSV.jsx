@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import * as fa from 'react-icons/fa'
+import { TabContext } from '../../../contexts/TabContextProvider'
 import ImportCSVModal from './ImportCSVModal'
+import ImportUI from './importUIComponent/ImportUI'
 import ImportUIModal from './ImportUIModal'
 const ImportCSV = (props) => {
   const [modalShow, setModalShow] = useState(false)
+  const tabContext = useContext(TabContext);
   const [modalImportUI, setModalImportUI] = useState(false)
   const [file, setFile] = useState(null)
   const [withHeader, setWithHeader] = useState(true);
@@ -14,7 +17,25 @@ const ImportCSV = (props) => {
   } 
   const handleUIClick=()=>{
     setModalShow(false)
-    setModalImportUI(true)
+    tabContext.addRemoveTabs(
+      {
+        path: "importUI",
+      },
+      "remove"
+    );
+    tabContext.addRemoveTabs(
+      {
+        Component: ImportUI,
+        path: "ImportUI",
+        title: "ImportUI",
+        columnInfo:props.columnInfo, 
+        file:file,
+        withHeader:withHeader, 
+        importarray:props.importarray
+      },
+      "add"
+    );
+    // setModalImportUI(true)
   }
   const importSuccess=(message)=>{
     setModalImportUI(false)
