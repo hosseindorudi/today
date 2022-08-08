@@ -22,7 +22,7 @@ function Admin() {
   const LastName = localStorage.getItem("LastName");
   const firstAndLastName =
     FirstName && LastName ? FirstName + " " + LastName : "";
-  const { app,setApp } = useContext(AppContext);
+  const { app, setApp } = useContext(AppContext);
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const windowSize = useWindowSize();
@@ -33,7 +33,7 @@ function Admin() {
     fetchData({
       method: "POST",
       url: verify,
-      headers: request
+      headers: request,
     });
   };
   useEffect(() => {
@@ -41,15 +41,12 @@ function Admin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   const handleResponse = (response) => {
-   
-   const AccessList=response.AccessList
+    const AccessList = response.AccessList;
     setApp((prev) => ({
       ...prev,
-      AccessList
+      AccessList,
     }));
-   
   };
   useEffect(() => {
     response && handleResponse(response);
@@ -80,12 +77,10 @@ function Admin() {
           </span>
 
           <ProfileInfo />
-
         </div>
         <div className="headerMid"></div>
         <div className="headerRight">
-        <SafeModeChanger handleLogOut={handleLogOut}/>
-      
+          <SafeModeChanger handleLogOut={handleLogOut} />
 
           <Language />
           <Home />

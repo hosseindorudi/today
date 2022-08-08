@@ -3,17 +3,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
 import { PhonePoolReadTitle } from "../../../../../services/phoneNumberGroupService";
-import {
-  createSelectOptions,
-  defintionInputs,
-} from "../../../../../validation/functions";
+import { createSelectOptions } from "../../../../../validation/functions";
 import { PhoneNumberCreate } from "../../../../../services/phoneNumber";
 const PhoneNumberDefine = () => {
   const [response, loading, fetchData] = useAxios();
@@ -24,12 +20,7 @@ const PhoneNumberDefine = () => {
   const request = useRequest();
   const tabContext = useContext(TabContext);
   const abortController = new AbortController();
-  const [values, setValues] = useState({
-    title: "",
-    color: "#000000",
-    periority: 1,
-    desc: "",
-  });
+  const [values, setValues] = useState("");
   const { t } = useTranslation();
   const submitted = () => {
     toast.success(t("item.created"), {
@@ -99,10 +90,7 @@ const PhoneNumberDefine = () => {
         data: {
           Id: 0,
           PhonePool_Id: phoneNumberGroup?.value,
-          Priority: values.periority,
-          Number: values.title,
-          Description: values.desc,
-          Color: values.color.substring(1),
+          Number: values,
           SourceType: 0,
           Registrar: 0,
           DateSet: "2022-06-19T16:43:29.709Z",
@@ -110,10 +98,6 @@ const PhoneNumberDefine = () => {
         signal: abortController.signal,
       });
     }
-  };
-
-  const onChangeHandler = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   return (
@@ -137,13 +121,19 @@ const PhoneNumberDefine = () => {
             />
           </Form.Group>
         </div>
-        {defintionInputs(
-          values,
-          t("/Marketing/PhoneNumber/Create"),
-          t("phoneNumber_errorMSG")
-        ).map((input) => (
-          <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-        ))}
+        <div className="Row">
+          <Form.Group
+            className="mb-3"
+            style={{ width: "100%" }}
+            controlId={"phoneNumber"}
+          >
+            <Form.Label>{t("PhoneNumber")}</Form.Label>
+            <Form.Control onChange={(e) => setValues(e.target.value)} />
+            <Form.Control.Feedback type="invalid">
+              {t("phoneNumber_errorMSG")}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </div>
         <Button disabled={loading} type="submit">
           {t("submit")}
         </Button>
