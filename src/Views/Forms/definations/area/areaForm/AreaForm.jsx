@@ -133,13 +133,13 @@ const AreaForm = () => {
         <b>{t("/Definition/Area/Write")}</b>
         <div className="Row">
           <Form.Group className="mb-3" controlId={"section"}>
-            <Form.Label>{t("section")}</Form.Label>
+            <Form.Label>{t("/Definition/Section/Read")}</Form.Label>
             <CustomReactMultiSelect
               isMulti={false}
               options={sectionOptions}
               value={section}
               onchangeHandler={(e) => setSection(e)}
-              placeholder={t("section")}
+              placeholder={t("/Definition/Section/Read")}
             />
           </Form.Group>
         </div>
