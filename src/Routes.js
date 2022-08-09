@@ -2,7 +2,11 @@ import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
 import { enums } from "./data/Enums";
 import React, { lazy } from "react";
-import Setting from "./Views/Forms/marketing/setting/Setting";
+const Setting = lazy(() =>
+  import(
+    "./Views/Forms/marketing/setting/Setting"
+  )
+);
 const MarketingMessage = lazy(() =>
   import(
     "./Views/Forms/marketing/marketingMessage/marketingMessageDefine/MarketingMessage"
@@ -1631,7 +1635,7 @@ export const Routes = [
   //           ]}
   {
         title: 'Setting',
-        access:enums.Module_Poll,
+        access:enums.Module_Setting,
         icon: <IoIcons.IoIosPaper/> ,
         iconClosed: <RiIcons.RiArrowDownSFill/> ,
         iconOpened: <RiIcons.RiArrowUpSFill/> ,

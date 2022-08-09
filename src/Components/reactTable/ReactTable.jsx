@@ -11,6 +11,7 @@ const styles = {
   },
   td: {
     display: "flex",
+    justifyContent:"center"
   },
 };
 

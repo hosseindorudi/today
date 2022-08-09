@@ -14,5 +14,5 @@ export const registrationGoodExportId="/Business/RegistrationGood/ExportId"
 export const registrationGoodLog="/Business/RegistrationGood/log"
 export const registrationGoodSetToFavorite="/Business/RegistrationGood/SetToFavorite"
 export const registrationGoodAccessList="/Business/RegistrationGood/AccessList"
-export const RegistrationGoodColumnInfo='/Business/QuestionnaireType/ColumnInfo'
-export const RegistrationGoodImportArray='/Business/QuestionnaireType/ImportArray'
+export const RegistrationGoodColumnInfo='/Business/RegistrationGood/ColumnInfo'
+export const RegistrationGoodImportArray='/Business/RegistrationGood/ImportArray'

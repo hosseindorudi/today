@@ -5,84 +5,88 @@ import { toast } from "react-toastify";
 import { TabContext } from "../../../../contexts/TabContextProvider";
 import useAxios from "../../../../customHooks/useAxios";
 import useRequest from "../../../../customHooks/useRequest";
-import { validateLength, validateRequired, validateType } from "../../../../validation/validation";
+import {
+  validateLength,
+  validateRequired,
+  validateType,
+} from "../../../../validation/validation";
 import BackDrop from "../../../backDrop/BackDrop";
 import * as md from "react-icons/md";
 import * as fa from "react-icons/fa";
 import ReactTable from "../../../reactTable/ReactTable";
 import RemovedColumns from "../RemovedColumns";
 import { HeaderDND } from "../HeaderDND";
+import FieldSetBorder from "../../../fieldSetBorder/FieldSetBorder";
 const styles = {
-    textField: {
-      fontSize: 10,
-    },
-    topLayer: {
-      display: "flex",
-      flexDirection: "row",
-      gap: "1%",
-    },
-    topLayerHeader: {
-      width: "15%",
-      height: "100%",
-    },
-    topLayerRemove: {
-      width: "15%",
-      height: "100%",
-    },
-    table: {
-      width: "70%",
-      height: "100%",
-    },
-    buttonPrepare: {
-      margin: 10,
-    },
-    CsvRowImport: {
-      display: "flex",
-      justifyContent: "space-between",
-    },
-    ModalBody: {
-      maxHeight: 600,
-      overflow: "auto",
-    },
-    refresh: {
-      color: "red",
-      cursor: "pointer",
-      fontSize: 20,
-    },
-    lableFinal: {
-      display: "flex",
-      alignItems: "center",
-      gap: 10,
-    },
-    labelHeaders: {
-      fontSize: 10,
-      fontWeight: "bold",
-    },
-    row: {
-      display: "flex",
-      alignItems: "center",
-      gap: 2,
-    },
-    addBtn: {
-      cursor: "pointer",
-    },
-    lowLayer: {
-      display: "flex",
-    },
-    tableLower: {
-      width: "80%",
-      height: "100%",
-    },
-    buttons: {
-      display: "flex",
-      flexDirection: "column",
-      width: "20%",
-    },
-  };
+  ModalBody: {
+    padding: 10,
+  },
+  textField: {
+    fontSize: 10,
+  },
+  topLayer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "1%",
+  },
+  topLayerHeader: {
+    width: "15%",
+    height: "100%",
+  },
+  topLayerRemove: {
+    width: "15%",
+    height: "100%",
+  },
+  table: {
+    width: "70%",
+    height: "100%",
+  },
+  buttonPrepare: {
+    margin: 10,
+  },
+  CsvRowImport: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  refresh: {
+    color: "red",
+    cursor: "pointer",
+    fontSize: 20,
+  },
+  lableFinal: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+  },
+  labelHeaders: {
+    fontSize: 10,
+    fontWeight: "bold",
+  },
+  row: {
+    display: "flex",
+    alignItems: "center",
+    gap: 2,
+  },
+  addBtn: {
+    cursor: "pointer",
+  },
+  lowLayer: {
+    display: "flex",
+  },
+  tableLower: {
+    width: "80%",
+    height: "100%",
+  },
+  buttons: {
+    display: "flex",
+    flexDirection: "column",
+    width: "20%",
+  },
+};
 const ImportUI = () => {
-  const { tabs,addRemoveTabs } = useContext(TabContext);
+  const { tabs, addRemoveTabs } = useContext(TabContext);
   const importUI = tabs.find((f) => f.path === "ImportUI");
-  const { file, withHeader,columnInfo,importarray } = importUI;
+  const { file, withHeader, columnInfo, importarray } = importUI;
   const [response, loading, fetchData] = useAxios();
   const [finalHeader, setFinalHeader] = useState([]);
   const [addColumnValue, setAddColumnValue] = useState("");
@@ -263,17 +267,17 @@ const ImportUI = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   };
-  const importSuccess=(message)=>{
+  const importSuccess = (message) => {
     toast.success(message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      addRemoveTabs(
-        {
-          path: "ImportUI",
-        },
-        "remove"
-      );
-  }
+      position: toast.POSITION.TOP_CENTER,
+    });
+    addRemoveTabs(
+      {
+        path: "ImportUI",
+      },
+      "remove"
+    );
+  };
   useEffect(() => {
     response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -296,11 +300,13 @@ const ImportUI = () => {
     setHeaders((oldArray) => [...oldArray, obj]);
     setAddColumnValue("");
   };
-  return <>
+  return (
+    <>
       {loading && <BackDrop open={true} />}
-        <div style={styles.ModalBody}>
-          {file && (
-            <>
+      <div style={styles.ModalBody}>
+        {file && (
+          <>
+            <FieldSetBorder legend={t("primitive")}>
               <div style={styles.topLayer}>
                 <div style={styles.topLayerRemove}>
                   <div>
@@ -359,17 +365,20 @@ const ImportUI = () => {
                   />
                 </div>
               </div>
-              <Form.Group>
-                <Form.Label style={styles.lableFinal}>
-                  <b>{t("final")}</b>
+            </FieldSetBorder>
+            <FieldSetBorder
+              legend={
+                <>
+                  {t("final")}
                   {finalData.length > 0 && (
                     <md.MdOutlineRestartAlt
                       onClick={resetData}
                       style={styles.refresh}
                     />
                   )}{" "}
-                </Form.Label>
-              </Form.Group>
+                </>
+              }
+            >
               <div style={styles.lowLayer}>
                 <div style={styles.buttons}>
                   <Button
@@ -407,12 +416,12 @@ const ImportUI = () => {
                   />
                 </div>
               </div>
-            </>
-          )}
-        </div>
-    
+            </FieldSetBorder>
+          </>
+        )}
+      </div>
     </>
-  
+  );
 };
 
 export default ImportUI;
