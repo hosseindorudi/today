@@ -17,7 +17,12 @@ import * as fa from "react-icons/fa";
 
 import { Routes } from "../../Routes";
 import Swal from "sweetalert2";
-import { dateOfLogTable, findBrowserIcon, findGeoLocation, findOsIcon } from "../../validation/functions";
+import {
+  dateOfLogTable,
+  findBrowserIcon,
+  findGeoLocation,
+  findOsIcon,
+} from "../../validation/functions";
 import DescModal from "../../Components/Table/descriptionModal/DescModal";
 import { Table } from "react-bootstrap";
 import useRequest from "../../customHooks/useRequest";
@@ -48,6 +53,7 @@ const OperatorDashboard = () => {
     "CodePage_EId",
     "Operator_Id",
     "OperatorName",
+    "Registrar",
   ];
   const handleChangeFavoritPage = (type) => {
     Routes.map((route) => {
@@ -116,12 +122,12 @@ const OperatorDashboard = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (isNote) {
-  //     noteSwal(notes, 0);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isNote]);
+  useEffect(() => {
+    if (isNote) {
+      noteSwal(notes, 0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNote]);
 
   const handleResponse = useCallback(
     (response, type) => {
@@ -228,7 +234,7 @@ const OperatorDashboard = () => {
   };
 
   const handleUpdate = () => {
-    console.log("updated")
+    console.log("updated");
     getDashboardData();
   };
 
@@ -238,8 +244,8 @@ const OperatorDashboard = () => {
       method: "POST",
       url: updateDashboard,
       headers: request,
-
       data: {
+        Operator_Id: localStorage.getItem("Id"),
         Id: note.Id,
         Title: note.Title,
         Body: note.Body,
@@ -250,17 +256,17 @@ const OperatorDashboard = () => {
     });
   };
 
-  // useEffect(() => {
-  //     getDashboardData();
+  useEffect(() => {
+    getDashboardData();
 
-  //   return () => abortController.abort();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+    return () => abortController.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // useEffect(() => {
-  //   response && handleResponse(response, requestType);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [response, requestType]);
+  useEffect(() => {
+    response && handleResponse(response, requestType);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response, requestType]);
 
   return (
     <>
@@ -275,7 +281,7 @@ const OperatorDashboard = () => {
       {isOpen && (
         <Modal setIsOpen={setIsOpen} getDashboardData={getDashboardData} />
       )}
-      {/* <div className="mainOperatorDash">
+      <div className="mainOperatorDash">
         <div className="Row">
           <div className="operatorDashboardInformation">
             <div className="dashInformationDiv">
@@ -284,19 +290,27 @@ const OperatorDashboard = () => {
             </div>
 
             <div className="dashInformationDiv">
-              <span>{dashboardInfoData.OS &&findOsIcon(dashboardInfoData.OS)}</span>
+              <span>
+                {dashboardInfoData.OS && findOsIcon(dashboardInfoData.OS)}
+              </span>
               <span>:OS</span>
             </div>
 
             <div className="dashInformationDiv">
-              <span>{dashboardInfoData.Browser &&findBrowserIcon(dashboardInfoData.Browser)}</span>
+              <span>
+                {dashboardInfoData.Browser &&
+                  findBrowserIcon(dashboardInfoData.Browser)}
+              </span>
               <span>:Browser</span>
             </div>
 
             <div className="dashInformationDiv">
               <span>
                 {location.loaded ? (
-                   <MapShowLocation value={[location.coordinates.lng,location.coordinates.lat]} isIP={false} />
+                  <MapShowLocation
+                    value={[location.coordinates.lng, location.coordinates.lat]}
+                    isIP={false}
+                  />
                 ) : (
                   "-"
                 )}
@@ -403,12 +417,18 @@ const OperatorDashboard = () => {
                               dateOfLogTable(failed[f])
                             ) : f === "IP" ? (
                               <MapShowLocation value={failed[f]} isIP={true} />
-                            ): f==="Geolocation"? (
-                            findGeoLocation(failed[f])===0?"-":<MapShowLocation value={findGeoLocation(failed[f])} isIP={false} />
-                            )
-                            :f==="OS"?(
+                            ) : f === "Geolocation" ? (
+                              findGeoLocation(failed[f]) === 0 ? (
+                                "-"
+                              ) : (
+                                <MapShowLocation
+                                  value={findGeoLocation(failed[f])}
+                                  isIP={false}
+                                />
+                              )
+                            ) : f === "OS" ? (
                               findOsIcon(failed[f])
-                            ): f==="Browser"?(
+                            ) : f === "Browser" ? (
                               findBrowserIcon(failed[f])
                             ) : (f === "Description") &
                               (failed[f].length > 0) ? (
@@ -422,7 +442,7 @@ const OperatorDashboard = () => {
                                 {t("logview")}
                               </span>
                             ) : (
-                              failed[f]
+                              t(failed[f])
                             )}
                           </td>
                         );
@@ -447,7 +467,7 @@ const OperatorDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-        {console.log(logins)}
+                {console.log(logins)}
                 {logins.map((failed) => (
                   <tr>
                     {Object.keys(failed)
@@ -459,11 +479,18 @@ const OperatorDashboard = () => {
                               dateOfLogTable(failed[f])
                             ) : f === "IP" ? (
                               <MapShowLocation value={failed[f]} isIP={true} />
-                            ): f==="Geolocation"? (
-                              findGeoLocation(failed[f])===0?"-":<MapShowLocation value={findGeoLocation(failed[f])} isIP={false} />
-                              ): f==="Browser"?(
+                            ) : f === "Geolocation" ? (
+                              findGeoLocation(failed[f]) === 0 ? (
+                                "-"
+                              ) : (
+                                <MapShowLocation
+                                  value={findGeoLocation(failed[f])}
+                                  isIP={false}
+                                />
+                              )
+                            ) : f === "Browser" ? (
                               findBrowserIcon(failed[f])
-                            )  : f==="OS"?(
+                            ) : f === "OS" ? (
                               findOsIcon(failed[f])
                             ) : (
                               failed[f]
@@ -502,11 +529,18 @@ const OperatorDashboard = () => {
                               dateOfLogTable(failed[f])
                             ) : f === "IP" ? (
                               <MapShowLocation value={failed[f]} isIP={true} />
-                            ): f==="Geolocation"? (
-                              findGeoLocation(failed[f])===0?"-":<MapShowLocation value={findGeoLocation(failed[f])} isIP={false} />
-                              ): f==="Browser"?(
+                            ) : f === "Geolocation" ? (
+                              findGeoLocation(failed[f]) === 0 ? (
+                                "-"
+                              ) : (
+                                <MapShowLocation
+                                  value={findGeoLocation(failed[f])}
+                                  isIP={false}
+                                />
+                              )
+                            ) : f === "Browser" ? (
                               findBrowserIcon(failed[f])
-                            ): f==="OS"?(
+                            ) : f === "OS" ? (
                               findOsIcon(failed[f])
                             ) : (
                               failed[f]
@@ -520,7 +554,7 @@ const OperatorDashboard = () => {
             </Table>
           </>
         )}
-      </div> */}
+      </div>
     </>
   );
 };

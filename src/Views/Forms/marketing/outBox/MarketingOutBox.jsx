@@ -2,22 +2,15 @@ import React, { useRef, useState } from "react";
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import {
-  PhonePoolRead,
-  PhonePoolReadPaging,
-  PhonePoolGetOneRecord,
-  PhonePoolDelete,
-  PhonePoolFavorite,
-  PhonePoolExportId,
-  PhonePoolExport,
-  PhonePoolSampleFile,
-  PhonePoolCheckFile,
-  PhonePoolImportFile,
-  PhonePoolLog,
-  PhonePoolSetUnselectedColumn,
-  PhonePoolAccessList,
-  PhonePoolColumnInfo,
-  PhonePoolImportArray,
-} from "../../../../services/phoneNumberGroupService";
+  OutBoxRead,
+  OutBoxReadPaging,
+  OutBoxFavorite,
+  OutBoxExportId,
+  OutBoxExport,
+  OutBoxLog,
+  OutBoxSetUnselectedColumn,
+  OutBoxAccessList,
+} from "../../../../services/outBoxServices";
 import { enums } from "../../../../data/Enums";
 
 const MarketingOutBox = () => {
@@ -34,27 +27,27 @@ const MarketingOutBox = () => {
   return (
     <>
       <CustomTable
-         columnInfo={PhonePoolColumnInfo}
-         importarray={PhonePoolImportArray}
+        columnInfo={""}
+        importarray={""}
         ref={childRef}
-        ReadApi={PhonePoolRead}
-        deleteApi={PhonePoolDelete}
-        unSelectedAPI={PhonePoolSetUnselectedColumn}
-        sampleUrl={PhonePoolSampleFile}
-        fileCheckURL={PhonePoolCheckFile}
-        importURL={PhonePoolImportFile}
-        logApi={PhonePoolLog}
-        exportId={PhonePoolExportId}
+        ReadApi={OutBoxRead}
+        deleteApi={""}
+        unSelectedAPI={OutBoxSetUnselectedColumn}
+        sampleUrl={""}
+        fileCheckURL={""}
+        importURL={""}
+        logApi={OutBoxLog}
+        exportId={OutBoxExportId}
         changePasswordURL={""}
         addObject={""}
         exportAccess={enums.Marketing_Outbox_Export_r}
-        exportLink={PhonePoolExport}
+        exportLink={OutBoxExport}
         importAccess={""}
         logAccess={enums.Marketing_Outbox_Log_r}
-        readPagingApi={PhonePoolReadPaging}
+        readPagingApi={OutBoxReadPaging}
         accessListAccess={enums.Marketing_Outbox_Read_r}
-        accessListApi={PhonePoolAccessList}
-        favouriteApi={PhonePoolFavorite}
+        accessListApi={OutBoxAccessList}
+        favouriteApi={OutBoxFavorite}
         handleClickHelp={handleClickHelp}
         addFormAccess={""}
         filteredColumns={filteredColumns}
@@ -62,7 +55,7 @@ const MarketingOutBox = () => {
         editAccess={""}
         permissionsAccess={""}
         changePasswordAccess={""}
-        getOneRecord={PhonePoolGetOneRecord}
+        getOneRecord={""}
         setUpdate={""}
         mobileModal={mobileModal}
         setMobileModal={setMobileModal}

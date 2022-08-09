@@ -35,16 +35,17 @@ const RighSideContainer = ({
   columnInfo,
   importarray,
   sortedBy,
-  isAssending
+  isAssending,
 }) => {
   const [haveAccess] = useButtonAccess();
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const withOfScreen = useWindowSize().width;
 
   return (
-    <div className="groupContainerRight" style ={{display : withOfScreen < 420 ? "none" : "flex"}}>
-      
-      
+    <div
+      className="groupContainerRight"
+      style={{ display: withOfScreen < 420 ? "none" : "flex" }}
+    >
       <div className="reacttableParentMainRightUp">
         <span className="reacttableParentMainRightUpInformation">
           {t("table.information")}
@@ -54,10 +55,18 @@ const RighSideContainer = ({
             <span>{totalRecord}</span>
           </div>
           <div className="customTableInformationData">
-            <span>{t(sortedBy)}</span>
+            <span>{totalRecord === 0 ? "" : t(sortedBy)}</span>
           </div>
           <div className="customTableInformationData">
-            <span>{isAssending ? <fa.FaLongArrowAltUp/> : <fa.FaLongArrowAltDown/>}</span>
+            <span>
+              {totalRecord === 0 ? (
+                ""
+              ) : isAssending ? (
+                <fa.FaLongArrowAltUp />
+              ) : (
+                <fa.FaLongArrowAltDown />
+              )}
+            </span>
           </div>
         </div>
       </div>
@@ -68,27 +77,27 @@ const RighSideContainer = ({
         </span>
         <div className="reacttableParentMainRightDownToolBoxDiv">
           <button
-          className="reactTableParentSearchButton"
+            className="reactTableParentSearchButton"
             onClick={() => {
               setSearch((prev) => !prev);
             }}
             style={{
               color:
-                (!search && searchBegin !== null && searchEnd !== null)
+                !search && searchBegin !== null && searchEnd !== null
                   ? "red"
                   : "lightgray",
-                  border:
-                (!search && searchBegin !== null && searchEnd !== null)
-                  &&
-                  "1px solid red"
+              border:
+                !search &&
+                searchBegin !== null &&
+                searchEnd !== null &&
+                "1px solid red",
             }}
           >
-            <bs.BsFunnelFill/>
+            <bs.BsFunnelFill />
           </button>
           <div className="reacttableParentMainRightDownToolBoxDivColumnBtn">
             <button
               className="reactTableParentColumnButton"
-
               onClick={() => {
                 setColumnSideBar(!columnSideBar);
               }}
@@ -115,7 +124,6 @@ const RighSideContainer = ({
               importURL={importURL}
               columnInfo={columnInfo}
               importarray={importarray}
-            
             />
           )}
           {haveAccess(logAccess) && (

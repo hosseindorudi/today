@@ -1,22 +1,29 @@
-:root{
-  --heightfooter:25px;
-  --headerheight:40px;
-  --navTabHeight:90px;
+:root {
+  --heightfooter: 25px;
+  --headerheight: 40px;
+  --navTabHeight: 90px;
 }
-.tabParrentDiv{
-    height: calc(100vh - var(--headerheight) - var(--heightfooter));  
-    overflow: hidden;
+.tabParrentDiv {
+  height: calc(100vh - var(--headerheight) - var(--heightfooter));
+  overflow: hidden;
 }
 
 .tab-content {
-   overflow: auto; 
-    height: calc(100vh - var(--headerheight) - var(--heightfooter) - var(--navTabHeight));  
+  overflow: auto;
+  height: calc(
+    100vh - var(--headerheight) - var(--heightfooter) - var(--navTabHeight)
+  );
 }
 .main {
   height: calc(100vh - var(--headerheight) - var(--heightfooter));
   display: flex;
   flex-direction: row;
   gap: 5px;
+}
+
+.safModeButton {
+  border: none;
+  background-color: transparent;
 }
 
 .footer {
@@ -36,10 +43,9 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 47px;
+  width: 100%;
   height: 20px;
 }
-
 
 .slider {
   position: absolute;
@@ -48,9 +54,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #2196F3;
-  -webkit-transition: .4s;
-  transition: .4s;
+  background-color: #2196f3;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -61,8 +67,8 @@
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
@@ -90,14 +96,16 @@ input:checked + .slider:before {
 
 .safeRow {
   display: flex;
-  margin-inline-end: 5px;
+  margin: 0 2px;
+  height: 30px;
   align-items: center;
+  justify-content: center;
 }
 
 .safeRow > span {
   margin-inline-end: 4px;
   font-weight: bolder;
-  color: rgb(255, 115, 0);
+  color: rgb(255, 0, 0);
 }
 
 .blink {
@@ -107,20 +115,20 @@ input:checked + .slider:before {
 }
 @keyframes blinker {
   50% {
-      opacity: 0;
+    opacity: 0;
   }
 }
 
 @media screen and (max-width: 1200px) {
-  .footer{
-      font-size: 10px;
+  .footer {
+    font-size: 10px;
   }
- }
- @media screen and (max-width: 600px) {
-  .footer{
-      font-size: 7px;
+}
+@media screen and (max-width: 600px) {
+  .footer {
+    font-size: 7px;
   }
- }
+}
 .mainparent {
   display: flex;
   flex-direction: column;
@@ -355,8 +363,6 @@ input:checked + .slider:before {
   /* background-color: #fff; */
 }
 
-
-
 .adminPowerOff {
   cursor: pointer;
 }
@@ -378,23 +384,22 @@ input:checked + .slider:before {
 }
 
 @media screen and (max-width: 960px) {
-  .mainRight{
+  .mainRight {
     position: fixed;
     right: -100%;
     transition: 850ms;
     height: calc(100vh - 40px);
   }
-  .mainLeft{
+  .mainLeft {
     width: 100%;
   }
 }
-.mainRight-active{
+.mainRight-active {
   right: 0 !important;
   transition: 350ms;
   width: 100%;
   z-index: 999;
 }
-
 
 .leftFooter {
   flex: 1;
@@ -438,13 +443,11 @@ input:checked + .slider:before {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(69, 67, 67);
 }
-#sidebarNav{
+#sidebarNav {
   z-index: 9999;
 }
 
-
 @media screen and (max-width: 650px) {
-
   .profileImg {
     height: 15px;
     width: 15px;
@@ -565,12 +568,9 @@ input:checked + .slider:before {
     width: 12px;
   }
 
-
-
   .tabParrentDiv {
     height: 100%;
   }
-
 
   .firstOperatorColumn {
     display: flex;
@@ -581,7 +581,6 @@ input:checked + .slider:before {
     flex-wrap: wrap;
     height: 600px !important;
   }
-
 
   .dashInformationDiv {
     width: 100% !important;
@@ -595,7 +594,6 @@ input:checked + .slider:before {
     text-align: start !important;
     font-weight: bold;
   }
-
 
   .favarotContainer {
     height: 100px !important;
@@ -651,8 +649,6 @@ input:checked + .slider:before {
     font-weight: bold;
   }
 
- 
-
   .opratorDashNoteContainer {
     width: 100px !important;
     height: 100px !important;
@@ -695,7 +691,6 @@ input:checked + .slider:before {
 }
 
 @media screen and (max-width: 420px) {
-
   .profileImg {
     height: 15px;
     width: 15px;
@@ -816,13 +811,9 @@ input:checked + .slider:before {
     width: 12px;
   }
 
-
-
   .tabParrentDiv {
     height: 100%;
   }
-
-
 
   .firstOperatorColumn {
     display: flex;
@@ -833,9 +824,6 @@ input:checked + .slider:before {
     flex-wrap: wrap;
     height: 600px !important;
   }
-
-
-
 
   .operatorDashboardInformation > hr {
     margin: 8px;
@@ -923,8 +911,6 @@ input:checked + .slider:before {
     font-size: 17px;
     font-weight: bold;
   }
-
-
 
   .opratorDashNoteContainer {
     width: 100px !important;
@@ -1328,7 +1314,6 @@ input:checked + .slider:before {
     height: 170px !important;
     width: 100% !important;
     border: 1px solid lightgray !important;
-
   }
 
   .sigMainDiv {
@@ -1383,7 +1368,6 @@ input:checked + .slider:before {
   .agentSigPadDiv {
     width: 100% !important;
     height: fit-content !important;
-
   }
   .canvasForEver {
     height: 100% !important;

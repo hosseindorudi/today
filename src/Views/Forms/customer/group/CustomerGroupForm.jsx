@@ -117,8 +117,8 @@ const CustomerGroupForm = () => {
             </Form.Group>
           </div>
           <div className="Row">
-            <Form.Group className="mb-3" controlId={"title"}>
-              <Form.Label>{t("title")}</Form.Label>
+            <Form.Group className="mb-3" controlId={"customer.group"}>
+              <Form.Label>{t("customer.group")}</Form.Label>
               <Form.Control
                 required
                 type="text"

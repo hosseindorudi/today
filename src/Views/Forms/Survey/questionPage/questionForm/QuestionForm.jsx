@@ -23,7 +23,7 @@ const QuestionForm = () => {
   const [enumQuestion, setEnumQuestion] = useState([]);
   const [questionSelect, setQuestionSelect] = useState("");
 
-  const [activation, setActivation] = useState(false);
+  const [activation, setActivation] = useState(true);
   const abortController = new AbortController();
 
   const tabContext = useContext(TabContext);
