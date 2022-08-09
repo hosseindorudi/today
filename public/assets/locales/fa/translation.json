@@ -918,7 +918,7 @@
   "PhonePool_Title": "نام گروه",
   "Number": "شماره تماس",
   "/Marketing/OutBox/Read": "پیام های ارسالی",
-  "/Marketing/PollLink/Read": "لینک های ساخته شده"
+  "/Marketing/PollLink/Read": "لینک های ساخته شده",
   "Subject":"موضوع",
   "Body":"متن",
   "/Setting/Setting/Read":"تنظیمات",
