@@ -948,5 +948,7 @@
   "Setting_ComplexityOfPassword":"دشواری پسوورد",
   "ItIsMe":"من هستم؟",
   "ImportUI":"وارد كردن",
-  "primitive":"اولیه"
+  "primitive":"اولیه",
+  "addRow":"ردیف اضافه کنید",
+  "removeLastRow":"حذف آخرین ردیف"
 }

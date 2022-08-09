@@ -43,6 +43,7 @@ const styles = {
   },
   buttonPrepare: {
     margin: 10,
+    fontSize: 12,
   },
   CsvRowImport: {
     display: "flex",
@@ -300,6 +301,13 @@ const ImportUI = () => {
     setHeaders((oldArray) => [...oldArray, obj]);
     setAddColumnValue("");
   };
+  const addRow=()=>{
+    const obj = columnsFinal.reduce((acc, cur) => ({ ...acc, [cur.Header]: "" }), {})
+    setFinalData(oldArray => [...oldArray, obj]);
+  }
+  const removeLast=()=>{
+    setFinalData((previousArr) => (previousArr.slice(0, -1)));
+  }
   return (
     <>
       {loading && <BackDrop open={true} />}
@@ -388,14 +396,31 @@ const ImportUI = () => {
                   >
                     {t("prepare")}
                   </Button>
-                  <Button
-                    size="sm"
-                    style={styles.buttonPrepare}
-                    disabled={!finalData.length > 0 || loading}
-                    onClick={handleClickSubmit}
-                  >
-                    {t("submit")}
-                  </Button>
+                  {finalData.length > 0 && (
+                    <>
+                      <Button
+                        size="sm"
+                        style={styles.buttonPrepare}
+                        onClick={() => addRow()}
+                      >
+                        {t("addRow")}
+                      </Button>
+                      <Button
+                        size="sm"
+                        style={styles.buttonPrepare}
+                        onClick={() => removeLast()}
+                      >
+                        {t("removeLastRow")}
+                      </Button>
+                      <Button
+                        size="sm"
+                        style={styles.buttonPrepare}
+                        onClick={handleClickSubmit}
+                      >
+                        {t("submit")}
+                      </Button>
+                    </>
+                  )}
                 </div>
                 <div style={styles.tableLower}>
                   <ReactTable
