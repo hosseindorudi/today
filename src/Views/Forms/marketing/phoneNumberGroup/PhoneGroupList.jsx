@@ -23,9 +23,11 @@ import {
         } from '../../../../services/phoneNumberGroupService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
+import PhoneBookMessageModal from '../../../../Components/Table/phoneBookMessage/PhoneBookMessageModal';
 const PhoneGroupList = () => {
     const filteredColumns = ["IsLimited",  "Registrar","SourceType","Id"];
     const [tableModalOpen, setTableModalOpen] = useState(false);
+    const [messageModal, setMessageModal] = useState(false)
     const [rowValus, setRowValues] = useState({});
     const childRef = useRef();
     const [mobileModal, setMobileModal] = useState(false)
@@ -56,6 +58,10 @@ const PhoneGroupList = () => {
     const handleClickHelp = () => {
       window.open("https://www.google.com");
     };
+    const sendMessageBank=(id)=>{
+      setRowValues(id)
+      setMessageModal(true)
+    }
   return (
     <>
         {tableModalOpen && (
@@ -65,6 +71,12 @@ const PhoneGroupList = () => {
          tableModalShow={tableModalOpen}
          updated={updated}
        />
+     )}
+     {messageModal &&(
+      <PhoneBookMessageModal rowValues={rowValus} 
+        onHide={() => setMessageModal(false)}
+        show={messageModal}
+      />
      )}
      
      <CustomTable
@@ -81,19 +93,19 @@ const PhoneGroupList = () => {
        exportId={PhonePoolExportId}
        changePasswordURL={""}
        addObject={addObject}
-       exportAccess={enums.Marketing_PhonePool_Export_r}
+       exportAccess={enums.Marketing_PhoneBook_Export_r}
        exportLink={PhonePoolExport}
-       importAccess={enums.Marketing_PhonePool_Import_w}
-       logAccess={enums.Marketing_PhonePool_Log_r}
+       importAccess={enums.Marketing_PhoneBook_Import_w}
+       logAccess={enums.Marketing_PhoneBook_Log_r}
        readPagingApi={PhonePoolReadPaging}
-       accessListAccess={enums.Marketing_PhonePool_Read_r}
+       accessListAccess={enums.Marketing_PhoneBook_Read_r}
        accessListApi={PhonePoolAccessList}
        favouriteApi={PhonePoolFavorite}
        handleClickHelp={handleClickHelp}
-       addFormAccess={enums.Marketing_PhonePool_Create_w}
+       addFormAccess={enums.Marketing_PhoneBook_Create_w}
        filteredColumns={filteredColumns}
-       deleteAccess={enums.Marketing_PhonePool_Delete_w}
-       editAccess={enums.Marketing_PhonePool_Update_w}
+       deleteAccess={enums.Marketing_PhoneBook_Delete_w}
+       editAccess={enums.Marketing_PhoneBook_Update_w}
        permissionsAccess={""}
        changePasswordAccess={""}
        getOneRecord={PhonePoolGetOneRecord}
@@ -105,6 +117,8 @@ const PhoneGroupList = () => {
        setMobileModalButtons={setMobileModalButtons}
        setMobileModalColumns={setMobileModalColumns}
        mobileModalColumns={mobileModalColumns}
+       sendMessageBankAccess={enums.Marketing_PhoneBook_Delete_w}
+       sendMessageBank={sendMessageBank}
      />
     </>
   )

@@ -168,6 +168,7 @@ const ImportUI = () => {
     });
   };
   const prepareTable = (fHeader) => {
+  
     //Creating new data with respect to sorted columns and Removed columns
     const availableHeaders = columns.map((col) => col.Header);
 
@@ -208,6 +209,7 @@ const ImportUI = () => {
 
     setFinalData(data);
     setOriginalData(data);
+ 
   };
   const setFinalTableData = () => {
     setFinalData([]);
@@ -311,7 +313,8 @@ const ImportUI = () => {
   return (
     <>
       {loading && <BackDrop open={true} />}
-      <div style={styles.ModalBody}>
+      
+      <div style={styles.ModalBody} className="importUIClass">
         {file && (
           <>
             <FieldSetBorder legend={t("primitive")}>

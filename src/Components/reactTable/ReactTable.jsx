@@ -8,11 +8,18 @@ const styles = {
     fontSize: 11,
     whiteSpace: "nowrap",
     textAlign: "center",
+    backgroundColor:"white"
   },
   td: {
     display: "flex",
-    justifyContent:"center"
+    justifyContent:"center",
+    backgroundColor:"white"
   },
+  tHead:{
+    position:"sticky",
+    top:0,
+    backgroundColor:"white"
+  }
 };
 
 const EditableCell = ({
@@ -109,7 +116,7 @@ const ReactTable = ({
 
   return (
     <Table style={styles.table} responsive {...getTableProps()}>
-      <thead>
+      <thead style={styles.tHead}>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (

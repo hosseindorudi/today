@@ -89,6 +89,8 @@ const TableList = ({
   mobileAccess,
   handleAccount,
   accountAccess,
+  sendMessageBankAccess,
+  sendMessageBank
 }) => {
   const [haveAccess] = useButtonAccess();
   const { t } = useTranslation();
@@ -339,6 +341,8 @@ const TableList = ({
                             mobileAccess={mobileAccess}
                             handleAccount={handleAccount}
                             accountAccess={accountAccess}
+                            sendMessageBankAccess={sendMessageBankAccess}
+                            sendMessageBank={sendMessageBank}
                           />
                         </td>
                         {Object.keys(post)

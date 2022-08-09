@@ -950,5 +950,10 @@
   "ImportUI":"وارد كردن",
   "primitive":"اولیه",
   "addRow":"ردیف اضافه کنید",
-  "removeLastRow":"حذف آخرین ردیف"
+  "removeLastRow":"حذف آخرین ردیف",
+  "sendMessageBank":"ارسال پیام",
+  "send":"ارسال",
+  "MessageSelect":"پیام انتخاب کنید",
+  "countMessage":"تعداد",
+  "expire":"انقضا"
 }

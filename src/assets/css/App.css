@@ -87,3 +87,6 @@ width: 100%;
   cursor: pointer;
   color:  mediumblue;
 }
+.importUIClass .table-responsive{
+  max-height: 30vh;
+}

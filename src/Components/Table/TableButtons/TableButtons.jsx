@@ -47,6 +47,8 @@ const TableButtons = ({
   mobileAccess,
   handleAccount,
   accountAccess,
+  sendMessageBankAccess,
+  sendMessageBank
 }) => {
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
@@ -269,6 +271,17 @@ const TableButtons = ({
           className="Pending widgetLgButton"
           onClick={() => {
             addOperator(rowValue.Id);
+          }}
+        >
+          <fa.FaUserPlus />
+        </button>
+      )}
+       {haveAccess(sendMessageBankAccess) && (
+        <button
+          title={t("sendMessageBank")}
+          className="Pending widgetLgButton"
+          onClick={() => {
+            sendMessageBank(rowValue.Id);
           }}
         >
           <fa.FaUserPlus />

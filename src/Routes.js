@@ -868,11 +868,11 @@ export const Routes = [
           Component: PhoneNumberGroupForm,
           path: "/Marketing/PhonePool/Create",
           title: "/Marketing/PhonePool/Create",
-          access: enums.Marketing_PhonePool_Create_w,
+          access: enums.Marketing_PhoneBook_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
-        access: enums.Marketing_PhonePool_Read_r,
+        access: enums.Marketing_PhoneBook_Read_r,
       },
       {
         title: "/Marketing/PhoneNumber/Read",
