@@ -16,11 +16,11 @@ const DNDContainer = ({ value, handleChange, dropped }) => {
   const handleResponse = (response, type) => {
     switch (type) {
       case "READTITLE":
-        response.Title.map((r) => {
+        response.Title?.map((r) => {
           const newElement = {
             Id: r.Id,
             Value: r.Value,
-            bValue: `{${r.Value}}`,
+            bValue: `{${r.Value}:${r.Id}}`,
           };
           return setItems((oldArray) => [...oldArray, newElement]);
         });
@@ -55,8 +55,8 @@ const DNDContainer = ({ value, handleChange, dropped }) => {
       <div className="dndContainer">
         <div className="items">
           <ListGroup>
-            {items.map((i, index) => (
-              <DndItem i={i} index={index} dropped={dropped} />
+            {items?.map((i, index) => (
+              <DndItem i={i} key={index} index={index} dropped={dropped} />
             ))}
           </ListGroup>
         </div>

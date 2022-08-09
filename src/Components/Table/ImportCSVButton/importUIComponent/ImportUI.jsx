@@ -1,91 +1,89 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import useAxios from "../../../customHooks/useAxios";
-import ReactTable from "../../reactTable/ReactTable";
-import { HeaderDND } from "./HeaderDND";
-import RemovedColumns from "./RemovedColumns";
-import useRequest from "../../../customHooks/useRequest";
-import BackDrop from "../../backDrop/BackDrop";
+import { toast } from "react-toastify";
+import { TabContext } from "../../../../contexts/TabContextProvider";
+import useAxios from "../../../../customHooks/useAxios";
+import useRequest from "../../../../customHooks/useRequest";
+import { validateLength, validateRequired, validateType } from "../../../../validation/validation";
+import BackDrop from "../../../backDrop/BackDrop";
 import * as md from "react-icons/md";
 import * as fa from "react-icons/fa";
-import { toast } from "react-toastify";
-import {
-  validateLength,
-  validateRequired,
-  validateType,
-} from "../../../validation/validation";
+import ReactTable from "../../../reactTable/ReactTable";
+import RemovedColumns from "../RemovedColumns";
+import { HeaderDND } from "../HeaderDND";
 const styles = {
-  textField: {
-    fontSize: 10,
-  },
-  topLayer: {
-    display: "flex",
-    flexDirection: "row",
-    gap: "1%",
-  },
-  topLayerHeader: {
-    width: "15%",
-    height: "100%",
-  },
-  topLayerRemove: {
-    width: "15%",
-    height: "100%",
-  },
-  table: {
-    width: "70%",
-    height: "100%",
-  },
-  buttonPrepare: {
-    margin: 10,
-  },
-  CsvRowImport: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  ModalBody: {
-    maxHeight: 600,
-    overflow: "auto",
-  },
-  refresh: {
-    color: "red",
-    cursor: "pointer",
-    fontSize: 20,
-  },
-  lableFinal: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-  },
-  labelHeaders: {
-    fontSize: 10,
-    fontWeight: "bold",
-  },
-  row: {
-    display: "flex",
-    alignItems: "center",
-    gap: 2,
-  },
-  addBtn: {
-    cursor: "pointer",
-  },
-  lowLayer: {
-    display: "flex",
-  },
-  tableLower: {
-    width: "80%",
-    height: "100%",
-  },
-  buttons: {
-    display: "flex",
-    flexDirection: "column",
-    width: "20%",
-  },
-};
-const ImportUIModal = (props) => {
-  const { file, withHeader } = props;
+    textField: {
+      fontSize: 10,
+    },
+    topLayer: {
+      display: "flex",
+      flexDirection: "row",
+      gap: "1%",
+    },
+    topLayerHeader: {
+      width: "15%",
+      height: "100%",
+    },
+    topLayerRemove: {
+      width: "15%",
+      height: "100%",
+    },
+    table: {
+      width: "70%",
+      height: "100%",
+    },
+    buttonPrepare: {
+      margin: 10,
+    },
+    CsvRowImport: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+    ModalBody: {
+      maxHeight: 600,
+      overflow: "auto",
+    },
+    refresh: {
+      color: "red",
+      cursor: "pointer",
+      fontSize: 20,
+    },
+    lableFinal: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+    },
+    labelHeaders: {
+      fontSize: 10,
+      fontWeight: "bold",
+    },
+    row: {
+      display: "flex",
+      alignItems: "center",
+      gap: 2,
+    },
+    addBtn: {
+      cursor: "pointer",
+    },
+    lowLayer: {
+      display: "flex",
+    },
+    tableLower: {
+      width: "80%",
+      height: "100%",
+    },
+    buttons: {
+      display: "flex",
+      flexDirection: "column",
+      width: "20%",
+    },
+  };
+const ImportUI = () => {
+  const { tabs,addRemoveTabs } = useContext(TabContext);
+  const importUI = tabs.find((f) => f.path === "ImportUI");
+  const { file, withHeader,columnInfo,importarray } = importUI;
   const [response, loading, fetchData] = useAxios();
-  const [columnInfo, setColumnInfo] = useState([]);
   const [finalHeader, setFinalHeader] = useState([]);
   const [addColumnValue, setAddColumnValue] = useState("");
   const [finalData, setFinalData] = useState([]);
@@ -101,7 +99,6 @@ const ImportUIModal = (props) => {
   const [headers, setHeaders] = useState([]);
   const [removed, setRemoved] = useState([]);
   const { t } = useTranslation();
- 
   useEffect(() => {
     let columns = [];
     let rows = [];
@@ -116,7 +113,7 @@ const ImportUIModal = (props) => {
 
       rows = file.slice(1).map((row) => {
         return row.reduce((acc, curr, index) => {
-          acc[columns[index].accessor] =curr;
+          acc[columns[index].accessor] = curr;
           return acc;
         }, {});
       });
@@ -138,7 +135,7 @@ const ImportUIModal = (props) => {
     setRowData(rows);
     setColumnData(columns);
     setHeaders(columns);
-    getColumns();
+    getColumns("COLUMNINFO");
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -157,18 +154,15 @@ const ImportUIModal = (props) => {
     );
   };
   const resetData = () => setFinalData(originalData);
-  const getColumns = () => {
-    setType("COLUMNINFO");
+  const getColumns = (type) => {
+    setType(type);
     fetchData({
       method: "POST",
-      url: props.columnInfo,
+      url: columnInfo,
       headers: request,
     });
   };
-  const setFinalTableData = () => {
-    setFinalData([]);
-    setOriginalData([]);
-
+  const prepareTable = (fHeader) => {
     //Creating new data with respect to sorted columns and Removed columns
     const availableHeaders = columns.map((col) => col.Header);
 
@@ -191,40 +185,45 @@ const ImportUIModal = (props) => {
     //creating new FinalRowData with respect to new headers
     let data = sortedData.map((row) => {
       return Object.keys(row).reduce((acc, curr, index) => {
-        acc[finalHeader[index]?.accessor] = row[curr];
+        acc[fHeader[index]?.accessor] = row[curr];
         return acc;
       }, {});
     });
 
     //adding extra columns in case its not available in previous headers.
-    if (finalHeader.length > availableHeaders.length) {
+    if (fHeader.length > availableHeaders.length) {
       for (
         let index = availableHeaders.length;
-        index < finalHeader.length;
+        index < fHeader.length;
         index++
       ) {
-        data = data.map((v) => ({ ...v, [finalHeader[index].accessor]: "" }));
+        data = data.map((v) => ({ ...v, [fHeader[index].accessor]: "" }));
       }
     }
 
     setFinalData(data);
     setOriginalData(data);
   };
+  const setFinalTableData = () => {
+    setFinalData([]);
+    setOriginalData([]);
+    getColumns("PREPARE");
+  };
   const handleClickSubmit = () => {
-    setType("SUBMIT")
+    setType("SUBMIT");
     fetchData({
       method: "POST",
-      url: props.importarray,
+      url: importarray,
       headers: request,
-      data: dataFinal
+      data: dataFinal,
     });
   };
-  const handleResponse = useCallback((res, type) => {
+  const handleResponse = (res, type) => {
+    let finalColumns = [];
     switch (type) {
       case "COLUMNINFO":
-        setColumnInfo(res.Column);
         //Required Headers from backEnd
-        const finalColumns = res.Column.map((col, index) => {
+        finalColumns = res.Column.map((col, index) => {
           return {
             Header: col.Name,
             accessor: col.Name,
@@ -233,21 +232,48 @@ const ImportUIModal = (props) => {
             Required: col.Necessary,
             Parent: col.Parent,
             ParentTitle: col.ParentTitle,
-            isData:true
+            isData: true,
           };
         });
         setFinalHeader(finalColumns);
 
         break;
+      case "PREPARE":
+        finalColumns = res.Column.map((col, index) => {
+          return {
+            Header: col.Name,
+            accessor: col.Name,
+            Type: col.Type,
+            Length: col.Length,
+            Required: col.Necessary,
+            Parent: col.Parent,
+            ParentTitle: col.ParentTitle,
+            isData: true,
+          };
+        });
+        setFinalHeader(finalColumns);
+        prepareTable(finalColumns);
+        break;
       case "SUBMIT":
-          props.importSuccess(res.Message)
+        importSuccess(res.Message);
         break;
 
       default:
         break;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
+  const importSuccess=(message)=>{
+    toast.success(message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      addRemoveTabs(
+        {
+          path: "ImportUI",
+        },
+        "remove"
+      );
+  }
   useEffect(() => {
     response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -270,23 +296,9 @@ const ImportUIModal = (props) => {
     setHeaders((oldArray) => [...oldArray, obj]);
     setAddColumnValue("");
   };
-  return (
-    <>
+  return <>
       {loading && <BackDrop open={true} />}
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {t("importFile")}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={styles.ModalBody}>
+        <div style={styles.ModalBody}>
           {file && (
             <>
               <div style={styles.topLayer}>
@@ -363,7 +375,7 @@ const ImportUIModal = (props) => {
                   <Button
                     size="sm"
                     style={styles.buttonPrepare}
-                    onClick={() => setFinalTableData(columnInfo)}
+                    onClick={() => setFinalTableData()}
                   >
                     {t("prepare")}
                   </Button>
@@ -397,10 +409,10 @@ const ImportUIModal = (props) => {
               </div>
             </>
           )}
-        </Modal.Body>
-      </Modal>
+        </div>
+    
     </>
-  );
+  
 };
 
-export default ImportUIModal;
+export default ImportUI;

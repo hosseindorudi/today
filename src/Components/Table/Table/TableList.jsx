@@ -1,7 +1,7 @@
 import { Pagination } from "@mui/material";
 import React, { useContext, useState } from "react";
 import useButtonAccess from "../../../customHooks/useButtonAccess";
-import { checkTableTH, checkTableValues } from "../../../validation/functions";
+import { checkRowBackGroundColor, checkTableTH, checkTableValues } from "../../../validation/functions";
 import DownArrow from "../Arrows/downArrow/DownArrow";
 import MainUpArrow from "../Arrows/MainUpArrow/MainUpArrow";
 import UpArrow from "../Arrows/upArrow/UpArrow";
@@ -297,7 +297,7 @@ const TableList = ({
                         key={index}
                         style={{
                           backgroundColor:
-                            post["SafeMode"] && "pink",
+                          checkRowBackGroundColor(post)
                         }}
                       >
                         <td className="TableMainTd">

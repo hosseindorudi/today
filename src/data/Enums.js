@@ -37,7 +37,7 @@ const enums ={
  //Module_BalancedScorecard : 3100,
  //Module_BusinessIntelligence : 3200,
 
- //Module_Setting : 9900,
+ Module_Setting : 9900,
  //Module_System : 10000,
 
 

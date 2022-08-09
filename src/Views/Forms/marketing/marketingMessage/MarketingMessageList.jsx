@@ -3,28 +3,12 @@ import CustomTable from '../../../../Components/Table/Table/CustomTable'
 import useWindowSize from '../../../../customHooks/useWindowSize';
 import TableModal from './tableModal/TableModal'
 import { t } from "i18next";
-import { 
-    PhonePoolRead,
-    PhonePoolReadPaging,
-    PhonePoolGetOneRecord,
-    PhonePoolDelete,
-    PhonePoolFavorite,
-    PhonePoolExportId,
-    PhonePoolExport,
-    PhonePoolSampleFile,
-    PhonePoolCheckFile,
-    PhonePoolImportFile,
-    PhonePoolLog,
-    PhonePoolSetUnselectedColumn,
-    PhonePoolAccessList,
-    PhonePoolColumnInfo,
-    PhonePoolImportArray,
-        } from '../../../../services/phoneNumberGroupService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
 import MarketingMessage from './marketingMessageDefine/MarketingMessage';
+import { MessageAccessList, MessageCheckFile, MessageColumnInfo, MessageDelete, MessageExport, MessageExportId, MessageFavorite, MessageGetOneRecord, MessageImportArray, MessageImportFile, MessageLog, MessageRead, MessageReadPaging, MessageSampleFile, MessageSetUnselectedColumn } from '../../../../services/marketingMessage';
 const MarketingMessageList = () => {
-    const filteredColumns = ["IsLimited",  "Registrar","SourceType","Id"];
+    const filteredColumns = ["IsLimited",  "Registrar","SourceType","Id","IsDynamic","IsHtml"];
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});
     const childRef = useRef();
@@ -60,7 +44,7 @@ const MarketingMessageList = () => {
     <>
         {tableModalOpen && (
        <TableModal
-         rowValus={rowValus}
+         rowValues={rowValus}
          onHide={() => setTableModalOpen(false)}
          tableModalShow={tableModalOpen}
          updated={updated}
@@ -68,27 +52,27 @@ const MarketingMessageList = () => {
      )}
      
      <CustomTable
-        columnInfo={PhonePoolColumnInfo}
-        importarray={PhonePoolImportArray}
+        columnInfo={MessageColumnInfo}
+        importarray={MessageImportArray}
        ref={childRef}
-       ReadApi={PhonePoolRead}
-       deleteApi={PhonePoolDelete}
-       unSelectedAPI={PhonePoolSetUnselectedColumn}
-       sampleUrl={PhonePoolSampleFile}
-       fileCheckURL={PhonePoolCheckFile}
-       importURL={PhonePoolImportFile}
-       logApi={PhonePoolLog}
-       exportId={PhonePoolExportId}
+       ReadApi={MessageRead}
+       deleteApi={MessageDelete}
+       unSelectedAPI={MessageSetUnselectedColumn}
+       sampleUrl={MessageSampleFile}
+       fileCheckURL={MessageCheckFile}
+       importURL={MessageImportFile}
+       logApi={MessageLog}
+       exportId={MessageExportId}
        changePasswordURL={""}
        addObject={addObject}
        exportAccess={enums.Marketing_Message_Export_r}
-       exportLink={PhonePoolExport}
+       exportLink={MessageExport}
        importAccess={enums.Marketing_Message_Import_w}
        logAccess={enums.Marketing_PhonePool_Log_r}
-       readPagingApi={PhonePoolReadPaging}
+       readPagingApi={MessageReadPaging}
        accessListAccess={enums.Marketing_Message_Read_r}
-       accessListApi={PhonePoolAccessList}
-       favouriteApi={PhonePoolFavorite}
+       accessListApi={MessageAccessList}
+       favouriteApi={MessageFavorite}
        handleClickHelp={handleClickHelp}
        addFormAccess={enums.Marketing_Message_Create_w}
        filteredColumns={filteredColumns}
@@ -96,7 +80,7 @@ const MarketingMessageList = () => {
        editAccess={enums.Marketing_Message_Update_w}
        permissionsAccess={""}
        changePasswordAccess={""}
-       getOneRecord={PhonePoolGetOneRecord}
+       getOneRecord={MessageGetOneRecord}
        setUpdate={setUpdate}
        mobileModal = {mobileModal}
        setMobileModal = {setMobileModal}

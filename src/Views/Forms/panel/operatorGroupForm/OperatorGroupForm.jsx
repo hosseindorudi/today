@@ -29,7 +29,7 @@ const OperatorGroupForm = () => {
     MaxSession: 1,
     IsLimited: false,
     LimitFrom: new Date(),
-    LimitTo: new Date().setDate(new Date().getDate() + 7),
+    LimitTo: new Date(new Date().setDate(new Date().getDate() + 7)),
     Description: "",
   });
   const handleResponse = () => {

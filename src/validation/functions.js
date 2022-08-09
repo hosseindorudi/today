@@ -138,6 +138,8 @@ export const checkTableValues = (type, value, post, exportAccess) => {
   switch (type) {
     case "SafeMode":
       return value ? <fa.FaCheck style={{color:"green"}}/> : <fa.FaRegWindowClose style={{color:"red"}}/>
+    case "ItIsMe":
+      return value ? t("Yes") : t("No")
     case "DateSet":
       return dateOfLogTable(value);
     case "IsActive":
@@ -188,6 +190,15 @@ export const checkTableValues = (type, value, post, exportAccess) => {
       return value;
   }
 };
+
+export const checkRowBackGroundColor=(post)=>{
+  if(post["SafeMode"])
+  return "pink"
+  if(post["ItIsMe"])
+  return "springgreen"
+
+  return "white"
+}
 export const checkTableTH = (type, access) => {
   switch (type) {
     case "Title":
