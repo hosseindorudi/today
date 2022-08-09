@@ -2,9 +2,10 @@ import React from "react";
 
 const styles = {
   fieldset: {
-    border: "ridge",
+    border: "double",
     padding: 5,
     fontWeight: "bold",
+    borderRadius:5
   },
   legend: {
     width: "unset",
