@@ -11,13 +11,17 @@ import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_en from "react-date-object/locales/gregorian_en";
 import AppContext from "../../../contexts/AppContext";
-const styles={
-    rowLimit:{
-        display:"flex",
-    }
-}
+import Swal from "sweetalert2";
+import { PhoneBookSendMessage } from "../../../services/phoneNumberGroupService";
+import { setDatePickerDate } from "../../../validation/functions";
+const styles = {
+  rowLimit: {
+    display: "flex",
+  },
+};
 const PhoneBookMessageModal = (props) => {
-    const { app } = useContext(AppContext);
+  const { rowValues } = props;
+  const { app } = useContext(AppContext);
   const [response, loading, fetchData] = useAxios();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState(null);
@@ -50,12 +54,46 @@ const PhoneBookMessageModal = (props) => {
       case "READTITLE":
         setMessages(response.Title);
         break;
+      case "Submit":
+        console.log(response)
+        break;
       default:
         break;
     }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    const msg = messages.find((m) => m.Id === Number(message));
+    Swal.fire({
+      title: t("areusureMessage"),
+      text: t("sendConfirmationPhone", {
+        msg: msg.Value,
+        bank: rowValues.title,
+      }),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: t("Yes"),
+      cancelButtonText: t("No"),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setType("SUBMIT");
+        fetchData({
+          method: "POST",
+          url: PhoneBookSendMessage,
+          headers: request,
+          data: {
+            SendType_EId: Number(sendType),
+            Message_Id: Number(message),
+            PhoneBook_Id: rowValues.id,
+            MaxAnswer: number,
+            IsLimit: isExpire,
+            ExpirationDate: setDatePickerDate(limitedTo),
+          },
+        });
+      }
+    });
   };
   return (
     <Modal
@@ -108,26 +146,25 @@ const PhoneBookMessageModal = (props) => {
           </Form.Group>
           <Form.Group>
             <Form.Label>{t("expire")}</Form.Label>
-            <div style={styles.rowLimit} >
-            <Form.Check
+            <div style={styles.rowLimit}>
+              <Form.Check
                 style={styles.check}
-              type="switch"
-              checked={isExpire}
-              onChange={(e) => setIsExpire(e.target.checked)}
-            />
-            {isExpire &&
-            <DatePicker
-             style={styles.picker}
-              containerClassName="custom-container"
-              onChange={(e) => setLimitedTo(e.toDate())}
-              name="LimitTo"
-              calendar={app.lang === "fa" ? persian : gregorian}
-              locale={app.lang === "fa" ? persian_fa : gregorian_en}
-              calendarPosition="bottom-right"
-              value={limitedTo}
-              
-            />
-}
+                type="switch"
+                checked={isExpire}
+                onChange={(e) => setIsExpire(e.target.checked)}
+              />
+              {isExpire && (
+                <DatePicker
+                  style={styles.picker}
+                  containerClassName="custom-container"
+                  onChange={(e) => setLimitedTo(e.toDate())}
+                  name="LimitTo"
+                  calendar={app.lang === "fa" ? persian : gregorian}
+                  locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                  calendarPosition="bottom-right"
+                  value={limitedTo}
+                />
+              )}
             </div>
           </Form.Group>
         </Modal.Body>

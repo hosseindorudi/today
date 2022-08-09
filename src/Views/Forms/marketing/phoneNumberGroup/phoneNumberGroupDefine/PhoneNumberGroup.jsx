@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { enums } from "../../../../../data/Enums";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-import { PhonePoolCreate } from "../../../../../services/phoneNumberGroupService";
+import { PhoneBookCreate } from "../../../../../services/phoneNumberGroupService";
 import PhoneNumberGroupList from "../PhoneGroupList";
 
 const PhoneNumberGroup = () => {
@@ -69,7 +69,7 @@ const PhoneNumberGroup = () => {
     if (form.checkValidity()) {
       fetchData({
         method: "POST",
-        url: PhonePoolCreate,
+        url: PhoneBookCreate,
         headers: request,
         data: {
           Id: 0,

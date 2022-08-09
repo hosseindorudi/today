@@ -5,7 +5,7 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { t } from "i18next";
-import { PhonePoolUpdate } from "../../../../../services/phoneNumberGroupService";
+import { PhoneBookUpdate } from "../../../../../services/phoneNumberGroupService";
 import { defintionInputs } from "../../../../../validation/functions";
 
 const TableModal = (props) => {
@@ -35,7 +35,7 @@ const TableModal = (props) => {
     e.preventDefault();
     fetchData({
       method: "POST",
-      url: PhonePoolUpdate,
+      url: PhoneBookUpdate,
       headers: request,
       data: {
         Id: val.Id,

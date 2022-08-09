@@ -43,17 +43,24 @@ const ResultCodeEnum={
     Invalid_Input : 81,
     Invalid_Filter : 82,
     Invalid_SelectedId : 83,
+    Invalid_Url : 84,
+    Invalid_Content : 85,
 
     SafeMode_Main : 91,
     SafeMode_NotAuthorized : 92,
 
     Record_Undefined : 101,
     Record_NotAuthorized : 102,
-            
-    Failed_Create : 111,
-    Failed_Read : 112,
-    Failed_Update : 113,
-    Failed_Delete : 114,
+
+    Setting_Undefined : 111,
+    Setting_Empty : 112,
+    Setting_Invalid : 113,
+    Setting_Incompatibility : 114,
+
+    Failed_Create : 121,
+    Failed_Read : 122,
+    Failed_Update : 123,
+    Failed_Delete : 124,
 
 
     Unknown : 1000

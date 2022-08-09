@@ -8,7 +8,7 @@ import { TabContext } from "../../../../../contexts/TabContextProvider";
 import useAxios from "../../../../../customHooks/useAxios";
 import useRequest from "../../../../../customHooks/useRequest";
 import { enums } from "../../../../../data/Enums";
-import { PhonePoolReadTitle } from "../../../../../services/phoneNumberGroupService";
+import { PhoneBookReadTitle } from "../../../../../services/phoneNumberGroupService";
 import { createSelectOptions } from "../../../../../validation/functions";
 import { PhoneNumberCreate } from "../../../../../services/phoneNumber";
 const PhoneNumberDefine = () => {
@@ -61,7 +61,7 @@ const PhoneNumberDefine = () => {
     setType("READTITLE");
     fetchData({
       method: "POST",
-      url: PhonePoolReadTitle,
+      url: PhoneBookReadTitle,
       headers: request,
 
       signal: abortController.signal,
@@ -88,12 +88,8 @@ const PhoneNumberDefine = () => {
         url: PhoneNumberCreate,
         headers: request,
         data: {
-          Id: 0,
-          PhonePool_Id: phoneNumberGroup?.value,
+          PhoneBook_Id: phoneNumberGroup?.value,
           Number: values,
-          SourceType: 0,
-          Registrar: 0,
-          DateSet: "2022-06-19T16:43:29.709Z",
         },
         signal: abortController.signal,
       });

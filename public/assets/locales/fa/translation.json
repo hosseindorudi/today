@@ -955,5 +955,7 @@
   "send":"ارسال",
   "MessageSelect":"پیام انتخاب کنید",
   "countMessage":"تعداد",
-  "expire":"انقضا"
+  "expire":"انقضا",
+  "areusureMessage":"آیا مطمئن هستید؟",
+  "sendConfirmationPhone":"نام پیام : {{msg}} ارسال به : {{bank}}"
 }

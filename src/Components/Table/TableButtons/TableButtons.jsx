@@ -281,7 +281,7 @@ const TableButtons = ({
           title={t("sendMessageBank")}
           className="Pending widgetLgButton"
           onClick={() => {
-            sendMessageBank(rowValue.Id);
+            sendMessageBank(rowValue);
           }}
         >
           <fa.FaUserPlus />

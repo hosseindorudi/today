@@ -8,7 +8,7 @@ import {
   defintionInputs,
 } from "../../../../../validation/functions";
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
-import { PhonePoolReadTitle } from "../../../../../services/phoneNumberGroupService";
+import { PhoneBookReadTitle } from "../../../../../services/phoneNumberGroupService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 
 const TableModal = (props) => {
@@ -63,7 +63,7 @@ const TableModal = (props) => {
     setType("READTITLE");
     fetchData({
       method: "POST",
-      url: PhonePoolReadTitle,
+      url:PhoneBookReadTitle,
       headers: request,
 
       signal: abortController.signal,

@@ -5,21 +5,7 @@ import PhoneNumberGroup from './phoneNumberGroupDefine/PhoneNumberGroup';
 import TableModal from './tableModal/TableModal'
 import { t } from "i18next";
 import { 
-    PhonePoolRead,
-    PhonePoolReadPaging,
-    PhonePoolGetOneRecord,
-    PhonePoolDelete,
-    PhonePoolFavorite,
-    PhonePoolExportId,
-    PhonePoolExport,
-    PhonePoolSampleFile,
-    PhonePoolCheckFile,
-    PhonePoolImportFile,
-    PhonePoolLog,
-    PhonePoolSetUnselectedColumn,
-    PhonePoolAccessList,
-    PhonePoolColumnInfo,
-    PhonePoolImportArray,
+  PhoneBookRead,PhoneBookReadPaging,PhoneBookGetOneRecord,PhoneBookDelete,PhoneBookFavorite,PhoneBookExportId,PhoneBookExport,PhoneBookSampleFile,PhoneBookCheckFile,PhoneBookImportFile,PhoneBookLog,PhoneBookSetUnselectedColumn,PhoneBookAccessList,PhoneBookColumnInfo,PhoneBookImportArray
         } from '../../../../services/phoneNumberGroupService';
 import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
@@ -37,9 +23,9 @@ const PhoneGroupList = () => {
   
     const addObject = {
       Component: PhoneNumberGroup,
-      path: "/Marketing/PhonePool/Create",
-      title: "/Marketing/PhonePool/Create",
-      access: enums.Marketing_PhonePool_Create_w
+      path: "/Marketing/PhoneBook/Create",
+      title: "/Marketing/PhoneBook/Create",
+      access: enums.Marketing_PhoneBook_Create_w
     };
     const setUpdate = (res) => {
       const record = res.Record;
@@ -58,8 +44,12 @@ const PhoneGroupList = () => {
     const handleClickHelp = () => {
       window.open("https://www.google.com");
     };
-    const sendMessageBank=(id)=>{
-      setRowValues(id)
+    const sendMessageBank=(value)=>{
+      let obj={
+        title:value.Title,
+        id:value.Id
+      }
+      setRowValues(obj)
       setMessageModal(true)
     }
   return (
@@ -80,27 +70,27 @@ const PhoneGroupList = () => {
      )}
      
      <CustomTable
-         columnInfo={PhonePoolColumnInfo}
-         importarray={PhonePoolImportArray}
+         columnInfo={PhoneBookColumnInfo}
+         importarray={PhoneBookImportArray}
        ref={childRef}
-       ReadApi={PhonePoolRead}
-       deleteApi={PhonePoolDelete}
-       unSelectedAPI={PhonePoolSetUnselectedColumn}
-       sampleUrl={PhonePoolSampleFile}
-       fileCheckURL={PhonePoolCheckFile}
-       importURL={PhonePoolImportFile}
-       logApi={PhonePoolLog}
-       exportId={PhonePoolExportId}
+       ReadApi={PhoneBookRead}
+       deleteApi={PhoneBookDelete}
+       unSelectedAPI={PhoneBookSetUnselectedColumn}
+       sampleUrl={PhoneBookSampleFile}
+       fileCheckURL={PhoneBookCheckFile}
+       importURL={PhoneBookImportFile}
+       logApi={PhoneBookLog}
+       exportId={PhoneBookExportId}
        changePasswordURL={""}
        addObject={addObject}
        exportAccess={enums.Marketing_PhoneBook_Export_r}
-       exportLink={PhonePoolExport}
+       exportLink={PhoneBookExport}
        importAccess={enums.Marketing_PhoneBook_Import_w}
        logAccess={enums.Marketing_PhoneBook_Log_r}
-       readPagingApi={PhonePoolReadPaging}
+       readPagingApi={PhoneBookReadPaging}
        accessListAccess={enums.Marketing_PhoneBook_Read_r}
-       accessListApi={PhonePoolAccessList}
-       favouriteApi={PhonePoolFavorite}
+       accessListApi={PhoneBookAccessList}
+       favouriteApi={PhoneBookFavorite}
        handleClickHelp={handleClickHelp}
        addFormAccess={enums.Marketing_PhoneBook_Create_w}
        filteredColumns={filteredColumns}
@@ -108,7 +98,7 @@ const PhoneGroupList = () => {
        editAccess={enums.Marketing_PhoneBook_Update_w}
        permissionsAccess={""}
        changePasswordAccess={""}
-       getOneRecord={PhonePoolGetOneRecord}
+       getOneRecord={PhoneBookGetOneRecord}
        setUpdate={setUpdate}
        mobileModal = {mobileModal}
        setMobileModal = {setMobileModal}
