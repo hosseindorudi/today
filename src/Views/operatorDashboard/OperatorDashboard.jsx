@@ -324,7 +324,7 @@ const OperatorDashboard = () => {
             </div>
           </div>
           <div className="operatorDashboardFavarot">
-            {extraInfo &&
+            {extraInfo.length > 0 &&
               extraInfo.map((dashboard, i) => (
                 <>
                   <div className="favarotContainer" key={i}>
