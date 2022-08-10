@@ -55,11 +55,11 @@ const PhoneBookMessageModal = (props) => {
         break;
       case "SUBMIT":
         response.Message &&(
-          Swal.fire(
-            t("Sent"),
-            response.Message,
-            'success'
-          )
+          Swal.fire({
+            title:t("Sent"),
+            icon:"success",
+            html:response.Message
+          })
         )
         break;
       default:
