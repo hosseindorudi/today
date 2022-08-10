@@ -18,7 +18,8 @@ const RegistrationGood = () => {
     "Model_Id",
     "ImportingCompany_Id",
     "SourceType",
-    "Registrar"
+    "Registrar",
+    "SafeMode"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

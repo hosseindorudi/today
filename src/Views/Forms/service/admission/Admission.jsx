@@ -61,6 +61,7 @@ const Admission = () => {
     "AdmissionStep_EId",
     "Operator_Signature",
     "Customer_Signature",
+    "SafeMode"
   ];
   const filterArrowColumns = [
     "ProductGroup_Title",

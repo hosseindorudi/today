@@ -24,7 +24,8 @@ import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
 import useWindowSize from '../../../../customHooks/useWindowSize';
 const DeffectList = () => {
-    const filteredColumns = ["IsLimited", "Registrar","SourceType","Model_Id"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType","Model_Id",
+    "SafeMode"];
     const BcItems = [t("routes.basicDefinations"), t("/Definition/Defect/Read")];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);

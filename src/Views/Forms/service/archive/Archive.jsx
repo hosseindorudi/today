@@ -48,6 +48,7 @@ const Archive = () => {
     "Group_Id",
     "Password",
     "Registrar",
+    "SafeMode"
   ];
   const [response, loading, fetchData] = useAxios();
 

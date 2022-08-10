@@ -16,6 +16,7 @@ const StatusDeviceEnd = () => {
     "Registrar",
     "Language_EId",
     "SourceType",
+    "SafeMode"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

@@ -19,7 +19,8 @@ const Province = () => {
     "Registrar",
     "Language_EId",
     "SourceType",
-    "Country_Id"
+    "Country_Id",
+    "SafeMode"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

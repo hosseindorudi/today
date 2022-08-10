@@ -15,7 +15,8 @@ const OutputQualityControl = () => {
     "Registrar",
     "Language_EId",
     "SourceType",
-    "Model_Id"
+    "Model_Id",
+    "SafeMode"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

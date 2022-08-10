@@ -9,7 +9,8 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import { bruteForceCustomerAccessList, bruteForceCustomerDelete, bruteForceCustomerExportId, bruteForceCustomerFavorite, bruteForceCustomerLog, bruteForceCustomerRead, bruteForceCustomerReadPaging, bruteForceCustomerSetUnselectedColumn } from "../../../../services/bruteForceCustomer";
 const BruteForceCustomer = () => {
   const childRef = useRef();
-  const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType",
+  "SafeMode"];
   const [mobileModal, setMobileModal] = useState(false)
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)

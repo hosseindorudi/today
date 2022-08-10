@@ -44,6 +44,7 @@ const Delivery = () => {
     "Group_Id",
     "Password",
     "Registrar",
+    "SafeMode"
   ];
   const [response, loading, fetchData] = useAxios();
   const [accessLists, setAccessLists] = useState(undefined);

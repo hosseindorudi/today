@@ -16,7 +16,8 @@ const Section = () => {
     "Registrar",
     "Language_EId",
     "SourceType",
-    "City_Id"
+    "City_Id",
+    "SafeMode"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

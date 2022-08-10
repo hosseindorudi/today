@@ -37,6 +37,7 @@ const QuestionList = () => {
     "Language_EId",
     "SourceType",
     "Password",
+    "SafeMode"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [tableModalQuestionopen, setTableModalQuestionOpen] = useState(false);

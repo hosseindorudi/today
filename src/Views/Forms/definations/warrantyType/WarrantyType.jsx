@@ -10,7 +10,8 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import { warrantyTypeAccessList, warrantyTypeCheckFile, WarrantyTypeColumnInfo, warrantyTypeDelete, warrantyTypeExport, warrantyTypeExportId, warrantyTypeFavorite, warrantyTypeGetOneRecord, WarrantyTypeImportArray, warrantyTypeImportFile, warrantyTypeLog, warrantyTypeRead, warrantyTypeReadPaging, warrantyTypeSampleFile, warrantyTypeSetUnselectedColumn } from "../../../../services/warrantyType";
 import WarrantyTypeDefine from './warrantyTypeDefine/WarrantyTypeDefine';
 const WarrantyType = () => {
-  const filteredColumns = ["IsLimited", "Registrar","SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar","SourceType",
+  "SafeMode"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

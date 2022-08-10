@@ -26,6 +26,7 @@ const SuccessLogin = () => {
     "Language_EId",
     "SourceType",
     "Operator_Id",
+    "SafeMode"
   ];
   const [mobileModal, setMobileModal] = useState(false);
   const [mobileModalButtons, setMobileModalButtons] = useState(false);

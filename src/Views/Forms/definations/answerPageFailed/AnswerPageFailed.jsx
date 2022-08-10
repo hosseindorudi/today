@@ -24,7 +24,8 @@ import { toast } from "react-toastify";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import AnswerPageFailedForm from "./answerPageFailedForm/AnswerPageFailedForm";
 const AnswerPageFailed = () => {
-  const filteredColumns = ["IsLimited", "Registrar", "SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar", "SourceType",
+  "SafeMode"];
   const BcItems = [t("routes.basicDefinations"), t("/Definition/AnswerPageFailed/Write")];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

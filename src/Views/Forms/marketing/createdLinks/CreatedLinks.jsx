@@ -14,7 +14,8 @@ import {
 import { enums } from "../../../../data/Enums";
 
 const CreatedLinks = () => {
-  const filteredColumns = ["IsLimited", "Registrar", "SourceType", "Id"];
+  const filteredColumns = ["IsLimited", "Registrar", "SourceType", "Id",
+  "SafeMode"];
   const childRef = useRef();
   const [mobileModal, setMobileModal] = useState(false);
   const [mobileModalButtons, setMobileModalButtons] = useState(false);

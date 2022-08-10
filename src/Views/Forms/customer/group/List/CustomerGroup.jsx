@@ -47,7 +47,8 @@ import IPpolicyModal from "../../../../../Components/Table/ipPolicyModal/IPpolic
 import OsPolicyModal from "../../../../../Components/Table/osPolicyModal/OsPolicyModal";
 import LocationPolicyModal from "../../../../../Components/Table/locationPolicyModal/LocationPolicyModal";
 const CustomerGroup = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType",
+  "SafeMode"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValues, setRowValues] = useState({});

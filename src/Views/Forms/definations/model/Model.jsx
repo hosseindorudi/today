@@ -17,7 +17,8 @@ const Model = () => {
     "SourceType",
     "Device_Id",
     "Country_Id",
-    "Color_Id"
+    "Color_Id",
+    "SafeMode"
   ];
   const BcItems = [t("routes.basicDefinations"), t("/Definition/Model/Read")];
 

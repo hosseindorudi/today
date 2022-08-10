@@ -957,5 +957,8 @@
   "countMessage":"تعداد",
   "expire":"انقضا",
   "areusureMessage":"آیا مطمئن هستید؟",
-  "sendConfirmationPhone":"نام پیام : {{msg}} ارسال به : {{bank}}"
+  "sendConfirmationPhone":"نام پیام : {{msg}} ارسال به : {{bank}}",
+  "/Operator/FailedHistory/Read":"ورود های ناموفق",
+  "/Operator/BruteForce/Read":"حملات",
+  "/Operator/LoginHistory/Read":"ورود های موفق"
 }

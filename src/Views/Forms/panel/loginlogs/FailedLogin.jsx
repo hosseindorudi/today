@@ -21,7 +21,8 @@ import { useTranslation } from 'react-i18next';
 
 const FailedLogin = () => {
   const childRef = useRef();
-  const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType",
+  "SafeMode"];
   const [mobileModal, setMobileModal] = useState(false)
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)

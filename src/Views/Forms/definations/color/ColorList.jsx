@@ -25,7 +25,8 @@ import useWindowSize from "../../../../customHooks/useWindowSize";
 import ColorForm from "./colorForm/ColorForm";
 
 const ColorList = () => {
-  const filteredColumns = ["IsLimited", "Registrar", "SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar", "SourceType",
+  "SafeMode"];
   const BcItems = [t("routes.basicDefinations"), t("/Definition/Color/Read")];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);

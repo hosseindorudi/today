@@ -26,7 +26,8 @@ import CountryForm from './countryForm/CountryForm';
 
 const Countrylist = () => {
 
-    const filteredColumns = ["IsLimited",  "Registrar","SourceType"];
+    const filteredColumns = ["IsLimited",  "Registrar","SourceType",
+    "SafeMode"];
     const BcItems = [t("routes.basicDefinations"), t("/Definition/Country/Read")];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);

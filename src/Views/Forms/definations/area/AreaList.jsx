@@ -25,7 +25,8 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import areaForm from './areaForm/AreaForm';
 
 const AreaList = () => {
-    const filteredColumns = ["IsLimited", "Registrar","SourceType", "Section_Id"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType", "Section_Id",
+    "SafeMode"];
     const BcItems = [t("routes.basicDefinations"), t("/Definition/Area/Read")];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);

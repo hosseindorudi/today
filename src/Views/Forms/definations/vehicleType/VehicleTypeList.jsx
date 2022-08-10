@@ -25,7 +25,8 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import VehicleTypeForm from './vehicleTypeForm/VehicleTypeForm';
 
 const VehicleTypeList = () => {
-    const filteredColumns = ["IsLimited", "Registrar","SourceType"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType",
+    "SafeMode"];
     const BcItems = [t("routes.basicDefinations"), t("/Definition/VehicleType/Read")];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);

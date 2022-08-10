@@ -8,7 +8,8 @@ import { useTranslation } from "react-i18next";
 import { onlineOperatorDelete, onlineOperatorExport, onlineOperatorExportId, onlineOperatorLog, onlineOperatorRead, onlineOperatorReadPaging, onlineOperatorSetUnselectedColumn } from "../../../../services/onlineOperatorsService";
 const OnlineOperator = () => {
   const {t} = useTranslation()
-  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType",
+  "SafeMode"];
   const childRef = useRef();
   const [mobileModal, setMobileModal] = useState(false);
   const [mobileModalButtons, setMobileModalButtons] = useState(false);
