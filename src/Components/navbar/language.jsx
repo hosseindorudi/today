@@ -5,11 +5,46 @@ import { languages } from '../../assets/languages/languages'
 import AppContext from '../../contexts/AppContext'
 
 
+import images from '../../assets/flags'
+
 const Language = () => {
     const [open, setopen] = useState(false)
     const {setApp} = useContext(AppContext)
     const language=localStorage.getItem("i18nextLng")
     const ref=useRef()
+
+    const chooseImage = (title) => {
+        let a ;
+        switch (title) {
+            case 'iran':
+                a= <img src={images.iran} alt={`${title}`}/>
+                break;
+            case 'arab':
+                a= <img src={images.arab} alt={`${title}`}/> 
+                break;
+            case 'english':
+                a= <img src={images.english} alt={`${title}`}/> 
+                break;
+            case 'germany':
+                a= <img src={images.germany} alt={`${title}`}/> 
+                break;
+            case 'france':
+                a= <img src={images.france} alt={`${title}`}/> 
+                break;
+            case 'russia':
+                a= <img src={images.russia} alt={`${title}`}/> 
+                break;
+            case 'chinese':
+                a= <img src={images.chinese} alt={`${title}`}/> 
+                break;
+        
+            default:
+                break;
+        }
+        return a; 
+
+    }
+
 
     const click=()=>{
        setopen(!open)
@@ -43,9 +78,15 @@ const Language = () => {
         <i className="fa fa-flag" aria-hidden="true"></i>
             <div className="dropdown-content-flag" style={{display : open ? 'flex' : 'none'}}>
             {languages.map((lang,i)=>(
+                <>
                 <div className='languageBtn' key={i}>
-                    <button className='dropDownFlagLink' onClick={()=>handleChangeLanguage(lang.code,lang.dir,lang.no)} disabled={language===lang.code?true:false}>{lang.name}</button>
+                    <button className='dropDownFlagLink' onClick={()=>handleChangeLanguage(lang.code,lang.dir,lang.no)} disabled={language===lang.code?true:false}>
+                    {chooseImage(lang.country_image)}
+                        {lang.name} 
+                    </button>
+                    
                 </div>
+                </>
             ))}
         </div>
     </div>
