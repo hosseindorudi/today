@@ -957,5 +957,8 @@
   "countMessage":"تعداد",
   "expire":"انقضا",
   "areusureMessage":"آیا مطمئن هستید؟",
-  "sendConfirmationPhone":"نام پیام : {{msg}} ارسال به : {{bank}}"
+  "sendConfirmationPhone":"نام پیام : {{msg}} ارسال به : {{bank}}",
+  "PhoneBook_Title":"نام بانک",
+  "PhoneBook_Id":"شماره بانک",
+  "Sent":"ارسال شد"
 }
