@@ -89,6 +89,7 @@ const ImportUI = () => {
   const importUI = tabs.find((f) => f.path === "ImportUI");
   const { file, withHeader, columnInfo, importarray } = importUI;
   const [response, loading, fetchData] = useAxios();
+  const [preparing, setPreparing] = useState(false)
   const [finalHeader, setFinalHeader] = useState([]);
   const [addColumnValue, setAddColumnValue] = useState("");
   const [finalData, setFinalData] = useState([]);
@@ -167,12 +168,12 @@ const ImportUI = () => {
       headers: request,
     });
   };
-  const prepareTable = (fHeader) => {
-  
+  const prepareTable = async(fHeader) => {
+    setPreparing(true)
     //Creating new data with respect to sorted columns and Removed columns
-    const availableHeaders = columns.map((col) => col.Header);
+    const availableHeaders =await columns.map((col) => col.Header);
 
-    const finalRowData = rowData.map((d, i) =>
+    const finalRowData =await rowData.map((d, i) =>
       Object.keys(d).reduce((acc, key) => {
         if (availableHeaders.includes(key)) {
           acc[key] = d[key];
@@ -181,7 +182,7 @@ const ImportUI = () => {
       }, {})
     );
     let sortedData = [];
-    finalRowData.map((d, i) => {
+   await finalRowData.map((d, i) => {
       let obj = {};
       availableHeaders.map((h, i) => {
         return Object.assign(obj, { [h]: d[h] });
@@ -189,7 +190,7 @@ const ImportUI = () => {
       return sortedData.push(obj);
     });
     //creating new FinalRowData with respect to new headers
-    let data = sortedData.map((row) => {
+    let data =await sortedData.map((row) => {
       return Object.keys(row).reduce((acc, curr, index) => {
         acc[fHeader[index]?.accessor] = row[curr];
         return acc;
@@ -203,12 +204,13 @@ const ImportUI = () => {
         index < fHeader.length;
         index++
       ) {
-        data = data.map((v) => ({ ...v, [fHeader[index].accessor]: "" }));
+        data =await data.map((v) => ({ ...v, [fHeader[index].accessor]: "" }));
       }
     }
 
     setFinalData(data);
     setOriginalData(data);
+    setPreparing(false)
  
   };
   const setFinalTableData = () => {
@@ -303,17 +305,21 @@ const ImportUI = () => {
     setHeaders((oldArray) => [...oldArray, obj]);
     setAddColumnValue("");
   };
-  const addRow=()=>{
-    const obj = columnsFinal.reduce((acc, cur) => ({ ...acc, [cur.Header]: "" }), {})
-    setFinalData(oldArray => [...oldArray, obj]);
+  const addRow=async()=>{
+    setPreparing(true)
+    const obj =await columnsFinal.reduce((acc, cur) => ({ ...acc, [cur.Header]: "" }), {})
+   await setFinalData(oldArray => [...oldArray, obj]);
+   setPreparing(false)
   }
-  const removeLast=()=>{
-    setFinalData((previousArr) => (previousArr.slice(0, -1)));
+  const removeLast=async()=>{
+    setPreparing(true)
+   await setFinalData((previousArr) => (previousArr.slice(0, -1)));
+   setPreparing(false)
   }
   return (
     <>
       {loading && <BackDrop open={true} />}
-      
+      {preparing && <BackDrop open={true}/>}
       <div style={styles.ModalBody} className="importUIClass">
         {file && (
           <>
