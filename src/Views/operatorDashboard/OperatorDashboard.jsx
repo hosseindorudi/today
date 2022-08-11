@@ -46,7 +46,7 @@ const OperatorDashboard = () => {
   const [desc, setDesc] = useState("");
   const { t } = useTranslation();
   const tabContext = useContext(TabContext);
-
+  let begins = false
   const filtredColumn = [
     "Id",
     "SourceType",
@@ -234,7 +234,6 @@ const OperatorDashboard = () => {
   };
 
   const handleUpdate = () => {
-    console.log("updated");
     getDashboardData();
   };
 
@@ -261,7 +260,7 @@ const OperatorDashboard = () => {
 
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [begins]);
 
   useEffect(() => {
     response && handleResponse(response, requestType);
@@ -467,7 +466,6 @@ const OperatorDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {console.log(logins)}
                 {logins.map((failed) => (
                   <tr>
                     {Object.keys(failed)

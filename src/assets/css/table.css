@@ -908,6 +908,11 @@ ctTableParentAccessButton:hover{
   width: 100%;
 }
 
+.cardHeaderBtn {
+  border: none;
+  background-color: transparent;
+}
+
 
 
 @media screen and (max-width: 420px) { 

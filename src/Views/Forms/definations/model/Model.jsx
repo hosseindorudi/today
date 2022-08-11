@@ -72,6 +72,7 @@ const Model = () => {
           />
         )} */}
       <CustomTable
+        type="card"
         columnInfo={ModelColumnInfo}
         importarray={ModelImportArray}
         ref={childRef}

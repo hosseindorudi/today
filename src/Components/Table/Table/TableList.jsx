@@ -22,8 +22,10 @@ import DescModal from "../descriptionModal/DescModal";
 import { enums } from "../../../data/Enums";
 import { toast } from "react-toastify";
 import AppContext from "../../../contexts/AppContext";
+import TableCard from "../tableCard/TableCard";
 
 const TableList = ({
+  type,
   BcItems,
   search,
   handleRefresh,
@@ -254,8 +256,11 @@ const TableList = ({
                     : widthOFScreen - (widthOFScreen * 0.2 + 120),
               }}
             >
-              {productsColumns.length > 0 ? (
-                <table className="MainTableCss">
+              {productsColumns.length > 0 ? ( type === "card" ? (
+                <TableCard productsColumns={productsColumns} posts={posts}/>
+              ) 
+                :
+                (<table className="MainTableCss">
                   <thead className="MainTableThead">
                     <tr className="MainTableTr">
                       <th className="MainTableTh"> </th>
@@ -410,7 +415,7 @@ const TableList = ({
                       </tr>
                     ))}
                   </tbody>
-                </table>
+                </table>)
               ) : (
                 <div className="noDataTable">
                   <b>{t("noDataFound.table")}</b>

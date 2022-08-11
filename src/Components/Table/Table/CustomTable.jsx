@@ -195,7 +195,6 @@ const CustomTable = forwardRef((props, ref) => {
   const setData = (response) => {
     const res = response.Record;
     const paging = response.Paging;
-    console.log(paging)
     setTotalRecord(paging.TotalRecord)
     setSortedBy(paging.SortBy)
     setIsAssending(paging.IsAscending)
@@ -567,6 +566,7 @@ const CustomTable = forwardRef((props, ref) => {
         <div className="groupContainerLeft">
           <TableList
             {...props}
+            type={props.type}
             search={search}
             handleRefresh={handleRefresh}
             handleChangeTitle={handleChangeTitle}
