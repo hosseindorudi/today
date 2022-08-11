@@ -104,6 +104,7 @@ const ImportUI = () => {
   const columns = useMemo(() => columnData, [columnData]);
   const [headers, setHeaders] = useState([]);
   const [removed, setRemoved] = useState([]);
+  
   const { t } = useTranslation();
   useEffect(() => {
     let columns = [];
@@ -218,14 +219,60 @@ const ImportUI = () => {
     setOriginalData([]);
     getColumns("PREPARE");
   };
+  const checkBoolean=(value)=>{
+    switch (value.toLowerCase()) {
+      case "false":
+        return false
+      case "true":
+        return true
+      case "0":
+          return false
+      case "1":
+        return true
+      default:
+        return value
+    }
+  }
+  const checkDateTime=(value)=>{
+   return value.length>0?value:null
+  }
   const handleClickSubmit = () => {
-    setType("SUBMIT");
-    fetchData({
-      method: "POST",
-      url: importarray,
-      headers: request,
-      data: dataFinal,
-    });
+    let boolean=[]
+    let dateTime=[]
+    finalHeader.map(f=>f.Type==="bool"?boolean.push(f.Header):f.Type==="DateTime"?dateTime.push(f.Header):"")
+    const data=dataFinal
+   data.map((data)=>{
+    Object.keys(data).map((k)=>{
+     if(boolean.includes(k)){
+      return data[k]=checkBoolean(data[k])
+     }
+     if(dateTime.includes(k)){
+      return data[k]=checkDateTime(data[k])
+     }
+      return data[k]
+    })
+   })
+  //   setFinalData((old) =>
+  //   old.map((row, index) => {
+  //     if (index === rowIndex) {
+  //       return {
+  //         ...old[rowIndex],
+  //         [columnId]: value,
+  //       };
+  //     }
+  //     return row;
+  //   })
+  // );
+    console.log(data)
+    console.log(dataFinal)
+
+    // setType("SUBMIT");
+    // fetchData({
+    //   method: "POST",
+    //   url: importarray,
+    //   headers: request,
+    //   data: dataFinal,
+    // });
   };
   const handleResponse = (res, type) => {
     let finalColumns = [];
@@ -308,7 +355,8 @@ const ImportUI = () => {
   const addRow=async()=>{
     setPreparing(true)
     const obj =await columnsFinal.reduce((acc, cur) => ({ ...acc, [cur.Header]: "" }), {})
-   await setFinalData(oldArray => [...oldArray, obj]);
+   setFinalData(oldArray => [...oldArray, obj]);
+    
    setPreparing(false)
   }
   const removeLast=async()=>{
