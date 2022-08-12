@@ -89,7 +89,7 @@ const ImportUI = () => {
   const importUI = tabs.find((f) => f.path === "ImportUI");
   const { file, withHeader, columnInfo, importarray } = importUI;
   const [response, loading, fetchData] = useAxios();
-  const [preparing, setPreparing] = useState(false)
+  const [preparing, setPreparing] = useState(false);
   const [finalHeader, setFinalHeader] = useState([]);
   const [addColumnValue, setAddColumnValue] = useState("");
   const [finalData, setFinalData] = useState([]);
@@ -104,7 +104,7 @@ const ImportUI = () => {
   const columns = useMemo(() => columnData, [columnData]);
   const [headers, setHeaders] = useState([]);
   const [removed, setRemoved] = useState([]);
-  
+
   const { t } = useTranslation();
   useEffect(() => {
     let columns = [];
@@ -169,12 +169,12 @@ const ImportUI = () => {
       headers: request,
     });
   };
-  const prepareTable = async(fHeader) => {
-    setPreparing(true)
+  const prepareTable = async (fHeader) => {
+    setPreparing(true);
     //Creating new data with respect to sorted columns and Removed columns
-    const availableHeaders =await columns.map((col) => col.Header);
+    const availableHeaders = await columns.map((col) => col.Header);
 
-    const finalRowData =await rowData.map((d, i) =>
+    const finalRowData = await rowData.map((d, i) =>
       Object.keys(d).reduce((acc, key) => {
         if (availableHeaders.includes(key)) {
           acc[key] = d[key];
@@ -183,7 +183,7 @@ const ImportUI = () => {
       }, {})
     );
     let sortedData = [];
-   await finalRowData.map((d, i) => {
+    await finalRowData.map((d, i) => {
       let obj = {};
       availableHeaders.map((h, i) => {
         return Object.assign(obj, { [h]: d[h] });
@@ -191,7 +191,7 @@ const ImportUI = () => {
       return sortedData.push(obj);
     });
     //creating new FinalRowData with respect to new headers
-    let data =await sortedData.map((row) => {
+    let data = await sortedData.map((row) => {
       return Object.keys(row).reduce((acc, curr, index) => {
         acc[fHeader[index]?.accessor] = row[curr];
         return acc;
@@ -205,74 +205,63 @@ const ImportUI = () => {
         index < fHeader.length;
         index++
       ) {
-        data =await data.map((v) => ({ ...v, [fHeader[index].accessor]: "" }));
+        data = await data.map((v) => ({ ...v, [fHeader[index].accessor]: "" }));
       }
     }
 
     setFinalData(data);
     setOriginalData(data);
-    setPreparing(false)
- 
+    setPreparing(false);
   };
   const setFinalTableData = () => {
     setFinalData([]);
     setOriginalData([]);
     getColumns("PREPARE");
   };
-  const checkBoolean=(value)=>{
+  const checkBoolean = (value) => {
     switch (value.toLowerCase()) {
       case "false":
-        return false
+        return false;
       case "true":
-        return true
+        return true;
       case "0":
-          return false
+        return false;
       case "1":
-        return true
+        return true;
       default:
-        return value
+        return value;
     }
-  }
-  const checkDateTime=(value)=>{
-   return value.length>0?value:null
-  }
-  const handleClickSubmit = () => {
-    let boolean=[]
-    let dateTime=[]
-    finalHeader.map(f=>f.Type==="bool"?boolean.push(f.Header):f.Type==="DateTime"?dateTime.push(f.Header):"")
-    const data=dataFinal
-   data.map((data)=>{
-    Object.keys(data).map((k)=>{
-     if(boolean.includes(k)){
-      return data[k]=checkBoolean(data[k])
-     }
-     if(dateTime.includes(k)){
-      return data[k]=checkDateTime(data[k])
-     }
-      return data[k]
-    })
-   })
-  //   setFinalData((old) =>
-  //   old.map((row, index) => {
-  //     if (index === rowIndex) {
-  //       return {
-  //         ...old[rowIndex],
-  //         [columnId]: value,
-  //       };
-  //     }
-  //     return row;
-  //   })
-  // );
-    console.log(data)
-    console.log(dataFinal)
+  };
+  const checkDateTime = (value) => {
 
-    // setType("SUBMIT");
-    // fetchData({
-    //   method: "POST",
-    //   url: importarray,
-    //   headers: request,
-    //   data: dataFinal,
-    // });
+    return  value?.length > 0 ? value : null;
+  };
+  const handleClickSubmit = async() => {
+  setPreparing(true)
+    let boolean = [];
+    let dateTime = [];
+   await finalHeader.map((f) =>
+      f.Type === "bool"
+        ? boolean.push(f.Header)
+        : f.Type === "DateTime"
+        ? dateTime.push(f.Header)
+        : ""
+    );
+
+    const final = await dataFinal.map((d, i) =>
+    Object.keys(d).reduce((acc, key) => {
+      acc[key]=boolean.includes(key)?checkBoolean(d[key]):dateTime.includes(key)?checkDateTime(d[key]):d[key]
+      return acc;
+    }, {})
+  );
+  setPreparing(false)
+    setType("SUBMIT");
+    fetchData({
+      method: "POST",
+      url: importarray,
+      headers: request,
+      data: final,
+    });
   };
   const handleResponse = (res, type) => {
     let finalColumns = [];
@@ -352,22 +341,24 @@ const ImportUI = () => {
     setHeaders((oldArray) => [...oldArray, obj]);
     setAddColumnValue("");
   };
-  const addRow=async()=>{
-    setPreparing(true)
-    const obj =await columnsFinal.reduce((acc, cur) => ({ ...acc, [cur.Header]: "" }), {})
-   setFinalData(oldArray => [...oldArray, obj]);
-    
-   setPreparing(false)
-  }
-  const removeLast=async()=>{
-    setPreparing(true)
-   await setFinalData((previousArr) => (previousArr.slice(0, -1)));
-   setPreparing(false)
-  }
+  const addRow = async () => {
+    setPreparing(true);
+    const obj = await columnsFinal.reduce(
+      (acc, cur) => ({ ...acc, [cur.Header]: "" }),
+      {}
+    );
+    setFinalData((oldArray) => [...oldArray, obj]);
+
+    setPreparing(false);
+  };
+  const removeLast = async () => {
+    setPreparing(true);
+    await setFinalData((previousArr) => previousArr.slice(0, -1));
+    setPreparing(false);
+  };
   return (
     <>
-      {loading && <BackDrop open={true} />}
-      {preparing && <BackDrop open={true}/>}
+      {(loading||preparing) && <BackDrop open={true} />}
       <div style={styles.ModalBody} className="importUIClass">
         {file && (
           <>
