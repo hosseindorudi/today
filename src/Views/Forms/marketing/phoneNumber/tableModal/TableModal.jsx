@@ -5,11 +5,10 @@ import useRequest from "../../../../../customHooks/useRequest";
 import useAxios from "../../../../../customHooks/useAxios";
 import {
   createSelectOptions,
-  defintionInputs,
 } from "../../../../../validation/functions";
-import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { PhoneBookReadTitle } from "../../../../../services/phoneNumberGroupService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
+import { PhoneNumberUpdate } from "../../../../../services/phoneNumber";
 
 const TableModal = (props) => {
   const [validated, setValidated] = useState(false);
@@ -20,21 +19,12 @@ const TableModal = (props) => {
   const [phoneNumberGroup, setPhoneNumberGroup] = useState(undefined);
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
-  const [values, setValues] = useState({
-    title: "",
-    color: "#000000",
-    periority: 1,
-    desc: "",
-  });
+  const [number, setNumber] = useState("");
   useEffect(() => {
     const prop = props.rowValus;
-    setValues({
-      ...values,
-      title: prop.Title,
-      color: `#${prop.Color}`,
-      periority: prop.Priority,
-      desc: prop.Description,
-    });
+    console.log(props.rowValus)
+    setNumber(prop.Number)
+    setPhoneNumberGroup(prop.PhoneBook_Id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,7 +45,7 @@ const TableModal = (props) => {
   };
   useEffect(() => {
     setPhoneNumberGroup(
-      phoneNumberGroupOptions.find((i) => i.value === props.rowValus.Country_Id)
+      phoneNumberGroupOptions.find((i) => i.value === props.rowValus.PhoneBook_Id)
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phoneNumberGroupOptions]);
@@ -87,15 +77,12 @@ const TableModal = (props) => {
       setType("SUBMIT");
       fetchData({
         method: "POST",
-        url: "",
+        url: PhoneNumberUpdate,
         headers: request,
         data: {
           Id: props.rowValus.Id,
-          Country_Id: phoneNumberGroup?.value,
-          Priority: values.periority,
-          Title: values.title,
-          Description: values.desc,
-          Color: values.color.substring(1),
+          PhoneBook_Id: phoneNumberGroup?.value,
+          Number: number,
           SourceType: 0,
           Registrar: 0,
           DateSet: "2022-06-19T16:43:29.709Z",
@@ -105,9 +92,7 @@ const TableModal = (props) => {
     }
   };
 
-  const onChangeHandler = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+
   return (
     <Modal
       show={props.tableModalShow}
@@ -118,35 +103,44 @@ const TableModal = (props) => {
       className="updateCustomerModal"
     >
       <Modal.Header closeButton></Modal.Header>
+      <div className="periorityFormDefine">
       <Form
-        className="periorityFormModal"
+        className="periorityForm"
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
       >
-        <Modal.Body>
+        <b>{t("/Marketing/PhoneNumber/Create")}</b>
+        <div className="Row">
           <Form.Group className="mb-3" controlId={"phoneNumberGroup"}>
-            <Form.Label>{t("phoneNumberGroup")}</Form.Label>
+            <Form.Label>{t("/Marketing/PhonePool/Create")}</Form.Label>
             <CustomReactMultiSelect
               isMulti={false}
               options={phoneNumberGroupOptions}
               value={phoneNumberGroup}
               onchangeHandler={(e) => setPhoneNumberGroup(e)}
-              placeholder={t("phoneNumberGroup")}
+              placeholder={t("/Marketing/PhonePool/Create")}
             />
           </Form.Group>
-
-          {defintionInputs(values).map((input) => (
-            <FormInput key={input.id} {...input} onChange={onChangeHandler} />
-          ))}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button disabled={loading} type="submit">
-            {" "}
-            {t("operatorGroupFormSubmit")}
-          </Button>
-        </Modal.Footer>
+        </div>
+        <div className="Row">
+          <Form.Group
+            className="mb-3"
+            style={{ width: "100%" }}
+            controlId={"phoneNumber"}
+          >
+            <Form.Label>{t("PhoneNumber")}</Form.Label>
+            <Form.Control value={number} onChange={(e) => setNumber(e.target.value)} />
+            <Form.Control.Feedback type="invalid">
+              {t("phoneNumber_errorMSG")}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </div>
+        <Button disabled={loading} type="submit">
+          {t("submit")}
+        </Button>
       </Form>
+    </div>
     </Modal>
   );
 };
