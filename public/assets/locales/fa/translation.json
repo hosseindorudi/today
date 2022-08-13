@@ -965,5 +965,6 @@
   "PhoneBook_Id":"شماره بانک",
   "Sent":"ارسال شد",
   "addFile":"اضافه کردن فایل",
-  "/Poll/QuestionPage/Read":"پرسشنامه"
+  "/Poll/QuestionPage/Read":"پرسشنامه",
+  "/Poll/AnswerPage/Read":"پاسخنامه"
 }
