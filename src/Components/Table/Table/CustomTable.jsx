@@ -604,6 +604,7 @@ const CustomTable = forwardRef((props, ref) => {
             readAnswersAccess={
               props.readAnswersAccess ? props.readAnswersAccess : ""
             }
+            handleuploadFile={props.handleuploadFile}
           />
           <LeftSideContainer
             {...props}

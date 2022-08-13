@@ -48,7 +48,8 @@ const TableButtons = ({
   handleAccount,
   accountAccess,
   sendMessageBankAccess,
-  sendMessageBank
+  sendMessageBank,
+  handleuploadFile,
 }) => {
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
@@ -56,16 +57,15 @@ const TableButtons = ({
   const [haveAccess] = useButtonAccess();
   const handleResponse = useCallback(
     (res) => {
-      if(res.Content && res.Content.length>0){
-        return downloadCSVCode(res.Content,res.Name)
+      if (res.Content && res.Content.length > 0) {
+        return downloadCSVCode(res.Content, res.Name);
       }
-      return noFileToast()
+      return noFileToast();
     },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
   const noFileToast = () => {
-    
     toast.info(t("noDataFound.table"), {
       position: toast.POSITION.TOP_CENTER,
     });
@@ -232,6 +232,18 @@ const TableButtons = ({
           <fa.FaMap />
         </button>
       )}
+      {haveAccess(addressAccess) && (
+        <label
+          title={t("addFile")}
+          className="Approved widgetLgButton custom-file-upload"
+          onClick={() => {
+            handleuploadFile(rowValue.Id);
+          }}
+        >
+          <input type="file" className="addFileCss" />
+          <fa.FaFileUpload />
+        </label>
+      )}
       {haveAccess(mobileAccess) && (
         <button
           title={t("Mobile")}
@@ -276,7 +288,7 @@ const TableButtons = ({
           <fa.FaUserPlus />
         </button>
       )}
-       {haveAccess(sendMessageBankAccess) && (
+      {haveAccess(sendMessageBankAccess) && (
         <button
           title={t("sendMessageBank")}
           className="Pending widgetLgButton"

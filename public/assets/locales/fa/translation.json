@@ -963,5 +963,6 @@
   "/Operator/LoginHistory/Read":"ورود های موفق",
   "PhoneBook_Title":"نام بانک",
   "PhoneBook_Id":"شماره بانک",
-  "Sent":"ارسال شد"
+  "Sent":"ارسال شد",
+  "addFile":"اضافه کردن فایل"
 }

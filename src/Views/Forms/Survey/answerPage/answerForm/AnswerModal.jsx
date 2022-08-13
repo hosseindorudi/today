@@ -373,7 +373,7 @@ const AnswerModal = (props) => {
     const filteredAnwer = answer.filter(
       (f) => f.Answer.length > 0 || f.AnswerItem.length > 0
     );
-
+      console.log(values)
     setType("SUBMIT");
     fetchData({
       method: "POST",
