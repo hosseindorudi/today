@@ -48,14 +48,19 @@ const PhoneBookMessageModal = (props) => {
     response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
-
   const handleResponse = (response, type) => {
     switch (type) {
       case "READTITLE":
         setMessages(response.Title);
         break;
-      case "Submit":
-        console.log(response)
+      case "SUBMIT":
+        response.Message &&(
+          Swal.fire({
+            title:t("Sent"),
+            icon:"success",
+            html:response.Message
+          })
+        )
         break;
       default:
         break;
@@ -88,7 +93,7 @@ const PhoneBookMessageModal = (props) => {
             Message_Id: Number(message),
             PhoneBook_Id: rowValues.id,
             MaxAnswer: number,
-            IsLimit: isExpire,
+            IsLimited: isExpire,
             ExpirationDate: setDatePickerDate(limitedTo),
           },
         });

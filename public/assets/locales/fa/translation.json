@@ -960,5 +960,8 @@
   "sendConfirmationPhone":"نام پیام : {{msg}} ارسال به : {{bank}}",
   "/Operator/FailedHistory/Read":"ورود های ناموفق",
   "/Operator/BruteForce/Read":"حملات",
-  "/Operator/LoginHistory/Read":"ورود های موفق"
+  "/Operator/LoginHistory/Read":"ورود های موفق",
+  "PhoneBook_Title":"نام بانک",
+  "PhoneBook_Id":"شماره بانک",
+  "Sent":"ارسال شد"
 }

@@ -1,6 +1,6 @@
 import { t } from "i18next";
 import React from "react";
-import { Form, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { useTable } from "react-table";
 
 const styles = {
@@ -35,7 +35,6 @@ const EditableCell = ({
   const onChange = (e) => {
     if(columns.Type==="DateTime"&&e.target.value==="")
     return setValue(null);
-    
     setValue(e.target.value);
   };
   const createSelect = (titles, value) => {
@@ -60,30 +59,29 @@ const EditableCell = ({
   const onBlur = () => {
     updateMyData(index, id, value);
   };
-  const checkDate=()=>{
-    if(value==="")
-    return  updateMyData(index, id, null);
-    return value
-  }
-  const checkBoolean=()=>{
-    if(typeof value !=="boolean")
-    return  updateMyData(index, id, value.toLowerCase()==="true"?true:false);
+  // const checkDate=()=>{
+  //   if(value==="")
+  //   return  updateMyData(index, id, null);
+  //   return value
+  // }
+  // const checkBoolean=()=>{
+  //   if(typeof value !=="boolean")
+  //   return  updateMyData(index, id, value.toLowerCase()==="true"?true:false);
 
-    return typeof value==="boolean"?value:value.toLowerCase()==="true"?true:false
-  }
-  const handleChangeSwitch=(e)=>{
-    const val = e.target.checked;
-    updateMyData(index, id, val);
-  }
+  //   return typeof value==="boolean"?value:value.toLowerCase()==="true"?true:false
+  // }
+  // const handleChangeSwitch=(e)=>{
+  //   const val = e.target.checked;
+  //   updateMyData(index, id, val);
+  // }
   // If the initialValue is changed external, sync it up with our state
   React.useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
 
+
   return isEditable ? (
-    columns.Type && columns.Type === "bool" ? (
-      <Form.Check type="switch"  checked={checkBoolean()} onChange={handleChangeSwitch}/>
-    ):columns.Type==="DateTime"?(<input value={checkDate()} onChange={onChange} onBlur={onBlur} />) : (
+    columns.Type &&columns.Type==="DateTime"?(<input value={value} onChange={onChange} onBlur={onBlur} />) : (
       <div style={styles.td}>
         <input value={value} onChange={onChange} onBlur={onBlur} />
         {columns.Parent && createSelect(columns.ParentTitle, value)}
@@ -92,6 +90,20 @@ const EditableCell = ({
   ) : (
     value
   );
+
+  // return isEditable ? (
+  //   columns.Type && columns.Type === "bool" ? (
+  //     <Form.Check type="switch"  checked={checkBoolean()} onChange={handleChangeSwitch}/>
+  //   ):columns.Type==="DateTime"?(<input value={checkDate()} onChange={onChange} onBlur={onBlur} />) : (
+  //     <div style={styles.td}>
+  //       <input value={value} onChange={onChange} onBlur={onBlur} />
+  //       {columns.Parent && createSelect(columns.ParentTitle, value)}
+  //     </div>
+  //   )
+  // ) : (
+  //   value
+  // );
+
 };
 
 const defaultPropGetter = () => ({});
