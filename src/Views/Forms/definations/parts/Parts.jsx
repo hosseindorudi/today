@@ -20,7 +20,8 @@ const Parts = () => {
     "SourceType",
     "PartGroup_Id",
     "Quality_Id",
-    "Color_Id"
+    "Color_Id",
+    "SafeMode"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

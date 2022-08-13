@@ -25,7 +25,8 @@ import useWindowSize from '../../../../customHooks/useWindowSize';
 import DeviceForm from './deviceForm/DeviceForm';
 
 const DeviceList = () => {
-    const filteredColumns = ["IsLimited", "Registrar","SourceType", "Company_Id"];
+    const filteredColumns = ["IsLimited", "Registrar","SourceType", "Company_Id",
+    "SafeMode"];
     const BcItems = [t("routes.basicDefinations"), t("/Definition/Device/Read")];
 
     const [tableModalOpen, setTableModalOpen] = useState(false);

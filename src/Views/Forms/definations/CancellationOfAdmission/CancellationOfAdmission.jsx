@@ -30,6 +30,7 @@ const CancellationOfAdmission = () => {
     "Registrar",
     "SourceType",
     "Province_Id",
+    "SafeMode"
   ];
   const BcItems = [t("routes.basicDefinations"), t("/Definition/CancellationOfAdmission/Read")];
 

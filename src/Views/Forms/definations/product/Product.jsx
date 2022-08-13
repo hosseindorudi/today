@@ -54,6 +54,7 @@ const Product = () => {
     "ProductGroup_Id",
     "Language_EId",
     "SourceType",
+    "SafeMode"
   ];
   const [response, loading, fetchData] = useAxios();
   const tabContext = useContext(TabContext);

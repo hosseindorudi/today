@@ -27,7 +27,8 @@ import ImportingCompanyForm from './importingCompanyForm/ImportingCompanyForm';
 const ImportingImportingCompanyList = () => {
   
 
-  const filteredColumns = ["IsLimited", "Registrar","SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar","SourceType",
+  "SafeMode"];
   const BcItems = [t("routes.basicDefinations"), t("/Definition/ImportingCompany/Read")];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);

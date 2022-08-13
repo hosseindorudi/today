@@ -19,7 +19,8 @@ import { enums } from '../../../../data/Enums';
 import { useTranslation } from 'react-i18next';
 const Incident = () => {
   const childRef = useRef();
-  const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType", "CodePage_EId", "Operator_Id"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType", "CodePage_EId", "Operator_Id",
+  "SafeMode"];
   const [mobileModal, setMobileModal] = useState(false)
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)

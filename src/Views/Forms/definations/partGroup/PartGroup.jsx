@@ -20,6 +20,7 @@ const PartGroup = () => {
     "SourceType",
     "PartGroup_Id",
     "Quality_Id",
+    "SafeMode"
     
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);

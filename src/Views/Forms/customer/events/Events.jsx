@@ -19,7 +19,8 @@ import { t } from "i18next";
 
 const CustomerEvents = () => {
     const childRef = useRef();
-    const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType", "CodePage_EId", "Customer_Id"];
+    const filteredColumns = ["IsLimited", "Id", "Registrar","Group_Id","Language_EId","SourceType", "CodePage_EId", "Customer_Id",
+    "SafeMode"];
     const [mobileModal, setMobileModal] = useState(false)
     const [mobileModalButtons, setMobileModalButtons] = useState(false)
     const [mobileModalColumns, setMobileModalColumns] = useState(false)

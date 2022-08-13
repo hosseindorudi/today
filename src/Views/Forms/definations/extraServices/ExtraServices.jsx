@@ -17,7 +17,8 @@ import { additionalServiceAccessList, additionalServiceCheckFile, AdditionalServ
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
 const ExtraServices = () => {
-  const filteredColumns = ["IsLimited", "Registrar","SourceType", "Model_Id"];
+  const filteredColumns = ["IsLimited", "Registrar","SourceType", "Model_Id",
+  "SafeMode"];
   const BcItems = [t("routes.basicDefinations"), t("/Definition/AdditionalService/Read")];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);

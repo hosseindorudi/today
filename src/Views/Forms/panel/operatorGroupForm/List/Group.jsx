@@ -44,7 +44,8 @@ import OsPolicyModal from "../../../../../Components/Table/osPolicyModal/OsPolic
 import { groupCreatePolicyBrowser, groupDeletePolicyBrowser, groupReadPolicyBrowser, groupUpdatePolicyBrowser } from "../../../../../services/groupService";
 import LocationPolicyModal from "../../../../../Components/Table/locationPolicyModal/LocationPolicyModal";
 const Group = () => {
-  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType"];
+  const filteredColumns = ["IsLimited", "Id", "Registrar", "SourceType",
+  "SafeMode"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValues, setRowValues] = useState({});

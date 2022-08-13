@@ -18,6 +18,7 @@ const Quality = () => {
     "Registrar",
     "Language_EId",
     "SourceType",
+    "SafeMode"
 
     
   ];

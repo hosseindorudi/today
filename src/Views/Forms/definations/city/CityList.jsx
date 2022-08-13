@@ -30,6 +30,7 @@ const CityList = () => {
     "Registrar",
     "SourceType",
     "Province_Id",
+    "SafeMode"
   ];
   const BcItems = [t("routes.basicDefinations"), t("/Definition/City/Read")];
   const [tableModalOpen, setTableModalOpen] = useState(false);

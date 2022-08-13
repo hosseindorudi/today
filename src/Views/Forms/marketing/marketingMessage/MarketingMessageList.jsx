@@ -8,7 +8,8 @@ import { toast } from "react-toastify";
 import MarketingMessage from './marketingMessageDefine/MarketingMessage';
 import { MessageAccessList, MessageCheckFile, MessageColumnInfo, MessageDelete, MessageExport, MessageExportId, MessageFavorite, MessageGetOneRecord, MessageImportArray, MessageImportFile, MessageLog, MessageRead, MessageReadPaging, MessageSampleFile, MessageSetUnselectedColumn } from '../../../../services/marketingMessage';
 const MarketingMessageList = () => {
-    const filteredColumns = ["IsLimited",  "Registrar","SourceType","Id","IsDynamic","IsHtml"];
+    const filteredColumns = ["IsLimited",  "Registrar","SourceType","Id","IsDynamic","IsHtml",
+    "SafeMode"];
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [rowValus, setRowValues] = useState({});
     const childRef = useRef();

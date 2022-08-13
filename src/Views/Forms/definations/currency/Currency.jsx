@@ -8,7 +8,8 @@ import useWindowSize from "../../../../customHooks/useWindowSize";
 import CurrencyDefine from "./currencyDefine/CurrencyDefine";
 import { currencyAccessList, currencyCheckFile, CurrencyColumnInfo, currencyDelete, currencyExport, currencyExportId, currencyFavorite, currencyGetOneRecord, currencyImport, CurrencyImportArray, currencyLog, currencyRead, currencyReadPaging, currencySampleFile, currencySetColumn } from "../../../../services/currencyService";
 const Currency = () => {
-  const filteredColumns = ["IsLimited", "Registrar", "SourceType"];
+  const filteredColumns = ["IsLimited", "Registrar", "SourceType",
+  "SafeMode"];
 
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});

@@ -40,6 +40,7 @@ const AnswerList = () => {
     "QuestionPage_Id",
     "AnswerPageFailed_Id",
     "Answer",
+    "SafeMode"
   ];
 
   const childRef = useRef();

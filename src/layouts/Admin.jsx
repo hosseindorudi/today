@@ -16,7 +16,6 @@ import BackDrop from "../Components/backDrop/BackDrop";
 import AppContext from "../contexts/AppContext";
 import ProfileInfo from "../Components/navbar/profileInfo";
 import SafeModeChanger from "../Components/navbar/SafeModeChanger";
-
 function Admin() {
   const FirstName = localStorage.getItem("FirstName");
   const LastName = localStorage.getItem("LastName");

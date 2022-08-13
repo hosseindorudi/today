@@ -25,7 +25,8 @@ import { enums } from "../../../../data/Enums";
 import { toast } from "react-toastify";
 
 const PhoneNumberList = () => {
-  const filteredColumns = ["IsLimited", "Registrar", "SourceType", "Id"];
+  const filteredColumns = ["IsLimited", "Registrar", "SourceType", "Id",
+  "SafeMode"];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValus, setRowValues] = useState({});
   const childRef = useRef();

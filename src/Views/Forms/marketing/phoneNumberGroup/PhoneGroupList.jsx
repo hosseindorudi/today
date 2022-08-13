@@ -11,7 +11,8 @@ import { enums } from '../../../../data/Enums';
 import { toast } from "react-toastify";
 import PhoneBookMessageModal from '../../../../Components/Table/phoneBookMessage/PhoneBookMessageModal';
 const PhoneGroupList = () => {
-    const filteredColumns = ["IsLimited",  "Registrar","SourceType","Id"];
+    const filteredColumns = ["IsLimited",  "Registrar","SourceType","Id",
+    "SafeMode"];
     const [tableModalOpen, setTableModalOpen] = useState(false);
     const [messageModal, setMessageModal] = useState(false)
     const [rowValus, setRowValues] = useState({});
