@@ -76,6 +76,10 @@ const CustomerList = () => {
     setRowValues(id);
     setIsAddress(true);
   };
+  const handleuploadFile = (id) => {
+    setRowValues(id);
+
+  };
   const handlePhone = (id) => {
     setRowValues(id);
     setIsPhone(true);
@@ -179,6 +183,7 @@ const CustomerList = () => {
         mobileAccess = {enums.Customer_Customer_Create_w}
         handleAccount={handleAccount}
         accountAccess = {enums.Customer_Customer_Create_w}
+        handleuploadFile={handleuploadFile}
       />
     </>
   );

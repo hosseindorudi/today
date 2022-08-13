@@ -147,7 +147,7 @@ const CustomerForm = () => {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    if (!firstname) {
+    if(isReal){if (!firstname) {
       handleError(t("customer1"));
       return;
     } else if (!lastName) {
@@ -199,7 +199,7 @@ const CustomerForm = () => {
           Real_FathersName: isReal ? fatherName : "",
           Real_IdCardNumber: isReal ? idCardNumber : "",
           Real_IdCardSerialNumber: isReal ? idCardSerialNumber : "",
-          Real_Gender: isReal ? gender : "",
+          Real_Gender: isReal ? gender : false,
           Real_DateOfBirth: new Date(dateOfBirth),
           Real_DateOfIssuanceIdCard: new Date(dateOfSerial),
           Real_PlaceOfIssuanceIdCard: isReal ? serialLocation : "",
@@ -223,6 +223,65 @@ const CustomerForm = () => {
         signal: abortController.signal,
       });
     }
+  }else {
+    setType("SUBMIT");
+      fetchData({
+        method: "POST",
+        url: customerCreate,
+        headers: request,
+        data: {
+          Id: 0,
+          Group_Id: Number(groupTitleId),
+          Language_EId: 1,
+          IsActive: isActive,
+          CustomerName: name,
+          Password: password,
+          Email: email,
+          AcquaintedWithCompany: acquaintedWithCompany,
+          IsLimited: activeDate,
+          LimitFrom: new Date(fromDate),
+          LimitTo: new Date(endDate),
+          Description: description,
+          Website: webSite,
+          Skype: skype,
+          Facebook: faceBook,
+          YouTube: youtube,
+          Instagram: instagram,
+          Telegram: telegram,
+          Twitter: twitter,
+          IsOfficially: isOfficially,
+          IsReal: isReal,
+          Real_NationalCode: isReal ? idCode : "",
+          Real_FirstName: isReal ? firstname : "",
+          Real_LastName: isReal ? lastName : "",
+          Real_FathersName: isReal ? fatherName : "",
+          Real_IdCardNumber: isReal ? idCardNumber : "",
+          Real_IdCardSerialNumber: isReal ? idCardSerialNumber : "",
+          Real_Gender: isReal ? gender : false,
+          Real_DateOfBirth: new Date(dateOfBirth),
+          Real_DateOfIssuanceIdCard: new Date(dateOfSerial),
+          Real_PlaceOfIssuanceIdCard: isReal ? serialLocation : "",
+          Real_HomeFax: isReal ? homeFax : "",
+          Real_WorkFax: isReal ? workFax : "",
+          Real_Job: isReal ? job : "",
+          Legal_NationalID: !isReal ? legalNationalID : 0,
+          Legal_CompanyName: !isReal ? legalCompanyName : "",
+          Legal_CompanyType: !isReal ? legalCompanyType : "",
+          Legal_EconomicCode: !isReal ? legalEconomicCode : 0,
+          Legal_RegistrationNumber: !isReal ? legalRegistrationNumber : 0,
+          Legal_RegistrationDate: new Date(legalRegistrationDate),
+          Legal_ExpirationDate: new Date(legalExpireDate),
+          Legal_RegistrationUnit: !isReal ? legalRegistrationunit : "",
+          Legal_RegistrationOrganization: !isReal
+            ? legalRegistrationOrganization
+            : "",
+          Legal_OfficeFax: !isReal ? legalOfficFax : "",
+          Legal_FactoryFax: !isReal ? legalFactoryFax : "",
+        },
+        signal: abortController.signal,
+      });
+
+  }
   };
 
   return (
@@ -755,7 +814,7 @@ const CustomerForm = () => {
           </div>
           <div className="Row">
             {widthOfScreen > 420 && (
-              <Button type="submit">{t("submit")}</Button>
+              <Button type="submit" style={{margin:"0 auto"}}>{t("submit")}</Button>
             )}
           </div>
         </form>

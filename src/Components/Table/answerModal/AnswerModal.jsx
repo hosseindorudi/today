@@ -26,6 +26,7 @@ const AnswerModal = (props) => {
             </thead>
             <tbody>
               <tr>
+                {console.log(logs)}
                 {logs.map((log, index) => (
                   
                   <td key={index}>{log.AnswerItem?log.AnswerItem.map(i=>i.Answer+" "):checkQuestionEId(log.QuestionType_EId,log.Answer)}{log.Description.length>0&&<p style={{textDecoration:'underline'}} title={log.Description}>{t("Description")}</p>}</td>

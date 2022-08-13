@@ -97,6 +97,7 @@ const TableList = ({
   accountAccess,
   sendMessageBankAccess,
   sendMessageBank,
+  handleuploadFile
 }) => {
   const [haveAccess] = useButtonAccess();
   const { t } = useTranslation();
@@ -395,6 +396,7 @@ const TableList = ({
                               accountAccess={accountAccess}
                               sendMessageBankAccess={sendMessageBankAccess}
                               sendMessageBank={sendMessageBank}
+                              handleuploadFile={handleuploadFile}
                             />
                           </td>
                           {Object.keys(post)

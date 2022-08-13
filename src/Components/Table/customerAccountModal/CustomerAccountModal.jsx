@@ -182,6 +182,7 @@ const CustomerAccountModal = (props) => {
 
   const handleQuestionEdit = (record) => {
     setEditButtonActivate(true);
+    console.log(record)
     setValues({
       IsPrimary: record.IsPrimary,
       FirstName: record.FirstName,
@@ -381,7 +382,7 @@ const CustomerAccountModal = (props) => {
                   rows={2}
                   value={values.Description}
                   onChange={onChangeHandler}
-                  name="Address"
+                  name="Description"
                 />
               </Form.Group>
             </div>
