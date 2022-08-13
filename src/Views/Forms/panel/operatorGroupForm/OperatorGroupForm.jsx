@@ -138,7 +138,7 @@ const OperatorGroupForm = () => {
                 type="number"
                 value={values.MaxSession}
                 name="MaxSession"
-                min={1}
+                min={0}
                 onChange={onChangeHandler}
               />
             </Form.Group>
