@@ -31,7 +31,8 @@ const Operator = () => {
     "Registrar",
     "SourceType",
     "Group_Id",
-    "SafeMode"
+    "SafeMode",
+    "Password"
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValues, setRowValues] = useState({});

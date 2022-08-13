@@ -35,6 +35,21 @@ const TableCard = (props) => {
                           : setFooter(i);
                       }}
                     >
+                      {/* <Form.Group
+                              className="mb-3"
+                              controlId={"model.activated"}
+                            >
+                              <Form.Label>{t("model.activated")}</Form.Label>
+                              <Form.Check
+                                type="switch"
+                                id="custom-switch"
+                                checked={props.posts[i + 2].Activated}
+                                disabled
+                                style={{ textAlign: "center" }}
+                              />
+                            </Form.Group> */}
+
+
                       <fi.FiMenu />
                     </button>
                   </Card.Header>
