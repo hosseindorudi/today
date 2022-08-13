@@ -46,6 +46,7 @@ const CustomerAccountModal = (props) => {
     ShabaNumber: "",
     CardNumber: "",
     Description: "",
+    CustomerNumber:"",
     Title: "",
   });
 
@@ -62,6 +63,7 @@ const CustomerAccountModal = (props) => {
       ShabaNumber: "",
       CardNumber: "",
       Description: "",
+      CustomerNumber:"",
       Title: "",
     });
   };
@@ -90,7 +92,6 @@ const CustomerAccountModal = (props) => {
       switch (type) {
         case "DELETE":
           handleDeleted();
-
           break;
         case "SUBMIT":
           readDatas();
@@ -175,6 +176,7 @@ const CustomerAccountModal = (props) => {
         ShabaNumber: values.ShabaNumber,
         CardNumber: values.CardNumber,
         Description: values.Description,
+        CustomerNumber: values.CustomerNumber,
         Title: values.Title,
       },
     });
@@ -195,6 +197,7 @@ const CustomerAccountModal = (props) => {
       ShabaNumber: record.ShabaNumber,
       CardNumber: record.CardNumber,
       Description: record.Description,
+      CustomerNumber: record.CustomerNumber,
       Title: record.Title,
     });
     setRowId(record.Id);
@@ -228,6 +231,7 @@ const CustomerAccountModal = (props) => {
         ShabaNumber: values.ShabaNumber,
         CardNumber: values.CardNumber,
         Description: values.Description,
+        CustomerNumber: values.CustomerNumber,
         Title: values.Title,
       },
     });
