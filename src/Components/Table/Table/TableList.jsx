@@ -1,7 +1,11 @@
 import { Pagination } from "@mui/material";
 import React, { useContext, useState } from "react";
 import useButtonAccess from "../../../customHooks/useButtonAccess";
-import { checkRowBackGroundColor, checkTableTH, checkTableValues } from "../../../validation/functions";
+import {
+  checkRowBackGroundColor,
+  checkTableTH,
+  checkTableValues,
+} from "../../../validation/functions";
 import DownArrow from "../Arrows/downArrow/DownArrow";
 import MainUpArrow from "../Arrows/MainUpArrow/MainUpArrow";
 import UpArrow from "../Arrows/upArrow/UpArrow";
@@ -92,7 +96,7 @@ const TableList = ({
   handleAccount,
   accountAccess,
   sendMessageBankAccess,
-  sendMessageBank
+  sendMessageBank,
 }) => {
   const [haveAccess] = useButtonAccess();
   const { t } = useTranslation();
@@ -118,7 +122,6 @@ const TableList = ({
           style={{ height: search ? "15%" : "10%" }}
         >
           <div className="reacttableParentPlusButton">
-            
             {haveAccess(addFormAccess) && (
               <button className="plusBUTTON" onClick={handleAdd}>
                 <md.MdPostAdd />
@@ -256,166 +259,212 @@ const TableList = ({
                     : widthOFScreen - (widthOFScreen * 0.2 + 120),
               }}
             >
-              {productsColumns.length > 0 ? ( type === "card" ? (
-                <TableCard productsColumns={productsColumns} posts={posts}/>
-              ) 
-                :
-                (<table className="MainTableCss">
-                  <thead className="MainTableThead">
-                    <tr className="MainTableTr">
-                      <th className="MainTableTh"> </th>
-                      {productsColumns
-                        .filter(
-                          (p, i) =>
-                            !filteredColumns.includes(p["Header"]) &&
-                            !unSelected.includes(p["Header"])
-                        )
-                        .map((column, index) => (
-                          <th
-                            className="MainTableTh"
-                            key={index}
-                            style={{
-                              display: !column["show"] ? "none" : null,
-                            }}
-                          >
-                            {/* {t(column["Header"])} */}
-                            {checkTableTH(column["Header"], exportAccess)}
-                            <button
-                              className="sortingArrowsBTN"
-                              onClick={() => handleClickSort(column)}
-                            >
-                              {column["isSorted"] ? (
-                                column["IsAscending"] ? (
-                                  <MainUpArrow />
-                                ) : (
-                                  <DownArrow />
-                                )
-                              ) : (
-                                <UpArrow />
-                              )}
-                            </button>
-                          </th>
-                        ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {posts.map((post, index) => (
-                      <tr
-                        key={index}
-                        style={{
-                          backgroundColor:
-                          checkRowBackGroundColor(post)
-                        }}
-                      >
-                        <td className="TableMainTd">
-                          <TableButtons
-                            exportLink={exportId}
-                            deleteType={deleteAccess}
-                            editType={editAccess}
-                            exportType={exportAccess}
-                            accessListType={permissionsAccess}
-                            handleClickGetPermission={handleClickGetPermission}
-                            changePasswordType={changePasswordAccess}
-                            deleteCalled={deleteCalled}
-                            rowValue={post}
-                            handleClickEdit={handleClickEdit}
-                            handlePassEdit={handlePassEdit}
-                            handleAddQuestion={handleAddQuestion}
-                            addAccess={addAccess}
-                            handleCreateRate={handleCreateRate}
-                            rateAccess={rateAccess}
-                            readAnswersAccess={readAnswersAccess}
-                            handleReadAnswers={handleReadAnswers}
-                            operatorRoleAccess={operatorRoleAccess}
-                            handleOperatorRole={handleOperatorRole}
-                            handlePolicyBrowser={handlePolicyBrowser}
-                            policyBrowserAccess={policyBrowserAccess}
-                            policyIpAccess={policyIpAccess}
-                            policyLocationAccess={policyLocationAccess}
-                            policyOsAccess={policyOsAccess}
-                            handlePolicyIP={handlePolicyIP}
-                            handlePolicyLocation={handlePolicyLocation}
-                            handlePolicyOs={handlePolicyOs}
-                            addressAccess={addressAccess}
-                            handleAddress={handleAddress}
-                            addOperator={addOperator}
-                            addOperatorAccess={addOperatorAccess}
-                            handlePhone={handlePhone}
-                            phoneAccess={phoneAccess}
-                            handleMobile={handleMobile}
-                            mobileAccess={mobileAccess}
-                            handleAccount={handleAccount}
-                            accountAccess={accountAccess}
-                            sendMessageBankAccess={sendMessageBankAccess}
-                            sendMessageBank={sendMessageBank}
-                          />
-                        </td>
-                        {Object.keys(post)
+              {productsColumns.length > 0 ? (
+                type === "card" ? (
+                  <TableCard
+                    productsColumns={productsColumns}
+                    posts={posts}
+                    exportLink={exportId}
+                    deleteType={deleteAccess}
+                    editType={editAccess}
+                    exportType={exportAccess}
+                    accessListType={permissionsAccess}
+                    handleClickGetPermission={handleClickGetPermission}
+                    changePasswordType={changePasswordAccess}
+                    deleteCalled={deleteCalled}
+                    // rowValue={post}
+                    handleClickEdit={handleClickEdit}
+                    handlePassEdit={handlePassEdit}
+                    handleAddQuestion={handleAddQuestion}
+                    addAccess={addAccess}
+                    handleCreateRate={handleCreateRate}
+                    rateAccess={rateAccess}
+                    readAnswersAccess={readAnswersAccess}
+                    handleReadAnswers={handleReadAnswers}
+                    operatorRoleAccess={operatorRoleAccess}
+                    handleOperatorRole={handleOperatorRole}
+                    handlePolicyBrowser={handlePolicyBrowser}
+                    policyBrowserAccess={policyBrowserAccess}
+                    policyIpAccess={policyIpAccess}
+                    policyLocationAccess={policyLocationAccess}
+                    policyOsAccess={policyOsAccess}
+                    handlePolicyIP={handlePolicyIP}
+                    handlePolicyLocation={handlePolicyLocation}
+                    handlePolicyOs={handlePolicyOs}
+                    addressAccess={addressAccess}
+                    handleAddress={handleAddress}
+                    addOperator={addOperator}
+                    addOperatorAccess={addOperatorAccess}
+                    handlePhone={handlePhone}
+                    phoneAccess={phoneAccess}
+                    handleMobile={handleMobile}
+                    mobileAccess={mobileAccess}
+                    handleAccount={handleAccount}
+                    accountAccess={accountAccess}
+                    sendMessageBankAccess={sendMessageBankAccess}
+                    sendMessageBank={sendMessageBank}
+                    handleClickSort={handleClickSort}
+                  />
+                ) : (
+                  <table className="MainTableCss">
+                    <thead className="MainTableThead">
+                      <tr className="MainTableTr">
+                        <th className="MainTableTh"> </th>
+                        {productsColumns
                           .filter(
                             (p, i) =>
-                              !filteredColumns.includes(p) &&
-                              !unSelected.includes(p)
+                              !filteredColumns.includes(p["Header"]) &&
+                              !unSelected.includes(p["Header"])
                           )
-                          .map((key, index) => {
-                            if (
-                              (key === "Description") &
-                              (exportAccess === enums.Operator_Event_Export_r)
-                            ) {
-                              return (
-                                <td
-                                  onClick={() => {
-                                    post[key].length > 0 &&
-                                      setDescriptionShow(true);
-                                    post[key].length > 0 && setDesc(post[key]);
-                                  }}
-                                  key={key + index}
-                                  className={
-                                    post[key].length > 30
-                                      ? "TableMainTd tableDescriptionShow"
-                                      : "TableMainTd"
-                                  }
-                                  style={{
-                                    display: !productsColumns[
-                                      productsColumns.findIndex(
-                                        (p) => p["accessor"] === key
-                                      )
-                                    ].show
-                                      ? "none"
-                                      : null,
-                                  }}
-                                >
-                                  {checkTableValues(
-                                    key,
-                                    post[key],
-                                    post,
-                                    exportAccess
-                                  )}
-                                </td>
-                              );
-                            } else {
-                              return (
-                                <td
-                                  key={key + index}
-                                  className="TableMainTd"
-                                  style={{
-                                    display: !productsColumns[
-                                      productsColumns.findIndex(
-                                        (p) => p["accessor"] === key
-                                      )
-                                    ].show
-                                      ? "none"
-                                      : null,
-                                  }}
-                                >
-                                  {checkTableValues(key, post[key], post)}
-                                </td>
-                              );
-                            }
-                          })}
+                          .map((column, index) => (
+                            <th
+                              className="MainTableTh"
+                              key={index}
+                              style={{
+                                display: !column["show"] ? "none" : null,
+                              }}
+                            >
+                              {/* {t(column["Header"])} */}
+                              {checkTableTH(column["Header"], exportAccess)}
+                              <button
+                                className="sortingArrowsBTN"
+                                onClick={() => handleClickSort(column)}
+                              >
+                                {column["isSorted"] ? (
+                                  column["IsAscending"] ? (
+                                    <MainUpArrow />
+                                  ) : (
+                                    <DownArrow />
+                                  )
+                                ) : (
+                                  <UpArrow />
+                                )}
+                              </button>
+                            </th>
+                          ))}
                       </tr>
-                    ))}
-                  </tbody>
-                </table>)
+                    </thead>
+                    <tbody>
+                      {posts.map((post, index) => (
+                        <tr
+                          key={index}
+                          style={{
+                            backgroundColor: checkRowBackGroundColor(post),
+                          }}
+                        >
+                          <td className="TableMainTd">
+                            <TableButtons
+                              exportLink={exportId}
+                              deleteType={deleteAccess}
+                              editType={editAccess}
+                              exportType={exportAccess}
+                              accessListType={permissionsAccess}
+                              handleClickGetPermission={
+                                handleClickGetPermission
+                              }
+                              changePasswordType={changePasswordAccess}
+                              deleteCalled={deleteCalled}
+                              rowValue={post}
+                              handleClickEdit={handleClickEdit}
+                              handlePassEdit={handlePassEdit}
+                              handleAddQuestion={handleAddQuestion}
+                              addAccess={addAccess}
+                              handleCreateRate={handleCreateRate}
+                              rateAccess={rateAccess}
+                              readAnswersAccess={readAnswersAccess}
+                              handleReadAnswers={handleReadAnswers}
+                              operatorRoleAccess={operatorRoleAccess}
+                              handleOperatorRole={handleOperatorRole}
+                              handlePolicyBrowser={handlePolicyBrowser}
+                              policyBrowserAccess={policyBrowserAccess}
+                              policyIpAccess={policyIpAccess}
+                              policyLocationAccess={policyLocationAccess}
+                              policyOsAccess={policyOsAccess}
+                              handlePolicyIP={handlePolicyIP}
+                              handlePolicyLocation={handlePolicyLocation}
+                              handlePolicyOs={handlePolicyOs}
+                              addressAccess={addressAccess}
+                              handleAddress={handleAddress}
+                              addOperator={addOperator}
+                              addOperatorAccess={addOperatorAccess}
+                              handlePhone={handlePhone}
+                              phoneAccess={phoneAccess}
+                              handleMobile={handleMobile}
+                              mobileAccess={mobileAccess}
+                              handleAccount={handleAccount}
+                              accountAccess={accountAccess}
+                              sendMessageBankAccess={sendMessageBankAccess}
+                              sendMessageBank={sendMessageBank}
+                            />
+                          </td>
+                          {Object.keys(post)
+                            .filter(
+                              (p, i) =>
+                                !filteredColumns.includes(p) &&
+                                !unSelected.includes(p)
+                            )
+                            .map((key, index) => {
+                              if (
+                                (key === "Description") &
+                                (exportAccess === enums.Operator_Event_Export_r)
+                              ) {
+                                return (
+                                  <td
+                                    onClick={() => {
+                                      post[key].length > 0 &&
+                                        setDescriptionShow(true);
+                                      post[key].length > 0 &&
+                                        setDesc(post[key]);
+                                    }}
+                                    key={key + index}
+                                    className={
+                                      post[key].length > 30
+                                        ? "TableMainTd tableDescriptionShow"
+                                        : "TableMainTd"
+                                    }
+                                    style={{
+                                      display: !productsColumns[
+                                        productsColumns.findIndex(
+                                          (p) => p["accessor"] === key
+                                        )
+                                      ].show
+                                        ? "none"
+                                        : null,
+                                    }}
+                                  >
+                                    {checkTableValues(
+                                      key,
+                                      post[key],
+                                      post,
+                                      exportAccess
+                                    )}
+                                  </td>
+                                );
+                              } else {
+                                return (
+                                  <td
+                                    key={key + index}
+                                    className="TableMainTd"
+                                    style={{
+                                      display: !productsColumns[
+                                        productsColumns.findIndex(
+                                          (p) => p["accessor"] === key
+                                        )
+                                      ].show
+                                        ? "none"
+                                        : null,
+                                    }}
+                                  >
+                                    {checkTableValues(key, post[key], post)}
+                                  </td>
+                                );
+                              }
+                            })}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )
               ) : (
                 <div className="noDataTable">
                   <b>{t("noDataFound.table")}</b>
