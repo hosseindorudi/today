@@ -312,6 +312,7 @@ const AnswerModal = (props) => {
     return seconds;
   };
   const handleSuccess = () => {
+    props.setModalOpen(false)
     tabContext.addRemoveTabs(
       {
         Component: AnswerForm,
@@ -334,6 +335,9 @@ const AnswerModal = (props) => {
   const handleResponse = (response, type) => {
     switch (type) {
       case "SUBMIT":
+        toast.success(t("item.created"), {
+          position: toast.POSITION.TOP_CENTER,
+        });
         handleSuccess();
         break;
       case "READTITLEANSWERFAILED":

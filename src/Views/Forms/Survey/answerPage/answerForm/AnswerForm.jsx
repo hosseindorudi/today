@@ -90,6 +90,7 @@ const AnswerForm = () => {
           open={modalOpen}
           onHide={() => setModalOpen(false)}
           questions={questions}
+          setModalOpen={setModalOpen}
         />
       )}
       <Form
