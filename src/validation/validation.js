@@ -146,7 +146,9 @@ const validateRequired=(cellInfo)=>{
     }
     return true
 }
-
+const checkBoolean=(value)=>{
+   return value.toLowerCase()==="true"?true:false
+}
 module.exports={
     onlyNumberAndDot,
     phoneNumberValidation,
@@ -155,5 +157,6 @@ module.exports={
     idCodeValidation,
     validateType,
     validateRequired,
-    validateLength
+    validateLength,
+    checkBoolean
 }

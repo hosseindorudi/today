@@ -1,4 +1,5 @@
 const browserEnum={
+    selectBrowser:-1,
 chrome:1,
 firefox:2,
 msedge:3,

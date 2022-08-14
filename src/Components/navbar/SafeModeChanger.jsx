@@ -3,9 +3,10 @@ import AppContext from "../../contexts/AppContext";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import * as fa from "react-icons/fa";
+import { checkBoolean } from "../../validation/validation";
 
 const SafeModeChanger = ({ handleLogOut }) => {
-  const [activate, setActivation] = useState(false);
+  const [activate, setActivation] = useState(localStorage.getItem("SafeMode")?checkBoolean(localStorage.getItem("SafeMode")):false);
   const { setApp } = useContext(AppContext);
   const { t } = useTranslation();
 
@@ -22,6 +23,7 @@ const SafeModeChanger = ({ handleLogOut }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         setActivation(!activate);
+        localStorage.setItem("SafeMode",!activate)
         setApp((prev) => ({ ...prev, SafeMode: !activate }));
       } else {
         setActivation(false);
@@ -42,6 +44,7 @@ const SafeModeChanger = ({ handleLogOut }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         setActivation(false);
+        localStorage.removeItem("SafeMode")
         setApp((prev) => ({ ...prev, SafeMode: false }));
         handleLogOut();
       } else {

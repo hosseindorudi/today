@@ -28,6 +28,7 @@ const IPpolicyModal = (props) => {
   const [requestType, setRequestType] = useState("");
 
   const setEmpty = () => {
+    setEditButtonActivate(false)
     setIP_From("");
     setIP_To("");
   };
@@ -205,7 +206,7 @@ const IPpolicyModal = (props) => {
                 variant="primary"
                 type="submit"
                 className="questionFormSubmit mt-2"
-                disabled={loading}
+                disabled={loading || IP_From === "" || IP_To===""}
               >
                 {t("operatorGroupFormSubmit")}
               </Button>
@@ -226,7 +227,7 @@ const IPpolicyModal = (props) => {
                       variant="success"
                       onClick={SubmitOfEdit}
                       className="questionFormSubmit mt-2"
-                      disabled={loading}
+                      disabled={loading || IP_From === "" || IP_To===""}
                     >
                       {t("edit")}
                     </Button>

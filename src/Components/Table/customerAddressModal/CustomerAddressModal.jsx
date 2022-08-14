@@ -70,6 +70,7 @@ const CustomerAddressModal = (props) => {
   });
 
   const setEmpty = () => {
+    setEditButtonActivate(false)
     setValues({
       IsPrimary: true,
       PostalCode: "",

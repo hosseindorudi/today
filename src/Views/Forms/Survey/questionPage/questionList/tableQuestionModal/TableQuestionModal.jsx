@@ -436,7 +436,7 @@ const TableQuestionModal = (props) => {
                       className="mb-1 questionColorPicker colomnDirections"
                       controlId="exampleForm.ControlTextarea1"
                     >
-                      <Form.Label>{t("operatorGroupFormDesc")}</Form.Label>
+                      <Form.Label>{t("Color")}</Form.Label>
                       <Form.Control
                         type="color"
                         value={color}
@@ -543,7 +543,7 @@ const TableQuestionModal = (props) => {
                             controlId="exampleForm.ControlTextarea1"
                           >
                             <Form.Label>
-                              {t("operatorGroupFormDesc")}
+                              {t("Color")}
                             </Form.Label>
                             <Form.Control
                               type="color"

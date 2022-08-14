@@ -51,6 +51,7 @@ const CustomerAccountModal = (props) => {
   });
 
   const setEmpty = () => {
+    setEditButtonActivate(false)
     setValues({
       IsPrimary: false,
       FirstName: "",

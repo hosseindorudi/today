@@ -29,6 +29,7 @@ const LocationPolicyModal = (props) => {
   const [requestType, setRequestType] = useState("");
 
   const setEmpty = () => {
+    setEditButtonActivate(false)
     setCoordinates(defaultCoordinates);
     setRadius(0);
   };
@@ -222,7 +223,7 @@ const LocationPolicyModal = (props) => {
                 variant="primary"
                 type="submit"
                 className="questionFormSubmit mt-2"
-                disabled={loading}
+                disabled={loading || radius === 0}
               >
                 {t("operatorGroupFormSubmit")}
               </Button>
@@ -243,7 +244,7 @@ const LocationPolicyModal = (props) => {
                       variant="success"
                       onClick={SubmitOfEdit}
                       className="questionFormSubmit mt-2"
-                      disabled={loading}
+                      disabled={loading || radius === 0}
                     >
                       {t("edit")}
                     </Button>

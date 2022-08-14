@@ -19,7 +19,7 @@ const BrowserPolicyModal = (props) => {
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
 
-  const [browser, setBrowser] = useState("");
+  const [browser, setBrowser] = useState(-1);
   const [browsers, setBrowsers] = useState([]);
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
@@ -28,7 +28,8 @@ const BrowserPolicyModal = (props) => {
   const [requestType, setRequestType] = useState("");
 
   const setEmpty = () => {
-    setBrowser("");
+    setEditButtonActivate(false)
+    setBrowser(-1);
   };
 
   const readDatas = () => {
@@ -182,15 +183,15 @@ const BrowserPolicyModal = (props) => {
                   placeholder={t("operatorGroup.browser")}
                   onChange={(e) => setBrowser(e.target.value)}
                 >
-                  <option>{t("selectBrowser")}</option>
+
                   {Object.keys(browserEnum).map((k, i) => (
-                    <option value={browserEnum[k]}>{k}</option>
+                    <option value={browserEnum[k]} hidden={browserEnum[k] === -1} disabled={browserEnum[k] === -1}>{browserEnum[k] === -1 ? t("selectBrowser") : k}</option>
                   ))}
                 </Form.Select>
               </Form.Group>
             </div>
             {!editButtonActivate ? (
-              <Button variant="primary" type="submit" disabled={loading}>
+              <Button variant="primary" type="submit" disabled={loading || browser === -1}>
                 {t("operatorGroupFormSubmit")}
               </Button>
             ) : (
@@ -205,7 +206,7 @@ const BrowserPolicyModal = (props) => {
                     <Button
                       variant="success"
                       onClick={SubmitOfEdit}
-                      disabled={loading}
+                      disabled={loading || browser === -1}
                     >
                       {t("edit")}
                     </Button>
