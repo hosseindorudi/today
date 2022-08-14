@@ -49,6 +49,7 @@ const OperatorRoleModel = (props) => {
   const [requestType, setRequestType] = useState("");
 
   const setEmpty = () => {
+    setEditButtonActivate(false)
     setGroup(null);
     setOrganizationalRole(null);
     setDescription("");
@@ -298,7 +299,7 @@ const OperatorRoleModel = (props) => {
                 variant="primary"
                 type="submit"
                 className="questionFormSubmit mt-2"
-                disabled={loading}
+                disabled={loading || group === null || organizationalRole === null }
               >
                 {t("operatorGroupFormSubmit")}
               </Button>
@@ -319,7 +320,7 @@ const OperatorRoleModel = (props) => {
                       variant="success"
                       onClick={SubmitOfEdit}
                       className="questionFormSubmit mt-2"
-                      disabled={loading}
+                      disabled={loading || group === null || organizationalRole === null }
                     >
                       {t("edit")}
                     </Button>
