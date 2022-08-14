@@ -18,16 +18,16 @@ import { osEnums } from "../../../data/osEnums";
 const OsPolicyModal = (props) => {
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
-  const [os, setOs] = useState(null);
+  const [os, setOs] = useState(-1);
   const [osDatas, setOsDatas] = useState([]);
   const abortController = new AbortController();
   const [editButtonActivate, setEditButtonActivate] = useState(false);
-  const [osId, setOsId] = useState("");
+  const [osId, setOsId] = useState(null);
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
 
   const setEmpty = () => {
-    setOs("");
+    setOs(-1);
   };
 
   const readDatas = () => {
@@ -178,12 +178,12 @@ const OsPolicyModal = (props) => {
               <Form.Group className="mb-3" controlId="OS">
                 <Form.Label>{t("OS")}</Form.Label>
                 <Form.Select value={os} onChange={(e) => setOs(e.target.value)}>
-                  <option selected disabled>
+                  {/* <option selected disabled>
                     {t("OS")}
-                  </option>
+                  </option> */}
                   {Object.keys(osEnums).map((o, i) => (
-                    <option key={i} value={osEnums[o]}>
-                      {o}
+                    <option key={i} value={osEnums[o]} disabled={osEnums[o] === -1} hidden={osEnums[o] === -1}>
+                      {osEnums[o] === -1 ? t("OS") : o}
                     </option>
                   ))}
                 </Form.Select>
@@ -194,7 +194,7 @@ const OsPolicyModal = (props) => {
                 variant="primary"
                 type="submit"
                 className="questionFormSubmit mt-2"
-                disabled={loading || !os}
+                disabled={loading || os === -1}
               >
                 {t("operatorGroupFormSubmit")}
               </Button>
@@ -215,7 +215,7 @@ const OsPolicyModal = (props) => {
                       variant="success"
                       onClick={SubmitOfEdit}
                       className="questionFormSubmit mt-2"
-                      disabled={loading || !os}
+                      disabled={loading || os === -1}
                     >
                       {t("edit")}
                     </Button>

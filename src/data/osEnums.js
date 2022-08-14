@@ -1,5 +1,6 @@
 
 const osEnums={
+    Os:-1,
     windows : 1,
     mac : 2,
     linux : 3,

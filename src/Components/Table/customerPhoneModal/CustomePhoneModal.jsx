@@ -40,6 +40,7 @@ const CustomerPhoneModal = (props) => {
   });
 
   const setEmpty = () => {
+    setEditButtonActivate(false)
     setValues({
       IsPrimary: false,
       Phone: "",

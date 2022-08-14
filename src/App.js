@@ -16,6 +16,7 @@ import { AuthProvider } from "./contexts/AuthProvider";
 import RequireAuth from "./Components/RequireAuth";
 import OsInformationProvider from "./contexts/OsInformationProvider";
 import QuestionPage from "./questionPage/QuestionPage";
+import { checkBoolean } from "./validation/validation";
 
 function App() {
   const search = useLocation().search;
@@ -27,6 +28,7 @@ function App() {
     lang: "",
     langCode: "",
     sidebarOpen: false,
+    SafeMode:localStorage.getItem("SafeMode")?checkBoolean(localStorage.getItem("SafeMode")):false
   });
   const currentLanguageCode = localStorage.getItem("i18nextLng") || "fa";
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);

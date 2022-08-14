@@ -40,6 +40,7 @@ const CustomerMobileModal = (props) => {
   });
 
   const setEmpty = () => {
+    setEditButtonActivate(false)
     setValues({
       IsPrimary: false,
       Mobile: "",
