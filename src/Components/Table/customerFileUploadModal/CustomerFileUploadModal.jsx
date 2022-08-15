@@ -34,8 +34,8 @@ const CustomerFileUploadModal = (props) => {
     setValues({
       Title: "",
       Description: "",
-      File: null,
     });
+    setFile(null)
   };
 
   const readDatas = () => {
@@ -126,8 +126,8 @@ const CustomerFileUploadModal = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+   
     setRequestType("SUBMIT");
     var data = new FormData();
     data.append('Customer_Id', rowValues);
@@ -185,7 +185,7 @@ const CustomerFileUploadModal = (props) => {
     >
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
+     
           <div className="Row">
             <Form.Group className="mb-3" controlId={"Title"}>
               <Form.Label>{t("Title")}</Form.Label>
@@ -234,11 +234,11 @@ const CustomerFileUploadModal = (props) => {
             
           </div>
           
-            <Button variant="primary" type="submit" disabled={loading ||!file}>
+            <Button variant="primary" onClick={()=>handleSubmit()} disabled={loading || !file}>
               {t("operatorGroupFormSubmit")}
             </Button>
          
-        </Form>
+      
       </Modal.Body>
       <Modal.Footer>
         <ListGroup as="ol" numbered className="listGroupFile">
