@@ -38,5 +38,6 @@ export const CustomerImportArray='/Customer/Customer/ImportArray'
 
 
 export const customerCreateAttachment="/Customer/Customer/CreateAttachment"
+export const customerReadAttachedFile="/Customer/Customer/ReadAttachedFile"
 export const CustomerReadAttachment='/Customer/Customer/ReadAttachment'
 export const CustomerDeleteAttachment='/Customer/Customer/DeleteAttachment'

@@ -13,7 +13,7 @@ import * as fa from "react-icons/fa";
 import "./customerFileUploadModal.css";
 import { TargetBox } from "../ImportCSVButton/importDND/TargetBox";
 import { FileList } from "../ImportCSVButton/importDND/FileList";
-import { customerCreateAttachment, CustomerDeleteAttachment, CustomerReadAttachment } from "../../../services/customerService";
+import { customerCreateAttachment, CustomerDeleteAttachment, customerReadAttachedFile, CustomerReadAttachment } from "../../../services/customerService";
 import BackDrop from "../../backDrop/BackDrop";
 const CustomerFileUploadModal = (props) => {
  const {rowValues}=props
@@ -70,6 +70,9 @@ const CustomerFileUploadModal = (props) => {
         case "READFILES":
           setFiles(response.Record);
           break;
+          case "DOWNLOAD":
+              console.log(response)
+            break;
         default:
           break;
       }
@@ -156,6 +159,18 @@ const CustomerFileUploadModal = (props) => {
   const handleClickFile = () => {
     inputRefFile.current.click();
   };
+  const downloadFile=(id)=>{
+    setRequestType("DOWNLOAD");
+    fetchData({
+      method: "POST",
+      url: customerReadAttachedFile,
+      headers: request,
+      data: {
+        Id: id,
+      },
+      signal: abortController.signal,
+    });
+  }
   return (
     <>
     {loading &&<BackDrop  open={true}/>}
@@ -251,7 +266,9 @@ const CustomerFileUploadModal = (props) => {
               </div>
 
               <div className="d-flex btns ">
-             
+                <div className="actionBtns" onClick={() => downloadFile(m.Id)}>
+                  <fa.FaFileDownload color="green" />
+                </div>
                 <div className="actionBtns" onClick={() => deleteCalled(m.Id)}>
                   <fa.FaTrash color="red" />
                 </div>
