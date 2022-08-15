@@ -29,6 +29,7 @@ import CustomerAddressModal from "../../../../../Components/Table/customerAddres
 import CustomerMobileModal from "../../../../../Components/Table/customerMobileModal/CustomerMobileModal";
 import CustomerPhoneModal from "../../../../../Components/Table/customerPhoneModal/CustomePhoneModal";
 import CustomerAccountModal from "../../../../../Components/Table/customerAccountModal/CustomerAccountModal";
+import CustomerFileUploadModal from "../../../../../Components/Table/customerFileUploadModal/CustomerFileUploadModal";
 const CustomerList = () => {
   const childRef = useRef();
   const filteredColumns = [
@@ -47,6 +48,7 @@ const CustomerList = () => {
   const [mobileModalButtons, setMobileModalButtons] = useState(false)
   const [mobileModalColumns, setMobileModalColumns] = useState(false)
   const [isAddress, setIsAddress] = useState(false)
+  const [isFileUpload, setIsFileUpload] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [isPhone, setIsPhone] = useState(false)
   const [isAccount, setIsAccount] = useState(false)
@@ -78,6 +80,7 @@ const CustomerList = () => {
   };
   const handleuploadFile = (id) => {
     setRowValues(id);
+    setIsFileUpload(true)
 
   };
   const handlePhone = (id) => {
@@ -106,7 +109,11 @@ const CustomerList = () => {
           updated={updated}
         />
       )}
-
+    {isFileUpload &&(
+      <CustomerFileUploadModal  rowValues={rowValues}
+      onHide={() => setIsFileUpload(false)}
+      show={isFileUpload}/>
+    )}
     {isAddress && (
         <CustomerAddressModal
           rowValues={rowValues}

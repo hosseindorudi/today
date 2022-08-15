@@ -1,0 +1,10 @@
+.listGroupFile{
+    width: 100%;
+        gap:5px
+}
+.listGroupFile .btns{
+gap: 5px;
+}
+.listGroupFile .actionBtns{
+    cursor: pointer;
+}

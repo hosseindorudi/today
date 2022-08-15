@@ -967,5 +967,7 @@
   "addFile":"اضافه کردن فایل",
   "/Poll/QuestionPage/Read":"پرسشنامه",
   "/Poll/AnswerPage/Read":"پاسخنامه", 
-  "Model_Id":"شماره مدل"
+  "Model_Id":"شماره مدل",
+  "/Poll/AnswerPage/Read":"پاسخنامه",
+  "fileName":"نام فایل"
 }
