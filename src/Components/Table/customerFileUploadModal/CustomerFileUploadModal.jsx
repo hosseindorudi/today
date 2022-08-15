@@ -8,21 +8,19 @@ import {
   Form,
   Modal,
   ListGroup,
-  Container,
-  Row,
-  Col,
 } from "react-bootstrap";
 import * as fa from "react-icons/fa";
 import "./customerFileUploadModal.css";
 import { TargetBox } from "../ImportCSVButton/importDND/TargetBox";
 import { FileList } from "../ImportCSVButton/importDND/FileList";
+import { customerCreateAttachment, CustomerDeleteAttachment, CustomerReadAttachment } from "../../../services/customerService";
+import BackDrop from "../../backDrop/BackDrop";
 const CustomerFileUploadModal = (props) => {
+ const {rowValues}=props
   const inputRefFile = useRef(null);
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const abortController = new AbortController();
-  const [editButtonActivate, setEditButtonActivate] = useState(false);
-  const [rowID, setRowId] = useState("");
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
   const [files, setFiles] = useState([]);
@@ -33,7 +31,6 @@ const CustomerFileUploadModal = (props) => {
   });
 
   const setEmpty = () => {
-    setEditButtonActivate(false);
     setValues({
       Title: "",
       Description: "",
@@ -43,15 +40,15 @@ const CustomerFileUploadModal = (props) => {
 
   const readDatas = () => {
     setRequestType("READFILES");
-    // fetchData({
-    //   method: "POST",
-    //   url: customerReadMobile,
-    //   headers: request,
-    //   data: {
-    //     Id: props.rowValues,
-    //   },
-    //   signal: abortController.signal,
-    // });
+    fetchData({
+      method: "POST",
+      url: CustomerReadAttachment,
+      headers: request,
+      data: {
+        Id: rowValues,
+      },
+      signal: abortController.signal,
+    });
   };
 
   useEffect(() => {
@@ -83,15 +80,15 @@ const CustomerFileUploadModal = (props) => {
 
   const deleteRecord = (id) => {
     setRequestType("DELETE");
-    // fetchData({
-    //   method: "POST",
-    //   url: customerDeleteMobile,
-    //   headers: request,
-    //   data: {
-    //     Id: id,
-    //   },
-    //   signal: abortController.signal,
-    // });
+    fetchData({
+      method: "POST",
+      url: CustomerDeleteAttachment,
+      headers: request,
+      data: {
+        Id: id,
+      },
+      signal: abortController.signal,
+    });
   };
 
   const handleDeleted = () => {
@@ -129,57 +126,18 @@ const CustomerFileUploadModal = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setRequestType("SUBMIT");
-
-    // fetchData({
-    //   method: "POST",
-    //   url: customerCreateMobile,
-    //   headers: request,
-    //   signal: abortController.signal,
-    //   data: {
-    //     Id: 0,
-    //     Customer_Id: props.rowValues,
-    //     Mobile: values.Mobile,
-    //     IsPrimary: values.IsPrimary,
-    //     Description: values.Description,
-    //     Title: values.Title,
-    //   },
-    // });
-  };
-
-  const handleQuestionEdit = (record) => {
-    setEditButtonActivate(true);
-    // setValues({
-    //   IsPrimary: record.IsPrimary,
-    //   Mobile: record.Mobile,
-    //   Description: record.Description,
-    //   Title: record.Title,
-    // });
-    setRowId(record.Id);
-  };
-
-  const cancletationOFEdit = () => {
-    setEditButtonActivate(false);
-    setEmpty();
-  };
-
-  const SubmitOfEdit = (e) => {
-    e.preventDefault();
-    setRequestType("SUBMIT");
-    setEditButtonActivate(false);
-    // fetchData({
-    //   method: "POST",
-    //   url: customerUpdateMobile,
-    //   headers: request,
-    //   signal: abortController.signal,
-    //   data: {
-    //     Id: rowID,
-    //     Customer_Id: props.rowValues,
-    //     Mobile: values.Mobile,
-    //     IsPrimary: values.IsPrimary,
-    //     Description: values.Description,
-    //     Title: values.Title,
-    //   },
-    // });
+    var data = new FormData();
+    data.append('Customer_Id', rowValues);
+    data.append('Title',values.Title);
+    data.append("Description",values.Description)
+    data.append('UploadedFile',file);
+    fetchData({
+      method: "POST",
+      url: customerCreateAttachment,
+      headers: request,
+      signal: abortController.signal,
+      data:data
+    });
   };
 
   const onChangeHandler = (e) => {
@@ -199,6 +157,8 @@ const CustomerFileUploadModal = (props) => {
     inputRefFile.current.click();
   };
   return (
+    <>
+    {loading &&<BackDrop  open={true}/>}
     <Modal
       show={props.show}
       size="lg"
@@ -258,30 +218,11 @@ const CustomerFileUploadModal = (props) => {
               </div>
             
           </div>
-          {!editButtonActivate ? (
-            <Button variant="primary" type="submit" disabled={loading}>
+          
+            <Button variant="primary" type="submit" disabled={loading ||!file}>
               {t("operatorGroupFormSubmit")}
             </Button>
-          ) : (
-            <Container>
-              <Row>
-                <Col>
-                  <Button variant="danger" onClick={cancletationOFEdit}>
-                    {t("cancelationOfForm")}
-                  </Button>
-                </Col>
-                <Col>
-                  <Button
-                    variant="success"
-                    onClick={SubmitOfEdit}
-                    disabled={loading}
-                  >
-                    {t("edit")}
-                  </Button>
-                </Col>
-              </Row>
-            </Container>
-          )}
+         
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -296,30 +237,31 @@ const CustomerFileUploadModal = (props) => {
                 alignItems: "center",
               }}
             >
-              {/* <div>
+              <div>
                 <div className="fw-bold ">{t("Title")}</div>
                 {m.Title}
               </div>
               <div>
-                <div className="fw-bold ">{t("Mobile")}</div>
-                {m.Mobile}
+                <div className="fw-bold ">{t("Description")}</div>
+                {m.Description}
               </div>
+              <div>
+                <div className="fw-bold ">{t("fileName")}</div>
+                {m.Name}
+              </div>
+
               <div className="d-flex btns ">
-                <div
-                  className="actionBtns"
-                  onClick={() => handleQuestionEdit(m)}
-                >
-                  <fa.FaRegEdit color="green" />
-                </div>
+             
                 <div className="actionBtns" onClick={() => deleteCalled(m.Id)}>
                   <fa.FaTrash color="red" />
                 </div>
-              </div> */}
+              </div>
             </ListGroup.Item>
           ))}
         </ListGroup>
       </Modal.Footer>
     </Modal>
+    </>
   );
 };
 

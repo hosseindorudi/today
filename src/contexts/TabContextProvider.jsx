@@ -30,7 +30,6 @@ const TabContextProvider = (props) => {
           setApp((prev) => ({ ...prev, activeTab: item.path,title:item.title }))
         );
       }
-
       return (
         setTabs((prev) => [
           ...prev,
