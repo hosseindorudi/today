@@ -26,18 +26,23 @@ const AnswerModal = (props) => {
           <Table size="sm" className="logModalTable">
             <thead>
               <tr>
-                {logs.map((l, i) => (
+                {/* {logs.map((l, i) => (
                   <th key={i}>{l.Question_Title}</th>
-                ))}
+                ))} */}
+                <td>سوال</td>
+                <td>جواب</td>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              
                 {logs.map((log, index) => (
+                  <tr>
+                  <th key={index + 1000}>{log.Question_Title}</th>
                   <td key={index}>{log.AnswerItem?log.AnswerItem.map(i=>i.Answer+" "):checkQuestionEId(log.QuestionType_EId,log.Answer, setDescOpen,setDesc)}</td>
-                  // {log.Description.length>0&&<p style={{textDecoration:'underline'}} title={log.Description}>{t("Description")}</p>}
+                  {/* // {log.Description.length>0&&<p style={{textDecoration:'underline'}} title={log.Description}>{t("Description")}</p>} */}
+                  </tr>
                 ))}
-              </tr>
+             
             </tbody>
           </Table>
         </Modal.Body>

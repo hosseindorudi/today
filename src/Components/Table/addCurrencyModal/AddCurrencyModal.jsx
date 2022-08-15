@@ -39,6 +39,7 @@ const AddCurrencyModal = (props) => {
   const [requestType, setRequestType] = useState("");
 
   const setEmpty = () => {
+    setEditButtonActivate(false)
     setCurrency(null);
     setCountry(null);
     setFee("");
