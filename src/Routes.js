@@ -918,14 +918,14 @@ export const Routes = [
         cName: "sub-nav",
         access: enums.Marketing_PollLink_Read_r,
       },
-      {
-        title: "/Marketing/Send/Read",
-        path: "/Marketing/Send/Read",
-        Component: MarketingSend,
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-        access: enums.Marketing_Outbox_Read_r,
-      },
+      // {
+      //   title: "/Marketing/Send/Read",
+      //   path: "/Marketing/Send/Read",
+      //   Component: MarketingSend,
+      //   icon: <IoIcons.IoIosPaper />,
+      //   cName: "sub-nav",
+      //   access: enums.Marketing_Outbox_Read_r,
+      // },
     ],
   },
   {
