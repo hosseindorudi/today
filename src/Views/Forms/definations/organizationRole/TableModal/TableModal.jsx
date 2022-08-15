@@ -32,7 +32,7 @@ const TableModal = (props) => {
       color: `#${prop.Color}`,
       periority: prop.Priority,
       desc: prop.Description,
-      group: prop.Group,
+      group: prop.Department,
       percentage: prop.Percentage,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,7 +56,7 @@ const TableModal = (props) => {
         headers: request,
         data: {
           Id: props.rowValus.Id,
-          Group: values.group,
+          Department: values.group,
           Percentage: values.percentage,
           Priority: values.periority,
           Title: values.title,

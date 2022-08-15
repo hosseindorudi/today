@@ -67,6 +67,7 @@ const CancellationOfAdmissionDefine = () => {
         data: {
           Id: 0,
           Title: values.title,
+          Priority: Number(values.periority),
           Description: values.desc,
           Color: values.color.substring(1),
         },

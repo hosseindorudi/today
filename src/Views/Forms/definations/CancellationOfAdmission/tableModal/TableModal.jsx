@@ -42,6 +42,7 @@ const TableModal = (props) => {
         data: {
           Id: val.Id,
           Title: values.title,
+          Priority: values.periority,
           Description: values.desc,
           Color: values.color.substring(1),
         },

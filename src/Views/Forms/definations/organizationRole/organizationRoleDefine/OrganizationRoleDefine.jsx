@@ -68,7 +68,7 @@ const OrganizationRoleDefine = () => {
         headers: request,
         data: {
           Id: 0,
-          Group: values.group,
+          Department: values.group,
           Percentage: values.percentage,
           Priority: values.periority,
           Title: values.title,

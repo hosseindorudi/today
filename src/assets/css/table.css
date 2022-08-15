@@ -81,7 +81,8 @@
 .plusBUTTON:hover {
   border: none;
   color: #fff;
-  background-color: greenyellow;
+  background-color: blue;
+  opacity: .8;
 }
 .plusBUTTON1 {
   background-color: #fff;

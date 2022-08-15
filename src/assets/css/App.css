@@ -81,6 +81,18 @@ width: 100%;
 .custom-container .rmdp-input{width: 100%;height: auto;}
 
 
+.descriptionAnserModal {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: all 500ms ease;
+}
+
+.descriptionAnserModal:hover {
+  color: mediumblue;
+}
+
 
 .Link{
   text-decoration: underline;

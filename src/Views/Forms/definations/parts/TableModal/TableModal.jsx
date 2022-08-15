@@ -15,6 +15,7 @@ import { partGroupReadTitle } from "../../../../../services/partGroup";
 import { qualityReadTitle } from "../../../../../services/qualityService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { ColorReadTitle } from "../../../../../services/colorService";
+import { modelReadTitle } from "../../../../../services/modelService";
 
 const TableModal = (props) => {
   const [type, setType] = useState("");
@@ -26,6 +27,8 @@ const TableModal = (props) => {
   const [quality, setQuality] = useState(undefined);
   const [colorOptions, setColorOptions] = useState([]);
   const [color, setColor] = useState(undefined);
+  const [modelOptions, setModelOptions] = useState([]);
+  const [model, setModel] = useState(undefined);
   const request = useRequest();
   const abortController = new AbortController();
   const [values, setValues] = useState({
@@ -60,6 +63,7 @@ const TableModal = (props) => {
   };
   useEffect(() => {
     const prop = props.rowValus;
+    console.log(prop)
     setValues({
       ...values,
       title: prop.Title,
@@ -101,12 +105,17 @@ const TableModal = (props) => {
     setColor(colorOptions.find((i) => i.value === props.rowValus.Color_Id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colorOptions]);
+  useEffect(() => {
+    setModel(modelOptions.find((i) => i.value === props.rowValus.Model_Id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modelOptions]);
   const getDatas = () => {
     const partGroupTitles = axios.request(createParams(partGroupReadTitle));
     const qualityTitles = axios.request(createParams(qualityReadTitle));
     const colorTitles = axios.request(createParams(ColorReadTitle));
+    const modelTitles = axios.request(createParams(modelReadTitle));
     axios
-      .all([partGroupTitles, qualityTitles, colorTitles])
+      .all([partGroupTitles, qualityTitles, colorTitles,modelTitles])
       .then(
         axios.spread((...allData) => {
           console.log(allData[0].data.Title)
@@ -119,6 +128,9 @@ const TableModal = (props) => {
           allData[2].data?.Result === 0
             ? setColorOptions(createSelectOptions(allData[2].data.Title))
             : handleError(allData[2].data.Message);
+          allData[3].data?.Result === 0
+            ? setModelOptions(createSelectOptions(allData[3].data.Title))
+            : handleError(allData[3].data.Message);
         })
       )
       .catch((error) => {
@@ -162,6 +174,7 @@ const TableModal = (props) => {
           Height: values.height,
           Weight: values.weight,
           Color_Id: color?.value,
+          Model_Id: model?.value,
           IsPerishable: values.IsPerishable,
           MainPart: values.MainPart,
           TechnicalCode: values.TechnicalCode,
@@ -219,6 +232,16 @@ const TableModal = (props) => {
                 value={quality}
                 onchangeHandler={(e) => setQuality(e)}
                 placeholder={t("quality")}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId={"model"}>
+              <Form.Label>{t("model")}</Form.Label>
+              <CustomReactMultiSelect
+                isMulti={false}
+                options={modelOptions}
+                value={model}
+                onchangeHandler={(e) => setModel(e)}
+                placeholder={t("model")}
               />
             </Form.Group>
           </div>

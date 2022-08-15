@@ -168,7 +168,7 @@ const AddCurrencyModal = (props) => {
       signal: abortController.signal,
       data: {
         Id: 0,
-        RepairsPerformed_Id: props.id,
+        AdditionalService_Id: props.id,
         Country_Id: country?.value,
         Currency_Id: currency?.value,
         Fee: Number(fee),
