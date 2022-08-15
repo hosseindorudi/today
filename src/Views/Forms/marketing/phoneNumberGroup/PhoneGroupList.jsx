@@ -24,8 +24,8 @@ const PhoneGroupList = () => {
   
     const addObject = {
       Component: PhoneNumberGroup,
-      path: "/Marketing/PhoneBook/Create",
-      title: "/Marketing/PhoneBook/Create",
+      path: "/Marketing/PhonePool/Create",
+      title: "/Marketing/PhonePool/Create",
       access: enums.Marketing_PhoneBook_Create_w
     };
     const setUpdate = (res) => {

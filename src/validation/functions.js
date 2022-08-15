@@ -226,7 +226,11 @@ export const dateOfLogTable = (date) => {
   return a.reverse().join(" ");
 };
 
-export const checkQuestionEId = (EID, value) => {
+export const checkQuestionEId = (EID, value,setDescOpen,setDesc) => {
+    
+  if(value.length > 15) {
+    return <button onClick={()=> {setDescOpen(true);setDesc(value)}} className="descriptionAnserModal">{t("Description")}</button>
+  }
   switch (EID) {
     case 7:
       return convertUTC(value);
@@ -263,3 +267,8 @@ export const isDuplicateExistInArray=(arr)=>{
     return resultToReturn
         
 }
+
+
+// export const showDescDetailes = (value) => {
+//   value.length > 15 ? 
+// }

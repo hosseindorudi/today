@@ -1,12 +1,19 @@
-import { t } from "i18next";
-import React from "react";
+import React, { useState } from "react";
 import {  Modal, Table } from "react-bootstrap";
 import { checkQuestionEId } from "../../../validation/functions";
+import AnswerDescModal from "./AnswerDescModal";
 
 const AnswerModal = (props) => {
   const logs = props.logs;
+  const [descOpen, setDescOpen] = useState(false)
+  const [desc, setDesc] = useState("")
+  console.log(logs)
   return (
     <>
+    {
+      descOpen && <AnswerDescModal desc={desc}  onHide={() => setDescOpen(false)}
+      show={descOpen} />
+    }
       <Modal
         {...props}
         size="lg"
@@ -26,10 +33,9 @@ const AnswerModal = (props) => {
             </thead>
             <tbody>
               <tr>
-                {console.log(logs)}
                 {logs.map((log, index) => (
-                  
-                  <td key={index}>{log.AnswerItem?log.AnswerItem.map(i=>i.Answer+" "):checkQuestionEId(log.QuestionType_EId,log.Answer)}{log.Description.length>0&&<p style={{textDecoration:'underline'}} title={log.Description}>{t("Description")}</p>}</td>
+                  <td key={index}>{log.AnswerItem?log.AnswerItem.map(i=>i.Answer+" "):checkQuestionEId(log.QuestionType_EId,log.Answer, setDescOpen,setDesc)}</td>
+                  // {log.Description.length>0&&<p style={{textDecoration:'underline'}} title={log.Description}>{t("Description")}</p>}
                 ))}
               </tr>
             </tbody>

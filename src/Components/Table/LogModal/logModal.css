@@ -7,12 +7,20 @@
 }
 .modalLog .modal-content {
   max-height: 500px;
-  overflow-y: auto;
+  min-height: 200px;
+  overflow: auto;
+  width: 700px;
+  margin:  0 auto;
 }
 .modalLog > div {
   max-width: fit-content;
 }
 
+
+.logModalTable {
+  width: max-content;
+  margin: 0 auto;
+}
 
 
 .logModalTable,
@@ -24,7 +32,7 @@ td {
 .logModalTable > thead > tr > th {
   text-align: center;
   font-size: small;
-  width: 100px;
+  width: fit-content;
 }
 
 

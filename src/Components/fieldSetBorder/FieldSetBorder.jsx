@@ -2,10 +2,11 @@ import React from "react";
 
 const styles = {
   fieldset: {
-    border: "double",
+    border: "1px solid lightgray",
     padding: 5,
     fontWeight: "bold",
-    borderRadius:5
+    borderRadius:5,
+    width:"100%"
   },
   legend: {
     width: "unset",

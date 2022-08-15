@@ -13,6 +13,7 @@ import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { InputQualityControlUpdate } from "../../../../../services/inputQualityControlService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
 import { modelReadTitle } from "../../../../../services/modelService";
+import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 const TableModal = (props) => {
   const [validated, setValidated] = useState(false);
   const [modelOptions, setModelOptions] = useState([]);
@@ -54,7 +55,7 @@ const TableModal = (props) => {
       .all([modelTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
+          allData[0].data?.Result === ResultCodeEnum.Ok
             ? setModelOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
         })
