@@ -233,16 +233,15 @@ const TableButtons = ({
         </button>
       )}
       {haveAccess(addressAccess) && (
-        <label
+          <button
           title={t("addFile")}
           className="Approved widgetLgButton custom-file-upload"
           onClick={() => {
             handleuploadFile(rowValue.Id);
           }}
         >
-          <input type="file" className="addFileCss" />
           <fa.FaFileUpload />
-        </label>
+        </button>
       )}
       {haveAccess(mobileAccess) && (
         <button

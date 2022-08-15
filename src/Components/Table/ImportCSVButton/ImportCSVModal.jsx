@@ -203,6 +203,9 @@ const ImportCSVModal = (props) => {
                     onDrop={handleFileDropCheckFile}
                     handleClickAdd={handleClickCheckFile}
                     inputId={"checkFileInput"}
+                    typeRestricted={true}
+                    fileType={"text/csv"}
+                    typeError={"uploadOnlyCSv"}
                   />
                   <FileList files={checkFile} />
                   <div style={{ display: "flex", gap: "5px" }}>
@@ -238,6 +241,9 @@ const ImportCSVModal = (props) => {
                     onDrop={handleFileDropUpload}
                     handleClickAdd={handleClickUploadFile}
                     inputId={"uploadFileInput"}
+                    typeRestricted={true}
+                    fileType={"text/csv"}
+                    typeError={"uploadOnlyCSv"}
                   />
                   <FileList files={importFile} />
                   <div style={{ display: "flex", gap: "5px" }}>

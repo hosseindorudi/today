@@ -4,16 +4,18 @@ import { NativeTypes } from 'react-dnd-html5-backend'
 import * as fa from 'react-icons/fa'
 import { toast } from 'react-toastify'
 export const TargetBox = (props) => {
-  const { onDrop,handleClickAdd,inputId } = props
+  const { onDrop,handleClickAdd,inputId,fileType,typeError,typeRestricted } = props
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
       accept: [NativeTypes.FILE],
       drop(item) {
         if (onDrop) {
-            if(item.files[0].type==="text/csv")
+            if(typeRestricted&&item.files[0].type===fileType)
+            return onDrop(item)
+            if(!typeRestricted)
             return onDrop(item)
 
-            toast.info(t("uploadOnlyCSv"), {
+            toast.info(t(typeError), {
                 position: toast.POSITION.TOP_CENTER,
               });
         }
