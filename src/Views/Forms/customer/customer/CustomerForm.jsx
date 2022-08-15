@@ -684,7 +684,7 @@ const CustomerForm = () => {
               </div>
             </FieldSetBorder>
           )}
-          <FieldSetBorder legend="اضافی">
+          <FieldSetBorder legend="اطلاعات اضافی">
             <div className="Row">
               <Form.Group
                 className="mb-3 customerFirstName"

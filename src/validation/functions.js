@@ -229,7 +229,7 @@ export const dateOfLogTable = (date) => {
 export const checkQuestionEId = (EID, value,setDescOpen,setDesc) => {
     
   if(value.length > 15) {
-    return <button onClick={()=> {setDescOpen(true);setDesc(value)}} className="descriptionAnserModal">{t("Description")}</button>
+    return <button onClick={()=> {setDescOpen(true);setDesc(value)}} className="descriptionAnserModal">{value.slice(0,10)}...</button>
   }
   switch (EID) {
     case 7:
