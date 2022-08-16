@@ -968,6 +968,6 @@
   "/Poll/QuestionPage/Read":"پرسشنامه",
   "/Poll/AnswerPage/Read":"پاسخنامه", 
   "Model_Id":"شماره مدل",
-  "/Poll/AnswerPage/Read":"پاسخنامه",
-  "fileName":"نام فایل"
+  "fileName":"نام فایل",
+  "Flt_FirstName":"نام"
 }

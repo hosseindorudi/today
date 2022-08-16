@@ -54,7 +54,10 @@ const CustomerList = () => {
   const [isAccount, setIsAccount] = useState(false)
   const widthOFScreen = useWindowSize().width
   const BcItems = [t("/Customer/Customer/Read"), t("/Customer/Customer/Read")];
-
+  const filterArr = ["Flt_CustomerName_string"]
+  const [filterVal, setFilterVal] =useState({
+    Flt_CustomerName:"",
+  })
   const addObject = {
     Component: CustomerForm,
     path: "/customerform",
@@ -191,6 +194,9 @@ const CustomerList = () => {
         handleAccount={handleAccount}
         accountAccess = {enums.Customer_Customer_Create_w}
         handleuploadFile={handleuploadFile}
+        filterArr={filterArr}
+        setFilterVal={setFilterVal}
+        filterVal={filterVal}
       />
     </>
   );

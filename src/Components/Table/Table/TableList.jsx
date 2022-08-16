@@ -1,5 +1,5 @@
 import { Pagination } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useButtonAccess from "../../../customHooks/useButtonAccess";
 import {
   checkRowBackGroundColor,
@@ -13,7 +13,8 @@ import TableButtons from "../TableButtons/TableButtons";
 import * as fi from "react-icons/fi";
 import * as md from "react-icons/md";
 import * as fa from "react-icons/fa";
-import { Form } from "react-bootstrap";
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 import { useTranslation } from "react-i18next";
 import BreadCrumb from "../BreadCrumb/BreadCrumb";
 import DatePicker from "react-multi-date-picker";
@@ -97,7 +98,9 @@ const TableList = ({
   accountAccess,
   sendMessageBankAccess,
   sendMessageBank,
-  handleuploadFile
+  handleuploadFile,
+  filterArr,
+  filterNames
 }) => {
   const [haveAccess] = useButtonAccess();
   const { t } = useTranslation();
@@ -105,6 +108,44 @@ const TableList = ({
   const [descriptionShow, setDescriptionShow] = useState(false);
   const [desc, setDesc] = useState("");
   const { app } = useContext(AppContext);
+  const [filterActivate, setFilterActivate] = useState({})
+  useEffect(()=> {
+    let fArr = {}
+    Object.keys(filterNames).map((f,i) => {
+       fArr[f] = false
+       return;
+    })
+    console.log(fArr)
+    setFilterActivate(fArr)
+// eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  const handleCreateItem =(filter, index) => {
+    let titleItem = filter.split("_")
+    titleItem.pop()
+    let theName = titleItem.join("_")
+    return (
+      <Form.Group style={{ display: search ? "block" : "none", width:"200px", transition:"all 500ms ease", margin: filterActivate[theName] ? "5px" : "1px" }}>
+        <FloatingLabel style={{transition:"all 500ms ease"}}>
+        <Form.Control
+        style={{   height: filterActivate[theName] ? "50px" : "5px", transition:"all 500ms ease"}}
+        type= {filter.split("_")[filter.split("_").length -1] === "string" ? "text" : "number"}
+        placeholder={theName}
+        onFocus={()=> setFilterActivate({...filterActivate, [theName]:true})}
+        onBlur={()=> {console.log(filterActivate);setFilterActivate({...filterActivate, [theName]:false})}}
+        onChange={handleChangeTitle}
+        value={flt_Title[theName.toString()]}
+        name={theName}
+      />
+      <label htmlFor="floatingInputCustom" style={{   fontSize: filterActivate[theName] ? "1rem" : "10px", transition:"all 500ms ease"}} >{t(theName)}</label>
+        </FloatingLabel>
+      
+    </Form.Group>
+    )
+  }
+  
+
+
   const handleAdd = () => {
     tabContext.addRemoveTabs(addObject, "add");
   };
@@ -164,7 +205,7 @@ const TableList = ({
             <BreadCrumb BcItems={BcItems} />
             <div
               className="searchField"
-              style={{ height: search ? "100%" : 0 }}
+              style={{ height: search ? "fit-content" : 0 }}
             >
               <button
                 className="sendForm"
@@ -180,14 +221,14 @@ const TableList = ({
                   style={{ cursor: "pointer" }}
                 />
               </div>
-              <Form.Group style={{ display: search ? "block" : "none" }}>
-                <Form.Control
-                  type="text"
-                  placeholder={t("search")}
-                  onChange={handleChangeTitle}
-                  value={flt_Title}
-                />
-              </Form.Group>
+              
+              {
+                filterArr?.map((filter, index) => 
+                  (
+                    handleCreateItem(filter, index)
+                  )
+                )
+              }
               <div
                 style={{
                   direction: "ltr",
@@ -246,7 +287,7 @@ const TableList = ({
         </div>
         <div
           className="tableAndPaging"
-          style={{ height: search ? "85%" : "90%" }}
+          style={{ height: search ? "80%" : "90%" }}
         >
           <div className="selfTabel">
             <div

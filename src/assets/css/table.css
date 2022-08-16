@@ -154,6 +154,7 @@
   margin-inline-end: 20px;
   border-radius: 5px;
   margin-bottom: 3px;
+  max-height: fit-content;
 }
 
 .searchDater {
@@ -167,9 +168,12 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: center;
+  /* justify-content: center; */
   transition: all 500ms ease;
   height: 0;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  width: 100%;
 }
 .bredCrumbTable {
   height: fit-content;
@@ -180,6 +184,7 @@
   margin: 0 5px;
   transition: all 500ms ease;
 }
+
 
 .reacttableParentMain {
   display: flex;
@@ -582,6 +587,22 @@ table > tbody > tr:nth-child(even) {
   background-color: #2a7ade;
   color: #fff;
 }
+.moreFilter {
+  width: fit-content;
+  margin: 0 5px;
+  margin-inline-end: 20px;
+  background-color: #fff;
+  color: #2ade84;
+  border: 1px solid #2ade84;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 500ms ease;
+}
+
+.moreFilter:hover {
+  background-color: #2ade84;
+  color: #fff;
+}
 
 .paginationSelector {
   width: 70px;
@@ -831,9 +852,10 @@ ctTableParentAccessButton:hover {
 }
 
 .searchSection {
-  flex: 10%;
+  flex: 15%;
   display: flex;
   transition: all 500ms ease;
+  max-height: fit-content;
 }
 
 .tableAndPaging {
