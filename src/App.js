@@ -19,6 +19,7 @@ import QuestionPage from "./questionPage/QuestionPage";
 import { checkBoolean } from "./validation/validation";
 
 function App() {
+
   const search = useLocation().search;
   const typeOfUser = new URLSearchParams(search).get("type");
   const [app, setApp] = useState({
@@ -28,12 +29,15 @@ function App() {
     lang: "",
     langCode: "",
     sidebarOpen: false,
-    SafeMode:localStorage.getItem("SafeMode")?checkBoolean(localStorage.getItem("SafeMode")):false
+    SafeMode: localStorage.getItem("SafeMode")
+      ? checkBoolean(localStorage.getItem("SafeMode"))
+      : false,
   });
   const currentLanguageCode = localStorage.getItem("i18nextLng") || "fa";
   const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
 
   useEffect(() => {
+  
     document.body.dir = currentLanguage.dir || "ltr";
     document.documentElement.setAttribute("lang", currentLanguage.code);
     setApp((prev) => ({
@@ -50,30 +54,24 @@ function App() {
 
   return (
     <div className={"App " + assignFont()}>
-             
       <OsInformationProvider>
-      
         <AuthProvider>
           <AppContext.Provider value={{ app, setApp }}>
             <TabContextProvider>
-            
               <Routes>
-              
-           
                 <Route exact path="/poll" element={<QuestionPage />} />
 
                 <Route path="/auth" element={<Auth />} />
-                
+
                 <Route element={<RequireAuth />}>
                   <Route path="/" element={<Admin />} />
                 </Route>
 
                 <Route path="*" element={<Pagenotfound />} />
               </Routes>
-              
+
               <ToastContainer rtl={currentLanguage.dir ? true : false} />
             </TabContextProvider>
-            
           </AppContext.Provider>
         </AuthProvider>
       </OsInformationProvider>
