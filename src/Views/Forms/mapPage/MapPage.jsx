@@ -9,23 +9,23 @@ const MapPage = () => {
   const locations=[{
     lat:35.7459184,
     lng:51.3785716,
-    value:0
+    value:10
   },
-  // {
-  //   lat:0,
-  //   lng:0,
-  //   value:0
-  // },
-  // {
-  //   lat:0,
-  //   lng:0,
-  //   value:0
-  // },
-  // {
-  //   lat:0,
-  //   lng:0,
-  //   value:0
-  // },
+  {
+    lat:35.7567854,
+    lng:51.4149229,
+    value:20
+  },
+  {
+    lat:35.7478345,
+    lng:51.4217457,
+    value:15
+  },
+  {
+    lat:35.7229429,
+    lng:51.4014485,
+    value:30
+  },
   // {
   //   lat:0,
   //   lng:0,

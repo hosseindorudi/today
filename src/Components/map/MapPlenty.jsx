@@ -20,7 +20,7 @@ const MapPlenty = ({ locations }) => {
       <Mapir userLocation center={[51.42047, 35.729054]} Map={Map}>
         <Mapir.ZoomControl position={"top-left"} />
         {locations.map((l, i) => (
-          <Mapir.Layer type="circle" >
+          <Mapir.Layer type="circle"  paint={{"circle-radius":l.value,"circle-color":"#CF9287","circle-opacity":0.5}}>
             <Mapir.Feature coordinates={[l.lng, l.lat]}></Mapir.Feature>
           </Mapir.Layer>
         ))}
