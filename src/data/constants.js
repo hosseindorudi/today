@@ -15,11 +15,30 @@ const defaultCoordinates=[51.420470, 35.729054]
 const radius=[
     "500m","1000m","1500m","2000m"
 ]
+const durations=[
+{
+    text:"روز",
+    value:1
+},
+{
+    text:"هفته",
+    value:2
+},
+{
+    text:"ماه",
+    value:3
+},
+{
+    text:"سال",
+    value:4
+},   
+]
 module.exports={
     browser,
     radius,
     mainURL,
     mapApiKey,
-    defaultCoordinates
+    defaultCoordinates,
+    durations
     
 }
