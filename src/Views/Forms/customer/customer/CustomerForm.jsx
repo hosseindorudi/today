@@ -83,6 +83,7 @@ const CustomerForm = () => {
   const [instagram, setInstagram] = useState("");
   const [telegram, setTelegram] = useState("");
   const [twitter, setTwitter] = useState("");
+  const [storeTitle, setStoreTitle] = useState("");
 
   const { app } = useContext(AppContext);
   const handleClickMenu = () => {
@@ -195,6 +196,7 @@ const CustomerForm = () => {
             Description: description,
             Website: webSite,
             Skype: skype,
+            StoreTitle: storeTitle,
             Facebook: faceBook,
             YouTube: youtube,
             Instagram: instagram,
@@ -255,6 +257,7 @@ const CustomerForm = () => {
           Description: description,
           Website: webSite,
           Skype: skype,
+          StoreTitle: storeTitle,
           Facebook: faceBook,
           YouTube: youtube,
           Instagram: instagram,
@@ -378,6 +381,16 @@ const CustomerForm = () => {
                   locale={app.lang === "fa" ? persian_fa : gregorian_en}
                   calendarPosition="bottom-right"
                   value={licenseExpirationDate}
+                />
+              </Form.Group>
+            </div>
+            <div className="Row">
+              <Form.Group className="mb-3 customerFirstName">
+                <Form.Control
+                  type="text"
+                  placeholder={t("StoreTitle")}
+                  value={storeTitle}
+                  onChange={(e) => setStoreTitle(e.target.value)}
                 />
               </Form.Group>
             </div>

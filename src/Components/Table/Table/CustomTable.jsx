@@ -77,7 +77,9 @@ const CustomTable = forwardRef((props, ref) => {
     });
   };
   const readPaging = (paging) => {
-    let flt = props.filterVal?props.filterVal:{};
+
+    let flt = props.filterVal ? props.filterVal : {};
+
     flt.flt_FromDate = searchBegin ? setDatePickerDate(searchBegin) : null
     flt.flt_ToDate = searchEnd ? setDatePickerDate(searchEnd) : null
     setRequestType("READPAGING");

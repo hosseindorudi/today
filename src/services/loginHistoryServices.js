@@ -6,6 +6,8 @@ export const LoginHistoryExport = "/Operator/LoginHistory/Export";
 export const LoginHistoryLog = "/Operator/LoginHistory/Log";
 export const LoginHistorySetUnselectedColumn =
   "/Operator/LoginHistory/SetUnselectedColumn";
+  export const LoginHistoryReportDispersion = '/Operator/LoginHistory/ReportDispersion'
+
 export const LoginHistoryAccessList = "/Operator/LoginHistory/AccessList";
 export const CustomerLoginHistoryRead = "/Customer/LoginHistory/Read";
 export const CustomerLoginHistoryReadPaging = "/Customer/LoginHistory/ReadPaging";
