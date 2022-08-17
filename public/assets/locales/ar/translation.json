@@ -966,6 +966,6 @@
   "Sent":"أرسلت",
   "addFile": "اضف ملف",
   "/Poll/QuestionPage/Read": "استبيان" ,
-  "/Poll/AnswerPage/Read":"ورقة الإجابة",
-  "licenseExpirationDate":"تاریخ انقظا مجوز"
+  "/Poll/AnswerPage/Read":"ورقة الإجابة"
+  
 }

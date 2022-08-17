@@ -111,7 +111,7 @@ const TableList = ({
   const [filterActivate, setFilterActivate] = useState({})
   useEffect(()=> {
     let fArr = {}
-    Object.keys(filterNames).map((f,i) => {
+    filterNames && Object.keys(filterNames).map((f,i) => {
        fArr[f] = false
        return;
     })
