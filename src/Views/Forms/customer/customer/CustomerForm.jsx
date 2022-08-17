@@ -69,6 +69,8 @@ const CustomerForm = () => {
   const [legalEconomicCode, setLegalEconomicCod] = useState();
   const [legalRegistrationNumber, setLegalRegistrationNumber] = useState();
   const [legalRegistrationDate, setLegalRegistrationDate] = useState(null);
+  const [licenseExpirationDate, setLicenseExpirationDate] = useState(null);
+  const [customerNumber, setCustomerNumber] = useState("");
   const [legalExpireDate, setLegalExpireDate] = useState(null);
   const [legalRegistrationunit, setLegalRegistrationUnit] = useState("");
   const [legalRegistrationOrganization, setLegalRegistrationOrganization] =
@@ -183,6 +185,9 @@ const CustomerForm = () => {
             CustomerName: name,
             Password: password,
             Email: email,
+            CustomerStatus_Id: 0,
+            CustomerNumber: customerNumber,
+            LicenseExpirationDate: new Date(licenseExpirationDate),
             AcquaintedWithCompany: acquaintedWithCompany,
             IsLimited: activeDate,
             LimitFrom: new Date(fromDate),
@@ -244,6 +249,9 @@ const CustomerForm = () => {
           IsLimited: activeDate,
           LimitFrom: new Date(fromDate),
           LimitTo: new Date(endDate),
+          CustomerStatus_Id: 0,
+          CustomerNumber: customerNumber,
+          LicenseExpirationDate: new Date(licenseExpirationDate),
           Description: description,
           Website: webSite,
           Skype: skype,
@@ -348,6 +356,32 @@ const CustomerForm = () => {
                 </Form.Select>
               </Form.Group>
             </div>
+            <div className="Row">
+              <Form.Group className="mb-3 customerFirstName">
+                <Form.Control
+                  type="number"
+                  placeholder={t("CustomerNumber")}
+                  value={customerNumber}
+                  onChange={(e) => setCustomerNumber(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId={"licenseExpirationDate"}>
+                <DatePicker
+                  containerClassName="custom-container"
+                  placeholder={t("licenseExpirationDate")}
+                  onChange={(newValue) => {
+                    setLicenseExpirationDate(newValue);
+                  }}
+                  name="licenseExpirationDate"
+                  calendar={app.lang === "fa" ? persian : gregorian}
+                  locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                  calendarPosition="bottom-right"
+                  value={licenseExpirationDate}
+                />
+              </Form.Group>
+            </div>
+            <div className="Row"></div>
           </FieldSetBorder>
 
           {isReal ? (

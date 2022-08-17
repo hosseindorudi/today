@@ -115,9 +115,8 @@ const TableList = ({
        fArr[f] = false
        return;
     })
-    console.log(fArr)
     setFilterActivate(fArr)
-// eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const handleCreateItem =(filter, index) => {

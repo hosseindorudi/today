@@ -611,6 +611,7 @@ const CustomTable = forwardRef((props, ref) => {
             }
             handleuploadFile={props.handleuploadFile}
             filterArr ={props.filterArr}
+            filterNames= {props.filterVal}
           />
           <LeftSideContainer
             {...props}
