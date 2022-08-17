@@ -14,7 +14,8 @@ import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
 import { handleSeccess } from "../../../validation/functions";
 import { LoginHistoryReportDispersion } from "../../../services/loginHistoryServices";
-
+import {Bar, Line, Pie} from 'react-chartjs-2'
+import {Chart as ChartJS} from 'chart.js/auto'
 const MapPage = () => {
   const { t } = useTranslation();
   const [isActive, setIsActive] = useState(true);
@@ -27,13 +28,48 @@ const MapPage = () => {
   const request = useRequest();
   const [type, setType] = useState("");
   const [EId, setEId] = useState(1)
- 
+  const [osData, setOsData] = useState()
+  const [dateData, setDateData] = useState()
+  const [browserData, setBrowserData] = useState()
+
+
+  
 
   const handleResponse = (response, type) => {
     switch (type) {
       case "SUBMIT":
         handleSeccess(t("reports_ready"));
         console.log(response)
+        response.OS && setOsData({
+          labels: response.OS.map((os) => os.Title),
+          datasets:[{
+            label: "تعداد",
+            data:response.OS.map((os) => os.Count),
+            backgroundColor: ["skyblue"],
+            borderColor:"black",
+            borderWidth:1
+          }]
+        })
+        response.Date && setDateData({
+          labels: response.Date.map((date) => date.Title),
+          datasets:[{
+            label: "تعداد اتصال",
+            data:response.Date.map((date) => date.Count),
+            backgroundColor: ["blue"],
+            borderColor:"darkblue",
+            borderWidth:1
+          }]
+        })
+        response.Browser && setBrowserData({
+          labels: response.Browser.map((browser) => browser.Title),
+          datasets:[{
+            label: "تعداد اتصال",
+            data:response.Browser.map((browser) => browser.Count),
+            backgroundColor: ["blue"],
+            borderColor:"black",
+            borderWidth:1
+          }]
+        })
         break;
       default:
         break;
@@ -148,8 +184,15 @@ const MapPage = () => {
 
         <Button className="btnShowMap" onClick={handleSubmit} disabled={loading}>{t("show")}</Button>
       </div>
-      <div className="reportChart">
-      </div>
+      {osData && <div className="reportChart">
+        <Bar data={osData} />
+      </div>}
+      {dateData && <div className="reportChart">
+        <Line data={dateData} />
+      </div>}
+      {browserData && <div className="reportChartPie">
+        <Pie data={browserData} />
+      </div>}
     </div>
   );
 };

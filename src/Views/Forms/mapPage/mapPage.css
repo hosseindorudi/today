@@ -28,3 +28,19 @@
 .btnShowMap {
   height: 40;
 }
+
+.reportChart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 5px auto;
+}
+.reportChartPie {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45%;
+  margin: 5px auto;
+  margin-top: 10px;
+}
