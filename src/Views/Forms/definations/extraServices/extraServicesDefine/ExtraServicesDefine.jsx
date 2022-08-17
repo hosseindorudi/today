@@ -40,16 +40,16 @@ const ExtraServicesDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: ExtraServicesDefine,
-        path: "/extraServicesForm",
-        title: "routes.extraServicesForm",
+        path: "/Definition/AdditionalService/Write",
+        title: "/Definition/AdditionalService/Write",
         access: enums.Definition_AdditionalService_Create_w,
       },
       "remove"
     );
     tabContext.addRemoveTabs(
       {
-        title: "routes.extraServices",
-        path: "/extraServices",
+        title: "/Definition/AdditionalService/Read",
+        path: "/Definition/AdditionalService/Read",
         access: enums.Definition_AdditionalService_Read_r,
         Component: ExtraServices,
       },
