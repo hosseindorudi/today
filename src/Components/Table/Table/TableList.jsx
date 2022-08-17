@@ -171,7 +171,9 @@ const TableList = ({
   };
 
   const handleAdd = () => {
+    tabContext.addRemoveTabs({path:app.activeTab},"remove")
     tabContext.addRemoveTabs(addObject, "add");
+   
   };
   return (
     <>
