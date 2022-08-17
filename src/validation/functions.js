@@ -268,3 +268,9 @@ export const isDuplicateExistInArray=(arr)=>{
         
 }
 
+export const handleSeccess = (message) => {
+  toast.success(message, {
+    position: toast.POSITION.BOTTOM_CENTER,
+  });
+};
+

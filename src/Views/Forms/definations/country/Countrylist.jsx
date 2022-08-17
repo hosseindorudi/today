@@ -40,6 +40,14 @@ const Countrylist = () => {
     const [mobileModalButtons, setMobileModalButtons] = useState(false)
     const [mobileModalColumns, setMobileModalColumns] = useState(false)
     const widthOFScreen = useWindowSize().width
+
+    const filterArr = [
+      "Flt_Title_string",  
+  ]
+  
+  const [filterVal, setFilterVal] =useState({
+    Flt_Title:"",
+  })
   
     const addObject = {
       Component: CountryForm,
