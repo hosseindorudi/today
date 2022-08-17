@@ -63,7 +63,6 @@ const AnswerList = () => {
     "Flt_LastName_string",
     "Flt_Mobile_string",
     "Flt_Phone_string",
-    
 ]
 
 const [filterVal, setFilterVal] =useState({

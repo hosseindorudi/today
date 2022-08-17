@@ -89,7 +89,7 @@ const CancellationOfAdmissionDefine = () => {
         onSubmit={handleSubmit}
       >
         <b>{t("/Definition/CancellationOfAdmission/Write")}</b>
-        {defintionInputs(values).map((input) => (
+        {defintionInputs(values,t("/Definition/CancellationOfAdmission/Read")).map((input) => (
           <FormInput key={input.id} {...input} onChange={onChangeHandler} />
         ))}
 

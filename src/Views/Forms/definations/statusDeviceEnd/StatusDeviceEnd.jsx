@@ -28,9 +28,9 @@ const StatusDeviceEnd = () => {
 
   const addObject = {
     Component: StatusDeviceEndDefine,
-          title: "/Definition/StatusDeviceEnd/Write",
-          path: "/Definition/StatusDeviceEnd/Write",
-          access: enums.Definition_StatusDeviceEnd_Create_w,
+    title: "/Definition/StatusDeviceEnd/Write",
+    path: "/Definition/StatusDeviceEnd/Write",
+    access: enums.Definition_StatusDeviceEnd_Create_w,
   };
   const setUpdate = (res) => {
     const record = res.Record;

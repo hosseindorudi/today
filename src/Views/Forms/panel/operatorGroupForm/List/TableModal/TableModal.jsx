@@ -98,7 +98,7 @@ const TableModal = (props) => {
           </div>
           <div className="Row">
             <Form.Group className="mb-3" controlId={"title"}>
-              <Form.Label>{t("title")}</Form.Label>
+              <Form.Label>{t("Group")}</Form.Label>
               <Form.Control
                 required
                 type="text"
