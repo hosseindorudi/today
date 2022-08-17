@@ -30,16 +30,16 @@ const StatusDeviceProgressDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: StatusDeviceProgressDefine,
-        path: "/statusdeviceprogressdefine",
-        title: "StatusDeviceProgressDefine",
+        title: "/Definition/StatusDeviceProgress/Write",
+        path: "/Definition/StatusDeviceProgress/Write",
         access: enums.Definition_StatusDeviceProgress_Create_w,
       },
       "remove"
     );
     tabContext.addRemoveTabs(
       {
-        title: "StatusDeviceProgress",
-        path: "/statusdeviceprogress",
+        title: "/Definition/StatusDeviceProgress/Read",
+        path: "/Definition/StatusDeviceProgress/Read",
         access: enums.Definition_StatusDeviceProgress_Read_r,
         Component: StatusDeviceProgress,
       },
@@ -47,7 +47,7 @@ const StatusDeviceProgressDefine = () => {
       "add"
     );
   };
-
+  console.log(values)
   useEffect(() => {
     response && handleResponse(response);
     return () => abortController.abort();

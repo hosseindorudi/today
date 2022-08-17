@@ -30,16 +30,16 @@ const StatusDeviceEndDefine = () => {
     tabContext.addRemoveTabs(
       {
         Component: StatusDeviceEndDefine,
-        path: "/StatusDeviceEndDefine",
-        title: "StatusDeviceEndDefine",
+        title: "/Definition/StatusDeviceEnd/Write",
+        path: "/Definition/StatusDeviceEnd/Write",
         access: enums.Definition_StatusDeviceEnd_Create_w,
       },
       "remove"
     );
     tabContext.addRemoveTabs(
       {
-        title: "StatusDeviceEnd",
-        path: "/StatusDeviceEnd",
+        title: "/Definition/StatusDeviceEnd/Read",
+        path: "/Definition/StatusDeviceEnd/Read",
         access: enums.Definition_StatusDeviceEnd_Read_r,
         Component: StatusDeviceEnd,
       },
