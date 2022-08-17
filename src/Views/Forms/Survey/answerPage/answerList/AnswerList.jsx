@@ -54,6 +54,28 @@ const AnswerList = () => {
   const [response, loading, fetchData] = useAxios();
   const {t} = useTranslation()
   const BcItems = [t("/Survey/QuestionPage/Read"), t("/Survey/AnswerPage/Read")];
+  const filterArr = [
+    "Flt_QuestionPage_Id_number",
+    "Flt_AnswerPageFailed_Id_number",
+    "Flt_TimeElapsed_number",
+    "Flt_NationalCode_string",
+    "Flt_FirstName_string",
+    "Flt_LastName_string",
+    "Flt_Mobile_string",
+    "Flt_Phone_string",
+    
+]
+
+const [filterVal, setFilterVal] =useState({
+  Flt_QuestionPage_Id:null,
+  Flt_AnswerPageFailed_Id:null,
+  Flt_TimeElapsed:null,
+  Flt_NationalCode:"",
+  Flt_FirstName:"",
+  Flt_LastName:"",
+  Flt_Mobile:"",
+  Flt_Phone:"",
+})
 
   const addObject = {
     Component: AnswerForm,
@@ -134,6 +156,9 @@ const AnswerList = () => {
         mobileModalColumns={mobileModalColumns}
         readAnswersAccess={enums.Poll_AnswerPage_Read_r}
         handleReadAnswers={handleReadAnswers}
+        filterArr={filterArr}
+        setFilterVal={setFilterVal}
+        filterVal={filterVal}
       />
     </>
   );

@@ -55,6 +55,7 @@ const CustomTable = forwardRef((props, ref) => {
   const [totalRecord, setTotalRecord] = useState()
   const [sortedBy, setSortedBy] = useState()
   const [isAssending, setIsAssending] = useState()
+  const [clearFlt, setClearFlt] = useState(props.filterVal) 
 
   const getTable = () => {
     fetchData({
@@ -76,18 +77,18 @@ const CustomTable = forwardRef((props, ref) => {
     });
   };
   const readPaging = (paging) => {
+    let flt = props.filterVal;
+    flt.flt_FromDate = searchBegin ? setDatePickerDate(searchBegin) : null
+    flt.flt_ToDate = searchEnd ? setDatePickerDate(searchEnd) : null
+    console.log(flt)
     setRequestType("READPAGING");
     fetchData({
       method: "POST",
       url: props.readPagingApi,
       headers: request,
       data: {
-        paging: paging,
-        filter: {
-          flt_Title: flt_Title,
-          flt_FromDate: searchBegin ? setDatePickerDate(searchBegin) : null,
-          flt_ToDate: searchEnd ? setDatePickerDate(searchEnd) : null,
-        },
+        Paging: paging,
+        Filter: flt,
       },
       signal: abortController.signal,
     });
@@ -350,7 +351,9 @@ const CustomTable = forwardRef((props, ref) => {
     readPaging(paging);
   };
   const handleChangeTitle = (event) => {
-    setFlt_Title(event.target.value);
+    // console.log(event.target.name.split("_")[event.target.name.split("_").length - 1])
+    props.setFilterVal({ ...props.filterVal, [event.target.name]: event.target.name.split("_")[event.target.name.split("_").length - 1] === "Id" ? Number(event.target.value) :       event.target.name.split("_")[event.target.name.split("_").length - 1] === "TimeElapsed" ? Number(event.target.value) :  event.target.value });
+    console.log(props.filterVal)
   };
   const handleClickGetPermission = (id) => {
     setGroupId(id);
@@ -453,9 +456,11 @@ const CustomTable = forwardRef((props, ref) => {
     sendUnselectRequest(temp);
   };
   const handleClearFilter = () => {
-    setFlt_Title("");
+    console.log(clearFlt)
+    props.setFilterVal(clearFlt);
     setSearchBegin(null);
     setSearchEnd(null);
+    console.log(props.filterVal)
   };
 
   return (
@@ -570,7 +575,7 @@ const CustomTable = forwardRef((props, ref) => {
             search={search}
             handleRefresh={handleRefresh}
             handleChangeTitle={handleChangeTitle}
-            flt_Title={flt_Title}
+            flt_Title={props.filterVal}
             searchBegin={searchBegin}
             searchEnd={searchEnd}
             setSearchBegin={setSearchBegin}
@@ -605,6 +610,7 @@ const CustomTable = forwardRef((props, ref) => {
               props.readAnswersAccess ? props.readAnswersAccess : ""
             }
             handleuploadFile={props.handleuploadFile}
+            filterArr ={props.filterArr}
           />
           <LeftSideContainer
             {...props}

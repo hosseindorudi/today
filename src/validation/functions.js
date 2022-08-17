@@ -268,7 +268,3 @@ export const isDuplicateExistInArray=(arr)=>{
         
 }
 
-
-// export const showDescDetailes = (value) => {
-//   value.length > 15 ? 
-// }
