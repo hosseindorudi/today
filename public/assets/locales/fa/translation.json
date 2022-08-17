@@ -969,5 +969,7 @@
   "/Poll/AnswerPage/Read":"پاسخنامه", 
   "Model_Id":"شماره مدل",
   "fileName":"نام فایل",
-  "Flt_FirstName":"نام"
+  "Flt_FirstName":"نام",
+  "duration":"مدت",
+  "show":"نمایش"
 }

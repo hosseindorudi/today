@@ -2,6 +2,7 @@ import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
 import { enums } from "./data/Enums";
 import React, { lazy } from "react";
+import MapPage from "./Views/Forms/mapPage/MapPage";
 const Setting = lazy(() =>
   import(
     "./Views/Forms/marketing/setting/Setting"
@@ -1644,6 +1645,14 @@ export const Routes = [
             title: "/Setting/Setting/Read",
             path: "/Setting/Setting/Read",
             Component: Setting,
+            icon: <IoIcons.IoIosPaper />,
+            cName: "sub-nav",
+            access: enums.Setting_Setting_Read_r,
+          },
+          {
+            title: "map",
+            path: "map",
+            Component: MapPage,
             icon: <IoIcons.IoIosPaper />,
             cName: "sub-nav",
             access: enums.Setting_Setting_Read_r,

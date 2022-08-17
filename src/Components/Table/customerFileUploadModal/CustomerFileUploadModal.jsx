@@ -3,20 +3,21 @@ import { useTranslation } from "react-i18next";
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
 import Swal from "sweetalert2";
-import {
-  Button,
-  Form,
-  Modal,
-  ListGroup,
-} from "react-bootstrap";
+import { Button, Form, Modal, ListGroup } from "react-bootstrap";
 import * as fa from "react-icons/fa";
 import "./customerFileUploadModal.css";
 import { TargetBox } from "../ImportCSVButton/importDND/TargetBox";
 import { FileList } from "../ImportCSVButton/importDND/FileList";
-import { customerCreateAttachment, CustomerDeleteAttachment, customerReadAttachedFile, CustomerReadAttachment } from "../../../services/customerService";
+import {
+  customerCreateAttachment,
+  CustomerDeleteAttachment,
+  customerReadAttachedFile,
+  CustomerReadAttachment,
+} from "../../../services/customerService";
 import BackDrop from "../../backDrop/BackDrop";
 const CustomerFileUploadModal = (props) => {
- const {rowValues}=props
+  const { rowValues } = props;
+  const [processing, setProcessing] = useState(false);
   const inputRefFile = useRef(null);
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
@@ -24,10 +25,10 @@ const CustomerFileUploadModal = (props) => {
   const { t } = useTranslation();
   const [requestType, setRequestType] = useState("");
   const [files, setFiles] = useState([]);
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState(null);
   const [values, setValues] = useState({
     Title: "",
-    Description: ""
+    Description: "",
   });
 
   const setEmpty = () => {
@@ -35,7 +36,7 @@ const CustomerFileUploadModal = (props) => {
       Title: "",
       Description: "",
     });
-    setFile(null)
+    setFile(null);
   };
 
   const readDatas = () => {
@@ -50,7 +51,35 @@ const CustomerFileUploadModal = (props) => {
       signal: abortController.signal,
     });
   };
+  const handleDownloadFile = async (response) => {
+    setProcessing(true);
+    const base64ToArrayBuffer = (base64) => {
+      var binaryString = window.atob(base64);
+      var binaryLen = binaryString.length;
+      var bytes = new Uint8Array(binaryLen);
+      for (var i = 0; i < binaryLen; i++) {
+        var ascii = binaryString.charCodeAt(i);
+        bytes[i] = ascii;
+      }
+      return bytes;
+    };
+    const saveByteArray = (reportName, byte) => {
+      var blob = new Blob([byte], {
+        type: response.ContentType && response.ContentType,
+      });
+      var link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      var fileName = reportName;
+      link.download = fileName;
+      link.click();
+    };
 
+    var sampleArr = await base64ToArrayBuffer(
+      response.UploadedFile_Byte && response.UploadedFile_Byte
+    );
+    await saveByteArray(response.Name && response.Name, sampleArr);
+    setProcessing(false);
+  };
   useEffect(() => {
     readDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,9 +99,9 @@ const CustomerFileUploadModal = (props) => {
         case "READFILES":
           setFiles(response.Record);
           break;
-          case "DOWNLOAD":
-              console.log(response)
-            break;
+        case "DOWNLOAD":
+          handleDownloadFile(response);
+          break;
         default:
           break;
       }
@@ -127,19 +156,18 @@ const CustomerFileUploadModal = (props) => {
   }, [response]);
 
   const handleSubmit = () => {
-   
     setRequestType("SUBMIT");
     var data = new FormData();
-    data.append('Customer_Id', rowValues);
-    data.append('Title',values.Title);
-    data.append("Description",values.Description)
-    data.append('UploadedFile',file);
+    data.append("Customer_Id", rowValues);
+    data.append("Title", values.Title);
+    data.append("Description", values.Description);
+    data.append("UploadedFile", file);
     fetchData({
       method: "POST",
       url: customerCreateAttachment,
       headers: request,
       signal: abortController.signal,
-      data:data
+      data: data,
     });
   };
 
@@ -159,7 +187,7 @@ const CustomerFileUploadModal = (props) => {
   const handleClickFile = () => {
     inputRefFile.current.click();
   };
-  const downloadFile=(id)=>{
+  const downloadFile = (id) => {
     setRequestType("DOWNLOAD");
     fetchData({
       method: "POST",
@@ -170,22 +198,21 @@ const CustomerFileUploadModal = (props) => {
       },
       signal: abortController.signal,
     });
-  }
+  };
   return (
     <>
-    {loading &&<BackDrop  open={true}/>}
-    <Modal
-      show={props.show}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      onHide={props.onHide}
-      backdrop="static"
-      keyboard={false}
-    >
-      <Modal.Header closeButton></Modal.Header>
-      <Modal.Body>
-     
+      {(loading || processing) && <BackDrop open={true} />}
+      <Modal
+        show={props.show}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        onHide={props.onHide}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
           <div className="Row">
             <Form.Group className="mb-3" controlId={"Title"}>
               <Form.Label>{t("Title")}</Form.Label>
@@ -207,7 +234,7 @@ const CustomerFileUploadModal = (props) => {
             </Form.Group>
           </div>
           <div className="Row">
-          <div className="dndInsideChildCustomer">
+            <div className="dndInsideChildCustomer">
               <input
                 type="file"
                 id="customerFile"
@@ -225,59 +252,70 @@ const CustomerFileUploadModal = (props) => {
               <FileList files={file} />
               <div style={{ display: "flex", gap: "5px" }}>
                 {file && (
-                  <Button variant="danger" className="deleteBtnCustomerFile" onClick={() => setFile(null)}>
+                  <Button
+                    variant="danger"
+                    className="deleteBtnCustomerFile"
+                    onClick={() => setFile(null)}
+                  >
                     {t("remove")}
                   </Button>
                 )}
               </div>
-              </div>
-            
+            </div>
           </div>
-          
-            <Button variant="primary" onClick={()=>handleSubmit()} disabled={loading || !file}>
-              {t("operatorGroupFormSubmit")}
-            </Button>
-         
-      
-      </Modal.Body>
-      <Modal.Footer>
-        <ListGroup as="ol" numbered className="listGroupFile">
-          {files.map((m) => (
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between "
-              style={{
-                border: `1px solid black`,
-                borderRadius: 4,
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <div className="fw-bold ">{t("Title")}</div>
-                {m.Title}
-              </div>
-              <div>
-                <div className="fw-bold ">{t("Description")}</div>
-                {m.Description}
-              </div>
-              <div>
-                <div className="fw-bold ">{t("fileName")}</div>
-                {m.Name}
-              </div>
 
-              <div className="d-flex btns ">
-                <div className="actionBtns" onClick={() => downloadFile(m.Id)}>
-                  <fa.FaFileDownload color="green" />
+          <Button
+            variant="primary"
+            onClick={() => handleSubmit()}
+            disabled={loading || !file}
+          >
+            {t("operatorGroupFormSubmit")}
+          </Button>
+        </Modal.Body>
+        <Modal.Footer>
+          <ListGroup as="ol" numbered className="listGroupFile">
+            {files.map((m) => (
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between "
+                style={{
+                  border: `1px solid black`,
+                  borderRadius: 4,
+                  alignItems: "center",
+                }}
+              >
+                <div>
+                  <div className="fw-bold ">{t("Title")}</div>
+                  {m.Title}
                 </div>
-                <div className="actionBtns" onClick={() => deleteCalled(m.Id)}>
-                  <fa.FaTrash color="red" />
+                <div>
+                  <div className="fw-bold ">{t("Description")}</div>
+                  {m.Description}
                 </div>
-              </div>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </Modal.Footer>
-    </Modal>
+                <div>
+                  <div className="fw-bold ">{t("fileName")}</div>
+                  {m.Name}
+                </div>
+
+                <div className="d-flex btns ">
+                  <div
+                    className="actionBtns"
+                    onClick={() => downloadFile(m.Id)}
+                  >
+                    <fa.FaFileDownload color="green" />
+                  </div>
+                  <div
+                    className="actionBtns"
+                    onClick={() => deleteCalled(m.Id)}
+                  >
+                    <fa.FaTrash color="red" />
+                  </div>
+                </div>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
