@@ -43,8 +43,8 @@ const CountryForm = () => {
         path: "/Definition/Country/Read",
         title: "/Definition/Country/Read",
         access: enums.Definition_Country_Read_r,
+        isRefres:true
       },
-
       "add"
     );
   };
