@@ -29,8 +29,20 @@ const durations=[
     value:3
 },
 {
+text:"فصل",
+value:4
+},
+{
+text:"نیم سال",
+value:5
+},
+{
     text:"سال",
-    value:4
+    value:6
+},   
+{
+    text:"همه",
+    value:7
 },   
 ]
 module.exports={

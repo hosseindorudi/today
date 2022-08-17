@@ -970,7 +970,9 @@
   "Model_Id":"شماره مدل",
   "fileName":"نام فایل",
   "Flt_FirstName":"نام",
-  "duration":"مدت",
+  "duration":"بازه",
   "show":"نمایش",
-  "licenseExpirationDate":"تاریخ انقظا مجوز"
+  "licenseExpirationDate":"تاریخ انقظا مجوز",
+  "choices":"انتخابی",
+  "reports_ready":"گزارش شما آماده شد"
 }
