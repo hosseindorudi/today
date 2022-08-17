@@ -41,24 +41,24 @@ const CustomerList = () => {
     "SourceType",
     "Password",
     "SafeMode",
-    "CustomerStatus_Id"
+    "CustomerStatus_Id",
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValues, setRowValues] = useState({});
-  const [mobileModal, setMobileModal] = useState(false)
-  const [mobileModalButtons, setMobileModalButtons] = useState(false)
-  const [mobileModalColumns, setMobileModalColumns] = useState(false)
-  const [isAddress, setIsAddress] = useState(false)
-  const [isFileUpload, setIsFileUpload] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-  const [isPhone, setIsPhone] = useState(false)
-  const [isAccount, setIsAccount] = useState(false)
-  const widthOFScreen = useWindowSize().width
+  const [mobileModal, setMobileModal] = useState(false);
+  const [mobileModalButtons, setMobileModalButtons] = useState(false);
+  const [mobileModalColumns, setMobileModalColumns] = useState(false);
+  const [isAddress, setIsAddress] = useState(false);
+  const [isFileUpload, setIsFileUpload] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
+  const [isAccount, setIsAccount] = useState(false);
+  const widthOFScreen = useWindowSize().width;
   const BcItems = [t("/Customer/Customer/Read"), t("/Customer/Customer/Read")];
-  const filterArr = ["Flt_CustomerName_string"]
-  const [filterVal, setFilterVal] =useState({
-    Flt_CustomerName:"",
-  })
+  const filterArr = ["Flt_CustomerName_string"];
+  const [filterVal, setFilterVal] = useState({
+    Flt_CustomerName: "",
+  });
   const addObject = {
     Component: CustomerForm,
     path: "/customerform",
@@ -84,8 +84,7 @@ const CustomerList = () => {
   };
   const handleuploadFile = (id) => {
     setRowValues(id);
-    setIsFileUpload(true)
-
+    setIsFileUpload(true);
   };
   const handlePhone = (id) => {
     setRowValues(id);
@@ -113,33 +112,35 @@ const CustomerList = () => {
           updated={updated}
         />
       )}
-    {isFileUpload &&(
-      <CustomerFileUploadModal  rowValues={rowValues}
-      onHide={() => setIsFileUpload(false)}
-      show={isFileUpload}/>
-    )}
-    {isAddress && (
+      {isFileUpload && (
+        <CustomerFileUploadModal
+          rowValues={rowValues}
+          onHide={() => setIsFileUpload(false)}
+          show={isFileUpload}
+        />
+      )}
+      {isAddress && (
         <CustomerAddressModal
           rowValues={rowValues}
           onHide={() => setIsAddress(false)}
           show={isAddress}
         />
       )}
-       {isMobile && (
+      {isMobile && (
         <CustomerMobileModal
           rowValues={rowValues}
           onHide={() => setIsMobile(false)}
           show={isMobile}
         />
       )}
-       {isPhone && (
+      {isPhone && (
         <CustomerPhoneModal
           rowValues={rowValues}
           onHide={() => setIsPhone(false)}
           show={isPhone}
         />
       )}
-       {isAccount && (
+      {isAccount && (
         <CustomerAccountModal
           rowValues={rowValues}
           onHide={() => setIsAccount(false)}
@@ -179,21 +180,21 @@ const CustomerList = () => {
         changePasswordAccess={enums.Customer_Customer_ChangePassword_w}
         getOneRecord={customerGetOneRecord}
         setUpdate={setUpdate}
-        mobileModal = {mobileModal}
-        setMobileModal = {setMobileModal}
-        widthOFScreen ={widthOFScreen}
+        mobileModal={mobileModal}
+        setMobileModal={setMobileModal}
+        widthOFScreen={widthOFScreen}
         mobileModalButtons={mobileModalButtons}
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
         handleAddress={handleAddress}
-        addressAccess = {enums.Customer_Customer_Create_w}
+        addressAccess={enums.Customer_Customer_Create_w}
         handlePhone={handlePhone}
-        phoneAccess = {enums.Customer_Customer_Create_w}
+        phoneAccess={enums.Customer_Customer_Create_w}
         handleMobile={handleMobile}
-        mobileAccess = {enums.Customer_Customer_Create_w}
+        mobileAccess={enums.Customer_Customer_Create_w}
         handleAccount={handleAccount}
-        accountAccess = {enums.Customer_Customer_Create_w}
+        accountAccess={enums.Customer_Customer_Create_w}
         handleuploadFile={handleuploadFile}
         filterArr={filterArr}
         setFilterVal={setFilterVal}

@@ -89,9 +89,9 @@ const CustomerForm = () => {
   const handleClickMenu = () => {
     tabContext.addRemoveTabs(
       {
-        title: "routes.customerForm",
-        path: "/customerform",
         Component: CustomerForm,
+        path: "/customerform",
+        title: "routes.customerForm",
         access: enums.Customer_Customer_Create_w,
       },
       "remove"
@@ -99,9 +99,8 @@ const CustomerForm = () => {
     tabContext.addRemoveTabs(
       {
         title: "routes.CustomerList",
-        path: "/customerList",
+        path: "/Customer/Customer/Read",
         Component: CustomerList,
-        access: enums.Customer_Customer_Read_r,
       },
 
       "add"
