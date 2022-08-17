@@ -1649,14 +1649,14 @@ export const Routes = [
             cName: "sub-nav",
             access: enums.Setting_Setting_Read_r,
           },
-          // {
-          //   title: "map",
-          //   path: "map",
-          //   Component: MapPage,
-          //   icon: <IoIcons.IoIosPaper />,
-          //   cName: "sub-nav",
-          //   access: enums.Setting_Setting_Read_r,
-          // },
+          {
+            title: "map",
+            path: "map",
+            Component: MapPage,
+            icon: <IoIcons.IoIosPaper />,
+            cName: "sub-nav",
+            access: enums.Setting_Setting_Read_r,
+          },
         ]},
 ];
 
