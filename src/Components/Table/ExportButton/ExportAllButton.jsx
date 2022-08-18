@@ -6,6 +6,7 @@ import useRequest from '../../../customHooks/useRequest';
 // import { groupExport } from '../../../services/groupService';
 import { downloadCSVCode, setDatePickerDate } from '../../../validation/functions';
 import { toast } from "react-toastify";
+import { Button } from '@mui/material';
 const ExportAllButton = (props) => {
     const [response, loading, fetchData] = useAxios();
     const request=useRequest()
@@ -63,14 +64,14 @@ const ExportAllButton = (props) => {
           // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [response])
   return (
-    <button
+    <Button
     disabled={loading}
-    className="reactTableParentExportButton"
+    // className="reactTableParentExportButton"
     title="exportCSV"
     onClick={handleExport}
   >
     <cg.CgExport />
-  </button>
+  </Button>
   )
 }
 

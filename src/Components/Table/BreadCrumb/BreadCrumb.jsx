@@ -3,7 +3,7 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 const BreadCrumb = (props) => {
   return (
-    <div style={{ direction: "ltr" }}>
+   
       <Breadcrumb>
         {props.BcItems?.map((item, i) => (
           <Breadcrumb.Item active key={i}>
@@ -11,7 +11,6 @@ const BreadCrumb = (props) => {
           </Breadcrumb.Item>
         ))}
       </Breadcrumb>
-    </div>
   );
 };
 

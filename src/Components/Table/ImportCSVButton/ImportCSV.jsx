@@ -1,3 +1,4 @@
+import { Button } from '@mui/material'
 import React, { useContext, useState } from 'react'
 import * as fa from 'react-icons/fa'
 import { TabContext } from '../../../contexts/TabContextProvider'
@@ -42,9 +43,9 @@ const ImportCSV = (props) => {
     file={file} setFile={setFile} withHeader={withHeader} setwithheader={setWithHeader}
     />
     }
-    <button  className="reactTableParentImportButton" title="importCSV" onClick={handleOpenModalCSV}>
+    <Button title="importCSV" onClick={handleOpenModalCSV}>
     <fa.FaFileCsv />
-  </button>
+  </Button>
     </>
   )
 }

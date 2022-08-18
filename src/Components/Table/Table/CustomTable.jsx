@@ -5,7 +5,8 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
-import "../../../assets/css/table.css";
+import "./customTable.css";
+// import "../../../assets/css/table.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
@@ -23,6 +24,10 @@ import PermissionModal from "../PermissionModal/PermissionModal";
 import LeftSideContainer from "./LeftSideContainer";
 import RighSideContainer from "./RighSideContainer";
 import TableList from "./TableList";
+import BreadCrumb from "../BreadCrumb/BreadCrumb";
+import TableInformation from "./TableInformation";
+import ActionButtons from "./ActionButtons";
+import { Offcanvas } from "react-bootstrap";
 const CustomTable = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const [response, loading, fetchData] = useAxios();
@@ -52,10 +57,10 @@ const CustomTable = forwardRef((props, ref) => {
   const [checkAllC, setCheckAllC] = useState(true);
   const [productsColumns, setproductsColumns] = useState([]);
   const abortController = new AbortController();
-  const [totalRecord, setTotalRecord] = useState()
-  const [sortedBy, setSortedBy] = useState()
-  const [isAssending, setIsAssending] = useState()
-  const [clearFlt, setClearFlt] = useState(props.filterVal) 
+  const [totalRecord, setTotalRecord] = useState();
+  const [sortedBy, setSortedBy] = useState();
+  const [isAssending, setIsAssending] = useState();
+  const [clearFlt, setClearFlt] = useState(props.filterVal);
 
   const getTable = () => {
     fetchData({
@@ -77,11 +82,10 @@ const CustomTable = forwardRef((props, ref) => {
     });
   };
   const readPaging = (paging) => {
-
     let flt = props.filterVal ? props.filterVal : {};
 
-    flt.flt_FromDate = searchBegin ? setDatePickerDate(searchBegin) : null
-    flt.flt_ToDate = searchEnd ? setDatePickerDate(searchEnd) : null
+    flt.flt_FromDate = searchBegin ? setDatePickerDate(searchBegin) : null;
+    flt.flt_ToDate = searchEnd ? setDatePickerDate(searchEnd) : null;
     setRequestType("READPAGING");
     fetchData({
       method: "POST",
@@ -197,9 +201,9 @@ const CustomTable = forwardRef((props, ref) => {
   const setData = (response) => {
     const res = response.Record;
     const paging = response.Paging;
-    setTotalRecord(paging.TotalRecord)
-    setSortedBy(paging.SortBy)
-    setIsAssending(paging.IsAscending)
+    setTotalRecord(paging.TotalRecord);
+    setSortedBy(paging.SortBy);
+    setIsAssending(paging.IsAscending);
     setIsFavorite(response.IsFavorite);
     setUnSelected(response.UnselectedColumn);
     setPosts(res);
@@ -222,7 +226,6 @@ const CustomTable = forwardRef((props, ref) => {
     );
   };
   const logResponse = (res) => {
-    
     if (!res.Log.length) {
       return toast.info(t("noDataFound.table"), {
         position: toast.POSITION.TOP_CENTER,
@@ -353,8 +356,19 @@ const CustomTable = forwardRef((props, ref) => {
   };
   const handleChangeTitle = (event) => {
     // console.log(event.target.name.split("_")[event.target.name.split("_").length - 1])
-    props.setFilterVal({ ...props.filterVal, [event.target.name]: event.target.name.split("_")[event.target.name.split("_").length - 1] === "Id" ? Number(event.target.value) :       event.target.name.split("_")[event.target.name.split("_").length - 1] === "TimeElapsed" ? Number(event.target.value) :  event.target.value });
-
+    props.setFilterVal({
+      ...props.filterVal,
+      [event.target.name]:
+        event.target.name.split("_")[
+          event.target.name.split("_").length - 1
+        ] === "Id"
+          ? Number(event.target.value)
+          : event.target.name.split("_")[
+              event.target.name.split("_").length - 1
+            ] === "TimeElapsed"
+          ? Number(event.target.value)
+          : event.target.value,
+    });
   };
   const handleClickGetPermission = (id) => {
     setGroupId(id);
@@ -460,7 +474,6 @@ const CustomTable = forwardRef((props, ref) => {
     props.setFilterVal(clearFlt);
     setSearchBegin(null);
     setSearchEnd(null);
-   
   };
 
   return (
@@ -497,79 +510,52 @@ const CustomTable = forwardRef((props, ref) => {
           setPermission={setPermission}
         />
       )}
-      {props.mobileModal & (props.widthOFScreen < 420) ? (
-        <MobileModel
-          setMobileModal={props.setMobileModal}
-          searchBegin={searchBegin}
-          searchEnd={searchEnd}
-          setSearchEnd={setSearchEnd}
-          setSearchBegin={setSearchBegin}
-          search={search}
-          handleChangeTitle={handleChangeTitle}
-          flt_Title={flt_Title}
-        />
-      ) : null}
-      {props.mobileModalColumns & (props.widthOFScreen < 420) ? (
-        <MobileModalsColumn
-          setMobileModalColumns={props.setMobileModalColumns}
-          {...props}
-          columnSideBar={columnSideBar}
-          setColumnSideBar={setColumnSideBar}
-          checkAllC={checkAllC}
-          checkAllHandler={checkAllHandler}
-          productsColumns={productsColumns}
-          unSelected={unSelected}
-          CheckBoxChangeHandler={CheckBoxChangeHandler}
-        />
-      ) : null}
-      {props.mobileModalButtons & (props.widthOFScreen < 420) ? (
-        <MobileModalRightBar
-          {...props}
-          numberOfRecordsPerPage={numberOfRecordsPerPage}
-          currentPage={currentPage}
-          sort={sort}
-          flt_Title={flt_Title}
-          seartBegin={searchBegin}
-          seartEnd={searchEnd}
-          exportLink={props.exportLink}
-          setSearch={setSearch}
-          search={search}
-          searchBegin={searchBegin}
-          searchEnd={searchEnd}
-          setColumnSideBar={setColumnSideBar}
-          columnSideBar={columnSideBar}
-          importSuccess={importSuccess}
-          handleClickLog={handleClickLog}
-          handleClickAccessList={handleClickAccessList}
-          IsFavorite={IsFavorite}
-          handleClickFav={handleClickFav}
-          setMobileModalButtons={props.setMobileModalButtons}
-        />
-      ) : null}
-      <div className="reacttableParent">
-        <RighSideContainer
-          {...props}
-          setSearch={setSearch}
-          search={search}
-          searchBegin={searchBegin}
-          searchEnd={searchEnd}
-          setColumnSideBar={setColumnSideBar}
-          columnSideBar={columnSideBar}
-          numberOfRecordsPerPage={numberOfRecordsPerPage}
-          currentPage={currentPage}
-          sort={sort}
-          flt_Title={flt_Title}
-          importSuccess={importSuccess}
-          handleClickLog={handleClickLog}
-          handleClickAccessList={handleClickAccessList}
-          IsFavorite={IsFavorite}
-          handleClickFav={handleClickFav}
-          totalRecord={totalRecord}
-          sortedBy={sortedBy}
-          isAssending={isAssending}
-        />
-        <div className="groupContainerLeft">
-          <TableList
+      <LeftSideContainer
+        {...props}
+        columnSideBar={columnSideBar}
+        setColumnSideBar={setColumnSideBar}
+        checkAllC={checkAllC}
+        checkAllHandler={checkAllHandler}
+        productsColumns={productsColumns}
+        unSelected={unSelected}
+        CheckBoxChangeHandler={CheckBoxChangeHandler}
+      />
+      <div className="tableParent">
+        <div className="toplayerTable">
+          <div className="infoTable">
+            <TableInformation
+              totalRecord={totalRecord}
+              sortedBy={sortedBy}
+              isAssending={isAssending}
+            />
+          </div>
+          <div className="actionbuttons">
+            <ActionButtons
+              setColumnSideBar={() => setColumnSideBar(!columnSideBar)}
+              {...props}
+              numberOfRecordsPerPage={numberOfRecordsPerPage}
+              currentPage={currentPage}
+              sort={sort}
+              flt_Title={flt_Title}
+              seartBegin={searchBegin}
+              seartEnd={searchEnd}
+              importSuccess={importSuccess}
+              handleClickLog={handleClickLog}
+              handleClickAccessList={handleClickAccessList}
+              IsFavorite={IsFavorite}
+              handleClickFav={handleClickFav}
+              totalRecord={totalRecord}
+              sortedBy={sortedBy}
+              isAssending={isAssending}
+            />
+          </div>
+          <div className="breadcrump">
+            <BreadCrumb BcItems={props.BcItems} />
+          </div>
+        </div>
+        <div className="downlayerTable">
+          <div className="tableFilter">filter</div>
+          <div className="tableContainer"><TableList
             {...props}
             type={props.type}
             search={search}
@@ -612,8 +598,126 @@ const CustomTable = forwardRef((props, ref) => {
             handleuploadFile={props.handleuploadFile}
             filterArr ={props.filterArr}
             filterNames= {props.filterVal}
-          />
-          <LeftSideContainer
+          /> </div>
+        </div>
+      </div>
+      {/* {props.mobileModal & (props.widthOFScreen < 420) ? (
+        <MobileModel
+          setMobileModal={props.setMobileModal}
+          searchBegin={searchBegin}
+          searchEnd={searchEnd}
+          setSearchEnd={setSearchEnd}
+          setSearchBegin={setSearchBegin}
+          search={search}
+          handleChangeTitle={handleChangeTitle}
+          flt_Title={flt_Title}
+        />
+      ) : null} */}
+      {/* {props.mobileModalColumns & (props.widthOFScreen < 420) ? (
+        <MobileModalsColumn
+          setMobileModalColumns={props.setMobileModalColumns}
+          {...props}
+          columnSideBar={columnSideBar}
+          setColumnSideBar={setColumnSideBar}
+          checkAllC={checkAllC}
+          checkAllHandler={checkAllHandler}
+          productsColumns={productsColumns}
+          unSelected={unSelected}
+          CheckBoxChangeHandler={CheckBoxChangeHandler}
+        />
+      ) : null} */}
+      {/* {props.mobileModalButtons & (props.widthOFScreen < 420) ? (
+        <MobileModalRightBar
+          {...props}
+          numberOfRecordsPerPage={numberOfRecordsPerPage}
+          currentPage={currentPage}
+          sort={sort}
+          flt_Title={flt_Title}
+          seartBegin={searchBegin}
+          seartEnd={searchEnd}
+          exportLink={props.exportLink}
+          setSearch={setSearch}
+          search={search}
+          searchBegin={searchBegin}
+          searchEnd={searchEnd}
+          setColumnSideBar={setColumnSideBar}
+          columnSideBar={columnSideBar}
+          importSuccess={importSuccess}
+          handleClickLog={handleClickLog}
+          handleClickAccessList={handleClickAccessList}
+          IsFavorite={IsFavorite}
+          handleClickFav={handleClickFav}
+          setMobileModalButtons={props.setMobileModalButtons}
+        />
+      ) : null} */}
+      {/* <div className="reacttableParent"> */}
+      {/* <RighSideContainer
+          {...props}
+          setSearch={setSearch}
+          search={search}
+          searchBegin={searchBegin}
+          searchEnd={searchEnd}
+          setColumnSideBar={setColumnSideBar}
+          columnSideBar={columnSideBar}
+          numberOfRecordsPerPage={numberOfRecordsPerPage}
+          currentPage={currentPage}
+          sort={sort}
+          flt_Title={flt_Title}
+          importSuccess={importSuccess}
+          handleClickLog={handleClickLog}
+          handleClickAccessList={handleClickAccessList}
+          IsFavorite={IsFavorite}
+          handleClickFav={handleClickFav}
+          totalRecord={totalRecord}
+          sortedBy={sortedBy}
+          isAssending={isAssending}
+        /> */}
+      {/* <div className="groupContainerLeft"> */}
+      {/* <TableList
+            {...props}
+            type={props.type}
+            search={search}
+            handleRefresh={handleRefresh}
+            handleChangeTitle={handleChangeTitle}
+            flt_Title={props.filterVal}
+            searchBegin={searchBegin}
+            searchEnd={searchEnd}
+            setSearchBegin={setSearchBegin}
+            setSearchEnd={setSearchEnd}
+            columnSideBar={columnSideBar}
+            productsColumns={productsColumns}
+            unSelected={unSelected}
+            handleClickSort={handleClickSort}
+            posts={posts}
+            deleteCalled={deleteCalled}
+            handleClickEdit={handleClickEdit}
+            handlePassEdit={handlePassEdit}
+            currentPage={currentPage}
+            setPage={setPage}
+            totalPages={totalPages}
+            numberOfRecordsPerPage={numberOfRecordsPerPage}
+            handleChangeSelect={handleChangeSelect}
+            handleClickSend={handleClickSend}
+            handleClearFilter={handleClearFilter}
+            handleClickGetPermission={handleClickGetPermission}
+            mobileModal={props.mobileModal}
+            setMobileModal={props.setMobileModal}
+            widthOFScreen={props.widthOFScreen}
+            setMobileModalButtons={props.setMobileModalButtons}
+            setMobileModalColumns={props.setMobileModalColumns}
+            handleAddQuestion={handleAddQuestion}
+            addAccess={props.addAccess}
+            handleCreateRate={props.handleCreateRate}
+            rateAccess={props.rateAccess ? props.rateAccess : ""}
+            handleReadAnswers={props.handleReadAnswers}
+            readAnswersAccess={
+              props.readAnswersAccess ? props.readAnswersAccess : ""
+            }
+            handleuploadFile={props.handleuploadFile}
+            filterArr ={props.filterArr}
+            filterNames= {props.filterVal}
+          /> */}
+      {/* <LeftSideContainer
             {...props}
             columnSideBar={columnSideBar}
             setColumnSideBar={setColumnSideBar}
@@ -622,9 +726,9 @@ const CustomTable = forwardRef((props, ref) => {
             productsColumns={productsColumns}
             unSelected={unSelected}
             CheckBoxChangeHandler={CheckBoxChangeHandler}
-          />
-        </div>
-      </div>
+          /> */}
+      {/* </div> */}
+      {/* </div> */}
     </>
   );
 });

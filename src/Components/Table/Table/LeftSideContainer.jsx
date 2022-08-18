@@ -1,6 +1,6 @@
 import React from "react";
+import { Offcanvas } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import useWindowSize from "../../../customHooks/useWindowSize";
 
 const LeftSideContainer = ({
   columnSideBar,
@@ -13,20 +13,14 @@ const LeftSideContainer = ({
   CheckBoxChangeHandler,
 }) => {
   const {t}=useTranslation()
-  const withOfScreen = useWindowSize().width;
 
   
   return (
-    <div className="hiddingSection"   style={{ width: columnSideBar ? 250 : 10, display: withOfScreen < 420 ? "none" : "flex" }}>
-      <div className="hiddenSectionBtn">
-        <div
-          className="reactTableParentMiddle1BTN"
-          onClick={() => setColumnSideBar(!columnSideBar)}
-        ></div>
-      </div>
-      <div className="hiddenSectionCheck">
-        
-          <div className="checkBoxTableParentForAll">
+    <Offcanvas show={columnSideBar} onHide={()=>setColumnSideBar(false)} placement={"start"} name={"start"} responsive="sm">
+    <Offcanvas.Header closeButton>
+    </Offcanvas.Header>
+    <Offcanvas.Body>
+    <div className="checkBoxTableParentForAll">
             <div></div>
             <input
               type="radio"
@@ -61,9 +55,8 @@ const LeftSideContainer = ({
                 />
               </div>
             ))}
-      
-      </div>
-    </div>
+    </Offcanvas.Body>
+  </Offcanvas>
   );
 };
 

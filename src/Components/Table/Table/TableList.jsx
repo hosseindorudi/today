@@ -185,7 +185,7 @@ const TableList = ({
         />
       )}
       <div className="tableSection">
-        <div
+        {/* <div
           className="searchSection"
           style={{ height: search ? "15%" : "10%" }}
         >
@@ -306,12 +306,12 @@ const TableList = ({
               </div>
             </div>
           </div>
-        </div>
-        <div
+        </div> */}
+        {/* <div
           className="tableAndPaging"
           style={{ height: search ? "80%" : "90%" }}
-        >
-          <div className="selfTabel">
+        > */}
+          {/* <div className="selfTabel">
             <div
               className="div33"
               style={{
@@ -322,7 +322,7 @@ const TableList = ({
                     ? widthOFScreen
                     : widthOFScreen - (widthOFScreen * 0.2 + 120),
               }}
-            >
+            > */}
               {productsColumns.length > 0 ? (
                 type === "card" ? (
                   <TableCard
@@ -535,9 +535,11 @@ const TableList = ({
                   <b>{t("noDataFound.table")}</b>
                 </div>
               )}
-            </div>
-          </div>
-          <div className="selfPaging">
+            {/* </div>
+          </div> */}
+
+          {/* paging */}
+          {/* <div className="selfPaging">
             <div className="downPaginationMain">
               <div className="page">
                 <Pagination
@@ -560,8 +562,8 @@ const TableList = ({
                 ))}
               </select>
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </div>
     </>
   );
