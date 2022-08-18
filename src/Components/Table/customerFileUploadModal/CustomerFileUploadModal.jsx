@@ -52,7 +52,7 @@ const CustomerFileUploadModal = (props) => {
     });
   };
   const handleDownloadFile = async (response) => {
-    setProcessing(true);
+
     const base64ToArrayBuffer = (base64) => {
       var binaryString = window.atob(base64);
       var binaryLen = binaryString.length;
@@ -75,10 +75,10 @@ const CustomerFileUploadModal = (props) => {
     };
 
     var sampleArr = await base64ToArrayBuffer(
-      response.UploadedFile_Byte && response.UploadedFile_Byte
+      response.UploadedFile && response.UploadedFile
     );
     await saveByteArray(response.Name && response.Name, sampleArr);
-    setProcessing(false);
+   
   };
   useEffect(() => {
     readDatas();

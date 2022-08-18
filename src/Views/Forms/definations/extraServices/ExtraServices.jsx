@@ -36,7 +36,7 @@ const ExtraServices = () => {
     Component: ExtraServicesDefine,
     path: "/Definition/AdditionalService/Write",
     title: "/Definition/AdditionalService/Write",
-    access: enums.Definition_AdditionalService_Create_w
+    access: enums.Definition_AdditionalService_Create_w,
   };
   const setUpdate = (res) => {
     const record = res.Record;

@@ -10,8 +10,6 @@ import { useTranslation } from "react-i18next";
 
 const TableCard = (props) => {
   const [footer, setFooter] = useState(-1);
-  console.log(props.productsColumns);
-  console.log(props.posts);
   const { t } = useTranslation();
 
   return (
@@ -54,7 +52,7 @@ const TableCard = (props) => {
                     </button>
                   </Card.Header>
                   <Card.Body>
-                    <Card.Title style={{ cursor: "pointer" }}>
+                    <Card.Title style={{ cursor: "pointer",direction:'initial' }}>
                       {props.posts[i].Title}
                     </Card.Title>
                     <Card.Text>
@@ -157,7 +155,7 @@ const TableCard = (props) => {
                     </button>
                   </Card.Header>
                   <Card.Body>
-                    <Card.Title style={{ cursor: "pointer" }}>
+                    <Card.Title style={{ cursor: "pointer",direction:"initial" }}>
                       {props.posts[i + 1].Title}
                     </Card.Title>
                     <Card.Text>
@@ -260,7 +258,7 @@ const TableCard = (props) => {
                     </button>
                   </Card.Header>
                   <Card.Body>
-                    <Card.Title style={{ cursor: "pointer" }}>
+                    <Card.Title style={{ cursor: "pointer",direction:"initial" }}>
                       {props.posts[i + 2].Title}
                     </Card.Title>
                     <Card.Text>

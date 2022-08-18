@@ -18,7 +18,10 @@ const SubMenu = ({ item, search }) => {
     }))
     tabContext.addRemoveTabs(item, "add");
   };
-
+  const handleClickButton=(item)=>{
+    tabContext.tabs.find(f=>f.path===item.path)&& tabContext.addRemoveTabs(item, "remove")
+    handleClickMenu(item.button)
+  }
   return (
     <>
       {item.subNav
@@ -51,7 +54,7 @@ const SubMenu = ({ item, search }) => {
           {item.button&& AccessList?.includes(item.button.access) && (
             <button
               className="btnIconSidebar"
-              onClick={() => handleClickMenu(item.button)}
+              onClick={() => handleClickButton(item)}
             >
               <cg.CgAddR size={20} />
             </button>
@@ -92,7 +95,7 @@ const SubMenu = ({ item, search }) => {
                     {AccessList?.includes(item.button.access) && (
                       <button
                         className="btnIconSidebar"
-                        onClick={() => handleClickMenu(item.button)}
+                        onClick={() => handleClickButton(item)}
                       >
                         <cg.CgAddR size={20} />
                       </button>

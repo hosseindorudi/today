@@ -354,7 +354,7 @@ const CustomTable = forwardRef((props, ref) => {
   const handleChangeTitle = (event) => {
     // console.log(event.target.name.split("_")[event.target.name.split("_").length - 1])
     props.setFilterVal({ ...props.filterVal, [event.target.name]: event.target.name.split("_")[event.target.name.split("_").length - 1] === "Id" ? Number(event.target.value) :       event.target.name.split("_")[event.target.name.split("_").length - 1] === "TimeElapsed" ? Number(event.target.value) :  event.target.value });
-    console.log(props.filterVal)
+
   };
   const handleClickGetPermission = (id) => {
     setGroupId(id);
@@ -457,11 +457,10 @@ const CustomTable = forwardRef((props, ref) => {
     sendUnselectRequest(temp);
   };
   const handleClearFilter = () => {
-    console.log(clearFlt)
     props.setFilterVal(clearFlt);
     setSearchBegin(null);
     setSearchEnd(null);
-    console.log(props.filterVal)
+   
   };
 
   return (
