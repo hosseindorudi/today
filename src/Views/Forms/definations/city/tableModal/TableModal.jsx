@@ -13,6 +13,7 @@ import {
 import FormInput from "../../../../../Components/periodity/formInput/FormInput";
 import { CityUpdate } from "../../../../../services/cityService";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
+import { ResultCodeEnum } from "../../../../../data/ResultCodeEnum";
 const TableModal = (props) => {
   const [validated, setValidated] = useState(false);
   const [provinceOptions, setProvinceOptions] = useState([]);
@@ -54,7 +55,7 @@ const TableModal = (props) => {
       .all([provinceTitles])
       .then(
         axios.spread((...allData) => {
-          allData[0].data?.Result
+          allData[0].data?.Result === ResultCodeEnum.Ok
             ? setProvinceOptions(createSelectOptions(allData[0].data.Title))
             : handleError(allData[0].data.Message);
         })

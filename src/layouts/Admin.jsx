@@ -57,7 +57,8 @@ function Admin() {
       url: logOut,
       headers: request,
     });
-
+    localStorage.removeItem("SafeMode")
+    setApp((prev) => ({ ...prev, SafeMode: false }));
     localStorage.removeItem("token");
     navigate("/", { replace: true });
     window.location.reload();
