@@ -15,7 +15,7 @@ import useRequest from "../../../customHooks/useRequest";
 import { handleSeccess } from "../../../validation/functions";
 import { LoginHistoryReportDispersion } from "../../../services/loginHistoryServices";
 import { Bar, Line, Pie } from "react-chartjs-2";
-// import { Chart as ChartJS } from "chart.js/auto";
+import { Chart as ChartJS } from "chart.js/auto";
 import FieldSetBorder from "../../../Components/fieldSetBorder/FieldSetBorder";
 const MapPage = () => {
   const { t } = useTranslation();
