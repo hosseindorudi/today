@@ -47,6 +47,7 @@
     "react-spinners": "^0.12.0",
     "react-table": "^7.8.0",
     "react-toastify": "^9.0.1",
+    "react-wordcloud": "^1.2.7",
     "source-map-loader": "^3.0.1",
     "stream-browserify": "^3.0.0",
     "sweetalert2": "^11.4.17",
