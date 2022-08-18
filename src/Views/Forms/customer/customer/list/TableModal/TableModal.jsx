@@ -19,6 +19,8 @@ import { customerUpdate } from "../../../../../../services/customerService";
 import { toast } from "react-toastify";
 import useWindowSize from "../../../../../../customHooks/useWindowSize";
 import FieldSetBorder from "../../../../../../Components/fieldSetBorder/FieldSetBorder";
+import { createSelectOptions } from "../../../../../../validation/functions";
+import { CustomReactMultiSelect } from "../../../../../../Components/Select/customReactSelect";
 
 const TableModal = (props) => {
   const values = props.rowValus;
@@ -152,6 +154,8 @@ const TableModal = (props) => {
     switch (type) {
       case "GROUPTITLE":
         setGroupTitles(response.Title);
+        setGroupTitles(createSelectOptions(response.Title));
+
         break;
       case "UPDATE":
           props.updated()
@@ -167,6 +171,13 @@ const TableModal = (props) => {
     return ()=>setResponse(undefined)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
+
+  useEffect(() => {
+    setGroupTitleId(
+      groupTitles.find((i) => i.value === props.rowValus.Group_Id)
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [groupTitles]);
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -292,18 +303,26 @@ const TableModal = (props) => {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Select
+                {/* <Form.Select
                   aria-label="Default select example"
                   onChange={(e) => setGroupTitleId(e.target.value)}
-                >
-                  <option disabled>{t("customerGroup")}</option>
+                > */}
+                  <CustomReactMultiSelect
+              isMulti={false}
+              options={groupTitles}
+              value={groupTitleId}
+              onchangeHandler={(e) => setGroupTitleId(e)}
+              placeholder={t("City")}
+            />
+          </Form.Group>
+                  {/* <option disabled>{t("customerGroup")}</option>
                   {groupTitles?.map((gt, i) => (
                     <option value={gt.Id} key={gt.Id}>
                       {gt.Value}
                     </option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
+                  ))} */}
+                {/* </Form.Select> */}
+              {/* </Form.Group> */}
             </div>
             <div className="Row">
               <Form.Group className="mb-3 customerFirstName">
