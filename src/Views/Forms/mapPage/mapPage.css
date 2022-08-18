@@ -23,24 +23,40 @@
   justify-content: space-evenly;
   align-items:center;
   height: var(--topLayerMap);
-  overflow: auto;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
 }
 .btnShowMap {
   height: 40;
 }
 
-.reportChart {
+.downLayerChart{
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 80%;
-  margin: 5px auto;
+  overflow-y: auto;
+  flex-direction: column;
+  overflow-x: hidden;
 }
-.reportChartPie {
+
+.rowLayerChart {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 45%;
-  margin: 5px auto;
-  margin-top: 10px;
+  flex: 1;
+  width: 100%;
 }
+
+.firstRowChart {
+  flex: 1;
+  width: 100%;
+}
+
+
+@media screen and (max-width:600px){
+  .rowLayerChart{
+    flex-direction: column;
+  }
+  
+  
+}
+

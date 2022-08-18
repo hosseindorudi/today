@@ -14,62 +14,103 @@ import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
 import { handleSeccess } from "../../../validation/functions";
 import { LoginHistoryReportDispersion } from "../../../services/loginHistoryServices";
-import {Bar, Line, Pie} from 'react-chartjs-2'
-import {Chart as ChartJS} from 'chart.js/auto'
+import { Bar, Line, Pie } from "react-chartjs-2";
+// import { Chart as ChartJS } from "chart.js/auto";
+import FieldSetBorder from "../../../Components/fieldSetBorder/FieldSetBorder";
 const MapPage = () => {
   const { t } = useTranslation();
   const [isActive, setIsActive] = useState(true);
-  const [fromDate, setFromDate] = useState( new Date(new Date().setDate(new Date().getDate() - 7)));
-  const [endDate, setEndDate] = useState(
-    new Date());
+  const [fromDate, setFromDate] = useState(
+    new Date(new Date().setDate(new Date().getDate() - 7))
+  );
+  const [endDate, setEndDate] = useState(new Date());
   const { app } = useContext(AppContext);
   const abortController = new AbortController();
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const [type, setType] = useState("");
-  const [EId, setEId] = useState(1)
-  const [osData, setOsData] = useState()
-  const [dateData, setDateData] = useState()
-  const [browserData, setBrowserData] = useState()
+  const [EId, setEId] = useState(1);
+  const [osData, setOsData] = useState();
+  const [dateData, setDateData] = useState();
+  const [browserData, setBrowserData] = useState();
 
-
-  
+  // const setColorsOption = (value) => {
+  //   let sortArr = [...value].sort((a, b) => a.Count - b.Count);
+  //   let color = sortArr.map((v, i) => {});
+  // };
 
   const handleResponse = (response, type) => {
     switch (type) {
       case "SUBMIT":
         handleSeccess(t("reports_ready"));
-        console.log(response)
-        response.OS && setOsData({
-          labels: response.OS.map((os) => os.Title),
-          datasets:[{
-            label: "تعداد",
-            data:response.OS.map((os) => os.Count),
-            backgroundColor: ["skyblue"],
-            borderColor:"black",
-            borderWidth:1
-          }]
-        })
-        response.Date && setDateData({
-          labels: response.Date.map((date) => date.Title),
-          datasets:[{
-            label: "تعداد اتصال",
-            data:response.Date.map((date) => date.Count),
-            backgroundColor: ["blue"],
-            borderColor:"darkblue",
-            borderWidth:1
-          }]
-        })
-        response.Browser && setBrowserData({
-          labels: response.Browser.map((browser) => browser.Title),
-          datasets:[{
-            label: "تعداد اتصال",
-            data:response.Browser.map((browser) => browser.Count),
-            backgroundColor: ["blue"],
-            borderColor:"black",
-            borderWidth:1
-          }]
-        })
+        console.log(response);
+        response.OS &&
+          setOsData({
+            labels: response.OS.map((os) => os.Title),
+            datasets: [
+              {
+                label: "تعداد",
+                data: response.OS.map((os) => os.Count),
+                backgroundColor: [
+                  "Blue ",
+                  "Green",
+                  "Red",
+                  "Orange",
+                  "Violet",
+                  "Indigo",
+                  "Yellow ",
+                ],
+                borderColor: "gray",
+                borderWidth: 1,
+              },
+            ],
+          });
+        response.Date &&
+          setDateData({
+            labels: response.Date.map((date) => date.Title),
+            datasets: [
+              {
+                label: "تعداد اتصال",
+                data: response.Date.map((date) => date.Count),
+                backgroundColor: [
+                  "Blue ",
+                  "Green",
+                  "Red",
+                  "Orange",
+                  "Violet",
+                  "Indigo",
+                  "Yellow ",
+                ],
+                borderColor: "gray",
+                borderWidth: 1,
+              },
+            ],
+          });
+        response.Browser &&
+          setBrowserData({
+            labels: [...response.Browser]
+              .sort((a, b) => a.Count - b.Count)
+              .map((browser) => browser.Title),
+            datasets: [
+              {
+                label: "تعداد اتصال",
+                data: [...response.Browser]
+                  .sort((a, b) => b.Count - a.Count)
+                  .map((browser) => browser.Count),
+                backgroundColor: [
+                  "Red ",
+                  "Green",
+                  "blue",
+                  "Orange",
+                  "Violet",
+                  "Indigo",
+                  "Yellow ",
+                ],
+                borderColor: "gray",
+                borderWidth: 1,
+              },
+            ],
+          });
         break;
       default:
         break;
@@ -78,25 +119,23 @@ const MapPage = () => {
   useEffect(() => {
     response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response])
+  }, [response]);
 
-
-  const handleSubmit =() => {
+  const handleSubmit = () => {
     setType("SUBMIT");
-        fetchData({
-          method: "POST",
-          url: LoginHistoryReportDispersion,
-          headers: request,
-          data: {
-            TimePeriod: isActive,
-            TimePeriod_EId: EId,
-            From: isActive ? "2022-08-17T08:21:35.966Z" : fromDate,
-            To: isActive ? "2022-08-17T08:21:35.966Z" : endDate,
-          },
-          signal: abortController.signal,
-        });
-  }
-
+    fetchData({
+      method: "POST",
+      url: LoginHistoryReportDispersion,
+      headers: request,
+      data: {
+        TimePeriod: isActive,
+        TimePeriod_EId: EId,
+        From: isActive ? "2022-08-17T08:21:35.966Z" : fromDate,
+        To: isActive ? "2022-08-17T08:21:35.966Z" : endDate,
+      },
+      signal: abortController.signal,
+    });
+  };
 
   return (
     <div className="mainMap">
@@ -115,7 +154,7 @@ const MapPage = () => {
         {!isActive ? (
           <>
             <Form.Group className="mb-3" controlId={"startDate"}>
-            <Form.Label>{t("startDate")}</Form.Label>
+              <Form.Label>{t("startDate")}</Form.Label>
               <DatePicker
                 containerClassName="custom-container"
                 placeholder={t("startDate")}
@@ -141,7 +180,7 @@ const MapPage = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId={"endDate"}>
-            <Form.Label>{t("endDate")}</Form.Label>
+              <Form.Label>{t("endDate")}</Form.Label>
               <DatePicker
                 containerClassName="custom-container"
                 placeholder={t("endDate")}
@@ -169,8 +208,9 @@ const MapPage = () => {
         ) : (
           <Form.Group className="mb-3">
             <Form.Label>{t("choices")}</Form.Label>
-            <Form.Select aria-label="Duration"
-            onChange={(e) => setEId(e.target.value)}
+            <Form.Select
+              aria-label="Duration"
+              onChange={(e) => setEId(e.target.value)}
             >
               <option hidden>{t("choices")}</option>
               {durations.map((d, i) => (
@@ -182,19 +222,52 @@ const MapPage = () => {
           </Form.Group>
         )}
 
-        <Button className="btnShowMap" onClick={handleSubmit} disabled={loading}>{t("show")}</Button>
+        <Button
+          className="btnShowMap"
+          onClick={handleSubmit}
+          disabled={loading}
+        >
+          {t("show")}
+        </Button>
       </div>
-      {osData && <div className="reportChart">
-        <Bar data={osData} />
-      </div>}
-      {dateData && <div className="reportChart">
-        <Line data={dateData} />
-      </div>}
-      {browserData && <div className="reportChartPie">
-        <Pie data={browserData} />
-      </div>}
+      <div className="downLayerChart">
+        <div className="rowLayerChart">
+          <div className="firstRowChart">
+            {osData && (
+              <FieldSetBorder legend="سیستم عامل">
+                <Bar data={osData} style={{width:"50%"}}/>
+              </FieldSetBorder>
+            )}
+          </div>
+          <div className="firstRowChart">
+            {dateData && (
+              <FieldSetBorder legend="تاریخ اتصال">
+                <Line data={dateData} style={{width:"50%"}}/>
+              </FieldSetBorder>
+            )}
+          </div>
+        </div>
+        <div className="rowLayerChart">
+          <div className="firstRowChart" style={{width:"50%"}}>
+            {browserData && (
+              <FieldSetBorder legend="مرورگر">
+                <Pie data={browserData} />
+              </FieldSetBorder>
+            )}
+          </div>
+          <div className="firstRowChart">
+            {dateData && (
+              <FieldSetBorder legend="تاریخ اتصال">
+                <Pie data={dateData} />
+              </FieldSetBorder>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default MapPage;
+
+
