@@ -208,7 +208,7 @@ const CustomTable = forwardRef((props, ref) => {
     setUnSelected(response.UnselectedColumn);
     setPosts(res);
     setCurrentPage(paging.CurrentPage);
-    setTotalPages(paging.TotalPages);
+    setTotalPages(paging.TotalPage);
     setSort({ SortBy: paging.SortBy, IsAscending: paging.IsAscending });
     setNumberOfRecordsPerPage(paging.NumberOfRecordsPerPage);
     setproductsColumns(
@@ -421,7 +421,7 @@ const CustomTable = forwardRef((props, ref) => {
   };
   const handleChangeSelect = (e) => {
     const paging = {
-      NumberOfRecordsPerPage: e.target.value,
+      NumberOfRecordsPerPage: Number(e.target.value),
       CurrentPage: currentPage,
       IsAscending: sort.IsAscending,
       SortBy: sort.SortBy,
@@ -547,6 +547,7 @@ const CustomTable = forwardRef((props, ref) => {
               totalRecord={totalRecord}
               sortedBy={sortedBy}
               isAssending={isAssending}
+              handleRefresh={handleRefresh}
             />
           </div>
           <div className="breadcrump">

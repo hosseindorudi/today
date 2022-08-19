@@ -977,5 +977,6 @@
   "choices":"انتخابی",
   "reports_ready":"گزارش شما آماده شد",
   "CustomerStatus_Title":"وضعیت مشتری",
-  "StoreTitle":"نام فروشگاه"
+  "StoreTitle":"نام فروشگاه",
+  "removeColumns":"حذف ستون"
 }

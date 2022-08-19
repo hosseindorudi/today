@@ -43,7 +43,7 @@ const ImportCSV = (props) => {
     file={file} setFile={setFile} withHeader={withHeader} setwithheader={setWithHeader}
     />
     }
-    <Button title="importCSV" onClick={handleOpenModalCSV}>
+    <Button className='csvBtn' title="importCSV" onClick={handleOpenModalCSV}>
     <fa.FaFileCsv />
   </Button>
     </>

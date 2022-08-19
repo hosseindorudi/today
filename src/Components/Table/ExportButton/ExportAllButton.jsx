@@ -66,7 +66,7 @@ const ExportAllButton = (props) => {
   return (
     <Button
     disabled={loading}
-    // className="reactTableParentExportButton"
+    className="exportBtn"
     title="exportCSV"
     onClick={handleExport}
   >

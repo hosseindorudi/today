@@ -1,3 +1,9 @@
+:root{
+    --tableTopLayerHeight:40px;
+    --tablePaginationHeight:50px;
+    --tableContainerPadding:5px
+}
+
 .tableParent{
     width: 100%;
     height: 100%;
@@ -5,9 +11,10 @@
     flex-direction: column;
 }
 .toplayerTable{
-    flex: 2;
+    height: var(--tableTopLayerHeight);
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 .breadcrump{
     flex: 2;
@@ -20,21 +27,22 @@
     flex:8;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 .infoTable{
     flex: 2;
 }
 .downlayerTable{
-    flex: 10;
+    height: calc(100vh - var(--heightfooter) - var(--headerheight) - var(--navTabHeight) - var(--tableTopLayerHeight) );
     display: flex;
     flex-direction: row;
 }
 .tableFilter{
-    flex: 2;
+ width: 15%;
 }
 .tableContainer{
-    flex: 10;
+    width: 85%;
+    padding: var(--tableContainerPadding);
 }
 
 .verticalLine{
@@ -49,4 +57,50 @@
 }
 .buttonGroupTopTable{
     direction: ltr;
+}
+.tableC{
+    height: calc(100vh - var(--heightfooter) - var(--headerheight) - var(--navTabHeight) - var(--tableTopLayerHeight) - var(--tablePaginationHeight) - var(--tableContainerPadding) );
+}
+.tableC th{
+    border: 1px solid rgba(224, 224, 224, 1);
+    background-color: beige;
+}
+.tableC td,.tableC th{
+    text-align: center;
+    text-align: -webkit-center;
+    padding: 5px;
+}
+.pagination{
+    height: var(--tablePaginationHeight);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.pagination nav{
+    direction: ltr;
+}
+.addBtn{
+    color: var(--bs-green);
+}
+.helpBtn{
+    color: var(--bs-yellow);
+}
+.isFav{
+    color: var(--bs-green) !important;
+    background-color: greenyellow;
+}
+.exportBtn{
+    color: var(--bs-teal);
+}
+.csvBtn{
+    color: var(--bs-green);
+}
+.checkBoxTable{
+display: flex;
+justify-content: space-between;
+border: 0.5px solid gray;
+border-radius: 10px;
+padding: 10px;
+margin: 10px;
 }

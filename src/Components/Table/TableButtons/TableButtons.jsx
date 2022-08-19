@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./tableButtons.css";
 import * as fa from "react-icons/fa";
 import * as gr from "react-icons/gr";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { downloadCSVCode } from "../../../validation/functions";
 import useButtonAccess from "../../../customHooks/useButtonAccess";
+import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
 
 const TableButtons = ({
   rowValue,
@@ -54,6 +55,9 @@ const TableButtons = ({
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [haveAccess] = useButtonAccess();
   const handleResponse = useCallback(
     (res) => {
@@ -85,7 +89,14 @@ const TableButtons = ({
     response && handleResponse(response);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
+  // const actions = [
+  //   { icon: <fa.FaFileCsv />, name: 'exportCSV',click:handleExport},
+  //   { icon: <fa.FaEdit />, name: 'edit',click:() => handleClickEdit(rowValue.Id)},
+  // ];
+
+
   return (
+ 
     <div className="widgetLgStatus">
       {haveAccess(exportType) && (
         <button

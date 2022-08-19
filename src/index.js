@@ -42,6 +42,7 @@ root.render(
   <Suspense fallback={ <BackDrop open={true}/>}>
   <HashRouter>
   <DndProvider backend={HTML5Backend}>
+
     <App />
     </DndProvider>
   </HashRouter>
