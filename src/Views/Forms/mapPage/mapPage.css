@@ -37,6 +37,7 @@
   overflow-y: auto;
   flex-direction: column;
   overflow-x: hidden;
+  padding: 5px;
 }
 
 .rowLayerChart {
@@ -44,11 +45,13 @@
   align-items: center;
   flex: 1;
   width: 100%;
+  padding: 2px;
 }
 
 .firstRowChart {
   flex: 1;
   width: 100%;
+  margin: 2px;
 }
 
 

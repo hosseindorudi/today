@@ -17,6 +17,7 @@ import { LoginHistoryReportDispersion } from "../../../services/loginHistoryServ
 import { Bar, Line, Pie } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import FieldSetBorder from "../../../Components/fieldSetBorder/FieldSetBorder";
+import ReactWordcloud from 'react-wordcloud';
 const MapPage = () => {
   const { t } = useTranslation();
   const [isActive, setIsActive] = useState(true);
@@ -33,11 +34,20 @@ const MapPage = () => {
   const [osData, setOsData] = useState();
   const [dateData, setDateData] = useState();
   const [browserData, setBrowserData] = useState();
+  const [userData, setUserData] = useState([])
+  const [iPData, setIPData] = useState([])
 
   // const setColorsOption = (value) => {
   //   let sortArr = [...value].sort((a, b) => a.Count - b.Count);
   //   let color = sortArr.map((v, i) => {});
   // };
+
+  const createWordCloudData = (data)   => {
+    let arr = []
+    data.map((d, i) => ((arr.push({text:d.Title, value: d.Count}))))
+    console.log(arr)
+    return arr;
+  }
 
   const handleResponse = (response, type) => {
     switch (type) {
@@ -111,6 +121,9 @@ const MapPage = () => {
               },
             ],
           });
+          response.User && setUserData(createWordCloudData(response.User))
+          response.IP && setIPData(createWordCloudData(response.IP))
+        
         break;
       default:
         break;
@@ -235,32 +248,45 @@ const MapPage = () => {
           <div className="firstRowChart">
             {osData && (
               <FieldSetBorder legend="سیستم عامل">
-                <Bar data={osData} style={{width:"50%"}}/>
+                <Bar data={osData} style={{width:"40%"}}/>
               </FieldSetBorder>
             )}
           </div>
           <div className="firstRowChart">
             {dateData && (
               <FieldSetBorder legend="تاریخ اتصال">
-                <Line data={dateData} style={{width:"50%"}}/>
+                <Line data={dateData} style={{width:"40%"}}/>
               </FieldSetBorder>
             )}
           </div>
         </div>
         <div className="rowLayerChart">
-          <div className="firstRowChart" style={{width:"50%"}}>
+          <div className="firstRowChart" style={{width:"100%"}}>
             {browserData && (
-              <FieldSetBorder legend="مرورگر">
+              <FieldSetBorder legend="مرورگر" >
                 <Pie data={browserData} />
               </FieldSetBorder>
             )}
           </div>
-          <div className="firstRowChart">
-            {dateData && (
-              <FieldSetBorder legend="تاریخ اتصال">
-                <Pie data={dateData} />
+          <div className="firstRowChart" style={{width:"100%", height:"100%"}}>
+          </div>
+        </div>
+        <div className="rowLayerChart">
+          <div className="firstRowChart" style={{width:"100%"}}>
+            {browserData && (
+              <FieldSetBorder legend="ورود کاربرها" >
+                <ReactWordcloud words={userData} style={{width:"100%"}} />
               </FieldSetBorder>
             )}
+          </div>
+          <div className="firstRowChart" style={{width:"100%", height:"100%"}}>
+          <div className="firstRowChart" style={{width:"100%", height:"100%"}}>
+            {dateData && (
+              <FieldSetBorder legend="آی پی">
+                <ReactWordcloud words={iPData} style={{width:"100%"}} />
+              </FieldSetBorder>
+            )}
+          </div>
           </div>
         </div>
       </div>
