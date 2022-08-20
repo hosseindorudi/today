@@ -978,5 +978,6 @@
   "reports_ready":"گزارش شما آماده شد",
   "CustomerStatus_Title":"وضعیت مشتری",
   "StoreTitle":"نام فروشگاه",
-  "removeColumns":"حذف ستون"
+  "removeColumns":"حذف ستون",
+  "filter":"فیلتر"
 }

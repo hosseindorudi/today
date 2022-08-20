@@ -9,17 +9,12 @@ import ImportCSV from "../ImportCSVButton/ImportCSV";
 import { TabContext } from "../../../contexts/TabContextProvider";
 import AppContext from "../../../contexts/AppContext";
 const ActionButtons = ({
-  setSearch,
-  search,
-  searchBegin,
-  searchEnd,
   setColumnSideBar,
   columnSideBar,
   exportAccess,
   numberOfRecordsPerPage,
   currentPage,
   sort,
-  flt_Title,
   exportLink,
   importAccess,
   importSuccess,
@@ -40,7 +35,8 @@ const ActionButtons = ({
   isAssending,
   addObject,
   addFormAccess,
-  handleRefresh
+  handleRefresh,
+  filterObj
 }) => {
   const tabContext = useContext(TabContext);
   const { app } = useContext(AppContext);
@@ -72,9 +68,7 @@ const ActionButtons = ({
             numberOfRecordsPerPage={numberOfRecordsPerPage}
             currentPage={currentPage}
             sort={sort}
-            flt_Title={flt_Title}
-            seartBegin={searchBegin}
-            seartEnd={searchEnd}
+            filterObj={filterObj}
             exportLink={exportLink}
           />
         )}

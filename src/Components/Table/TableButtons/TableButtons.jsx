@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./tableButtons.css";
 import * as fa from "react-icons/fa";
 import * as gr from "react-icons/gr";
@@ -8,8 +8,10 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { downloadCSVCode } from "../../../validation/functions";
 import useButtonAccess from "../../../customHooks/useButtonAccess";
-import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
-
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 const TableButtons = ({
   rowValue,
   exportLink,
@@ -52,12 +54,17 @@ const TableButtons = ({
   sendMessageBank,
   handleuploadFile,
 }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const [haveAccess] = useButtonAccess();
   const handleResponse = useCallback(
     (res) => {
@@ -89,226 +96,156 @@ const TableButtons = ({
     response && handleResponse(response);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, handleResponse]);
-  // const actions = [
-  //   { icon: <fa.FaFileCsv />, name: 'exportCSV',click:handleExport},
-  //   { icon: <fa.FaEdit />, name: 'edit',click:() => handleClickEdit(rowValue.Id)},
-  // ];
-
-
+  const actions = [
+    {
+      icon: <fa.FaEdit color="orange" />,
+      name: "edit",
+      click: () => handleClickEdit(rowValue.Id),
+      access: editType,
+    },
+    {
+      icon: <fa.FaTrash color="red" />,
+      name: "Delete",
+      click: () => deleteCalled(rowValue.Id),
+      access: deleteType,
+    },
+    {
+      icon: <fa.FaFileCsv color="green" />,
+      name: "exportCSV",
+      click: () => handleExport(),
+      access: exportType,
+    },
+    {
+      icon: <fa.FaLock color="brown"/>,
+      name: "ChangePassword",
+      click: () => handlePassEdit(rowValue.Id),
+      access: changePasswordType,
+    },
+    {
+      icon: <fa.FaPlusCircle color="darkblue"/>,
+      name: "Add-Question",
+      click: () => handleAddQuestion(rowValue.Id),
+      access: addAccess,
+    },
+    {
+      icon: <fa.FaDollarSign  color="brown"/>,
+      name: "createRate",
+      click: () => handleCreateRate(rowValue.Id),
+      access: rateAccess,
+    },
+    {
+      icon: <fa.FaBookReader  color="brown"/>,
+      name: "readAnswer",
+      click: () => handleReadAnswers(rowValue.Id),
+      access: readAnswersAccess,
+    },
+    {
+      icon: <fa.FaFirefoxBrowser  color="brown"/>,
+      name: "policyBrowser",
+      click: () => handlePolicyBrowser(rowValue.Id),
+      access: policyBrowserAccess,
+    },
+    {
+      icon: <fa.FaInternetExplorer  color="brown"/>,
+      name: "policyIpAccess",
+      click: () => handlePolicyIP(rowValue.Id),
+      access: policyIpAccess,
+    },
+    {
+      icon: <gr.GrMapLocation  color="brown"/>,
+      name: "policyLocationAccess",
+      click: () => handlePolicyLocation(rowValue.Id),
+      access: policyLocationAccess,
+    },
+    {
+      icon: <fa.FaWindows  color="brown"/>,
+      name: "policyOsAccess",
+      click: () => handlePolicyOs(rowValue.Id),
+      access: policyOsAccess,
+    },
+    {
+      icon: <gr.GrUserSettings  color="brown"/>,
+      name: "OperatorRole",
+      click: () => handleOperatorRole(rowValue.Id),
+      access: operatorRoleAccess,
+    },
+    {
+      icon: <fa.FaMap  color="blue"/>,
+      name: "addAddress",
+      click: () => handleAddress(rowValue.Id),
+      access: addressAccess,
+    },
+    {
+      icon: <fa.FaFileUpload color="green"/>,
+      name: "addFile",
+      click: () => handleuploadFile(rowValue.Id),
+      access: addressAccess,
+    },
+    {
+      icon: <fa.FaMobileAlt color="teal"/>,
+      name: "Mobile",
+      click: () => handleMobile(rowValue.Id),
+      access: mobileAccess,
+    },
+    {
+      icon: <fa.FaPhoneAlt color="teal"/>,
+      name: "Phone",
+      click: () => handlePhone(rowValue.Id),
+      access: phoneAccess,
+    },
+    {
+      icon: <fa.FaMoneyCheckAlt color="steelblue"/>,
+      name: "bankAccount",
+      click: () => handleAccount(rowValue.Id),
+      access: accountAccess,
+    },
+    {
+      icon: <fa.FaUserPlus color="steelblue"/>,
+      name: "addOperator",
+      click: () => addOperator(rowValue.Id),
+      access: addOperatorAccess,
+    },
+    {
+      icon: <fa.FaUserPlus color="steelblue"/>,
+      name: "sendMessageBank",
+      click: () => sendMessageBank(rowValue),
+      access: sendMessageBankAccess,
+    },
+    {
+      icon: <fa.FaKey color="red"/>,
+      name: "Permission",
+      click: () => handleClickGetPermission(rowValue.Id),
+      access: accessListType,
+    },
+  ];
   return (
- 
-    <div className="widgetLgStatus">
-      {haveAccess(exportType) && (
-        <button
-          title="exportCSV"
-          className="Approved widgetLgButton"
-          onClick={handleExport}
-          disabled={loading}
-        >
-          <fa.FaFileCsv />
-        </button>
-      )}
-      {haveAccess(editType) && (
-        <button
-          className="Approved widgetLgButton"
-          onClick={() => handleClickEdit(rowValue.Id)}
-          title="edit"
-        >
-          <fa.FaEdit />
-        </button>
-      )}
-      {haveAccess(changePasswordType) && (
-        <button
-          className="Pending widgetLgButton"
-          onClick={() => handlePassEdit(rowValue.Id)}
-        >
-          <fa.FaLock />
-        </button>
-      )}
-      {haveAccess(accessListType) && (
-        <button
-          className="Pending widgetLgButton"
-          onClick={() => handleClickGetPermission(rowValue.Id)}
-        >
-          <fa.FaKey />
-        </button>
-      )}
-      {haveAccess(deleteType) && (
-        <button
-          title="delete"
-          className="Declined widgetLgButton"
-          onClick={() => {
-            deleteCalled(rowValue.Id);
-          }}
-        >
-          <fa.FaTrash />
-        </button>
-      )}
-      {haveAccess(addAccess) && (
-        <button
-          title={t("Add-Question")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handleAddQuestion(rowValue.Id);
-          }}
-        >
-          <fa.FaPlusCircle />
-        </button>
-      )}
-      {haveAccess(rateAccess) && (
-        <button
-          title={t("createRate")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handleCreateRate(rowValue.Id);
-          }}
-        >
-          <fa.FaDollarSign />
-        </button>
-      )}
-      {haveAccess(readAnswersAccess) && (
-        <button
-          title={t("readAnswer")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handleReadAnswers(rowValue.Id);
-          }}
-        >
-          <fa.FaBookReader />
-        </button>
-      )}
-      {haveAccess(policyBrowserAccess) && (
-        <button
-          title={t("policyBrowser")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handlePolicyBrowser(rowValue.Id);
-          }}
-        >
-          <fa.FaFirefoxBrowser />
-        </button>
-      )}
-      {haveAccess(policyIpAccess) && (
-        <button
-          title={t("policyIpAccess")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handlePolicyIP(rowValue.Id);
-          }}
-        >
-          <fa.FaInternetExplorer />
-        </button>
-      )}
-      {haveAccess(policyLocationAccess) && (
-        <button
-          title={t("policyLocationAccess")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handlePolicyLocation(rowValue.Id);
-          }}
-        >
-          <gr.GrMapLocation />
-        </button>
-      )}
-      {haveAccess(policyOsAccess) && (
-        <button
-          title={t("policyOsAccess")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handlePolicyOs(rowValue.Id);
-          }}
-        >
-          <fa.FaWindows />
-        </button>
-      )}
-      {haveAccess(operatorRoleAccess) && (
-        <button
-          title={t("OperatorRole")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handleOperatorRole(rowValue.Id);
-          }}
-        >
-          <gr.GrUserSettings />
-        </button>
-      )}
-      {haveAccess(addressAccess) && (
-        <button
-          title={t("addAddress")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handleAddress(rowValue.Id);
-          }}
-        >
-          <fa.FaMap />
-        </button>
-      )}
-      {haveAccess(addressAccess) && (
-          <button
-          title={t("addFile")}
-          className="Approved widgetLgButton custom-file-upload"
-          onClick={() => {
-            handleuploadFile(rowValue.Id);
-          }}
-        >
-          <fa.FaFileUpload />
-        </button>
-      )}
-      {haveAccess(mobileAccess) && (
-        <button
-          title={t("Mobile")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handleMobile(rowValue.Id);
-          }}
-        >
-          <fa.FaMobileAlt />
-        </button>
-      )}
-      {haveAccess(phoneAccess) && (
-        <button
-          title={t("Phone")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handlePhone(rowValue.Id);
-          }}
-        >
-          <fa.FaPhoneAlt />
-        </button>
-      )}
-      {haveAccess(accountAccess) && (
-        <button
-          title={t("bankAccount")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            handleAccount(rowValue.Id);
-          }}
-        >
-          <fa.FaMoneyCheckAlt />
-        </button>
-      )}
-      {haveAccess(addOperatorAccess) && (
-        <button
-          title={t("addOperator")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            addOperator(rowValue.Id);
-          }}
-        >
-          <fa.FaUserPlus />
-        </button>
-      )}
-      {haveAccess(sendMessageBankAccess) && (
-        <button
-          title={t("sendMessageBank")}
-          className="Pending widgetLgButton"
-          onClick={() => {
-            sendMessageBank(rowValue);
-          }}
-        >
-          <fa.FaUserPlus />
-        </button>
-      )}
+    <div>
+      <Button onClick={handleClick}>
+        <MoreHorizIcon />
+      </Button>
+      <Menu
+        className="menuTable"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        {actions.map(
+          (menu, index) =>
+            haveAccess(menu.access) && (
+              <MenuItem
+                key={index}
+                onClick={() => {
+                  menu.click();
+                  handleClose();
+                }}
+                disabled={loading}
+              >
+                {menu.icon}
+                {t(menu.name)}
+              </MenuItem>
+            )
+        )}
+      </Menu>
     </div>
   );
 };

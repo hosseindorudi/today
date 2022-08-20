@@ -4,7 +4,7 @@ import * as cg from "react-icons/cg";
 import useAxios from '../../../customHooks/useAxios';
 import useRequest from '../../../customHooks/useRequest';
 // import { groupExport } from '../../../services/groupService';
-import { downloadCSVCode, setDatePickerDate } from '../../../validation/functions';
+import { downloadCSVCode } from '../../../validation/functions';
 import { toast } from "react-toastify";
 import { Button } from '@mui/material';
 const ExportAllButton = (props) => {
@@ -36,11 +36,7 @@ const ExportAllButton = (props) => {
           data:{
             
             paging: paging,
-            filter: {
-              flt_Title: props.flt_Title,
-              flt_FromDate: props.seartBegin ? setDatePickerDate(props.seartBegin) : null,
-              flt_ToDate: props.seartEnd ? setDatePickerDate(props.seartEnd) : null,
-            },
+            filter: props.filterObj,
           },
           signal: abortController.signal,
         });

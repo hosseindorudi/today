@@ -387,9 +387,9 @@ const PhoneNumberForm = lazy(() =>
 const MarketingOutBox = lazy(() =>
   import("./Views/Forms/marketing/outBox/MarketingOutBox")
 );
-const MarketingSend = lazy(() =>
-  import("./Views/Forms/marketing/marketingSend/MarketingSend")
-);
+// const MarketingSend = lazy(() =>
+//   import("./Views/Forms/marketing/marketingSend/MarketingSend")
+// );
 const CreatedLinks = lazy(() =>
   import("./Views/Forms/marketing/createdLinks/CreatedLinks")
 );
@@ -514,6 +514,63 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
         access: enums.Customer_Customer_Read_r,
+        filter:[
+          {
+            field:"Flt_CustomerName",
+            type:"string",
+            default:""
+          },
+          {
+            field:"Flt_CustomerNumber",
+            type:"string",
+            default:""
+          },
+          {
+            field:"Flt_IsReal",
+            type:"boolean",
+            default:true
+          },
+          {
+            field:"Flt_Real_NationalCode",
+            type:"string",
+            default:""
+          },
+          {
+            field:"Flt_Real_FirstName",
+            type:"string",
+            default:""
+          },
+          {
+            field:"Flt_Real_LastName",
+            type:"string",
+            default:""
+          },
+          {
+            field:"Flt_Legal_NationalID",
+            type:"number",
+            default:0
+          },
+          {
+            field:"Flt_Legal_CompanyName",
+            type:"string",
+            default:""
+          },
+          {
+            field:"Flt_Legal_EconomicCode",
+            type:"number",
+            default:0
+          },
+          {
+            field:"Flt_FromDate",
+            type:"date",
+            default:null
+          },
+          {
+            field:"Flt_ToDate",
+            type:"date",
+            default:null
+          },
+        ]
       },
       {
         title: "/Customer/BruteForce/Read",

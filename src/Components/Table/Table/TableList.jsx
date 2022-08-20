@@ -1,6 +1,5 @@
-import { Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
-import useButtonAccess from "../../../customHooks/useButtonAccess";
+import { Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import React, { useState } from "react";
 import {
   checkRowBackGroundColor,
   checkTableTH,
@@ -10,39 +9,10 @@ import DownArrow from "../Arrows/downArrow/DownArrow";
 import MainUpArrow from "../Arrows/MainUpArrow/MainUpArrow";
 import UpArrow from "../Arrows/upArrow/UpArrow";
 import TableButtons from "../TableButtons/TableButtons";
-import * as fi from "react-icons/fi";
-import * as md from "react-icons/md";
-import * as fa from "react-icons/fa";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
-import { useTranslation } from "react-i18next";
-import BreadCrumb from "../BreadCrumb/BreadCrumb";
-import DatePicker from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import gregorian from "react-date-object/calendars/gregorian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import gregorian_en from "react-date-object/locales/gregorian_en";
-import { TabContext } from "../../../contexts/TabContextProvider";
 import DescModal from "../descriptionModal/DescModal";
 import { enums } from "../../../data/Enums";
-import { toast } from "react-toastify";
-import AppContext from "../../../contexts/AppContext";
-import TableCard from "../tableCard/TableCard";
 
 const TableList = ({
-  type,
-  BcItems,
-  search,
-  handleRefresh,
-  addFormAccess,
-  handleClearFilter,
-  handleChangeTitle,
-  flt_Title,
-  searchBegin,
-  setSearchBegin,
-  searchEnd,
-  setSearchEnd,
-  columnSideBar,
   productsColumns,
   filteredColumns,
   handleClickSort,
@@ -63,13 +33,6 @@ const TableList = ({
   handlePassEdit,
   numberOfRecordsPerPage,
   handleChangeSelect,
-  handleClickSend,
-  addObject,
-  mobileModal,
-  setMobileModal,
-  widthOFScreen,
-  setMobileModalButtons,
-  setMobileModalColumns,
   handleAddQuestion,
   addAccess,
   handleCreateRate,
@@ -99,76 +62,11 @@ const TableList = ({
   sendMessageBankAccess,
   sendMessageBank,
   handleuploadFile,
-  filterArr,
-  filterNames,
 }) => {
-  const [haveAccess] = useButtonAccess();
-  const { t } = useTranslation();
-  const tabContext = useContext(TabContext);
+
+
   const [descriptionShow, setDescriptionShow] = useState(false);
   const [desc, setDesc] = useState("");
-  const { app } = useContext(AppContext);
-  const [filterActivate, setFilterActivate] = useState({});
-  useEffect(() => {
-    let fArr = {};
-    filterNames &&
-      Object.keys(filterNames).map((f, i) => {
-        fArr[f] = false;
-        return;
-      });
-    setFilterActivate(fArr);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleCreateItem = (filter, index) => {
-    let titleItem = filter.split("_");
-    titleItem.pop();
-    let theName = titleItem.join("_");
-    return (
-      <Form.Group
-        style={{
-          display: search ? "block" : "none",
-          width: "200px",
-          transition: "all 500ms ease",
-          margin: filterActivate[theName] ? "5px" : "1px",
-        }}
-      >
-        <FloatingLabel style={{ transition: "all 500ms ease" }}>
-          <Form.Control
-            style={{
-              height: filterActivate[theName] ? "50px" : "5px",
-              transition: "all 500ms ease",
-            }}
-            type={
-              filter.split("_")[filter.split("_").length - 1] === "string"
-                ? "text"
-                : "number"
-            }
-            placeholder={theName}
-            onFocus={() =>
-              setFilterActivate({ ...filterActivate, [theName]: true })
-            }
-            onBlur={() => {
-              console.log(filterActivate);
-              setFilterActivate({ ...filterActivate, [theName]: false });
-            }}
-            onChange={handleChangeTitle}
-            value={flt_Title[theName.toString()]}
-            name={theName}
-          />
-          <label
-            htmlFor="floatingInputCustom"
-            style={{
-              fontSize: filterActivate[theName] ? "1rem" : "10px",
-              transition: "all 500ms ease",
-            }}
-          >
-            {t(theName)}
-          </label>
-        </FloatingLabel>
-      </Form.Group>
-    );
-  };
 
 
   return (

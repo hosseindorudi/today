@@ -1,6 +1,7 @@
 import React, {
   forwardRef,
   useCallback,
+  useContext,
   useEffect,
   useImperativeHandle,
   useState,
@@ -12,24 +13,23 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
-import { setDatePickerDate } from "../../../validation/functions";
 import BackDrop from "../../backDrop/BackDrop";
 import AccessListModal from "../AccessListModal/AccessListModal";
 import LogModal from "../LogModal/LogModal";
-import MobileModalsColumn from "../MobileModalColumns/MobileModalsColumn";
-import MobileModalRightBar from "../mobileModalRightBar/MobileModalRightBar";
-import MobileModel from "../mobileModel/MobileModel";
 import PasswordModal from "../passwordModal/PasswordModal";
 import PermissionModal from "../PermissionModal/PermissionModal";
 import LeftSideContainer from "./LeftSideContainer";
-import RighSideContainer from "./RighSideContainer";
 import TableList from "./TableList";
 import BreadCrumb from "../BreadCrumb/BreadCrumb";
 import TableInformation from "./TableInformation";
 import ActionButtons from "./ActionButtons";
-import { Offcanvas } from "react-bootstrap";
+import TableFilter from "./TableFilter";
+import { TabContext } from "../../../contexts/TabContextProvider";
+import AppContext from "../../../contexts/AppContext";
 const CustomTable = forwardRef((props, ref) => {
   const { t } = useTranslation();
+  const {tabs} = useContext(TabContext)
+  const {app}=useContext(AppContext)
   const [response, loading, fetchData] = useAxios();
   const [accessLists, setAccessLists] = useState(undefined);
   const [groupId, setGroupId] = useState();
@@ -41,14 +41,10 @@ const CustomTable = forwardRef((props, ref) => {
   const [unSelected, setUnSelected] = useState([]);
   const [sort, setSort] = useState({ SortBy: "", IsAscending: false });
   const [currentPage, setCurrentPage] = useState(1);
-  const [flt_Title, setFlt_Title] = useState("");
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [numberOfRecordsPerPage, setNumberOfRecordsPerPage] = useState(100);
   const request = useRequest();
   const [columnSideBar, setColumnSideBar] = useState(false);
-  const [search, setSearch] = useState(false);
-  const [searchBegin, setSearchBegin] = useState(null);
-  const [searchEnd, setSearchEnd] = useState(null);
   const [showLogModal, setShowLogModal] = useState(false);
   const [log, setLog] = useState(null);
   const [rowValus, setRowValues] = useState({});
@@ -60,7 +56,8 @@ const CustomTable = forwardRef((props, ref) => {
   const [totalRecord, setTotalRecord] = useState();
   const [sortedBy, setSortedBy] = useState();
   const [isAssending, setIsAssending] = useState();
-  const [clearFlt, setClearFlt] = useState(props.filterVal);
+  const [filterObj, setfilterObj] = useState({})
+  const [filteres, setFilteres] = useState([])
 
   const getTable = () => {
     fetchData({
@@ -82,10 +79,6 @@ const CustomTable = forwardRef((props, ref) => {
     });
   };
   const readPaging = (paging) => {
-    let flt = props.filterVal ? props.filterVal : {};
-
-    flt.flt_FromDate = searchBegin ? setDatePickerDate(searchBegin) : null;
-    flt.flt_ToDate = searchEnd ? setDatePickerDate(searchEnd) : null;
     setRequestType("READPAGING");
     fetchData({
       method: "POST",
@@ -93,7 +86,7 @@ const CustomTable = forwardRef((props, ref) => {
       headers: request,
       data: {
         Paging: paging,
-        Filter: flt,
+        Filter: filterObj,
       },
       signal: abortController.signal,
     });
@@ -334,7 +327,11 @@ const CustomTable = forwardRef((props, ref) => {
   useEffect(() => {
     setRequestType("READ");
     getTable();
-
+    const tab=tabs.find(ta=>ta.path===app.activeTab)
+    setFilteres(tab.filter)
+    var obj={}
+    tab.filter.map(f=>Object.assign(obj,{[f.field]:f.default}))
+    setfilterObj(obj)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -353,22 +350,6 @@ const CustomTable = forwardRef((props, ref) => {
       SortBy: sort.SortBy,
     };
     readPaging(paging);
-  };
-  const handleChangeTitle = (event) => {
-    // console.log(event.target.name.split("_")[event.target.name.split("_").length - 1])
-    props.setFilterVal({
-      ...props.filterVal,
-      [event.target.name]:
-        event.target.name.split("_")[
-          event.target.name.split("_").length - 1
-        ] === "Id"
-          ? Number(event.target.value)
-          : event.target.name.split("_")[
-              event.target.name.split("_").length - 1
-            ] === "TimeElapsed"
-          ? Number(event.target.value)
-          : event.target.value,
-    });
   };
   const handleClickGetPermission = (id) => {
     setGroupId(id);
@@ -470,11 +451,7 @@ const CustomTable = forwardRef((props, ref) => {
     checked ? (temp = temp.filter((u) => u !== column)) : temp.push(column);
     sendUnselectRequest(temp);
   };
-  const handleClearFilter = () => {
-    props.setFilterVal(clearFlt);
-    setSearchBegin(null);
-    setSearchEnd(null);
-  };
+
 
   return (
     <>
@@ -536,9 +513,6 @@ const CustomTable = forwardRef((props, ref) => {
               numberOfRecordsPerPage={numberOfRecordsPerPage}
               currentPage={currentPage}
               sort={sort}
-              flt_Title={flt_Title}
-              seartBegin={searchBegin}
-              seartEnd={searchEnd}
               importSuccess={importSuccess}
               handleClickLog={handleClickLog}
               handleClickAccessList={handleClickAccessList}
@@ -548,59 +522,63 @@ const CustomTable = forwardRef((props, ref) => {
               sortedBy={sortedBy}
               isAssending={isAssending}
               handleRefresh={handleRefresh}
+              filterObj={filterObj}
             />
           </div>
           <div className="breadcrump">
             <BreadCrumb BcItems={props.BcItems} />
           </div>
         </div>
-        <div className="downlayerTable">
-          <div className="tableFilter">filter</div>
-          <div className="tableContainer"><TableList
-            {...props}
-            type={props.type}
-            search={search}
-            handleRefresh={handleRefresh}
-            handleChangeTitle={handleChangeTitle}
-            flt_Title={props.filterVal}
-            searchBegin={searchBegin}
-            searchEnd={searchEnd}
-            setSearchBegin={setSearchBegin}
-            setSearchEnd={setSearchEnd}
-            columnSideBar={columnSideBar}
-            productsColumns={productsColumns}
-            unSelected={unSelected}
-            handleClickSort={handleClickSort}
-            posts={posts}
-            deleteCalled={deleteCalled}
-            handleClickEdit={handleClickEdit}
-            handlePassEdit={handlePassEdit}
-            currentPage={currentPage}
-            setPage={setPage}
-            totalPages={totalPages}
-            numberOfRecordsPerPage={numberOfRecordsPerPage}
-            handleChangeSelect={handleChangeSelect}
-            handleClickSend={handleClickSend}
-            handleClearFilter={handleClearFilter}
-            handleClickGetPermission={handleClickGetPermission}
-            mobileModal={props.mobileModal}
-            setMobileModal={props.setMobileModal}
-            widthOFScreen={props.widthOFScreen}
-            setMobileModalButtons={props.setMobileModalButtons}
-            setMobileModalColumns={props.setMobileModalColumns}
-            handleAddQuestion={handleAddQuestion}
-            addAccess={props.addAccess}
-            handleCreateRate={props.handleCreateRate}
-            rateAccess={props.rateAccess ? props.rateAccess : ""}
-            handleReadAnswers={props.handleReadAnswers}
-            readAnswersAccess={
-              props.readAnswersAccess ? props.readAnswersAccess : ""
-            }
-            handleuploadFile={props.handleuploadFile}
-            filterArr ={props.filterArr}
-            filterNames= {props.filterVal}
-          /> </div>
-        </div>
+        {totalRecord !== 0 ? (
+          <div className="downlayerTable">
+            <div className="tableFilter">
+              <TableFilter
+              filteres={filteres}
+              />
+            </div>
+            <div className="tableContainer">
+              <TableList
+                {...props}
+                type={props.type}
+                handleRefresh={handleRefresh}
+                columnSideBar={columnSideBar}
+                productsColumns={productsColumns}
+                unSelected={unSelected}
+                handleClickSort={handleClickSort}
+                posts={posts}
+                deleteCalled={deleteCalled}
+                handleClickEdit={handleClickEdit}
+                handlePassEdit={handlePassEdit}
+                currentPage={currentPage}
+                setPage={setPage}
+                totalPages={totalPages}
+                numberOfRecordsPerPage={numberOfRecordsPerPage}
+                handleChangeSelect={handleChangeSelect}
+                handleClickSend={handleClickSend}
+                handleClickGetPermission={handleClickGetPermission}
+                mobileModal={props.mobileModal}
+                setMobileModal={props.setMobileModal}
+                widthOFScreen={props.widthOFScreen}
+                setMobileModalButtons={props.setMobileModalButtons}
+                setMobileModalColumns={props.setMobileModalColumns}
+                handleAddQuestion={handleAddQuestion}
+                addAccess={props.addAccess}
+                handleCreateRate={props.handleCreateRate}
+                rateAccess={props.rateAccess ? props.rateAccess : ""}
+                handleReadAnswers={props.handleReadAnswers}
+                readAnswersAccess={
+                  props.readAnswersAccess ? props.readAnswersAccess : ""
+                }
+                handleuploadFile={props.handleuploadFile}
+              />{" "}
+            </div>
+          </div>
+        ) : (
+          <div className="noDataClass">
+            <img src="/assets/images/empty.png" alt=""/>
+            <span>{t("noDataFound.table")}</span>
+          </div>
+        )}
       </div>
       {/* {props.mobileModal & (props.widthOFScreen < 420) ? (
         <MobileModel
