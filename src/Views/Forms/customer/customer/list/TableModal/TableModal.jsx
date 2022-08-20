@@ -132,7 +132,7 @@ const TableModal = (props) => {
     setInstagram(values.Instagram);
     setTelegram(values.Telegram);
     setTwitter(values.Twitter);
-    setLicenseExpirationDate(values.LicenseExpirationDate);
+    setLicenseExpirationDate(new Date(values.LicenseExpirationDate));
     setStoreTitle(values.StoreTitle);
     setCustomerNumber(values.CustomerNumber);
     setDateOfBirth(new Date(values.Real_DateOfBirth));
@@ -272,14 +272,7 @@ const TableModal = (props) => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group className="mb-3 customerFirstName">
-                <Form.Control
-                  type="password"
-                  placeholder={t("password")}
-                  value={password}
-                  onChange={(e) => setpassword(e.target.value)}
-                />
-              </Form.Group>
+              
             </div>
             <div className="Row">
               <Form.Group className="mb-3" controlId={"switch"}>

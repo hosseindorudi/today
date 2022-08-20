@@ -42,6 +42,7 @@ const CustomerList = () => {
     "Password",
     "SafeMode",
     "CustomerStatus_Id",
+    "CustomerStatus_Title",
   ];
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [rowValues, setRowValues] = useState({});
