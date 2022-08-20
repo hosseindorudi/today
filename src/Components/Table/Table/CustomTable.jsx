@@ -57,7 +57,9 @@ const CustomTable = forwardRef((props, ref) => {
   const [sortedBy, setSortedBy] = useState();
   const [isAssending, setIsAssending] = useState();
   const [filterObj, setfilterObj] = useState({})
+  const [tempFilterObj, setTempFilterObj] = useState({})
   const [filteres, setFilteres] = useState([])
+  const [mobileFilter, setMobileFilter] = useState(false)
 
   const getTable = () => {
     fetchData({
@@ -78,7 +80,7 @@ const CustomTable = forwardRef((props, ref) => {
       signal: abortController.signal,
     });
   };
-  const readPaging = (paging) => {
+  const readPaging = (paging,flt) => {
     setRequestType("READPAGING");
     fetchData({
       method: "POST",
@@ -86,7 +88,7 @@ const CustomTable = forwardRef((props, ref) => {
       headers: request,
       data: {
         Paging: paging,
-        Filter: filterObj,
+        Filter: flt,
       },
       signal: abortController.signal,
     });
@@ -189,7 +191,7 @@ const CustomTable = forwardRef((props, ref) => {
       IsAscending: !column.IsAscending,
       SortBy: column.accessor,
     };
-    readPaging(paging);
+    readPaging(paging,filterObj);
   };
   const setData = (response) => {
     const res = response.Record;
@@ -234,7 +236,7 @@ const CustomTable = forwardRef((props, ref) => {
       IsAscending: sort.IsAscending,
       SortBy: sort.SortBy,
     };
-    readPaging(paging);
+    readPaging(paging,filterObj);
   };
   const handleAccessListModal = (response) => {
     setAccessLists(response.AccessList);
@@ -252,7 +254,7 @@ const CustomTable = forwardRef((props, ref) => {
       IsAscending: sort.IsAscending,
       SortBy: sort.SortBy,
     };
-    readPaging(paging);
+    readPaging(paging,filterObj);
   };
   const favorited = () => {
     setIsFavorite(true);
@@ -274,7 +276,7 @@ const CustomTable = forwardRef((props, ref) => {
         IsAscending: sort.IsAscending,
         SortBy: sort.SortBy,
       };
-      readPaging(paging);
+      readPaging(paging,filterObj);
     },
   }));
 
@@ -332,6 +334,7 @@ const CustomTable = forwardRef((props, ref) => {
     var obj={}
     tab.filter.map(f=>Object.assign(obj,{[f.field]:f.default}))
     setfilterObj(obj)
+    setTempFilterObj(obj)
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -349,7 +352,7 @@ const CustomTable = forwardRef((props, ref) => {
       IsAscending: sort.IsAscending,
       SortBy: sort.SortBy,
     };
-    readPaging(paging);
+    readPaging(paging,filterObj);
   };
   const handleClickGetPermission = (id) => {
     setGroupId(id);
@@ -407,7 +410,7 @@ const CustomTable = forwardRef((props, ref) => {
       IsAscending: sort.IsAscending,
       SortBy: sort.SortBy,
     };
-    readPaging(paging);
+    readPaging(paging,filterObj);
   };
   const setPage = (event, value) => {
     const paging = {
@@ -416,7 +419,7 @@ const CustomTable = forwardRef((props, ref) => {
       IsAscending: sort.IsAscending,
       SortBy: sort.SortBy,
     };
-    readPaging(paging);
+    readPaging(paging,filterObj);
   };
   const handleClickSend = () => {
     const paging = {
@@ -425,7 +428,7 @@ const CustomTable = forwardRef((props, ref) => {
       IsAscending: sort.IsAscending,
       SortBy: sort.SortBy,
     };
-    readPaging(paging);
+    readPaging(paging,filterObj);
   };
   const checkAllHandler = (e) => {
     let temp = unSelected;
@@ -451,6 +454,16 @@ const CustomTable = forwardRef((props, ref) => {
     checked ? (temp = temp.filter((u) => u !== column)) : temp.push(column);
     sendUnselectRequest(temp);
   };
+  const handleClearFilter=()=>{
+    const paging = {
+      NumberOfRecordsPerPage: numberOfRecordsPerPage,
+      CurrentPage: currentPage,
+      IsAscending: sort.IsAscending,
+      SortBy: sort.SortBy,
+    };
+    readPaging(paging,tempFilterObj);
+    setfilterObj(tempFilterObj)
+  }
 
 
   return (
@@ -523,19 +536,25 @@ const CustomTable = forwardRef((props, ref) => {
               isAssending={isAssending}
               handleRefresh={handleRefresh}
               filterObj={filterObj}
+              clickFilterMobile={()=>setMobileFilter(!mobileFilter)}
             />
           </div>
           <div className="breadcrump">
             <BreadCrumb BcItems={props.BcItems} />
           </div>
         </div>
-        {totalRecord !== 0 ? (
+       
           <div className="downlayerTable">
             <div className="tableFilter">
               <TableFilter
               filteres={filteres}
+              filterObj={filterObj}
+              setfilterObj={setfilterObj}
+              handleClearFilter={handleClearFilter}
+              handleClickSendFilter={handleClickSend}
               />
             </div>
+            {totalRecord !== 0 ? (
             <div className="tableContainer">
               <TableList
                 {...props}
@@ -554,7 +573,6 @@ const CustomTable = forwardRef((props, ref) => {
                 totalPages={totalPages}
                 numberOfRecordsPerPage={numberOfRecordsPerPage}
                 handleChangeSelect={handleChangeSelect}
-                handleClickSend={handleClickSend}
                 handleClickGetPermission={handleClickGetPermission}
                 mobileModal={props.mobileModal}
                 setMobileModal={props.setMobileModal}
@@ -572,13 +590,14 @@ const CustomTable = forwardRef((props, ref) => {
                 handleuploadFile={props.handleuploadFile}
               />{" "}
             </div>
+             ) : (
+              <div className="noDataClass">
+                <img src="/assets/images/empty.png" alt=""/>
+                <span>{t("noDataFound.table")}</span>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="noDataClass">
-            <img src="/assets/images/empty.png" alt=""/>
-            <span>{t("noDataFound.table")}</span>
-          </div>
-        )}
+       
       </div>
       {/* {props.mobileModal & (props.widthOFScreen < 420) ? (
         <MobileModel

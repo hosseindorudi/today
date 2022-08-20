@@ -36,7 +36,8 @@ const ActionButtons = ({
   addObject,
   addFormAccess,
   handleRefresh,
-  filterObj
+  filterObj,
+  clickFilterMobile
 }) => {
   const tabContext = useContext(TabContext);
   const { app } = useContext(AppContext);
@@ -51,7 +52,10 @@ const ActionButtons = ({
         variant="outlined"
         className="buttonGroupTopTable"
         aria-label="text button group"
-      > 
+      >
+        {window.innerWidth<=1100 &&(
+        <Button onClick={clickFilterMobile}><fa.FaFilter/></Button>
+        )}
         <Button  onClick={handleRefresh}><fi.FiRefreshCcw/></Button>
         {haveAccess(addFormAccess)&&<Button className="addBtn" onClick={handleAdd}><fa.FaPlus/></Button>}
       </ButtonGroup>
