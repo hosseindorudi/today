@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {  Accordion, Button,  Form, Modal } from "react-bootstrap";
-
+import { Accordion, Button, Form, Modal } from "react-bootstrap";
 
 import AppContext from "../../../../../../contexts/AppContext";
 import { useTranslation } from "react-i18next";
@@ -12,9 +11,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_en from "react-date-object/locales/gregorian_en";
 
 import useAxios from "../../../../../../customHooks/useAxios";
-import {
-  customerGroupReadTitle
-} from "../../../../../../services/customerGroupService";
+import { customerGroupReadTitle } from "../../../../../../services/customerGroupService";
 import { customerUpdate } from "../../../../../../services/customerService";
 import { toast } from "react-toastify";
 import useWindowSize from "../../../../../../customHooks/useWindowSize";
@@ -88,67 +85,61 @@ const TableModal = (props) => {
       method: "POST",
       url: customerGroupReadTitle,
       headers: request,
-      
+
       signal: abortController.signal,
     });
   };
   useEffect(() => {
-   
     getCustomerGroupTitle();
-    console.log(values)
+    console.log(values);
 
     setGroupTitleId(values.Group_Id);
-    setIsActive(values.IsActive)
-    setFirstName(values.Real_FirstName)
-    setLastName(values.Real_LastName)
-    setName(values.CustomerName)
-    setIdCode(values.Real_NationalCode)
-    setGender(values.Real_Gender)
-    setDescription(values.Description)
-    setEmail(values.Email)
-    setFatherName(values.Real_FathersName)
-    setIdCardNumber(values.Real_IdCardNumber)
-    setIdCardSerialNumber(values.Real_IdCardSerialNumber)
-    setSerialLocation(values.Real_PlaceOfIssuanceIdCard)
-    setWebSite(values.Website)
-    setjob(values.Real_Job)
-    setAcquaintedWithCompany(values.AcquaintedWithCompany)
-    setFromDate(new Date(values.LimitFrom))
-    setEndDate(new Date(values.LimitTo))
-    setActiveDate(values.IsLimited)
-    setIsReal(values.IsReal)
-    setWorkFax(values.Real_WorkFax)
-    setHomeFax(values.Real_HomeFax)
-    setlegalNationalID(values.Legal_NationalID)
-    setLegalCompanyName(values.Legal_CompanyName)
-    setLegalCompanyType(values.Legal_CompanyType)
-    setLegalEconomicCod(values.Legal_EconomicCode)
-    setLegalRegistrationNumber(values.Legal_RegistrationNumber)
-    setLegalRegistrationDate(new Date(values.Legal_RegistrationDate))
-    setLegalExpireDate(new Date(values.Legal_ExpirationDate))
-    setLegalRegistrationUnit(values.Legal_RegistrationUnit)
-    setLegalRegistrationOrganization(values.Legal_RegistrationOrganization)
-    setLegalOfficFax(values.Legal_OfficeFax)
-    setLegalFactoryFax(values.Legal_FactoryFax)
-    setSkype(values.Skype)
-    setFaceBook(values.Facebook)
-    setYoutube(values.YouTube)
-    setInstagram(values.Instagram)
-    setTelegram(values.Telegram)
-    setTwitter(values.Twitter)
-    setLicenseExpirationDate(values.LicenseExpirationDate)
-    setStoreTitle(values.StoreTitle)
-    setCustomerNumber(values.CustomerNumber)
+    setIsActive(values.IsActive);
+    setFirstName(values.Real_FirstName);
+    setLastName(values.Real_LastName);
+    setName(values.CustomerName);
+    setIdCode(values.Real_NationalCode);
+    setGender(values.Real_Gender);
+    setDescription(values.Description);
+    setEmail(values.Email);
+    setFatherName(values.Real_FathersName);
+    setIdCardNumber(values.Real_IdCardNumber);
+    setIdCardSerialNumber(values.Real_IdCardSerialNumber);
+    setSerialLocation(values.Real_PlaceOfIssuanceIdCard);
+    setWebSite(values.Website);
+    setjob(values.Real_Job);
+    setAcquaintedWithCompany(values.AcquaintedWithCompany);
+    setFromDate(new Date(values.LimitFrom));
+    setEndDate(new Date(values.LimitTo));
+    setActiveDate(values.IsLimited);
+    setIsReal(values.IsReal);
+    setWorkFax(values.Real_WorkFax);
+    setHomeFax(values.Real_HomeFax);
+    setlegalNationalID(values.Legal_NationalID);
+    setLegalCompanyName(values.Legal_CompanyName);
+    setLegalCompanyType(values.Legal_CompanyType);
+    setLegalEconomicCod(values.Legal_EconomicCode);
+    setLegalRegistrationNumber(values.Legal_RegistrationNumber);
+    setLegalRegistrationDate(new Date(values.Legal_RegistrationDate));
+    setLegalExpireDate(new Date(values.Legal_ExpirationDate));
+    setLegalRegistrationUnit(values.Legal_RegistrationUnit);
+    setLegalRegistrationOrganization(values.Legal_RegistrationOrganization);
+    setLegalOfficFax(values.Legal_OfficeFax);
+    setLegalFactoryFax(values.Legal_FactoryFax);
+    setSkype(values.Skype);
+    setFaceBook(values.Facebook);
+    setYoutube(values.YouTube);
+    setInstagram(values.Instagram);
+    setTelegram(values.Telegram);
+    setTwitter(values.Twitter);
+    setLicenseExpirationDate(values.LicenseExpirationDate);
+    setStoreTitle(values.StoreTitle);
+    setCustomerNumber(values.CustomerNumber);
     setDateOfBirth(new Date(values.Real_DateOfBirth));
     setDateOfSerial(new Date(values.Real_DateOfIssuanceIdCard));
 
-    
-
-    
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   const handleResponse = (response, type) => {
     switch (type) {
@@ -158,7 +149,7 @@ const TableModal = (props) => {
 
         break;
       case "UPDATE":
-          props.updated()
+        props.updated();
         break;
       default:
         break;
@@ -166,9 +157,8 @@ const TableModal = (props) => {
   };
 
   useEffect(() => {
-    
-    response&&handleResponse(response, type)
-    return ()=>setResponse(undefined)
+    response && handleResponse(response, type);
+    return () => setResponse(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
@@ -181,71 +171,67 @@ const TableModal = (props) => {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    
-      
-      setType("UPDATE")
-        fetchData({
-          method: "POST",
-          url: customerUpdate,
-          headers: request,
-          data: {
 
-            Id: values.Id,
-            Group_Id: Number(groupTitleId),
-            Language_EId: 1,
-            IsActive: isActive,
-            CustomerName: name,
-            Password: "",
-            Email: email,
-            AcquaintedWithCompany: acquaintedWithCompany,
-            IsLimited: activeDate,
-            LimitFrom: new Date(fromDate),
-            LimitTo: new Date(endDate),
-            Description: description,
-            Website: webSite,
-            Skype: skype,
-            Facebook: faceBook,
-            YouTube: youtube,
-            Instagram: instagram,
-            Telegram: telegram,
-            Twitter: twitter,
-            LicenseExpirationDate: new Date(licenseExpirationDate),
-            StoreTitle: storeTitle,
-            CustomerStatus_Id: 0,
-            CustomerNumber: customerNumber,
-            IsReal: isReal,
-            Real_NationalCode: isReal ? idCode : "",
-            Real_FirstName: isReal ? firstname : "",
-            Real_LastName: isReal ? lastName : "",
-            Real_FathersName: isReal ? fatherName : "",
-            Real_IdCardNumber: isReal ? idCardNumber : "",
-            Real_IdCardSerialNumber: isReal ? idCardSerialNumber : "",
-            Real_Gender: isReal ? gender : false,
-            Real_DateOfBirth: new Date(dateOfBirth),
-            Real_DateOfIssuanceIdCard: new Date(dateOfSerial),
-            Real_PlaceOfIssuanceIdCard: isReal ? serialLocation : "",
-            Real_HomeFax: isReal ? homeFax : "",
-            Real_WorkFax: isReal ? workFax : "",
-            Real_Job: isReal ? job : "",
-            Legal_NationalID: !isReal ? legalNationalID : 0,
-            Legal_CompanyName: !isReal ? legalCompanyName : "",
-            Legal_CompanyType: !isReal ? legalCompanyType : "",
-            Legal_EconomicCode: !isReal ? legalEconomicCode : 0,
-            Legal_RegistrationNumber: !isReal ? legalRegistrationNumber : 0,
-            Legal_RegistrationDate: new Date(legalRegistrationDate),
-            Legal_ExpirationDate: new Date(legalExpireDate),
-            Legal_RegistrationUnit: !isReal ? legalRegistrationunit : "",
-            Legal_RegistrationOrganization: !isReal
-              ? legalRegistrationOrganization
-              : "",
-            Legal_OfficeFax: !isReal ? legalOfficFax : "",
-            Legal_FactoryFax: !isReal ? legalFactoryFax : "",
-            
-          },
-          signal: abortController.signal,
-        });
-      
-    
+    console.log(groupTitleId);
+    setType("UPDATE");
+    fetchData({
+      method: "POST",
+      url: customerUpdate,
+      headers: request,
+      data: {
+        Id: values.Id,
+        Group_Id: Number(groupTitleId.value),
+        Language_EId: 1,
+        IsActive: isActive,
+        CustomerName: name,
+        Password: "",
+        Email: email,
+        AcquaintedWithCompany: acquaintedWithCompany,
+        IsLimited: activeDate,
+        LimitFrom: new Date(fromDate),
+        LimitTo: new Date(endDate),
+        Description: description,
+        Website: webSite,
+        Skype: skype,
+        Facebook: faceBook,
+        YouTube: youtube,
+        Instagram: instagram,
+        Telegram: telegram,
+        Twitter: twitter,
+        LicenseExpirationDate: new Date(licenseExpirationDate),
+        StoreTitle: storeTitle,
+        CustomerStatus_Id: 0,
+        CustomerNumber: customerNumber,
+        IsReal: isReal,
+        Real_NationalCode: isReal ? idCode : "",
+        Real_FirstName: isReal ? firstname : "",
+        Real_LastName: isReal ? lastName : "",
+        Real_FathersName: isReal ? fatherName : "",
+        Real_IdCardNumber: isReal ? idCardNumber : "",
+        Real_IdCardSerialNumber: isReal ? idCardSerialNumber : "",
+        Real_Gender: isReal ? gender : false,
+        Real_DateOfBirth: new Date(dateOfBirth),
+        Real_DateOfIssuanceIdCard: new Date(dateOfSerial),
+        Real_PlaceOfIssuanceIdCard: isReal ? serialLocation : "",
+        Real_HomeFax: isReal ? homeFax : "",
+        Real_WorkFax: isReal ? workFax : "",
+        Real_Job: isReal ? job : "",
+        Legal_NationalID: !isReal ? legalNationalID : 0,
+        Legal_CompanyName: !isReal ? legalCompanyName : "",
+        Legal_CompanyType: !isReal ? legalCompanyType : "",
+        Legal_EconomicCode: !isReal ? legalEconomicCode : 0,
+        Legal_RegistrationNumber: !isReal ? legalRegistrationNumber : 0,
+        Legal_RegistrationDate: new Date(legalRegistrationDate),
+        Legal_ExpirationDate: new Date(legalExpireDate),
+        Legal_RegistrationUnit: !isReal ? legalRegistrationunit : "",
+        Legal_RegistrationOrganization: !isReal
+          ? legalRegistrationOrganization
+          : "",
+        Legal_OfficeFax: !isReal ? legalOfficFax : "",
+        Legal_FactoryFax: !isReal ? legalFactoryFax : "",
+      },
+      signal: abortController.signal,
+    });
   };
   return (
     <Modal
@@ -258,7 +244,11 @@ const TableModal = (props) => {
       <Modal.Header closeButton></Modal.Header>
 
       <div className="periorityFormDefine">
-        <form className="periorityForm" style={{width:"80%"}} onSubmit={handleSubmitForm}>
+        <form
+          className="periorityForm"
+          style={{ width: "80%" }}
+          onSubmit={handleSubmitForm}
+        >
           <b>{t("customerTitle")}</b>
           <FieldSetBorder legend="پایه">
             <div class="Row">
@@ -307,21 +297,21 @@ const TableModal = (props) => {
                   aria-label="Default select example"
                   onChange={(e) => setGroupTitleId(e.target.value)}
                 > */}
-                  <CustomReactMultiSelect
-              isMulti={false}
-              options={groupTitles}
-              value={groupTitleId}
-              onchangeHandler={(e) => setGroupTitleId(e)}
-              placeholder={t("City")}
-            />
-          </Form.Group>
-                  {/* <option disabled>{t("customerGroup")}</option>
+                <CustomReactMultiSelect
+                  isMulti={false}
+                  options={groupTitles}
+                  value={groupTitleId}
+                  onchangeHandler={(e) => setGroupTitleId(e)}
+                  placeholder={t("City")}
+                />
+              </Form.Group>
+              {/* <option disabled>{t("customerGroup")}</option>
                   {groupTitles?.map((gt, i) => (
                     <option value={gt.Id} key={gt.Id}>
                       {gt.Value}
                     </option>
                   ))} */}
-                {/* </Form.Select> */}
+              {/* </Form.Select> */}
               {/* </Form.Group> */}
             </div>
             <div className="Row">
