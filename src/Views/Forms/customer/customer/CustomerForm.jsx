@@ -26,6 +26,8 @@ import { customerCreate } from "../../../../services/customerService";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import FieldSetBorder from "../../../../Components/fieldSetBorder/FieldSetBorder";
 import Accordion from "react-bootstrap/Accordion";
+import { createSelectOptions } from "../../../../validation/functions";
+import { CustomReactMultiSelect } from "../../../../Components/Select/customReactSelect";
 const CustomerForm = () => {
   const widthOfScreen = useWindowSize().width;
   const [type, setType] = useState("");
@@ -133,7 +135,7 @@ const CustomerForm = () => {
   const handleResponse = (response, type) => {
     switch (type) {
       case "READTITLE":
-        setGroupTitles(response.Title);
+        setGroupTitles(createSelectOptions(response.Title));
         response.Title.length && setGroupTitleId(response.Title[0].Id);
 
         break;
@@ -179,7 +181,7 @@ const CustomerForm = () => {
           headers: request,
           data: {
             Id: 0,
-            Group_Id: Number(groupTitleId),
+            Group_Id: groupTitleId?.value,
             Language_EId: 1,
             IsActive: isActive,
             CustomerName: name,
@@ -240,7 +242,8 @@ const CustomerForm = () => {
         headers: request,
         data: {
           Id: 0,
-          Group_Id: Number(groupTitleId),
+          // Group_Id: Number(groupTitleId),
+          Group_Id: groupTitleId?.value,
           Language_EId: 1,
           IsActive: isActive,
           CustomerName: name,
@@ -344,19 +347,30 @@ const CustomerForm = () => {
                   onChange={(e) => setIsReal(!isReal)}
                 />
               </Form.Group>
-              <Form.Group className="mb-3">
+
+              <Form.Group className="mb-3" controlId={"province"}>
+                <CustomReactMultiSelect
+                  isMulti={false}
+                  options={groupTitles}
+                  value={groupTitleId}
+                  onchangeHandler={(e) => setGroupTitleId(e)}
+                  placeholder={t("customerGroup")}
+                />
+              </Form.Group>
+
+              {/* <Form.Group className="mb-3">
                 <Form.Select
                   aria-label="Default select example"
                   onChange={(e) => setGroupTitleId(e.target.value)}
                 >
-                  <option disabled>{t("customerGroup")}</option>
+                  <option disabled value={-1}>{t("customerGroup")}</option>
                   {groupTitles.map((gt, i) => (
                     <option value={gt.Id} key={gt.Id}>
                       {gt.Value}
                     </option>
                   ))}
                 </Form.Select>
-              </Form.Group>
+              </Form.Group> */}
             </div>
             <div className="Row">
               <Form.Group className="mb-3 customerFirstName">
@@ -849,8 +863,7 @@ const CustomerForm = () => {
                 <DatePicker
                   containerClassName="custom-container"
                   placeholder={t("startDate")}
-                  onChange={(newValue) => {
-                    setFromDate(newValue);
+                  onFocusedDateChange={(newValue) => {
                     if (endDate !== null && newValue > endDate) {
                       toast.error(
                         "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
@@ -860,7 +873,21 @@ const CustomerForm = () => {
                       );
 
                       setEndDate(null);
-                    }
+                    }}}
+                  onClose={(newValue) => {
+                    if (endDate !== null && newValue > endDate) {
+                      toast.error(
+                        "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                        {
+                          position: toast.POSITION.BOTTOM_CENTER,
+                        }
+                      );
+
+                      setEndDate(null);
+                    }}}
+                  onChange={(newValue) => {
+                    setFromDate(newValue);
+                    
                   }}
                   name="LimitTo"
                   calendar={app.lang === "fa" ? persian : gregorian}
@@ -882,18 +909,59 @@ const CustomerForm = () => {
                 <DatePicker
                   containerClassName="custom-container"
                   placeholder={t("endDate")}
+                  onFocusedDateChange={(newValue) =>  {if (fromDate !== null && newValue < fromDate) {
+                    toast.error(
+                      "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                      {
+                        position: toast.POSITION.BOTTOM_CENTER,
+                      }
+                    );
+
+                    setEndDate(null);
+                  }}}
+                  onClose={(newValue) =>  {if (fromDate !== null && newValue < fromDate) {
+                    toast.error(
+                      "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                      {
+                        position: toast.POSITION.BOTTOM_CENTER,
+                      }
+                    );
+
+                    setEndDate(null);
+                  }}}
                   onChange={(newValue) => {
                     setEndDate(newValue);
-                    if (fromDate !== null && newValue < fromDate) {
-                      toast.error(
-                        "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
-                        {
-                          position: toast.POSITION.BOTTOM_CENTER,
+                    if(newValue !== null) {
+                        if(newValue.year < fromDate.year) {
+                          toast.error(
+                            "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                            {
+                              position: toast.POSITION.BOTTOM_CENTER,
+                            }
+                          );
+      
+                          setEndDate(null);
+                        }else if(newValue.monthIndex < fromDate.monthIndex){
+                          toast.error(
+                            "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                            {
+                              position: toast.POSITION.BOTTOM_CENTER,
+                            }
+                          );
+      
+                          setEndDate(null);
                         }
-                      );
-
-                      setEndDate(null);
                     }
+                    // if (fromDate !== null && newValue < fromDate) {
+                    //   toast.error(
+                    //     "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                    //     {
+                    //       position: toast.POSITION.BOTTOM_CENTER,
+                    //     }
+                    //   );
+
+                    //   setEndDate(null);
+                    // }
                   }}
                   name="LimitTo"
                   calendar={app.lang === "fa" ? persian : gregorian}

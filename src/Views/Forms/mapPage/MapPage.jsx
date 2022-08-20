@@ -272,7 +272,7 @@ const MapPage = () => {
           </div>
         </div>
         <div className="rowLayerChart">
-          <div className="firstRowChart" style={{width:"100%"}}>
+          <div className="firstRowChart" style={{width:"100%" , height:"100%"}}>
             {browserData && (
               <FieldSetBorder legend="ورود کاربرها" >
                 <ReactWordcloud words={userData} style={{width:"100%"}} />
@@ -280,13 +280,11 @@ const MapPage = () => {
             )}
           </div>
           <div className="firstRowChart" style={{width:"100%", height:"100%"}}>
-          <div className="firstRowChart" style={{width:"100%", height:"100%"}}>
             {dateData && (
               <FieldSetBorder legend="آی پی">
                 <ReactWordcloud words={iPData} style={{width:"100%"}} />
               </FieldSetBorder>
             )}
-          </div>
           </div>
         </div>
       </div>
