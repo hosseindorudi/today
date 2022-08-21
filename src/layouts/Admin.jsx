@@ -72,6 +72,7 @@ function Admin() {
       {loading && <BackDrop open={true} />}
       <div className="header">
         <div className="hederLeft">
+        {windowSize.width < 1100 && <NavMenu />}
           <span className="profileName">
             <div>{firstAndLastName}</div>
           </span>
@@ -85,7 +86,7 @@ function Admin() {
           <Language />
           <Home />
           <fa.FaPowerOff className="adminPowerOff" onClick={handleLogOut} />
-          {windowSize.width < 960 && <NavMenu />}
+       
         </div>
       </div>
       <div className="main">

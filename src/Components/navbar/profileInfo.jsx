@@ -44,10 +44,7 @@ const ProfileInfo = () => {
     fetchData({
       method: "POST",
       url: getOneRecordDashboard,
-      headers: request,
-      data: {
-        Id: userId,
-      },
+      headers: request
     });
   }
   const handleResponse = useCallback(

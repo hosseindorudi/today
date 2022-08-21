@@ -1,7 +1,7 @@
 :root {
   --heightfooter: 25px;
   --headerheight: 40px;
-  --navTabHeight: 90px;
+  --navTabHeight: 3rem;
   --topLayerMap:90px;
 }
 .tabParrentDiv {
@@ -11,9 +11,7 @@
 
 .tab-content {
   overflow: auto;
-  height: calc(
-    100vh - var(--headerheight) - var(--heightfooter) - var(--navTabHeight)
-  );
+  height: calc(100vh - var(--heightfooter) - var(--headerheight) - var(--navTabHeight) );
 }
 .main {
   height: calc(100vh - var(--headerheight) - var(--heightfooter));
@@ -389,7 +387,7 @@ input:checked + .slider:before {
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1100px) {
   .mainRight {
     position: fixed;
     right: -100%;

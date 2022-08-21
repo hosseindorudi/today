@@ -1,0 +1,208 @@
+:root {
+  --tableTopLayerHeight: 40px;
+  --tablePaginationHeight: 50px;
+  --tableContainerPadding: 5px;
+  --filterContainerPadding:5px;
+}
+
+.tableParent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.toplayerTable {
+  height: var(--tableTopLayerHeight);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.breadcrump {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  direction: ltr;
+}
+.actionbuttons {
+  flex: 8;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.infoTable {
+  flex: 2;
+}
+.downlayerTable {
+  height: calc(
+    100vh - var(--heightfooter) - var(--headerheight) - var(--navTabHeight) -
+      var(--tableTopLayerHeight)
+  );
+  display: flex;
+  flex-direction: row;
+}
+.tableFilter {
+  width: 15%;
+  padding: var(--filterContainerPadding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tableContainer,.noDataClass {
+  width: 85%;
+  padding: var(--tableContainerPadding);
+}
+
+.verticalLine {
+  border-left: 1px solid black;
+  height: 10px;
+}
+.informationWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+.buttonGroupTopTable {
+  direction: ltr;
+}
+.tableC {
+  /* height: calc(
+    100vh - var(--heightfooter) - var(--headerheight) - var(--navTabHeight) -
+      var(--tableTopLayerHeight) - var(--tablePaginationHeight) -
+      var(--tableContainerPadding)
+  ); */
+  max-height: calc(
+    100vh - var(--heightfooter) - var(--headerheight) - var(--navTabHeight) -
+      var(--tableTopLayerHeight) - var(--tablePaginationHeight) -
+      var(--tableContainerPadding)
+  );
+}
+.tableC th {
+  border: 1px solid rgba(224, 224, 224, 1);
+  background-color: beige;
+  font-weight: 900;
+}
+.tableC td,
+.tableC th {
+  text-align: center;
+  text-align: -webkit-center;
+  padding: 5px;
+  font-size: 12px;
+  direction: initial;
+}
+.pagination {
+  height: var(--tablePaginationHeight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pagination nav {
+  direction: ltr;
+}
+.addBtn {
+  color: var(--bs-green);
+}
+.helpBtn {
+  color: var(--bs-yellow);
+}
+.isFav {
+  color: var(--bs-green) !important;
+  background-color: greenyellow;
+}
+.exportBtn {
+  color: var(--bs-teal);
+}
+.csvBtn {
+  color: var(--bs-green);
+}
+.checkBoxTable {
+  display: flex;
+  justify-content: space-between;
+  border: 0.5px solid gray;
+  border-radius: 10px;
+  padding: 6px;
+  margin: 6px;
+  font-size: 12px;
+}
+.noDataClass {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(
+    100vh - var(--heightfooter) - var(--headerheight) - var(--navTabHeight) -
+      var(--tableTopLayerHeight) - var(--tablePaginationHeight) -
+      var(--tableContainerPadding)
+  );
+}
+.noDataClass img {
+  width: 25%;
+  height: 25%;
+}
+.noDataClass span {
+  font-weight: 900;
+}
+.menuTable {
+  direction: initial;
+}
+.menuTable li{
+    gap: 5px;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: bold;
+}
+.fullWidthGroup{
+    width: 100%;
+    font-size: 10px;
+}
+
+  .tableFilter input,.tableFilter label{
+    font-size: 10px;
+  }
+  .tableFilter .mb-3{
+    width: 100%;
+    max-height: calc(
+      100vh - var(--heightfooter) - var(--headerheight) - var(--navTabHeight) -
+        var(--tableTopLayerHeight) - var(--tablePaginationHeight) -
+        var(--tableContainerPadding)
+    );
+    overflow-y: auto;
+  }
+  .btnContainerFilter{
+    display: flex;
+    justify-content: space-between;
+  }
+  .btnContainerFilter button{
+    font-size: 11px;
+  }
+  /* media Queries */
+  @media only screen and (max-width: 1200px) {
+    .tableFilter input,.tableFilter label{
+      font-size: 8.5px;
+    }
+  }
+  @media only screen and (max-width: 1100px) {
+    .tableFilter{
+        display: none;
+    }
+    .tableContainer,.noDataClass{
+        width: 100%;
+    }
+    .breadcrump,.informationWrapper{
+        font-size: 11px;
+    }
+  }
+  @media only screen and (max-width: 700px) {
+    .infoTable,.actionbuttons,.breadcrump{
+      flex: 4;
+    }
+  }
+  @media only screen and (max-width: 500px) {
+    .actionbuttons,.breadcrump{
+      flex: 6;
+    }
+    .infoTable{
+      display: none;
+    }
+  }

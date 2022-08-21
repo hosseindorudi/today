@@ -17,6 +17,7 @@ import RequireAuth from "./Components/RequireAuth";
 import OsInformationProvider from "./contexts/OsInformationProvider";
 import QuestionPage from "./questionPage/QuestionPage";
 import { checkBoolean } from "./validation/validation";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 function App() {
 
@@ -51,9 +52,14 @@ function App() {
   const assignFont = () => {
     return currentLanguage.dir ? "fontFa" : "fontEn";
   };
-
+  const theme = createTheme({
+    typography: {
+      "fontFamily": currentLanguage.dir? `'IRANSansFa',serif` : `'IRANSansEn',serif `
+     }
+  });
   return (
     <div className={"App " + assignFont()}>
+      <ThemeProvider theme={theme}>
       <OsInformationProvider>
         <AuthProvider>
           <AppContext.Provider value={{ app, setApp }}>
@@ -75,6 +81,7 @@ function App() {
           </AppContext.Provider>
         </AuthProvider>
       </OsInformationProvider>
+      </ThemeProvider>
     </div>
   );
 }
