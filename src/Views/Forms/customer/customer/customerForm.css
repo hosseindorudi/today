@@ -1,0 +1,31 @@
+/* .customerFormRequired {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+.customerFormRequired .css-b62m3t-container {
+    width: 100%;
+}
+
+
+.customerFormRequired > label{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.customerFormRequired > label::after {
+    content:"*";
+    width: fit-content;
+    color:gold;
+    align-self: flex-end;
+    margin: -2px;
+  } */
+
+  .customerFormRequired input::placeholder {
+    color:red;
+  }
+
+
+  /* customerFormRequired */

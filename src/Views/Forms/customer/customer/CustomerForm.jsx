@@ -12,7 +12,7 @@ import AppContext from "../../../../contexts/AppContext";
 
 import useAxios from "../../../../customHooks/useAxios";
 import useRequest from "../../../../customHooks/useRequest";
-
+import './customerForm.css'
 import BackDrop from "../../../../Components/backDrop/BackDrop";
 import { enums } from "../../../../data/Enums";
 import { TabContext } from "../../../../contexts/TabContextProvider";
@@ -111,6 +111,51 @@ const CustomerForm = () => {
   };
 
   useEffect(() => {
+  setDateOfBirth(null)
+  setDateOfSerial(null)
+  setIsActive(true)
+  setFirstName("")
+  setLastName("")
+  setName("")
+  setpassword("")
+  setIdCode("")
+  setGender(true)
+  setDescription("")
+  setEmail("")
+  setFatherName("")
+  setIdCardNumber("")
+  setIdCardSerialNumber("")
+  setSerialLocation("")
+  setWebSite("")
+  setjob("")
+  setAcquaintedWithCompany("")
+  setFromDate(new Date());
+  setEndDate(new Date(new Date().setDate(new Date().getDate() + 7)))
+  setActiveDate(false)
+  setIsReal(true)
+  setWorkFax("")
+  setHomeFax("")
+  setlegalNationalID()
+  setLegalCompanyName("")
+  setLegalCompanyType("")
+  setLegalEconomicCod()
+  setLegalRegistrationNumber()
+  setLegalRegistrationDate(null)
+  setLicenseExpirationDate(null)
+  setCustomerNumber("")
+  setLegalExpireDate(null)
+  setLegalRegistrationUnit("")
+  setLegalRegistrationOrganization("")
+  setLegalOfficFax("")
+  setLegalFactoryFax("")
+  setSkype("")
+  setFaceBook("")
+  setYoutube("")
+  setInstagram("")
+  setTelegram("")
+  setTwitter("")
+  setStoreTitle("")
+  setWatsApp("")
     setType("READTITLE");
     fetchData({
       method: "POST",
@@ -328,7 +373,7 @@ const CustomerForm = () => {
               </Form.Group>
             </div>
             <div className="Row">
-              <Form.Group className="mb-3 customerFirstName">
+              <Form.Group className="mb-3 customerFirstName customerFormRequired">
                 <Form.Control
                   type="text"
                   placeholder={t("customerUser")}
@@ -336,7 +381,7 @@ const CustomerForm = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group className="mb-3 customerFirstName">
+              <Form.Group className="mb-3 customerFirstName customerFormRequired">
                 <Form.Control
                   type="password"
                   placeholder={t("password")}
@@ -357,7 +402,7 @@ const CustomerForm = () => {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId={"province"}>
+              <Form.Group className="mb-3 customerFormRequired" controlId={"province"}>
                 <CustomReactMultiSelect
                   isMulti={false}
                   options={groupTitles}
@@ -382,7 +427,7 @@ const CustomerForm = () => {
               </Form.Group> */}
             </div>
             <div className="Row">
-              <Form.Group className="mb-3 customerFirstName">
+              <Form.Group className="mb-3 customerFirstName customerFormRequired">
                 <Form.Control
                   type="number"
                   placeholder={t("CustomerNumber")}
@@ -425,7 +470,7 @@ const CustomerForm = () => {
                 className="Row"
                 style={{ display: !isReal ? "none" : "flex" }}
               >
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="text"
                     placeholder={t("Name")}
@@ -433,7 +478,7 @@ const CustomerForm = () => {
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="text"
                     placeholder={t("lastname")}
@@ -468,7 +513,7 @@ const CustomerForm = () => {
                 className="Row"
                 style={{ display: !isReal ? "none" : "flex" }}
               >
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="text"
                     placeholder={t("idcode")}

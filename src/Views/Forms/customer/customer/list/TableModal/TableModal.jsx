@@ -35,7 +35,6 @@ const TableModal = (props) => {
   const [firstname, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [name, setName] = useState("");
-  const [password, setpassword] = useState("");
   const [idCode, setIdCode] = useState("");
   const [gender, setGender] = useState(true);
 
