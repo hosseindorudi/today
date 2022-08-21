@@ -35,15 +35,15 @@ const StatusDeviceStartDefine = lazy(() =>
 const StatusDeviceStart = lazy(() =>
   import("./Views/Forms/definations/statusDeviceStart/StatusDeviceStart")
 );
-const Registered = lazy(() =>
-  import("./Views/Forms/service/registered/Registered")
-);
-const SentCustomer = lazy(() =>
-  import("./Views/Forms/service/sentCustomer/SentCustomer")
-);
-const SentCustomerForm = lazy(() =>
-  import("./Views/Forms/service/sentCustomer/SentCustomerForm")
-);
+// const Registered = lazy(() =>
+//   import("./Views/Forms/service/registered/Registered")
+// );
+// const SentCustomer = lazy(() =>
+//   import("./Views/Forms/service/sentCustomer/SentCustomer")
+// );
+// const SentCustomerForm = lazy(() =>
+//   import("./Views/Forms/service/sentCustomer/SentCustomerForm")
+// );
 const StatusDeviceProgress = lazy(() =>
   import("./Views/Forms/definations/statusDeviceProgress/StatusDeviceProgress")
 );
@@ -164,58 +164,58 @@ const ExtraServicesDefine = lazy(() =>
   )
 );
 
-const Delivery = lazy(() =>
-  import("./Views/Forms/service/delivery/deliveryList/Delivery")
-);
-const TechnicianForm = lazy(() =>
-  import("./Views/Forms/service/technecian/technicianForm/TechnicianForm")
-);
-const Technician = lazy(() =>
-  import("./Views/Forms/service/technecian/technicianList/Technician")
-);
-const Allocation = lazy(() =>
-  import("./Views/Forms/service/alocation/Allocation")
-);
-const QcExitForm = lazy(() =>
-  import("./Views/Forms/service/QcExit/qcExitList/QcExitList")
-);
-const QcExit = lazy(() => import("./Views/Forms/service/QcExit/qcExitForm/Qc"));
-const QcEntry = lazy(() =>
-  import("./Views/Forms/service/QCEntry/qcEntryForm/Qc")
-);
-const QcFormEntry = lazy(() =>
-  import("./Views/Forms/service/QCEntry/qcEntryList/QcForm")
-);
-const Archive = lazy(() => import("./Views/Forms/service/archive/Archive"));
-const Sent = lazy(() =>
-  import("./Views/Forms/service/sent/sentFormList/SentFormList")
-);
-const Change = lazy(() =>
-  import("./Views/Forms/service/change/changeList/Change")
-);
-const ChangeForm = lazy(() =>
-  import("./Views/Forms/service/change/changeForm/ChangeForm")
-);
-const SentForm = lazy(() =>
-  import("./Views/Forms/service/sent/sentForm/SentForm")
-);
+// const Delivery = lazy(() =>
+//   import("./Views/Forms/service/delivery/deliveryList/Delivery")
+// );
+// const TechnicianForm = lazy(() =>
+//   import("./Views/Forms/service/technecian/technicianForm/TechnicianForm")
+// );
+// const Technician = lazy(() =>
+//   import("./Views/Forms/service/technecian/technicianList/Technician")
+// );
+// const Allocation = lazy(() =>
+//   import("./Views/Forms/service/alocation/Allocation")
+// );
+// const QcExitForm = lazy(() =>
+//   import("./Views/Forms/service/QcExit/qcExitList/QcExitList")
+// );
+// const QcExit = lazy(() => import("./Views/Forms/service/QcExit/qcExitForm/Qc"));
+// const QcEntry = lazy(() =>
+//   import("./Views/Forms/service/QCEntry/qcEntryForm/Qc")
+// );
+// const QcFormEntry = lazy(() =>
+//   import("./Views/Forms/service/QCEntry/qcEntryList/QcForm")
+// );
+// const Archive = lazy(() => import("./Views/Forms/service/archive/Archive"));
+// const Sent = lazy(() =>
+//   import("./Views/Forms/service/sent/sentFormList/SentFormList")
+// );
+// const Change = lazy(() =>
+//   import("./Views/Forms/service/change/changeList/Change")
+// );
+// const ChangeForm = lazy(() =>
+//   import("./Views/Forms/service/change/changeForm/ChangeForm")
+// );
+// const SentForm = lazy(() =>
+//   import("./Views/Forms/service/sent/sentForm/SentForm")
+// );
 
-const WorkFlow = lazy(() => import("./Views/Forms/service/workFlow/WorkFlow"));
+// const WorkFlow = lazy(() => import("./Views/Forms/service/workFlow/WorkFlow"));
 const Accessories = lazy(() =>
   import("./Views/Forms/definations/accessories/Accessories")
 );
-const ProductGroupForm = lazy(() =>
-  import(
-    "./Views/Forms/definations/productGroup/productGroupDefine/ProductGroupDefine"
-  )
-);
-const ProductGroup = lazy(() =>
-  import("./Views/Forms/definations/productGroup/ProductGroup")
-);
-const Product = lazy(() => import("./Views/Forms/definations/product/Product"));
-const ProductForm = lazy(() =>
-  import("./Views/Forms/definations/product/productDefine/ProductDefine")
-);
+// const ProductGroupForm = lazy(() =>
+//   import(
+//     "./Views/Forms/definations/productGroup/productGroupDefine/ProductGroupDefine"
+//   )
+// );
+// const ProductGroup = lazy(() =>
+//   import("./Views/Forms/definations/productGroup/ProductGroup")
+// );
+// const Product = lazy(() => import("./Views/Forms/definations/product/Product"));
+// const ProductForm = lazy(() =>
+//   import("./Views/Forms/definations/product/productDefine/ProductDefine")
+// );
 const WarrantyCancelationForm = lazy(() =>
   import(
     "./Views/Forms/definations/warrantyCancelation/warrantyCancelationDefine/WarrantyCancelationDefine"
@@ -261,13 +261,13 @@ const FailedLogin = lazy(() =>
 const SuccessLogin = lazy(() =>
   import("./Views/Forms/panel/loginlogs/SuccessLogin")
 );
-const Admission = lazy(() =>
-  import("./Views/Forms/service/admission/Admission")
-);
+// const Admission = lazy(() =>
+//   import("./Views/Forms/service/admission/Admission")
+// );
 
-const AddmitionFirstForm = lazy(() =>
-  import("./Views/Forms/service/admission/AdmitionFirstForm")
-);
+// const AddmitionFirstForm = lazy(() =>
+//   import("./Views/Forms/service/admission/AdmitionFirstForm")
+// );
 const QuestionForm = lazy(() =>
   import("./Views/Forms/Survey/questionPage/questionForm/QuestionForm")
 );
@@ -440,7 +440,7 @@ export const Routes = [
       },
       {
         title: "routes.attacks",
-        path: "/optbruteforce",
+        path: "/Operator/BruteForce/Read",
         access: enums.Operator_BruteForce_Read_r,
         Component: Attacks,
         icon: <IoIcons.IoIosPaper />,
@@ -456,7 +456,7 @@ export const Routes = [
       },
       {
         title: "routes.unsuccesslogin",
-        path: "/optfailedhistory",
+        path: "/Operator/FailedHistory/Read",
         access: enums.Operator_FailedHistory_Read_r,
         Component: FailedLogin,
         icon: <IoIcons.IoIosPaper />,
@@ -464,7 +464,7 @@ export const Routes = [
       },
       {
         title: "routes.sucesslogin",
-        path: "/oprloginhistory",
+        path: "/Operator/LoginHistory/Read",
         access: enums.Operator_LoginHistory_Read_r,
         Component: SuccessLogin,
         icon: <IoIcons.IoIosPaper />,
@@ -507,70 +507,13 @@ export const Routes = [
         Component: CustomerList,
         button: {
           Component: CustomerForm,
-          path: "/customerform",
+          path: "/Customer/Customer/Write",
           title: "routes.customerForm",
           access: enums.Customer_Customer_Create_w,
         },
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
         access: enums.Customer_Customer_Read_r,
-        filter:[
-          {
-            field:"Flt_CustomerName",
-            type:"string",
-            default:""
-          },
-          {
-            field:"Flt_CustomerNumber",
-            type:"string",
-            default:""
-          },
-          {
-            field:"Flt_IsReal",
-            type:"boolean",
-            default:true
-          },
-          {
-            field:"Flt_Real_NationalCode",
-            type:"string",
-            default:""
-          },
-          {
-            field:"Flt_Real_FirstName",
-            type:"string",
-            default:""
-          },
-          {
-            field:"Flt_Real_LastName",
-            type:"string",
-            default:""
-          },
-          {
-            field:"Flt_Legal_NationalID",
-            type:"number",
-            default:0
-          },
-          {
-            field:"Flt_Legal_CompanyName",
-            type:"string",
-            default:""
-          },
-          {
-            field:"Flt_Legal_EconomicCode",
-            type:"number",
-            default:0
-          },
-          {
-            field:"Flt_FromDate",
-            type:"date",
-            default:null
-          },
-          {
-            field:"Flt_ToDate",
-            type:"date",
-            default:null
-          },
-        ]
       },
       {
         title: "/Customer/BruteForce/Read",
@@ -720,152 +663,152 @@ export const Routes = [
       },
     ],
   },
-  {
-    title: "routes.services",
-    access: enums.Module_AfterSales,
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-    subNav: [
-      {
-        title: "routes.workFlow",
-        path: "/workFlow",
-        access: enums.AfterSales_Dashboard_Index_Read_r,
-        Component: WorkFlow,
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.registered",
-        path: "/registered",
-        access: enums.AfterSales_New_Registered_Read_r,
-        Component: Registered,
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.admission",
-        path: "/AfterSales/Admission/Read",
-        access: enums.AfterSales_New_Admission_Read_r,
-        Component: Admission,
-        button: {
-          Component: AddmitionFirstForm,
-          path: "/admissionForm",
-          title: "routes.admissionForm",
-          access: enums.AfterSales_New_Admission_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.service.QcEntry",
-        path: "/service.QcEntry",
-        access: enums.AfterSales_New_InputQualityControl_Read_r,
-        Component: QcFormEntry,
-        button: {
-          Component: QcEntry,
-          path: "/service.QcEntryForm",
-          title: "routes.service.QcEntryForm",
-          access: enums.AfterSales_New_InputQualityControl_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.service.allocation",
-        path: "/service.allocation",
-        access: enums.AfterSales_New_AssignToTechnician_Read_r,
-        Component: Allocation,
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.service.technician",
-        path: "/service.technician",
-        access: enums.AfterSales_New_Technician_Read_r,
-        Component: Technician,
-        button: {
-          Component: TechnicianForm,
-          path: "/service.technicianForm",
-          title: "routes.service.technicianForm",
-          access: enums.AfterSales_New_Technician_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.service.qcExit",
-        path: "/service.qcExit",
-        access: enums.AfterSales_New_OutputQualityControl_Read_r,
-        Component: QcExitForm,
-        button: {
-          Component: QcExit,
-          path: "/service.qcExitForm",
-          title: "routes.service.qcExitForm",
-          access: enums.AfterSales_New_OutputQualityControl_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.service.delivery",
-        path: "/service.delivery",
-        access: enums.AfterSales_New_DeliveryInPerson_Read_r,
-        Component: Delivery,
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
+  // {
+  //   title: "routes.services",
+  //   access: enums.Module_AfterSales,
+  //   icon: <IoIcons.IoIosPaper />,
+  //   iconClosed: <RiIcons.RiArrowDownSFill />,
+  //   iconOpened: <RiIcons.RiArrowUpSFill />,
+  //   subNav: [
+  //     {
+  //       title: "routes.workFlow",
+  //       path: "/workFlow",
+  //       access: enums.AfterSales_Dashboard_Index_Read_r,
+  //       Component: WorkFlow,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
+  //     {
+  //       title: "routes.registered",
+  //       path: "/registered",
+  //       access: enums.AfterSales_New_Registered_Read_r,
+  //       Component: Registered,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
+  //     {
+  //       title: "routes.admission",
+  //       path: "/AfterSales/Admission/Read",
+  //       access: enums.AfterSales_New_Admission_Read_r,
+  //       Component: Admission,
+  //       button: {
+  //         Component: AddmitionFirstForm,
+  //         path: "/admissionForm",
+  //         title: "routes.admissionForm",
+  //         access: enums.AfterSales_New_Admission_Create_w,
+  //       },
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
+  //     {
+  //       title: "routes.service.QcEntry",
+  //       path: "/service.QcEntry",
+  //       access: enums.AfterSales_New_InputQualityControl_Read_r,
+  //       Component: QcFormEntry,
+  //       button: {
+  //         Component: QcEntry,
+  //         path: "/service.QcEntryForm",
+  //         title: "routes.service.QcEntryForm",
+  //         access: enums.AfterSales_New_InputQualityControl_Create_w,
+  //       },
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
+  //     {
+  //       title: "routes.service.allocation",
+  //       path: "/service.allocation",
+  //       access: enums.AfterSales_New_AssignToTechnician_Read_r,
+  //       Component: Allocation,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
+  //     {
+  //       title: "routes.service.technician",
+  //       path: "/service.technician",
+  //       access: enums.AfterSales_New_Technician_Read_r,
+  //       Component: Technician,
+  //       button: {
+  //         Component: TechnicianForm,
+  //         path: "/service.technicianForm",
+  //         title: "routes.service.technicianForm",
+  //         access: enums.AfterSales_New_Technician_Create_w,
+  //       },
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
+  //     {
+  //       title: "routes.service.qcExit",
+  //       path: "/service.qcExit",
+  //       access: enums.AfterSales_New_OutputQualityControl_Read_r,
+  //       Component: QcExitForm,
+  //       button: {
+  //         Component: QcExit,
+  //         path: "/service.qcExitForm",
+  //         title: "routes.service.qcExitForm",
+  //         access: enums.AfterSales_New_OutputQualityControl_Create_w,
+  //       },
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
+  //     {
+  //       title: "routes.service.delivery",
+  //       path: "/service.delivery",
+  //       access: enums.AfterSales_New_DeliveryInPerson_Read_r,
+  //       Component: Delivery,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
 
-      {
-        title: "routes.changing",
-        path: "/changing",
-        access: enums.AfterSales_New_Replacement_Read_r,
-        Component: Change,
-        button: {
-          Component: ChangeForm,
-          path: "/changingForm",
-          title: "routes.changingForm",
-          access: enums.AfterSales_New_Replacement_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.sentAgent",
-        path: "/sent",
-        access: enums.AfterSales_New_PostToAgent_Read_r,
-        Component: Sent,
-        button: {
-          Component: SentForm,
-          path: "/sentForm",
-          title: "routes.sentAgentForm",
-          access: enums.AfterSales_New_PostToAgent_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.sentCustomer",
-        path: "/sentCustomer",
-        Component: SentCustomer,
-        access: enums.AfterSales_New_PostToCustomer_Read_r,
-        button: {
-          Component: SentCustomerForm,
-          path: "/sentcustomerform",
-          title: "routes.sentcustomerform",
-          access: enums.AfterSales_New_PostToCustomer_Create_w,
-        },
-      },
-      {
-        title: "routes.archive",
-        path: "/archive",
-        access: enums.AfterSales_Archive_Read_r,
-        Component: Archive,
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-    ],
-  },
+  //     {
+  //       title: "routes.changing",
+  //       path: "/changing",
+  //       access: enums.AfterSales_New_Replacement_Read_r,
+  //       Component: Change,
+  //       button: {
+  //         Component: ChangeForm,
+  //         path: "/changingForm",
+  //         title: "routes.changingForm",
+  //         access: enums.AfterSales_New_Replacement_Create_w,
+  //       },
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
+  //     {
+  //       title: "routes.sentAgent",
+  //       path: "/sent",
+  //       access: enums.AfterSales_New_PostToAgent_Read_r,
+  //       Component: Sent,
+  //       button: {
+  //         Component: SentForm,
+  //         path: "/sentForm",
+  //         title: "routes.sentAgentForm",
+  //         access: enums.AfterSales_New_PostToAgent_Create_w,
+  //       },
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
+  //     {
+  //       title: "routes.sentCustomer",
+  //       path: "/sentCustomer",
+  //       Component: SentCustomer,
+  //       access: enums.AfterSales_New_PostToCustomer_Read_r,
+  //       button: {
+  //         Component: SentCustomerForm,
+  //         path: "/sentcustomerform",
+  //         title: "routes.sentcustomerform",
+  //         access: enums.AfterSales_New_PostToCustomer_Create_w,
+  //       },
+  //     },
+  //     {
+  //       title: "routes.archive",
+  //       path: "/archive",
+  //       access: enums.AfterSales_Archive_Read_r,
+  //       Component: Archive,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: "sub-nav",
+  //     },
+  //   ],
+  // },
   {
     title: "routes.question",
     access: enums.Module_Poll,
@@ -1149,12 +1092,12 @@ export const Routes = [
       },
       {
         title: "routes.garanteeType",
-        path: "/garanteeType",
+        path: "/Definition/WarrantyType/Read",
         access: enums.Definition_WarrantyType_Read_r,
         Component: WarrantyType,
         button: {
           Component: WarrantyTypeForm,
-          path: "/garanteeTypeForm",
+          path: "/Definition/WarrantyType/write",
           title: "routes.garanteeTypeForm",
           access: enums.Definition_WarrantyType_Create_w,
         },
@@ -1325,12 +1268,12 @@ export const Routes = [
       },
       {
         title: "routes.accessories",
-        path: "/accessories",
+        path: "/Definition/AdmissionAccessory/Read",
         access: enums.Definition_AdmissionAccessory_Read_r,
         Component: Accessories,
         button: {
           Component: AccessoriesDefine,
-          path: "/accessoriesForm",
+          path: "/Definition/AdmissionAccessory/Write",
           title: "routes.accessoriesForm",
           access: enums.Definition_AdmissionAccessory_Create_w,
         },
@@ -1381,34 +1324,34 @@ export const Routes = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
-      {
-        title: "routes.product",
-        path: "/product",
-        access: enums.Definition_Product_Read_r,
-        Component: Product,
-        button: {
-          Component: ProductForm,
-          path: "/productForm",
-          title: "routes.productForm",
-          access: enums.Definition_Product_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "routes.productGroup",
-        path: "/productGroup",
-        access: enums.Definition_ProductGroup_Read_r,
-        Component: ProductGroup,
-        button: {
-          Component: ProductGroupForm,
-          path: "/productGroupForm",
-          title: "routes.productGroupForm",
-          access: enums.Definition_ProductGroup_Create_w,
-        },
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
+      // {
+      //   title: "routes.product",
+      //   path: "/product",
+      //   access: enums.Definition_Product_Read_r,
+      //   Component: Product,
+      //   button: {
+      //     Component: ProductForm,
+      //     path: "/productForm",
+      //     title: "routes.productForm",
+      //     access: enums.Definition_Product_Create_w,
+      //   },
+      //   icon: <IoIcons.IoIosPaper />,
+      //   cName: "sub-nav",
+      // },
+      // {
+      //   title: "routes.productGroup",
+      //   path: "/productGroup",
+      //   access: enums.Definition_ProductGroup_Read_r,
+      //   Component: ProductGroup,
+      //   button: {
+      //     Component: ProductGroupForm,
+      //     path: "/productGroupForm",
+      //     title: "routes.productGroupForm",
+      //     access: enums.Definition_ProductGroup_Create_w,
+      //   },
+      //   icon: <IoIcons.IoIosPaper />,
+      //   cName: "sub-nav",
+      // },
 
       {
         title: "/Definition/ImportingCompany/Read",

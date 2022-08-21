@@ -4,7 +4,6 @@ import useRequest from "../../../../customHooks/useRequest";
 import { Button, Form } from "react-bootstrap";
 import { useEffect, useState, useCallback } from "react";
 import Swal from "sweetalert2";
-import "../../../../assets/css/table.css";
 import {
   handleError,
   createSelectOptions,

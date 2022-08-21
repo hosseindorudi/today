@@ -6,7 +6,7 @@ import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_en from "react-date-object/locales/gregorian_en";
 import AppContext from "../../../contexts/AppContext";
-import { Button, Stack } from "@mui/material";
+import { Button } from "@mui/material";
 import * as fa from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { setDatePickerDate } from "../../../validation/functions";
@@ -22,7 +22,7 @@ const TableFilter = ({ filteres, filterObj, setfilterObj,handleClickSendFilter,h
   };
 
   const checkFilter = () => {
-    return filteres.map((filter, index) => {
+    return filteres?.map((filter, index) => {
       let cmp;
       switch (filter.type) {
         case "string":
@@ -33,7 +33,6 @@ const TableFilter = ({ filteres, filterObj, setfilterObj,handleClickSendFilter,h
               <Form.Control
                 value={filterObj[filter.field]}
                 type="string"
-                placeholder={t(filter.field)}
                 name={filter.field}
                 onChange={(e) => handleChange(e.target.value, e.target.name)}
               />
@@ -47,7 +46,6 @@ const TableFilter = ({ filteres, filterObj, setfilterObj,handleClickSendFilter,h
               <Form.Control
                 value={filterObj[filter.field]}
                 type="number"
-                placeholder={t(filter.field)}
                 name={filter.field}
                 onChange={(e) => handleChange(e.target.value, e.target.name)}
               />
@@ -73,7 +71,6 @@ const TableFilter = ({ filteres, filterObj, setfilterObj,handleClickSendFilter,h
               <Form.Label>{t(filter.field)}</Form.Label>
               <DatePicker
                 containerClassName="custom-container"
-                placeholder={t(filter.field)}
                 name={filter.field}
                 calendar={app.lang === "fa" ? persian : gregorian}
                 locale={app.lang === "fa" ? persian_fa : gregorian_en}
@@ -95,14 +92,13 @@ const TableFilter = ({ filteres, filterObj, setfilterObj,handleClickSendFilter,h
       {" "}
       <Form.Group className="mb-3">{checkFilter()}</Form.Group>
       <div className="btnContainerFilter">
-        <Stack direction="row" spacing={2}>
           <Button size="small" variant="contained" onClick={handleClickSendFilter}>
             {t("send")}
           </Button>
           <Button onClick={handleClearFilter}>
             <fa.FaEraser />
           </Button>
-        </Stack>
+      
       </div>
     </>
   );

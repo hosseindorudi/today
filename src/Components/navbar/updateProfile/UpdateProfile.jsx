@@ -63,7 +63,6 @@ const UpdateProfile = ({show,onHide,updated,profile}) => {
       headers: request,
       signal: abortController.signal,
       data: {
-        Id: profile.Id,
         IsActive: values.IsActive,
         Group_Id: values.Group_Id,
         Language_EId: values.Language_EId,

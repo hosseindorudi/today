@@ -170,6 +170,8 @@ const ImportCSVModal = (props) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className="ModalImport"
+        backdrop="static"
+        keyboard={false}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">

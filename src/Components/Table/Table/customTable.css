@@ -89,6 +89,7 @@
   text-align: -webkit-center;
   padding: 5px;
   font-size: 12px;
+  direction: initial;
 }
 .pagination {
   height: var(--tablePaginationHeight);
@@ -168,6 +169,10 @@
     );
     overflow-y: auto;
   }
+  .btnContainerFilter{
+    display: flex;
+    justify-content: space-between;
+  }
   .btnContainerFilter button{
     font-size: 11px;
   }
@@ -186,5 +191,18 @@
     }
     .breadcrump,.informationWrapper{
         font-size: 11px;
+    }
+  }
+  @media only screen and (max-width: 700px) {
+    .infoTable,.actionbuttons,.breadcrump{
+      flex: 4;
+    }
+  }
+  @media only screen and (max-width: 500px) {
+    .actionbuttons,.breadcrump{
+      flex: 6;
+    }
+    .infoTable{
+      display: none;
     }
   }

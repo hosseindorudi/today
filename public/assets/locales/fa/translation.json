@@ -1021,5 +1021,8 @@
   "Flt_Cottage":"کوتاژ",
   "Flt_CommodityID":"شناسه کالا",
   "Flt_ActivationCode": "کد فعال سازی",
-  "Flt_InternalCode": "کد داخلی"
+  "Flt_InternalCode": "کد داخلی",
+  "importCSV":"ورود اطلاعات",
+  "help":"کمک",
+  "accessList":"دسترسی"
 }

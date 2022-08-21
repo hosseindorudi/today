@@ -1,4 +1,4 @@
-import "../../../../../assets/css/table.css";
+
 import React, { useRef, useState } from "react";
 import TableModal from "./TableModal/TableModal";
 import { toast } from "react-toastify";
@@ -57,7 +57,7 @@ const CustomerList = () => {
   const BcItems = [t("/Customer/Customer/Read"), t("/Customer/Customer/Read")];
   const addObject = {
     Component: CustomerForm,
-    path: "/customerform",
+    path: "/Customer/Customer/Write",
     title: "routes.customerForm",
     access: enums.Customer_Customer_Create_w,
   };
