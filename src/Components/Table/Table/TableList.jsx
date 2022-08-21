@@ -62,6 +62,8 @@ const TableList = ({
   sendMessageBankAccess,
   sendMessageBank,
   handleuploadFile,
+  handleClickQrCode,
+  downloadQRAccess
 }) => {
 
 
@@ -169,6 +171,8 @@ const TableList = ({
                      sendMessageBankAccess={sendMessageBankAccess}
                      sendMessageBank={sendMessageBank}
                      handleuploadFile={handleuploadFile}
+                     handleClickQrCode={handleClickQrCode}
+                     downloadQRAccess={downloadQRAccess}
                    />
                  </TableCell>
                  {Object.keys(post)

@@ -65,6 +65,7 @@ const CreatedLinks = () => {
         setMobileModalButtons={setMobileModalButtons}
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
+        downloadQRAccess={enums.Marketing_PollLink_Export_r}
       />
     </>
   );

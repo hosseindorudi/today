@@ -26,6 +26,7 @@ import TableFilter from "./TableFilter";
 import AppContext from "../../../contexts/AppContext";
 import { Filters } from "../../../data/Filters";
 import MobileFilter from "./MobileFilter";
+import { QRCodeCanvas } from "qrcode.react";
 const CustomTable = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const { app } = useContext(AppContext);
@@ -59,7 +60,7 @@ const CustomTable = forwardRef((props, ref) => {
   const [tempFilterObj, setTempFilterObj] = useState({});
   const [filteres, setFilteres] = useState([]);
   const [mobileFilter, setMobileFilter] = useState(false);
-
+  const [qrLink, setQrLink] = useState(null);
   const getTable = () => {
     fetchData({
       method: "POST",
@@ -463,9 +464,30 @@ const CustomTable = forwardRef((props, ref) => {
     readPaging(paging, tempFilterObj);
     setfilterObj(tempFilterObj);
   };
-
+  const handleClickQrCode = (value) => {
+    const link = value.SiteAddress.concat("?code=" + value.Code);
+    setQrLink(link);
+  };
+  useEffect(() => {
+    if (qrLink) {
+      const qrCodeURL = document
+        .getElementById("qrCode")
+        .toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+      let aEl = document.createElement("a");
+      aEl.href = qrCodeURL;
+      aEl.download = "QR_Code.png";
+      document.body.appendChild(aEl);
+      aEl.click();
+      document.body.removeChild(aEl);
+    }
+    return () => {
+      setQrLink(null);
+    };
+  }, [qrLink]);
   return (
     <>
+      {qrLink && <div style={{display:"none"}}><QRCodeCanvas value={qrLink} id="qrCode"/></div>}
       {loading && <BackDrop open={true} />}
       {showLogModal && (
         <LogModal
@@ -595,6 +617,7 @@ const CustomTable = forwardRef((props, ref) => {
                   props.readAnswersAccess ? props.readAnswersAccess : ""
                 }
                 handleuploadFile={props.handleuploadFile}
+                handleClickQrCode={handleClickQrCode}
               />{" "}
             </div>
           ) : (

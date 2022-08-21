@@ -1025,5 +1025,6 @@
   "importCSV":"ورود اطلاعات",
   "help":"کمک",
   "accessList":"دسترسی",
-  "WhatsApp":"واتس آپ"
+  "WhatsApp":"واتس آپ",
+  "QrCodeDownload":"دانلود QRCode"
 }

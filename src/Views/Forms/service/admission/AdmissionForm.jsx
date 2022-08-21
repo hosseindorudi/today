@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import AdapterJalali from '@date-io/date-fns-jalali';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import QRCode from "react-qr-code";
+// import QRCode from "react-qr-code";
 import logo from "../../../../../src/assets/imgs/logo22.png";
 import PatternLock from './patternLock/PatternLock';
 import SignaturePad from "./signaturePad/src/index";
@@ -471,7 +471,7 @@ const AdmissionForm = () => {
         </div>
 
         <div className="qrCodeDiv">
-        <QRCode value='hey'/>
+        {/* <QRCode value='hey'/> */}
         </div>
 
         

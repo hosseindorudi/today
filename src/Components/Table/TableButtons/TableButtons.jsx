@@ -53,6 +53,8 @@ const TableButtons = ({
   sendMessageBankAccess,
   sendMessageBank,
   handleuploadFile,
+  handleClickQrCode,
+  downloadQRAccess
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -216,6 +218,12 @@ const TableButtons = ({
       name: "Permission",
       click: () => handleClickGetPermission(rowValue.Id),
       access: accessListType,
+    },
+    {
+      icon: <fa.FaQrcode color="silver"/>,
+      name: "QrCodeDownload",
+      click: () => handleClickQrCode(rowValue),
+      access: downloadQRAccess,
     },
   ];
   return (
