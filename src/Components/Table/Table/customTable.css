@@ -80,8 +80,20 @@
 }
 .tableC th {
   border: 1px solid rgba(224, 224, 224, 1);
-  background-color: beige;
+  background-color: rgb(165, 198, 227);
   font-weight: 900;
+}
+.tableC th:first-child{
+  position: sticky;
+  right: 0;
+  background-color: rgb(165, 198, 227);
+  z-index: 3;
+}
+.tableC td:first-child{
+  position: sticky;
+  right: 0;
+  background: white;
+  z-index: 1;
 }
 .tableC td,
 .tableC th {
