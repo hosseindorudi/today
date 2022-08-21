@@ -14,7 +14,7 @@ import BackDrop from "../../Components/backDrop/BackDrop";
 import { useTranslation } from "react-i18next";
 import { TabContext } from "../../contexts/TabContextProvider";
 import * as fa from "react-icons/fa";
-
+import CachedIcon from '@mui/icons-material/Cached';
 import { Routes } from "../../Routes";
 import Swal from "sweetalert2";
 import {
@@ -27,6 +27,7 @@ import DescModal from "../../Components/Table/descriptionModal/DescModal";
 import { Table } from "react-bootstrap";
 import useRequest from "../../customHooks/useRequest";
 import MapShowLocation from "../../Components/map/MapShowLocation";
+import { Button } from "@mui/material";
 
 const OperatorDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -281,6 +282,9 @@ const OperatorDashboard = () => {
         <Modal setIsOpen={setIsOpen} getDashboardData={getDashboardData} />
       )}
       <div className="mainOperatorDash">
+        <div className="Row">
+          <Button title="refresh" onClick={getDashboardData}><CachedIcon/></Button>
+        </div>
         <div className="Row">
           <div className="operatorDashboardInformation">
             <div className="dashInformationDiv">

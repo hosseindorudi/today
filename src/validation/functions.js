@@ -121,13 +121,13 @@ export const createSelectRepairedOptions = (titles) => {
 };
 export const findOsIcon = (value) => {
   const splited = value.split(" ");
-  const os = splited[0];
-  return osIcons[os];
+  const os = splited[0].toLowerCase();
+  return <div title={value}>{osIcons[os]}</div>;
 };
 export const findBrowserIcon=(value)=>{
   const splited = value.split(" ");
-  const browser = splited[0];
-  return browserIcons[browser];
+  const browser = splited[0].toLowerCase();
+  return <div title={value}>{browserIcons[browser]}</div>;
 }
 export const findGeoLocation=(value)=>{
   const splited=value.split(",")

@@ -93,7 +93,7 @@ const TableFilter = ({ filteres, filterObj, setfilterObj,handleClickSendFilter,h
       <Form.Group className="mb-3">{checkFilter()}</Form.Group>
       <div className="btnContainerFilter">
           <Button size="small" variant="contained" onClick={handleClickSendFilter}>
-            {t("send")}
+            {t("search")}
           </Button>
           <Button onClick={handleClearFilter}>
             <fa.FaEraser />
