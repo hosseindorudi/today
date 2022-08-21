@@ -296,7 +296,6 @@ const MapPage = () => {
           </>
         ) : (
           <Form.Group className="mb-3">
-            <Form.Label>{t("choices")}</Form.Label>
             <Form.Select
               aria-label="Duration"
               onChange={(e) => setEId(e.target.value)}
@@ -338,7 +337,7 @@ const MapPage = () => {
         </div>
         <div className="rowLayerChart">
         <div
-            className="firstRowChart1"
+            className="firstRowChart"
           >
             {browserData && (
               <FieldSetBorder legend="مرورگر" >
@@ -377,7 +376,8 @@ const MapPage = () => {
             {geoLocationData.length !== 0 && (
               <FieldSetBorder legend="مختصات">
                 <div className="map" style={{ width: "100%", height: "100%" }}>
-                  <Mapir  Map={Map} userLocation>
+                  <Mapir  Map={Map} userLocation >
+                  <Mapir.ScaleControl />
                   <Mapir.ZoomControl position={"top-left"} />
                     <Mapir.Cluster
                       zoomOnClick
