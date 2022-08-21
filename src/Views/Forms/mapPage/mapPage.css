@@ -20,15 +20,27 @@
 .topLayerMap {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items:center;
   height: var(--topLayerMap);
   position: sticky;
   top: 0;
   background-color: #fff;
+  border: 1px solid lightgray;
+  margin: 0 10px;
+  border-radius: 5px;
+  transition: all 500ms ease;
 }
+
+.topLayerMap > div {
+  margin: 10px;
+  transition: all 500ms ease;
+}
+
 .btnShowMap {
   height: 40;
+  margin: 10px;
+  transition: all 500ms ease;
 }
 
 .downLayerChart{
@@ -52,14 +64,29 @@
   flex: 1;
   width: 100%;
   margin: 2px;
+  
 }
+
+.firstRowChart1 {
+  width: fit-content;
+}
+.firstRowChart1 > fieldset {
+  width: 100px;
+  height: 100%;
+}
+
+
 
 
 @media screen and (max-width:600px){
   .rowLayerChart{
     flex-direction: column;
   }
-  
-  
+  .firstRowChart1 {
+    width: 100%;
+  }
+  .firstRowChart1 > fieldset > canvas {
+    width: 100% !important;
+  }
 }
 

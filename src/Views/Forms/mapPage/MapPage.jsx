@@ -6,7 +6,7 @@ import persian from "react-date-object/calendars/persian";
 import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_en from "react-date-object/locales/gregorian_en";
-import { durations } from "../../../data/constants";
+import { durations, mapApiKey } from "../../../data/constants";
 import { toast } from "react-toastify";
 import "./mapPage.css";
 import AppContext from "../../../contexts/AppContext";
@@ -17,8 +17,46 @@ import { LoginHistoryReportDispersion } from "../../../services/loginHistoryServ
 import { Bar, Line, Pie } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import FieldSetBorder from "../../../Components/fieldSetBorder/FieldSetBorder";
-import ReactWordcloud from 'react-wordcloud';
+import ReactWordcloud from "react-wordcloud";
+import Mapir from "mapir-react-component";
+
+
+const Map = Mapir.setToken({
+  transformRequest: (url) => {
+    return {
+      mode: "no-cors",
+      url: url,
+      headers: {
+        "x-api-key": mapApiKey, //Mapir api key
+        "Mapir-SDK": "reactjs",
+      },
+    };
+  },
+});
+
+
 const MapPage = () => {
+  const styles = {
+    clusterMarker: {
+      width: 50,
+      height: 50,
+      borderRadius: "50%",
+      backgroundColor: "black",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "white",
+      border: "2px solid gray",
+      cursor: "pointer",
+    },
+  };
+
+  const clusterMarker = (coordinates, pointCount) => (
+    <Mapir.Marker coordinates={coordinates} style={styles.clusterMarker} anchor="bottom">
+      <div>{pointCount}</div>
+    </Mapir.Marker>
+  );
+
   const { t } = useTranslation();
   const [isActive, setIsActive] = useState(true);
   const [fromDate, setFromDate] = useState(
@@ -34,26 +72,55 @@ const MapPage = () => {
   const [osData, setOsData] = useState();
   const [dateData, setDateData] = useState();
   const [browserData, setBrowserData] = useState();
-  const [userData, setUserData] = useState([])
-  const [iPData, setIPData] = useState([])
+  const [userData, setUserData] = useState([]);
+  const [iPData, setIPData] = useState([]);
+  const [geoLocationData, setGeoLocationData] = useState([]);
+  const [geoRes, setgeoRes] = useState([]);
 
   // const setColorsOption = (value) => {
   //   let sortArr = [...value].sort((a, b) => a.Count - b.Count);
   //   let color = sortArr.map((v, i) => {});
   // };
 
-  const createWordCloudData = (data)   => {
-    let arr = []
-    data.map((d, i) => ((arr.push({text:d.Title, value: d.Count}))))
-    console.log(arr)
+  const createWordCloudData = (data) => {
+    let arr = [];
+    data.map((d, i) => arr.push({ text: d.Title, value: d.Count }));
+    console.log(arr);
     return arr;
-  }
+  };
+
+  const createGeolocationData = (data) => {
+    let obj = {
+      type: "FeatureCollection",
+      name: "cluster",
+      crs: {
+        type: "name",
+        properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" },
+      },
+      features: [],
+    };
+    data.map((d, i) =>
+      obj.features.push({
+        type: "Feature",
+        properties: { id: null },
+        geometry: {
+          type: "Point",
+          coordinates: [
+            Number(d.Title.split(",")[1]),
+            Number(d.Title.split(",")[0]),
+          ],
+        },
+      })
+    );
+    // console.log(geoRes)
+    return obj;
+  };
+
 
   const handleResponse = (response, type) => {
     switch (type) {
       case "SUBMIT":
-        handleSeccess(t("reports_ready"));
-        console.log(response);
+
         response.OS &&
           setOsData({
             labels: response.OS.map((os) => os.Title),
@@ -121,14 +188,20 @@ const MapPage = () => {
               },
             ],
           });
-          response.User && setUserData(createWordCloudData(response.User))
-          response.IP && setIPData(createWordCloudData(response.IP))
-        
+        response.User && setUserData(createWordCloudData(response.User));
+        response.IP && setIPData(createWordCloudData(response.IP));
+        response.Geolocation &&
+          setGeoLocationData(createGeolocationData(response.Geolocation));
+        response.Geolocation && setgeoRes(response.Geolocation);
         break;
       default:
         break;
     }
   };
+
+
+
+
   useEffect(() => {
     response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -152,7 +225,10 @@ const MapPage = () => {
 
   return (
     <div className="mainMap">
+
       <div className="topLayerMap">
+      {/* <FieldSetBorder legend="ورود کاربرها">
+              </FieldSetBorder> */}
         <Form.Group className="mb-3 activationRow" controlId={"switch"}>
           <Form.Check
             type="switch"
@@ -248,50 +324,84 @@ const MapPage = () => {
           <div className="firstRowChart">
             {osData && (
               <FieldSetBorder legend="سیستم عامل">
-                <Bar data={osData} style={{width:"40%"}}/>
+                <Bar data={osData} style={{ width: "40%" }} />
               </FieldSetBorder>
             )}
           </div>
           <div className="firstRowChart">
             {dateData && (
               <FieldSetBorder legend="تاریخ اتصال">
-                <Line data={dateData} style={{width:"40%"}}/>
+                <Line data={dateData} style={{ width: "40%" }} />
               </FieldSetBorder>
             )}
           </div>
         </div>
         <div className="rowLayerChart">
-          <div className="firstRowChart" style={{width:"100%"}}>
+        <div
+            className="firstRowChart1"
+          >
             {browserData && (
               <FieldSetBorder legend="مرورگر" >
                 <Pie data={browserData} />
               </FieldSetBorder>
             )}
-          </div>
-          <div className="firstRowChart" style={{width:"100%", height:"100%"}}>
-          </div>
-        </div>
-        <div className="rowLayerChart">
-          <div className="firstRowChart" style={{width:"100%" , height:"100%"}}>
+            </div>
+          <div
+            className="firstRowChart"
+            style={{ width: "100%", height: "100%" }}
+          >
+            
             {browserData && (
-              <FieldSetBorder legend="ورود کاربرها" >
-                <ReactWordcloud words={userData} style={{width:"100%"}} />
+              <FieldSetBorder legend="ورود کاربرها">
+                <ReactWordcloud words={userData} style={{ width: "100%" }} />
               </FieldSetBorder>
             )}
           </div>
-          <div className="firstRowChart" style={{width:"100%", height:"100%"}}>
+          <div
+            className="firstRowChart"
+            style={{ width: "100%", height: "100%" }}
+          >
             {dateData && (
               <FieldSetBorder legend="آی پی">
-                <ReactWordcloud words={iPData} style={{width:"100%"}} />
+                <ReactWordcloud words={iPData} style={{ width: "100%" }} />
               </FieldSetBorder>
             )}
           </div>
         </div>
+        <div className="rowLayerChart" >
+          
+          <div
+            className="firstRowChart"
+            style={{ width: "100%", height: "100%" }}
+          >
+            {geoLocationData.length !== 0 && (
+              <FieldSetBorder legend="مختصات">
+                <div className="map" style={{ width: "100%", height: "100%" }}>
+                  <Mapir  Map={Map} userLocation>
+                  <Mapir.ZoomControl position={"top-left"} />
+                    <Mapir.Cluster
+                      zoomOnClick
+                      ClusterMarkerFactory={clusterMarker}
+                    >
+                      {geoLocationData?.features?.map((feature, key) => (
+                        <Mapir.Marker
+                          key={key}
+                          coordinates={feature.geometry.coordinates}
+                          Image={"https://cdn-icons-png.flaticon.com/512/0/14.png"}
+                          // pointCount={geoRes[key].Count}
+                        />
+                      ))}
+                    </Mapir.Cluster>
+                  </Mapir>
+                </div>
+              </FieldSetBorder>
+            )}
+          </div>
+        </div>
+        
       </div>
     </div>
   );
 };
 
 export default MapPage;
-
-
