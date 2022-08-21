@@ -4,7 +4,7 @@ import persian from "react-date-object/calendars/persian";
 import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_en from "react-date-object/locales/gregorian_en";
-
+import './customerForm.css'
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -328,7 +328,7 @@ const CustomerForm = () => {
               </Form.Group>
             </div>
             <div className="Row">
-              <Form.Group className="mb-3 customerFirstName">
+              <Form.Group className="mb-3 customerFirstName customerFormRequired">
                 <Form.Control
                   type="text"
                   placeholder={t("customerUser")}
@@ -336,7 +336,7 @@ const CustomerForm = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group className="mb-3 customerFirstName">
+              <Form.Group className="mb-3 customerFirstName customerFormRequired">
                 <Form.Control
                   type="password"
                   placeholder={t("password")}
@@ -382,7 +382,7 @@ const CustomerForm = () => {
               </Form.Group> */}
             </div>
             <div className="Row">
-              <Form.Group className="mb-3 customerFirstName">
+              <Form.Group className="mb-3 customerFirstName customerFormRequired">
                 <Form.Control
                   type="number"
                   placeholder={t("CustomerNumber")}
@@ -425,7 +425,7 @@ const CustomerForm = () => {
                 className="Row"
                 style={{ display: !isReal ? "none" : "flex" }}
               >
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="text"
                     placeholder={t("Name")}
@@ -433,7 +433,7 @@ const CustomerForm = () => {
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="text"
                     placeholder={t("lastname")}
@@ -468,7 +468,7 @@ const CustomerForm = () => {
                 className="Row"
                 style={{ display: !isReal ? "none" : "flex" }}
               >
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="text"
                     placeholder={t("idcode")}
