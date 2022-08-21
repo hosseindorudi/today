@@ -80,7 +80,7 @@ const TableList = ({
       )}
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer className="tableC">
-          <Table stickyHeader aria-label="sticky table">
+          <Table stickyHeader aria-label="sticky table" size="small">
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
