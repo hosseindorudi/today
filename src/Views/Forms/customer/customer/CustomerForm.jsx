@@ -86,6 +86,7 @@ const CustomerForm = () => {
   const [telegram, setTelegram] = useState("");
   const [twitter, setTwitter] = useState("");
   const [storeTitle, setStoreTitle] = useState("");
+  const [whatsApp, setWatsApp] = useState("");
 
   const { app } = useContext(AppContext);
   const handleClickMenu = () => {
@@ -174,6 +175,7 @@ const CustomerForm = () => {
         handleError(t("customer7"));
         return;
       } else {
+        console.log(isReal);
         setType("SUBMIT");
         fetchData({
           method: "POST",
@@ -203,6 +205,7 @@ const CustomerForm = () => {
             Instagram: instagram,
             Telegram: telegram,
             Twitter: twitter,
+            WhatsApp: whatsApp,
             IsReal: isReal,
             Real_NationalCode: isReal ? idCode : "",
             Real_FirstName: isReal ? firstname : "",
@@ -217,11 +220,13 @@ const CustomerForm = () => {
             Real_HomeFax: isReal ? homeFax : "",
             Real_WorkFax: isReal ? workFax : "",
             Real_Job: isReal ? job : "",
-            Legal_NationalID: !isReal ? legalNationalID : 0,
+            Legal_NationalID: !isReal ? Number(legalNationalID) : 0,
             Legal_CompanyName: !isReal ? legalCompanyName : "",
             Legal_CompanyType: !isReal ? legalCompanyType : "",
-            Legal_EconomicCode: !isReal ? legalEconomicCode : 0,
-            Legal_RegistrationNumber: !isReal ? legalRegistrationNumber : 0,
+            Legal_EconomicCode: !isReal ? Number(legalEconomicCode) : 0,
+            Legal_RegistrationNumber: !isReal
+              ? Number(legalRegistrationNumber)
+              : 0,
             Legal_RegistrationDate: new Date(legalRegistrationDate),
             Legal_ExpirationDate: new Date(legalExpireDate),
             Legal_RegistrationUnit: !isReal ? legalRegistrationunit : "",
@@ -235,6 +240,7 @@ const CustomerForm = () => {
         });
       }
     } else {
+      console.log(isReal);
       setType("SUBMIT");
       fetchData({
         method: "POST",
@@ -266,6 +272,7 @@ const CustomerForm = () => {
           Telegram: telegram,
           Twitter: twitter,
           IsReal: isReal,
+          WhatsApp: whatsApp,
           Real_NationalCode: isReal ? idCode : "",
           Real_FirstName: isReal ? firstname : "",
           Real_LastName: isReal ? lastName : "",
@@ -279,11 +286,13 @@ const CustomerForm = () => {
           Real_HomeFax: isReal ? homeFax : "",
           Real_WorkFax: isReal ? workFax : "",
           Real_Job: isReal ? job : "",
-          Legal_NationalID: !isReal ? legalNationalID : 0,
+          Legal_NationalID: !isReal ? Number(legalNationalID) : 0,
           Legal_CompanyName: !isReal ? legalCompanyName : "",
           Legal_CompanyType: !isReal ? legalCompanyType : "",
-          Legal_EconomicCode: !isReal ? legalEconomicCode : 0,
-          Legal_RegistrationNumber: !isReal ? legalRegistrationNumber : 0,
+          Legal_EconomicCode: !isReal ? Number(legalEconomicCode) : 0,
+          Legal_RegistrationNumber: !isReal
+            ? Number(legalRegistrationNumber)
+            : 0,
           Legal_RegistrationDate: new Date(legalRegistrationDate),
           Legal_ExpirationDate: new Date(legalExpireDate),
           Legal_RegistrationUnit: !isReal ? legalRegistrationunit : "",
@@ -845,6 +854,20 @@ const CustomerForm = () => {
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </Form.Group>
+
+                    <Form.Group
+                      className="mb-3 customerFirstName"
+                      controlId="exampleForm.ControlTextarea1"
+                    >
+                      <Form.Control
+                        type="text"
+                        placeholder={t("WhatsApp")}
+                        value={whatsApp}
+                        onChange={(e) => setWatsApp(e.target.value)}
+                      />
+                    </Form.Group>
+                  </div>
+                  <div className="Row">
                     <Form.Group className="mb-3 customerFirstName">
                       <Form.Control
                         type="text"
@@ -873,7 +896,8 @@ const CustomerForm = () => {
                       );
 
                       setEndDate(null);
-                    }}}
+                    }
+                  }}
                   onClose={(newValue) => {
                     if (endDate !== null && newValue > endDate) {
                       toast.error(
@@ -884,10 +908,10 @@ const CustomerForm = () => {
                       );
 
                       setEndDate(null);
-                    }}}
+                    }
+                  }}
                   onChange={(newValue) => {
                     setFromDate(newValue);
-                    
                   }}
                   name="LimitTo"
                   calendar={app.lang === "fa" ? persian : gregorian}
@@ -909,48 +933,52 @@ const CustomerForm = () => {
                 <DatePicker
                   containerClassName="custom-container"
                   placeholder={t("endDate")}
-                  onFocusedDateChange={(newValue) =>  {if (fromDate !== null && newValue < fromDate) {
-                    toast.error(
-                      "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
-                      {
-                        position: toast.POSITION.BOTTOM_CENTER,
-                      }
-                    );
+                  onFocusedDateChange={(newValue) => {
+                    if (fromDate !== null && newValue < fromDate) {
+                      toast.error(
+                        "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                        {
+                          position: toast.POSITION.BOTTOM_CENTER,
+                        }
+                      );
 
-                    setEndDate(null);
-                  }}}
-                  onClose={(newValue) =>  {if (fromDate !== null && newValue < fromDate) {
-                    toast.error(
-                      "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
-                      {
-                        position: toast.POSITION.BOTTOM_CENTER,
-                      }
-                    );
+                      setEndDate(null);
+                    }
+                  }}
+                  onClose={(newValue) => {
+                    if (fromDate !== null && newValue < fromDate) {
+                      toast.error(
+                        "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                        {
+                          position: toast.POSITION.BOTTOM_CENTER,
+                        }
+                      );
 
-                    setEndDate(null);
-                  }}}
+                      setEndDate(null);
+                    }
+                  }}
                   onChange={(newValue) => {
                     setEndDate(newValue);
-                    if(newValue !== null) {
-                        if(newValue.year < fromDate.year) {
-                          toast.error(
-                            "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
-                            {
-                              position: toast.POSITION.BOTTOM_CENTER,
-                            }
-                          );
-      
-                          setEndDate(null);
-                        }else if(newValue.monthIndex < fromDate.monthIndex){
-                          toast.error(
-                            "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
-                            {
-                              position: toast.POSITION.BOTTOM_CENTER,
-                            }
-                          );
-      
-                          setEndDate(null);
-                        }
+                    if (newValue !== null) {
+                      if (newValue.year < fromDate.year) {
+                        toast.error(
+                          "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                          {
+                            position: toast.POSITION.BOTTOM_CENTER,
+                          }
+                        );
+
+                        setEndDate(null);
+                      } else if (newValue.monthIndex < fromDate.monthIndex) {
+                        toast.error(
+                          "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                          {
+                            position: toast.POSITION.BOTTOM_CENTER,
+                          }
+                        );
+
+                        setEndDate(null);
+                      }
                     }
                     // if (fromDate !== null && newValue < fromDate) {
                     //   toast.error(
