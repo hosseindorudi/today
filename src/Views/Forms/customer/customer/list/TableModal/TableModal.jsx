@@ -18,6 +18,7 @@ import useWindowSize from "../../../../../../customHooks/useWindowSize";
 import FieldSetBorder from "../../../../../../Components/fieldSetBorder/FieldSetBorder";
 import { createSelectOptions } from "../../../../../../validation/functions";
 import { CustomReactMultiSelect } from "../../../../../../Components/Select/customReactSelect";
+import { checkBoolean } from "../../../../../../validation/validation";
 
 const TableModal = (props) => {
   const values = props.rowValus;
@@ -90,7 +91,7 @@ const TableModal = (props) => {
   };
   useEffect(() => {
     getCustomerGroupTitle();
-    console.log(values);
+
 
     setGroupTitleId(values.Group_Id);
     setIsActive(values.IsActive);
@@ -208,7 +209,7 @@ const TableModal = (props) => {
         Real_FathersName: isReal ? fatherName : "",
         Real_IdCardNumber: isReal ? idCardNumber : "",
         Real_IdCardSerialNumber: isReal ? idCardSerialNumber : "",
-        Real_Gender: isReal ? gender : false,
+        Real_Gender: isReal ? checkBoolean(gender) : false,
         Real_DateOfBirth: new Date(dateOfBirth),
         Real_DateOfIssuanceIdCard: new Date(dateOfSerial),
         Real_PlaceOfIssuanceIdCard: isReal ? serialLocation : "",
