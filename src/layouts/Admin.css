@@ -3,9 +3,9 @@
   --headerheight: 40px;
   --navTabHeight: 3rem;
   --topLayerMap:90px;
-  --backGroundColortable:#ccdbf1;
-  --headerBackGround:#4584e1fa;
-  --sidebarDropDown:#6f9de1f4;
+  --backGroundColortable:#6fa9fffa;
+  --headerBackGround:#1d6bdffa;
+  --sidebarDropDown:#3d6edbfa;
 }
 .tabParrentDiv {
   height: calc(100vh - var(--headerheight) - var(--heightfooter));
@@ -141,7 +141,7 @@ input:checked + .slider:before {
 .header {
   height: var(--headerheight);
   color: white;
-  background-color: #4584e1fa;
+  background-color: var(--headerBackGround);
   display: flex;
   align-items: center;
   justify-content: space-between;
