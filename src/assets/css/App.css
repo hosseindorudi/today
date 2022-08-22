@@ -29,6 +29,9 @@ button:disabled{
   cursor: not-allowed !important;
 }
 
+#color {
+  width: 100%;
+}
 
 .Row{
   display: flex;

@@ -190,6 +190,23 @@
   .btnContainerFilter button{
     font-size: 11px;
   }
+
+  .cardHeaderBtn {
+    background-color: transparent;
+    color: white;
+  }
+
+.group_card {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card_title {
+  direction: initial;
+}
+
+
+
   /* media Queries */
   @media only screen and (max-width: 1200px) {
     .tableFilter input,.tableFilter label{
