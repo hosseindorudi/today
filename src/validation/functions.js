@@ -142,6 +142,8 @@ export const checkTableValues = (type, value, post, exportAccess) => {
       return value ? t("Yes") : t("No")
     case "DateSet":
       return dateOfLogTable(value);
+    case "LicenseExpirationDate":
+      return dateOfExpireTable(value);
     case "IsActive":
     case "Activated":
     case "IsPerishable":
@@ -224,6 +226,10 @@ export const dateOfLogTable = (date) => {
   a[0] = convertUTC(a[0]);
   a[1] = a[1].split(".")[0]
   return a.reverse().join(" ");
+};
+export const dateOfExpireTable = (date) => {
+  let a = date.split("T");
+  return convertUTC(a[0]);
 };
 
 export const checkQuestionEId = (EID, value,setDescOpen,setDesc) => {
