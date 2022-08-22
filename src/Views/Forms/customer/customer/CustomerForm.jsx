@@ -155,7 +155,7 @@ const CustomerForm = () => {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    console.log(gender)
+  
     if (isReal) {
       if (!firstname) {
         handleError(t("customer1"));
@@ -213,7 +213,7 @@ const CustomerForm = () => {
             Real_FathersName: isReal ? fatherName : "",
             Real_IdCardNumber: isReal ? idCardNumber : "",
             Real_IdCardSerialNumber: isReal ? idCardSerialNumber : "",
-            Real_Gender: isReal ? checkBoolean(gender) : false,
+            Real_Gender: isReal ?typeof(gender)==="boolean"?gender:checkBoolean(gender) : false,
             Real_DateOfBirth: new Date(dateOfBirth),
             Real_DateOfIssuanceIdCard: new Date(dateOfSerial),
             Real_PlaceOfIssuanceIdCard: isReal ? serialLocation : "",
@@ -278,7 +278,7 @@ const CustomerForm = () => {
           Real_FathersName: isReal ? fatherName : "",
           Real_IdCardNumber: isReal ? idCardNumber : "",
           Real_IdCardSerialNumber: isReal ? idCardSerialNumber : "",
-          Real_Gender: isReal ? checkBoolean(gender) : false,
+          Real_Gender: isReal ?typeof(gender)==="boolean"?gender:checkBoolean(gender) : false,
           Real_DateOfBirth: new Date(dateOfBirth),
           Real_DateOfIssuanceIdCard: new Date(dateOfSerial),
           Real_PlaceOfIssuanceIdCard: isReal ? serialLocation : "",
