@@ -593,7 +593,7 @@ const CustomerForm = () => {
                 className="Row"
                 style={{ display: isReal ? "none" : "flex" }}
               >
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="number"
                     placeholder={t("legalnationalID")}
@@ -601,7 +601,7 @@ const CustomerForm = () => {
                     onChange={(e) => setlegalNationalID(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="text"
                     placeholder={t("legalCompanyName")}
@@ -614,7 +614,7 @@ const CustomerForm = () => {
                 className="Row"
                 style={{ display: isReal ? "none" : "flex" }}
               >
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="text"
                     placeholder={t("legalCompanyType")}
@@ -622,7 +622,7 @@ const CustomerForm = () => {
                     onChange={(e) => setLegalCompanyType(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="number"
                     placeholder={t("legalEconomicCode")}
@@ -635,7 +635,7 @@ const CustomerForm = () => {
                 className="Row"
                 style={{ display: isReal ? "none" : "flex" }}
               >
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="number"
                     placeholder={t("legalRegistrationNumber")}
@@ -643,7 +643,7 @@ const CustomerForm = () => {
                     onChange={(e) => setLegalRegistrationNumber(e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="text"
                     placeholder={t("legalRegistrationUnit")}
@@ -661,22 +661,35 @@ const CustomerForm = () => {
                   <DatePicker
                     containerClassName="custom-container"
                     placeholder={t("legalRegistrationDate")}
-                    onChange={(newValue) => {
-                      setLegalRegistrationDate(newValue);
-                      if (
-                        legalExpireDate !== null &&
-                        newValue > legalExpireDate
-                      ) {
+
+                    onFocusedDateChange={(newValue) => {
+                      if (legalExpireDate !== null && newValue > legalExpireDate) {
                         toast.error(
                           "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
                           {
                             position: toast.POSITION.BOTTOM_CENTER,
                           }
                         );
-
+  
                         setLegalExpireDate(null);
                       }
                     }}
+                    onClose={(newValue) => {
+                      if (legalExpireDate !== null && newValue > legalExpireDate) {
+                        toast.error(
+                          "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                          {
+                            position: toast.POSITION.BOTTOM_CENTER,
+                          }
+                        );
+  
+                        setLegalExpireDate(null);
+                      }
+                    }}
+                    onChange={(newValue) => {
+                      setLegalRegistrationDate(newValue);
+                    }}
+
                     name="LimitTo"
                     calendar={app.lang === "fa" ? persian : gregorian}
                     locale={app.lang === "fa" ? persian_fa : gregorian_en}
@@ -689,22 +702,57 @@ const CustomerForm = () => {
                   <DatePicker
                     containerClassName="custom-container"
                     placeholder={t("endDate")}
-                    onChange={(newValue) => {
-                      setEndDate(newValue);
-                      if (
-                        legalRegistrationDate !== null &&
-                        newValue < legalRegistrationDate
-                      ) {
+
+                    onFocusedDateChange={(newValue) => {
+                      if (legalRegistrationDate !== null && newValue < legalRegistrationDate) {
                         toast.error(
                           "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
                           {
                             position: toast.POSITION.BOTTOM_CENTER,
                           }
                         );
-
+  
                         setLegalExpireDate(null);
                       }
                     }}
+                    onClose={(newValue) => {
+                      if (legalRegistrationDate !== null && newValue < legalRegistrationDate) {
+                        toast.error(
+                          "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                          {
+                            position: toast.POSITION.BOTTOM_CENTER,
+                          }
+                        );
+  
+                        setLegalExpireDate(null);
+                      }
+                    }}
+                    onChange={(newValue) => {
+                      setLegalExpireDate(newValue);
+                      if (newValue !== null) {
+                        if (newValue.year < legalRegistrationDate.year) {
+                          toast.error(
+                            "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                            {
+                              position: toast.POSITION.BOTTOM_CENTER,
+                            }
+                          );
+  
+                          setLegalExpireDate(null);
+                        } else if (newValue.monthIndex < legalRegistrationDate.monthIndex) {
+                          toast.error(
+                            "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                            {
+                              position: toast.POSITION.BOTTOM_CENTER,
+                            }
+                          );
+  
+                          setLegalExpireDate(null);
+                        }
+                      }
+                    }}
+                    
+                    
                     name="LimitTo"
                     calendar={app.lang === "fa" ? persian : gregorian}
                     locale={app.lang === "fa" ? persian_fa : gregorian_en}
@@ -718,7 +766,7 @@ const CustomerForm = () => {
                 className="Row"
                 style={{ display: isReal ? "none" : "flex" }}
               >
-                <Form.Group className="mb-3 customerFirstName">
+                <Form.Group className="mb-3 customerFirstName customerFormRequired">
                   <Form.Control
                     type="text"
                     placeholder={t("legalRegistrationOrganization")}
@@ -979,16 +1027,6 @@ const CustomerForm = () => {
                         setEndDate(null);
                       }
                     }
-                    // if (fromDate !== null && newValue < fromDate) {
-                    //   toast.error(
-                    //     "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
-                    //     {
-                    //       position: toast.POSITION.BOTTOM_CENTER,
-                    //     }
-                    //   );
-
-                    //   setEndDate(null);
-                    // }
                   }}
                   name="LimitTo"
                   calendar={app.lang === "fa" ? persian : gregorian}
