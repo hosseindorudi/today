@@ -195,7 +195,7 @@ export const checkRowBackGroundColor=(post)=>{
   if(post["SafeMode"])
   return "pink"
   if(post["ItIsMe"])
-  return "springgreen"
+  return "#a2eba2"
 
   return "white"
 }

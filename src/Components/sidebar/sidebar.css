@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: mediumblue;
+  background-color: var(--sidebarDropDown);
 }
 .sidebarNavRTL{
 right: 0;
@@ -37,7 +37,7 @@ left: unset;
     /* overflow-x: auto; */
 }
 .SidebarLink {
-    background-color:blue;
+    background-color:var(--headerBackGround);
     border: none;
   display: flex;
   color: #e1e9fc;
@@ -54,15 +54,16 @@ left: unset;
   overflow: hidden;
   cursor: pointer;
 }
-.SidebarLink:active {
+.searchSidebar::-webkit-scrollbar{
+  display:none;
+}
+/* .SidebarLink:active {
     background-color: #3a3b3a;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
-  }
+  } */
 
 .SidebarLink:hover {
-  
-    border-left: 4px solid #632ce4;
     cursor: pointer;
   }
   .SidebarLabel{
@@ -81,7 +82,7 @@ left: unset;
   border-radius: 4px;
 }
 .DropdownLinkBtn {
-  background:mediumblue;
+  background-color: var(--sidebarDropDown);
   height: 60px;
   border: none;
   width: 80%;
@@ -93,11 +94,11 @@ left: unset;
   justify-content: flex-start;
   text-decoration: none;
   color: #f5f5f5;
-  font-size: 13px;
+  font-size: 10px;
   
 }
 .DropdownLink {
-  background:mediumblue;
+  background-color: var(--sidebarDropDown);
   height: 60px;
   border: none;
   width: 100%;
@@ -109,7 +110,7 @@ left: unset;
   justify-content: flex-start;
   text-decoration: none;
   color: #f5f5f5;
-  font-size: 13px;
+  font-size: 10px;
   
 }
 .logo{
@@ -119,14 +120,14 @@ left: unset;
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: blue;
+  background-color: var(--headerBackGround);
   /* height: 100px; */
   
 }
 .logo > a >img{
   border-radius: 10px;
-  /* width: 150px; */
-  height: 90px;
+  width: 50px;
+  height: 50px;
 }
 
 .mainCtDiv {
@@ -137,7 +138,7 @@ left: unset;
   position: sticky;
   top: 0;
   z-index: 999;
-  background-color: blue;
+  background-color: var(--headerBackGround);
 }
 
 .mainCtDiv > span {
@@ -154,7 +155,6 @@ left: unset;
     cursor: pointer;
   }
   .searchSidebar{
-      margin-inline: 0.5rem;
       overflow-y: auto;
       overflow-x: hidden;
       display: flex;
@@ -170,8 +170,11 @@ left: unset;
   }
  
   @media screen and (max-width: 1200px) {
-    .SidebarLink,.DropdownLinkBtn,.DropdownLink{
+    .SidebarLink{
       font-size: 10px;
+    }
+    .DropdownLinkBtn,.DropdownLink{
+      font-size: 8px;
     }
     
   }

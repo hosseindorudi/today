@@ -856,7 +856,7 @@ const TableModal = (props) => {
 
           <div className="Row">
             {widthOfScreen > 420 && (
-              <Button type="submit" style={{ margin: "0 auto" }}>
+              <Button type="submit" disabled={loading} style={{ margin: "0 auto" }}>
                 {t("submit")}
               </Button>
             )}

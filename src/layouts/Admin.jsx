@@ -4,7 +4,7 @@ import Home from "../Components/navbar/home";
 import Language from "../Components/navbar/language";
 import NavMenu from "../Components/navbar/navMenu";
 import Sidebar from "../Components/sidebar/sidebar";
-import * as fa from "react-icons/fa";
+
 import MainTabControl from "../Components/Tabs/TabControl/MainTabControl";
 import useWindowSize from "../customHooks/useWindowSize";
 import "./Admin.css";
@@ -16,6 +16,7 @@ import BackDrop from "../Components/backDrop/BackDrop";
 import AppContext from "../contexts/AppContext";
 import ProfileInfo from "../Components/navbar/profileInfo";
 import SafeModeChanger from "../Components/navbar/SafeModeChanger";
+import PowerButton from "../Components/navbar/PowerButton";
 function Admin() {
   const FirstName = localStorage.getItem("FirstName");
   const LastName = localStorage.getItem("LastName");
@@ -85,7 +86,7 @@ function Admin() {
 
           <Language />
           <Home />
-          <fa.FaPowerOff className="adminPowerOff" onClick={handleLogOut} />
+          <PowerButton handleLogOut={handleLogOut}/>
        
         </div>
       </div>

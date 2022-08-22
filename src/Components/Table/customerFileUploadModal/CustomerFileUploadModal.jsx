@@ -17,7 +17,6 @@ import {
 import BackDrop from "../../backDrop/BackDrop";
 const CustomerFileUploadModal = (props) => {
   const { rowValues } = props;
-  const [processing, setProcessing] = useState(false);
   const inputRefFile = useRef(null);
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
@@ -201,7 +200,7 @@ const CustomerFileUploadModal = (props) => {
   };
   return (
     <>
-      {(loading || processing) && <BackDrop open={true} />}
+      {(loading) && <BackDrop open={true} />}
       <Modal
         show={props.show}
         size="lg"

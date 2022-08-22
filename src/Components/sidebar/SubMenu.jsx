@@ -56,26 +56,10 @@ const SubMenu = ({ item, search }) => {
               className="btnIconSidebar"
               onClick={() => handleClickButton(item)}
             >
-              <cg.CgAddR size={20} />
+              <cg.CgAddR size={15} />
             </button>
           )}
         </div>
-            // <button
-            //   className="SidebarLink"
-            //   onClick={() => handleClickMenu(item)}
-            // >
-            //   <div>
-            //     {item.icon}
-            //     <span className="SidebarLabel">{t(item.title)}</span>
-            //   </div>
-            //   <div>
-            //     {item.subNav && subnav
-            //       ? item.iconOpened
-            //       : item.subNav
-            //       ? item.iconClosed
-            //       : null}
-            //   </div>
-            // </button>
           )}
       {!search &&
         subnav &&
@@ -97,7 +81,7 @@ const SubMenu = ({ item, search }) => {
                         className="btnIconSidebar"
                         onClick={() => handleClickButton(item)}
                       >
-                        <cg.CgAddR size={20} />
+                        <cg.CgAddR size={15} />
                       </button>
                     )}
                   </div>
