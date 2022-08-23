@@ -190,6 +190,23 @@
   .btnContainerFilter button{
     font-size: 11px;
   }
+
+  .cardHeaderBtn {
+    background-color: transparent;
+    color: white;
+  }
+
+.group_card {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card_title {
+  direction: initial;
+}
+
+
+
 .filterSelect{
   width: 100%;
   font-size: 12px;

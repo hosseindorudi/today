@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import DatePicker from "react-multi-date-picker";
@@ -12,7 +12,6 @@ import "./mapPage.css";
 import AppContext from "../../../contexts/AppContext";
 import useAxios from "../../../customHooks/useAxios";
 import useRequest from "../../../customHooks/useRequest";
-import { handleSeccess } from "../../../validation/functions";
 import { LoginHistoryReportDispersion } from "../../../services/loginHistoryServices";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
@@ -56,7 +55,7 @@ const MapPage = () => {
       <div>{pointCount}</div>
     </Mapir.Marker>
   );
-
+  const elementRef = useRef(null);
   const { t } = useTranslation();
   const [isActive, setIsActive] = useState(true);
   const [fromDate, setFromDate] = useState(
@@ -335,28 +334,37 @@ const MapPage = () => {
             )}
           </div>
         </div>
-        <div className="rowLayerChart">
+        <div className="rowLayerChart" style={{alignItems:"flex-start"}} >
         <div
-            className="firstRowChart"
+            className="firstRowChart" ref={elementRef}  style={{flex:1,height:"300px !important"}}
           >
             {browserData && (
-              <FieldSetBorder legend="مرورگر" >
+              <FieldSetBorder legend="مرورگر"  >
                 <Pie data={browserData} />
               </FieldSetBorder>
             )}
             </div>
           <div
             className="firstRowChart"
-            style={{ width: "100%", height: "100%" }}
+            style={{  height: "100%", flexDirection:"column", flex:2, width: `calc(100% - ${elementRef.current?.clientWidth})` }}
           >
             
-            {browserData && (
+            {userData.length !== 0 && (
+              <div style={{flex:1}}>
               <FieldSetBorder legend="ورود کاربرها">
-                <ReactWordcloud words={userData} style={{ width: "100%" }} />
+                <ReactWordcloud words={userData} style={{ width: elementRef.current?.clientWidth?  `calc(100% - ${elementRef.current?.clientWidth})` : elementRef.current?.clientWidth }} />
               </FieldSetBorder>
+              </div>
+            )}
+            {iPData.length !== 0 && (
+              <div style={{flex:1}}>
+              <FieldSetBorder legend="آی پی">
+                <ReactWordcloud words={iPData} style={{  width: elementRef.current?.clientWidth?  `calc(100% - ${elementRef.current?.clientWidth})` : elementRef.current?.clientWidth }} />
+              </FieldSetBorder>
+              </div>
             )}
           </div>
-          <div
+          {/* <div
             className="firstRowChart"
             style={{ width: "100%", height: "100%" }}
           >
@@ -365,7 +373,7 @@ const MapPage = () => {
                 <ReactWordcloud words={iPData} style={{ width: "100%" }} />
               </FieldSetBorder>
             )}
-          </div>
+          </div> */}
         </div>
         <div className="rowLayerChart" >
           

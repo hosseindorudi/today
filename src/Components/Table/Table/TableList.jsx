@@ -1,4 +1,13 @@
-import { Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import {
+  Pagination,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import React, { useState } from "react";
 import {
   checkRowBackGroundColor,
@@ -11,6 +20,7 @@ import UpArrow from "../Arrows/upArrow/UpArrow";
 import TableButtons from "../TableButtons/TableButtons";
 import DescModal from "../descriptionModal/DescModal";
 import { enums } from "../../../data/Enums";
+import TableCard from "../tableCard/TableCard";
 
 const TableList = ({
   productsColumns,
@@ -63,13 +73,11 @@ const TableList = ({
   sendMessageBank,
   handleuploadFile,
   handleClickQrCode,
-  downloadQRAccess
+  downloadQRAccess,
+  type,
 }) => {
-
-
   const [descriptionShow, setDescriptionShow] = useState(false);
   const [desc, setDesc] = useState("");
-
 
   return (
     <>
@@ -80,188 +88,194 @@ const TableList = ({
           value={desc}
         />
       )}
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer className="tableC">
-          <Table stickyHeader aria-label="sticky table" size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell></TableCell>
-                {productsColumns
-                 .filter(
-                   (p, i) =>
-                     !filteredColumns.includes(p["Header"]) &&
-                     !unSelected.includes(p["Header"])
-                 )
-                 .map((column, index) => (
-                   <TableCell
-                     className="MainTableTh"
-                     key={index}
-                     style={{
-                       display: !column["show"] ? "none" : null,
-                     }}
-                   >
-                     {checkTableTH(column["Header"], exportAccess)}
-                     <button
-                       className="sortingArrowsBTN"
-                       onClick={() => {handleClickSort(column);console.log("log")}}
-                     >
-                       {column["isSorted"] ? (
-                         column["IsAscending"] ? (
-                           <MainUpArrow />
-                         ) : (
-                           <DownArrow />
-                         )
-                       ) : (
-                         <UpArrow />
-                       )}
-                     </button>
-                   </TableCell>
-                 ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-            {posts.map((post, index) => (
-               <TableRow
-                 key={index}
-                 style={{
-                   backgroundColor: checkRowBackGroundColor(post),
-                 }}
-               >
-                 <TableCell className="TableMainTd">
-                   <TableButtons
-                     exportLink={exportId}
-                     deleteType={deleteAccess}
-                     editType={editAccess}
-                     exportType={exportAccess}
-                     accessListType={permissionsAccess}
-                     handleClickGetPermission={
-                       handleClickGetPermission
-                     }
-                     changePasswordType={changePasswordAccess}
-                     deleteCalled={deleteCalled}
-                     rowValue={post}
-                     handleClickEdit={handleClickEdit}
-                     handlePassEdit={handlePassEdit}
-                     handleAddQuestion={handleAddQuestion}
-                     addAccess={addAccess}
-                     handleCreateRate={handleCreateRate}
-                     rateAccess={rateAccess}
-                     readAnswersAccess={readAnswersAccess}
-                     handleReadAnswers={handleReadAnswers}
-                     operatorRoleAccess={operatorRoleAccess}
-                     handleOperatorRole={handleOperatorRole}
-                     handlePolicyBrowser={handlePolicyBrowser}
-                     policyBrowserAccess={policyBrowserAccess}
-                     policyIpAccess={policyIpAccess}
-                     policyLocationAccess={policyLocationAccess}
-                     policyOsAccess={policyOsAccess}
-                     handlePolicyIP={handlePolicyIP}
-                     handlePolicyLocation={handlePolicyLocation}
-                     handlePolicyOs={handlePolicyOs}
-                     addressAccess={addressAccess}
-                     handleAddress={handleAddress}
-                     addOperator={addOperator}
-                     addOperatorAccess={addOperatorAccess}
-                     handlePhone={handlePhone}
-                     phoneAccess={phoneAccess}
-                     handleMobile={handleMobile}
-                     mobileAccess={mobileAccess}
-                     handleAccount={handleAccount}
-                     accountAccess={accountAccess}
-                     sendMessageBankAccess={sendMessageBankAccess}
-                     sendMessageBank={sendMessageBank}
-                     handleuploadFile={handleuploadFile}
-                     handleClickQrCode={handleClickQrCode}
-                     downloadQRAccess={downloadQRAccess}
-                   />
-                 </TableCell>
-                 {Object.keys(post)
-                   .filter(
-                     (p, i) =>
-                       !filteredColumns.includes(p) &&
-                       !unSelected.includes(p)
-                   )
-                   .map((key, index) => {
-                     if (
-                       (key === "Description") &
-                       (exportAccess === enums.Operator_Event_Export_r)
-                     ) {
-                       return (
-                         <TableCell
-                           onClick={() => {
-                             post[key].length > 0 &&
-                               setDescriptionShow(true);
-                             post[key].length > 0 &&
-                               setDesc(post[key]);
-                           }}
-                           key={key + index}
-                           className={
-                             post[key].length > 30
-                               ? "TableMainTd tableDescriptionShow"
-                               : "TableMainTd"
-                           }
-                           style={{
-                             display: !productsColumns[
-                               productsColumns.findIndex(
-                                 (p) => p["accessor"] === key
-                               )
-                             ].show
-                               ? "none"
-                               : null,
-                           }}
-                         >
-                           {checkTableValues(
-                             key,
-                             post[key],
-                             post,
-                             exportAccess
-                           )}
-                         </TableCell>
-                       );
-                     } else {
-                       return (
-                         <TableCell
-                           key={key + index}
-                           className="TableMainTd"
-                           style={{
-                             display: !productsColumns[
-                               productsColumns.findIndex(
-                                 (p) => p["accessor"] === key
-                               )
-                             ].show
-                               ? "none"
-                               : null,
-                           }}
-                         >
-                           {checkTableValues(key, post[key], post)}
-                         </TableCell>
-                       );
-                     }
-                   })}
-               </TableRow>
-             ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-      <div className="pagination">
-      <Pagination
-         page={currentPage}
-         onChange={setPage}
-         count={totalPages}
-       />
-         <select
-       className="paginationSelector"
-       value={numberOfRecordsPerPage}
-       onChange={handleChangeSelect}
-     >
-       {[25, 50, 100].map((v, i) => (
-         <option key={i} value={v}>
-           {v}
-         </option>
-       ))}
-     </select>
-      </div>
+      {type === "card" ? (
+        <TableCard productsColumns={productsColumns} posts={posts} exportId={exportId} deleteAccess={deleteAccess} editAccess={editAccess} exportAccess={exportAccess} permissionsAccess={permissionsAccess} deleteCalled={deleteCalled} handleClickEdit={handleClickEdit} addAccess={addAccess} />
+      ) : (
+        <>
+          <Paper sx={{ width: "100%", overflow: "hidden" }}>
+            <TableContainer className="tableC">
+              <Table stickyHeader aria-label="sticky table" size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell></TableCell>
+                    {productsColumns
+                      .filter(
+                        (p, i) =>
+                          !filteredColumns.includes(p["Header"]) &&
+                          !unSelected.includes(p["Header"])
+                      )
+                      .map((column, index) => (
+                        <TableCell
+                          className="MainTableTh"
+                          key={index}
+                          style={{
+                            display: !column["show"] ? "none" : null,
+                          }}
+                        >
+                          {checkTableTH(column["Header"], exportAccess)}
+                          <button
+                            className="sortingArrowsBTN"
+                            onClick={() => {
+                              handleClickSort(column);
+                              console.log("log");
+                            }}
+                          >
+                            {column["isSorted"] ? (
+                              column["IsAscending"] ? (
+                                <MainUpArrow />
+                              ) : (
+                                <DownArrow />
+                              )
+                            ) : (
+                              <UpArrow />
+                            )}
+                          </button>
+                        </TableCell>
+                      ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {posts.map((post, index) => (
+                    <TableRow
+                      key={index}
+                      style={{
+                        backgroundColor: checkRowBackGroundColor(post),
+                      }}
+                    >
+                      <TableCell className="TableMainTd">
+                        <TableButtons
+                          exportLink={exportId}
+                          deleteType={deleteAccess}
+                          editType={editAccess}
+                          exportType={exportAccess}
+                          accessListType={permissionsAccess}
+                          handleClickGetPermission={handleClickGetPermission}
+                          changePasswordType={changePasswordAccess}
+                          deleteCalled={deleteCalled}
+                          rowValue={post}
+                          handleClickEdit={handleClickEdit}
+                          handlePassEdit={handlePassEdit}
+                          handleAddQuestion={handleAddQuestion}
+                          addAccess={addAccess}
+                          handleCreateRate={handleCreateRate}
+                          rateAccess={rateAccess}
+                          readAnswersAccess={readAnswersAccess}
+                          handleReadAnswers={handleReadAnswers}
+                          operatorRoleAccess={operatorRoleAccess}
+                          handleOperatorRole={handleOperatorRole}
+                          handlePolicyBrowser={handlePolicyBrowser}
+                          policyBrowserAccess={policyBrowserAccess}
+                          policyIpAccess={policyIpAccess}
+                          policyLocationAccess={policyLocationAccess}
+                          policyOsAccess={policyOsAccess}
+                          handlePolicyIP={handlePolicyIP}
+                          handlePolicyLocation={handlePolicyLocation}
+                          handlePolicyOs={handlePolicyOs}
+                          addressAccess={addressAccess}
+                          handleAddress={handleAddress}
+                          addOperator={addOperator}
+                          addOperatorAccess={addOperatorAccess}
+                          handlePhone={handlePhone}
+                          phoneAccess={phoneAccess}
+                          handleMobile={handleMobile}
+                          mobileAccess={mobileAccess}
+                          handleAccount={handleAccount}
+                          accountAccess={accountAccess}
+                          sendMessageBankAccess={sendMessageBankAccess}
+                          sendMessageBank={sendMessageBank}
+                          handleuploadFile={handleuploadFile}
+                          handleClickQrCode={handleClickQrCode}
+                          downloadQRAccess={downloadQRAccess}
+                        />
+                      </TableCell>
+                      {Object.keys(post)
+                        .filter(
+                          (p, i) =>
+                            !filteredColumns.includes(p) &&
+                            !unSelected.includes(p)
+                        )
+                        .map((key, index) => {
+                          if (
+                            (key === "Description") &
+                            (exportAccess === enums.Operator_Event_Export_r)
+                          ) {
+                            return (
+                              <TableCell
+                                onClick={() => {
+                                  post[key].length > 0 &&
+                                    setDescriptionShow(true);
+                                  post[key].length > 0 && setDesc(post[key]);
+                                }}
+                                key={key + index}
+                                className={
+                                  post[key].length > 30
+                                    ? "TableMainTd tableDescriptionShow"
+                                    : "TableMainTd"
+                                }
+                                style={{
+                                  display: !productsColumns[
+                                    productsColumns.findIndex(
+                                      (p) => p["accessor"] === key
+                                    )
+                                  ].show
+                                    ? "none"
+                                    : null,
+                                }}
+                              >
+                                {checkTableValues(
+                                  key,
+                                  post[key],
+                                  post,
+                                  exportAccess
+                                )}
+                              </TableCell>
+                            );
+                          } else {
+                            return (
+                              <TableCell
+                                key={key + index}
+                                className="TableMainTd"
+                                style={{
+                                  display: !productsColumns[
+                                    productsColumns.findIndex(
+                                      (p) => p["accessor"] === key
+                                    )
+                                  ].show
+                                    ? "none"
+                                    : null,
+                                }}
+                              >
+                                {checkTableValues(key, post[key], post)}
+                              </TableCell>
+                            );
+                          }
+                        })}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          <div className="pagination">
+            <Pagination
+              page={currentPage}
+              onChange={setPage}
+              count={totalPages}
+            />
+            <select
+              className="paginationSelector"
+              value={numberOfRecordsPerPage}
+              onChange={handleChangeSelect}
+            >
+              {[25, 50, 100].map((v, i) => (
+                <option key={i} value={v}>
+                  {v}
+                </option>
+              ))}
+            </select>
+          </div>
+        </>
+      )}
     </>
   );
 };

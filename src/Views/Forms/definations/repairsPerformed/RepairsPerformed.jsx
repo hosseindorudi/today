@@ -51,7 +51,7 @@ const RepairsPerformed = () => {
   const [validated, setValidated] = useState(false);
   const [type, setType] = useState("");
   const [modelOptions, setModelOptions] = useState([]);
-  const [model, setModel] = useState(undefined);
+  const [model, setModel] = useState(null);
   const [perfomedGroupOptions, setPerformedGroupOptions] = useState([]);
   const [performedGroup, setPerformedGroup] = useState({});
   const [perfomedData, setPerformedData] = useState([]);
@@ -106,7 +106,7 @@ const RepairsPerformed = () => {
             ? setPerformedData(allData[2].data.Record)
             : handleError(allData[2].data.Message);
           setIsFavorite(allData[2].data.IsFavorite);
-          setModel(undefined);
+          setModel(null);
           setPerformedGroup({});
           setValues({
             title: "",
@@ -144,6 +144,7 @@ const RepairsPerformed = () => {
   // },[perfomedData])
 
   useEffect(() => {
+    setType("READ");
     handleResponse(response, "READ");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -156,9 +157,6 @@ const RepairsPerformed = () => {
   const handleResponse = useCallback(
     (response, type) => {
       switch (type) {
-        case "DELETE":
-          handleDeleted();
-          break;
         case "READ":
           getDatas();
           break;
@@ -171,7 +169,9 @@ const RepairsPerformed = () => {
         case "FAVORITE":
           favorited();
           break;
-
+        case "DELETE":
+          handleDeleted();
+          break;
         default:
           break;
       }
@@ -208,6 +208,7 @@ const RepairsPerformed = () => {
     }
     setValidated(true);
     if (form.checkValidity()) {
+      setType("CREATE")
       fetchData({
         method: "POST",
         url: repairsPerformedCreate,
@@ -227,7 +228,7 @@ const RepairsPerformed = () => {
         signal: abortController.signal,
       });
 
-      handleResponse(response, "READ");
+      // handleResponse(response, "CREATE");
     }
   };
 
@@ -264,7 +265,7 @@ const RepairsPerformed = () => {
       t("sweetAlert.recordDeleted"),
       "success"
     );
-
+    setIsEdit(false)
     getDatas();
   };
 
@@ -315,7 +316,7 @@ const RepairsPerformed = () => {
 
   const handleCancelation = () => {
     setIsEdit(false);
-    setModel(undefined);
+    setModel(null);
     setPerformedGroup({});
     setValues({
       title: "",
@@ -347,7 +348,7 @@ const RepairsPerformed = () => {
       signal: abortController.signal,
     });
     setIsEdit(false);
-    setModel(undefined);
+    setModel(null);
     setPerformedGroup({});
     setValues({
       title: "",
@@ -436,7 +437,7 @@ const RepairsPerformed = () => {
             <Form
               className="periorityForm"
               noValidate
-              validated={validated}
+              // validated={validated}
               onSubmit={handleSubmit}
             >
               <b>{t("/Definition/RepairsPerformed/Write")}</b>
@@ -471,7 +472,8 @@ const RepairsPerformed = () => {
               {defintionInputs(
                 values,
                 t("Title"),
-                t("RepairsPerformed_errorMSG")
+                t("RepairsPerformed_errorMSG"),
+                true
               ).map((input) => (
                 <FormInput
                   performedGroup={model}
