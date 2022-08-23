@@ -12,7 +12,6 @@ import {
 } from "../../../../validation/functions";
 import * as fa from "react-icons/fa";
 import TreeView from "@mui/lab/TreeView";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TreeItem from "@mui/lab/TreeItem";
 import FormInput from "../../../../Components/periodity/formInput/FormInput";
@@ -46,6 +45,12 @@ import ImportCSV from "../../../../Components/Table/ImportCSVButton/ImportCSV";
 import ExportAllButton from "../../../../Components/Table/ExportButton/ExportAllButton";
 import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
 import { ResultCodeEnum } from "../../../../data/ResultCodeEnum";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Box } from "@mui/system";
 const RepairsPerformed = () => {
   const [response, loading, fetchData] = useAxios();
   const [validated, setValidated] = useState(false);
@@ -75,7 +80,7 @@ const RepairsPerformed = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   const { t } = useTranslation();
-
+  const [isOpen, setisOpen] = useState(false)
   const createParams = (service) => {
     const params = {
       method: "POST",
@@ -85,6 +90,7 @@ const RepairsPerformed = () => {
     return params;
   };
   const getDatas = () => {
+    setisOpen(false)
     const modelTitles = axios.request(createParams(modelReadTitle));
     const perfomedGroupTitles = axios.request(
       createParams(repairsPerformedReadTitle)
@@ -208,7 +214,7 @@ const RepairsPerformed = () => {
     }
     setValidated(true);
     if (form.checkValidity()) {
-      setType("CREATE")
+      setType("CREATE");
       fetchData({
         method: "POST",
         url: repairsPerformedCreate,
@@ -265,7 +271,7 @@ const RepairsPerformed = () => {
       t("sweetAlert.recordDeleted"),
       "success"
     );
-    setIsEdit(false)
+    setIsEdit(false);
     getDatas();
   };
 
@@ -316,6 +322,7 @@ const RepairsPerformed = () => {
 
   const handleCancelation = () => {
     setIsEdit(false);
+    setisOpen(false)
     setModel(null);
     setPerformedGroup({});
     setValues({
@@ -327,7 +334,7 @@ const RepairsPerformed = () => {
   };
 
   const handleEditSubmit = () => {
-    console.log(performedGroup);
+    console.log(model);
     setType("READ");
     fetchData({
       method: "POST",
@@ -336,7 +343,7 @@ const RepairsPerformed = () => {
       data: {
         Id: editData.Id,
         Parent_Id: performedGroup !== {} ? performedGroup.value : 0,
-        Model_Id: model[0]?.value,
+        Model_Id: model?.value,
         Title: values.title,
         Priority: values.periority,
         Description: values.desc,
@@ -356,6 +363,7 @@ const RepairsPerformed = () => {
       periority: 1,
       desc: "",
     });
+    setisOpen(false)
   };
 
   const handleTreeView = (data) => {
@@ -373,7 +381,7 @@ const RepairsPerformed = () => {
         <button className="rowViewBtn" onClick={() => deleteOneRecord(data.Id)}>
           <fa.FaTrash />
         </button>
-        <button className="rowViewBtnEdit" onClick={() => EditeOneRecord(data)}>
+        <button className="rowViewBtnEdit" onClick={() => {setisOpen(true);EditeOneRecord(data)}}>
           <fa.FaRegEdit />
         </button>
         {data.Parent_Id === 0 && (
@@ -412,30 +420,129 @@ const RepairsPerformed = () => {
           show={isFee}
         />
       )}
+
       <div className="repairedPerformedMain">
-        <div className="repairePerformUp">
-          <div className="repairedPerformedRight">
-            <TreeView
-              aria-label="file system navigator"
-              defaultCollapseIcon={<ExpandMoreIcon />}
-              defaultExpandIcon={<ChevronRightIcon />}
-              style={{ direction: "ltr" }}
-              sx={{
-                height: "100%",
-                flexGrow: 1,
-                width: "100%",
-                overflowY: "auto",
-              }}
-            >
-              {perfomedData.map(
-                (data) => data.Parent_Id === 0 && handleTreeView(data)
-              )}
-            </TreeView>
-          </div>
-          <div className="repairedPerformedLeft">
-            {console.log(perfomedData)}
+        <Box
+          flexDirection={{
+            lg: "row-reverse",
+            md: "row-reverse",
+            sm: "column",
+            xs: "column",
+          }}
+          display="flex"
+          flex="95%"
+          width="100%"
+        >
+          
+          
+            <Accordion expanded={isOpen} display={{
+              lg: "none",
+              md: "none",
+              sm: "flex",
+              xs: "flex",
+            }}
+            width={{xs:"100%"}}>
+              <AccordionSummary
+              onClick={() => setisOpen(!isOpen)}
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography>ساخت مورد جدید</Typography>
+              </AccordionSummary>
+              <AccordionDetails >
+                <div className="repairedPerformedLeft">
+                  <Form
+                    className="periorityForm"
+                    noValidate
+                    // validated={validated}
+                    onSubmit={handleSubmit}
+                  >
+                    <b>{t("/Definition/RepairsPerformed/Write")}</b>
+                    <div className="repairRowPerformed">
+                      <Form.Group
+                        className="mb-0.5 repairsPerformedItem"
+                        controlId={"model"}
+                      >
+                        <Form.Label>{t("Group")}</Form.Label>
+                        <CustomReactMultiSelect
+                          isMulti={false}
+                          options={perfomedGroupOptions}
+                          value={performedGroup}
+                          onchangeHandler={(e) => setPerformedGroup(e)}
+                          placeholder={t("Group")}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-.5 repairsPerformedItem"
+                        controlId={"model"}
+                      >
+                        <Form.Label>{t("model")}</Form.Label>
+                        <CustomReactMultiSelect
+                          isMulti={false}
+                          options={modelOptions}
+                          value={model}
+                          onchangeHandler={(e) => setModel(e)}
+                          placeholder={t("model")}
+                        />
+                      </Form.Group>
+                    </div>
+                    {defintionInputs(
+                      values,
+                      t("Title"),
+                      t("RepairsPerformed_errorMSG"),
+                      true
+                    ).map((input) => (
+                      <FormInput
+                        performedGroup={model}
+                        isRepair={true}
+                        key={input.id}
+                        {...input}
+                        onChange={onChangeHandler}
+                      />
+                    ))}
+                    {!isEdit ? (
+                      <>
+                        <Button disabled={loading} type="submit">
+                          {t("submit")}
+                        </Button>
+                      </>
+                    ) : (
+                      <div className="repairedFormDownDiv">
+                        <Button
+                          disabled={loading}
+                          onClick={handleEditSubmit}
+                          variant="warning"
+                        >
+                          {t("repairedEdit")}
+                        </Button>
+                        <Button
+                          disabled={loading}
+                          variant="danger"
+                          onClick={handleCancelation}
+                        >
+                          {t("repairedCancel")}
+                        </Button>
+                      </div>
+                    )}
+                  </Form>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+         
+          <Box
+            display={{
+              lg: "flex",
+              md: "flex",
+              sm: "none",
+              xs: "none",
+            }}
+            flex={1}
+           
+          >
             <Form
               className="periorityForm"
+              style={{margin:"0 auto"}}
               noValidate
               // validated={validated}
               onSubmit={handleSubmit}
@@ -508,8 +615,26 @@ const RepairsPerformed = () => {
                 </div>
               )}
             </Form>
+          </Box>
+          <div className="repairedPerformedRight">
+            <TreeView
+              aria-label="file system navigator"
+              defaultCollapseIcon={<ExpandMoreIcon />}
+              defaultExpandIcon={<ChevronRightIcon />}
+              style={{ direction: "ltr" }}
+              sx={{
+                height: "100%",
+                flexGrow: 1,
+                width: "100%",
+                overflowY: "auto",
+              }}
+            >
+              {perfomedData.map(
+                (data) => data.Parent_Id === 0 && handleTreeView(data)
+              )}
+            </TreeView>
           </div>
-        </div>
+        </Box>
         <div className="repairPerformDown">
           {haveAccess(enums.Definition_RepairsPerformed_Log_r) && (
             <button
