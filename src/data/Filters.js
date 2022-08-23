@@ -13,7 +13,21 @@ const Filters = {
     {
       field: "Flt_IsReal",
       type: "boolean",
-      default: true,
+      default: null,
+      options: [
+        {
+          name: "all",
+          value: 0,
+        },
+        {
+          name: "real",
+          value: true,
+        },
+        {
+          name: "legal",
+          value: false,
+        },
+      ],
     },
     {
       field: "Flt_Real_NationalCode",
@@ -74,7 +88,6 @@ const Filters = {
     },
   ],
   "/AfterSales/Admission/Read": [
-
     {
       field: "Flt_AdmissionNumber",
       type: "string",
@@ -641,9 +654,8 @@ const Filters = {
       type: "date",
       default: null,
     },
-
   ],
-  "/Definition/InputQualityControl/Read":[
+  "/Definition/InputQualityControl/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -751,7 +763,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/Model/Read":[
+  "/Definition/Model/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -769,7 +781,6 @@ const Filters = {
     },
   ],
   "/Customer/OnlineCustomer/Read": [
-    
     {
       field: "Flt_CustomerName",
       type: "string",
@@ -834,7 +845,6 @@ const Filters = {
     },
   ],
   "/Operator/Operator/Read": [
-    
     {
       field: "Flt_OperatorName",
       type: "string",
@@ -856,7 +866,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/OrganizationalRole/Read":[
+  "/Definition/OrganizationalRole/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -878,7 +888,7 @@ const Filters = {
       field: "Flt_From",
       type: "string",
       default: "",
-    }, 
+    },
     {
       field: "Flt_To",
       type: "string",
@@ -895,7 +905,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/OutputQualityControl/Read":[
+  "/Definition/OutputQualityControl/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -912,7 +922,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/Part/Read":[
+  "/Definition/Part/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -929,7 +939,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/PartGroup/Read":[
+  "/Definition/PartGroup/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -946,7 +956,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Marketing/PhoneBook/Read":[
+  "/Marketing/PhoneBook/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -963,7 +973,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Marketing/PhoneNumber/Read":[
+  "/Marketing/PhoneNumber/Read": [
     {
       field: "Flt_Number",
       type: "string",
@@ -980,7 +990,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Marketing/PoolLink/Read":[
+  "/Marketing/PoolLink/Read": [
     {
       field: "Flt_Mobile",
       type: "string",
@@ -997,7 +1007,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/Province/Read":[
+  "/Definition/Province/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1014,7 +1024,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/Quality/Read":[
+  "/Definition/Quality/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1031,7 +1041,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/QuestionnaireType/Read":[
+  "/Definition/QuestionnaireType/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1048,7 +1058,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Poll/QuestionPage/Read":[
+  "/Poll/QuestionPage/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1065,7 +1075,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Business/RegistrationGood/Read":[
+  "/Business/RegistrationGood/Read": [
     {
       field: "Flt_Company_Id",
       type: "number",
@@ -1141,10 +1151,9 @@ const Filters = {
       type: "date",
       default: null,
     },
-
   ],
 
-  "/Definition/ReplacementType/Read":[
+  "/Definition/ReplacementType/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1161,7 +1170,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/Section/Read":[
+  "/Definition/Section/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1178,7 +1187,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/SendType/Read":[
+  "/Definition/SendType/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1195,7 +1204,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/StatusDeviceEnd/Read":[
+  "/Definition/StatusDeviceEnd/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1212,7 +1221,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/StatusDeviceProgress/Read":[
+  "/Definition/StatusDeviceProgress/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1229,7 +1238,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/StatusDeviceStart/Read":[
+  "/Definition/StatusDeviceStart/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1246,7 +1255,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/VehicleType/Read":[
+  "/Definition/VehicleType/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1263,7 +1272,7 @@ const Filters = {
       default: null,
     },
   ],
-  "/Definition/WarrantyType/Read":[
+  "/Definition/WarrantyType/Read": [
     {
       field: "Flt_Title",
       type: "string",
@@ -1280,15 +1289,5 @@ const Filters = {
       default: null,
     },
   ],
- 
-  
-
-
-
-
-
-
-
-
 };
 module.exports = { Filters };

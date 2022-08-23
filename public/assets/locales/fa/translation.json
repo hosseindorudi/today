@@ -1001,7 +1001,7 @@
   "Flt_Browser": "مرورگر",
   "Flt_CustomerName": "نام مشتری",
   "Flt_CustomerNumber": "شماره مشتری",
-  "Flt_IsReal": "واقعی",
+  "Flt_IsReal": "نوع مشتری",
   "Flt_Real_NationalCode": "کد ملی اصلی",
   "Flt_Real_FirstName": "نام اصلی",
   "Flt_Real_LastName": "نام خانوادگی اصلی",
@@ -1027,5 +1027,7 @@
   "accessList":"دسترسی",
   "WhatsApp":"واتس آپ",
   "QrCodeDownload":"دانلود QRCode",
-  "Active/Not Active": "فعال"
+  "Active/Not Active": "فعال",
+  "QrCodeDownload":"دانلود QRCode"
+  
 }
