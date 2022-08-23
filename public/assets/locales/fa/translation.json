@@ -1026,5 +1026,6 @@
   "help":"کمک",
   "accessList":"دسترسی",
   "WhatsApp":"واتس آپ",
-  "QrCodeDownload":"دانلود QRCode"
+  "QrCodeDownload":"دانلود QRCode",
+  "Active/Not Active": "فعال"
 }
