@@ -41,7 +41,7 @@ export const downloadCSVCode = (data,title) => {
   link.click();
 };
 
-export const defintionInputs = (values, typeTitle, errorMSG) => {
+export const defintionInputs = (values, typeTitle, errorMSG, isValid) => {
   const inputes = [
     {
       id: 1,
@@ -50,8 +50,8 @@ export const defintionInputs = (values, typeTitle, errorMSG) => {
       label: typeTitle ? typeTitle : t("title"),
       placeholder: typeTitle ? typeTitle : t("title"),
       errorMessage: errorMSG ? errorMSG : t("title.errorMessage"),
-      pattern: "^[\u0600-\u06FF,A-Za-z0-9,+, ,_,-]{2,255}",
-      required: true,
+      pattern: isValid ? null:"^[\u0600-\u06FF,A-Za-z0-9,+, ,_,-]{2,255}",
+      required: isValid ? false: true,
       value: values.title,
     },
     {
@@ -61,7 +61,7 @@ export const defintionInputs = (values, typeTitle, errorMSG) => {
       label: t("periodity"),
       placeholder: t("periodity"),
       errorMessage: t("periodity.errorMessage"),
-      required: true,
+      required: isValid ? false: true,
       value: values.periority,
       min: 1,
     },
@@ -71,7 +71,7 @@ export const defintionInputs = (values, typeTitle, errorMSG) => {
       label: t("color"),
       type: "color",
       errorMessage: t("color.errorMessage"),
-      required: true,
+      required: isValid ? false:  true,
       value: values.color,
     },
     {

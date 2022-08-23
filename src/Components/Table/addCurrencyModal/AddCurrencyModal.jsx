@@ -86,6 +86,7 @@ const AddCurrencyModal = (props) => {
     });
   };
   useEffect(() => {
+    console.log(props)
     getDatas();
     readDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -169,7 +170,7 @@ const AddCurrencyModal = (props) => {
       signal: abortController.signal,
       data: {
         Id: 0,
-        AdditionalService_Id: props.id,
+        RepairsPerformed_Id: props.id,
         Country_Id: country?.value,
         Currency_Id: currency?.value,
         Fee: Number(fee),
@@ -201,7 +202,7 @@ const AddCurrencyModal = (props) => {
       signal: abortController.signal,
       data: {
         Id: rateId,
-        [props.typeTitle]: props.id,
+        RepairsPerformed_Id: props.id,
         Country_Id: country?.value,
         Currency_Id: currency?.value,
         Fee: Number(fee),
