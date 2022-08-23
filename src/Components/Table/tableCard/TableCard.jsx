@@ -12,11 +12,10 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import CardHeader from "@mui/material/CardHeader";
+import Switch from '@mui/material/Switch';
 
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { Button, CardActions } from "@mui/material";
 const TableCard = (props) => {
   const [footer, setFooter] = useState(-1);
   const { t } = useTranslation();
@@ -151,6 +150,7 @@ const TableCard = (props) => {
                               {post.RomMemory}
                             </Typography>
                           </Box>
+                          
                         </Box>
                         <Box
                           sx={{
@@ -167,6 +167,13 @@ const TableCard = (props) => {
                             <Typography sx={{ margin: "0 5px" }}>
                               {post.Color_Title}
                             </Typography>
+                          </Box>
+                          <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Typography sx={{ fontWeight: 600 }}>
+                              {t("Active/Not Active")}:
+                            </Typography>
+                            <Switch  disabled defaultChecked= {post.Activated} />
+
                           </Box>
                         </Box>
                       </Box>
