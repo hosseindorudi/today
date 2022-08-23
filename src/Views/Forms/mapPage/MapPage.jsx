@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
@@ -18,7 +18,18 @@ import { Chart as ChartJS } from "chart.js/auto";
 import FieldSetBorder from "../../../Components/fieldSetBorder/FieldSetBorder";
 import ReactWordcloud from "react-wordcloud";
 import Mapir from "mapir-react-component";
-
+import Box from "@mui/material/Box";
+import { Switch } from "@mui/material";
+import FormLabel from "@mui/material/FormLabel";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Button from "@mui/material/Button";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Collapse from "@mui/material/Collapse";
+import { TransitionGroup } from "react-transition-group";
 
 const Map = Mapir.setToken({
   transformRequest: (url) => {
@@ -32,7 +43,6 @@ const Map = Mapir.setToken({
     };
   },
 });
-
 
 const MapPage = () => {
   const styles = {
@@ -49,9 +59,21 @@ const MapPage = () => {
       cursor: "pointer",
     },
   };
+  const theme = createTheme({
+    typography: {
+      button: {
+        fontSize: "13px",
+        margin: "0 4px",
+      },
+    },
+  });
 
   const clusterMarker = (coordinates, pointCount) => (
-    <Mapir.Marker coordinates={coordinates} style={styles.clusterMarker} anchor="bottom">
+    <Mapir.Marker
+      coordinates={coordinates}
+      style={styles.clusterMarker}
+      anchor="bottom"
+    >
       <div>{pointCount}</div>
     </Mapir.Marker>
   );
@@ -115,11 +137,9 @@ const MapPage = () => {
     return obj;
   };
 
-
   const handleResponse = (response, type) => {
     switch (type) {
       case "SUBMIT":
-
         response.OS &&
           setOsData({
             labels: response.OS.map((os) => os.Title),
@@ -198,9 +218,6 @@ const MapPage = () => {
     }
   };
 
-
-
-
   useEffect(() => {
     response && handleResponse(response, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -223,100 +240,119 @@ const MapPage = () => {
   };
 
   return (
-    <div className="mainMap">
-
-      <div className="topLayerMap">
-      {/* <FieldSetBorder legend="ورود کاربرها">
-              </FieldSetBorder> */}
-        <Form.Group className="mb-3 activationRow" controlId={"switch"}>
-          <Form.Check
-            type="switch"
-            id="custom-switch"
-            label={isActive ? t("duration") : t("choices")}
-            value={isActive}
-            checked={isActive}
-            onChange={(e) => setIsActive(!isActive)}
-          />
-        </Form.Group>
-
-        {!isActive ? (
-          <>
-            <Form.Group className="mb-3" controlId={"startDate"}>
-              <Form.Label>{t("startDate")}</Form.Label>
-              <DatePicker
-                containerClassName="custom-container"
-                placeholder={t("startDate")}
-                onChange={(newValue) => {
-                  setFromDate(newValue);
-                  if (endDate !== null && newValue > endDate) {
-                    toast.error(
-                      "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
-                      {
-                        position: toast.POSITION.BOTTOM_CENTER,
-                      }
-                    );
-
-                    setEndDate(null);
-                  }
-                }}
-                name="LimitTo"
-                calendar={app.lang === "fa" ? persian : gregorian}
-                locale={app.lang === "fa" ? persian_fa : gregorian_en}
-                calendarPosition="bottom-right"
-                value={fromDate}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId={"endDate"}>
-              <Form.Label>{t("endDate")}</Form.Label>
-              <DatePicker
-                containerClassName="custom-container"
-                placeholder={t("endDate")}
-                onChange={(newValue) => {
-                  setEndDate(newValue);
-                  if (fromDate !== null && newValue < fromDate) {
-                    toast.error(
-                      "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
-                      {
-                        position: toast.POSITION.BOTTOM_CENTER,
-                      }
-                    );
-
-                    setEndDate(null);
-                  }
-                }}
-                name="LimitTo"
-                calendar={app.lang === "fa" ? persian : gregorian}
-                locale={app.lang === "fa" ? persian_fa : gregorian_en}
-                calendarPosition="bottom-right"
-                value={endDate}
-              />
-            </Form.Group>
-          </>
-        ) : (
-          <Form.Group className="mb-3">
-            <Form.Select
-              aria-label="Duration"
-              onChange={(e) => setEId(e.target.value)}
-            >
-              <option hidden>{t("choices")}</option>
-              {durations.map((d, i) => (
-                <option value={d.value} key={i}>
-                  {d.text}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-        )}
-
-        <Button
-          className="btnShowMap"
-          onClick={handleSubmit}
-          disabled={loading}
+    <Box className="mainMap">
+      <Box className="topLayerMap">
+        <FormControl
+          component="fieldset"
+          variant="standard"
+          sx={{ margin: "0 4px" }}
         >
-          {t("show")}
-        </Button>
-      </div>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isActive}
+                onChange={(e) => setIsActive(!isActive)}
+                name="gilad"
+              />
+            }
+            label={isActive ? t("duration") : t("choices")}
+          />
+        </FormControl>
+        <TransitionGroup className="transitionGroupCss">
+          <Collapse>
+            {!isActive ? (
+              <>
+                <Form.Group className="mb-3" controlId={"startDate"}>
+                  <Form.Label>{t("startDate")}</Form.Label>
+                  <DatePicker
+                    containerClassName="custom-container"
+                    placeholder={t("startDate")}
+                    onChange={(newValue) => {
+                      setFromDate(newValue);
+                      if (endDate !== null && newValue > endDate) {
+                        toast.error(
+                          "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                          {
+                            position: toast.POSITION.BOTTOM_CENTER,
+                          }
+                        );
+
+                        setEndDate(null);
+                      }
+                    }}
+                    name="LimitTo"
+                    calendar={app.lang === "fa" ? persian : gregorian}
+                    locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                    calendarPosition="bottom-right"
+                    value={fromDate}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId={"endDate"}>
+                  <Form.Label>{t("endDate")}</Form.Label>
+                  <DatePicker
+                    containerClassName="custom-container"
+                    placeholder={t("endDate")}
+                    onChange={(newValue) => {
+                      setEndDate(newValue);
+                      if (fromDate !== null && newValue < fromDate) {
+                        toast.error(
+                          "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                          {
+                            position: toast.POSITION.BOTTOM_CENTER,
+                          }
+                        );
+
+                        setEndDate(null);
+                      }
+                    }}
+                    name="LimitTo"
+                    calendar={app.lang === "fa" ? persian : gregorian}
+                    locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                    calendarPosition="bottom-right"
+                    value={endDate}
+                  />
+                </Form.Group>
+              </>
+            ) : (
+              <ThemeProvider theme={theme}>
+                <FormControl
+                  sx={{ margin: "0 4px", minWidth: 120 }}
+                  size="small"
+                >
+                  <InputLabel id="demo-select-small">
+                    {t("duration")}
+                  </InputLabel>
+                  <Select
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    label={t("duration")}
+                    onChange={(e) => setEId(e.target.value)}
+                  >
+                    {durations.map((d, i) => (
+                      <MenuItem value={d.value} key={i}>
+                        {d.text}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </ThemeProvider>
+            )}
+          </Collapse>
+        </TransitionGroup>
+
+        <ThemeProvider theme={theme}>
+          <Button
+            textSizeSmall
+            variant="contained"
+            size="large"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {t("show")}
+          </Button>
+        </ThemeProvider>
+      </Box>
       <div className="downLayerChart">
         <div className="rowLayerChart">
           <div className="firstRowChart">
@@ -334,36 +370,91 @@ const MapPage = () => {
             )}
           </div>
         </div>
-        <div className="rowLayerChart" style={{alignItems:"flex-start"}} >
-        <div
-            className="firstRowChart" ref={elementRef}  style={{flex:1,height:"300px !important"}}
-          >
-            {browserData && (
-              <FieldSetBorder legend="مرورگر"  >
+        <Box className="rowLayerChart">
+        <Box flex={1} >
+          {browserData && (
+            <FieldSetBorder legend="مرورگر">
+              <Pie data={browserData}  />
+            </FieldSetBorder>
+          )}
+        </Box>
+        <Box flex={20}>
+          {userData.length !== 0 && (
+            <div style={{ flex: 1 }}>
+              <FieldSetBorder legend="ورود کاربرها">
+                <ReactWordcloud
+                  words={userData}
+                  style={{
+                    width: elementRef.current?.clientWidth
+                      ? `calc(100% - ${elementRef.current?.clientWidth})`
+                      : elementRef.current?.clientWidth,
+                  }}
+                />
+              </FieldSetBorder>
+            </div>
+          )}
+        </Box>
+        <Box flex={20}>
+          {iPData.length !== 0 && (
+            <div style={{ flex: 1 }}>
+              <FieldSetBorder legend="آی پی">
+                <ReactWordcloud
+                  words={iPData}
+                  style={{
+                    width: elementRef.current?.clientWidth
+                      ? `calc(100% - ${elementRef.current?.clientWidth})`
+                      : elementRef.current?.clientWidth,
+                  }}
+                />
+              </FieldSetBorder>
+            </div>
+          )}
+        </Box>
+        </Box>
+        <div className="rowLayerChart" style={{ alignItems: "flex-start" }}>
+          {/* {browserData && (
+              <FieldSetBorder legend="مرورگر">
                 <Pie data={browserData} />
               </FieldSetBorder>
-            )}
-            </div>
-          <div
+            )} */}
+          {/* <div
             className="firstRowChart"
-            style={{  height: "100%", flexDirection:"column", flex:2, width: `calc(100% - ${elementRef.current?.clientWidth})` }}
-          >
-            
-            {userData.length !== 0 && (
-              <div style={{flex:1}}>
-              <FieldSetBorder legend="ورود کاربرها">
-                <ReactWordcloud words={userData} style={{ width: elementRef.current?.clientWidth?  `calc(100% - ${elementRef.current?.clientWidth})` : elementRef.current?.clientWidth }} />
-              </FieldSetBorder>
+            style={{
+              height: "100%",
+              flexDirection: "column",
+              flex: 2,
+              width: `calc(100% - ${elementRef.current?.clientWidth})`,
+            }}
+          > */}
+          {/* {userData.length !== 0 && (
+              <div style={{ flex: 1 }}>
+                <FieldSetBorder legend="ورود کاربرها">
+                  <ReactWordcloud
+                    words={userData}
+                    style={{
+                      width: elementRef.current?.clientWidth
+                        ? `calc(100% - ${elementRef.current?.clientWidth})`
+                        : elementRef.current?.clientWidth,
+                    }}
+                  />
+                </FieldSetBorder>
               </div>
-            )}
-            {iPData.length !== 0 && (
-              <div style={{flex:1}}>
-              <FieldSetBorder legend="آی پی">
-                <ReactWordcloud words={iPData} style={{  width: elementRef.current?.clientWidth?  `calc(100% - ${elementRef.current?.clientWidth})` : elementRef.current?.clientWidth }} />
-              </FieldSetBorder>
+            )} */}
+          {/* {iPData.length !== 0 && (
+              <div style={{ flex: 1 }}>
+                <FieldSetBorder legend="آی پی">
+                  <ReactWordcloud
+                    words={iPData}
+                    style={{
+                      width: elementRef.current?.clientWidth
+                        ? `calc(100% - ${elementRef.current?.clientWidth})`
+                        : elementRef.current?.clientWidth,
+                    }}
+                  />
+                </FieldSetBorder>
               </div>
-            )}
-          </div>
+            )} */}
+          {/* </div> */}
           {/* <div
             className="firstRowChart"
             style={{ width: "100%", height: "100%" }}
@@ -375,8 +466,7 @@ const MapPage = () => {
             )}
           </div> */}
         </div>
-        <div className="rowLayerChart" >
-          
+        <div className="rowLayerChart">
           <div
             className="firstRowChart"
             style={{ width: "100%", height: "100%" }}
@@ -384,9 +474,9 @@ const MapPage = () => {
             {geoLocationData.length !== 0 && (
               <FieldSetBorder legend="مختصات">
                 <div className="map" style={{ width: "100%", height: "100%" }}>
-                  <Mapir  Map={Map} userLocation >
-                  <Mapir.ScaleControl />
-                  <Mapir.ZoomControl position={"top-left"} />
+                  <Mapir Map={Map} userLocation>
+                    <Mapir.ScaleControl />
+                    <Mapir.ZoomControl position={"top-left"} />
                     <Mapir.Cluster
                       zoomOnClick
                       ClusterMarkerFactory={clusterMarker}
@@ -395,7 +485,9 @@ const MapPage = () => {
                         <Mapir.Marker
                           key={key}
                           coordinates={feature.geometry.coordinates}
-                          Image={"https://cdn-icons-png.flaticon.com/512/0/14.png"}
+                          Image={
+                            "https://cdn-icons-png.flaticon.com/512/0/14.png"
+                          }
                           // pointCount={geoRes[key].Count}
                         />
                       ))}
@@ -406,9 +498,8 @@ const MapPage = () => {
             )}
           </div>
         </div>
-        
       </div>
-    </div>
+    </Box>
   );
 };
 

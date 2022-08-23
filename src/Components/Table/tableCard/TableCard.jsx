@@ -1,14 +1,7 @@
-import React, { useState } from "react";
-import CardGroup from "react-bootstrap/CardGroup";
-import * as fi from "react-icons/fi";
+import React from "react";
 import TableButtons from "../TableButtons/TableButtons";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { useTranslation } from "react-i18next";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -17,15 +10,8 @@ import Switch from '@mui/material/Switch';
 
 import { Button, CardActions } from "@mui/material";
 const TableCard = (props) => {
-  const [footer, setFooter] = useState(-1);
   const { t } = useTranslation();
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
+
   return (
     <>
       {

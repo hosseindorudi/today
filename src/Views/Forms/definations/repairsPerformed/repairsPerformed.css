@@ -84,3 +84,17 @@
 justify-content: space-between;
 width: 80%;
 }
+
+.accordionCss {
+  display: none;
+  width: 100%;
+}
+
+
+@media screen and (max-width:899px){
+  .accordionCss {
+    display: flex;
+    width: 100%;
+  }
+  
+}
