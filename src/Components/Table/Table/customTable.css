@@ -207,6 +207,11 @@
 
 
 
+.filterSelect{
+  width: 100%;
+  font-size: 12px;
+}
+
   /* media Queries */
   @media only screen and (max-width: 1200px) {
     .tableFilter input,.tableFilter label{

@@ -10,15 +10,23 @@ import { Button } from "@mui/material";
 import * as fa from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { setDatePickerDate } from "../../../validation/functions";
+import { checkBoolean } from "../../../validation/validation";
 
-const TableFilter = ({ filteres, filterObj, setfilterObj,handleClickSendFilter,handleClearFilter }) => {
+const TableFilter = ({
+  filteres,
+  filterObj,
+  setfilterObj,
+  handleClickSendFilter,
+  handleClearFilter,
+}) => {
   const { app } = useContext(AppContext);
   const { t } = useTranslation();
   const handleChange = (value, name) => {
-    setfilterObj(prevState=>({
-        ...prevState,
-        [name]:value
-    }))
+    console.log(value,name)
+    setfilterObj((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const checkFilter = () => {
@@ -55,13 +63,18 @@ const TableFilter = ({ filteres, filterObj, setfilterObj,handleClickSendFilter,h
         case "boolean":
           cmp = (
             <>
-              <Form.Label>{t(filter.field)}</Form.Label>
-              <Form.Check
-                type="switch"
-                name={filter.field}
-                checked={filterObj[filter.field]}
-                onChange={(e) => handleChange(e.target.checked, e.target.name)}
-              />
+            <Form.Label>{t(filter.field)}</Form.Label>
+              <Form.Group>
+              <select className="filterSelect"   value={filterObj[filter.field]===null?"0":filterObj[filter.field]} 
+              onChange={(e)=>handleChange(e.target.value==="0"?null:checkBoolean(e.target.value),filter.field)}
+              >
+              {filter.options.map((option, i) => (
+                <option key={i} value={option.value}>
+                  {t(option.name)}
+                </option>
+              ))}
+              </select>
+              </Form.Group>
             </>
           );
           break;
@@ -75,8 +88,12 @@ const TableFilter = ({ filteres, filterObj, setfilterObj,handleClickSendFilter,h
                 calendar={app.lang === "fa" ? persian : gregorian}
                 locale={app.lang === "fa" ? persian_fa : gregorian_en}
                 calendarPosition="bottom-right"
-                onChange={(e)=>handleChange(setDatePickerDate(e.toDate()),filter.field)}
-                value={filterObj[filter.field]&&new Date(filterObj[filter.field])}
+                onChange={(e) =>
+                  handleChange(setDatePickerDate(e.toDate()), filter.field)
+                }
+                value={
+                  filterObj[filter.field] && new Date(filterObj[filter.field])
+                }
               />
             </>
           );
@@ -92,13 +109,16 @@ const TableFilter = ({ filteres, filterObj, setfilterObj,handleClickSendFilter,h
       {" "}
       <Form.Group className="mb-3">{checkFilter()}</Form.Group>
       <div className="btnContainerFilter">
-          <Button size="small" variant="contained" onClick={handleClickSendFilter}>
-            {t("search")}
-          </Button>
-          <Button onClick={handleClearFilter}>
-            <fa.FaEraser />
-          </Button>
-      
+        <Button
+          size="small"
+          variant="contained"
+          onClick={handleClickSendFilter}
+        >
+          {t("search")}
+        </Button>
+        <Button onClick={handleClearFilter}>
+          <fa.FaEraser />
+        </Button>
       </div>
     </>
   );
