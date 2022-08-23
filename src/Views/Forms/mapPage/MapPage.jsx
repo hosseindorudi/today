@@ -20,7 +20,6 @@ import ReactWordcloud from "react-wordcloud";
 import Mapir from "mapir-react-component";
 import Box from "@mui/material/Box";
 import { Switch } from "@mui/material";
-import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import InputLabel from "@mui/material/InputLabel";
@@ -30,7 +29,8 @@ import Button from "@mui/material/Button";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
 import { TransitionGroup } from "react-transition-group";
-
+import "tippy.js/dist/tippy.css";
+import "tippy.js/animations/scale.css";
 const Map = Mapir.setToken({
   transformRequest: (url) => {
     return {
@@ -68,6 +68,22 @@ const MapPage = () => {
     },
   });
 
+  const options = {
+    colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
+    enableTooltip: true,
+    deterministic: false,
+    fontFamily: "impact",
+    fontSizes: [30, 60],
+    fontStyle: "normal",
+    fontWeight: "normal",
+    padding: 1,
+    rotations: 3,
+    rotationAngles: [0, 90],
+    scale: "sqrt",
+    spiral: "archimedean",
+    transitionDuration: 1000,
+  };
+
   const clusterMarker = (coordinates, pointCount) => (
     <Mapir.Marker
       coordinates={coordinates}
@@ -97,6 +113,11 @@ const MapPage = () => {
   const [iPData, setIPData] = useState([]);
   const [geoLocationData, setGeoLocationData] = useState([]);
   const [geoRes, setgeoRes] = useState([]);
+
+  const bounds = [
+    { lng: 20, lat: 40 },
+    { lng: 40, lat: 70 },
+  ];
 
   // const setColorsOption = (value) => {
   //   let sortArr = [...value].sort((a, b) => a.Count - b.Count);
@@ -241,119 +262,123 @@ const MapPage = () => {
 
   return (
     <Box className="mainMap">
-      <Box className="topLayerMap">
-        <FormControl
-          component="fieldset"
-          variant="standard"
-          sx={{ margin: "0 4px" }}
-        >
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isActive}
-                onChange={(e) => setIsActive(!isActive)}
-                name="gilad"
+      <Box className="topLayerMap" sx={{ height: "fit-content" }}>
+        <FieldSetBorder legend="فیلتر">
+          <Box className="topLayerMap">
+            <FormControl
+              component="fieldset"
+              variant="standard"
+              sx={{ margin: "0 4px" }}
+            >
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={isActive}
+                    onChange={(e) => setIsActive(!isActive)}
+                    name="gilad"
+                  />
+                }
+                label={isActive ? t("duration") : t("choices")}
               />
-            }
-            label={isActive ? t("duration") : t("choices")}
-          />
-        </FormControl>
-        <TransitionGroup className="transitionGroupCss">
-          <Collapse>
-            {!isActive ? (
-              <>
-                <Form.Group className="mb-3" controlId={"startDate"}>
-                  <Form.Label>{t("startDate")}</Form.Label>
-                  <DatePicker
-                    containerClassName="custom-container"
-                    placeholder={t("startDate")}
-                    onChange={(newValue) => {
-                      setFromDate(newValue);
-                      if (endDate !== null && newValue > endDate) {
-                        toast.error(
-                          "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
-                          {
-                            position: toast.POSITION.BOTTOM_CENTER,
+            </FormControl>
+            <TransitionGroup className="transitionGroupCss">
+              <Collapse>
+                {!isActive ? (
+                  <>
+                    <Form.Group className="mb-3" controlId={"startDate"}>
+                      <Form.Label>{t("startDate")}</Form.Label>
+                      <DatePicker
+                        containerClassName="custom-container"
+                        placeholder={t("startDate")}
+                        onChange={(newValue) => {
+                          setFromDate(newValue);
+                          if (endDate !== null && newValue > endDate) {
+                            toast.error(
+                              "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                              {
+                                position: toast.POSITION.BOTTOM_CENTER,
+                              }
+                            );
+
+                            setEndDate(null);
                           }
-                        );
+                        }}
+                        name="LimitTo"
+                        calendar={app.lang === "fa" ? persian : gregorian}
+                        locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                        calendarPosition="bottom-right"
+                        value={fromDate}
+                      />
+                    </Form.Group>
 
-                        setEndDate(null);
-                      }
-                    }}
-                    name="LimitTo"
-                    calendar={app.lang === "fa" ? persian : gregorian}
-                    locale={app.lang === "fa" ? persian_fa : gregorian_en}
-                    calendarPosition="bottom-right"
-                    value={fromDate}
-                  />
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId={"endDate"}>
+                      <Form.Label>{t("endDate")}</Form.Label>
+                      <DatePicker
+                        containerClassName="custom-container"
+                        placeholder={t("endDate")}
+                        onChange={(newValue) => {
+                          setEndDate(newValue);
+                          if (fromDate !== null && newValue < fromDate) {
+                            toast.error(
+                              "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
+                              {
+                                position: toast.POSITION.BOTTOM_CENTER,
+                              }
+                            );
 
-                <Form.Group className="mb-3" controlId={"endDate"}>
-                  <Form.Label>{t("endDate")}</Form.Label>
-                  <DatePicker
-                    containerClassName="custom-container"
-                    placeholder={t("endDate")}
-                    onChange={(newValue) => {
-                      setEndDate(newValue);
-                      if (fromDate !== null && newValue < fromDate) {
-                        toast.error(
-                          "تاریخ پایانی نمیتواند از تاریخ شروع کمتر باشد",
-                          {
-                            position: toast.POSITION.BOTTOM_CENTER,
+                            setEndDate(null);
                           }
-                        );
+                        }}
+                        name="LimitTo"
+                        calendar={app.lang === "fa" ? persian : gregorian}
+                        locale={app.lang === "fa" ? persian_fa : gregorian_en}
+                        calendarPosition="bottom-right"
+                        value={endDate}
+                      />
+                    </Form.Group>
+                  </>
+                ) : (
+                  <ThemeProvider theme={theme}>
+                    <FormControl
+                      sx={{ margin: "0 4px", minWidth: 120 }}
+                      size="small"
+                    >
+                      <InputLabel id="demo-select-small">
+                        {t("duration")}
+                      </InputLabel>
+                      <Select
+                        labelId="demo-select-small"
+                        id="demo-select-small"
+                        label={t("duration")}
+                        onChange={(e) => setEId(e.target.value)}
+                      >
+                        {durations.map((d, i) => (
+                          <MenuItem value={d.value} key={i}>
+                            {d.text}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </ThemeProvider>
+                )}
+              </Collapse>
+            </TransitionGroup>
 
-                        setEndDate(null);
-                      }
-                    }}
-                    name="LimitTo"
-                    calendar={app.lang === "fa" ? persian : gregorian}
-                    locale={app.lang === "fa" ? persian_fa : gregorian_en}
-                    calendarPosition="bottom-right"
-                    value={endDate}
-                  />
-                </Form.Group>
-              </>
-            ) : (
-              <ThemeProvider theme={theme}>
-                <FormControl
-                  sx={{ margin: "0 4px", minWidth: 120 }}
-                  size="small"
-                >
-                  <InputLabel id="demo-select-small">
-                    {t("duration")}
-                  </InputLabel>
-                  <Select
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    label={t("duration")}
-                    onChange={(e) => setEId(e.target.value)}
-                  >
-                    {durations.map((d, i) => (
-                      <MenuItem value={d.value} key={i}>
-                        {d.text}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </ThemeProvider>
-            )}
-          </Collapse>
-        </TransitionGroup>
-
-        <ThemeProvider theme={theme}>
-          <Button
-            textSizeSmall
-            variant="contained"
-            size="large"
-            onClick={handleSubmit}
-            disabled={loading}
-          >
-            {t("show")}
-          </Button>
-        </ThemeProvider>
+            <ThemeProvider theme={theme}>
+              <Button
+                textSizeSmall
+                variant="contained"
+                size="large"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {t("show")}
+              </Button>
+            </ThemeProvider>
+          </Box>
+        </FieldSetBorder>
       </Box>
-      <div className="downLayerChart">
+      <div className="downLayerChart" style={{ marginTop: 9 }}>
         <div className="rowLayerChart">
           <div className="firstRowChart">
             {osData && (
@@ -371,45 +396,47 @@ const MapPage = () => {
           </div>
         </div>
         <Box className="rowLayerChart">
-        <Box flex={1} >
-          {browserData && (
-            <FieldSetBorder legend="مرورگر">
-              <Pie data={browserData}  />
-            </FieldSetBorder>
-          )}
-        </Box>
-        <Box flex={20}>
-          {userData.length !== 0 && (
-            <div style={{ flex: 1 }}>
-              <FieldSetBorder legend="ورود کاربرها">
-                <ReactWordcloud
-                  words={userData}
-                  style={{
-                    width: elementRef.current?.clientWidth
-                      ? `calc(100% - ${elementRef.current?.clientWidth})`
-                      : elementRef.current?.clientWidth,
-                  }}
-                />
+          <Box flex={1}>
+            {browserData && (
+              <FieldSetBorder legend="مرورگر">
+                <Pie data={browserData} />
               </FieldSetBorder>
-            </div>
-          )}
-        </Box>
-        <Box flex={20}>
-          {iPData.length !== 0 && (
-            <div style={{ flex: 1 }}>
-              <FieldSetBorder legend="آی پی">
-                <ReactWordcloud
-                  words={iPData}
-                  style={{
-                    width: elementRef.current?.clientWidth
-                      ? `calc(100% - ${elementRef.current?.clientWidth})`
-                      : elementRef.current?.clientWidth,
-                  }}
-                />
-              </FieldSetBorder>
-            </div>
-          )}
-        </Box>
+            )}
+          </Box>
+          <Box flex={20}>
+            {userData.length !== 0 && (
+              <div style={{ flex: 1 }}>
+                <FieldSetBorder legend="ورود کاربرها">
+                  <ReactWordcloud
+                    words={userData}
+                    options={options}
+                    style={{
+                      width: elementRef.current?.clientWidth
+                        ? `calc(100% - ${elementRef.current?.clientWidth})`
+                        : elementRef.current?.clientWidth,
+                    }}
+                  />
+                </FieldSetBorder>
+              </div>
+            )}
+          </Box>
+          <Box flex={20}>
+            {iPData.length !== 0 && (
+              <div style={{ flex: 1 }}>
+                <FieldSetBorder legend="آی پی">
+                  <ReactWordcloud
+                    words={iPData}
+                    options={options}
+                    style={{
+                      width: elementRef.current?.clientWidth
+                        ? `calc(100% - ${elementRef.current?.clientWidth})`
+                        : elementRef.current?.clientWidth,
+                    }}
+                  />
+                </FieldSetBorder>
+              </div>
+            )}
+          </Box>
         </Box>
         <div className="rowLayerChart" style={{ alignItems: "flex-start" }}>
           {/* {browserData && (
@@ -474,7 +501,12 @@ const MapPage = () => {
             {geoLocationData.length !== 0 && (
               <FieldSetBorder legend="مختصات">
                 <div className="map" style={{ width: "100%", height: "100%" }}>
-                  <Mapir Map={Map} userLocation>
+                  <Mapir
+                    Map={Map}
+                    userLocation
+                    minZoom={[0.5]}
+                    fitBounds={bounds}
+                  >
                     <Mapir.ScaleControl />
                     <Mapir.ZoomControl position={"top-left"} />
                     <Mapir.Cluster
