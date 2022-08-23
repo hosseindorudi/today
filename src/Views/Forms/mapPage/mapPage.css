@@ -31,8 +31,9 @@
   transition: all 500ms ease;
 }
 
-.topLayerMap > div {
-  margin: 10px;
+.topLayerMap > fieldset > label {
+  display: flex;
+  flex-direction: row-reverse;
   transition: all 500ms ease;
 }
 
@@ -70,6 +71,10 @@
 .firstRowChart1 > fieldset {
   width: 100px;
   height: 100%;
+}
+
+.transitionGroupCss > div > div > div {
+  display: flex;
 }
 
 

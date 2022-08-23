@@ -435,14 +435,17 @@ const RepairsPerformed = () => {
         >
           
           
-            <Accordion expanded={isOpen} display={{
+            <Accordion expanded={isOpen} 
+            sx ={{width:"100%", display:{
               lg: "none",
               md: "none",
               sm: "flex",
               xs: "flex",
-            }}
-            width={{xs:"100%"}}>
+            },
+          flexDirection:"column"}}
+            >
               <AccordionSummary
+               sx ={{width:"100%"}}
               onClick={() => setisOpen(!isOpen)}
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
