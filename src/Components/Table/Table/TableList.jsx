@@ -21,6 +21,7 @@ import TableButtons from "../TableButtons/TableButtons";
 import DescModal from "../descriptionModal/DescModal";
 import { enums } from "../../../data/Enums";
 import TableCard from "../tableCard/TableCard";
+import CustomTree from "./CustomTree";
 
 const TableList = ({
   productsColumns,
@@ -75,6 +76,10 @@ const TableList = ({
   handleClickQrCode,
   downloadQRAccess,
   type,
+  isFee,
+  setIsFee,
+  setFeeRecord,
+  feeRecord
 }) => {
   const [descriptionShow, setDescriptionShow] = useState(false);
   const [desc, setDesc] = useState("");
@@ -90,7 +95,9 @@ const TableList = ({
       )}
       {type === "card" ? (
         <TableCard productsColumns={productsColumns} posts={posts} exportId={exportId} deleteAccess={deleteAccess} editAccess={editAccess} exportAccess={exportAccess} permissionsAccess={permissionsAccess} deleteCalled={deleteCalled} handleClickEdit={handleClickEdit} addAccess={addAccess} />
-      ) : (
+      ) : type === "tree" ?  
+        <CustomTree setIsFee={setIsFee} isFee={isFee} setFeeRecord={setFeeRecord} feeRecord={feeRecord} />
+        : (
         <>
           <Paper sx={{ width: "100%", overflow: "hidden" }}>
             <TableContainer className="tableC">
@@ -256,7 +263,7 @@ const TableList = ({
               </Table>
             </TableContainer>
           </Paper>
-          <div className="pagination">
+          {(type !== "tree" || type !== "card") && <div className="pagination">
             <Pagination
               page={currentPage}
               onChange={setPage}
@@ -273,7 +280,8 @@ const TableList = ({
                 </option>
               ))}
             </select>
-          </div>
+          </div>}
+          {/* <CustomTree /> */}
         </>
       )}
     </>

@@ -1289,5 +1289,22 @@ const Filters = {
       default: null,
     },
   ],
+  "/Definition/RepairsPerformed/Read": [
+    {
+      field: "Flt_Title",
+      type: "string",
+      default: "",
+    },
+    {
+      field: "Flt_FromDate",
+      type: "date",
+      default: null,
+    },
+    {
+      field: "Flt_ToDate",
+      type: "date",
+      default: null,
+    },
+  ],
 };
 module.exports = { Filters };

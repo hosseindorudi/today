@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import "./customTable.css";
+import '../../../Views/Forms/definations/repairsPerformed/repairsPerformed.css'
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
@@ -27,6 +28,7 @@ import AppContext from "../../../contexts/AppContext";
 import { Filters } from "../../../data/Filters";
 import MobileFilter from "./MobileFilter";
 import { QRCodeCanvas } from "qrcode.react";
+import AddCurrencyModal from "../addCurrencyModal/AddCurrencyModal";
 const CustomTable = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const { app } = useContext(AppContext);
@@ -61,6 +63,8 @@ const CustomTable = forwardRef((props, ref) => {
   const [filteres, setFilteres] = useState([]);
   const [mobileFilter, setMobileFilter] = useState(false);
   const [qrLink, setQrLink] = useState(null);
+  const [feeRecord, setFeeRecord] = useState({});
+
   const getTable = () => {
     fetchData({
       method: "POST",
@@ -84,7 +88,7 @@ const CustomTable = forwardRef((props, ref) => {
     setRequestType("READPAGING");
     fetchData({
       method: "POST",
-      url: props.readPagingApi,
+      url: props.type === "tree" ? props.ReadApi : props.readPagingApi,
       headers: request,
       data: {
         Paging: paging,
@@ -194,31 +198,59 @@ const CustomTable = forwardRef((props, ref) => {
     readPaging(paging, filterObj);
   };
   const setData = (response) => {
+    console.log(response)
     const res = response.Record;
     const paging = response.Paging;
-    setTotalRecord(paging.TotalRecord);
-    setSortedBy(paging.SortBy);
-    setIsAssending(paging.IsAscending);
-    setIsFavorite(response.IsFavorite);
-    setUnSelected(response.UnselectedColumn);
-    setPosts(res);
-    setCurrentPage(paging.CurrentPage);
-    setTotalPages(paging.TotalPage);
-    setSort({ SortBy: paging.SortBy, IsAscending: paging.IsAscending });
-    setNumberOfRecordsPerPage(paging.NumberOfRecordsPerPage);
-    setproductsColumns(
-      res[0]
-        ? Object.keys(res[0])?.map((key) => {
-            return {
-              Header: key,
-              accessor: key,
-              show: true,
-              isSorted: paging.SortBy === key ? true : false,
-              IsAscending: paging.SortBy === key ? paging.IsAscending : false,
-            };
-          })
-        : []
+    if(props.type === "tree"){
+      setfilterObj(response.Filter)
+      setTotalRecord(res.length);
+      setSortedBy("")
+      setIsAssending(false);
+      setIsFavorite(response.IsFavorite);
+      setUnSelected([]);
+      setPosts(res);
+      setCurrentPage(1);
+      setTotalPages(2);
+      setSort({ SortBy: "", IsAscending: false });
+      setNumberOfRecordsPerPage(100);
+      setproductsColumns(
+        res[0]
+          ? Object.keys(res[0])?.map((key) => {
+              return {
+                Header: key,
+                accessor: key,
+                show: true,
+                isSorted:  false,
+                IsAscending: false,
+              };
+            })
+          : []
     );
+    }else 
+    {
+      setTotalRecord(paging.TotalRecord);
+      setSortedBy(paging.SortBy);
+      setIsAssending(paging.IsAscending);
+      setIsFavorite(response.IsFavorite);
+      setUnSelected(response.UnselectedColumn);
+      setPosts(res);
+      setCurrentPage(paging.CurrentPage);
+      setTotalPages(paging.TotalPage);
+      setSort({ SortBy: paging.SortBy, IsAscending: paging.IsAscending });
+      setNumberOfRecordsPerPage(paging.NumberOfRecordsPerPage);
+      setproductsColumns(
+        res[0]
+          ? Object.keys(res[0])?.map((key) => {
+              return {
+                Header: key,
+                accessor: key,
+                show: true,
+                isSorted: paging.SortBy === key ? true : false,
+                IsAscending: paging.SortBy === key ? paging.IsAscending : false,
+              };
+            })
+          : []
+    );}
   };
   const logResponse = (res) => {
     if (!res.Log.length) {
@@ -329,6 +361,7 @@ const CustomTable = forwardRef((props, ref) => {
   useEffect(() => {
     setRequestType("READ");
     getTable();
+    console.log(Filters[app.activeTab])
     const flts = Filters[app.activeTab];
     setFilteres(flts);
     var obj = {};
@@ -422,6 +455,7 @@ const CustomTable = forwardRef((props, ref) => {
     readPaging(paging, filterObj);
   };
   const handleClickSend = () => {
+    console.log(filterObj)
     const paging = {
       NumberOfRecordsPerPage: numberOfRecordsPerPage,
       CurrentPage: currentPage,
@@ -520,6 +554,24 @@ const CustomTable = forwardRef((props, ref) => {
           setPermission={setPermission}
         />
       )}
+      {/* {showLogModal && (
+        <LogModal
+          onHide={() => setShowLogModal(false)}
+          logs={log}
+          show={showLogModal}
+        />
+      )} */}
+      {props.isFee && (
+        <AddCurrencyModal
+          onHide={() => props.setIsFee(false)}
+          delete={props.deleteRateApi}
+          id={feeRecord.Id}
+          read={props.readRateApi}
+          create={props.createRateApi}
+          update={props.updateRateApi}
+          show={props.isFee}
+        />
+      )}
       <LeftSideContainer
         {...props}
         columnSideBar={columnSideBar}
@@ -588,6 +640,10 @@ const CustomTable = forwardRef((props, ref) => {
               <TableList
                 {...props}
                 type={props.type}
+                setIsFee={props.setIsFee}
+                isFee={props.isFee}
+                setFeeRecord={setFeeRecord}
+                feeRecord={feeRecord}
                 handleRefresh={handleRefresh}
                 columnSideBar={columnSideBar}
                 productsColumns={productsColumns}
