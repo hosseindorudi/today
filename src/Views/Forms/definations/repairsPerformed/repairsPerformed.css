@@ -34,18 +34,21 @@
   background-color: transparent;
   color: red;
   height: fit-content;
+
 }
 .rowViewBtnEdit {
   border: none;
   background-color: transparent;
   color: green;
   height: fit-content;
+
 }
 .rowViewBtnFee {
   border: none;
   background-color: transparent;
   color: gold;
   height: fit-content;
+
 }
 
 .repairPerformDown > button {
@@ -78,8 +81,8 @@
 .repairedFormDownDiv {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 80%;
+justify-content: space-between;
+width: 80%;
 }
 
 .accordionCss {
@@ -87,9 +90,11 @@
   width: 100%;
 }
 
-@media screen and (max-width: 899px) {
+
+@media screen and (max-width:899px){
   .accordionCss {
     display: flex;
     width: 100%;
   }
+  
 }
