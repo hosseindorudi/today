@@ -80,7 +80,7 @@ const RepairsPerformed = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   const { t } = useTranslation();
-  const [isOpen, setisOpen] = useState(false)
+  const [isOpen, setisOpen] = useState(false);
   const createParams = (service) => {
     const params = {
       method: "POST",
@@ -90,7 +90,7 @@ const RepairsPerformed = () => {
     return params;
   };
   const getDatas = () => {
-    setisOpen(false)
+    setisOpen(false);
     const modelTitles = axios.request(createParams(modelReadTitle));
     const perfomedGroupTitles = axios.request(
       createParams(repairsPerformedReadTitle)
@@ -277,15 +277,17 @@ const RepairsPerformed = () => {
 
   const EditeOneRecord = (data) => {
     setEditData(data);
+    console.log("asdasda", performedGroup);
+
     setIsEdit(true);
     console.log(data);
-    setModel(modelOptions.filter((f) => f.label === data.Model_Title));
-    data.Parent_Id === 0
-      ? setPerformedGroup({})
-      : setPerformedGroup(
-          perfomedGroupOptions.filter((f) => f.label === data.Parent_Title)
-        );
+    setModel(modelOptions.filter((f) => f.value === data.Model_Id));
+    let g = perfomedGroupOptions.filter((f) => f.value === data.Id);
+    g[0].label = data.Parent_Title;
+    data.Parent_Id === 0 ? setPerformedGroup({}) : setPerformedGroup(g[0]);
+    console.log(perfomedGroupOptions);
 
+    console.log(g);
     setValues({
       title: data.Title,
       color: `#${data.Color}`,
@@ -322,7 +324,7 @@ const RepairsPerformed = () => {
 
   const handleCancelation = () => {
     setIsEdit(false);
-    setisOpen(false)
+    setisOpen(false);
     setModel(null);
     setPerformedGroup({});
     setValues({
@@ -342,8 +344,12 @@ const RepairsPerformed = () => {
       headers: request,
       data: {
         Id: editData.Id,
-        Parent_Id: performedGroup !== {} ? performedGroup.value : 0,
-        Model_Id: model?.value,
+        Parent_Id: performedGroup?.value,
+        Model_Id: model.value
+          ? model.value
+          : model[0].value
+          ? model[0].value
+          : null,
         Title: values.title,
         Priority: values.periority,
         Description: values.desc,
@@ -363,7 +369,7 @@ const RepairsPerformed = () => {
       periority: 1,
       desc: "",
     });
-    setisOpen(false)
+    setisOpen(false);
   };
 
   const handleTreeView = (data) => {
@@ -381,7 +387,13 @@ const RepairsPerformed = () => {
         <button className="rowViewBtn" onClick={() => deleteOneRecord(data.Id)}>
           <fa.FaTrash />
         </button>
-        <button className="rowViewBtnEdit" onClick={() => {setisOpen(true);EditeOneRecord(data)}}>
+        <button
+          className="rowViewBtnEdit"
+          onClick={() => {
+            setisOpen(true);
+            EditeOneRecord(data);
+          }}
+        >
           <fa.FaRegEdit />
         </button>
         {data.Parent_Id === 0 && (
@@ -433,106 +445,108 @@ const RepairsPerformed = () => {
           flex="95%"
           width="100%"
         >
-          
-          
-            <Accordion expanded={isOpen} 
-            sx ={{width:"100%", display:{
-              lg: "none",
-              md: "none",
-              sm: "flex",
-              xs: "flex",
-            },
-          flexDirection:"column"}}
-            >
-              <AccordionSummary
-               sx ={{width:"100%"}}
+          <Accordion
+            expanded={isOpen}
+            sx={{
+              width: "100%",
+              display: {
+                lg: "none",
+                md: "none",
+                sm: "flex",
+                xs: "flex",
+              },
+              flexDirection: "column",
+            }}
+          >
+            <AccordionSummary
+              sx={{ width: "100%" }}
               onClick={() => setisOpen(!isOpen)}
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography>ساخت مورد جدید</Typography>
-              </AccordionSummary>
-              <AccordionDetails >
-                <div className="repairedPerformedLeft">
-                  <Form
-                    className="periorityForm"
-                    noValidate
-                    // validated={validated}
-                    onSubmit={handleSubmit}
-                  >
-                    <b>{t("/Definition/RepairsPerformed/Write")}</b>
-                    <div className="repairRowPerformed">
-                      <Form.Group
-                        className="mb-0.5 repairsPerformedItem"
-                        controlId={"model"}
-                      >
-                        <Form.Label>{t("Group")}</Form.Label>
-                        <CustomReactMultiSelect
-                          isMulti={false}
-                          options={perfomedGroupOptions}
-                          value={performedGroup}
-                          onchangeHandler={(e) => setPerformedGroup(e)}
-                          placeholder={t("Group")}
-                        />
-                      </Form.Group>
-                      <Form.Group
-                        className="mb-.5 repairsPerformedItem"
-                        controlId={"model"}
-                      >
-                        <Form.Label>{t("model")}</Form.Label>
-                        <CustomReactMultiSelect
-                          isMulti={false}
-                          options={modelOptions}
-                          value={model}
-                          onchangeHandler={(e) => setModel(e)}
-                          placeholder={t("model")}
-                        />
-                      </Form.Group>
-                    </div>
-                    {defintionInputs(
-                      values,
-                      t("Title"),
-                      t("RepairsPerformed_errorMSG"),
-                      true
-                    ).map((input) => (
-                      <FormInput
-                        performedGroup={model}
-                        isRepair={true}
-                        key={input.id}
-                        {...input}
-                        onChange={onChangeHandler}
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>ساخت مورد جدید</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div className="repairedPerformedLeft">
+                <Form
+                  className="periorityForm"
+                  noValidate
+                  // validated={validated}
+                  onSubmit={handleSubmit}
+                >
+                  <b>{t("/Definition/RepairsPerformed/Write")}</b>
+                  <div className="repairRowPerformed">
+                    <Form.Group
+                      className="mb-0.5 repairsPerformedItem"
+                      controlId={"model"}
+                    >
+                      <Form.Label>{t("Group")}</Form.Label>
+                      <CustomReactMultiSelect
+                        isMulti={false}
+                        options={perfomedGroupOptions}
+                        value={performedGroup}
+                        onchangeHandler={(e) => setPerformedGroup(e)}
+                        placeholder={t("Group")}
                       />
-                    ))}
-                    {!isEdit ? (
-                      <>
-                        <Button disabled={loading} type="submit">
-                          {t("submit")}
-                        </Button>
-                      </>
-                    ) : (
-                      <div className="repairedFormDownDiv">
-                        <Button
-                          disabled={loading}
-                          onClick={handleEditSubmit}
-                          variant="warning"
-                        >
-                          {t("repairedEdit")}
-                        </Button>
-                        <Button
-                          disabled={loading}
-                          variant="danger"
-                          onClick={handleCancelation}
-                        >
-                          {t("repairedCancel")}
-                        </Button>
-                      </div>
-                    )}
-                  </Form>
-                </div>
-              </AccordionDetails>
-            </Accordion>
-         
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-.5 repairsPerformedItem"
+                      controlId={"model"}
+                    >
+                      <Form.Label>{t("model")}</Form.Label>
+                      <CustomReactMultiSelect
+                        isMulti={false}
+                        options={modelOptions}
+                        value={model}
+                        onchangeHandler={(e) => setModel(e)}
+                        placeholder={t("model")}
+                      />
+                    </Form.Group>
+                  </div>
+                  {defintionInputs(
+                    values,
+                    t("Title"),
+                    t("RepairsPerformed_errorMSG"),
+                    true
+                  ).map((input) => (
+                    <FormInput
+                      performedGroup={model}
+                      isRepair={true}
+                      key={input.id}
+                      {...input}
+                      onChange={onChangeHandler}
+                    />
+                  ))}
+                  {!isEdit ? (
+                    <>
+                      <Button disabled={loading} type="submit">
+                        {t("submit")}
+                      </Button>
+                    </>
+                  ) : (
+                    <div className="repairedFormDownDiv">
+                      <Button
+                        disabled={loading}
+                        onClick={handleEditSubmit}
+                        variant="warning"
+                      >
+                        {t("repairedEdit")}
+                      </Button>
+                      <Button
+                        disabled={loading}
+                        variant="danger"
+                        onClick={handleCancelation}
+                      >
+                        {t("repairedCancel")}
+                      </Button>
+                    </div>
+                  )}
+                </Form>
+              </div>
+            </AccordionDetails>
+          </Accordion>
+
           <Box
             display={{
               lg: "flex",
@@ -541,11 +555,10 @@ const RepairsPerformed = () => {
               xs: "none",
             }}
             flex={1}
-           
           >
             <Form
               className="periorityForm"
-              style={{margin:"0 auto"}}
+              style={{ margin: "0 auto" }}
               noValidate
               // validated={validated}
               onSubmit={handleSubmit}

@@ -2,13 +2,19 @@
   text-align: center;
   width: 100%;
   height: auto !important;
- 
 }
 .mapPlenty .mapboxgl-map {
   width: 100% !important;
   height: calc(
-    100vh - var(--headerheight) - var(--heightfooter) - var(--navTabHeight) - var(--topLayerMap)
-  ) !important
+    100vh - var(--headerheight) - var(--heightfooter) - var(--navTabHeight) -
+      var(--topLayerMap)
+  ) !important;
+}
+
+.fixedRow {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
 }
 
 .mainMap {
@@ -21,14 +27,14 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items:center;
+  align-items: center;
   height: var(--topLayerMap);
   position: sticky;
   top: 0;
   background-color: #fff;
-  border: 1px solid lightgray;
   border-radius: 5px;
   transition: all 500ms ease;
+  z-index: 99;
 }
 
 .topLayerMap > fieldset > label {
@@ -43,7 +49,7 @@
   transition: all 500ms ease;
 }
 
-.downLayerChart{
+.downLayerChart {
   display: flex;
   align-items: center;
   overflow-y: auto;
@@ -64,9 +70,7 @@
   flex: 1;
   width: 100%;
   margin: 2px;
-  
 }
-
 
 .firstRowChart1 > fieldset {
   width: 100px;
@@ -77,11 +81,8 @@
   display: flex;
 }
 
-
-
-
-@media screen and (max-width:600px){
-  .rowLayerChart{
+@media screen and (max-width: 600px) {
+  .rowLayerChart {
     flex-direction: column;
   }
   .firstRowChart1 {
@@ -91,4 +92,3 @@
     width: 100% !important;
   }
 }
-
