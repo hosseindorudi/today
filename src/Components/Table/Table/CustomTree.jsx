@@ -15,7 +15,6 @@ import TreeItem from "@mui/lab/TreeItem";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { enums } from "../../../data/Enums";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -28,7 +27,7 @@ import FormInput from "../../periodity/formInput/FormInput";
 import { modelReadTitle } from "../../../services/modelService";
 import { ResultCodeEnum } from "../../../data/ResultCodeEnum";
 import { CustomReactMultiSelect } from "../../Select/customReactSelect";
-import { RepairsPerformedCreate, RepairsPerformedDelete, RepairsPerformedLog, RepairsPerformedRead, RepairsPerformedReadTitle, RepairsPerformedSetToFavorite, RepairsPerformedUpdate, 
+import { RepairsPerformedCreate, RepairsPerformedDelete,  RepairsPerformedRead, RepairsPerformedReadTitle, RepairsPerformedUpdate, 
  } from "../../../services/repairsPerformed";
  import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 
@@ -43,9 +42,6 @@ const CustomTree = (props) => {
     const [performedGroup, setPerformedGroup] = useState({});
     const [perfomedData, setPerformedData] = useState([]);
     const abortController = new AbortController();
-    const [showLogModal, setShowLogModal] = useState(false);
-    const [log, setLog] = useState(null);
-    const [IsFavorite, setIsFavorite] = useState(false);
     const [editData, setEditData] = useState({});
     const [isEdit, setIsEdit] = useState(false);
     const [values, setValues] = useState({
@@ -90,7 +86,6 @@ const CustomTree = (props) => {
             allData[2].data?.Result === ResultCodeEnum.Ok
               ? setPerformedData(allData[2].data.Record)
               : handleError(allData[2].data.Message);
-            setIsFavorite(allData[2].data.IsFavorite);
             setModel(null);
             setPerformedGroup({});
             setValues({
@@ -127,9 +122,6 @@ const CustomTree = (props) => {
             break;
           case "CREATE":
             getDatas();
-            break;
-          case "FAVORITE":
-            favorited();
             break;
           case "DELETE":
             handleDeleted();
@@ -182,27 +174,9 @@ const CustomTree = (props) => {
       });
     };
   
-    const favorited = () => {
-      setIsFavorite(true);
-      toast.success(t("favorited"), {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    };
   
-    const handleClickFav = () => {
-      setType("FAVORITE");
-      fetchData({
-        method: "POST",
-        url: RepairsPerformedSetToFavorite,
-        headers: request,
-        signal: abortController.signal,
-      });
-    };
-  
-    const handleClickHelp = () => {
-      window.open("https://www.google.com");
-    };
-  
+
+
     const handleDeleted = () => {
       Swal.fire(
         t("sweetAlert.deleted"),
