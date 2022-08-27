@@ -674,6 +674,7 @@ const CustomTable = forwardRef((props, ref) => {
                 }
                 handleuploadFile={props.handleuploadFile}
                 handleClickQrCode={handleClickQrCode}
+                addModelAccess={props.addModelAccess}
               />{" "}
             </div>
           ) : (

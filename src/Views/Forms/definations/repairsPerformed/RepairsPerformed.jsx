@@ -1,21 +1,7 @@
 import "./repairsPerformed.css";
-import useAxios from "../../../../customHooks/useAxios";
-import useRequest from "../../../../customHooks/useRequest";
-import { Button, Form } from "react-bootstrap";
-import { useEffect, useState, useCallback, useRef } from "react";
-import Swal from "sweetalert2";
-import {
-  handleError,
-  createSelectOptions,
-  defintionInputs,
-  createSelectRepairedOptions,
-} from "../../../../validation/functions";
-import * as fa from "react-icons/fa";
-import TreeView from "@mui/lab/TreeView";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import TreeItem from "@mui/lab/TreeItem";
-import FormInput from "../../../../Components/periodity/formInput/FormInput";
-import { modelReadTitle } from "../../../../services/modelService";
+
+import { useState,  useRef } from "react";
+
 import {
   RepairsPerformedReadTitle,
   RepairsPerformedCreate,
@@ -42,24 +28,9 @@ import {
 } from "../../../../services/repairsPerformed";
 import { t } from "i18next";
 
-import axios from "axios";
-import { useTranslation } from "react-i18next";
-import { CustomReactMultiSelect } from "../../../../Components/Select/customReactSelect";
-import { toast } from "react-toastify";
-import useButtonAccess from "../../../../customHooks/useButtonAccess";
+
 import { enums } from "../../../../data/Enums";
-import BackDrop from "../../../../Components/backDrop/BackDrop";
-import LogModal from "../../../../Components/Table/LogModal/LogModal";
-import ImportCSV from "../../../../Components/Table/ImportCSVButton/ImportCSV";
-import ExportAllButton from "../../../../Components/Table/ExportButton/ExportAllButton";
-import AddCurrencyModal from "../../../../Components/Table/addCurrencyModal/AddCurrencyModal";
-import { ResultCodeEnum } from "../../../../data/ResultCodeEnum";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Box } from "@mui/system";
+
 import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 const RepairsPerformed = () => {

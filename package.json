@@ -51,6 +51,7 @@
     "react-wordcloud": "^1.2.7",
     "source-map-loader": "^3.0.1",
     "stream-browserify": "^3.0.0",
+    "stylis-plugin-rtl": "^2.1.1",
     "sweetalert2": "^11.4.17",
     "web-vitals": "^2.1.4"
   },

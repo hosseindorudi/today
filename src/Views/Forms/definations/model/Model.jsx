@@ -96,6 +96,7 @@ const Model = () => {
         favouriteApi={modelFavorite}
         handleClickHelp={handleClickHelp}
         addFormAccess={enums.Definition_Model_Create_w}
+        addModelAccess={enums.Definition_Model_Create_w}
         filteredColumns={filteredColumns}
         deleteAccess={enums.Definition_Model_Delete_w}
         editAccess={enums.Definition_Model_Update_w}

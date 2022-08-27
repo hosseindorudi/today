@@ -79,7 +79,8 @@ const TableList = ({
   isFee,
   setIsFee,
   setFeeRecord,
-  feeRecord
+  feeRecord,
+  addModelAccess
 }) => {
   const [descriptionShow, setDescriptionShow] = useState(false);
   const [desc, setDesc] = useState("");
@@ -94,7 +95,7 @@ const TableList = ({
         />
       )}
       {type === "card" ? (
-        <TableCard productsColumns={productsColumns} posts={posts} exportId={exportId} deleteAccess={deleteAccess} editAccess={editAccess} exportAccess={exportAccess} permissionsAccess={permissionsAccess} deleteCalled={deleteCalled} handleClickEdit={handleClickEdit} addAccess={addAccess} />
+        <TableCard addModelAccess={addModelAccess} productsColumns={productsColumns} posts={posts} exportId={exportId} deleteAccess={deleteAccess} editAccess={editAccess} exportAccess={exportAccess} permissionsAccess={permissionsAccess} deleteCalled={deleteCalled} handleClickEdit={handleClickEdit} addAccess={addAccess} />
       ) : type === "tree" ?  
         <CustomTree setIsFee={setIsFee} isFee={isFee} setFeeRecord={setFeeRecord} feeRecord={feeRecord} />
         : (
