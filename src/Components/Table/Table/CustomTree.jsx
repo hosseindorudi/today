@@ -1,6 +1,6 @@
 import "../../../Views/Forms/definations/repairsPerformed/repairsPerformed.css";
 import { Button, Form } from "react-bootstrap";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 import Swal from "sweetalert2";
 import {
   handleError,
@@ -14,7 +14,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TreeItem from "@mui/lab/TreeItem";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -24,23 +23,21 @@ import { Box } from "@mui/system";
 import useRequest from "../../../customHooks/useRequest";
 import useAxios from "../../../customHooks/useAxios";
 import FormInput from "../../periodity/formInput/FormInput";
-import { modelReadTitle } from "../../../services/modelService";
 import { ResultCodeEnum } from "../../../data/ResultCodeEnum";
 import { CustomReactMultiSelect } from "../../Select/customReactSelect";
-import { RepairsPerformedCreate, RepairsPerformedDelete,  RepairsPerformedRead, RepairsPerformedReadTitle, RepairsPerformedUpdate, 
- } from "../../../services/repairsPerformed";
- import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
+import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
+import AppContext from "../../../contexts/AppContext";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const CustomTree = (props) => {
     const request = useRequest();
     const [response, loading, fetchData] = useAxios();
     const [validated, setValidated] = useState(false);
     const [type, setType] = useState("");
-    const [modelOptions, setModelOptions] = useState([]);
-    const [model, setModel] = useState(null);
-    const [perfomedGroupOptions, setPerformedGroupOptions] = useState([]);
-    const [performedGroup, setPerformedGroup] = useState({});
-    const [perfomedData, setPerformedData] = useState([]);
+    const { app } = useContext(AppContext);
+
     const abortController = new AbortController();
     const [editData, setEditData] = useState({});
     const [isEdit, setIsEdit] = useState(false);
@@ -66,28 +63,29 @@ const CustomTree = (props) => {
     };
     const getDatas = () => {
       setisOpen(false);
-      const modelTitles = axios.request(createParams(modelReadTitle));
+      const modelTitles = axios.request(createParams(props.modelReadTitle));
       const perfomedGroupTitles = axios.request(
-        createParams(RepairsPerformedReadTitle)
+        createParams(props.RepairsPerformedReadTitle)
       );
-      const getAllData = axios.request(createParams(RepairsPerformedRead));
+      // app.modelTitle
+      const getAllData =  axios.request(createParams(props.ReadApi));
       axios
         .all([modelTitles, perfomedGroupTitles, getAllData])
         .then(
           axios.spread((...allData) => {
             allData[0].data?.Result === ResultCodeEnum.Ok
-              ? setModelOptions(createSelectOptions(allData[0].data.Title))
+              ? props.setModelOptions(createSelectOptions(allData[0].data.Title))
               : handleError(allData[0].data.Message);
             allData[1].data?.Result === ResultCodeEnum.Ok
-              ? setPerformedGroupOptions(
+              ? props.setPerformedGroupOptions(
                   createSelectRepairedOptions(allData[1].data.Title)
                 )
               : handleError(allData[1].data.Message);
             allData[2].data?.Result === ResultCodeEnum.Ok
-              ? setPerformedData(allData[2].data.Record)
+              ? props.setPerformedData(allData[2].data.Record)
               : handleError(allData[2].data.Message);
-            setModel(null);
-            setPerformedGroup({});
+              props.setModel(null);
+              props.setPerformedGroup({});
             setValues({
               title: "",
               color: "#000000",
@@ -145,34 +143,57 @@ const CustomTree = (props) => {
       setValidated(true);
       if (form.checkValidity()) {
         setType("CREATE");
-        fetchData({
-          method: "POST",
-          url: RepairsPerformedCreate,
-          headers: request,
-          data: {
-            Id: 0,
-            Parent_Id: performedGroup !== {} ? performedGroup.value : 0,
-            Model_Id: model?.value,
-            Title: values.title,
-            Priority: values.periority,
-            Description: values.desc,
-            Color: values.color.substring(1),
-            SourceType: 0,
-            Registrar: 0,
-            DateSet: "2022-06-19T16:43:29.709Z",
-          },
-          signal: abortController.signal,
-        });
-  
-        // handleResponse(response, "CREATE");
+        if(app.modelTitle){
+          let a = props.modelOptions.filter((f,i) => f.label === app.modelTitle)
+          console.log(a)
+
+          fetchData({
+            method: "POST",
+            url: props.createApi,
+            headers: request,
+            data: {
+              Id: 0,
+              Parent_Id: props.performedGroup !== {} ? props.performedGroup.value : 0,
+              Model_Id: a[0]?.value,
+              Title: values.title,
+              Priority: values.periority,
+              Description: values.desc,
+              Color: values.color.substring(1),
+              SourceType: 0,
+              Registrar: 0,
+              DateSet: "2022-06-19T16:43:29.709Z",
+            },
+            signal: abortController.signal,
+          });
+    
+
+        }else {
+          fetchData({
+            method: "POST",
+            url: props.createApi,
+            headers: request,
+            data: {
+              Id: 0,
+              Parent_Id: props.performedGroup !== {} ? props.performedGroup.value : 0,
+              Model_Id: props.model?.value,
+              Title: values.title,
+              Priority: values.periority,
+              Description: values.desc,
+              Color: values.color.substring(1),
+              SourceType: 0,
+              Registrar: 0,
+              DateSet: "2022-06-19T16:43:29.709Z",
+            },
+            signal: abortController.signal,
+          });
+    
+        }
+        
+        
       }
     };
   
-    const importSuccess = (message) => {
-      toast.success(message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    };
+   
   
   
 
@@ -189,15 +210,13 @@ const CustomTree = (props) => {
   
     const EditeOneRecord = (data) => {
       setEditData(data);
-      console.log("asdasda", performedGroup);
   
       setIsEdit(true);
       console.log(data);
-      setModel(modelOptions.filter((f) => f.value === data.Model_Id));
-      let g = perfomedGroupOptions.filter((f) => f.value === data.Id);
+      props.setModel(props.modelOptions.filter((f) => f.value === data.Model_Id));
+      let g = props.perfomedGroupOptions.filter((f) => f.value === data.Id);
       g[0].label = data.Parent_Title;
-      data.Parent_Id === 0 ? setPerformedGroup({}) : setPerformedGroup(g[0]);
-      console.log(perfomedGroupOptions);
+      data.Parent_Id === 0 ? props.setPerformedGroup({}) : props.setPerformedGroup(g[0]);
   
       console.log(g);
       setValues({
@@ -223,7 +242,7 @@ const CustomTree = (props) => {
           setType("DELETE");
           fetchData({
             method: "POST",
-            url: RepairsPerformedDelete,
+            url: props.deleteApi,
             headers: request,
             data: {
               Id: id,
@@ -237,8 +256,8 @@ const CustomTree = (props) => {
     const handleCancelation = () => {
       setIsEdit(false);
       setisOpen(false);
-      setModel(null);
-      setPerformedGroup({});
+      props.setModel(null);
+      props.setPerformedGroup({});
       setValues({
         title: "",
         color: "#000000",
@@ -248,19 +267,18 @@ const CustomTree = (props) => {
     };
   
     const handleEditSubmit = () => {
-      console.log(model);
       setType("READ");
       fetchData({
         method: "POST",
-        url: RepairsPerformedUpdate,
+        url: props.RepairsPerformedUpdate,
         headers: request,
         data: {
           Id: editData.Id,
-          Parent_Id: performedGroup?.value,
-          Model_Id: model.value
-            ? model.value
-            : model[0].value
-            ? model[0].value
+          Parent_Id: props.performedGroup?.value,
+          Model_Id: props.model.value
+            ? props.model.value
+            : props.model[0].value
+            ? props.model[0].value
             : null,
           Title: values.title,
           Priority: values.periority,
@@ -273,8 +291,8 @@ const CustomTree = (props) => {
         signal: abortController.signal,
       });
       setIsEdit(false);
-      setModel(null);
-      setPerformedGroup({});
+      props.setModel(null);
+      props.setPerformedGroup({});
       setValues({
         title: "",
         color: "#000000",
@@ -292,7 +310,7 @@ const CustomTree = (props) => {
             label={data.Title}
             style={{ width: "100%" }}
           >
-            {perfomedData.map((d) =>
+            {props.perfomedData.map((d) =>
               d.Parent_Id === data.Id ? handleTreeView(d) : null
             )}
           </TreeItem>
@@ -379,25 +397,34 @@ const CustomTree = (props) => {
                       <Form.Label>{t("Group")}</Form.Label>
                       <CustomReactMultiSelect
                         isMulti={false}
-                        options={perfomedGroupOptions}
-                        value={performedGroup}
-                        onchangeHandler={(e) => setPerformedGroup(e)}
+                        options={props.perfomedGroupOptions}
+                        value={props.performedGroup}
+                        onchangeHandler={(e) => props.setPerformedGroup(e)}
                         placeholder={t("Group")}
                       />
                     </Form.Group>
-                    <Form.Group
+                    {app.modelTitle  ?  
+                    <Container >
+                    <Row alignItems="center">
+                      <Col>{t('model')}:</Col>
+                      <Col>{app.modelTitle}</Col>
+                    </Row>
+                  </Container>
+                  :
+                  <Form.Group
                       className="mb-.5 repairsPerformedItem"
                       controlId={"model"}
                     >
                       <Form.Label>{t("model")}</Form.Label>
                       <CustomReactMultiSelect
                         isMulti={false}
-                        options={modelOptions}
-                        value={model}
-                        onchangeHandler={(e) => setModel(e)}
+                        options={props.modelOptions}
+                        value={props.model}
+                        onchangeHandler={(e) => props.setModel(e)}
                         placeholder={t("model")}
                       />
                     </Form.Group>
+                    }
                   </div>
                   {defintionInputs(
                     values,
@@ -406,7 +433,7 @@ const CustomTree = (props) => {
                     true
                   ).map((input) => (
                     <FormInput
-                      performedGroup={model}
+                      performedGroup={props.model}
                       isRepair={true}
                       key={input.id}
                       {...input}
@@ -468,25 +495,34 @@ const CustomTree = (props) => {
                   <Form.Label>{t("Group")}</Form.Label>
                   <CustomReactMultiSelect
                     isMulti={false}
-                    options={perfomedGroupOptions}
-                    value={performedGroup}
-                    onchangeHandler={(e) => setPerformedGroup(e)}
+                    options={props.perfomedGroupOptions}
+                    value={props.performedGroup}
+                    onchangeHandler={(e) => props.setPerformedGroup(e)}
                     placeholder={t("Group")}
                   />
                 </Form.Group>
-                <Form.Group
-                  className="mb-.5 repairsPerformedItem"
-                  controlId={"model"}
-                >
-                  <Form.Label>{t("model")}</Form.Label>
-                  <CustomReactMultiSelect
-                    isMulti={false}
-                    options={modelOptions}
-                    value={model}
-                    onchangeHandler={(e) => setModel(e)}
-                    placeholder={t("model")}
-                  />
-                </Form.Group>
+                {app.modelTitle  ?  
+                    <Container >
+                    <Row>
+                      <Col>{t('model')}:</Col>
+                      <Col>{app.modelTitle}</Col>
+                    </Row>
+                  </Container>
+                  :
+                  <Form.Group
+                      className="mb-.5 repairsPerformedItem"
+                      controlId={"model"}
+                    >
+                      <Form.Label>{t("model")}</Form.Label>
+                      <CustomReactMultiSelect
+                        isMulti={false}
+                        options={props.modelOptions}
+                        value={props.model}
+                        onchangeHandler={(e) => props.setModel(e)}
+                        placeholder={t("model")}
+                      />
+                    </Form.Group>
+                    }
               </div>
               {defintionInputs(
                 values,
@@ -495,7 +531,7 @@ const CustomTree = (props) => {
                 true
               ).map((input) => (
                 <FormInput
-                  performedGroup={model}
+                  performedGroup={props.model}
                   isRepair={true}
                   key={input.id}
                   {...input}
@@ -543,7 +579,7 @@ const CustomTree = (props) => {
                 marginBottom:10
               }}
             >
-              {perfomedData.map(
+              {props.perfomedData.map(
                 (data) => data.Parent_Id === 0 && handleTreeView(data)
               )}
             </TreeView>

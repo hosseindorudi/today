@@ -80,7 +80,26 @@ const TableList = ({
   setIsFee,
   setFeeRecord,
   feeRecord,
-  addModelAccess
+  addModelAccess,
+  modelOptions,
+  setModelOptions,
+  model,
+  setModel,
+  perfomedGroupOptions,
+  setPerformedGroupOptions,
+  performedGroup,
+  setPerformedGroup,
+  perfomedData,
+  setPerformedData,
+  modelReadTitle,
+  RepairsPerformedReadTitle,
+  ReadApi,
+  createRateApi,
+  deleteApi,
+  RepairsPerformedUpdate,
+  addCurrencyToModel,
+  createApi,
+  addExternalServiceToModel
 }) => {
   const [descriptionShow, setDescriptionShow] = useState(false);
   const [desc, setDesc] = useState("");
@@ -95,9 +114,13 @@ const TableList = ({
         />
       )}
       {type === "card" ? (
-        <TableCard addModelAccess={addModelAccess} productsColumns={productsColumns} posts={posts} exportId={exportId} deleteAccess={deleteAccess} editAccess={editAccess} exportAccess={exportAccess} permissionsAccess={permissionsAccess} deleteCalled={deleteCalled} handleClickEdit={handleClickEdit} addAccess={addAccess} />
+        <TableCard addModelAccess={addModelAccess} productsColumns={productsColumns} posts={posts} exportId={exportId} deleteAccess={deleteAccess} editAccess={editAccess} exportAccess={exportAccess} permissionsAccess={permissionsAccess} deleteCalled={deleteCalled} handleClickEdit={handleClickEdit} addAccess={addAccess} addCurrencyToModel={addCurrencyToModel} addExternalServiceToModel={addExternalServiceToModel} />
       ) : type === "tree" ?  
-        <CustomTree setIsFee={setIsFee} isFee={isFee} setFeeRecord={setFeeRecord} feeRecord={feeRecord} />
+        <CustomTree
+        modelReadTitle={modelReadTitle} RepairsPerformedReadTitle={RepairsPerformedReadTitle} ReadApi={ReadApi} createRateApi={createRateApi}  deleteApi={deleteApi} RepairsPerformedUpdate={RepairsPerformedUpdate} createApi={createApi}
+        modelOptions={modelOptions} setModelOptions={setModelOptions} model={model} setModel={setModel} perfomedGroupOptions={perfomedGroupOptions}
+        setPerformedGroupOptions={setPerformedGroupOptions} performedGroup={performedGroup} setPerformedGroup={setPerformedGroup} perfomedData={perfomedData} setPerformedData={setPerformedData}
+        setIsFee={setIsFee} isFee={isFee} setFeeRecord={setFeeRecord} feeRecord={feeRecord} />
         : (
         <>
           <Paper sx={{ width: "100%", overflow: "hidden" }}>

@@ -12,6 +12,7 @@ import { Button, CardActions } from "@mui/material";
 const TableCard = (props) => {
   const { t } = useTranslation();
 
+
   return (
     <>
       {
@@ -67,6 +68,9 @@ const TableCard = (props) => {
                         handleuploadFile={props.handleuploadFile}
                         handleClickQrCode={props.handleClickQrCode}
                         downloadQRAccess={props.downloadQRAccess}
+                        addModelAccess={props.addModelAccess}
+                        addCurrencyToModel={props.addCurrencyToModel}
+                        addExternalServiceToModel={props.addExternalServiceToModel}
                       />
                     </Button>
                   </Box>

@@ -8,6 +8,8 @@ import CustomTable from "../../../../Components/Table/Table/CustomTable";
 import useWindowSize from "../../../../customHooks/useWindowSize";
 import { modelAccessList, modelCheckFile, ModelColumnInfo, modelDelete, modelExport, modelExportId, modelFavorite, modelGetOneRecord, ModelImportArray, modelImportFile, modelLog, modelRead, modelReadPaging, modelSampleFile, modelSetUnselectedColumn } from "../../../../services/modelService";
 import ModelDefine from "./modelDefine/ModelDefine";
+import RepairsPerformed from "../repairsPerformed/RepairsPerformed";
+import ExtraServicesDefine from "../extraServices/extraServicesDefine/ExtraServicesDefine";
 const Model = () => {
   const childRef = useRef();
   const filteredColumns = [
@@ -34,6 +36,18 @@ const Model = () => {
           path: "/Definition/Model/Write",
           title: "/Definition/Model/Write",
           access: enums.Definition_Model_Create_w,
+  };
+  const addCurrencyToModel = {
+    Component: RepairsPerformed,
+        title: "/Definition/RepairsPerformed/Read",
+        path: "/Definition/RepairsPerformed/Read",
+        access: enums.Definition_RepairsPerformed_Read_r,
+  };
+  const addExternalServiceToModel = {
+    Component: ExtraServicesDefine,
+        title: "/Definition/AdditionalService/Write",
+        path: "/Definition/AdditionalService/Write",
+        access: enums.Definition_AdditionalService_Create_w,
   };
   const setUpdate = (res) => {
     const record = res.Record;
@@ -112,6 +126,8 @@ const Model = () => {
         setMobileModalColumns={setMobileModalColumns}
         mobileModalColumns={mobileModalColumns}
         BcItems={BcItems}
+        addCurrencyToModel={addCurrencyToModel}
+        addExternalServiceToModel={addExternalServiceToModel}
       />
     </>
   );

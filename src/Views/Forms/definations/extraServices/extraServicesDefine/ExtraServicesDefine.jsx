@@ -19,12 +19,17 @@ import { Form, Button } from "react-bootstrap";
 import { modelReadTitle } from "../../../../../services/modelService";
 import axios from "axios";
 import { CustomReactMultiSelect } from "../../../../../Components/Select/customReactSelect";
+import AppContext from "../../../../../contexts/AppContext";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 const ExtraServicesDefine = () => {
   const [validated, setValidated] = useState(false);
   const [response, loading, fetchData] = useAxios();
   const [modelOptions, setModelOptions] = useState([]);
   const [model, setModel] = useState(undefined);
   const tabContext = useContext(TabContext);
+  const { app } = useContext(AppContext);
   const request = useRequest();
   const abortController = new AbortController();
   const [values, setValues] = useState({
@@ -103,21 +108,43 @@ const ExtraServicesDefine = () => {
     }
     setValidated(true);
     if (form.checkValidity()) {
-      fetchData({
-        method: "POST",
-        url: additionalServiceCreate,
-        headers: request,
-        data: {
-          Id: 0,
-          Model_Id: model?.value,
-          Priority: values.periority,
-          Title: values.title,
-          Description: values.desc,
-          Color: values.color.substring(1),
-          DateSet: "2022-06-19T16:43:29.709Z",
-        },
-        signal: abortController.signal,
-      });
+      if(app.modelExtraTitle){
+        console.log(modelOptions)
+        let a = modelOptions.filter((f,i) => f.label === app.modelExtraTitle)
+        console.log(a)
+        fetchData({
+          method: "POST",
+          url: additionalServiceCreate,
+          headers: request,
+          data: {
+            Id: 0,
+            Model_Id: a[0]?.value,
+            Priority: values.periority,
+            Title: values.title,
+            Description: values.desc,
+            Color: values.color.substring(1),
+            DateSet: "2022-06-19T16:43:29.709Z",
+          },
+          signal: abortController.signal,
+        });
+      }else {
+        fetchData({
+          method: "POST",
+          url: additionalServiceCreate,
+          headers: request,
+          data: {
+            Id: 0,
+            Model_Id: model?.value,
+            Priority: values.periority,
+            Title: values.title,
+            Description: values.desc,
+            Color: values.color.substring(1),
+            DateSet: "2022-06-19T16:43:29.709Z",
+          },
+          signal: abortController.signal,
+        });
+      }
+      
     }
   };
   return (
@@ -130,7 +157,15 @@ const ExtraServicesDefine = () => {
       >
         <b>{t("ExtraServicesDefineHeader")}</b>
         <div className="Row">
-          <Form.Group className="mb-3" controlId={"model"}>
+        {app.modelExtraTitle  ?  
+                    <Container >
+                    <Row>
+                      <Col>{t('model')}:</Col>
+                      <Col>{app.modelExtraTitle}</Col>
+                    </Row>
+                  </Container>
+                  :
+                  <Form.Group className="mb-3" controlId={"model"}>
             <Form.Label>{t("model")}</Form.Label>
             <CustomReactMultiSelect
               isMulti={false}
@@ -140,6 +175,8 @@ const ExtraServicesDefine = () => {
               placeholder={t("model")}
             />
           </Form.Group>
+                    }
+          
         </div>
         {defintionInputs(
           values,

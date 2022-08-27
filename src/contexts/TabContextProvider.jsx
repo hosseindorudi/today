@@ -45,6 +45,14 @@ const TabContextProvider = (props) => {
     let index = tabs.findIndex(isFound);
     let filtered = tabs.filter((e) => e.path !== item.path);
     setTabs(filtered);
+    if(item.path === '/Definition/RepairsPerformed/Read') {
+      setApp(prev=>({...prev,modelTitle:''}))
+
+    }
+    if(item.path === '/Definition/AdditionalService/Write') {
+      setApp(prev=>({...prev,modelExtraTitle:''}))
+
+    }
     if (item.path === app.activeTab && filtered.length) {
       if (filtered[index - 1]) {
         setApp((prev) => ({ ...prev, activeTab: filtered[index - 1].path,title:filtered[index - 1].title }));

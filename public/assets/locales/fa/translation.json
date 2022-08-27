@@ -1028,6 +1028,7 @@
   "WhatsApp":"واتس آپ",
   "QrCodeDownload":"دانلود QRCode",
   "Active/Not Active": "فعال",
-  "addModelItem":"تعین نرخ"
+  "addModelItem":"تعین نرخ",
+  "addModelExternalService":"خدمات اضافی"
   
 }

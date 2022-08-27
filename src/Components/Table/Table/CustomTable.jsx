@@ -639,6 +639,10 @@ const CustomTable = forwardRef((props, ref) => {
             <div className="tableContainer">
               <TableList
                 {...props}
+                ReadApi={props.ReadApi}
+                createRateApi={props.createRateApi}
+                deleteApi={props.deleteApi}
+                RepairsPerformedUpdate={props.RepairsPerformedUpdate}
                 type={props.type}
                 setIsFee={props.setIsFee}
                 isFee={props.isFee}

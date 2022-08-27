@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import "./tableButtons.css";
 import * as fa from "react-icons/fa";
 import * as gr from "react-icons/gr";
@@ -12,6 +12,8 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { TabContext } from "../../../contexts/TabContextProvider";
+import AppContext from "../../../contexts/AppContext";
 const TableButtons = ({
   rowValue,
   exportLink,
@@ -55,7 +57,9 @@ const TableButtons = ({
   handleuploadFile,
   handleClickQrCode,
   downloadQRAccess,
-  addModelAccess
+  addModelAccess,
+  addCurrencyToModel,
+  addExternalServiceToModel
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -65,10 +69,14 @@ const TableButtons = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const { setApp } = useContext(AppContext);
+
   const [response, loading, fetchData] = useAxios();
   const request = useRequest();
   const { t } = useTranslation();
   const [haveAccess] = useButtonAccess();
+  const tabContext = useContext(TabContext);
+
   const handleResponse = useCallback(
     (res) => {
       if (res.Content && res.Content.length > 0) {
@@ -94,6 +102,16 @@ const TableButtons = ({
       },
     });
   };
+  const handleModelPlus = () => {
+    console.log(rowValue)
+    setApp(prev=>({...prev,modelTitle:rowValue.Title}))
+    tabContext.addRemoveTabs(addCurrencyToModel, "add");
+  }
+  const handleModelExternalService = () => {
+    console.log(rowValue)
+    setApp(prev=>({...prev,modelExtraTitle:rowValue.Title}))
+    tabContext.addRemoveTabs(addExternalServiceToModel, "add");
+  }
 
   useEffect(() => {
     response && handleResponse(response);
@@ -229,7 +247,13 @@ const TableButtons = ({
     {
       icon: <fa.FaPlusCircle color="silver"/>,
       name: "addModelItem",
-      click: () => console.log(rowValue),
+      click: () => handleModelPlus(),
+      access: addModelAccess,
+    },
+    {
+      icon: <fa.FaShopify color="blue"/>,
+      name: "addModelExternalService",
+      click: () => handleModelExternalService(),
       access: addModelAccess,
     },
   ];
